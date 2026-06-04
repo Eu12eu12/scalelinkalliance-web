@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate, Link } from 'react-router-dom';
 import {
-  FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes, FaCog, FaHandshake, FaFileAlt, FaBriefcase, FaChartLine, FaBell, FaHistory
+  FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes, FaCog, FaHandshake, FaFileAlt, FaBriefcase, FaChartLine, FaBell, FaHistory, FaFileInvoiceDollar
 } from 'react-icons/fa';
 
 
@@ -184,6 +184,12 @@ const AdminLayout = ({ children, pageTitle }) => {
                 <span>Work History</span>
               </NavLink>
             </>
+          )}
+          {(sessionUser?.role === 'super_admin' || sessionUser?.role === 'admin') && (
+            <NavLink to="/hub/quotes" className={({ isActive }) => `flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}>
+              <FaFileInvoiceDollar size={16} />
+              <span>Custom Quotes</span>
+            </NavLink>
           )}
           <NavLink to="/hub/notifications" className={({ isActive }) => `flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}>
             <FaBell size={16} />

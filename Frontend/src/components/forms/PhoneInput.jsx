@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FaChevronDown, FaSearch } from 'react-icons/fa';
 import { COUNTRIES } from '../../utils/formConstants';
 
-const PhoneInput = ({ value, dialCode, onNumberChange, onDialChange }) => {
+const PhoneInput = ({ value, dialCode, onNumberChange, onDialChange, py = 'py-2.5' }) => {
   const [open, setOpen]     = useState(false);
   const [search, setSearch] = useState('');
   const ref                 = useRef(null);
@@ -19,12 +19,12 @@ const PhoneInput = ({ value, dialCode, onNumberChange, onDialChange }) => {
   }, []);
 
   return (
-    <div className="relative flex" ref={ref}>
+    <div className="relative flex w-full" ref={ref}>
       {/* Dial code button */}
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1 px-3 py-2.5 border border-r-0 border-slate-200 rounded-l-xl bg-slate-50 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[88px]"
+        className={`flex items-center gap-1 px-3 ${py} border border-r-0 border-slate-200 rounded-l-xl bg-slate-50 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[88px]`}
       >
         <span className="text-lg leading-none">{selected.flag}</span>
         <span className="text-sm font-medium text-slate-700">{selected.dial}</span>
@@ -36,7 +36,7 @@ const PhoneInput = ({ value, dialCode, onNumberChange, onDialChange }) => {
         type="tel"
         value={value}
         onChange={e => onNumberChange(e.target.value.replace(/[^\d\s\-()+]/g, ''))}
-        className="flex-1 px-4 py-2.5 border border-slate-200 rounded-r-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none text-sm"
+        className={`flex-1 min-w-0 px-4 ${py} border border-slate-200 rounded-r-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none text-sm`}
         placeholder="800 000 0000"
       />
 
