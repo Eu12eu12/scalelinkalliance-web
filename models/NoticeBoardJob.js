@@ -128,6 +128,120 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: 0
+    },
+    // Custom Quote & Dynamic Form Fields
+    clientWebsite: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    clientLocation: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    clientIndustry: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    projectGoal: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    projectScope: {
+      type: DataTypes.JSON, // For website, marketing, app scope details & category-specific extra details
+      allowNull: true,
+    },
+    levelOfSupport: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    clientAssets: {
+      type: DataTypes.JSON, // Brand assets checklist
+      allowNull: true,
+    },
+    currentProblem: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    recommendedPackage: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    customQuoteAmount: {
+      type: DataTypes.INTEGER, // Stored in cents
+      allowNull: true,
+    },
+    depositRequired: {
+      type: DataTypes.INTEGER, // Stored in cents
+      allowNull: true,
+    },
+    stripeCheckoutUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    stripeSessionId: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    estimatedCompletionTime: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    includedServices: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    notIncluded: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    optionalAddOns: {
+      type: DataTypes.JSON, // array of { name, price }
+      allowNull: true,
+    },
+    monthlySupportOption: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    specialDiscount: {
+      type: DataTypes.INTEGER, // Stored in cents
+      allowNull: true,
+    },
+    quoteExpirationDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    clientUrgency: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    clientQuality: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    potentialUpsell: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    followUpReminder: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    salesStatus: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    lastContactDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    nextFollowUpDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    quoteStatus: {
+      type: DataTypes.ENUM('new_request', 'under_review', 'quote_sent', 'follow_up_needed', 'approved', 'deposit_paid', 'in_progress', 'completed', 'declined'),
+      allowNull: true,
+      defaultValue: 'new_request'
     }
   }, {
     timestamps: true

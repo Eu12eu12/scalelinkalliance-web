@@ -944,12 +944,30 @@ router.post('/admin/notice-board', authMiddleware, restrictTo('super_admin', 'wo
       try { parsedServices = JSON.parse(services); } catch (e) { parsedServices = {}; }
     }
 
+    let parsedProjectScope = req.body.projectScope;
+    if (typeof parsedProjectScope === 'string') {
+      try { parsedProjectScope = JSON.parse(parsedProjectScope); } catch (e) { parsedProjectScope = null; }
+    }
+
+    let parsedClientAssets = req.body.clientAssets;
+    if (typeof parsedClientAssets === 'string') {
+      try { parsedClientAssets = JSON.parse(parsedClientAssets); } catch (e) { parsedClientAssets = null; }
+    }
+
+    let parsedOptionalAddOns = req.body.optionalAddOns;
+    if (typeof parsedOptionalAddOns === 'string') {
+      try { parsedOptionalAddOns = JSON.parse(parsedOptionalAddOns); } catch (e) { parsedOptionalAddOns = null; }
+    }
+
     // Pre-calculate warning level for storage (though GET recalculates it)
     const warningLevel = calculateWarningLevel(receivedAt || new Date(), dueAt, status || 'new');
     
     const job = await db.NoticeBoardJob.create({
       ...req.body,
       services: parsedServices,
+      projectScope: parsedProjectScope,
+      clientAssets: parsedClientAssets,
+      optionalAddOns: parsedOptionalAddOns,
       warningLevel,
       assignedBy: req.user.email // Automatically set the assigner
     });
@@ -1010,6 +1028,18 @@ router.patch('/admin/notice-board/:id', authMiddleware, restrictTo('super_admin'
     // Parse services if it's a string (from FormData)
     if (typeof updateData.services === 'string') {
       try { updateData.services = JSON.parse(updateData.services); } catch (e) { delete updateData.services; }
+    }
+
+    if (typeof updateData.projectScope === 'string') {
+      try { updateData.projectScope = JSON.parse(updateData.projectScope); } catch (e) { delete updateData.projectScope; }
+    }
+
+    if (typeof updateData.clientAssets === 'string') {
+      try { updateData.clientAssets = JSON.parse(updateData.clientAssets); } catch (e) { delete updateData.clientAssets; }
+    }
+
+    if (typeof updateData.optionalAddOns === 'string') {
+      try { updateData.optionalAddOns = JSON.parse(updateData.optionalAddOns); } catch (e) { delete updateData.optionalAddOns; }
     }
     
     // Handle status transitions and validation
@@ -1380,6 +1410,17 @@ router.delete('/admin/notice-board/:id', authMiddleware, restrictTo('super_admin
     const job = await db.NoticeBoardJob.findByPk(req.params.id);
     if (!job) return res.status(404).json({ error: 'Job not found' });
 
+    // Find and delete physical files from disk
+    const files = await db.NoticeBoardFile.findAll({ where: { jobId: job.id } });
+    for (const file of files) {
+      const fullPath = path.join(__dirname, '..', file.filePath);
+      try {
+        if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath);
+      } catch (unlinkErr) {
+        console.error(`Failed to delete physical file: ${fullPath}`, unlinkErr);
+      }
+    }
+
     // Manually delete all related records (SQLite doesn't reliably cascade)
     await db.NoticeBoardFile.destroy({ where: { jobId: job.id } });
     await db.NoticeBoardComment.destroy({ where: { jobId: job.id } });
@@ -1655,6 +1696,78 @@ router.post('/admin/notice-board/reminders/mark-sent', authMiddleware, restrictT
     await db.NoticeBoardNotification.create({ jobId, type, sentTo });
     res.json({ success: true });
   } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// POST: Send Quote Proposal to Client (with Stripe Checkout Session generation)
+router.post('/admin/notice-board/:id/send-quote', authMiddleware, restrictTo('super_admin'), async (req, res) => {
+  try {
+    const job = await db.NoticeBoardJob.findByPk(req.params.id);
+    if (!job) return res.status(404).json({ error: 'Job not found.' });
+
+    if (!job.clientEmail) {
+      return res.status(400).json({ error: 'Client email is required to send a quote.' });
+    }
+
+    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+    
+    // Default currency to USD if not set
+    const currency = (job.currency || 'usd').toLowerCase();
+    const depositAmount = job.depositRequired || job.customQuoteAmount || 0; // fallback to customQuoteAmount if deposit not set
+
+    if (depositAmount <= 0) {
+      return res.status(400).json({ error: 'A valid custom quote amount and deposit amount are required before sending a quote.' });
+    }
+
+    // 1. Create a Stripe Checkout Session for the deposit
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [{
+        price_data: {
+          currency,
+          product_data: {
+            name: `Deposit for Project: ${job.title}`,
+            description: `Total Quote: $${((job.customQuoteAmount || 0) / 100).toLocaleString()}. Deposit Required: $${(depositAmount / 100).toLocaleString()}`,
+          },
+          unit_amount: depositAmount,
+        },
+        quantity: 1,
+      }],
+      mode: 'payment',
+      success_url: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/track-job/${job.clientToken}?payment_success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/track-job/${job.clientToken}`,
+      metadata: {
+        jobId: job.id,
+        clientToken: job.clientToken
+      }
+    });
+
+    // 2. Save Checkout URL & Session ID to Job
+    await job.update({
+      stripeCheckoutUrl: session.url,
+      stripeSessionId: session.id,
+      quoteStatus: 'quote_sent'
+    });
+
+    // 3. Send email to client
+    await mailer.sendQuoteEmail(job);
+
+    // 4. Log NoticeBoardActivity
+    await db.NoticeBoardActivity.create({
+      jobId: job.id,
+      userName: req.user.email.split('@')[0],
+      action: 'Quote Sent',
+      details: `Quote sent to client at ${job.clientEmail} (Stripe Checkout Session: ${session.id})`
+    });
+
+    res.json({
+      success: true,
+      message: 'Quote proposal sent successfully.',
+      stripeCheckoutUrl: session.url
+    });
+  } catch (err) {
+    console.error('❌ Error sending quote:', err);
+    res.status(500).json({ error: err.message });
+  }
 });
 
 module.exports = router;

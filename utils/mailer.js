@@ -313,10 +313,177 @@ const sendClientPhaseNotificationEmail = async (job, phase) => {
   return sendClientNotificationEmail(job.clientEmail, subject, title, body, job);
 };
 
+const sendQuoteEmail = async (job) => {
+  if (!job.clientEmail) return;
+  const clientName = `${job.clientFirstName || ''} ${job.clientLastName || ''}`.trim() || 'Client';
+  const businessName = job.client || 'Your Business';
+  const title = job.title || 'Custom Solution';
+  const description = job.description || '';
+  const portalLink = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/track-job/${job.clientToken}`;
+  const checkoutLink = job.stripeCheckoutUrl;
+
+  const totalQuoteFormatted = job.customQuoteAmount ? `$${(job.customQuoteAmount / 100).toLocaleString()}` : '$0.00';
+  const depositRequiredFormatted = job.depositRequired ? `$${(job.depositRequired / 100).toLocaleString()}` : '$0.00';
+  const balanceDueFormatted = (job.customQuoteAmount && job.depositRequired) 
+    ? `$${((job.customQuoteAmount - job.depositRequired) / 100).toLocaleString()}` 
+    : totalQuoteFormatted;
+
+  const expirationDateFormatted = job.quoteExpirationDate ? new Date(job.quoteExpirationDate).toLocaleDateString() : 'N/A';
+
+  // Format Included Services as HTML bullet list
+  let includedHtml = '';
+  if (job.includedServices) {
+    includedHtml = job.includedServices
+      .split('\n')
+      .filter(line => line.trim())
+      .map(line => `<li style="margin-bottom: 8px;">${line.replace(/^-\s*/, '')}</li>`)
+      .join('');
+  } else {
+    includedHtml = '<li style="margin-bottom: 8px;">Custom operational deliverables as discussed.</li>';
+  }
+
+  // Exclusions
+  let notIncludedHtml = '';
+  if (job.notIncluded) {
+    notIncludedHtml = `
+      <div style="margin-top: 20px; border-top: 1px solid #f1f5f9; padding-top: 16px;">
+        <h4 style="margin: 0 0 10px 0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8;">What is NOT included</h4>
+        <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #64748b; line-height: 1.6;">
+          ${job.notIncluded.split('\n').filter(line => line.trim()).map(line => `<li style="margin-bottom: 6px;">${line.replace(/^-\s*/, '')}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  // Optional Add-ons
+  let addOnsHtml = '';
+  let addOns = [];
+  if (job.optionalAddOns) {
+    try {
+      addOns = typeof job.optionalAddOns === 'string' ? JSON.parse(job.optionalAddOns) : job.optionalAddOns;
+    } catch (e) {
+      console.error('Failed to parse optionalAddOns in mailer', e);
+    }
+  }
+  if (Array.isArray(addOns) && addOns.length > 0) {
+    addOnsHtml = `
+      <div style="margin-top: 20px; border-top: 1px solid #f1f5f9; padding-top: 16px;">
+        <h4 style="margin: 0 0 10px 0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8;">Optional Add-ons</h4>
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px; color: #475569; margin-top: 8px;">
+          ${addOns.map(add => `
+            <tr>
+              <td style="padding: 4px 0; font-weight: 600;">+ ${add.name}</td>
+              <td style="padding: 4px 0; text-align: right; font-weight: 700; color: #4f46e5;">$${(add.price / 100).toLocaleString()}</td>
+            </tr>
+          `).join('')}
+        </table>
+      </div>
+    `;
+  }
+
+  const subject = `ScaleLink Alliance Quote Proposal - ${businessName}`;
+
+  const htmlContent = `
+    <div style="font-family: 'Inter', sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; border: 1px solid #e2e8f0; border-radius: 24px; color: #1e293b;">
+      <div style="text-align: center; margin-bottom: 32px;">
+        <img src="https://scalelinkalliance.com/scalelink-logo.png" alt="ScaleLink Alliance" style="height: 48px; width: auto;">
+      </div>
+      
+      <div style="display: inline-block; padding: 6px 12px; background-color: #4f46e515; border-radius: 8px; margin-bottom: 16px;">
+        <span style="font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #4f46e5;">Official Quote Proposal</span>
+      </div>
+      
+      <h1 style="font-size: 22px; font-weight: 800; color: #0f172a; margin-bottom: 8px; margin-top: 0;">Quote: ${title}</h1>
+      <p style="font-size: 14px; color: #64748b; margin-top: 0; margin-bottom: 24px;">Prepared for <strong>${clientName}</strong> at <strong>${businessName}</strong></p>
+      
+      <div style="background-color: #f8fafc; padding: 24px; border-radius: 20px; border: 1px solid #f1f5f9; margin-bottom: 24px;">
+        <h4 style="margin: 0 0 12px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #64748b;">Financial Summary</h4>
+        
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px;">
+          <tr>
+            <td style="font-size: 14px; color: #475569; padding: 6px 0;">Total Project Quote:</td>
+            <td style="font-size: 16px; font-weight: 700; color: #0f172a; text-align: right; padding: 6px 0;">${totalQuoteFormatted}</td>
+          </tr>
+          <tr>
+            <td style="font-size: 14px; color: #475569; padding: 6px 0; border-bottom: 1px dashed #e2e8f0;">Deposit Required:</td>
+            <td style="font-size: 16px; font-weight: 700; color: #4f46e5; text-align: right; padding: 6px 0; border-bottom: 1px dashed #e2e8f0;">${depositRequiredFormatted}</td>
+          </tr>
+          <tr>
+            <td style="font-size: 14px; color: #475569; padding: 12px 0 0 0; font-weight: 600;">Balance Due Upon Completion:</td>
+            <td style="font-size: 16px; font-weight: 700; color: #0f172a; text-align: right; padding: 12px 0 0 0;">${balanceDueFormatted}</td>
+          </tr>
+        </table>
+        
+        <div style="font-size: 12px; color: #94a3b8; display: flex; justify-content: space-between; border-top: 1px solid #e2e8f0; padding-top: 12px;">
+          <span><strong>Timeline:</strong> ${job.estimatedCompletionTime || job.clientTimeline || 'Flexible'}</span>
+          <span><strong>Quote Expires:</strong> ${expirationDateFormatted}</span>
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 32px;">
+        <h3 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-top: 0; margin-bottom: 12px;">Recommended Solution Summary</h3>
+        <p style="font-size: 14px; line-height: 1.6; color: #475569; margin: 0 0 16px 0;">
+          ${description}
+        </p>
+        
+        <h4 style="margin: 16px 0 10px 0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8;">Included Services & Deliverables</h4>
+        <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #475569; line-height: 1.6;">
+          ${includedHtml}
+        </ul>
+        
+        ${notIncludedHtml}
+        
+        ${addOnsHtml}
+      </div>
+
+      <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 20px; border-radius: 16px; margin-bottom: 32px;">
+        <h4 style="margin: 0 0 8px 0; font-size: 13px; color: #1e3a8a; font-weight: 700;">Next Steps to Begin:</h4>
+        <p style="font-size: 13px; color: #1e40af; margin: 0 0 16px 0; line-height: 1.5;">
+          To accept this proposal and schedule production, please approve the quote and pay the deposit using the secure Stripe Checkout link below. Alternatively, you can view the full proposal details on your portal.
+        </p>
+        
+        <div style="text-align: center; margin-bottom: 12px;">
+          <a href="${checkoutLink}" style="display: block; background-color: #2563eb; color: #ffffff; padding: 14px 24px; font-weight: 700; border-radius: 12px; text-decoration: none; font-size: 14px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);">Approve Proposal & Pay Deposit</a>
+        </div>
+        
+        <div style="text-align: center;">
+          <a href="${portalLink}" style="display: inline-block; color: #2563eb; font-weight: 600; text-decoration: none; font-size: 13px; margin-top: 8px;">View Full Proposal in Portal</a>
+        </div>
+      </div>
+      
+      <hr style="border: 0; border-top: 1px solid #f1f5f9; margin-bottom: 24px;">
+      
+      <p style="font-size: 12px; color: #94a3b8; text-align: center; line-height: 1.5;">
+        You are receiving this quote because you submitted a service request to ScaleLink Alliance.<br>
+        &copy; 2026 ScaleLink Alliance. All rights reserved.
+      </p>
+    </div>
+  `;
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'ScaleLink Alliance <support@scalelinkalliance.com>',
+      to: [job.clientEmail],
+      subject: subject,
+      html: htmlContent
+    });
+
+    if (error) {
+      console.error('❌ Resend Quote Email Error:', error);
+      throw error;
+    }
+    return data;
+  } catch (error) {
+    console.error('❌ Failed to send quote email notification:', error);
+    throw error;
+  }
+};
+
 module.exports = {
   sendVerificationEmail,
   sendNotificationEmail,
   sendClientNotificationEmail,
   sendClientOnboardingEmail,
-  sendClientPhaseNotificationEmail
+  sendClientPhaseNotificationEmail,
+  sendQuoteEmail
 };

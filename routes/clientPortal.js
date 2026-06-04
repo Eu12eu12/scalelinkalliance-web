@@ -154,7 +154,27 @@ router.get('/track/:token', validateClientToken, async (req, res) => {
         dueAt: job.dueAt,
         milestoneStatus,
         stepIndex,
-        clientSatisfied: job.clientSatisfied
+        clientSatisfied: job.clientSatisfied,
+        
+        // Custom Quote fields
+        quoteStatus: job.quoteStatus,
+        customQuoteAmount: job.customQuoteAmount,
+        depositRequired: job.depositRequired,
+        recommendedPackage: job.recommendedPackage,
+        estimatedCompletionTime: job.estimatedCompletionTime,
+        includedServices: job.includedServices,
+        notIncluded: job.notIncluded,
+        optionalAddOns: job.optionalAddOns,
+        stripeCheckoutUrl: job.stripeCheckoutUrl,
+        clientToken: job.clientToken,
+        clientWebsite: job.clientWebsite,
+        clientLocation: job.clientLocation,
+        clientIndustry: job.clientIndustry,
+        projectGoal: job.projectGoal,
+        projectScope: job.projectScope,
+        levelOfSupport: job.levelOfSupport,
+        clientAssets: job.clientAssets,
+        currentProblem: job.currentProblem
       },
       comments,
       files
@@ -268,6 +288,73 @@ router.post('/track/:token/satisfied', validateClientToken, async (req, res) => 
 
     res.json({ success: true, message: 'Thank you for your approval! The project has been marked as completed.' });
   } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 5. Client Portal: Confirm Stripe Deposit Payment
+router.post('/track/:token/confirm-payment', validateClientToken, async (req, res) => {
+  try {
+    const { job } = req;
+    const { sessionId } = req.body;
+
+    if (!sessionId) {
+      return res.status(400).json({ error: 'Session ID is required.' });
+    }
+
+    if (job.quoteStatus === 'deposit_paid') {
+      return res.json({ success: true, message: 'Deposit already verified.', job });
+    }
+
+    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+    if (session.payment_status !== 'paid') {
+      return res.status(400).json({ error: 'Payment has not been completed.' });
+    }
+
+    // Update job status
+    await job.update({
+      quoteStatus: 'deposit_paid',
+      status: job.status === 'new' ? 'assigned' : job.status, // Move from new to assigned so it can start production
+      projectFee: job.customQuoteAmount || job.projectFee // align fee with custom quote amount
+    });
+
+    await logJobActivity(job.id, 'Client', 'Deposit Paid', `Client successfully paid deposit of $${(session.amount_total / 100).toFixed(2)} via Stripe.`);
+
+    // Trigger onboarding email & notify admins
+    const clientName = `${job.clientFirstName || ''} ${job.clientLastName || ''}`.trim() || 'Client';
+    const notificationMsg = `💳 [Deposit Paid] Client ${clientName} (${job.client}) paid deposit of $${(session.amount_total / 100).toFixed(2)} for job #${job.id}!`;
+    await notifySuperAdmins(job, 'acceptance', notificationMsg, {
+      amount: session.amount_total,
+      sessionId
+    });
+
+    // Notify assigned worker if any
+    if (job.assignedTo) {
+      await db.NoticeBoardNotification.create({
+        sentTo: job.assignedTo,
+        type: 'assignment',
+        message: `Quote deposit paid! Project "${job.title}" is ready for production.`,
+        jobId: job.id,
+        fromUser: 'System',
+        isRead: false
+      });
+      sendNotificationEmail(job.assignedTo, 'assignment', `Quote deposit paid! Project is ready for production.`, job.id).catch(err => {
+        console.error('❌ Worker notification failed:', err);
+      });
+    }
+
+    // Trigger "In Production" email immediately
+    sendClientPhaseNotificationEmail(job, 'in_production').catch(err => console.error('❌ Client production email failed:', err));
+
+    res.json({
+      success: true,
+      message: 'Deposit verified. Project moved to production.',
+      job
+    });
+  } catch (err) {
+    console.error('❌ Error confirming payment:', err);
     res.status(500).json({ error: err.message });
   }
 });
