@@ -352,8 +352,30 @@ const AdminNoticeBoard = () => {
         clientFirstName: job.clientFirstName || '',
         clientLastName: job.clientLastName || '',
         clientEmail: job.clientEmail || '',
-        clientPhone: job.clientPhone || '',
-        clientDialCode: job.clientDialCode || '+1',
+        clientPhone: (() => {
+          let phone = job.clientPhone || '';
+          const dial = job.clientDialCode || '+1';
+          if (phone.startsWith('+')) {
+            const spaceIdx = phone.indexOf(' ');
+            if (spaceIdx !== -1) {
+              return phone.substring(spaceIdx + 1);
+            } else if (phone.startsWith(dial)) {
+              return phone.substring(dial.length);
+            }
+          }
+          return phone;
+        })(),
+        clientDialCode: (() => {
+          const phone = job.clientPhone || '';
+          let dial = job.clientDialCode || '+1';
+          if (phone.startsWith('+')) {
+            const spaceIdx = phone.indexOf(' ');
+            if (spaceIdx !== -1) {
+              dial = phone.substring(0, spaceIdx);
+            }
+          }
+          return dial;
+        })(),
         clientTimeline: job.clientTimeline || '',
         otherServiceDescription: job.otherServiceDescription || '',
         category: job.category || '',

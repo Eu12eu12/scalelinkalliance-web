@@ -234,6 +234,21 @@ const RequestServicePage = () => {
     agreedToPrivacy: false, agreedToTerms: false,
   });
 
+  const [customQuoteAnswers, setCustomQuoteAnswers] = useState({
+    techStack: '',
+    techIntegration: '',
+    techHosting: '',
+    opsSupportAreas: [],
+    opsHours: '',
+    opsTools: '',
+    creativeFormats: [],
+    creativeDirection: '',
+    creativeTurnaround: '',
+    marketingChannels: [],
+    marketingAdSpend: '',
+    marketingAudience: ''
+  });
+
   // Full phone string for submission
   const fullPhone = formData.phoneNumber ? `${formData.phoneDialCode} ${formData.phoneNumber}` : '';
 
@@ -397,7 +412,10 @@ const RequestServicePage = () => {
           services: selectedServices,
           totalAmount,
           currency: selectedCurrency,
-          files: fileUrls
+          files: fileUrls,
+          projectScope: {
+            customQuoteAnswers
+          }
         })
       });
       if (!res.ok) {
@@ -667,6 +685,252 @@ const RequestServicePage = () => {
                     <span className="text-xs text-gray-500 font-medium">{(formData.projectDescription || '').length}/1000 characters</span>
                   </div>
                 </div>
+
+                {/* Dynamic Custom Quote Questions */}
+                {Object.keys(selectedServices).filter(s => s.includes('Request Custom Quote')).map(service => {
+                  const isTech = service.includes('Tech & Development');
+                  const isOps = service.includes('Operations & Support');
+                  const isCreative = service.includes('Creative & Content');
+                  const isMarketing = service.includes('Marketing & Growth');
+                  
+                  return (
+                    <div key={service} className="mt-8 pt-8 border-t border-slate-200 space-y-6 animate-fade-in">
+                      <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-6">
+                        <h3 className="text-base font-bold text-slate-800 mb-1">
+                          Additional Specifications: {service.split(' - ')[1] || 'Custom Request'}
+                        </h3>
+                        <p className="text-slate-400 text-xs font-semibold mb-6">
+                          Please answer these quick questions to help us prepare an accurate custom proposal.
+                        </p>
+                        
+                        <div className="grid md:grid-cols-2 gap-6">
+                          {isTech && (
+                            <>
+                              <div className="md:col-span-2">
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Current Technology Stack / Platform</label>
+                                <select 
+                                  value={customQuoteAnswers.techStack} 
+                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, techStack: e.target.value }))}
+                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                                >
+                                  <option value="">Select current setup...</option>
+                                  <option value="New Project / None">New Project / Starting from Scratch</option>
+                                  <option value="WordPress">WordPress</option>
+                                  <option value="Shopify">Shopify</option>
+                                  <option value="React / Node">React / Node.js Custom Stack</option>
+                                  <option value="Webflow">Webflow</option>
+                                  <option value="Other">Other</option>
+                                </select>
+                              </div>
+                              <div>
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">System Integrations Required</label>
+                                <input 
+                                  type="text"
+                                  placeholder="e.g. Stripe, HubSpot CRM, Salesforce, None"
+                                  value={customQuoteAnswers.techIntegration}
+                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, techIntegration: e.target.value }))}
+                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Hosting & Domain Access</label>
+                                <select 
+                                  value={customQuoteAnswers.techHosting} 
+                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, techHosting: e.target.value }))}
+                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                                >
+                                  <option value="">Select option...</option>
+                                  <option value="Have my own hosting">I already have my own domain/hosting</option>
+                                  <option value="Need setup assistance">I need help purchasing and setting up hosting</option>
+                                  <option value="Not sure">I am not sure yet</option>
+                                </select>
+                              </div>
+                            </>
+                          )}
+                          
+                          {isOps && (
+                            <>
+                              <div className="md:col-span-2">
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Operational Areas Needing Support</label>
+                                <div className="grid sm:grid-cols-2 gap-3 mt-1">
+                                  {[
+                                    { id: 'customer_support', label: 'Customer Support / Inbox' },
+                                    { id: 'calendar_email', label: 'Calendar & Email Management' },
+                                    { id: 'billing_bookkeep', label: 'Billing & Basic Bookkeeping' },
+                                    { id: 'data_entry', label: 'Data Entry & Processing' },
+                                    { id: 'sop_writing', label: 'SOP & Process Documentation' }
+                                  ].map(item => {
+                                    const checked = customQuoteAnswers.opsSupportAreas.includes(item.id);
+                                    return (
+                                      <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
+                                        <input 
+                                          type="checkbox" 
+                                          checked={checked}
+                                          onChange={() => {
+                                            const nextAreas = checked 
+                                              ? customQuoteAnswers.opsSupportAreas.filter(a => a !== item.id)
+                                              : [...customQuoteAnswers.opsSupportAreas, item.id];
+                                            setCustomQuoteAnswers(p => ({ ...p, opsSupportAreas: nextAreas }));
+                                          }}
+                                          className="w-4 h-4 text-blue-600 rounded" 
+                                        />
+                                        <span className="text-xs font-semibold text-slate-700">{item.label}</span>
+                                      </label>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                              <div>
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Estimated Support Hours Needed</label>
+                                <select 
+                                  value={customQuoteAnswers.opsHours} 
+                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, opsHours: e.target.value }))}
+                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                                >
+                                  <option value="">Select estimated hours...</option>
+                                  <option value="< 10 hours/week">Less than 10 hours per week</option>
+                                  <option value="10-20 hours/week">10 to 20 hours per week</option>
+                                  <option value="20-40 hours/week">20 to 40 hours per week</option>
+                                  <option value="Full-time dedicated">Dedicated full-time assistant</option>
+                                </select>
+                              </div>
+                              <div>
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Current Collaboration/Admin Tools Used</label>
+                                <input 
+                                  type="text"
+                                  placeholder="e.g. Slack, Trello, Zendesk, Excel, None"
+                                  value={customQuoteAnswers.opsTools}
+                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, opsTools: e.target.value }))}
+                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                                />
+                              </div>
+                            </>
+                          )}
+                          
+                          {isCreative && (
+                            <>
+                              <div className="md:col-span-2">
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Required Creative Format Types</label>
+                                <div className="grid sm:grid-cols-2 gap-3 mt-1">
+                                  {[
+                                    { id: 'social_graphics', label: 'Social Media Graphics' },
+                                    { id: 'video_reels', label: 'Short Video / Reels Editing' },
+                                    { id: 'copy_blog', label: 'Copywriting / Blog Content' },
+                                    { id: 'branding_guide', label: 'Logos & Complete Branding' },
+                                    { id: 'raw_sources', label: 'Vector/Raw Source Files' }
+                                  ].map(item => {
+                                    const checked = customQuoteAnswers.creativeFormats.includes(item.id);
+                                    return (
+                                      <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
+                                        <input 
+                                          type="checkbox" 
+                                          checked={checked}
+                                          onChange={() => {
+                                            const nextFormats = checked 
+                                              ? customQuoteAnswers.creativeFormats.filter(f => f !== item.id)
+                                              : [...customQuoteAnswers.creativeFormats, item.id];
+                                            setCustomQuoteAnswers(p => ({ ...p, creativeFormats: nextFormats }));
+                                          }}
+                                          className="w-4 h-4 text-blue-600 rounded" 
+                                        />
+                                        <span className="text-xs font-semibold text-slate-700">{item.label}</span>
+                                      </label>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                              <div>
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Visual Brand Direction</label>
+                                <select 
+                                  value={customQuoteAnswers.creativeDirection} 
+                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, creativeDirection: e.target.value }))}
+                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                                >
+                                  <option value="">Select brand direction...</option>
+                                  <option value="Starting from scratch">Starting from scratch (Need design ideas)</option>
+                                  <option value="Have existing guidelines">Have existing guidelines/visual preferences</option>
+                                </select>
+                              </div>
+                              <div>
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Turnaround Urgency</label>
+                                <select 
+                                  value={customQuoteAnswers.creativeTurnaround} 
+                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, creativeTurnaround: e.target.value }))}
+                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                                >
+                                  <option value="">Select timeline option...</option>
+                                  <option value="Standard">Standard turnaround (3-5 business days)</option>
+                                  <option value="Rush">Rush projects (Less than 48 hours)</option>
+                                  <option value="Ongoing monthly">Ongoing monthly assistance</option>
+                                </select>
+                              </div>
+                            </>
+                          )}
+                          
+                          {isMarketing && (
+                            <>
+                              <div className="md:col-span-2">
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Target Marketing Channels</label>
+                                <div className="grid sm:grid-cols-2 gap-3 mt-1">
+                                  {[
+                                    { id: 'seo_search', label: 'SEO & Search Engine visibility' },
+                                    { id: 'meta_ads', label: 'Meta Ads (Facebook/Instagram)' },
+                                    { id: 'google_ads', label: 'Google Search & Display Ads' },
+                                    { id: 'email_news', label: 'Email Newsletters / Campaigns' },
+                                    { id: 'cold_outbound', label: 'Cold Lead Outbound Campaigns' }
+                                  ].map(item => {
+                                    const checked = customQuoteAnswers.marketingChannels.includes(item.id);
+                                    return (
+                                      <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
+                                        <input 
+                                          type="checkbox" 
+                                          checked={checked}
+                                          onChange={() => {
+                                            const nextChannels = checked 
+                                              ? customQuoteAnswers.marketingChannels.filter(c => c !== item.id)
+                                              : [...customQuoteAnswers.marketingChannels, item.id];
+                                            setCustomQuoteAnswers(p => ({ ...p, marketingChannels: nextChannels }));
+                                          }}
+                                          className="w-4 h-4 text-blue-600 rounded" 
+                                        />
+                                        <span className="text-xs font-semibold text-slate-700">{item.label}</span>
+                                      </label>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                              <div>
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Monthly Ad Spend Budget (If Ads)</label>
+                                <select 
+                                  value={customQuoteAnswers.marketingAdSpend} 
+                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, marketingAdSpend: e.target.value }))}
+                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                                >
+                                  <option value="">Select ad spend range...</option>
+                                  <option value="No ad budget">No ad budget / Organic SEO only</option>
+                                  <option value="< $1,000">Less than $1,000 per month</option>
+                                  <option value="$1,000 - $5,000">$1,000 to $5,000 per month</option>
+                                  <option value="$5,000+">$5,000+ per month</option>
+                                </select>
+                              </div>
+                              <div>
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Ideal Target Customer Profile</label>
+                                <input 
+                                  type="text"
+                                  placeholder="e.g. Local homeowners, B2B software companies"
+                                  value={customQuoteAnswers.marketingAudience}
+                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, marketingAudience: e.target.value }))}
+                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                                />
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+
                 <div className="mt-8 pt-8 border-t border-gray-200">
                   <h3 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2"><FaUpload className="text-blue-600" />Project Files</h3>
                   <p className="text-gray-600 mb-4">Upload any relevant files (designs, documents, briefs, etc.)</p>
