@@ -4,7 +4,8 @@ import {
   FaDownload, FaFileUpload, FaFileAlt, FaCheckCircle, 
   FaPaperPlane, FaInfoCircle, FaClipboardCheck, FaRegComments,
   FaCalendarAlt, FaHourglassHalf, FaProjectDiagram, FaCloudUploadAlt,
-  FaComments, FaUserCircle, FaShieldAlt
+  FaComments, FaUserCircle, FaShieldAlt, FaTimesCircle, FaDollarSign,
+  FaFileInvoiceDollar, FaBolt, FaFileSignature, FaSpinner, FaTimes
 } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
@@ -19,6 +20,7 @@ const ClientPortalPage = () => {
   const [uploading, setUploading] = useState(false);
   const [satisfying, setSatisfying] = useState(false);
   const [error, setError] = useState('');
+  const [verifyingPayment, setVerifyingPayment] = useState(false);
 
   const fetchPortalData = async () => {
     try {
@@ -41,6 +43,42 @@ const ClientPortalPage = () => {
   useEffect(() => {
     if (token) {
       fetchPortalData();
+    }
+  }, [token]);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const paymentSuccess = queryParams.get('payment_success');
+    const sessionId = queryParams.get('session_id');
+
+    if (paymentSuccess === 'true' && sessionId && token) {
+      const confirmPayment = async () => {
+        setVerifyingPayment(true);
+        try {
+          const res = await fetch(`/api/portal/track/${token}/confirm-payment`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sessionId })
+          });
+          if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.error || 'Failed to verify deposit payment.');
+          }
+          const data = await res.json();
+          toast.success(data.message || 'Deposit payment successfully verified!');
+          
+          // Clear query params from URL so reloading doesn't re-trigger verification
+          window.history.replaceState({}, document.title, window.location.pathname);
+          
+          // Refresh job details
+          fetchPortalData();
+        } catch (err) {
+          toast.error(err.message);
+        } finally {
+          setVerifyingPayment(false);
+        }
+      };
+      confirmPayment();
     }
   }, [token]);
 
@@ -124,6 +162,16 @@ const ClientPortalPage = () => {
     );
   }
 
+  if (verifyingPayment) {
+    return (
+      <div className="min-h-[70vh] flex flex-col items-center justify-center space-y-4">
+        <div className="animate-spin h-10 w-10 border-4 border-emerald-600 border-t-transparent rounded-full" />
+        <p className="text-slate-700 font-bold text-sm">Verifying deposit payment...</p>
+        <p className="text-slate-400 text-xs font-semibold">Please do not refresh or close this tab.</p>
+      </div>
+    );
+  }
+
   if (error) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center px-6">
@@ -136,6 +184,330 @@ const ClientPortalPage = () => {
           <a href="/contact" className="inline-block bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-3 px-6 rounded-xl transition-all shadow-md">
             Contact Support
           </a>
+        </div>
+      </div>
+    );
+  }
+
+  const formatCurrency = (amountInCents, currencyCode = 'USD') => {
+    if (amountInCents === null || amountInCents === undefined) return '$0.00';
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: currencyCode }).format(amountInCents / 100);
+  };
+
+  const renderScopeDetails = () => {
+    if (!job || !job.projectScope || typeof job.projectScope !== 'object') return null;
+    
+    const entries = Object.entries(job.projectScope).filter(([key]) => {
+      return key !== 'customQuoteAmount' && key !== 'depositRequired';
+    });
+
+    if (entries.length === 0) return null;
+
+    return (
+      <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 space-y-4">
+        <h4 className="text-sm font-bold text-blue-300 tracking-wide uppercase">Your Requested Specifications</h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
+          {entries.map(([key, val]) => {
+            const label = key
+              .replace(/([A-Z])/g, ' $1')
+              .replace(/^./, str => str.toUpperCase());
+            
+            let valueStr = '';
+            if (Array.isArray(val)) {
+              valueStr = val.join(', ');
+            } else if (typeof val === 'object' && val !== null) {
+              valueStr = JSON.stringify(val);
+            } else {
+              valueStr = String(val);
+            }
+
+            if (!valueStr) return null;
+
+            return (
+              <div key={key} className="space-y-1 bg-slate-950/40 p-4 rounded-xl border border-slate-800/60">
+                <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider">{label}</span>
+                <p className="font-semibold text-white">{valueStr}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  const renderAssetsDetails = () => {
+    if (!job || !job.clientAssets || typeof job.clientAssets !== 'object') return null;
+    
+    const assetsList = Object.entries(job.clientAssets)
+      .filter(([_, value]) => value === true || value === 'true')
+      .map(([key]) => {
+        return key
+          .replace(/([A-Z])/g, ' $1')
+          .replace(/^./, str => str.toUpperCase());
+      });
+
+    if (assetsList.length === 0) return null;
+
+    return (
+      <div className="space-y-2">
+        <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider block">Available Brand Assets</span>
+        <div className="flex flex-wrap gap-2 pt-1">
+          {assetsList.map((asset, index) => (
+            <span key={index} className="inline-flex items-center px-3 py-1 bg-white/5 border border-white/10 text-white text-[11px] font-bold rounded-full">
+              <FaCheckCircle className="text-emerald-500 text-[10px] mr-1.5 flex-shrink-0" />
+              {asset}
+            </span>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  if (job && job.quoteStatus === 'quote_sent') {
+    const includedList = job.includedServices ? job.includedServices.split('\n').filter(s => s.trim()) : [];
+    const excludedList = job.notIncluded ? job.notIncluded.split('\n').filter(s => s.trim()) : [];
+    const optionalAddons = Array.isArray(job.optionalAddOns) ? job.optionalAddOns : [];
+
+    return (
+      <div className="min-h-screen bg-[#04060a] text-white py-12 px-4 md:px-8 relative overflow-hidden font-sans">
+        {/* Glow Effects */}
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto space-y-8 relative z-10 animate-fade-in">
+          {/* Header Banner */}
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10px] font-black bg-blue-500/20 text-blue-300 border border-blue-500/30 px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
+                  <FaShieldAlt className="text-[11px] flex-shrink-0" />
+                  Official Proposal Portal
+                </span>
+                <span className="text-[10px] font-black bg-white/10 text-slate-300 px-3 py-1 rounded-full uppercase tracking-wider font-mono">
+                  PROPOSAL #{job.id}
+                </span>
+              </div>
+              <h1 className="text-3xl font-black tracking-tight text-white mt-1">
+                {job.title}
+              </h1>
+              <p className="text-slate-400 text-xs font-semibold leading-relaxed max-w-2xl">
+                Review your customized service plan, detailed inclusions, timeline, and dynamic add-on options prepared by the ScaleLink Alliance team.
+              </p>
+            </div>
+            
+            <div className="flex-shrink-0">
+              <span className="px-4 py-2.5 rounded-2xl text-xs font-extrabold border uppercase tracking-wider bg-amber-500/20 text-amber-300 border-amber-500/30 shadow-md">
+                Proposal Under Review
+              </span>
+            </div>
+          </div>
+
+          {/* Highlights Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-5 rounded-2xl flex items-center space-x-4">
+              <div className="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-300 flex items-center justify-center flex-shrink-0 text-xl border border-blue-500/30">
+                <FaProjectDiagram />
+              </div>
+              <div>
+                <span className="text-[9px] font-black text-slate-500 uppercase tracking-wider block">Recommended Solution</span>
+                <span className="text-sm font-extrabold text-white block mt-0.5">{job.recommendedPackage || 'Custom Package'}</span>
+              </div>
+            </div>
+
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-5 rounded-2xl flex items-center space-x-4">
+              <div className="w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center flex-shrink-0 text-xl border border-indigo-500/30">
+                <FaCalendarAlt />
+              </div>
+              <div>
+                <span className="text-[9px] font-black text-slate-500 uppercase tracking-wider block">Est. Completion</span>
+                <span className="text-sm font-extrabold text-white block mt-0.5">{job.estimatedCompletionTime || 'To Be Confirmed'}</span>
+              </div>
+            </div>
+
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-5 rounded-2xl flex items-center space-x-4">
+              <div className="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center flex-shrink-0 text-xl border border-emerald-500/30">
+                <FaDollarSign />
+              </div>
+              <div>
+                <span className="text-[9px] font-black text-slate-500 uppercase tracking-wider block">Total Solution Fee</span>
+                <span className="text-sm font-extrabold text-white block mt-0.5">{formatCurrency(job.customQuoteAmount)}</span>
+              </div>
+            </div>
+
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-5 rounded-2xl flex items-center space-x-4">
+              <div className="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-300 flex items-center justify-center flex-shrink-0 text-xl border border-purple-500/30">
+                <FaFileInvoiceDollar />
+              </div>
+              <div>
+                <span className="text-[9px] font-black text-slate-500 uppercase tracking-wider block">Required Deposit (50%)</span>
+                <span className="text-sm font-extrabold text-white block mt-0.5">{formatCurrency(job.depositRequired)}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Inclusions and Exclusions Column Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Inclusions */}
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 space-y-6">
+              <div className="border-b border-white/10 pb-3 flex items-center gap-2">
+                <FaCheckCircle className="text-emerald-400 text-lg flex-shrink-0" />
+                <h3 className="text-md font-bold text-white uppercase tracking-wider">Features & Included Services</h3>
+              </div>
+              
+              {includedList.length === 0 ? (
+                <p className="text-xs text-slate-400 italic">No specific inclusions outlined. Refer to description.</p>
+              ) : (
+                <ul className="space-y-4">
+                  {includedList.map((item, idx) => (
+                    <li key={idx} className="flex items-start space-x-3 text-xs text-slate-300 font-medium">
+                      <FaCheckCircle className="text-emerald-500 text-sm mt-0.5 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            {/* Exclusions */}
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 space-y-6">
+              <div className="border-b border-white/10 pb-3 flex items-center gap-2">
+                <FaTimesCircle className="text-rose-400 text-lg flex-shrink-0" />
+                <h3 className="text-md font-bold text-white uppercase tracking-wider">Project Exclusions</h3>
+              </div>
+
+              {excludedList.length === 0 ? (
+                <p className="text-xs text-slate-400 italic">No exclusions explicitly defined.</p>
+              ) : (
+                <ul className="space-y-4">
+                  {excludedList.map((item, idx) => (
+                    <li key={idx} className="flex items-start space-x-3 text-xs text-slate-300 font-medium">
+                      <FaTimesCircle className="text-rose-500 text-sm mt-0.5 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+
+          {/* Optional Add-Ons Section */}
+          {optionalAddons.length > 0 && (
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 space-y-6">
+              <div className="border-b border-white/10 pb-3 flex items-center gap-2">
+                <FaBolt className="text-yellow-400 text-lg animate-pulse flex-shrink-0" />
+                <h3 className="text-md font-bold text-white uppercase tracking-wider">Available Solution Upgrades</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {optionalAddons.map((addon, idx) => (
+                  <div key={idx} className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-white/10 transition-all">
+                    <span className="text-xs font-bold text-slate-200">{addon.name}</span>
+                    <span className="text-xs font-black text-blue-300">{formatCurrency(addon.price)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Scope Review Section */}
+          {renderScopeDetails()}
+
+          {/* Client Details Section */}
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 space-y-6">
+            <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-white/10 pb-3 flex items-center gap-2">
+              <FaInfoCircle className="text-blue-400 flex-shrink-0" /> Additional Requirements & Notes
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
+              {job.clientWebsite && (
+                <div className="space-y-1">
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider block">Website</span>
+                  <a href={job.clientWebsite.startsWith('http') ? job.clientWebsite : `https://${job.clientWebsite}`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline font-semibold block truncate">
+                    {job.clientWebsite}
+                  </a>
+                </div>
+              )}
+              {job.clientLocation && (
+                <div className="space-y-1">
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider block">Business Location</span>
+                  <span className="text-white font-semibold block">{job.clientLocation}</span>
+                </div>
+              )}
+              {job.clientIndustry && (
+                <div className="space-y-1">
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider block">Industry / Business Type</span>
+                  <span className="text-white font-semibold block">{job.clientIndustry}</span>
+                </div>
+              )}
+              {job.levelOfSupport && (
+                <div className="space-y-1">
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider block">Requested Support Level</span>
+                  <span className="text-white font-semibold block">{job.levelOfSupport}</span>
+                </div>
+              )}
+            </div>
+
+            {/* Assets details */}
+            {renderAssetsDetails()}
+
+            {/* Current Problem & Project Goal */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-white/5">
+              {job.projectGoal && (
+                <div className="space-y-2">
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider block">Primary Project Goal</span>
+                  <p className="text-xs text-slate-300 leading-relaxed font-medium bg-slate-950/40 p-4 rounded-xl border border-slate-800/60">{job.projectGoal}</p>
+                </div>
+              )}
+              {job.currentProblem && (
+                <div className="space-y-2">
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider block">Challenges to Address</span>
+                  <p className="text-xs text-slate-300 leading-relaxed font-medium bg-slate-950/40 p-4 rounded-xl border border-slate-800/60">{job.currentProblem}</p>
+                </div>
+              )}
+            </div>
+            
+            {/* Description / Initial Specs */}
+            {job.description && (
+              <div className="space-y-2 pt-4 border-t border-white/5">
+                <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider block">Original Project Specifications</span>
+                <p className="text-xs text-slate-300 leading-relaxed font-medium bg-slate-950/40 p-4 rounded-xl border border-slate-800/60 whitespace-pre-wrap">{job.description}</p>
+              </div>
+            )}
+          </div>
+
+          {/* Action Call to Action Block */}
+          <div className="bg-linear-to-r from-blue-900/30 to-indigo-900/30 backdrop-blur-md border border-blue-500/20 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-2 max-w-xl">
+              <h3 className="text-lg font-black text-white">Accept Proposal & Initiate Project</h3>
+              <p className="text-xs text-slate-400 font-semibold leading-relaxed">
+                By paying the security deposit, you approve this customized service proposal. ScaleLink Alliance will lock in your timeline and allocate the necessary engineering and design resources immediately.
+              </p>
+              <div className="flex gap-6 pt-2 text-xs">
+                <div>
+                  <span className="text-slate-500 block font-bold">Deposit Due Now:</span>
+                  <span className="text-sm font-black text-emerald-400">{formatCurrency(job.depositRequired)}</span>
+                </div>
+                <div>
+                  <span className="text-slate-500 block font-bold">Remaining Balance:</span>
+                  <span className="text-sm font-black text-white">{formatCurrency(job.customQuoteAmount - job.depositRequired)}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex-shrink-0 w-full md:w-auto">
+              {job.stripeCheckoutUrl ? (
+                <a
+                  href={job.stripeCheckoutUrl}
+                  className="w-full md:w-auto inline-flex items-center justify-center space-x-2 py-4 px-8 bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-300 transform active:scale-95"
+                >
+                  <FaFileSignature className="text-sm flex-shrink-0" />
+                  <span>Approve & Pay Deposit</span>
+                </a>
+              ) : (
+                <div className="bg-white/5 border border-white/10 rounded-2xl p-4 text-center">
+                  <span className="text-[10px] text-slate-400 font-semibold">Payment link is being finalized. Please contact your manager.</span>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     );
