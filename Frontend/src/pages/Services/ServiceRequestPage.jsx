@@ -11,7 +11,7 @@ import {
   FaTrash, FaCloudUploadAlt, FaGlobeAmericas, FaSearch, FaVideo, FaPenNib, FaPalette,
   FaCamera, FaShoppingCart, FaRocket, FaAd, FaEnvelope as FaEnvelopeIcon,
   FaSearch as FaSearchIcon, FaHeadset, FaProjectDiagram, FaDatabase, FaFileAlt,
-  FaChartBar, FaUsers, FaRegBuilding, FaChevronDown, FaChevronUp
+  FaChartBar, FaUsers, FaRegBuilding, FaChevronDown, FaChevronUp, FaBriefcase
 } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
 import { useDropzone } from 'react-dropzone';
@@ -231,6 +231,7 @@ const RequestServicePage = () => {
     phoneDialCode: '+1', phoneNumber: '',
     company: '', otherServiceDescription: '',
     projectDescription: '', timeline: '', budget: '',
+    clientWebsite: '', clientLocation: '', clientIndustry: '',
     agreedToPrivacy: false, agreedToTerms: false,
   });
 
@@ -564,14 +565,35 @@ const RequestServicePage = () => {
                   />
                   <p className="mt-1 text-xs text-gray-400">Select your country flag, then enter your number</p>
                 </div>
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Company Name *</label>
-                  <div className="relative">
-                    <FaBuilding className="absolute left-3 top-3.5 text-gray-400" />
-                    <input type="text" name="company" required value={formData.company} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Acme Inc." />
-                  </div>
-                </div>
-              </div>
+                 <div>
+                   <label className="block text-sm font-semibold text-gray-700 mb-2">Company Name *</label>
+                   <div className="relative">
+                     <FaBuilding className="absolute left-3 top-3.5 text-gray-400" />
+                     <input type="text" name="company" required value={formData.company} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Acme Inc." />
+                   </div>
+                 </div>
+                 <div>
+                   <label className="block text-sm font-semibold text-gray-700 mb-2">Company Website (Optional)</label>
+                   <div className="relative">
+                     <FaGlobeAmericas className="absolute left-3 top-3.5 text-gray-400" />
+                     <input type="text" name="clientWebsite" value={formData.clientWebsite} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g. www.example.com" />
+                   </div>
+                 </div>
+                 <div>
+                   <label className="block text-sm font-semibold text-gray-700 mb-2">Business Location (Optional)</label>
+                   <div className="relative">
+                     <FaRegBuilding className="absolute left-3 top-3.5 text-gray-400" />
+                     <input type="text" name="clientLocation" value={formData.clientLocation} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g. Chicago, IL" />
+                   </div>
+                 </div>
+                 <div>
+                   <label className="block text-sm font-semibold text-gray-700 mb-2">Industry / Business Type (Optional)</label>
+                   <div className="relative">
+                     <FaBriefcase className="absolute left-3 top-3.5 text-gray-400" />
+                     <input type="text" name="clientIndustry" value={formData.clientIndustry} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g. E-Commerce, SaaS, Retail" />
+                   </div>
+                 </div>
+               </div>
               <div className="flex justify-end mt-8">
                 <button
                   type="button"

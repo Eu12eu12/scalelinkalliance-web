@@ -49,6 +49,9 @@ router.post('/service-request', async (req, res) => {
       budget,
       totalAmount,
       currency,
+      clientWebsite,
+      clientLocation,
+      clientIndustry,
       files // Array of { filename, url, size, mimetype }
     } = req.body;
 
@@ -69,6 +72,9 @@ router.post('/service-request', async (req, res) => {
       clientLastName: lastName,
       clientEmail: email,
       clientPhone: phone,
+      clientWebsite,
+      clientLocation,
+      clientIndustry,
       clientTimeline: timeline,
       budget: budget,
       warningLevel: 'green'
