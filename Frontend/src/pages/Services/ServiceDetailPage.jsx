@@ -2083,8 +2083,11 @@ const ServiceDetailPage = () => {
             {service.intro}
           </p>
 
-          <p className="text-lg text-gray-400 max-w-3xl mb-8">
+          <p className="text-lg text-gray-400 max-w-3xl mb-4">
             {service.longDescription}
+          </p>
+          <p className="text-sm text-gray-400 max-w-3xl mb-8 font-medium">
+            Starting price options are shown during service selection. Custom quotes are available for larger or more detailed projects.
           </p>
 
           <div className="flex flex-wrap gap-4 mt-8">
@@ -2329,8 +2332,11 @@ const ServiceDetailPage = () => {
         {/* Final CTA */}
         <section className="text-center py-12 bg-gray-50 rounded-2xl">
           <h2 className="text-4xl font-bold text-gray-900 mb-6">Ready to Get Professional Results?</h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 mb-4 max-w-3xl mx-auto">
             Submit your service request today. No membership required, no commitments — just professional execution.
+          </p>
+          <p className="text-sm text-gray-500 mb-8 max-w-2xl mx-auto">
+            Starting price options are shown during service selection. Custom quotes are available for larger or more detailed projects.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

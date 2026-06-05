@@ -740,9 +740,12 @@ const ServicesPage = () => {
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
               Our Service Categories
             </h2>
+            <p className="text-gray-600 text-center max-w-3xl mx-auto mb-8 font-medium">
+              Explore our services below. Starting price options are shown during service selection. Custom quotes are available for larger or more detailed projects.
+            </p>
 
             <div className="flex flex-wrap justify-center gap-4 mb-12">
               {categories.map((category) => (

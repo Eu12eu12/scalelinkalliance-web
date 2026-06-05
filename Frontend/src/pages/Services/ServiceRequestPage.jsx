@@ -614,6 +614,9 @@ const RequestServicePage = () => {
                 <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Step 2 of 5</span>
                 <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-4">Service Selection</h2>
                 <p className="text-gray-600 max-w-2xl mx-auto">Which service(s) are you requesting? Select all that apply.</p>
+                <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl text-blue-700 text-sm font-semibold max-w-2xl mx-auto text-center shadow-sm">
+                  Starting price options are shown during service selection. Custom quotes are available for larger or more detailed projects.
+                </div>
               </div>
               <div className="grid gap-8">
                 <div className="grid md:grid-cols-2 gap-8">
