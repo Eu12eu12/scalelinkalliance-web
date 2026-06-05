@@ -129,6 +129,8 @@ const AdminQuotes = () => {
   const [exclusionsList, setExclusionsList] = useState([]);
   const [newInclusion, setNewInclusion] = useState('');
   const [newExclusion, setNewExclusion] = useState('');
+  const [newServiceName, setNewServiceName] = useState('');
+  const [newServicePackage, setNewServicePackage] = useState('');
 
   // Auto-save & Change states
   const [isDirty, setIsDirty] = useState(false);
@@ -179,19 +181,35 @@ const AdminQuotes = () => {
     setFormData(prev => {
       const copy = { ...prev, [name]: value };
       
-      // Auto-suggest 50% deposit if Custom Quote Amount changes
-      if (name === 'customQuoteAmount') {
-        const amt = Number(value);
-        if (!isNaN(amt) && amt > 0) {
-          copy.depositRequired = String(Math.round(amt * 0.5));
+      const totalAmt = Number(copy.customQuoteAmount) || 0;
+
+      // Adjust depositRequired based on change in specialDiscount
+      if (name === 'specialDiscount') {
+        const oldDiscount = Number(prev.specialDiscount) || 0;
+        const newDiscount = Number(value) || 0;
+        const diff = newDiscount - oldDiscount;
+        const currentDep = Number(copy.depositRequired) || 0;
+        if (currentDep - diff >= 0) {
+          copy.depositRequired = String(currentDep - diff);
         } else {
-          copy.depositRequired = '';
+          copy.depositRequired = '0';
         }
       }
 
-      // If category title is empty, prefill based on selected services
-      if (name === 'services' || name === 'title') {
-        // Handled in separate effect or manually
+      // Safeguard: Deposit Required cannot exceed Total Quote Amount
+      if (name === 'depositRequired') {
+        const depAmt = Number(value) || 0;
+        if (depAmt > totalAmt) {
+          copy.depositRequired = String(totalAmt);
+        }
+      }
+      
+      // Auto-cap depositRequired if it exceeds totalAmt if totalAmt changes
+      if (name === 'customQuoteAmount') {
+        const depAmt = Number(copy.depositRequired) || 0;
+        if (depAmt > totalAmt) {
+          copy.depositRequired = String(totalAmt);
+        }
       }
 
       return copy;
@@ -509,7 +527,13 @@ const AdminQuotes = () => {
         
         recommendedPackage: quote.recommendedPackage || '',
         customQuoteAmount: quote.customQuoteAmount ? String(quote.customQuoteAmount / 100) : '',
-        depositRequired: quote.depositRequired ? String(quote.depositRequired / 100) : '',
+        depositRequired: (() => {
+          const total = quote.customQuoteAmount ? quote.customQuoteAmount / 100 : 0;
+          const discount = quote.specialDiscount ? quote.specialDiscount / 100 : 0;
+          const net = Math.max(0, total - discount);
+          const deposit = quote.depositRequired ? quote.depositRequired / 100 : 0;
+          return deposit > net ? String(net) : (quote.depositRequired ? String(quote.depositRequired / 100) : '');
+        })(),
         estimatedCompletionTime: quote.estimatedCompletionTime || '',
         includedServices: quote.includedServices || '',
         notIncluded: quote.notIncluded || '',
@@ -585,6 +609,16 @@ const AdminQuotes = () => {
     // Core pre-send validations before manual save
     if (!formData.customQuoteAmount || !formData.depositRequired) {
       showToast('Custom Quote Amount and Deposit Required fields are required.', 'error');
+      return;
+    }
+
+    const totalAmt = Number(formData.customQuoteAmount) || 0;
+    const discountAmt = Number(formData.specialDiscount) || 0;
+    const depositAmt = Number(formData.depositRequired) || 0;
+    const netAmt = Math.max(0, totalAmt - discountAmt);
+
+    if (depositAmt > netAmt) {
+      showToast(`Deposit Required ($${depositAmt}) cannot exceed the Net Quote Amount after discount ($${netAmt}).`, 'error');
       return;
     }
 
@@ -682,6 +716,31 @@ const AdminQuotes = () => {
     } finally {
       setSendingQuoteId(null);
     }
+  };
+
+  const handleAddRequestedService = (e) => {
+    e.preventDefault();
+    if (newServiceName.trim()) {
+      setIsDirty(true);
+      setFormData(prev => ({
+        ...prev,
+        services: {
+          ...prev.services,
+          [`Request Custom Quote - ${newServiceName.trim()}`]: newServicePackage.trim() || 'Custom'
+        }
+      }));
+      setNewServiceName('');
+      setNewServicePackage('');
+    }
+  };
+
+  const handleRemoveRequestedService = (svcKey) => {
+    setIsDirty(true);
+    setFormData(prev => {
+      const copy = { ...prev.services };
+      delete copy[svcKey];
+      return { ...prev, services: copy };
+    });
   };
 
   const handleAddInclusion = (e) => {
@@ -792,7 +851,18 @@ const AdminQuotes = () => {
     const clientName = `${formData.clientFirstName || ''} ${formData.clientLastName || ''}`.trim() || 'Client';
     const totalVal = Number(formData.customQuoteAmount) || 0;
     const depVal = Number(formData.depositRequired) || 0;
-    const balVal = totalVal - depVal;
+    const discountVal = Number(formData.specialDiscount) || 0;
+    const balVal = totalVal - discountVal - depVal;
+
+    const isSendDisabled = 
+      !formData.title?.trim() ||
+      !formData.recommendedPackage?.trim() ||
+      !formData.quoteExpirationDate ||
+      !formData.estimatedCompletionTime?.trim() ||
+      !formData.customQuoteAmount ||
+      !formData.depositRequired ||
+      includedServicesList.length === 0 ||
+      !formData.description?.trim();
 
     return (
       <div className="fixed inset-0 z-50 bg-slate-50 flex flex-col h-screen overflow-hidden text-slate-800" style={{ fontFamily: "'Outfit', sans-serif" }}>
@@ -851,7 +921,8 @@ const AdminQuotes = () => {
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => handleSave()}
-                className="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold text-xs transition-all shadow-xs"
+                disabled={!isDirty || saveStatus === 'saving'}
+                className="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold text-xs transition-all shadow-xs disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Save Draft
               </button>
@@ -859,7 +930,7 @@ const AdminQuotes = () => {
               {editingQuote && (
                 <button
                   onClick={() => handleSendQuote(editingQuote.id)}
-                  disabled={sendingQuoteId === editingQuote.id || !formData.customQuoteAmount}
+                  disabled={sendingQuoteId === editingQuote.id || isSendDisabled || (formData.quoteStatus === 'quote_sent' && !isDirty)}
                   className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-all shadow-md shadow-blue-100 flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   {sendingQuoteId === editingQuote.id ? (
@@ -886,49 +957,84 @@ const AdminQuotes = () => {
                 Client Snapshot
               </h3>
               
-              <div className="space-y-4">
-                <div className="bg-white p-4 rounded-xl border border-slate-150 shadow-xs space-y-2 text-xs">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
-                      <FaUser size={12} />
-                    </div>
-                    <div>
-                      <p className="font-bold text-slate-800 truncate max-w-[170px]">{clientName}</p>
-                      <p className="text-[10px] text-slate-400 font-medium truncate max-w-[170px]">{formData.client}</p>
+              {!editingQuote ? (
+                <div className="space-y-3 bg-white p-4 rounded-xl border border-slate-150 shadow-xs text-[10px]">
+                  <div>
+                    <label className="block font-bold text-slate-500 mb-1 uppercase tracking-wider">Client Name</label>
+                    <div className="flex gap-2">
+                      <input type="text" name="clientFirstName" placeholder="First Name" value={formData.clientFirstName} onChange={handleInputChange} className="w-full px-2 py-1.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500" />
+                      <input type="text" name="clientLastName" placeholder="Last Name" value={formData.clientLastName} onChange={handleInputChange} className="w-full px-2 py-1.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                   </div>
-
-                  <div className="pt-2 border-t border-slate-50 space-y-1.5 text-[11px] font-medium text-slate-500">
-                    <p className="truncate flex items-center gap-1.5">
-                      <FaEnvelope className="text-slate-400" />
-                      <span>{formData.clientEmail || 'N/A'}</span>
-                    </p>
-                    <p className="truncate flex items-center gap-1.5">
-                      <FaPhone className="text-slate-400" />
-                      <span>{formData.clientDialCode} {formData.clientPhone || 'N/A'}</span>
-                    </p>
-                    {formData.clientWebsite && (
-                      <p className="truncate flex items-center gap-1.5">
-                        <FaGlobe className="text-slate-400" />
-                        <a 
-                          href={formData.clientWebsite.startsWith('http') ? formData.clientWebsite : `https://${formData.clientWebsite}`} 
-                          target="_blank" 
-                          rel="noreferrer" 
-                          className="text-blue-500 hover:underline"
-                        >
-                          {formData.clientWebsite}
-                        </a>
-                      </p>
-                    )}
-                    {formData.clientLocation && (
-                      <p className="truncate flex items-center gap-1.5">
-                        <FaMapMarkerAlt className="text-slate-400" />
-                        <span>{formData.clientLocation}</span>
-                      </p>
-                    )}
+                  <div>
+                    <label className="block font-bold text-slate-500 mb-1 uppercase tracking-wider">Company / Brand</label>
+                    <input type="text" name="client" placeholder="Company Name" value={formData.client} onChange={handleInputChange} className="w-full px-2 py-1.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500" />
+                  </div>
+                  <div>
+                    <label className="block font-bold text-slate-500 mb-1 uppercase tracking-wider">Email Address</label>
+                    <input type="email" name="clientEmail" placeholder="email@example.com" value={formData.clientEmail} onChange={handleInputChange} className="w-full px-2 py-1.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500" />
+                  </div>
+                  <div>
+                    <label className="block font-bold text-slate-500 mb-1 uppercase tracking-wider">Phone</label>
+                    <div className="flex gap-2">
+                      <input type="text" name="clientDialCode" placeholder="+1" value={formData.clientDialCode} onChange={handleInputChange} className="w-16 px-2 py-1.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500" />
+                      <input type="text" name="clientPhone" placeholder="1234567890" value={formData.clientPhone} onChange={handleInputChange} className="w-full px-2 py-1.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block font-bold text-slate-500 mb-1 uppercase tracking-wider">Website URL</label>
+                    <input type="text" name="clientWebsite" placeholder="example.com" value={formData.clientWebsite} onChange={handleInputChange} className="w-full px-2 py-1.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500" />
+                  </div>
+                  <div>
+                    <label className="block font-bold text-slate-500 mb-1 uppercase tracking-wider">Location</label>
+                    <input type="text" name="clientLocation" placeholder="City, Country" value={formData.clientLocation} onChange={handleInputChange} className="w-full px-2 py-1.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500" />
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className="space-y-4">
+                  <div className="bg-white p-4 rounded-xl border border-slate-150 shadow-xs space-y-2 text-xs">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                        <FaUser size={12} />
+                      </div>
+                      <div>
+                        <p className="font-bold text-slate-800 truncate max-w-[170px]">{clientName}</p>
+                        <p className="text-[10px] text-slate-400 font-medium truncate max-w-[170px]">{formData.client}</p>
+                      </div>
+                    </div>
+
+                    <div className="pt-2 border-t border-slate-50 space-y-1.5 text-[11px] font-medium text-slate-500">
+                      <p className="truncate flex items-center gap-1.5">
+                        <FaEnvelope className="text-slate-400" />
+                        <span>{formData.clientEmail || 'N/A'}</span>
+                      </p>
+                      <p className="truncate flex items-center gap-1.5">
+                        <FaPhone className="text-slate-400" />
+                        <span>{formData.clientDialCode} {formData.clientPhone || 'N/A'}</span>
+                      </p>
+                      {formData.clientWebsite && (
+                        <p className="truncate flex items-center gap-1.5">
+                          <FaGlobe className="text-slate-400" />
+                          <a 
+                            href={formData.clientWebsite.startsWith('http') ? formData.clientWebsite : `https://${formData.clientWebsite}`} 
+                            target="_blank" 
+                            rel="noreferrer" 
+                            className="text-blue-500 hover:underline"
+                          >
+                            {formData.clientWebsite}
+                          </a>
+                        </p>
+                      )}
+                      {formData.clientLocation && (
+                        <p className="truncate flex items-center gap-1.5">
+                          <FaMapMarkerAlt className="text-slate-400" />
+                          <span>{formData.clientLocation}</span>
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Requested Services */}
@@ -937,22 +1043,43 @@ const AdminQuotes = () => {
                 Requested Services
               </h3>
               
-              {Object.keys(formData.services).length === 0 ? (
-                <p className="text-[11px] text-slate-400 italic">No services specified yet.</p>
-              ) : (
-                <div className="flex flex-wrap gap-1.5">
-                  {Object.entries(formData.services).map(([svc, pack]) => (
-                    <span 
-                      key={svc} 
-                      className="bg-indigo-50 border border-indigo-100 text-indigo-700 font-semibold text-[10px] px-2 py-0.5 rounded-lg flex items-center gap-1 uppercase tracking-wide"
-                    >
-                      {svc.replace(/Request Custom Quote - /g, '')}
-                      <span className="bg-indigo-600/10 text-indigo-800 text-[8px] font-black px-1 rounded uppercase">
-                        {pack}
+              {!editingQuote ? (
+                <div className="bg-white p-4 rounded-xl border border-slate-150 shadow-xs space-y-3">
+                  <form onSubmit={handleAddRequestedService} className="flex gap-2">
+                    <input type="text" placeholder="Service (e.g. Website)" value={newServiceName} onChange={e => setNewServiceName(e.target.value)} className="w-1/2 px-2 py-1.5 text-[10px] rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none" />
+                    <input type="text" placeholder="Tier/Package" value={newServicePackage} onChange={e => setNewServicePackage(e.target.value)} className="w-1/2 px-2 py-1.5 text-[10px] rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none" />
+                    <button type="submit" className="px-2.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-black text-xs">+</button>
+                  </form>
+                  <div className="flex flex-wrap gap-1.5">
+                    {Object.entries(formData.services).map(([svc, pack]) => (
+                      <span key={svc} className="bg-indigo-50 border border-indigo-100 text-indigo-700 font-semibold text-[9px] px-2 py-1 rounded-lg flex items-center gap-1 uppercase tracking-wide">
+                        {svc.replace(/Request Custom Quote - /g, '')}
+                        <span className="bg-indigo-600/10 text-indigo-800 text-[8px] font-black px-1 rounded uppercase">{pack}</span>
+                        <button type="button" onClick={() => handleRemoveRequestedService(svc)} className="ml-1 text-indigo-400 hover:text-rose-500"><FaTrashAlt size={9} /></button>
                       </span>
-                    </span>
-                  ))}
+                    ))}
+                  </div>
                 </div>
+              ) : (
+                <>
+                  {Object.keys(formData.services).length === 0 ? (
+                    <p className="text-[11px] text-slate-400 italic">No services specified yet.</p>
+                  ) : (
+                    <div className="flex flex-wrap gap-1.5">
+                      {Object.entries(formData.services).map(([svc, pack]) => (
+                        <span 
+                          key={svc} 
+                          className="bg-indigo-50 border border-indigo-100 text-indigo-700 font-semibold text-[10px] px-2 py-0.5 rounded-lg flex items-center gap-1 uppercase tracking-wide"
+                        >
+                          {svc.replace(/Request Custom Quote - /g, '')}
+                          <span className="bg-indigo-600/10 text-indigo-800 text-[8px] font-black px-1 rounded uppercase">
+                            {pack}
+                          </span>
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </>
               )}
             </div>
 
@@ -962,33 +1089,54 @@ const AdminQuotes = () => {
                 Original Request Parameters
               </h3>
               
-              <div className="space-y-3 text-[11px] font-medium text-slate-500 bg-white border border-slate-150 p-4 rounded-xl shadow-xs">
-                <div>
-                  <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">Client Timeline Preference</span>
-                  <span className="text-slate-800 font-bold block mt-0.5">{formData.timeline || 'Flexible'}</span>
+              {!editingQuote ? (
+                <div className="space-y-3 bg-white p-4 rounded-xl border border-slate-150 shadow-xs text-[10px]">
+                  <div>
+                    <label className="block font-bold text-slate-500 mb-1 uppercase tracking-wider">Timeline</label>
+                    <input type="text" name="timeline" placeholder="e.g. Within 30 days" value={formData.timeline} onChange={handleInputChange} className="w-full px-2 py-1.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500" />
+                  </div>
+                  <div>
+                    <label className="block font-bold text-slate-500 mb-1 uppercase tracking-wider">Budget</label>
+                    <input type="text" name="budget" placeholder="e.g. $3,000 - $5,000" value={formData.budget} onChange={handleInputChange} className="w-full px-2 py-1.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500" />
+                  </div>
+                  <div>
+                    <label className="block font-bold text-slate-500 mb-1 uppercase tracking-wider">Support Level</label>
+                    <input type="text" name="levelOfSupport" placeholder="e.g. One-time project" value={formData.levelOfSupport} onChange={handleInputChange} className="w-full px-2 py-1.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500" />
+                  </div>
+                  <div>
+                    <label className="block font-bold text-slate-500 mb-1 uppercase tracking-wider">Problem to Solve</label>
+                    <textarea name="currentProblem" placeholder="Describe the client's problem..." value={formData.currentProblem} onChange={handleInputChange} className="w-full px-2 py-1.5 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 h-20 resize-none"></textarea>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">Client Budget Expectation</span>
-                  <span className="text-slate-800 font-bold block mt-0.5">{formData.budget || 'Not specified'}</span>
+              ) : (
+                <div className="space-y-3 text-[11px] font-medium text-slate-500 bg-white border border-slate-150 p-4 rounded-xl shadow-xs">
+                  <div>
+                    <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">Client Timeline Preference</span>
+                    <span className="text-slate-800 font-bold block mt-0.5">{formData.timeline || 'Flexible'}</span>
+                  </div>
+                  <div>
+                    <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">Client Budget Expectation</span>
+                    <span className="text-slate-800 font-bold block mt-0.5">{formData.budget || 'Not specified'}</span>
+                  </div>
+                  <div>
+                    <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">Support Level Preference</span>
+                    <span className="text-slate-800 font-bold block mt-0.5">{formData.levelOfSupport || 'One-time project'}</span>
+                  </div>
+                  <div>
+                    <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">Problem to Solve</span>
+                    <p className="text-slate-700 bg-slate-50 p-2 rounded-lg border border-slate-100 text-[10px] leading-relaxed mt-1 font-semibold whitespace-pre-line">
+                      {formData.currentProblem || 'No problem statement submitted.'}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">Support Level Preference</span>
-                  <span className="text-slate-800 font-bold block mt-0.5">{formData.levelOfSupport || 'One-time project'}</span>
-                </div>
-                <div>
-                  <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">Problem to Solve</span>
-                  <p className="text-slate-700 bg-slate-50 p-2 rounded-lg border border-slate-100 text-[10px] leading-relaxed mt-1 font-semibold whitespace-pre-line">
-                    {formData.currentProblem || 'No problem statement submitted.'}
-                  </p>
-                </div>
-              </div>
+              )}
             </div>
 
             {/* Dynamic Specifications */}
             {editingQuote && editingQuote.projectScope && (
               <div>
                 <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 pb-1 border-b border-slate-200/60">
-                  Dynamic Spec Responses
+                  Client Questionnaire Answers
                 </h3>
                 
                 <div className="bg-slate-900 text-slate-300 p-4 rounded-xl border border-slate-800 text-[10px] font-medium space-y-3 max-h-56 overflow-y-auto">
@@ -996,7 +1144,7 @@ const AdminQuotes = () => {
                     const scope = typeof editingQuote.projectScope === 'string' ? JSON.parse(editingQuote.projectScope) : editingQuote.projectScope;
                     const answers = scope.customQuoteAnswers || {};
                     if (Object.keys(answers).length === 0) {
-                      return <p className="italic text-slate-500 text-center py-2">No dynamic responses.</p>;
+                      return <p className="italic text-slate-500 text-center py-2">No questionnaire answers submitted.</p>;
                     }
                     
                     return Object.entries(answers).map(([key, val]) => {
@@ -1122,7 +1270,6 @@ const AdminQuotes = () => {
                       className="w-full pl-8 pr-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-xs transition-all font-bold text-indigo-600" 
                     />
                   </div>
-                  <span className="text-[9px] text-slate-400 font-semibold block mt-1">Suggested 50% calculated automatically.</span>
                 </div>
 
                 <div>
@@ -1155,6 +1302,16 @@ const AdminQuotes = () => {
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-xs transition-all text-slate-600 font-semibold" 
                   />
                 </div>
+
+                <div className="sm:col-span-2 bg-slate-50 border border-slate-150 p-3.5 rounded-2xl flex items-center justify-between shadow-3xs">
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-0.5">Net Project Solution Fee</span>
+                    <span className="text-[9px] text-slate-400 font-semibold block">Total project quote amount after applying special discount.</span>
+                  </div>
+                  <span className="text-sm font-black text-slate-800">
+                    {formatPrice(Math.max(0, (Number(formData.customQuoteAmount) || 0) - (Number(formData.specialDiscount) || 0)) * 100)}
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -1165,7 +1322,7 @@ const AdminQuotes = () => {
                 Deliverables & Scope Parameters
               </h3>
 
-              <div className="grid sm:grid-cols-2 gap-6">
+              <div className="flex flex-col gap-6">
                 
                 {/* Included Services Add/Remove List */}
                 <div className="bg-slate-50 border border-slate-150 p-5 rounded-2xl space-y-4 shadow-2xs">
@@ -1201,7 +1358,7 @@ const AdminQuotes = () => {
                           key={idx} 
                           className="flex items-center justify-between p-2.5 bg-white border border-slate-150 rounded-xl text-xs hover:border-slate-300 transition-all shadow-3xs"
                         >
-                          <span className="font-semibold text-slate-700 max-w-[200px] truncate" title={item}>✓ {item}</span>
+                          <span className="font-semibold text-slate-700 flex-1 truncate" title={item}>✓ {item}</span>
                           <button 
                             type="button" 
                             onClick={() => handleRemoveInclusion(idx)} 
@@ -1249,7 +1406,7 @@ const AdminQuotes = () => {
                           key={idx} 
                           className="flex items-center justify-between p-2.5 bg-white border border-slate-150 rounded-xl text-xs hover:border-slate-300 transition-all shadow-3xs"
                         >
-                          <span className="font-semibold text-slate-600 max-w-[200px] truncate" title={item}>✕ {item}</span>
+                          <span className="font-semibold text-slate-600 flex-1 truncate" title={item}>✕ {item}</span>
                           <button 
                             type="button" 
                             onClick={() => handleRemoveExclusion(idx)} 
@@ -1393,6 +1550,12 @@ const AdminQuotes = () => {
                         <span>Total Project Quote:</span>
                         <span className="text-slate-900 font-bold">{formatPrice(totalVal * 100)}</span>
                       </div>
+                      {discountVal > 0 && (
+                        <div className="flex justify-between text-rose-600">
+                          <span>Special Discount:</span>
+                          <span className="font-bold">-{formatPrice(discountVal * 100)}</span>
+                        </div>
+                      )}
                       <div className="flex justify-between border-b border-dashed border-slate-200 pb-1.5">
                         <span>Deposit Required:</span>
                         <span className="text-indigo-600 font-bold">{formatPrice(depVal * 100)}</span>
@@ -1408,6 +1571,13 @@ const AdminQuotes = () => {
                       <span><strong>Expires:</strong> {formData.quoteExpirationDate ? new Date(formData.quoteExpirationDate).toLocaleDateString() : 'N/A'}</span>
                     </div>
                   </div>
+
+                  {formData.monthlySupportOption && (
+                    <div className="bg-indigo-50 border border-indigo-150 p-3.5 rounded-xl space-y-1 text-indigo-950 font-medium">
+                      <span className="font-black text-indigo-700 block uppercase tracking-wider text-[8px]">Monthly Support Option</span>
+                      <p className="text-[10px] leading-relaxed font-semibold text-indigo-900">{formData.monthlySupportOption}</p>
+                    </div>
+                  )}
 
                   <div className="space-y-3">
                     <div>
@@ -1509,8 +1679,14 @@ const AdminQuotes = () => {
                       <span className="text-[8px] font-black text-slate-500 uppercase tracking-wider block">Total Project Fee</span>
                       <span className="font-bold text-emerald-400 block mt-0.5">{formatPrice(totalVal * 100)}</span>
                     </div>
+                    {discountVal > 0 && (
+                      <div className="bg-white/5 border border-white/10 p-3 rounded-lg">
+                        <span className="text-[8px] font-black text-rose-400 uppercase tracking-wider block">Special Discount</span>
+                        <span className="font-bold text-rose-300 block mt-0.5">-{formatPrice(discountVal * 100)}</span>
+                      </div>
+                    )}
                     <div className="bg-white/5 border border-white/10 p-3 rounded-lg">
-                      <span className="text-[8px] font-black text-slate-500 uppercase tracking-wider block">Deposit Required (50%)</span>
+                      <span className="text-[8px] font-black text-slate-500 uppercase tracking-wider block">Deposit Required</span>
                       <span className="font-bold text-white block mt-0.5">{formatPrice(depVal * 100)}</span>
                     </div>
                   </div>
@@ -1558,11 +1734,29 @@ const AdminQuotes = () => {
                     </div>
                   )}
 
+                  {/* Monthly Support Option */}
+                  {formData.monthlySupportOption && (
+                    <div className="bg-white/5 border border-white/5 p-3 rounded-lg space-y-1 relative z-10">
+                      <h3 className="font-black text-white uppercase tracking-wider border-b border-white/5 pb-1">Monthly Support Option</h3>
+                      <p className="text-slate-300 font-semibold text-[9px] leading-relaxed">{formData.monthlySupportOption}</p>
+                    </div>
+                  )}
+
                   {/* Action Block */}
                   <div className="bg-blue-900/20 border border-blue-500/20 p-4 rounded-xl space-y-3 relative z-10 text-center">
                     <div>
                       <h3 className="font-black text-white text-xs leading-none">Accept Proposal & Pay Deposit</h3>
                       <p className="text-slate-400 text-[8px] mt-1">Locks in production resource allocation and schedules.</p>
+                    </div>
+                    <div className="flex justify-around text-[9px] py-1.5 border-t border-b border-blue-500/10">
+                      <div>
+                        <span className="text-slate-500 block font-bold">Deposit Due Now:</span>
+                        <span className="font-black text-emerald-400">{formatPrice(depVal * 100)}</span>
+                      </div>
+                      <div>
+                        <span className="text-slate-500 block font-bold">Remaining Balance:</span>
+                        <span className="font-black text-white">{formatPrice(balVal * 100)}</span>
+                      </div>
                     </div>
                     <button type="button" className="w-full py-2 bg-blue-600 text-white font-bold rounded-lg shadow-sm hover:shadow active:scale-95 transition-all text-[9px] uppercase tracking-wider">
                       Approve & Pay Deposit
@@ -1657,6 +1851,18 @@ const AdminQuotes = () => {
                     const amountFormatted = quote.customQuoteAmount ? formatPrice(quote.customQuoteAmount) : 'Pending Quote';
                     const depositFormatted = quote.depositRequired ? `Deposit: ${formatPrice(quote.depositRequired)}` : '';
                     
+                    const isRowSendDisabled = 
+                      !quote.title?.trim() ||
+                      !quote.recommendedPackage?.trim() ||
+                      !quote.quoteExpirationDate ||
+                      !quote.estimatedCompletionTime?.trim() ||
+                      !quote.customQuoteAmount ||
+                      !quote.depositRequired ||
+                      !quote.includedServices?.trim() ||
+                      !quote.description?.trim();
+
+                    const isAlreadyProcessed = ['quote_sent', 'deposit_paid', 'approved', 'declined'].includes(quote.quoteStatus);
+
                     return (
                       <tr key={quote.id} className="hover:bg-slate-50/30 transition-colors">
                         <td className="px-6 py-4">
@@ -1690,13 +1896,21 @@ const AdminQuotes = () => {
                               <>
                                 <button 
                                   onClick={() => handleSendQuote(quote.id)}
-                                  disabled={sendingQuoteId === quote.id || !quote.customQuoteAmount}
+                                  disabled={sendingQuoteId === quote.id || isRowSendDisabled || isAlreadyProcessed}
                                   className={`p-2 rounded-lg transition-colors ${
-                                    !quote.customQuoteAmount 
-                                      ? 'text-slate-300 cursor-not-allowed' 
+                                    (isRowSendDisabled || isAlreadyProcessed)
+                                      ? 'text-slate-300 cursor-not-allowed opacity-40' 
                                       : 'text-indigo-600 hover:bg-indigo-50'
                                   }`} 
-                                  title={sendingQuoteId === quote.id ? 'Sending...' : 'Email Quote Proposal to Client'}
+                                  title={
+                                    sendingQuoteId === quote.id 
+                                      ? 'Sending...' 
+                                      : isAlreadyProcessed 
+                                        ? `Quote has already been sent/processed (Status: ${quote.quoteStatus}).`
+                                        : isRowSendDisabled 
+                                          ? 'Proposal incomplete. Please click edit to fill in all required fields before sending.' 
+                                          : 'Email Quote Proposal to Client'
+                                  }
                                 >
                                   {sendingQuoteId === quote.id ? (
                                     <div className="w-3.5 h-3.5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
@@ -1708,15 +1922,16 @@ const AdminQuotes = () => {
                               </>
                             )}
                             {quote.stripeCheckoutUrl && (
-                              <a 
-                                href={quote.stripeCheckoutUrl}
-                                target="_blank"
-                                rel="noreferrer"
+                              <button 
+                                onClick={() => {
+                                  navigator.clipboard.writeText(quote.stripeCheckoutUrl);
+                                  showToast('Stripe Checkout Link copied to clipboard!', 'success');
+                                }}
                                 className="p-2 text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
-                                title="Stripe Checkout Payment Link"
+                                title="Copy Stripe Checkout Payment Link"
                               >
                                 <FaLink size={13} />
-                              </a>
+                              </button>
                             )}
                           </div>
                         </td>

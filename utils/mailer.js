@@ -322,11 +322,38 @@ const sendQuoteEmail = async (job) => {
   const portalLink = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/track-job/${job.clientToken}`;
   const checkoutLink = job.stripeCheckoutUrl;
 
-  const totalQuoteFormatted = job.customQuoteAmount ? `$${(job.customQuoteAmount / 100).toLocaleString()}` : '$0.00';
-  const depositRequiredFormatted = job.depositRequired ? `$${(job.depositRequired / 100).toLocaleString()}` : '$0.00';
-  const balanceDueFormatted = (job.customQuoteAmount && job.depositRequired) 
-    ? `$${((job.customQuoteAmount - job.depositRequired) / 100).toLocaleString()}` 
-    : totalQuoteFormatted;
+  const formatPrice = (cents) => {
+    if (!cents) return 'US$0.00';
+    const amount = (cents / 100).toFixed(2);
+    return `US$${amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  };
+
+  const totalQuoteFormatted = formatPrice(job.customQuoteAmount);
+  const depositRequiredFormatted = formatPrice(job.depositRequired);
+  const specialDiscountFormatted = job.specialDiscount ? formatPrice(job.specialDiscount) : null;
+  const discountVal = job.specialDiscount || 0;
+  const balanceDueVal = Math.max(0, (job.customQuoteAmount || 0) - discountVal - (job.depositRequired || 0));
+  const balanceDueFormatted = (job.customQuoteAmount && job.depositRequired) ? formatPrice(balanceDueVal) : totalQuoteFormatted;
+
+  let discountRow = '';
+  if (job.specialDiscount && job.specialDiscount > 0) {
+    discountRow = `
+      <tr>
+        <td style="font-size: 14px; color: #e11d48; padding: 6px 0;">Special Discount:</td>
+        <td style="font-size: 16px; font-weight: 700; color: #e11d48; text-align: right; padding: 6px 0;">-${specialDiscountFormatted}</td>
+      </tr>
+    `;
+  }
+
+  let monthlySupportHtml = '';
+  if (job.monthlySupportOption) {
+    monthlySupportHtml = `
+      <div style="margin-top: 16px; margin-bottom: 24px; background-color: #f5f3ff; border: 1px solid #ddd6fe; padding: 16px; border-radius: 16px;">
+        <h4 style="margin: 0 0 6px 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #6d28d9; font-weight: 800;">Monthly Retainer Support Option</h4>
+        <p style="margin: 0; font-size: 13px; color: #5b21b6; font-weight: 600; line-height: 1.5;">${job.monthlySupportOption}</p>
+      </div>
+    `;
+  }
 
   const expirationDateFormatted = job.quoteExpirationDate ? new Date(job.quoteExpirationDate).toLocaleDateString() : 'N/A';
 
@@ -384,7 +411,15 @@ const sendQuoteEmail = async (job) => {
   const subject = `ScaleLink Alliance Quote Proposal - ${businessName}`;
 
   const htmlContent = `
-    <div style="font-family: 'Inter', sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; border: 1px solid #e2e8f0; border-radius: 24px; color: #1e293b;">
+    <!--[if mso]>
+    <style type="text/css">
+      body, table, td, p, div {font-family: Arial, Helvetica, sans-serif !important;}
+    </style>
+    <![endif]-->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    </style>
+    <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; border: 1px solid #e2e8f0; border-radius: 24px; color: #1e293b;">
       <div style="text-align: center; margin-bottom: 32px;">
         <img src="https://scalelinkalliance.com/scalelink-logo.png" alt="ScaleLink Alliance" style="height: 48px; width: auto;">
       </div>
@@ -404,21 +439,25 @@ const sendQuoteEmail = async (job) => {
             <td style="font-size: 14px; color: #475569; padding: 6px 0;">Total Project Quote:</td>
             <td style="font-size: 16px; font-weight: 700; color: #0f172a; text-align: right; padding: 6px 0;">${totalQuoteFormatted}</td>
           </tr>
+          ${discountRow}
           <tr>
             <td style="font-size: 14px; color: #475569; padding: 6px 0; border-bottom: 1px dashed #e2e8f0;">Deposit Required:</td>
             <td style="font-size: 16px; font-weight: 700; color: #4f46e5; text-align: right; padding: 6px 0; border-bottom: 1px dashed #e2e8f0;">${depositRequiredFormatted}</td>
           </tr>
           <tr>
-            <td style="font-size: 14px; color: #475569; padding: 12px 0 0 0; font-weight: 600;">Balance Due Upon Completion:</td>
+            <td style="font-size: 14px; color: #475569; padding: 12px 0 0 0; font-weight: 600;">Balance Due:</td>
             <td style="font-size: 16px; font-weight: 700; color: #0f172a; text-align: right; padding: 12px 0 0 0;">${balanceDueFormatted}</td>
           </tr>
         </table>
         
-        <div style="font-size: 12px; color: #94a3b8; display: flex; justify-content: space-between; border-top: 1px solid #e2e8f0; padding-top: 12px;">
-          <span><strong>Timeline:</strong> ${job.estimatedCompletionTime || job.clientTimeline || 'Flexible'}</span>
-          <span><strong>Quote Expires:</strong> ${expirationDateFormatted}</span>
-        </div>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 16px; border-top: 1px solid #e2e8f0;">
+          <tr>
+            <td style="font-size: 12px; color: #94a3b8; padding-top: 12px;"><strong>Timeline:</strong> ${job.estimatedCompletionTime || job.clientTimeline || 'Flexible'}</td>
+            <td style="font-size: 12px; color: #94a3b8; text-align: right; padding-top: 12px;"><strong>Expires:</strong> ${expirationDateFormatted}</td>
+          </tr>
+        </table>
       </div>
+      ${monthlySupportHtml}
       
       <div style="margin-bottom: 32px;">
         <h3 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-top: 0; margin-bottom: 12px;">Recommended Solution Summary</h3>
