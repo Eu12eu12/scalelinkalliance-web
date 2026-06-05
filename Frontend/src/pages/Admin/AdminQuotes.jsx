@@ -7,7 +7,9 @@ import {
   FaFilter, FaSearch, FaPaperPlane, FaBriefcase, FaEye, FaUser, 
   FaEnvelope, FaPhone, FaGlobeAmericas, FaLayerGroup, FaMoneyBillWave,
   FaTimes, FaCheckDouble, FaHistory, FaFileInvoiceDollar, FaCalendar, 
-  FaPlusCircle, FaMinusCircle, FaLink, FaExternalLinkAlt, FaTrashAlt
+  FaPlusCircle, FaMinusCircle, FaLink, FaExternalLinkAlt, FaTrashAlt,
+  FaArrowLeft, FaCheckCircle, FaTimesCircle, FaSave, FaExternalLinkSquareAlt,
+  FaGlobe, FaMapMarkerAlt, FaFileAlt, FaLock
 } from 'react-icons/fa';
 import { 
   SERVICES_WITH_PACKAGES, 
@@ -48,7 +50,6 @@ const AdminQuotes = () => {
     // Project details
     projectGoal: '',
     projectScope: {
-      // Tech-specific
       pagesCount: '',
       needCopywriting: false,
       needImages: false,
@@ -59,7 +60,6 @@ const AdminQuotes = () => {
       needMobile: false,
       siteRedesign: 'new_build', // new_build or redesign
       
-      // Marketing-specific
       marketingPostsCount: '',
       marketingPlatforms: '',
       marketingCampaignLength: '',
@@ -67,7 +67,6 @@ const AdminQuotes = () => {
       marketingAdSupport: false,
       marketingMonthlyManagement: false,
 
-      // App-specific
       appFeatures: '',
       appUserRoles: '',
       appDatabaseNeeds: '',
@@ -78,7 +77,6 @@ const AdminQuotes = () => {
       appAdminPanel: false,
       appSecurityNeeds: '',
       
-      // Dynamic client answers (read-only reference)
       clientAnswers: {}
     },
     timeline: 'Within 30 days',
@@ -112,18 +110,12 @@ const AdminQuotes = () => {
     specialDiscount: '', // displayed in dollars
     quoteExpirationDate: '',
     
-    // Quote management & internal notes
+    // Quote status
     quoteStatus: 'new_request',
-    clientUrgency: 'medium',
-    clientQuality: 'average',
-    potentialUpsell: '',
-    followUpReminder: '',
-    salesStatus: 'Lead',
-    lastContactDate: '',
-    nextFollowUpDate: '',
     assignedTo: '',
     notes: '', // General internal notes
     description: '', // Project summary/solution recommendation
+    stripeCheckoutUrl: '',
   });
 
   const [workerSuggestions, setWorkerSuggestions] = useState([]);
@@ -132,12 +124,36 @@ const AdminQuotes = () => {
   const [validatedEmail, setValidatedEmail] = useState('');
   const validatedEmailRef = useRef('');
 
+  // Structured list states
+  const [includedServicesList, setIncludedServicesList] = useState([]);
+  const [exclusionsList, setExclusionsList] = useState([]);
+  const [newInclusion, setNewInclusion] = useState('');
+  const [newExclusion, setNewExclusion] = useState('');
+
+  // Auto-save & Change states
+  const [isDirty, setIsDirty] = useState(false);
+  const [saveStatus, setSaveStatus] = useState('saved'); // 'saved', 'saving', 'error'
+  const [lastSaveTime, setLastSaveTime] = useState(null);
+  const [previewTab, setPreviewTab] = useState('email'); // 'email' or 'portal'
+
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   const { showToast, ToastContainer } = useToast();
   const token = localStorage.getItem('cms_token');
+
+  // Refs for auto-save loop to prevent stale closures
+  const latestFormStateRef = useRef({ formData, includedServicesList, exclusionsList });
+  const editingQuoteRef = useRef(editingQuote);
+
+  useEffect(() => {
+    latestFormStateRef.current = { formData, includedServicesList, exclusionsList };
+  }, [formData, includedServicesList, exclusionsList]);
+
+  useEffect(() => {
+    editingQuoteRef.current = editingQuote;
+  }, [editingQuote]);
 
   // Format currency
   const formatPrice = (amountInCents, currencyCode = 'usd') => {
@@ -158,31 +174,43 @@ const AdminQuotes = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setIsDirty(true);
+    setFormData(prev => {
+      const copy = { ...prev, [name]: value };
+      
+      // Auto-suggest 50% deposit if Custom Quote Amount changes
+      if (name === 'customQuoteAmount') {
+        const amt = Number(value);
+        if (!isNaN(amt) && amt > 0) {
+          copy.depositRequired = String(Math.round(amt * 0.5));
+        } else {
+          copy.depositRequired = '';
+        }
+      }
+
+      // If category title is empty, prefill based on selected services
+      if (name === 'services' || name === 'title') {
+        // Handled in separate effect or manually
+      }
+
+      return copy;
+    });
   };
 
-  const handleScopeChange = (key, val, type = 'text') => {
-    setFormData(prev => ({
-      ...prev,
-      projectScope: {
-        ...prev.projectScope,
-        [key]: type === 'checkbox' ? !prev.projectScope[key] : val
+  // Set proposal title when services change or if it's empty
+  useEffect(() => {
+    if (isModalOpen && !formData.title) {
+      const selected = Object.keys(formData.services);
+      if (selected.length > 0) {
+        const titleVal = selected[0].replace(/Request Custom Quote - /g, '') + ' Proposal';
+        setFormData(prev => ({ ...prev, title: titleVal }));
       }
-    }));
-  };
-
-  const handleAssetChange = (key) => {
-    setFormData(prev => ({
-      ...prev,
-      clientAssets: {
-        ...prev.clientAssets,
-        [key]: !prev.clientAssets[key]
-      }
-    }));
-  };
+    }
+  }, [formData.services, isModalOpen]);
 
   // Add-on helpers
   const addAddOn = () => {
+    setIsDirty(true);
     setFormData(prev => ({
       ...prev,
       optionalAddOns: [...prev.optionalAddOns, { name: '', price: '' }]
@@ -190,6 +218,7 @@ const AdminQuotes = () => {
   };
 
   const removeAddOn = (index) => {
+    setIsDirty(true);
     setFormData(prev => {
       const copy = [...prev.optionalAddOns];
       copy.splice(index, 1);
@@ -198,6 +227,7 @@ const AdminQuotes = () => {
   };
 
   const updateAddOn = (index, field, value) => {
+    setIsDirty(true);
     setFormData(prev => {
       const copy = [...prev.optionalAddOns];
       copy[index] = { ...copy[index], [field]: value };
@@ -207,6 +237,7 @@ const AdminQuotes = () => {
 
   // Autocomplete worker email
   const handleWorkerSearch = async (query) => {
+    setIsDirty(true);
     setFormData(prev => ({ ...prev, assignedTo: query }));
     if (query.length < 2) {
       setWorkerSuggestions([]);
@@ -231,6 +262,7 @@ const AdminQuotes = () => {
   };
 
   const selectWorker = (email) => {
+    setIsDirty(true);
     setFormData(prev => ({ ...prev, assignedTo: email }));
     setValidatedEmail(email);
     validatedEmailRef.current = email;
@@ -257,8 +289,6 @@ const AdminQuotes = () => {
       });
       const data = await res.json();
       if (res.ok) {
-        // In this system, every NoticeBoardJob can be managed as a quote/opportunity.
-        // We will sort them by creation date descending.
         setQuotes(data);
       }
     } catch (err) {
@@ -301,9 +331,91 @@ const AdminQuotes = () => {
     }
   }, [quotes, viewingQuote]);
 
+  // Form Auto-save Loop (runs every 30 seconds if dirty)
+  useEffect(() => {
+    if (!isModalOpen) return;
+
+    const interval = setInterval(async () => {
+      if (isDirty) {
+        await autoSaveQuote();
+      }
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, [isModalOpen, isDirty]);
+
+  const autoSaveQuote = async () => {
+    setSaveStatus('saving');
+    const { formData: currentForm, includedServicesList: inclusions, exclusionsList: exclusions } = latestFormStateRef.current;
+    
+    const method = editingQuoteRef.current ? 'PATCH' : 'POST';
+    const url = editingQuoteRef.current 
+      ? `/api/cms/admin/notice-board/${editingQuoteRef.current.id}` 
+      : '/api/cms/admin/notice-board';
+
+    try {
+      const rawAddOns = currentForm.optionalAddOns.map(a => ({ name: a.name, price: Number(a.price) * 100 }));
+      
+      const payload = {
+        ...currentForm,
+        isAutoSave: true,
+        // Convert dollar inputs to cents for server
+        customQuoteAmount: currentForm.customQuoteAmount ? Math.round(Number(currentForm.customQuoteAmount) * 100) : null,
+        depositRequired: currentForm.depositRequired ? Math.round(Number(currentForm.depositRequired) * 100) : null,
+        specialDiscount: currentForm.specialDiscount ? Math.round(Number(currentForm.specialDiscount) * 100) : null,
+        optionalAddOns: JSON.stringify(rawAddOns),
+        projectScope: JSON.stringify(currentForm.projectScope),
+        clientAssets: JSON.stringify(currentForm.clientAssets),
+        services: JSON.stringify(currentForm.services),
+        
+        // Auto-serialize structured lists
+        includedServices: inclusions.map(i => `- ${i}`).join('\n'),
+        notIncluded: exclusions.map(e => `- ${e}`).join('\n'),
+        
+        // On first save, auto-transition to under_review if new_request
+        quoteStatus: currentForm.quoteStatus === 'new_request' ? 'under_review' : currentForm.quoteStatus,
+        
+        title: currentForm.title || `${currentForm.clientFirstName} ${currentForm.clientLastName} - ${currentForm.client}`,
+        category: Object.keys(currentForm.services).join(', ') || 'Custom Solution',
+        dueAt: currentForm.quoteExpirationDate || new Date(Date.now() + 14*24*60*60*1000).toISOString(),
+        status: 'new'
+      };
+
+      const res = await fetch(url, {
+        method,
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        const savedQuote = await res.json();
+        setSaveStatus('saved');
+        setLastSaveTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+        setIsDirty(false);
+
+        // Update routing quoteStatus visually
+        setFormData(prev => ({ ...prev, quoteStatus: payload.quoteStatus }));
+
+        if (!editingQuoteRef.current) {
+          setEditingQuote(savedQuote);
+          editingQuoteRef.current = savedQuote;
+        }
+        fetchQuotes();
+      } else {
+        setSaveStatus('error');
+      }
+    } catch (err) {
+      setSaveStatus('error');
+    }
+  };
+
   const handleOpenModal = (quote = null) => {
     if (quote) {
       setEditingQuote(quote);
+      editingQuoteRef.current = quote;
       const servicesData = typeof quote.services === 'string' ? JSON.parse(quote.services) : (quote.services || {});
       
       let parsedScope = {
@@ -337,6 +449,19 @@ const AdminQuotes = () => {
           parsedAddOns = Array.isArray(rawAddOns) ? rawAddOns.map(a => ({ name: a.name, price: a.price ? a.price / 100 : '' })) : [];
         } catch (e) { console.error(e); }
       }
+
+      // Parse structured lists
+      let inclusions = [];
+      if (quote.includedServices) {
+        inclusions = quote.includedServices.split('\n').map(s => s.trim().replace(/^-\s*/, '')).filter(Boolean);
+      }
+      setIncludedServicesList(inclusions);
+
+      let exclusions = [];
+      if (quote.notIncluded) {
+        exclusions = quote.notIncluded.split('\n').map(s => s.trim().replace(/^-\s*/, '')).filter(Boolean);
+      }
+      setExclusionsList(exclusions);
 
       setFormData({
         title: quote.title || '',
@@ -393,22 +518,22 @@ const AdminQuotes = () => {
         quoteExpirationDate: quote.quoteExpirationDate ? String(quote.quoteExpirationDate).slice(0, 10) : '',
         
         quoteStatus: quote.quoteStatus || 'new_request',
-        clientUrgency: quote.clientUrgency || 'medium',
-        clientQuality: quote.clientQuality || 'average',
-        potentialUpsell: quote.potentialUpsell || '',
-        followUpReminder: quote.followUpReminder ? String(quote.followUpReminder).slice(0, 10) : '',
-        salesStatus: quote.salesStatus || 'Lead',
-        lastContactDate: quote.lastContactDate ? String(quote.lastContactDate).slice(0, 10) : '',
-        nextFollowUpDate: quote.nextFollowUpDate ? String(quote.nextFollowUpDate).slice(0, 10) : '',
         assignedTo: quote.assignedTo || '',
         notes: quote.notes || '',
-        description: quote.description || '', // Project summary/solution recommendation
+        description: quote.description || '', 
         stripeCheckoutUrl: quote.stripeCheckoutUrl || ''
       });
       setValidatedEmail(quote.assignedTo || '');
       validatedEmailRef.current = quote.assignedTo || '';
+      
+      setSaveStatus('saved');
+      setLastSaveTime(null);
+      setIsDirty(false);
     } else {
       setEditingQuote(null);
+      editingQuoteRef.current = null;
+      setIncludedServicesList([]);
+      setExclusionsList([]);
       setFormData({
         title: '', client: '', clientFirstName: '', clientLastName: '',
         clientEmail: '', clientPhone: '', clientDialCode: '+1',
@@ -434,20 +559,44 @@ const AdminQuotes = () => {
         recommendedPackage: '',
         customQuoteAmount: '', depositRequired: '', estimatedCompletionTime: '',
         includedServices: '', notIncluded: '', optionalAddOns: [], monthlySupportOption: '',
-        specialDiscount: '', quoteExpirationDate: '',
-        quoteStatus: 'new_request', clientUrgency: 'medium', clientQuality: 'average',
-        potentialUpsell: '', followUpReminder: '', salesStatus: 'Lead',
-        lastContactDate: '', nextFollowUpDate: '', assignedTo: '', notes: '', description: '',
+        specialDiscount: '', 
+        quoteExpirationDate: (() => {
+          const d = new Date();
+          d.setDate(d.getDate() + 14);
+          return d.toISOString().slice(0, 10);
+        })(),
+        quoteStatus: 'new_request', assignedTo: '', notes: '', description: '',
         stripeCheckoutUrl: ''
       });
       setValidatedEmail('');
       validatedEmailRef.current = '';
+      
+      setSaveStatus('saved');
+      setLastSaveTime(null);
+      setIsDirty(false);
     }
     setIsModalOpen(true);
   };
 
   const handleSave = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
+    
+    // Core pre-send validations before manual save
+    if (!formData.customQuoteAmount || !formData.depositRequired) {
+      showToast('Custom Quote Amount and Deposit Required fields are required.', 'error');
+      return;
+    }
+
+    if (includedServicesList.length === 0) {
+      showToast('You must add at least one included service/deliverable.', 'error');
+      return;
+    }
+
+    if (!formData.description) {
+      showToast('Recommended Solution Summary is required.', 'error');
+      return;
+    }
+
     setLoading(true);
     const method = editingQuote ? 'PATCH' : 'POST';
     const url = editingQuote 
@@ -459,7 +608,6 @@ const AdminQuotes = () => {
       
       const payload = {
         ...formData,
-        // Convert dollar inputs to cents for server
         customQuoteAmount: formData.customQuoteAmount ? Math.round(Number(formData.customQuoteAmount) * 100) : null,
         depositRequired: formData.depositRequired ? Math.round(Number(formData.depositRequired) * 100) : null,
         specialDiscount: formData.specialDiscount ? Math.round(Number(formData.specialDiscount) * 100) : null,
@@ -468,30 +616,28 @@ const AdminQuotes = () => {
         clientAssets: JSON.stringify(formData.clientAssets),
         services: JSON.stringify(formData.services),
         
-        // Auto set properties from Quote Form to keep noticeboard compatible
+        includedServices: includedServicesList.map(i => `- ${i}`).join('\n'),
+        notIncluded: exclusionsList.map(e => `- ${e}`).join('\n'),
+        
         title: formData.title || `${formData.clientFirstName} ${formData.clientLastName} - ${formData.client}`,
         category: Object.keys(formData.services).join(', ') || 'Custom Solution',
-        dueAt: formData.quoteExpirationDate || new Date(Date.now() + 14*24*60*60*1000).toISOString(), // Default expiry as due date if empty
-        status: 'new' // fallback job status
+        dueAt: formData.quoteExpirationDate || new Date(Date.now() + 14*24*60*60*1000).toISOString(),
+        status: 'new'
       };
-
-      // FormData is needed for Multer on backend even if no file is uploaded.
-      const fd = new FormData();
-      Object.keys(payload).forEach(key => {
-        if (payload[key] !== null && payload[key] !== undefined) {
-          fd.append(key, typeof payload[key] === 'object' ? JSON.stringify(payload[key]) : payload[key]);
-        }
-      });
 
       const res = await fetch(url, {
         method,
-        headers: { 'Authorization': `Bearer ${token}` },
-        body: fd
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
+        body: JSON.stringify(payload)
       });
 
       if (res.ok) {
         showToast(`Quote draft ${editingQuote ? 'updated' : 'created'} successfully!`, 'success');
         setIsModalOpen(false);
+        setIsDirty(false);
         fetchQuotes();
       } else {
         const error = await res.json();
@@ -505,6 +651,13 @@ const AdminQuotes = () => {
   };
 
   const handleSendQuote = async (id) => {
+    // Check if the current form parameters are saved before finalized
+    if (isDirty) {
+      if (!window.confirm('You have unsaved changes in your quote builder. Sending the quote now will submit the last saved draft. Continue?')) {
+        return;
+      }
+    }
+
     if (!window.confirm('Are you sure you want to finalize and send this quote proposal to the client? This will generate a Stripe checkout link.')) return;
     setSendingQuoteId(id);
     try {
@@ -518,6 +671,7 @@ const AdminQuotes = () => {
       const data = await res.json();
       if (res.ok) {
         showToast('Quote compiled & emailed to client successfully!', 'success');
+        setIsModalOpen(false);
         fetchQuotes();
       } else {
         showToast(data.error || 'Failed to compile or email quote. Check pricing fields.', 'error');
@@ -529,14 +683,40 @@ const AdminQuotes = () => {
     }
   };
 
+  const handleAddInclusion = (e) => {
+    e.preventDefault();
+    if (newInclusion.trim()) {
+      setIsDirty(true);
+      setIncludedServicesList([...includedServicesList, newInclusion.trim()]);
+      setNewInclusion('');
+    }
+  };
+
+  const handleRemoveInclusion = (index) => {
+    setIsDirty(true);
+    setIncludedServicesList(includedServicesList.filter((_, idx) => idx !== index));
+  };
+
+  const handleAddExclusion = (e) => {
+    e.preventDefault();
+    if (newExclusion.trim()) {
+      setIsDirty(true);
+      setExclusionsList([...exclusionsList, newExclusion.trim()]);
+      setNewExclusion('');
+    }
+  };
+
+  const handleRemoveExclusion = (index) => {
+    setIsDirty(true);
+    setExclusionsList(exclusionsList.filter((_, idx) => idx !== index));
+  };
+
   // Filter quotes based on search and tab filters
   const filteredQuotes = quotes.filter(q => {
-    // We treat jobs with quoteStatus set as quotes. Or all request jobs since we added quoteStatus defaults.
     const matchesSearch = (q.client || '').toLowerCase().includes(searchTerm.toLowerCase()) || 
                           (q.clientFirstName || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
                           (q.clientLastName || '').toLowerCase().includes(searchTerm.toLowerCase());
     
-    // Status filters
     let matchesFilter = false;
     if (filter === 'all') {
       matchesFilter = true;
@@ -603,6 +783,788 @@ const AdminQuotes = () => {
     );
   };
 
+  // ──────────────────────────────────────────
+  // FULL PAGE OVERLAY FOCUS MODE BUILDER
+  // ──────────────────────────────────────────
+  if (isModalOpen) {
+    // Live variables calculated for previewing
+    const clientName = `${formData.clientFirstName || ''} ${formData.clientLastName || ''}`.trim() || 'Client';
+    const totalVal = Number(formData.customQuoteAmount) || 0;
+    const depVal = Number(formData.depositRequired) || 0;
+    const balVal = totalVal - depVal;
+
+    return (
+      <div className="fixed inset-0 z-50 bg-slate-50 flex flex-col h-screen overflow-hidden text-slate-800" style={{ fontFamily: "'Outfit', sans-serif" }}>
+        
+        {/* Editor Header */}
+        <header className="h-16 border-b border-slate-200 bg-white flex items-center justify-between px-6 flex-shrink-0 shadow-xs">
+          <div className="flex items-center space-x-4">
+            <button 
+              onClick={() => {
+                if (isDirty) {
+                  if (!window.confirm('You have unsaved changes. Are you sure you want to close?')) return;
+                }
+                setIsModalOpen(false);
+              }}
+              className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-all"
+              title="Return to Quotes Table"
+            >
+              <FaArrowLeft size={16} />
+            </button>
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-sm font-black text-slate-800">
+                  {editingQuote ? `Quote Builder (#${editingQuote.id})` : 'New Quote proposal'}
+                </h2>
+                {getQuoteStatusBadge(formData.quoteStatus)}
+              </div>
+              <p className="text-[10px] text-slate-400 font-semibold mt-0.5">
+                {formData.clientFirstName ? `${formData.clientFirstName} ${formData.clientLastName} - ${formData.client}` : 'Draft opportunity'}
+              </p>
+            </div>
+          </div>
+
+          {/* Save & Draft statuses */}
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 text-[11px] font-bold">
+              {saveStatus === 'saving' && (
+                <span className="text-slate-400 flex items-center gap-1">
+                  <div className="w-3 h-3 border-2 border-slate-400 border-t-transparent rounded-full animate-spin" />
+                  Auto-saving draft...
+                </span>
+              )}
+              {saveStatus === 'saved' && (
+                <span className="text-emerald-600 flex items-center gap-1.5">
+                  <FaCheckCircle />
+                  {lastSaveTime ? `Saved at ${lastSaveTime}` : 'All changes saved'}
+                </span>
+              )}
+              {saveStatus === 'error' && (
+                <span className="text-rose-600 flex items-center gap-1.5">
+                  <FaExclamationTriangle />
+                  Failed to auto-save
+                </span>
+              )}
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => handleSave()}
+                className="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold text-xs transition-all shadow-xs"
+              >
+                Save Draft
+              </button>
+              
+              {editingQuote && (
+                <button
+                  onClick={() => handleSendQuote(editingQuote.id)}
+                  disabled={sendingQuoteId === editingQuote.id || !formData.customQuoteAmount}
+                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-all shadow-md shadow-blue-100 flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  {sendingQuoteId === editingQuote.id ? (
+                    <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <FaPaperPlane size={11} />
+                      <span>Send Quote Proposal</span>
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
+          </div>
+        </header>
+
+        {/* 3 Panel Workspace */}
+        <div className="flex flex-1 overflow-hidden h-[calc(100vh-64px)]">
+          
+          {/* LEFT PANEL: Client Snapshot (Read-only) */}
+          <aside className="w-80 border-r border-slate-200 bg-slate-50/50 overflow-y-auto p-5 space-y-6 flex-shrink-0">
+            <div>
+              <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 pb-1 border-b border-slate-200/60">
+                Client Snapshot
+              </h3>
+              
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded-xl border border-slate-150 shadow-xs space-y-2 text-xs">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                      <FaUser size={12} />
+                    </div>
+                    <div>
+                      <p className="font-bold text-slate-800 truncate max-w-[170px]">{clientName}</p>
+                      <p className="text-[10px] text-slate-400 font-medium truncate max-w-[170px]">{formData.client}</p>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-50 space-y-1.5 text-[11px] font-medium text-slate-500">
+                    <p className="truncate flex items-center gap-1.5">
+                      <FaEnvelope className="text-slate-400" />
+                      <span>{formData.clientEmail || 'N/A'}</span>
+                    </p>
+                    <p className="truncate flex items-center gap-1.5">
+                      <FaPhone className="text-slate-400" />
+                      <span>{formData.clientDialCode} {formData.clientPhone || 'N/A'}</span>
+                    </p>
+                    {formData.clientWebsite && (
+                      <p className="truncate flex items-center gap-1.5">
+                        <FaGlobe className="text-slate-400" />
+                        <a 
+                          href={formData.clientWebsite.startsWith('http') ? formData.clientWebsite : `https://${formData.clientWebsite}`} 
+                          target="_blank" 
+                          rel="noreferrer" 
+                          className="text-blue-500 hover:underline"
+                        >
+                          {formData.clientWebsite}
+                        </a>
+                      </p>
+                    )}
+                    {formData.clientLocation && (
+                      <p className="truncate flex items-center gap-1.5">
+                        <FaMapMarkerAlt className="text-slate-400" />
+                        <span>{formData.clientLocation}</span>
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Requested Services */}
+            <div>
+              <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 pb-1 border-b border-slate-200/60">
+                Requested Services
+              </h3>
+              
+              {Object.keys(formData.services).length === 0 ? (
+                <p className="text-[11px] text-slate-400 italic">No services specified yet.</p>
+              ) : (
+                <div className="flex flex-wrap gap-1.5">
+                  {Object.entries(formData.services).map(([svc, pack]) => (
+                    <span 
+                      key={svc} 
+                      className="bg-indigo-50 border border-indigo-100 text-indigo-700 font-semibold text-[10px] px-2 py-0.5 rounded-lg flex items-center gap-1 uppercase tracking-wide"
+                    >
+                      {svc.replace(/Request Custom Quote - /g, '')}
+                      <span className="bg-indigo-600/10 text-indigo-800 text-[8px] font-black px-1 rounded uppercase">
+                        {pack}
+                      </span>
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Submissions & Project Parameters */}
+            <div>
+              <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 pb-1 border-b border-slate-200/60">
+                Original Request Parameters
+              </h3>
+              
+              <div className="space-y-3 text-[11px] font-medium text-slate-500 bg-white border border-slate-150 p-4 rounded-xl shadow-xs">
+                <div>
+                  <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">Client Timeline Preference</span>
+                  <span className="text-slate-800 font-bold block mt-0.5">{formData.timeline || 'Flexible'}</span>
+                </div>
+                <div>
+                  <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">Client Budget Expectation</span>
+                  <span className="text-slate-800 font-bold block mt-0.5">{formData.budget || 'Not specified'}</span>
+                </div>
+                <div>
+                  <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">Support Level Preference</span>
+                  <span className="text-slate-800 font-bold block mt-0.5">{formData.levelOfSupport || 'One-time project'}</span>
+                </div>
+                <div>
+                  <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">Problem to Solve</span>
+                  <p className="text-slate-700 bg-slate-50 p-2 rounded-lg border border-slate-100 text-[10px] leading-relaxed mt-1 font-semibold whitespace-pre-line">
+                    {formData.currentProblem || 'No problem statement submitted.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Dynamic Specifications */}
+            {editingQuote && editingQuote.projectScope && (
+              <div>
+                <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 pb-1 border-b border-slate-200/60">
+                  Dynamic Spec Responses
+                </h3>
+                
+                <div className="bg-slate-900 text-slate-300 p-4 rounded-xl border border-slate-800 text-[10px] font-medium space-y-3 max-h-56 overflow-y-auto">
+                  {(() => {
+                    const scope = typeof editingQuote.projectScope === 'string' ? JSON.parse(editingQuote.projectScope) : editingQuote.projectScope;
+                    const answers = scope.customQuoteAnswers || {};
+                    if (Object.keys(answers).length === 0) {
+                      return <p className="italic text-slate-500 text-center py-2">No dynamic responses.</p>;
+                    }
+                    
+                    return Object.entries(answers).map(([key, val]) => {
+                      if (!val || (Array.isArray(val) && val.length === 0)) return null;
+                      return (
+                        <div key={key} className="space-y-0.5 border-b border-slate-800 pb-2 last:border-0 last:pb-0">
+                          <span className="text-[8px] text-slate-500 uppercase font-black tracking-wider block">{key.replace(/([A-Z])/g, ' $1')}</span>
+                          <span className="text-white block font-semibold leading-relaxed">{Array.isArray(val) ? val.join(', ') : val}</span>
+                        </div>
+                      );
+                    });
+                  })()}
+                </div>
+              </div>
+            )}
+          </aside>
+
+          {/* CENTER PANEL: Quote Builder (Interactive) */}
+          <main className="flex-1 bg-white overflow-y-auto p-8 space-y-8">
+            
+            {/* SECTION A: Quote Identity */}
+            <div className="space-y-4">
+              <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest border-b border-slate-100 pb-2 flex items-center gap-2">
+                <span className="w-5 h-5 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-[10px] font-black">1</span>
+                Proposal Identity & Expiration
+              </h3>
+              
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Official Proposal Title *</label>
+                  <input 
+                    required 
+                    type="text" 
+                    name="title" 
+                    placeholder="e.g. Website Redesign & Stripe Payment Suite" 
+                    value={formData.title} 
+                    onChange={handleInputChange} 
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-xs transition-all font-bold text-slate-700" 
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Recommended Package Name</label>
+                  <input 
+                    type="text" 
+                    name="recommendedPackage" 
+                    placeholder="e.g. Custom React Redesign Suite" 
+                    value={formData.recommendedPackage} 
+                    onChange={handleInputChange} 
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-xs transition-all font-medium text-slate-600" 
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Quote Expiration Date</label>
+                  <input 
+                    type="date" 
+                    name="quoteExpirationDate" 
+                    value={formData.quoteExpirationDate} 
+                    onChange={handleInputChange} 
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-xs transition-all bg-white font-medium" 
+                  />
+                </div>
+                <div className="sm:col-span-2 lg:col-span-1">
+                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Est. Duration / Completed In</label>
+                  <input 
+                    type="text" 
+                    placeholder="e.g. 10 business days" 
+                    name="estimatedCompletionTime" 
+                    value={formData.estimatedCompletionTime} 
+                    onChange={handleInputChange} 
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-xs transition-all font-medium text-slate-600" 
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* SECTION B: Pricing */}
+            <div className="space-y-4">
+              <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest border-b border-slate-100 pb-2 flex items-center gap-2">
+                <span className="w-5 h-5 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-[10px] font-black">2</span>
+                Financial & Pricing Builder
+              </h3>
+
+              <div className="grid sm:grid-cols-3 gap-5">
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Total Quote Amount (USD) *</label>
+                  <div className="relative">
+                    <span className="absolute left-3.5 top-2 text-slate-400 font-bold text-xs">$</span>
+                    <input 
+                      required 
+                      type="number" 
+                      placeholder="2500" 
+                      name="customQuoteAmount" 
+                      value={formData.customQuoteAmount} 
+                      onChange={handleInputChange} 
+                      className="w-full pl-8 pr-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-xs transition-all font-bold text-slate-700" 
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Deposit Required (USD) *</label>
+                  <div className="relative">
+                    <span className="absolute left-3.5 top-2 text-slate-400 font-bold text-xs">$</span>
+                    <input 
+                      required 
+                      type="number" 
+                      placeholder="1250" 
+                      name="depositRequired" 
+                      value={formData.depositRequired} 
+                      onChange={handleInputChange} 
+                      className="w-full pl-8 pr-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-xs transition-all font-bold text-indigo-600" 
+                    />
+                  </div>
+                  <span className="text-[9px] text-slate-400 font-semibold block mt-1">Suggested 50% calculated automatically.</span>
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Special Discount, if any (USD)</label>
+                  <div className="relative">
+                    <span className="absolute left-3.5 top-2 text-slate-400 font-bold text-xs">$</span>
+                    <input 
+                      type="number" 
+                      placeholder="e.g. 250" 
+                      name="specialDiscount" 
+                      value={formData.specialDiscount} 
+                      onChange={handleInputChange} 
+                      className="w-full pl-8 pr-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-xs transition-all font-semibold text-slate-600" 
+                    />
+                  </div>
+                </div>
+
+                <div className="sm:col-span-3">
+                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Monthly Retainer Support Option (Optional)</label>
+                  <input 
+                    type="text" 
+                    placeholder="e.g. $250/mo for weekly maintenance retainer support post-launch" 
+                    name="monthlySupportOption" 
+                    value={formData.monthlySupportOption} 
+                    onChange={handleInputChange} 
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-xs transition-all text-slate-600 font-semibold" 
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* SECTION C: Deliverables (Interactive Lists) */}
+            <div className="space-y-4">
+              <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest border-b border-slate-100 pb-2 flex items-center gap-2">
+                <span className="w-5 h-5 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-[10px] font-black">3</span>
+                Deliverables & Scope Parameters
+              </h3>
+
+              <div className="grid sm:grid-cols-2 gap-6">
+                
+                {/* Included Services Add/Remove List */}
+                <div className="bg-slate-50 border border-slate-150 p-5 rounded-2xl space-y-4 shadow-2xs">
+                  <div className="flex items-center justify-between">
+                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500">Included Services & Deliverables *</label>
+                    <span className="text-[9px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100/50 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                      {includedServicesList.length} items
+                    </span>
+                  </div>
+
+                  <form onSubmit={handleAddInclusion} className="flex gap-2">
+                    <input 
+                      type="text" 
+                      placeholder="Add an included deliverable item..." 
+                      value={newInclusion} 
+                      onChange={e => setNewInclusion(e.target.value)} 
+                      className="flex-1 px-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none bg-white font-semibold" 
+                    />
+                    <button 
+                      type="submit" 
+                      className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-xs transition-all flex items-center justify-center"
+                    >
+                      +
+                    </button>
+                  </form>
+
+                  {includedServicesList.length === 0 ? (
+                    <p className="text-[10px] text-slate-400 italic text-center py-6">No deliverables added yet. At least one required.</p>
+                  ) : (
+                    <ul className="space-y-2 max-h-56 overflow-y-auto">
+                      {includedServicesList.map((item, idx) => (
+                        <li 
+                          key={idx} 
+                          className="flex items-center justify-between p-2.5 bg-white border border-slate-150 rounded-xl text-xs hover:border-slate-300 transition-all shadow-3xs"
+                        >
+                          <span className="font-semibold text-slate-700 max-w-[200px] truncate" title={item}>✓ {item}</span>
+                          <button 
+                            type="button" 
+                            onClick={() => handleRemoveInclusion(idx)} 
+                            className="text-rose-500 hover:text-rose-600 p-1 hover:bg-rose-50 rounded-lg transition-colors flex-shrink-0"
+                          >
+                            <FaTrashAlt size={10} />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+
+                {/* Exclusions Add/Remove List */}
+                <div className="bg-slate-50 border border-slate-150 p-5 rounded-2xl space-y-4 shadow-2xs">
+                  <div className="flex items-center justify-between">
+                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500">Exclusions (What is NOT Included)</label>
+                    <span className="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                      {exclusionsList.length} items
+                    </span>
+                  </div>
+
+                  <form onSubmit={handleAddExclusion} className="flex gap-2">
+                    <input 
+                      type="text" 
+                      placeholder="Add an exclusion item..." 
+                      value={newExclusion} 
+                      onChange={e => setNewExclusion(e.target.value)} 
+                      className="flex-1 px-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none bg-white font-semibold" 
+                    />
+                    <button 
+                      type="submit" 
+                      className="px-3 py-1.5 bg-slate-600 hover:bg-slate-700 text-white rounded-xl font-black text-xs transition-all flex items-center justify-center"
+                    >
+                      +
+                    </button>
+                  </form>
+
+                  {exclusionsList.length === 0 ? (
+                    <p className="text-[10px] text-slate-400 italic text-center py-6">No exclusions specified. All items considered included.</p>
+                  ) : (
+                    <ul className="space-y-2 max-h-56 overflow-y-auto">
+                      {exclusionsList.map((item, idx) => (
+                        <li 
+                          key={idx} 
+                          className="flex items-center justify-between p-2.5 bg-white border border-slate-150 rounded-xl text-xs hover:border-slate-300 transition-all shadow-3xs"
+                        >
+                          <span className="font-semibold text-slate-600 max-w-[200px] truncate" title={item}>✕ {item}</span>
+                          <button 
+                            type="button" 
+                            onClick={() => handleRemoveExclusion(idx)} 
+                            className="text-rose-500 hover:text-rose-600 p-1 hover:bg-rose-50 rounded-lg transition-colors flex-shrink-0"
+                          >
+                            <FaTrashAlt size={10} />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+
+              </div>
+
+              {/* Optional Upgrades Repeater */}
+              <div className="bg-slate-50 p-5 border border-slate-150 rounded-2xl space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider">Optional Quote Upgrades (Add-ons)</span>
+                  <button 
+                    type="button" 
+                    onClick={addAddOn}
+                    className="text-[10px] font-black text-blue-600 hover:text-blue-700 flex items-center gap-1 uppercase tracking-wide"
+                  >
+                    <FaPlusCircle /> Add Upgrade Option
+                  </button>
+                </div>
+
+                {formData.optionalAddOns.length === 0 ? (
+                  <p className="text-[10px] text-slate-400 italic text-center py-4">No optional upgrades specified for this proposal.</p>
+                ) : (
+                  <div className="space-y-3">
+                    {formData.optionalAddOns.map((add, idx) => (
+                      <div key={idx} className="flex gap-4 items-center">
+                        <input 
+                          type="text" 
+                          placeholder="Upgrade Deliverable (e.g. Custom Revision round)"
+                          value={add.name}
+                          onChange={e => updateAddOn(idx, 'name', e.target.value)}
+                          className="flex-1 px-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 bg-white outline-none font-semibold text-slate-700"
+                        />
+                        <div className="relative w-28 flex-shrink-0">
+                          <span className="absolute left-2.5 top-1.5 text-slate-400 text-xs">$</span>
+                          <input 
+                            type="number" 
+                            placeholder="Price"
+                            value={add.price}
+                            onChange={e => updateAddOn(idx, 'price', e.target.value)}
+                            className="w-full pl-6 pr-2.5 py-1.5 text-xs rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 bg-white outline-none font-bold text-slate-700"
+                          />
+                        </div>
+                        <button 
+                          type="button" 
+                          onClick={() => removeAddOn(idx)}
+                          className="text-rose-500 hover:text-rose-600 p-1.5 rounded hover:bg-rose-50 transition-colors flex-shrink-0"
+                        >
+                          <FaTrashAlt size={12} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* SECTION D: Solution Summary */}
+            <div className="space-y-4">
+              <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest border-b border-slate-100 pb-2 flex items-center gap-2">
+                <span className="w-5 h-5 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-[10px] font-black">4</span>
+                Solution Overview Summary
+              </h3>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Recommended Solution Summary (Included in Quote Email) *</label>
+                  <textarea 
+                    required
+                    rows={4} 
+                    name="description"
+                    value={formData.description} 
+                    onChange={handleInputChange} 
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-xs transition-all text-slate-700 font-semibold leading-relaxed" 
+                    placeholder="Provide a professional summary explaining why this custom architecture resolves their operational roadblocks..."
+                  />
+                </div>
+              </div>
+            </div>
+          </main>
+
+          {/* RIGHT PANEL: Live Previews (Dark Layout) */}
+          <aside className="w-[480px] border-l border-slate-200 bg-slate-950 overflow-y-auto flex flex-col flex-shrink-0 relative">
+            
+            {/* Preview Navigation Tabs */}
+            <div className="flex h-12 border-b border-slate-900 bg-slate-950/80 sticky top-0 z-20 backdrop-blur-md">
+              <button
+                onClick={() => setPreviewTab('email')}
+                className={`flex-1 text-[10px] font-black tracking-widest uppercase text-center transition-all ${
+                  previewTab === 'email' 
+                    ? 'border-b-2 border-indigo-500 text-white bg-slate-900/30' 
+                    : 'text-slate-500 hover:text-slate-300'
+                }`}
+              >
+                Email Client Proposal
+              </button>
+              <button
+                onClick={() => setPreviewTab('portal')}
+                className={`flex-1 text-[10px] font-black tracking-widest uppercase text-center transition-all ${
+                  previewTab === 'portal' 
+                    ? 'border-b-2 border-indigo-500 text-white bg-slate-900/30' 
+                    : 'text-slate-500 hover:text-slate-300'
+                }`}
+              >
+                Interactive Portal View
+              </button>
+            </div>
+
+            {/* Live Render Area */}
+            <div className="p-6 flex-1 bg-slate-950 text-slate-300 select-none">
+              
+              {previewTab === 'email' ? (
+                /* EMAIL PREVIEW */
+                <div className="max-w-[400px] mx-auto bg-white border border-slate-800 text-slate-800 p-6 rounded-2xl space-y-5 text-[11px] leading-relaxed shadow-xl">
+                  <div className="text-center pb-2 border-b border-slate-100">
+                    <span className="text-[9px] font-black bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded uppercase tracking-wider">
+                      Official Quote Proposal
+                    </span>
+                    <h1 className="text-sm font-black text-slate-950 mt-2">
+                      Quote: {formData.title || 'Proposal Title'}
+                    </h1>
+                    <p className="text-[10px] text-slate-400 mt-0.5">
+                      Prepared for <strong>{clientName}</strong> at <strong>{formData.client || 'Client Business'}</strong>
+                    </p>
+                  </div>
+
+                  <div className="bg-slate-50 border border-slate-200/50 p-4 rounded-xl space-y-2.5">
+                    <h4 className="text-[9px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-200/40 pb-1">
+                      Financial Summary
+                    </h4>
+                    <div className="space-y-1.5 font-semibold text-slate-600">
+                      <div className="flex justify-between">
+                        <span>Total Project Quote:</span>
+                        <span className="text-slate-900 font-bold">{formatPrice(totalVal * 100)}</span>
+                      </div>
+                      <div className="flex justify-between border-b border-dashed border-slate-200 pb-1.5">
+                        <span>Deposit Required:</span>
+                        <span className="text-indigo-600 font-bold">{formatPrice(depVal * 100)}</span>
+                      </div>
+                      <div className="flex justify-between pt-1">
+                        <span>Balance Due:</span>
+                        <span className="text-slate-900 font-bold">{formatPrice(balVal * 100)}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="pt-2 border-t border-slate-200/50 flex justify-between text-[9px] text-slate-400">
+                      <span><strong>Timeline:</strong> {formData.estimatedCompletionTime || 'Flexible'}</span>
+                      <span><strong>Expires:</strong> {formData.quoteExpirationDate ? new Date(formData.quoteExpirationDate).toLocaleDateString() : 'N/A'}</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="text-[9px] font-black uppercase tracking-wider text-slate-400 block mb-1">
+                        Solution recommendation
+                      </h4>
+                      <p className="text-slate-600 leading-normal font-medium whitespace-pre-wrap">
+                        {formData.description || 'Solution summary summary details will render here.'}
+                      </p>
+                    </div>
+
+                    <div>
+                      <h4 className="text-[9px] font-black uppercase tracking-wider text-slate-400 block mb-1">
+                        Included Services
+                      </h4>
+                      {includedServicesList.length === 0 ? (
+                        <p className="text-slate-400 italic">No inclusions listed.</p>
+                      ) : (
+                        <ul className="list-disc pl-4 text-slate-600 space-y-1 font-medium">
+                          {includedServicesList.map((inc, i) => (
+                            <li key={i}>{inc}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+
+                    {exclusionsList.length > 0 && (
+                      <div>
+                        <h4 className="text-[9px] font-black uppercase tracking-wider text-slate-400 block mb-1">
+                          What is NOT included
+                        </h4>
+                        <ul className="list-disc pl-4 text-slate-500 space-y-1 font-medium">
+                          {exclusionsList.map((exc, i) => (
+                            <li key={i}>{exc}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {formData.optionalAddOns.length > 0 && (
+                      <div>
+                        <h4 className="text-[9px] font-black uppercase tracking-wider text-slate-400 block mb-1">
+                          Optional Add-ons
+                        </h4>
+                        <table className="w-full text-slate-600 font-medium border-collapse">
+                          <tbody>
+                            {formData.optionalAddOns.map((add, i) => (
+                              <tr key={i} className="border-b border-slate-100 last:border-0">
+                                <td className="py-1">+ {add.name || 'Upgrade Deliverable'}</td>
+                                <td className="py-1 text-right text-indigo-600 font-bold">
+                                  {add.price ? formatPrice(Number(add.price) * 100) : '$0.00'}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="bg-blue-50 border border-blue-150 p-4 rounded-xl space-y-3 text-center">
+                    <p className="text-blue-800 text-[10px] font-medium leading-relaxed">
+                      To accept this proposal, approve the quote and pay the deposit via the secure link.
+                    </p>
+                    <button type="button" className="w-full py-2 bg-blue-600 text-white font-bold rounded-lg shadow-sm hover:shadow active:scale-95 transition-all text-xs">
+                      Approve Proposal & Pay Deposit
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                /* PORTAL PREVIEW */
+                <div className="max-w-[420px] mx-auto bg-[#04060a] border border-slate-850 p-6 rounded-2xl space-y-6 text-white text-[10px] leading-relaxed shadow-2xl relative overflow-hidden">
+                  <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500/5 rounded-full blur-[60px]" />
+                  
+                  {/* Banner */}
+                  <div className="bg-white/5 border border-white/10 p-4 rounded-xl space-y-2 relative z-10">
+                    <div className="flex gap-1.5">
+                      <span className="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">
+                        Official Proposal Portal
+                      </span>
+                    </div>
+                    <h2 className="text-xs font-black text-white mt-1 leading-snug">
+                      {formData.title || 'Proposal Title'}
+                    </h2>
+                    <p className="text-slate-400 text-[9px]">Prepared for {formData.client}</p>
+                  </div>
+
+                  {/* Highlights Grid */}
+                  <div className="grid grid-cols-2 gap-3 relative z-10">
+                    <div className="bg-white/5 border border-white/10 p-3 rounded-lg">
+                      <span className="text-[8px] font-black text-slate-500 uppercase tracking-wider block">Recommended Package</span>
+                      <span className="font-bold text-white block mt-0.5 truncate">{formData.recommendedPackage || 'Custom Package'}</span>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 p-3 rounded-lg">
+                      <span className="text-[8px] font-black text-slate-500 uppercase tracking-wider block">Est. Completion</span>
+                      <span className="font-bold text-white block mt-0.5 truncate">{formData.estimatedCompletionTime || 'To Be Confirmed'}</span>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 p-3 rounded-lg">
+                      <span className="text-[8px] font-black text-slate-500 uppercase tracking-wider block">Total Project Fee</span>
+                      <span className="font-bold text-emerald-400 block mt-0.5">{formatPrice(totalVal * 100)}</span>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 p-3 rounded-lg">
+                      <span className="text-[8px] font-black text-slate-500 uppercase tracking-wider block">Deposit Required (50%)</span>
+                      <span className="font-bold text-white block mt-0.5">{formatPrice(depVal * 100)}</span>
+                    </div>
+                  </div>
+
+                  {/* Inclusions / Exclusions */}
+                  <div className="grid grid-cols-2 gap-3 relative z-10">
+                    <div className="bg-white/5 border border-white/5 rounded-lg p-3 space-y-2">
+                      <h3 className="font-black text-white uppercase tracking-wider border-b border-white/5 pb-1">Inclusions</h3>
+                      {includedServicesList.length === 0 ? (
+                        <p className="text-slate-500 italic">No inclusions listed.</p>
+                      ) : (
+                        <ul className="space-y-1.5 text-slate-300">
+                          {includedServicesList.map((inc, i) => (
+                            <li key={i} className="truncate">✓ {inc}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                    <div className="bg-white/5 border border-white/5 rounded-lg p-3 space-y-2">
+                      <h3 className="font-black text-white uppercase tracking-wider border-b border-white/5 pb-1">Exclusions</h3>
+                      {exclusionsList.length === 0 ? (
+                        <p className="text-slate-500 italic">No exclusions listed.</p>
+                      ) : (
+                        <ul className="space-y-1.5 text-slate-400">
+                          {exclusionsList.map((exc, i) => (
+                            <li key={i} className="truncate">✕ {exc}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Upgrades */}
+                  {formData.optionalAddOns.length > 0 && (
+                    <div className="bg-white/5 border border-white/5 p-3 rounded-lg space-y-2 relative z-10">
+                      <h3 className="font-black text-white uppercase tracking-wider border-b border-white/5 pb-1">Available Upgrades</h3>
+                      <div className="space-y-1.5">
+                        {formData.optionalAddOns.map((add, i) => (
+                          <div key={i} className="flex justify-between items-center bg-white/5 p-1.5 rounded border border-white/5">
+                            <span className="font-bold truncate max-w-[120px]">{add.name || 'Upgrade Option'}</span>
+                            <span className="font-black text-blue-300">{add.price ? formatPrice(Number(add.price) * 100) : '$0.00'}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Action Block */}
+                  <div className="bg-blue-900/20 border border-blue-500/20 p-4 rounded-xl space-y-3 relative z-10 text-center">
+                    <div>
+                      <h3 className="font-black text-white text-xs leading-none">Accept Proposal & Pay Deposit</h3>
+                      <p className="text-slate-400 text-[8px] mt-1">Locks in production resource allocation and schedules.</p>
+                    </div>
+                    <button type="button" className="w-full py-2 bg-blue-600 text-white font-bold rounded-lg shadow-sm hover:shadow active:scale-95 transition-all text-[9px] uppercase tracking-wider">
+                      Approve & Pay Deposit
+                    </button>
+                  </div>
+                </div>
+              )}
+
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    );
+  }
+
+  // ──────────────────────────────────────────
+  // MAIN QUOTES OPPORTUNITIES LIST VIEW
+  // ──────────────────────────────────────────
   return (
     <AdminLayout pageTitle="Custom Quotes Manager">
       <div className="max-w-7xl mx-auto">
@@ -668,7 +1630,6 @@ const AdminQuotes = () => {
                     <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Opportunity / Client</th>
                     <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Budget / Quote Value</th>
                     <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Timeline / Expiry</th>
-                    <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Lead Info</th>
                     <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
                     <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Actions</th>
                   </tr>
@@ -704,16 +1665,6 @@ const AdminQuotes = () => {
                           <p className="text-[10px] text-slate-400">
                             Expires: {quote.quoteExpirationDate ? new Date(quote.quoteExpirationDate).toLocaleDateString() : 'N/A'}
                           </p>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="space-y-1">
-                            <div className="flex items-center gap-1.5">
-                              <span className="text-[10px] font-bold text-slate-400">Rating:</span>
-                              {getQualityBadge(quote.clientQuality || 'average')}
-                            </div>
-                            <p className="text-[10px] text-slate-500">Urgency: <span className="font-bold">{quote.clientUrgency || 'medium'}</span></p>
-                            <p className="text-[10px] text-slate-400 truncate max-w-[150px]">Rep: {quote.assignedTo || 'Unassigned'}</p>
-                          </div>
                         </td>
                         <td className="px-6 py-4">{getQuoteStatusBadge(quote.quoteStatus || 'new_request')}</td>
                         <td className="px-6 py-4 text-right">
@@ -786,667 +1737,6 @@ const AdminQuotes = () => {
             </div>
           )}
         </div>
-
-        {/* 6-Section Proposal & Custom Quote Builder Modal */}
-        {isModalOpen && (
-          <div className="fixed inset-0 bg-slate-900/60 z-50 overflow-y-auto flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-100 relative animate-in fade-in zoom-in duration-200">
-              <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/60 sticky top-0 z-10 backdrop-blur-md">
-                <div>
-                  <h2 className="text-base font-bold text-slate-800">
-                    {editingQuote ? `Quote Proposal Builder (#${editingQuote.id})` : 'New Custom Quote Proposal'}
-                  </h2>
-                  <p className="text-xs text-slate-400">Configure opportunities, price custom deliverables, and compile links.</p>
-                </div>
-                <button 
-                  onClick={() => setIsModalOpen(false)} 
-                  className="text-slate-400 hover:text-slate-600 text-lg p-1 hover:bg-slate-100 rounded-full transition-all"
-                >
-                  <FaTimes size={14} />
-                </button>
-              </div>
-
-              <form onSubmit={handleSave} className="p-8 space-y-10">
-                
-                {/* SECTION 1: Client Details */}
-                <div className="space-y-4">
-                  <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest border-b border-slate-100 pb-2 flex items-center gap-2">
-                    <span className="w-5 h-5 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xs font-black">1</span>
-                    Client Details
-                  </h3>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">First Name *</label>
-                      <input required type="text" name="clientFirstName" value={formData.clientFirstName} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Last Name *</label>
-                      <input required type="text" name="clientLastName" value={formData.clientLastName} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Business Name *</label>
-                      <input required type="text" name="client" value={formData.client} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Email Address *</label>
-                      <input required type="email" name="clientEmail" value={formData.clientEmail} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" />
-                    </div>
-                    <div className="sm:col-span-2 lg:col-span-1">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Phone Number *</label>
-                      <PhoneInput
-                        value={formData.clientPhone}
-                        dialCode={formData.clientDialCode}
-                        onNumberChange={val => setFormData(p => ({ ...p, clientPhone: val }))}
-                        onDialChange={val => setFormData(p => ({ ...p, clientDialCode: val }))}
-                        py="py-2"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Company Website</label>
-                      <input type="text" name="clientWebsite" placeholder="e.g. www.example.com" value={formData.clientWebsite} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Business Location</label>
-                      <input type="text" name="clientLocation" placeholder="e.g. Chicago, IL" value={formData.clientLocation} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Industry / Business Type</label>
-                      <input type="text" name="clientIndustry" placeholder="e.g. E-Commerce, Retail" value={formData.clientIndustry} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" />
-                    </div>
-                  </div>
-                </div>
-
-                {/* SECTION 2: Service Needed */}
-                <div className="space-y-4">
-                  <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest border-b border-slate-100 pb-2 flex items-center gap-2">
-                    <span className="w-5 h-5 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xs font-black">2</span>
-                    Services Needed
-                  </h3>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {Object.keys(SERVICES_WITH_PACKAGES).map((serviceName) => {
-                      const isSelected = !!formData.services[serviceName];
-                      return (
-                        <label 
-                          key={serviceName} 
-                          className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${
-                            isSelected 
-                              ? 'border-blue-500 bg-blue-50/50 shadow-sm' 
-                              : 'border-slate-200 hover:border-slate-300'
-                          }`}
-                        >
-                          <input 
-                            type="checkbox" 
-                            checked={isSelected}
-                            onChange={() => {
-                              const copy = { ...formData.services };
-                              if (isSelected) {
-                                delete copy[serviceName];
-                              } else {
-                                copy[serviceName] = serviceName.includes('Request Custom Quote') ? 'custom' : 'starter';
-                              }
-                              setFormData(prev => ({ ...prev, services: copy }));
-                            }}
-                            className="w-4 h-4 text-blue-600 rounded mr-2.5" 
-                          />
-                          <span className="text-xs font-semibold text-slate-700 leading-snug">
-                            {serviceName.replace(/Request Custom Quote - /g, '')}
-                          </span>
-                        </label>
-                      );
-                    })}
-                  </div>
-                  {Object.keys(formData.services).some(s => s.includes('Request Custom Quote')) && (
-                    <div className="mt-3">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Custom Service Description / Notes</label>
-                      <textarea 
-                        rows={2} 
-                        name="otherServiceDescription"
-                        value={formData.otherServiceDescription} 
-                        onChange={handleInputChange} 
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" 
-                        placeholder="Explain client requirements for their custom package request..."
-                      />
-                    </div>
-                  )}
-                </div>
-
-                {/* SECTION 3: Project Details */}
-                <div className="space-y-4">
-                  <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest border-b border-slate-100 pb-2 flex items-center gap-2">
-                    <span className="w-5 h-5 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xs font-black">3</span>
-                    Project Details
-                  </h3>
-                  
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-5">
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Project Goal / Core Outcome</label>
-                      <select name="projectGoal" value={formData.projectGoal} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-white">
-                        <option value="">Select core goal...</option>
-                        <option value="Get more leads">Get more leads</option>
-                        <option value="Improve website design">Improve website design</option>
-                        <option value="Sell products online">Sell products online</option>
-                        <option value="Automate business tasks">Automate business tasks</option>
-                        <option value="Improve search visibility">Improve search visibility</option>
-                        <option value="Manage social media">Manage social media</option>
-                        <option value="Create content">Create content</option>
-                        <option value="Build a custom system">Build a custom system</option>
-                        <option value="Improve customer follow-up">Improve customer follow-up</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Timeline Preference</label>
-                      <select name="timeline" value={formData.timeline} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-white">
-                        <option value="Urgent: 1–3 days">Urgent: 1–3 days</option>
-                        <option value="Within 1 week">Within 1 week</option>
-                        <option value="Within 2 weeks">Within 2 weeks</option>
-                        <option value="Within 30 days">Within 30 days</option>
-                        <option value="Flexible">Flexible</option>
-                        <option value="Ongoing monthly support">Ongoing monthly support</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Budget Expectation</label>
-                      <select name="budget" value={formData.budget} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-white">
-                        <option value="Under $500">Under $500</option>
-                        <option value="$500–$1,000">$500–$1,000</option>
-                        <option value="$1,000–$2,500">$1,000–$2,500</option>
-                        <option value="$2,500–$5,000">$2,500–$5,000</option>
-                        <option value="$5,000+">$5,000+</option>
-                        <option value="Not sure yet">Not sure yet</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Level of Support Needed</label>
-                      <select name="levelOfSupport" value={formData.levelOfSupport} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-white">
-                        <option value="One-time project">One-time project</option>
-                        <option value="Monthly support">Monthly support</option>
-                        <option value="Strategy only">Strategy only</option>
-                        <option value="Done-for-you service">Done-for-you service</option>
-                        <option value="Project oversight">Project oversight</option>
-                        <option value="Ongoing maintenance">Ongoing maintenance</option>
-                        <option value="Consultation and planning">Consultation and planning</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Collapsible/Conditional Scopes */}
-                  <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200/60 space-y-6">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-slate-600 border-b border-slate-200 pb-1.5">Dynamic Project Scopes</h4>
-                    
-                    {/* Website Project Details */}
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="sm:col-span-2">
-                        <span className="text-[10px] font-black text-slate-400 tracking-wider uppercase block mb-1">Web Development / Design Scope</span>
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Number of Pages</label>
-                        <input type="text" placeholder="e.g. 5 pages" value={formData.projectScope.pagesCount || ''} onChange={e => handleScopeChange('pagesCount', e.target.value)} className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 bg-white outline-none text-xs transition-all" />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Build Mode</label>
-                        <select value={formData.projectScope.siteRedesign || 'new_build'} onChange={e => handleScopeChange('siteRedesign', e.target.value)} className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 bg-white outline-none text-xs transition-all">
-                          <option value="new_build">Brand New Site Build</option>
-                          <option value="redesign">Website Redesign / Improvement</option>
-                        </select>
-                      </div>
-                      <div className="sm:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-3 mt-1">
-                        {[
-                          { key: 'needCopywriting', label: 'Copywriting' },
-                          { key: 'needImages', label: 'Custom Images' },
-                          { key: 'needContactForms', label: 'Contact Forms' },
-                          { key: 'needBooking', label: 'Booking System' },
-                          { key: 'needPayment', label: 'Payment System' },
-                          { key: 'needSeo', label: 'SEO Setup' },
-                          { key: 'needMobile', label: 'Mobile Optim.' }
-                        ].map(item => (
-                          <label key={item.key} className="flex items-center gap-1.5 p-2 border border-slate-200 hover:border-slate-300 rounded-lg bg-white cursor-pointer select-none">
-                            <input type="checkbox" checked={!!formData.projectScope[item.key]} onChange={() => handleScopeChange(item.key, null, 'checkbox')} className="w-3.5 h-3.5 text-blue-600 rounded" />
-                            <span className="text-[10px] font-bold text-slate-700">{item.label}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Marketing Scope */}
-                    <div className="grid sm:grid-cols-2 gap-4 border-t border-slate-200/80 pt-4">
-                      <div className="sm:col-span-2">
-                        <span className="text-[10px] font-black text-slate-400 tracking-wider uppercase block mb-1">Marketing & Campaigns Scope</span>
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Posts/Videos/Emails Count</label>
-                        <input type="text" placeholder="e.g. 12 posts per month" value={formData.projectScope.marketingPostsCount || ''} onChange={e => handleScopeChange('marketingPostsCount', e.target.value)} className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 bg-white outline-none text-xs transition-all" />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Platforms Involved</label>
-                        <input type="text" placeholder="e.g. Instagram, Facebook, LinkedIn" value={formData.projectScope.marketingPlatforms || ''} onChange={e => handleScopeChange('marketingPlatforms', e.target.value)} className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 bg-white outline-none text-xs transition-all" />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Campaign Length</label>
-                        <input type="text" placeholder="e.g. 3 months" value={formData.projectScope.marketingCampaignLength || ''} onChange={e => handleScopeChange('marketingCampaignLength', e.target.value)} className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 bg-white outline-none text-xs transition-all" />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Content Topics</label>
-                        <input type="text" placeholder="e.g. SaaS growth, Business tips" value={formData.projectScope.marketingTopics || ''} onChange={e => handleScopeChange('marketingTopics', e.target.value)} className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 bg-white outline-none text-xs transition-all" />
-                      </div>
-                      <div className="sm:col-span-2 flex gap-3 mt-1">
-                        {[
-                          { key: 'marketingAdSupport', label: 'Ad Account Management Support' },
-                          { key: 'marketingMonthlyManagement', label: 'Full Monthly Campaign Management' }
-                        ].map(item => (
-                          <label key={item.key} className="flex items-center gap-1.5 p-2 border border-slate-200 hover:border-slate-300 rounded-lg bg-white cursor-pointer select-none flex-1">
-                            <input type="checkbox" checked={!!formData.projectScope[item.key]} onChange={() => handleScopeChange(item.key, null, 'checkbox')} className="w-3.5 h-3.5 text-blue-600 rounded" />
-                            <span className="text-[10px] font-bold text-slate-700">{item.label}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* App/Software Scope */}
-                    <div className="grid sm:grid-cols-2 gap-4 border-t border-slate-200/80 pt-4">
-                      <div className="sm:col-span-2">
-                        <span className="text-[10px] font-black text-slate-400 tracking-wider uppercase block mb-1">App, SaaS & Custom Software Scope</span>
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Required Features</label>
-                        <input type="text" placeholder="e.g. Subscriptions, Messaging" value={formData.projectScope.appFeatures || ''} onChange={e => handleScopeChange('appFeatures', e.target.value)} className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 bg-white outline-none text-xs transition-all" />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">User Roles</label>
-                        <input type="text" placeholder="e.g. Clients, Admins, Workers" value={formData.projectScope.appUserRoles || ''} onChange={e => handleScopeChange('appUserRoles', e.target.value)} className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 bg-white outline-none text-xs transition-all" />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Database Needs</label>
-                        <input type="text" placeholder="e.g. SQLite local, MySQL scalable" value={formData.projectScope.appDatabaseNeeds || ''} onChange={e => handleScopeChange('appDatabaseNeeds', e.target.value)} className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 bg-white outline-none text-xs transition-all" />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Dashboard/Integrations</label>
-                        <input type="text" placeholder="e.g. Admin stats, HubSpot CRM" value={formData.projectScope.appDashboardNeeds || ''} onChange={e => handleScopeChange('appDashboardNeeds', e.target.value)} className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 bg-white outline-none text-xs transition-all" />
-                      </div>
-                      <div className="sm:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-3 mt-1">
-                        {[
-                          { key: 'appLoginSystem', label: 'Login System' },
-                          { key: 'appReports', label: 'Reports Gen.' },
-                          { key: 'appAdminPanel', label: 'Admin Panel' }
-                        ].map(item => (
-                          <label key={item.key} className="flex items-center gap-1.5 p-2 border border-slate-200 hover:border-slate-300 rounded-lg bg-white cursor-pointer select-none">
-                            <input type="checkbox" checked={!!formData.projectScope[item.key]} onChange={() => handleScopeChange(item.key, null, 'checkbox')} className="w-3.5 h-3.5 text-blue-600 rounded" />
-                            <span className="text-[10px] font-bold text-slate-700">{item.label}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Client Custom Quote Dynamic Submissions */}
-                    {editingQuote && editingQuote.projectScope && (
-                      <div className="border-t border-slate-200/80 pt-4">
-                        <span className="text-[10px] font-black text-slate-400 tracking-wider uppercase block mb-2">Submitted Client Specifications (Dynamic Custom Quote)</span>
-                        <div className="bg-slate-200/40 p-4 rounded-xl text-[11px] text-slate-600 font-semibold space-y-2 border border-slate-200">
-                          {(() => {
-                            const scope = typeof editingQuote.projectScope === 'string' ? JSON.parse(editingQuote.projectScope) : editingQuote.projectScope;
-                            const answers = scope.customQuoteAnswers || {};
-                            if (Object.keys(answers).length === 0) {
-                              return <p className="italic text-slate-400">No dynamic specs submitted. Drafted internally by administrator.</p>;
-                            }
-                            
-                            return (
-                              <div className="grid md:grid-cols-2 gap-4">
-                                {Object.entries(answers).map(([key, val]) => {
-                                  if (!val || (Array.isArray(val) && val.length === 0)) return null;
-                                  return (
-                                    <div key={key}>
-                                      <span className="text-[9px] text-slate-400 uppercase font-black block">{key.replace(/([A-Z])/g, ' $1')}</span>
-                                      <span className="text-slate-700 block mt-0.5">{Array.isArray(val) ? val.join(', ') : val}</span>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            );
-                          })()}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* SECTION 4: Assets and Access */}
-                <div className="space-y-4">
-                  <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest border-b border-slate-100 pb-2 flex items-center gap-2">
-                    <span className="w-5 h-5 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xs font-black">4</span>
-                    Assets & Access
-                  </h3>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {[
-                      { key: 'hasLogo', label: 'Company Logo' },
-                      { key: 'hasBrandColors', label: 'Brand Color Hexes' },
-                      { key: 'hasBrandGuide', label: 'Brand Guide / Style Sheet' },
-                      { key: 'hasContent', label: 'Written Copy / Content' },
-                      { key: 'hasPhotosVideos', label: 'Company Photos / Videos' },
-                      { key: 'hasProductImages', label: 'Product Photography' },
-                      { key: 'hasSocialMedia', label: 'Social Accounts Access' },
-                      { key: 'hasHostingAccess', label: 'Domain & Hosting logins' },
-                      { key: 'hasCrmAccess', label: 'CRM / Email Platform access' }
-                    ].map(item => (
-                      <label 
-                        key={item.key} 
-                        className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${
-                          formData.clientAssets[item.key] 
-                            ? 'border-blue-500 bg-blue-50/50 shadow-sm' 
-                            : 'border-slate-200 hover:border-slate-300'
-                        }`}
-                      >
-                        <input 
-                          type="checkbox" 
-                          checked={formData.clientAssets[item.key] || false}
-                          onChange={() => handleAssetChange(item.key)}
-                          className="w-4 h-4 text-blue-600 rounded mr-2.5" 
-                        />
-                        <span className="text-xs font-semibold text-slate-700 leading-snug">{item.label}</span>
-                      </label>
-                    ))}
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Examples / References They Like</label>
-                    <textarea 
-                      rows={2} 
-                      value={formData.clientAssets.likesExamples || ''} 
-                      onChange={e => setFormData(prev => ({ ...prev, clientAssets: { ...prev.clientAssets, likesExamples: e.target.value } }))} 
-                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" 
-                      placeholder="e.g. likes clean SaaS layouts like Stripe, prefers dynamic slider in banner..."
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Current Problem Statement *</label>
-                    <textarea 
-                      required
-                      rows={3} 
-                      name="currentProblem"
-                      value={formData.currentProblem} 
-                      onChange={handleInputChange} 
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" 
-                      placeholder="Explain the client's current business problem that ScaleLink Alliance will solve..."
-                    />
-                  </div>
-                </div>
-
-                {/* SECTION 5: Custom Quote Builder */}
-                <div className="space-y-4">
-                  <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest border-b border-slate-100 pb-2 flex items-center gap-2">
-                    <span className="w-5 h-5 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xs font-black">5</span>
-                    Custom Quote Builder
-                  </h3>
-                  
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Recommended Package Name</label>
-                      <input type="text" placeholder="e.g. Custom Web Redesign Suite" name="recommendedPackage" value={formData.recommendedPackage} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Custom Quote Amount (Total USD) *</label>
-                      <div className="relative">
-                        <span className="absolute left-3 top-2 text-slate-400 font-semibold text-sm">$</span>
-                        <input required type="number" placeholder="2500" name="customQuoteAmount" value={formData.customQuoteAmount} onChange={handleInputChange} className="w-full pl-7 pr-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Deposit Required (USD) *</label>
-                      <div className="relative">
-                        <span className="absolute left-3 top-2 text-slate-400 font-semibold text-sm">$</span>
-                        <input required type="number" placeholder="500" name="depositRequired" value={formData.depositRequired} onChange={handleInputChange} className="w-full pl-7 pr-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Estimated Duration / Completed In</label>
-                      <input type="text" placeholder="e.g. 10 business days" name="estimatedCompletionTime" value={formData.estimatedCompletionTime} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Special Discount, if any (USD)</label>
-                      <div className="relative">
-                        <span className="absolute left-3 top-2 text-slate-400 font-semibold text-sm">$</span>
-                        <input type="number" placeholder="e.g. 200" name="specialDiscount" value={formData.specialDiscount} onChange={handleInputChange} className="w-full pl-7 pr-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Quote Expiration Date</label>
-                      <input type="date" name="quoteExpirationDate" value={formData.quoteExpirationDate} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-white" />
-                    </div>
-                    <div className="sm:col-span-2 lg:col-span-3">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Monthly Retainer Support Option (Optional)</label>
-                      <input type="text" placeholder="e.g. $250/mo for weekly maintenance retainer" name="monthlySupportOption" value={formData.monthlySupportOption} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" />
-                    </div>
-                  </div>
-
-                  <div className="grid sm:grid-cols-2 gap-5 mt-2">
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Services / Deliverables Included (one per line) *</label>
-                      <textarea 
-                        required
-                        rows={4} 
-                        name="includedServices"
-                        value={formData.includedServices} 
-                        onChange={handleInputChange} 
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none font-mono text-xs transition-all" 
-                        placeholder="- Setup responsive React page&#10;- Configure Stripe gateway&#10;- Add dashboard metrics charts"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Exclusions / What is NOT Included (one per line)</label>
-                      <textarea 
-                        rows={4} 
-                        name="notIncluded"
-                        value={formData.notIncluded} 
-                        onChange={handleInputChange} 
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none font-mono text-xs transition-all" 
-                        placeholder="- Domain registration costs&#10;- External third-party API keys monthly fee"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Optional Add-Ons Repeater */}
-                  <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200/60 mt-4 space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-black text-slate-500 tracking-wider uppercase">Optional Quote Add-ons</span>
-                      <button 
-                        type="button" 
-                        onClick={addAddOn}
-                        className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
-                      >
-                        <FaPlusCircle /> Add Option
-                      </button>
-                    </div>
-
-                    {formData.optionalAddOns.length === 0 ? (
-                      <p className="text-[10px] text-slate-400 italic">No optional add-ons specified for this quote.</p>
-                    ) : (
-                      <div className="space-y-3">
-                        {formData.optionalAddOns.map((add, idx) => (
-                          <div key={idx} className="flex gap-4 items-center">
-                            <input 
-                              type="text" 
-                              placeholder="Add-on Deliverable (e.g. Extra Revision round)"
-                              value={add.name}
-                              onChange={e => updateAddOn(idx, 'name', e.target.value)}
-                              className="flex-1 px-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 bg-white outline-none"
-                            />
-                            <div className="relative w-28">
-                              <span className="absolute left-2.5 top-1.5 text-slate-400 text-xs">$</span>
-                              <input 
-                                type="number" 
-                                placeholder="Price"
-                                value={add.price}
-                                onChange={e => updateAddOn(idx, 'price', e.target.value)}
-                                className="w-full pl-6 pr-2.5 py-1.5 text-xs rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 bg-white outline-none"
-                              />
-                            </div>
-                            <button 
-                              type="button" 
-                              onClick={() => removeAddOn(idx)}
-                              className="text-rose-500 hover:text-rose-600 p-1 rounded hover:bg-rose-50 transition-colors"
-                            >
-                              <FaTrashAlt size={12} />
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  {formData.stripeCheckoutUrl && (
-                    <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-4 flex items-center justify-between text-xs text-emerald-800">
-                      <div className="flex items-center gap-2">
-                        <FaCheckCircle className="text-emerald-500 flex-shrink-0" />
-                        <span className="font-medium truncate max-w-sm sm:max-w-md">
-                          Stripe Checkout link generated: <a href={formData.stripeCheckoutUrl} target="_blank" rel="noreferrer" className="underline font-bold hover:text-emerald-900">{formData.stripeCheckoutUrl}</a>
-                        </span>
-                      </div>
-                      <a href={formData.stripeCheckoutUrl} target="_blank" rel="noreferrer" className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1 rounded shadow-sm hover:shadow flex items-center gap-1 flex-shrink-0 ml-4 transition-all">
-                        <FaExternalLinkAlt size={10} /> Visit Link
-                      </a>
-                    </div>
-                  )}
-                </div>
-
-                {/* SECTION 6: Quote Management */}
-                <div className="space-y-4">
-                  <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest border-b border-slate-100 pb-2 flex items-center gap-2">
-                    <span className="w-5 h-5 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xs font-black">6</span>
-                    Quote Management & Notes
-                  </h3>
-                  
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Quote Status</label>
-                      <select name="quoteStatus" value={formData.quoteStatus} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-white font-bold text-slate-800">
-                        <option value="new_request">New Request</option>
-                        <option value="under_review">Under Review</option>
-                        <option value="quote_sent">Quote Sent</option>
-                        <option value="follow_up_needed">Follow-up Needed</option>
-                        <option value="approved">Approved</option>
-                        <option value="deposit_paid">Deposit Paid</option>
-                        <option value="in_progress">In Progress</option>
-                        <option value="completed">Completed</option>
-                        <option value="declined">Declined</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Deal Stage (Sales Status)</label>
-                      <select name="salesStatus" value={formData.salesStatus} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-white">
-                        <option value="Lead">New Lead</option>
-                        <option value="Contacted">Contacted</option>
-                        <option value="Meeting Scheduled">Meeting Scheduled</option>
-                        <option value="Quoted">Quoted</option>
-                        <option value="Contract Sent">Contract Sent</option>
-                        <option value="Closed Won">Closed Won</option>
-                        <option value="Closed Lost">Closed Lost</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Designated Rep (Assigned Team Member)</label>
-                      <div className="relative">
-                        <input 
-                          type="text" 
-                          placeholder="e.g. rep@scalelinkalliance.com" 
-                          value={formData.assignedTo} 
-                          onChange={e => handleWorkerSearch(e.target.value)}
-                          onBlur={handleWorkerBlur}
-                          className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" 
-                        />
-                        {isSearchingWorker && (
-                          <div className="absolute right-3 top-2.5 animate-spin rounded-full h-4 w-4 border-b-2 border-slate-400" />
-                        )}
-                        {showSuggestions && workerSuggestions.length > 0 && (
-                          <ul className="absolute left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl z-20 max-h-48 overflow-y-auto divide-y divide-slate-100">
-                            {workerSuggestions.map(w => (
-                              <li 
-                                key={w.id} 
-                                onMouseDown={() => selectWorker(w.email)}
-                                className="px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 cursor-pointer"
-                              >
-                                {w.email}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Client Urgency</label>
-                      <select name="clientUrgency" value={formData.clientUrgency} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-white">
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Client Lead Quality</label>
-                      <select name="clientQuality" value={formData.clientQuality} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-white">
-                        <option value="poor">Poor</option>
-                        <option value="average">Average</option>
-                        <option value="premium">Premium</option>
-                        <option value="hot">Hot Opportunity</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Potential Upsell Opportunities</label>
-                      <input type="text" placeholder="e.g. Monthly maintenance post launch" name="potentialUpsell" value={formData.potentialUpsell} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Last Contact Date</label>
-                      <input type="date" name="lastContactDate" value={formData.lastContactDate} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-white" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Next Follow-up Date</label>
-                      <input type="date" name="nextFollowUpDate" value={formData.nextFollowUpDate} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-white" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Set Follow-up Reminder Alarm</label>
-                      <input type="date" name="followUpReminder" value={formData.followUpReminder} onChange={handleInputChange} className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-white" />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">General Internal Notes (Private to Team)</label>
-                    <textarea 
-                      rows={3} 
-                      name="notes"
-                      value={formData.notes} 
-                      onChange={handleInputChange} 
-                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" 
-                      placeholder="e.g. client is a referral from BNI Chicago chapter. Skeptical of SEO, focus on copywriting quality..."
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Recommended Solution Summary (Included in Client Quote Email) *</label>
-                    <textarea 
-                      required
-                      rows={3} 
-                      name="description"
-                      value={formData.description} 
-                      onChange={handleInputChange} 
-                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all" 
-                      placeholder="A short summary detailing why this custom package is recommended to solve their core business problem..."
-                    />
-                  </div>
-                </div>
-
-                {/* Footer Buttons */}
-                <div className="flex justify-end gap-3 pt-6 border-t border-slate-100">
-                  <button 
-                    type="button" 
-                    onClick={() => setIsModalOpen(false)} 
-                    className="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-500 font-bold hover:bg-slate-50 hover:text-slate-700 transition-all text-sm"
-                  >
-                    Cancel
-                  </button>
-                  <button 
-                    type="submit"
-                    className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all shadow-md shadow-blue-100 text-sm"
-                  >
-                    Save Draft
-                  </button>
-                </div>
-
-              </form>
-            </div>
-          </div>
-        )}
       </div>
       <ToastContainer />
     </AdminLayout>
