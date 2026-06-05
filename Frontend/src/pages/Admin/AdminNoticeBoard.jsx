@@ -867,7 +867,7 @@ const AdminNoticeBoard = () => {
                             ) : (
                               <button onClick={() => setViewingJob(job)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="View Details"><FaEye size={14} /></button>
                             )}
-                            {isSuperAdmin && !isUnpaidCustomQuote(job) && (
+                            {isSuperAdmin && (
                               <>
                                 {job.status !== 'completed' && (
                                   <button onClick={() => handleOpenModal(job)} className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors" title="Edit"><FaEdit size={14} /></button>
