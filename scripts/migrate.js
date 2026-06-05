@@ -31,6 +31,60 @@ const migrate = async () => {
       }, { transaction });
     }
 
+    const customQuoteColumns = {
+      clientFirstName: { type: db.Sequelize.STRING, allowNull: true },
+      clientLastName: { type: db.Sequelize.STRING, allowNull: true },
+      clientEmail: { type: db.Sequelize.STRING, allowNull: true },
+      clientPhone: { type: db.Sequelize.STRING, allowNull: true },
+      clientDialCode: { type: db.Sequelize.STRING(10), allowNull: true, defaultValue: '+1' },
+      clientTimeline: { type: db.Sequelize.STRING, allowNull: true },
+      otherServiceDescription: { type: db.Sequelize.TEXT, allowNull: true },
+      services: { type: db.Sequelize.JSON, allowNull: true },
+      budget: { type: db.Sequelize.STRING, allowNull: true },
+      currency: { type: db.Sequelize.STRING(3), allowNull: true },
+      projectFee: { type: db.Sequelize.INTEGER, allowNull: true },
+      workerFee: { type: db.Sequelize.INTEGER, allowNull: true, defaultValue: 0 },
+      clientWebsite: { type: db.Sequelize.STRING, allowNull: true },
+      clientLocation: { type: db.Sequelize.STRING, allowNull: true },
+      clientIndustry: { type: db.Sequelize.STRING, allowNull: true },
+      projectGoal: { type: db.Sequelize.STRING, allowNull: true },
+      projectScope: { type: db.Sequelize.JSON, allowNull: true },
+      levelOfSupport: { type: db.Sequelize.STRING, allowNull: true },
+      clientAssets: { type: db.Sequelize.JSON, allowNull: true },
+      currentProblem: { type: db.Sequelize.TEXT, allowNull: true },
+      recommendedPackage: { type: db.Sequelize.STRING, allowNull: true },
+      customQuoteAmount: { type: db.Sequelize.INTEGER, allowNull: true },
+      depositRequired: { type: db.Sequelize.INTEGER, allowNull: true },
+      stripeCheckoutUrl: { type: db.Sequelize.STRING, allowNull: true },
+      stripeSessionId: { type: db.Sequelize.STRING, allowNull: true },
+      estimatedCompletionTime: { type: db.Sequelize.STRING, allowNull: true },
+      includedServices: { type: db.Sequelize.TEXT, allowNull: true },
+      notIncluded: { type: db.Sequelize.TEXT, allowNull: true },
+      optionalAddOns: { type: db.Sequelize.JSON, allowNull: true },
+      monthlySupportOption: { type: db.Sequelize.STRING, allowNull: true },
+      specialDiscount: { type: db.Sequelize.INTEGER, allowNull: true },
+      quoteExpirationDate: { type: db.Sequelize.DATE, allowNull: true },
+      clientUrgency: { type: db.Sequelize.STRING, allowNull: true },
+      clientQuality: { type: db.Sequelize.STRING, allowNull: true },
+      potentialUpsell: { type: db.Sequelize.STRING, allowNull: true },
+      followUpReminder: { type: db.Sequelize.DATE, allowNull: true },
+      salesStatus: { type: db.Sequelize.STRING, allowNull: true },
+      lastContactDate: { type: db.Sequelize.DATE, allowNull: true },
+      nextFollowUpDate: { type: db.Sequelize.DATE, allowNull: true },
+      quoteStatus: {
+        type: db.Sequelize.ENUM('new_request', 'under_review', 'quote_sent', 'follow_up_needed', 'approved', 'deposit_paid', 'in_progress', 'completed', 'declined'),
+        allowNull: true,
+        defaultValue: 'new_request'
+      }
+    };
+
+    for (const [colName, colSpec] of Object.entries(customQuoteColumns)) {
+      if (!jobsTable[colName]) {
+        console.log(`➕ Adding ${colName} column to NoticeBoardJobs...`);
+        await queryInterface.addColumn('NoticeBoardJobs', colName, colSpec, { transaction });
+      }
+    }
+
     // 2. Migrate NoticeBoardComments
     const commentsTable = await queryInterface.describeTable('NoticeBoardComments');
     if (!commentsTable.visibility) {
