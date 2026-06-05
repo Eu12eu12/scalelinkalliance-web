@@ -989,8 +989,9 @@ router.post('/admin/notice-board', authMiddleware, restrictTo('super_admin', 'wo
 
     await logActivity(job.id, req.user.email, 'Job Created', `Title: ${job.title}`);
     
-    // Send Onboarding Email to Client
-    if (job.clientEmail) {
+    // Send Onboarding Email to Client (Skip if it's an auto-saved draft or explicit draft)
+    const isDraft = req.body.isDraft === 'true' || req.body.isDraft === true || req.body.isAutoSave === 'true' || req.body.isAutoSave === true;
+    if (job.clientEmail && !isDraft) {
       const { sendClientOnboardingEmail } = require('../utils/mailer');
       sendClientOnboardingEmail(job).catch(err => console.error('❌ Admin onboarding email failed:', err));
 
