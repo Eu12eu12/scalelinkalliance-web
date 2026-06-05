@@ -34,6 +34,7 @@ import AdminSettings from './pages/Admin/AdminSettings';
 import AdminPartners from './pages/Admin/AdminPartners';
 import AdminNoticeBoard from './pages/Admin/AdminNoticeBoard';
 import AdminQuotes from './pages/Admin/AdminQuotes';
+import AdminCRM from './pages/Admin/AdminCRM';
 import AdminNotifications from './pages/Admin/Notifications';
 import HubReports from './pages/Admin/HubReports';
 import CompleteProfile from './pages/Admin/CompleteProfile';
@@ -77,6 +78,7 @@ function AppContent() {
               <Route path="/hub/partners" element={<ProtectedRoute requiredRole="super_admin"><AdminPartners /></ProtectedRoute>} />
               <Route path="/hub/notice-board" element={<ProtectedRoute><AdminNoticeBoard /></ProtectedRoute>} />
               <Route path="/hub/quotes" element={<ProtectedRoute><AdminQuotes /></ProtectedRoute>} />
+              <Route path="/hub/crm" element={<ProtectedRoute><AdminCRM /></ProtectedRoute>} />
               <Route path="/hub/work-history" element={<ProtectedRoute><WorkHistory /></ProtectedRoute>} />
               <Route path="/hub/notifications" element={<ProtectedRoute><AdminNotifications /></ProtectedRoute>} />
               <Route path="/hub/reports" element={<ProtectedRoute requiredRole="super_admin"><HubReports /></ProtectedRoute>} />
