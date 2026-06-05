@@ -29,6 +29,7 @@ const AdminResources = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [isSmartFit, setIsSmartFit] = useState(false);
+  const [imageSource, setImageSource] = useState('upload'); // 'upload' or 'url'
 
   const [formData, setFormData] = useState({ 
     title: '', 
@@ -72,6 +73,22 @@ const AdminResources = () => {
     }
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.size > 10 * 1024 * 1024) {
+      showToast('Image is too large. Maximum size is 10MB.', 'error');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setFormData(prev => ({ ...prev, imageUrl: reader.result }));
+    };
+    reader.readAsDataURL(file);
+  };
+
   const openCreate = () => {
     setEditingId(null);
     setFormData({ 
@@ -86,6 +103,7 @@ const AdminResources = () => {
       publishedDate: new Date().toISOString().split('T')[0]
     });
     setIsSmartFit(false);
+    setImageSource('upload');
     setIsModalOpen(true);
   };
 
@@ -103,6 +121,8 @@ const AdminResources = () => {
       publishedDate: res.publishedDate ? new Date(res.publishedDate).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
     });
     setIsSmartFit(res.imageUrl?.includes('#contain') || false);
+    const isBase64 = res.imageUrl && res.imageUrl.startsWith('data:image/');
+    setImageSource(isBase64 ? 'upload' : (res.imageUrl ? 'url' : 'upload'));
     setIsModalOpen(true);
   };
 
@@ -366,17 +386,85 @@ const AdminResources = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Image URL</label>
-                    <div className="relative">
-                      <FaImage className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={12} />
-                      <input
-                        type="text"
-                        value={formData.imageUrl ? formData.imageUrl.split('#')[0] : ''}
-                        onChange={e => setFormData({ ...formData, imageUrl: e.target.value })}
-                        placeholder="e.g. https://images.unsplash.com/..."
-                        className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm"
-                      />
+                    <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Resource Image</label>
+                    
+                    {/* Image Source Tabs */}
+                    <div className="flex space-x-2 mb-3 bg-slate-100 p-1 rounded-xl">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setImageSource('upload');
+                          if (formData.imageUrl && !formData.imageUrl.startsWith('data:image/')) {
+                            setFormData(prev => ({ ...prev, imageUrl: '' }));
+                          }
+                        }}
+                        className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${imageSource === 'upload' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-800'}`}
+                      >
+                        Upload from PC
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setImageSource('url');
+                          if (formData.imageUrl && formData.imageUrl.startsWith('data:image/')) {
+                            setFormData(prev => ({ ...prev, imageUrl: '' }));
+                          }
+                        }}
+                        className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${imageSource === 'url' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-800'}`}
+                      >
+                        Image URL Link
+                      </button>
                     </div>
+
+                    {imageSource === 'upload' ? (
+                      <div>
+                        {formData.imageUrl && formData.imageUrl.startsWith('data:image/') ? (
+                          <div className="relative border border-slate-200 rounded-xl p-3 bg-slate-50 flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                              <img 
+                                src={formData.imageUrl} 
+                                alt="Preview" 
+                                className="w-12 h-12 rounded-lg object-cover border border-slate-100" 
+                              />
+                              <div>
+                                <p className="text-xs font-bold text-slate-700">Uploaded Image</p>
+                                <p className="text-[9px] text-slate-400">Ready to save</p>
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => setFormData(prev => ({ ...prev, imageUrl: '' }))}
+                              className="px-2.5 py-1 text-[10px] font-bold text-red-600 hover:bg-red-50 rounded-lg transition-colors border border-red-200"
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center justify-center border border-dashed border-slate-200 hover:border-blue-400 hover:bg-blue-50/10 rounded-xl p-6 bg-slate-50 cursor-pointer relative transition-all">
+                            <input 
+                              type="file" 
+                              accept="image/*" 
+                              onChange={handleImageUpload} 
+                              className="absolute inset-0 opacity-0 cursor-pointer" 
+                            />
+                            <FaImage className="text-slate-400 mb-2" size={20} />
+                            <span className="text-xs font-bold text-slate-600">Click to upload image</span>
+                            <span className="text-[9px] text-slate-400">PNG, JPG, JPEG, WEBP up to 10MB</span>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="relative">
+                        <FaImage className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={12} />
+                        <input
+                          type="text"
+                          value={formData.imageUrl ? formData.imageUrl.split('#')[0] : ''}
+                          onChange={e => setFormData({ ...formData, imageUrl: e.target.value })}
+                          placeholder="e.g. https://images.unsplash.com/..."
+                          className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm"
+                        />
+                      </div>
+                    )}
                     
                     {/* Smart Fit Toggle */}
                     <div className="mt-4 flex items-center justify-between p-3 rounded-xl border border-blue-100 bg-blue-50/50">
