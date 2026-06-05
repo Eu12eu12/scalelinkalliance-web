@@ -156,9 +156,10 @@ const AdminQuotes = () => {
   }, [editingQuote]);
 
   // Format currency
-  const formatPrice = (amountInCents, currencyCode = 'usd') => {
+  const formatPrice = (amountInCents, currencyCode = 'usd', allowZero = false) => {
     const currency = CURRENCIES.find(c => c.code === (currencyCode || 'usd').toLowerCase()) || CURRENCIES[0];
-    if (!amountInCents || amountInCents === 0) return 'Custom Quote';
+    if (amountInCents === null || amountInCents === undefined || amountInCents === '') return 'Custom Quote';
+    if (amountInCents === 0 && !allowZero) return 'Custom Quote';
     const decimalAmount = currency.zeroDecimal ? amountInCents : amountInCents / 100;
     try {
       return new Intl.NumberFormat(navigator.language, { 
@@ -1396,9 +1397,9 @@ const AdminQuotes = () => {
                         <span>Deposit Required:</span>
                         <span className="text-indigo-600 font-bold">{formatPrice(depVal * 100)}</span>
                       </div>
-                      <div className="flex justify-between pt-1">
+                       <div className="flex justify-between pt-1">
                         <span>Balance Due:</span>
-                        <span className="text-slate-900 font-bold">{formatPrice(balVal * 100)}</span>
+                        <span className="text-slate-900 font-bold">{formatPrice(balVal * 100, 'usd', true)}</span>
                       </div>
                     </div>
                     
