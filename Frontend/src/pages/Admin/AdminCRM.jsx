@@ -522,7 +522,9 @@ const AdminCRM = () => {
                   
                   {/* Designated Representative */}
                   <div className="relative">
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Designated Sales Representative</label>
+                    <div className="h-8 flex items-end mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 leading-tight">Designated Sales Representative</label>
+                    </div>
                     <div className="relative">
                       <input 
                         type="text" 
@@ -553,7 +555,9 @@ const AdminCRM = () => {
 
                   {/* Urgency */}
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Client Urgency</label>
+                    <div className="h-8 flex items-end mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 leading-tight">Client Urgency</label>
+                    </div>
                     <select 
                       name="clientUrgency" 
                       value={formData.clientUrgency} 
@@ -568,7 +572,9 @@ const AdminCRM = () => {
 
                   {/* Quality */}
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Client Lead Quality</label>
+                    <div className="h-8 flex items-end mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 leading-tight">Client Lead Quality</label>
+                    </div>
                     <select 
                       name="clientQuality" 
                       value={formData.clientQuality} 
@@ -584,7 +590,9 @@ const AdminCRM = () => {
 
                   {/* Potential Upsell */}
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Potential Upsell Opportunity</label>
+                    <div className="h-8 flex items-end mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 leading-tight">Potential Upsell Opportunity</label>
+                    </div>
                     <input 
                       type="text" 
                       placeholder="e.g. Monthly maintenance SEO package" 
@@ -597,7 +605,9 @@ const AdminCRM = () => {
 
                   {/* Date Logs */}
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Last Contact Date</label>
+                    <div className="h-8 flex items-end mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 leading-tight">Last Contact Date</label>
+                    </div>
                     <input 
                       type="date" 
                       name="lastContactDate" 
@@ -608,7 +618,9 @@ const AdminCRM = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Next Scheduled Follow-up</label>
+                    <div className="h-8 flex items-end mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 leading-tight">Next Scheduled Follow-up</label>
+                    </div>
                     <input 
                       type="date" 
                       name="nextFollowUpDate" 
@@ -619,7 +631,9 @@ const AdminCRM = () => {
                   </div>
 
                   <div className="sm:col-span-2">
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Set Follow-up Reminder Alarm</label>
+                    <div className="h-8 flex items-end mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 leading-tight">Set Follow-up Reminder Alarm</label>
+                    </div>
                     <input 
                       type="date" 
                       name="followUpReminder" 
@@ -631,7 +645,9 @@ const AdminCRM = () => {
 
                   {/* Notes */}
                   <div className="sm:col-span-2">
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Internal Sales & CRM Notes</label>
+                    <div className="h-8 flex items-end mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 leading-tight">Internal Sales & CRM Notes</label>
+                    </div>
                     <textarea 
                       rows={4} 
                       name="notes"

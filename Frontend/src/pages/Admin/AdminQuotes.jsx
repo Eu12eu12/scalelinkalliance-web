@@ -1023,9 +1023,11 @@ const AdminQuotes = () => {
                 Proposal Identity & Expiration
               </h3>
               
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <div className="grid sm:grid-cols-2 gap-5">
                 <div className="sm:col-span-2">
-                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Official Proposal Title *</label>
+                  <div className="h-8 flex items-end mb-1.5">
+                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 leading-tight">Official Proposal Title *</label>
+                  </div>
                   <input 
                     required 
                     type="text" 
@@ -1037,7 +1039,9 @@ const AdminQuotes = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Recommended Package Name</label>
+                  <div className="h-8 flex items-end mb-1.5">
+                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 leading-tight">Recommended Package Name</label>
+                  </div>
                   <input 
                     type="text" 
                     name="recommendedPackage" 
@@ -1048,7 +1052,9 @@ const AdminQuotes = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Quote Expiration Date</label>
+                  <div className="h-8 flex items-end mb-1.5">
+                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 leading-tight">Quote Expiration Date</label>
+                  </div>
                   <input 
                     type="date" 
                     name="quoteExpirationDate" 
@@ -1057,8 +1063,10 @@ const AdminQuotes = () => {
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-xs transition-all bg-white font-medium" 
                   />
                 </div>
-                <div className="sm:col-span-2 lg:col-span-1">
-                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Est. Duration / Completed In</label>
+                <div>
+                  <div className="h-8 flex items-end mb-1.5">
+                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 leading-tight">Est. Duration / Completed In</label>
+                  </div>
                   <input 
                     type="text" 
                     placeholder="e.g. 10 business days" 
@@ -1078,9 +1086,11 @@ const AdminQuotes = () => {
                 Financial & Pricing Builder
               </h3>
 
-              <div className="grid sm:grid-cols-3 gap-5">
+              <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Total Quote Amount (USD) *</label>
+                  <div className="h-8 flex items-end mb-1.5">
+                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 leading-tight">Total Quote Amount (USD) *</label>
+                  </div>
                   <div className="relative">
                     <span className="absolute left-3.5 top-2 text-slate-400 font-bold text-xs">$</span>
                     <input 
@@ -1096,7 +1106,9 @@ const AdminQuotes = () => {
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Deposit Required (USD) *</label>
+                  <div className="h-8 flex items-end mb-1.5">
+                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 leading-tight">Deposit Required (USD) *</label>
+                  </div>
                   <div className="relative">
                     <span className="absolute left-3.5 top-2 text-slate-400 font-bold text-xs">$</span>
                     <input 
@@ -1113,7 +1125,9 @@ const AdminQuotes = () => {
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Special Discount, if any (USD)</label>
+                  <div className="h-8 flex items-end mb-1.5">
+                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 leading-tight">Special Discount, if any (USD)</label>
+                  </div>
                   <div className="relative">
                     <span className="absolute left-3.5 top-2 text-slate-400 font-bold text-xs">$</span>
                     <input 
@@ -1127,8 +1141,10 @@ const AdminQuotes = () => {
                   </div>
                 </div>
 
-                <div className="sm:col-span-3">
-                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5">Monthly Retainer Support Option (Optional)</label>
+                <div>
+                  <div className="h-8 flex items-end mb-1.5">
+                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 leading-tight">Monthly Retainer Support Option (Optional)</label>
+                  </div>
                   <input 
                     type="text" 
                     placeholder="e.g. $250/mo for weekly maintenance retainer support post-launch" 
