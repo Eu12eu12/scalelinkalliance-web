@@ -1795,6 +1795,28 @@ router.post('/admin/notice-board/:id/send-quote', authMiddleware, restrictTo('su
       details: `Quote sent to client at ${job.clientEmail} (Stripe Checkout Session: ${session.id})`
     });
 
+    // 5. Create in-app notifications for all Super Admins
+    try {
+      const admins = await db.AdminUser.findAll({ where: { role: 'super_admin' } });
+      const quoteAmountStr = job.customQuoteAmount 
+        ? `$${((job.customQuoteAmount - (job.specialDiscount || 0)) / 100).toFixed(2)}` 
+        : 'TBD';
+      const notificationMsg = `📄 [Quote Sent] Custom quote proposal of ${quoteAmountStr} sent to client (${job.client}) for job #${job.id}.`;
+      
+      for (const admin of admins) {
+        await db.NoticeBoardNotification.create({
+          sentTo: admin.email,
+          type: 'comment',
+          message: notificationMsg,
+          jobId: job.id,
+          fromUser: req.user.email.split('@')[0],
+          isRead: false
+        });
+      }
+    } catch (notifErr) {
+      console.error('❌ Failed to create quote sent in-app notifications:', notifErr);
+    }
+
     res.json({
       success: true,
       message: 'Quote proposal sent successfully.',
