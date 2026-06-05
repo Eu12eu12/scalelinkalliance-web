@@ -7,7 +7,8 @@ import {
   FaUsers, FaCheck, FaArrowRight, FaRocket, FaFileAlt, FaCode,
   FaGlobe, FaShoppingCart, FaAd, FaEnvelope, FaSearch, FaHeadset,
   FaProjectDiagram, FaCamera, FaPalette, FaCloudUploadAlt, FaShieldAlt,
-  FaRegBuilding, FaChartLine, FaTools, FaStar, FaClock, FaDollarSign
+  FaRegBuilding, FaChartLine, FaTools, FaStar, FaClock, FaDollarSign,
+  FaInfoCircle
 } from 'react-icons/fa';
 
 // Complete service database from the uploaded file
@@ -2086,9 +2087,12 @@ const ServiceDetailPage = () => {
           <p className="text-lg text-gray-400 max-w-3xl mb-4">
             {service.longDescription}
           </p>
-          <p className="text-sm text-gray-400 max-w-3xl mb-8 font-medium">
-            Starting price options are shown during service selection. Custom quotes are available for larger or more detailed projects.
-          </p>
+          <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-blue-950/40 to-slate-900/40 border border-blue-500/20 border-l-4 border-l-blue-500 backdrop-blur-sm rounded-r-xl rounded-l-md max-w-3xl mb-8 shadow-lg">
+            <FaInfoCircle className="text-blue-400 shrink-0 mt-0.5" size={18} />
+            <p className="text-sm leading-relaxed text-blue-100 font-medium">
+              <span className="font-semibold text-white">Starting price options</span> are shown during service selection. <span className="font-semibold text-white">Custom quotes</span> are available for larger or more detailed projects.
+            </p>
+          </div>
 
           <div className="flex flex-wrap gap-4 mt-8">
             <Link
@@ -2335,9 +2339,12 @@ const ServiceDetailPage = () => {
           <p className="text-xl text-gray-600 mb-4 max-w-3xl mx-auto">
             Submit your service request today. No membership required, no commitments — just professional execution.
           </p>
-          <p className="text-sm text-gray-500 mb-8 max-w-2xl mx-auto">
-            Starting price options are shown during service selection. Custom quotes are available for larger or more detailed projects.
-          </p>
+          <div className="flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 border-l-4 border-l-blue-500 rounded-r-xl rounded-l-md max-w-2xl mx-auto mb-8 text-left shadow-sm transition-all duration-300 hover:shadow-md">
+            <FaInfoCircle className="text-blue-600 shrink-0 mt-0.5" size={18} />
+            <p className="text-sm leading-relaxed text-blue-800 font-medium">
+              <span className="font-semibold text-blue-950">Starting price options</span> are shown during service selection. <span className="font-semibold text-blue-950">Custom quotes</span> are available for larger or more detailed projects.
+            </p>
+          </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to={`/request-service?service=${serviceSlug}`}
