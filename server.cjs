@@ -447,7 +447,8 @@ const startServer = async () => {
     if (db.sequelize.options.dialect === 'sqlite') {
       await db.sequelize.query('PRAGMA foreign_keys = OFF');
     }
-    await db.sequelize.sync({ alter: true });
+    const isMySQL = db.sequelize.options.dialect === 'mysql';
+    await db.sequelize.sync(isMySQL ? {} : { alter: true });
     if (db.sequelize.options.dialect === 'sqlite') {
       await db.sequelize.query('PRAGMA foreign_keys = ON');
     }

@@ -90,7 +90,7 @@ const migrate = async () => {
     if (isSqlite) {
       await db.sequelize.query('PRAGMA foreign_keys = OFF');
     }
-    await db.sequelize.sync({ alter: true });
+    await db.sequelize.sync(isSqlite ? { alter: true } : {});
     if (isSqlite) {
       await db.sequelize.query('PRAGMA foreign_keys = ON');
     }
