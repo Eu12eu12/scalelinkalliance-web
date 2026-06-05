@@ -25,6 +25,152 @@ app.use(cors({
   credentials: true
 }));
 
+// Stripe Webhook Endpoint (needs raw body parser, so must be defined BEFORE express.json())
+app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+  const sig = req.headers['stripe-signature'];
+  let event;
+
+  if (process.env.STRIPE_WEBHOOK_SECRET) {
+    try {
+      event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+    } catch (err) {
+      console.error('⚠️ Webhook signature verification failed:', err.message);
+      return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+  } else {
+    console.warn('⚠️ STRIPE_WEBHOOK_SECRET is not set. Signature verification skipped.');
+    try {
+      event = JSON.parse(req.body.toString());
+    } catch (err) {
+      return res.status(400).send(`Invalid JSON body: ${err.message}`);
+    }
+  }
+
+  // Handle the completed checkout session event
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    const jobId = session.metadata?.jobId;
+
+    if (jobId) {
+      try {
+        const job = await db.NoticeBoardJob.findByPk(jobId);
+        if (job && job.quoteStatus !== 'deposit_paid') {
+          // Update job fields
+          await job.update({
+            quoteStatus: 'deposit_paid',
+            status: job.status === 'new' ? 'assigned' : job.status,
+            projectFee: (job.customQuoteAmount !== null && job.customQuoteAmount !== undefined) 
+              ? Math.max(0, job.customQuoteAmount - (job.specialDiscount || 0)) 
+              : job.projectFee
+          });
+
+          // Log notice board activity
+          await db.NoticeBoardActivity.create({
+            jobId: job.id,
+            userName: 'System',
+            action: 'Deposit Paid',
+            details: `Stripe webhook confirmed deposit payment of $${(session.amount_total / 100).toFixed(2)} via Checkout Session: ${session.id}`
+          });
+
+          // Notify all Super Admins
+          const clientName = `${job.clientFirstName || ''} ${job.clientLastName || ''}`.trim() || 'Client';
+          const notificationMsg = `💳 [Deposit Paid] Client ${clientName} (${job.client}) paid deposit of $${(session.amount_total / 100).toFixed(2)} for job #${job.id}!`;
+
+          const admins = await db.AdminUser.findAll({ where: { role: 'super_admin' } });
+          const { sendNotificationEmail, sendClientPhaseNotificationEmail } = require('./utils/mailer');
+          
+          for (const admin of admins) {
+            await db.NoticeBoardNotification.create({
+              sentTo: admin.email,
+              type: 'acceptance',
+              message: notificationMsg,
+              jobId: job.id,
+              fromUser: 'client',
+              metadata: {
+                amount: session.amount_total,
+                sessionId: session.id
+              },
+              isRead: false
+            });
+
+            sendNotificationEmail(admin.email, 'comment', notificationMsg, job.id).catch(err => {
+              console.error('❌ Super Admin webhook email notification failed:', err);
+            });
+          }
+
+          // Notify assigned worker if any
+          if (job.assignedTo) {
+            await db.NoticeBoardNotification.create({
+              sentTo: job.assignedTo,
+              type: 'assignment',
+              message: `Quote deposit paid! Project "${job.title}" is ready for production.`,
+              jobId: job.id,
+              fromUser: 'System',
+              isRead: false
+            });
+            sendNotificationEmail(job.assignedTo, 'assignment', `Quote deposit paid! Project is ready for production.`, job.id).catch(err => {
+              console.error('❌ Worker webhook notification failed:', err);
+            });
+          }
+
+          // Trigger "In Production" email immediately
+          sendClientPhaseNotificationEmail(job, 'in_production').catch(err => console.error('❌ Client webhook production email failed:', err));
+        }
+      } catch (err) {
+        console.error('❌ Webhook handler error (checkout.session.completed):', err);
+        return res.status(500).json({ error: err.message });
+      }
+    }
+  }
+
+  // Handle the expired checkout session event
+  if (event.type === 'checkout.session.expired') {
+    const session = event.data.object;
+    const jobId = session.metadata?.jobId;
+
+    if (jobId) {
+      try {
+        const job = await db.NoticeBoardJob.findByPk(jobId);
+        if (job) {
+          // Log notice board activity
+          await db.NoticeBoardActivity.create({
+            jobId: job.id,
+            userName: 'System',
+            action: 'Quote Expired',
+            details: `Stripe checkout session ${session.id} expired without payment.`
+          });
+
+          // Notify all Super Admins
+          const notificationMsg = `⚠️ [Quote Expired] Stripe payment link for job #${job.id} ("${job.title}") has expired without payment. You may need to re-send the quote.`;
+
+          const admins = await db.AdminUser.findAll({ where: { role: 'super_admin' } });
+          const { sendNotificationEmail } = require('./utils/mailer');
+          
+          for (const admin of admins) {
+            await db.NoticeBoardNotification.create({
+              sentTo: admin.email,
+              type: 'comment',
+              message: notificationMsg,
+              jobId: job.id,
+              fromUser: 'system',
+              isRead: false
+            });
+
+            sendNotificationEmail(admin.email, 'comment', notificationMsg, job.id).catch(err => {
+              console.error('❌ Super Admin expiration email notification failed:', err);
+            });
+          }
+        }
+      } catch (err) {
+        console.error('❌ Webhook handler error (checkout.session.expired):', err);
+        return res.status(500).json({ error: err.message });
+      }
+    }
+  }
+
+  res.json({ received: true });
+});
+
 // JSON limit set to 25mb — enough to handle base64-encoded logos up to ~16MB.
 // NOTE: Hostinger's nginx proxy enforces its own body size limits.
 // Do NOT raise this beyond 25mb or the proxy will reject requests with 413/503.

@@ -82,6 +82,30 @@ const ClientPortalPage = () => {
     }
   }, [token]);
 
+  useEffect(() => {
+    if (job && job.quoteStatus === 'quote_sent' && job.stripeSessionId) {
+      const checkPaymentStatus = async () => {
+        try {
+          const res = await fetch(`/api/portal/track/${token}/payment-status`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data.paid) {
+              toast.success('Your deposit payment was successfully verified!');
+              fetchPortalData();
+            }
+          }
+        } catch (err) {
+          console.error('Error in fallback payment verification:', err);
+        }
+      };
+      // Run fallback check after a short delay to allow webhook / primary redirect to complete first
+      const timer = setTimeout(() => {
+        checkPaymentStatus();
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [job?.quoteStatus, job?.stripeSessionId, token]);
+
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!newMessage.trim() || isSending) return;
@@ -197,8 +221,17 @@ const ClientPortalPage = () => {
   const renderScopeDetails = () => {
     if (!job || !job.projectScope || typeof job.projectScope !== 'object') return null;
     
-    const entries = Object.entries(job.projectScope).filter(([key]) => {
-      return key !== 'customQuoteAmount' && key !== 'depositRequired';
+    const scope = job.projectScope;
+    let answers = scope.customQuoteAnswers ? { ...scope.customQuoteAnswers } : { ...scope };
+
+    // Remove known internal boolean flags injected by the admin builder
+    const internalKeys = ['needCopywriting', 'needImages', 'needContactForms', 'needBooking', 'needPayment', 'needSeo', 'needMobile', 'pagesCount', 'customQuoteAmount', 'depositRequired'];
+    internalKeys.forEach(k => delete answers[k]);
+
+    const entries = Object.entries(answers).filter(([key, val]) => {
+      if (val === null || val === undefined || val === false || val === '') return false;
+      if (Array.isArray(val) && val.length === 0) return false;
+      return true;
     });
 
     if (entries.length === 0) return null;
@@ -212,16 +245,28 @@ const ClientPortalPage = () => {
               .replace(/([A-Z])/g, ' $1')
               .replace(/^./, str => str.toUpperCase());
             
+            const formatValue = (v) => {
+              if (typeof v !== 'string') return String(v);
+              if (v.includes('_') && !v.includes(' ')) {
+                return v.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+              }
+              if (/^[a-z]+[A-Z][a-zA-Z]*$/.test(v)) {
+                const spaced = v.replace(/([A-Z])/g, ' $1');
+                return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+              }
+              return v;
+            };
+
             let valueStr = '';
             if (Array.isArray(val)) {
-              valueStr = val.join(', ');
+              valueStr = val.map(formatValue).join(', ');
             } else if (typeof val === 'object' && val !== null) {
               valueStr = JSON.stringify(val);
             } else {
-              valueStr = String(val);
+              valueStr = formatValue(val);
             }
 
-            if (!valueStr) return null;
+            if (!valueStr || valueStr === '{}' || valueStr === '[]') return null;
 
             return (
               <div key={key} className="space-y-1 bg-slate-950/40 p-4 rounded-xl border border-slate-800/60">
@@ -303,7 +348,7 @@ const ClientPortalPage = () => {
           </div>
 
           {/* Highlights Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className={`grid grid-cols-1 sm:grid-cols-2 ${job.specialDiscount > 0 ? 'lg:grid-cols-5' : 'lg:grid-cols-4'} gap-6`}>
             <div className="bg-white/5 backdrop-blur-md border border-white/10 p-5 rounded-2xl flex items-center space-x-4">
               <div className="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-300 flex items-center justify-center flex-shrink-0 text-xl border border-blue-500/30">
                 <FaProjectDiagram />
@@ -334,12 +379,24 @@ const ClientPortalPage = () => {
               </div>
             </div>
 
+            {job.specialDiscount > 0 && (
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 p-5 rounded-2xl flex items-center space-x-4">
+                <div className="w-12 h-12 rounded-xl bg-rose-500/20 text-rose-300 flex items-center justify-center flex-shrink-0 text-xl border border-rose-500/30">
+                  <FaDollarSign />
+                </div>
+                <div>
+                  <span className="text-[9px] font-black text-slate-500 uppercase tracking-wider block">Special Discount</span>
+                  <span className="text-sm font-extrabold text-rose-400 block mt-0.5">-{formatCurrency(job.specialDiscount)}</span>
+                </div>
+              </div>
+            )}
+
             <div className="bg-white/5 backdrop-blur-md border border-white/10 p-5 rounded-2xl flex items-center space-x-4">
               <div className="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-300 flex items-center justify-center flex-shrink-0 text-xl border border-purple-500/30">
                 <FaFileInvoiceDollar />
               </div>
               <div>
-                <span className="text-[9px] font-black text-slate-500 uppercase tracking-wider block">Required Deposit (50%)</span>
+                <span className="text-[9px] font-black text-slate-500 uppercase tracking-wider block">Required Deposit</span>
                 <span className="text-sm font-extrabold text-white block mt-0.5">{formatCurrency(job.depositRequired)}</span>
               </div>
             </div>
@@ -408,6 +465,19 @@ const ClientPortalPage = () => {
             </div>
           )}
 
+          {/* Monthly Retainer Support Option Section */}
+          {job.monthlySupportOption && (
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 space-y-4">
+              <div className="border-b border-white/10 pb-3 flex items-center gap-2">
+                <FaInfoCircle className="text-purple-400 text-lg flex-shrink-0" />
+                <h3 className="text-md font-bold text-white uppercase tracking-wider">Monthly Retainer Support Option</h3>
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed font-semibold bg-purple-950/20 p-4 rounded-xl border border-purple-500/20">
+                {job.monthlySupportOption}
+              </p>
+            </div>
+          )}
+
           {/* Scope Review Section */}
           {renderScopeDetails()}
 
@@ -441,6 +511,12 @@ const ClientPortalPage = () => {
                 <div className="space-y-1">
                   <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider block">Requested Support Level</span>
                   <span className="text-white font-semibold block">{job.levelOfSupport}</span>
+                </div>
+              )}
+              {job.monthlySupportOption && (
+                <div className="space-y-1">
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider block">Monthly Support Option</span>
+                  <span className="text-white font-semibold block truncate" title={job.monthlySupportOption}>{job.monthlySupportOption}</span>
                 </div>
               )}
             </div>
@@ -480,14 +556,26 @@ const ClientPortalPage = () => {
               <p className="text-xs text-slate-400 font-semibold leading-relaxed">
                 By paying the security deposit, you approve this customized service proposal. ScaleLink Alliance will lock in your timeline and allocate the necessary engineering and design resources immediately.
               </p>
-              <div className="flex gap-6 pt-2 text-xs">
+              <div className="flex flex-wrap gap-6 pt-2 text-xs">
+                <div>
+                  <span className="text-slate-500 block font-bold">Total Quote:</span>
+                  <span className="text-sm font-black text-white">{formatCurrency(job.customQuoteAmount)}</span>
+                </div>
+                {job.specialDiscount > 0 && (
+                  <div>
+                    <span className="text-slate-500 block font-bold">Special Discount:</span>
+                    <span className="text-sm font-black text-rose-400">-{formatCurrency(job.specialDiscount)}</span>
+                  </div>
+                )}
                 <div>
                   <span className="text-slate-500 block font-bold">Deposit Due Now:</span>
                   <span className="text-sm font-black text-emerald-400">{formatCurrency(job.depositRequired)}</span>
                 </div>
                 <div>
                   <span className="text-slate-500 block font-bold">Remaining Balance:</span>
-                  <span className="text-sm font-black text-white">{formatCurrency(job.customQuoteAmount - job.depositRequired)}</span>
+                  <span className="text-sm font-black text-white">
+                    {formatCurrency(job.customQuoteAmount - (job.specialDiscount || 0) - job.depositRequired)}
+                  </span>
                 </div>
               </div>
             </div>

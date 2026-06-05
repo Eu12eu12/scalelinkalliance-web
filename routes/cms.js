@@ -102,6 +102,40 @@ const restrictTo = (...roles) => {
   };
 };
 
+// Middleware to prevent work actions on unpaid custom quote jobs
+const blockUnpaidCustomQuote = async (req, res, next) => {
+  try {
+    const job = await db.NoticeBoardJob.findByPk(req.params.id);
+    if (!job) return res.status(404).json({ error: 'Job not found.' });
+
+    const hasCustomQuoteService = job.category && job.category.includes('Request Custom Quote');
+    const hasQuoteAmount = job.customQuoteAmount && job.customQuoteAmount > 0;
+    const isCustomQuote = hasCustomQuoteService || hasQuoteAmount;
+
+    if (isCustomQuote) {
+      const isPaid = job.quoteStatus === 'deposit_paid' || 
+                     job.quoteStatus === 'in_progress' || 
+                     job.quoteStatus === 'completed' || 
+                     job.quoteStatus === 'approved';
+
+      if (!isPaid) {
+        if (req.method === 'PATCH' && req.route && req.route.path === '/admin/notice-board/:id') {
+          const { status, assignedTo } = req.body;
+          if (status || assignedTo) {
+            return res.status(403).json({ error: 'Action blocked. This custom quote job has not been paid for by the client.' });
+          }
+        } else {
+          return res.status(403).json({ error: 'Action blocked. This custom quote job has not been paid for by the client.' });
+        }
+      }
+    }
+
+    next();
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 // Helper to create snapshots of job data
 const getJobSnapshot = (job) => ({
   title: job.title,
@@ -1017,7 +1051,7 @@ router.post('/admin/notice-board', authMiddleware, restrictTo('super_admin', 'wo
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-router.patch('/admin/notice-board/:id', authMiddleware, restrictTo('super_admin', 'worker'), jobUpload.array('files', 10), async (req, res) => {
+router.patch('/admin/notice-board/:id', authMiddleware, restrictTo('super_admin', 'worker'), blockUnpaidCustomQuote, jobUpload.array('files', 10), async (req, res) => {
   try {
     const job = await db.NoticeBoardJob.findByPk(req.params.id);
     if (!job) return res.status(404).json({ error: 'Job not found' });
@@ -1132,7 +1166,7 @@ router.patch('/admin/notice-board/:id', authMiddleware, restrictTo('super_admin'
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-router.patch('/admin/notice-board/:id/assign', authMiddleware, restrictTo('super_admin'), async (req, res) => {
+router.patch('/admin/notice-board/:id/assign', authMiddleware, restrictTo('super_admin'), blockUnpaidCustomQuote, async (req, res) => {
   try {
     const { workerEmail } = req.body;
     const job = await db.NoticeBoardJob.findByPk(req.params.id);
@@ -1173,7 +1207,7 @@ router.patch('/admin/notice-board/:id/assign', authMiddleware, restrictTo('super
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-router.patch('/admin/notice-board/:id/unassign', authMiddleware, restrictTo('super_admin'), async (req, res) => {
+router.patch('/admin/notice-board/:id/unassign', authMiddleware, restrictTo('super_admin'), blockUnpaidCustomQuote, async (req, res) => {
   try {
     const job = await db.NoticeBoardJob.findByPk(req.params.id);
     if (!job) return res.status(404).json({ error: 'Job not found' });
@@ -1212,7 +1246,7 @@ router.patch('/admin/notice-board/:id/unassign', authMiddleware, restrictTo('sup
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-router.patch('/admin/notice-board/:id/accept', authMiddleware, restrictTo('worker'), async (req, res) => {
+router.patch('/admin/notice-board/:id/accept', authMiddleware, restrictTo('worker'), blockUnpaidCustomQuote, async (req, res) => {
   try {
     const job = await db.NoticeBoardJob.findByPk(req.params.id);
     if (!job) return res.status(404).json({ error: 'Job not found' });
@@ -1248,7 +1282,7 @@ router.patch('/admin/notice-board/:id/accept', authMiddleware, restrictTo('worke
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-router.patch('/admin/notice-board/:id/decline', authMiddleware, restrictTo('worker'), async (req, res) => {
+router.patch('/admin/notice-board/:id/decline', authMiddleware, restrictTo('worker'), blockUnpaidCustomQuote, async (req, res) => {
   try {
     const { reason } = req.body;
     const job = await db.NoticeBoardJob.findByPk(req.params.id);
@@ -1290,7 +1324,7 @@ router.patch('/admin/notice-board/:id/decline', authMiddleware, restrictTo('work
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-router.patch('/admin/notice-board/:id/checkout', authMiddleware, restrictTo('worker'), async (req, res) => {
+router.patch('/admin/notice-board/:id/checkout', authMiddleware, restrictTo('worker'), blockUnpaidCustomQuote, async (req, res) => {
   try {
     const job = await db.NoticeBoardJob.findByPk(req.params.id);
     if (!job) return res.status(404).json({ error: 'Job not found' });
@@ -1323,7 +1357,7 @@ router.patch('/admin/notice-board/:id/checkout', authMiddleware, restrictTo('wor
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-router.patch('/admin/notice-board/:id/review', authMiddleware, restrictTo('super_admin'), async (req, res) => {
+router.patch('/admin/notice-board/:id/review', authMiddleware, restrictTo('super_admin'), blockUnpaidCustomQuote, async (req, res) => {
   try {
     const job = await db.NoticeBoardJob.findByPk(req.params.id);
     if (!job) return res.status(404).json({ error: 'Job not found' });
@@ -1352,7 +1386,7 @@ router.patch('/admin/notice-board/:id/review', authMiddleware, restrictTo('super
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-router.patch('/admin/notice-board/:id/approve', authMiddleware, restrictTo('super_admin'), async (req, res) => {
+router.patch('/admin/notice-board/:id/approve', authMiddleware, restrictTo('super_admin'), blockUnpaidCustomQuote, async (req, res) => {
   try {
     const job = await db.NoticeBoardJob.findByPk(req.params.id);
     if (!job) return res.status(404).json({ error: 'Job not found' });
@@ -1382,7 +1416,7 @@ router.patch('/admin/notice-board/:id/approve', authMiddleware, restrictTo('supe
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-router.patch('/admin/notice-board/:id/return', authMiddleware, restrictTo('super_admin'), async (req, res) => {
+router.patch('/admin/notice-board/:id/return', authMiddleware, restrictTo('super_admin'), blockUnpaidCustomQuote, async (req, res) => {
   try {
     const { feedback } = req.body;
     const job = await db.NoticeBoardJob.findByPk(req.params.id);
@@ -1441,7 +1475,7 @@ router.get('/admin/notice-board/:id/files', authMiddleware, restrictTo('super_ad
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-router.post('/admin/notice-board/:id/files', authMiddleware, restrictTo('super_admin', 'worker'), jobUpload.array('files', 5), async (req, res) => {
+router.post('/admin/notice-board/:id/files', authMiddleware, restrictTo('super_admin', 'worker'), blockUnpaidCustomQuote, jobUpload.array('files', 5), async (req, res) => {
   try {
     if (!req.files || req.files.length === 0) return res.status(400).json({ error: 'No files uploaded' });
     
@@ -1535,7 +1569,7 @@ router.get('/admin/notice-board/:id/comments', authMiddleware, restrictTo('super
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-router.post('/admin/notice-board/:id/comments', authMiddleware, restrictTo('super_admin', 'worker'), async (req, res) => {
+router.post('/admin/notice-board/:id/comments', authMiddleware, restrictTo('super_admin', 'worker'), blockUnpaidCustomQuote, async (req, res) => {
   try {
     const { comment, visibility } = req.body;
     if (!comment) return res.status(400).json({ error: 'Comment text is required' });
@@ -1713,7 +1747,8 @@ router.post('/admin/notice-board/:id/send-quote', authMiddleware, restrictTo('su
     
     // Default currency to USD if not set
     const currency = (job.currency || 'usd').toLowerCase();
-    const depositAmount = job.depositRequired || job.customQuoteAmount || 0; // fallback to customQuoteAmount if deposit not set
+    const netQuoteAmount = Math.max(0, (job.customQuoteAmount || 0) - (job.specialDiscount || 0));
+    const depositAmount = job.depositRequired !== null && job.depositRequired !== undefined ? job.depositRequired : netQuoteAmount;
 
     if (depositAmount <= 0) {
       return res.status(400).json({ error: 'A valid custom quote amount and deposit amount are required before sending a quote.' });
@@ -1727,7 +1762,7 @@ router.post('/admin/notice-board/:id/send-quote', authMiddleware, restrictTo('su
           currency,
           product_data: {
             name: `Deposit for Project: ${job.title}`,
-            description: `Total Quote: $${((job.customQuoteAmount || 0) / 100).toLocaleString()}. Deposit Required: $${(depositAmount / 100).toLocaleString()}`,
+            description: `Total Quote: $${((job.customQuoteAmount || 0) / 100).toLocaleString()}${job.specialDiscount ? ` (Less Special Discount: -$${(job.specialDiscount / 100).toLocaleString()})` : ''}. Deposit Required: $${(depositAmount / 100).toLocaleString()}`,
           },
           unit_amount: depositAmount,
         },

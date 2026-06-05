@@ -6,7 +6,7 @@ import {
   FaPlus, FaTrash, FaEdit, FaCheck, FaClock, FaExclamationTriangle, 
   FaFilter, FaSearch, FaPaperPlane, FaBriefcase, FaEye, FaUser, 
   FaEnvelope, FaPhone, FaGlobeAmericas, FaLayerGroup, FaMoneyBillWave,
-  FaTimes, FaCheckDouble, FaHistory
+  FaTimes, FaCheckDouble, FaHistory, FaLock
 } from 'react-icons/fa';
 import JobDetailsModal from './JobDetailsModal';
 import { 
@@ -520,6 +520,64 @@ const AdminNoticeBoard = () => {
     currentPage * itemsPerPage
   );
 
+  const isUnpaidCustomQuote = (job) => {
+    const hasCustomQuoteService = job.category && job.category.includes('Request Custom Quote');
+    const hasQuoteAmount = job.customQuoteAmount && job.customQuoteAmount > 0;
+    const isCustomQuote = hasCustomQuoteService || hasQuoteAmount;
+    if (!isCustomQuote) return false;
+    return job.quoteStatus !== 'deposit_paid' && 
+           job.quoteStatus !== 'in_progress' && 
+           job.quoteStatus !== 'completed' && 
+           job.quoteStatus !== 'approved';
+  };
+
+  const getPaymentStatusBadge = (job) => {
+    const hasCustomQuoteService = job.category && job.category.includes('Request Custom Quote');
+    const hasQuoteAmount = job.customQuoteAmount && job.customQuoteAmount > 0;
+    const isCustomQuote = hasCustomQuoteService || hasQuoteAmount;
+
+    if (!isCustomQuote) {
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-700">
+          Paid ✓
+        </span>
+      );
+    }
+
+    switch (job.quoteStatus) {
+      case 'deposit_paid':
+      case 'in_progress':
+      case 'completed':
+      case 'approved':
+        return (
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-700">
+            Deposit Paid ✓
+          </span>
+        );
+      case 'quote_sent':
+      case 'follow_up_needed':
+        return (
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 text-orange-700 animate-pulse">
+            Awaiting Payment
+          </span>
+        );
+      case 'declined':
+        return (
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-700">
+            Declined
+          </span>
+        );
+      case 'new_request':
+      case 'under_review':
+      default:
+        return (
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-700">
+            Pending Quote
+          </span>
+        );
+    }
+  };
+
   const getStatusBadge = (status, assignedTo) => {
     const isGhostAssignment = status === 'assigned' && !assignedTo;
     const effectiveStatus = isGhostAssignment ? 'new' : status;
@@ -694,7 +752,12 @@ const AdminNoticeBoard = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4">{getStatusBadge(job.status, job.assignedTo)}</td>
+                        <td className="px-6 py-4">
+                          <div className="flex flex-col space-y-2 items-start">
+                            {getStatusBadge(job.status, job.assignedTo)}
+                            {getPaymentStatusBadge(job)}
+                          </div>
+                        </td>
                         <td className="px-6 py-4 text-right">
                           <div className="flex items-center justify-end space-x-2">
                             {/* Lifecycle Actions */}
@@ -793,8 +856,18 @@ const AdminNoticeBoard = () => {
                               </>
                             )}
 
-                            <button onClick={() => setViewingJob(job)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="View Details"><FaEye size={14} /></button>
-                            {isSuperAdmin && (
+                            {isUnpaidCustomQuote(job) ? (
+                              <button 
+                                className="p-2 text-slate-400 bg-slate-100 rounded-lg cursor-not-allowed" 
+                                title="Details Locked — Awaiting Client Payment"
+                                disabled
+                              >
+                                <FaLock size={14} className="text-slate-400" />
+                              </button>
+                            ) : (
+                              <button onClick={() => setViewingJob(job)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="View Details"><FaEye size={14} /></button>
+                            )}
+                            {isSuperAdmin && !isUnpaidCustomQuote(job) && (
                               <>
                                 {job.status !== 'completed' && (
                                   <button onClick={() => handleOpenModal(job)} className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors" title="Edit"><FaEdit size={14} /></button>

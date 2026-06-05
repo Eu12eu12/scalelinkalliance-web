@@ -160,6 +160,8 @@ router.get('/track/:token', validateClientToken, async (req, res) => {
         quoteStatus: job.quoteStatus,
         customQuoteAmount: job.customQuoteAmount,
         depositRequired: job.depositRequired,
+        specialDiscount: job.specialDiscount,
+        monthlySupportOption: job.monthlySupportOption,
         recommendedPackage: job.recommendedPackage,
         estimatedCompletionTime: job.estimatedCompletionTime,
         includedServices: job.includedServices,
@@ -317,7 +319,9 @@ router.post('/track/:token/confirm-payment', validateClientToken, async (req, re
     await job.update({
       quoteStatus: 'deposit_paid',
       status: job.status === 'new' ? 'assigned' : job.status, // Move from new to assigned so it can start production
-      projectFee: job.customQuoteAmount || job.projectFee // align fee with custom quote amount
+      projectFee: (job.customQuoteAmount !== null && job.customQuoteAmount !== undefined) 
+        ? Math.max(0, job.customQuoteAmount - (job.specialDiscount || 0)) 
+        : job.projectFee // align fee with net custom quote amount
     });
 
     await logJobActivity(job.id, 'Client', 'Deposit Paid', `Client successfully paid deposit of $${(session.amount_total / 100).toFixed(2)} via Stripe.`);
@@ -355,6 +359,65 @@ router.post('/track/:token/confirm-payment', validateClientToken, async (req, re
     });
   } catch (err) {
     console.error('❌ Error confirming payment:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 6. Client Portal: Proactively retrieve payment status from Stripe if needed
+router.get('/track/:token/payment-status', validateClientToken, async (req, res) => {
+  try {
+    const { job } = req;
+    
+    // Only check if we have a session ID and we are awaiting payment
+    if (!job.stripeSessionId || job.quoteStatus !== 'quote_sent') {
+      return res.json({ paid: job.quoteStatus === 'deposit_paid' || job.quoteStatus === 'in_progress' || job.quoteStatus === 'completed' || job.quoteStatus === 'approved' });
+    }
+
+    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+    const session = await stripe.checkout.sessions.retrieve(job.stripeSessionId);
+
+    if (session.payment_status === 'paid' && job.quoteStatus !== 'deposit_paid') {
+      // Auto-update since it's paid!
+      await job.update({
+        quoteStatus: 'deposit_paid',
+        status: job.status === 'new' ? 'assigned' : job.status,
+        projectFee: (job.customQuoteAmount !== null && job.customQuoteAmount !== undefined) 
+          ? Math.max(0, job.customQuoteAmount - (job.specialDiscount || 0)) 
+          : job.projectFee
+      });
+
+      await logJobActivity(job.id, 'Client', 'Deposit Paid', `Fallback check confirmed deposit payment of $${(session.amount_total / 100).toFixed(2)} via Stripe.`);
+
+      const clientName = `${job.clientFirstName || ''} ${job.clientLastName || ''}`.trim() || 'Client';
+      const notificationMsg = `💳 [Deposit Paid] Client ${clientName} (${job.client}) paid deposit of $${(session.amount_total / 100).toFixed(2)} for job #${job.id}!`;
+      await notifySuperAdmins(job, 'acceptance', notificationMsg, {
+        amount: session.amount_total,
+        sessionId: job.stripeSessionId
+      });
+
+      if (job.assignedTo) {
+        await db.NoticeBoardNotification.create({
+          sentTo: job.assignedTo,
+          type: 'assignment',
+          message: `Quote deposit paid! Project "${job.title}" is ready for production.`,
+          jobId: job.id,
+          fromUser: 'System',
+          isRead: false
+        });
+        sendNotificationEmail(job.assignedTo, 'assignment', `Quote deposit paid! Project is ready for production.`, job.id).catch(err => {
+          console.error('❌ Worker notification failed:', err);
+        });
+      }
+
+      // Trigger "In Production" email immediately
+      sendClientPhaseNotificationEmail(job, 'in_production').catch(err => console.error('❌ Client production email failed:', err));
+
+      return res.json({ paid: true, job });
+    }
+
+    res.json({ paid: false });
+  } catch (err) {
+    console.error('❌ Error checking payment status fallback:', err);
     res.status(500).json({ error: err.message });
   }
 });
