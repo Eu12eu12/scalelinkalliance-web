@@ -150,12 +150,18 @@ const migrate = async () => {
     }
 
     console.log('🎉 Database Migration completed successfully!');
-    process.exit(0);
   } catch (err) {
     await transaction.rollback().catch(() => {});
     console.error('❌ Migration failed:', err);
-    process.exit(1);
+    throw err;
   }
 };
 
-migrate();
+if (require.main === module) {
+  migrate()
+    .then(() => process.exit(0))
+    .catch(() => process.exit(1));
+} else {
+  module.exports = migrate;
+}
+

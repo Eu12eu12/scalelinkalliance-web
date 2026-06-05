@@ -442,6 +442,15 @@ const PORT = process.env.PORT || 3001;
 
 // Sync database and then start server
 const startServer = async () => {
+  // Run custom migrations first (essential for MySQL in production where alter: true is disabled)
+  try {
+    const migrate = require('./scripts/migrate.js');
+    await migrate();
+    console.log('✅ Production custom database migration completed.');
+  } catch (migErr) {
+    console.error('⚠️ Production custom database migration failed or skipped:', migErr.message);
+  }
+
   // Phase 1: Try sync with schema alteration (adds/modifies columns safely)
   try {
     if (db.sequelize.options.dialect === 'sqlite') {
@@ -466,6 +475,7 @@ const startServer = async () => {
       console.error('❌ Database sync failed entirely. Server starting anyway:', syncErr.message);
     }
   }
+
 
   // Always start the HTTP server regardless of DB sync outcome.
   // A running server that returns 500 on DB errors is far better than a 503.
