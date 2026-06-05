@@ -505,14 +505,28 @@ const Notifications = () => {
                           )}
                         </div>
                       )}
-                      {notification.type === 'service_request' && (
-                        <button 
-                          onClick={() => window.location.href = '/hub/notice-board'}
-                          className="px-6 py-2 bg-blue-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-md active:scale-95"
-                        >
-                          View in Notice Board
-                        </button>
-                      )}
+                      {notification.type === 'service_request' && (() => {
+                        const meta = parseMeta(notification.metadata);
+                        const isCustomQuote = !meta.totalAmount || meta.totalAmount === 0;
+                        return (
+                          <div className="flex items-center gap-2">
+                            <button 
+                              onClick={() => window.location.href = '/hub/notice-board'}
+                              className="px-6 py-2 bg-blue-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-md active:scale-95"
+                            >
+                              View in Notice Board
+                            </button>
+                            {isCustomQuote && (
+                              <button 
+                                onClick={() => window.location.href = `/hub/quotes?editJobId=${notification.jobId}`}
+                                className="px-6 py-2 bg-emerald-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-md active:scale-95"
+                              >
+                                View in Custom Quote
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })()}
                     </div>
                   </div>
                 </div>

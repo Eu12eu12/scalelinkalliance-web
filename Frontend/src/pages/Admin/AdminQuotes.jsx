@@ -340,6 +340,20 @@ const AdminQuotes = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [token]);
 
+  // Auto-open builder if editJobId query parameter is present
+  useEffect(() => {
+    if (!loading && quotes.length > 0) {
+      const queryParams = new URLSearchParams(window.location.search);
+      const editJobId = queryParams.get('editJobId');
+      if (editJobId) {
+        const quoteToEdit = quotes.find(q => q.id === parseInt(editJobId));
+        if (quoteToEdit) {
+          handleOpenModal(quoteToEdit);
+        }
+      }
+    }
+  }, [loading, quotes]);
+
   // Sync viewingQuote with updated list for real-time updates in modal
   useEffect(() => {
     if (viewingQuote && quotes.length > 0) {
