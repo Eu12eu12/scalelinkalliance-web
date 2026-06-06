@@ -55,13 +55,35 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
       try {
         const job = await db.NoticeBoardJob.findByPk(jobId);
         if (job && job.quoteStatus !== 'deposit_paid') {
+          // Parse metadata selectedAddons
+          let selectedAddons = [];
+          try {
+            if (session.metadata && session.metadata.selectedAddons) {
+              selectedAddons = JSON.parse(session.metadata.selectedAddons);
+            }
+          } catch (err) {
+            console.error('❌ Error parsing selectedAddons metadata in webhook:', err);
+          }
+
+          const addonsTotal = selectedAddons.reduce((sum, item) => sum + (item.price || 0), 0);
+          const baseQuoteAmount = job.customQuoteAmount || 0;
+          const newCustomQuoteAmount = baseQuoteAmount + addonsTotal;
+          const newProjectFee = Math.max(0, newCustomQuoteAmount - (job.specialDiscount || 0));
+
+          // Update included services string
+          let currentIncluded = job.includedServices || '';
+          if (selectedAddons.length > 0) {
+            const addonLines = selectedAddons.map(a => `✓ Upgrade: ${a.name} ($${(a.price / 100).toFixed(2)} USD)`).join('\n');
+            currentIncluded = currentIncluded ? `${currentIncluded}\n${addonLines}` : addonLines;
+          }
+
           // Update job fields
           await job.update({
             quoteStatus: 'deposit_paid',
             status: job.status === 'new' ? 'assigned' : job.status,
-            projectFee: (job.customQuoteAmount !== null && job.customQuoteAmount !== undefined) 
-              ? Math.max(0, job.customQuoteAmount - (job.specialDiscount || 0)) 
-              : job.projectFee
+            customQuoteAmount: newCustomQuoteAmount,
+            projectFee: newProjectFee,
+            includedServices: currentIncluded
           });
 
           // Log notice board activity

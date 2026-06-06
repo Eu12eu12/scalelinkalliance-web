@@ -98,6 +98,42 @@ const notifySuperAdmins = async (job, type, message, metadata = null) => {
   }
 };
 
+// Helper to handle all operations after payment succeeds (Stripe webhook or manual checkout confirmation)
+const updateJobAfterPayment = async (job, session) => {
+  if (job.quoteStatus === 'deposit_paid') return job;
+
+  let selectedAddons = [];
+  try {
+    if (session.metadata && session.metadata.selectedAddons) {
+      selectedAddons = JSON.parse(session.metadata.selectedAddons);
+    }
+  } catch (err) {
+    console.error('❌ Error parsing selectedAddons metadata:', err);
+  }
+
+  const addonsTotal = selectedAddons.reduce((sum, item) => sum + (item.price || 0), 0);
+  const baseQuoteAmount = job.customQuoteAmount || 0;
+  const newCustomQuoteAmount = baseQuoteAmount + addonsTotal;
+  const newProjectFee = Math.max(0, newCustomQuoteAmount - (job.specialDiscount || 0));
+
+  // Update included services string
+  let currentIncluded = job.includedServices || '';
+  if (selectedAddons.length > 0) {
+    const addonLines = selectedAddons.map(a => `✓ Upgrade: ${a.name} ($${(a.price / 100).toFixed(2)} USD)`).join('\n');
+    currentIncluded = currentIncluded ? `${currentIncluded}\n${addonLines}` : addonLines;
+  }
+
+  await job.update({
+    quoteStatus: 'deposit_paid',
+    status: job.status === 'new' ? 'assigned' : job.status, // Move to assigned status so it can start production
+    customQuoteAmount: newCustomQuoteAmount,
+    projectFee: newProjectFee,
+    includedServices: currentIncluded
+  });
+
+  return await job.reload();
+};
+
 // ──────────────────────────────────────────
 // ENDPOINTS
 // ──────────────────────────────────────────
@@ -294,7 +330,71 @@ router.post('/track/:token/satisfied', validateClientToken, async (req, res) => 
   }
 });
 
-// 5. Client Portal: Confirm Stripe Deposit Payment
+// 5. Client Portal: Create Dynamic Checkout Session with Selected Add-ons
+router.post('/track/:token/checkout', validateClientToken, async (req, res) => {
+  try {
+    const { job } = req;
+    const { selectedAddons } = req.body; // Array of selected addon objects: [{ name, price }]
+    
+    if (job.quoteStatus !== 'quote_sent') {
+      return res.status(400).json({ error: 'This quote is not in a payable state.' });
+    }
+
+    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+    const currency = (job.currency || 'usd').toLowerCase();
+    
+    // Calculate new deposit amount
+    const baseDeposit = job.depositRequired !== null && job.depositRequired !== undefined ? job.depositRequired : Math.max(0, (job.customQuoteAmount || 0) - (job.specialDiscount || 0));
+    const addonsTotal = (selectedAddons || []).reduce((sum, item) => sum + (item.price || 0), 0);
+    const totalDepositAmount = baseDeposit + addonsTotal;
+
+    if (totalDepositAmount <= 0) {
+      return res.status(400).json({ error: 'A valid payment amount is required.' });
+    }
+
+    // Create Stripe Checkout Session description
+    const descriptionStr = `Base Deposit: $${(baseDeposit / 100).toLocaleString()}` + 
+      ((selectedAddons && selectedAddons.length > 0) 
+        ? ` + Upgrades: ${selectedAddons.map(a => `${a.name} ($${(a.price / 100).toLocaleString()})`).join(', ')}` 
+        : '');
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [{
+        price_data: {
+          currency,
+          product_data: {
+            name: `Deposit & Upgrades for Project: ${job.title}`,
+            description: descriptionStr.substring(0, 255), // Stripe description limit is 255 chars
+          },
+          unit_amount: totalDepositAmount,
+        },
+        quantity: 1,
+      }],
+      mode: 'payment',
+      success_url: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/track-job/${job.clientToken}?payment_success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/track-job/${job.clientToken}`,
+      metadata: {
+        jobId: job.id,
+        clientToken: job.clientToken,
+        selectedAddons: JSON.stringify(selectedAddons || []) // Pass selected add-ons to stripe metadata
+      }
+    });
+
+    // Temporarily save checkout session details on the job
+    await job.update({
+      stripeCheckoutUrl: session.url,
+      stripeSessionId: session.id,
+    });
+
+    res.json({ stripeCheckoutUrl: session.url });
+  } catch (err) {
+    console.error('❌ Dynamic checkout error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 6. Client Portal: Confirm Stripe Deposit Payment
 router.post('/track/:token/confirm-payment', validateClientToken, async (req, res) => {
   try {
     const { job } = req;
@@ -315,14 +415,8 @@ router.post('/track/:token/confirm-payment', validateClientToken, async (req, re
       return res.status(400).json({ error: 'Payment has not been completed.' });
     }
 
-    // Update job status
-    await job.update({
-      quoteStatus: 'deposit_paid',
-      status: job.status === 'new' ? 'assigned' : job.status, // Move from new to assigned so it can start production
-      projectFee: (job.customQuoteAmount !== null && job.customQuoteAmount !== undefined) 
-        ? Math.max(0, job.customQuoteAmount - (job.specialDiscount || 0)) 
-        : job.projectFee // align fee with net custom quote amount
-    });
+    // Update job status and apply any purchased upgrades
+    await updateJobAfterPayment(job, session);
 
     await logJobActivity(job.id, 'Client', 'Deposit Paid', `Client successfully paid deposit of $${(session.amount_total / 100).toFixed(2)} via Stripe.`);
 
@@ -378,13 +472,7 @@ router.get('/track/:token/payment-status', validateClientToken, async (req, res)
 
     if (session.payment_status === 'paid' && job.quoteStatus !== 'deposit_paid') {
       // Auto-update since it's paid!
-      await job.update({
-        quoteStatus: 'deposit_paid',
-        status: job.status === 'new' ? 'assigned' : job.status,
-        projectFee: (job.customQuoteAmount !== null && job.customQuoteAmount !== undefined) 
-          ? Math.max(0, job.customQuoteAmount - (job.specialDiscount || 0)) 
-          : job.projectFee
-      });
+      await updateJobAfterPayment(job, session);
 
       await logJobActivity(job.id, 'Client', 'Deposit Paid', `Fallback check confirmed deposit payment of $${(session.amount_total / 100).toFixed(2)} via Stripe.`);
 
