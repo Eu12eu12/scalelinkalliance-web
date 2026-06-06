@@ -2597,9 +2597,6 @@ const ServiceDetailPage = () => {
 
               {/* Summary / Portfolio Card Text */}
               <div className="border-t border-gray-100 pt-6">
-                <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
-                  Portfolio Preview Text
-                </span>
                 <div className="border-l-4 border-gray-300 pl-4 italic text-gray-600">
                   "{service.sampleProject.portfolioCardText}"
                 </div>
