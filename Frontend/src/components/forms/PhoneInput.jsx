@@ -2,11 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FaChevronDown, FaSearch } from 'react-icons/fa';
 import { COUNTRIES } from '../../utils/formConstants';
 
-const PhoneInput = ({ value, dialCode, onNumberChange, onDialChange, py = 'py-2.5' }) => {
+const PhoneInput = ({ value, dialCode, countryCode, onNumberChange, onDialChange, py = 'py-2.5' }) => {
   const [open, setOpen]     = useState(false);
   const [search, setSearch] = useState('');
   const ref                 = useRef(null);
-  const selected            = COUNTRIES.find(c => c.dial === dialCode) || COUNTRIES[0];
+  
+  const selected = countryCode
+    ? (COUNTRIES.find(c => c.code === countryCode) || COUNTRIES[0])
+    : (COUNTRIES.find(c => c.dial === dialCode) || COUNTRIES[0]);
 
   const filtered = COUNTRIES.filter(c =>
     c.name.toLowerCase().includes(search.toLowerCase()) || c.dial.includes(search)
@@ -24,9 +27,15 @@ const PhoneInput = ({ value, dialCode, onNumberChange, onDialChange, py = 'py-2.
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className={`flex items-center gap-1 px-3 ${py} border border-r-0 border-slate-200 rounded-l-xl bg-slate-50 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[88px]`}
+        className={`flex items-center gap-2 px-3 ${py} border border-r-0 border-slate-200 rounded-l-xl bg-slate-50 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[88px]`}
       >
-        <span className="text-lg leading-none">{selected.flag}</span>
+        <img 
+          src={`https://flagcdn.com/w20/${selected.code.toLowerCase()}.png`} 
+          srcSet={`https://flagcdn.com/w40/${selected.code.toLowerCase()}.png 2x`}
+          width="20"
+          alt={selected.name}
+          className="rounded-sm flex-shrink-0 object-contain"
+        />
         <span className="text-sm font-medium text-slate-700">{selected.dial}</span>
         <FaChevronDown className={`text-slate-400 text-xs transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
@@ -61,12 +70,18 @@ const PhoneInput = ({ value, dialCode, onNumberChange, onDialChange, py = 'py-2.
               <li key={c.code}>
                 <button
                   type="button"
-                  onClick={() => { onDialChange(c.dial); setOpen(false); setSearch(''); }}
+                  onClick={() => { onDialChange(c.dial, c.code); setOpen(false); setSearch(''); }}
                   className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-blue-50 transition-colors text-left ${
                     selected.code === c.code ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700'
                   }`}
                 >
-                  <span className="text-base">{c.flag}</span>
+                  <img 
+                    src={`https://flagcdn.com/w20/${c.code.toLowerCase()}.png`} 
+                    srcSet={`https://flagcdn.com/w40/${c.code.toLowerCase()}.png 2x`}
+                    width="20"
+                    alt={c.name}
+                    className="rounded-sm flex-shrink-0 object-contain"
+                  />
                   <span className="flex-1">{c.name}</span>
                   <span className="text-gray-400 text-xs font-mono">{c.dial}</span>
                 </button>
