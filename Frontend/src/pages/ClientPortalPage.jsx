@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { 
-  FaDownload, FaFileUpload, FaFileAlt, FaCheckCircle, 
+  FaDownload, FaFileUpload, FaFileAlt, FaCheckCircle, FaCheck, 
   FaPaperPlane, FaInfoCircle, FaClipboardCheck, FaRegComments,
   FaCalendarAlt, FaHourglassHalf, FaProjectDiagram, FaCloudUploadAlt,
   FaComments, FaUserCircle, FaShieldAlt, FaTimesCircle, FaDollarSign,
@@ -21,6 +21,55 @@ const ClientPortalPage = () => {
   const [satisfying, setSatisfying] = useState(false);
   const [error, setError] = useState('');
   const [verifyingPayment, setVerifyingPayment] = useState(false);
+  const [selectedAddons, setSelectedAddons] = useState([]);
+  const [isLoadingCheckout, setIsLoadingCheckout] = useState(false);
+
+  const isPaid = job && ['deposit_paid', 'in_progress', 'completed', 'approved'].includes(job.quoteStatus);
+  const totalAddonsPrice = isPaid ? 0 : selectedAddons.reduce((sum, item) => sum + (item.price || 0), 0);
+  const displayDeposit = job ? (job.depositRequired + totalAddonsPrice) : 0;
+  const displayTotal = job ? (job.customQuoteAmount + totalAddonsPrice) : 0;
+  const displayDiscount = job ? (job.specialDiscount || 0) : 0;
+  const displayBalance = Math.max(0, displayTotal - displayDiscount - displayDeposit);
+
+  const toggleAddon = (addon) => {
+    if (isPaid) return;
+    setSelectedAddons(prev => {
+      const exists = prev.some(a => a.name === addon.name);
+      if (exists) {
+        return prev.filter(a => a.name !== addon.name);
+      } else {
+        return [...prev, addon];
+      }
+    });
+  };
+
+  const isAddonSelected = (addonName) => {
+    if (isPaid) {
+      return job?.includedServices && job.includedServices.includes(`Upgrade: ${addonName}`);
+    }
+    return selectedAddons.some(a => a.name === addonName);
+  };
+
+  const handleCheckout = async () => {
+    try {
+      setIsLoadingCheckout(true);
+      const res = await fetch(`/api/portal/track/${token}/checkout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ selectedAddons })
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Failed to create payment checkout.');
+      }
+      const data = await res.json();
+      window.location.href = data.stripeCheckoutUrl;
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setIsLoadingCheckout(false);
+    }
+  };
 
   const fetchPortalData = async () => {
     try {
@@ -375,7 +424,7 @@ const ClientPortalPage = () => {
               </div>
               <div>
                 <span className="text-[9px] font-black text-slate-500 uppercase tracking-wider block">Total Solution Fee</span>
-                <span className="text-sm font-extrabold text-white block mt-0.5">{formatCurrency(job.customQuoteAmount)}</span>
+                <span className="text-sm font-extrabold text-white block mt-0.5">{formatCurrency(displayTotal)}</span>
               </div>
             </div>
 
@@ -397,7 +446,7 @@ const ClientPortalPage = () => {
               </div>
               <div>
                 <span className="text-[9px] font-black text-slate-500 uppercase tracking-wider block">Required Deposit</span>
-                <span className="text-sm font-extrabold text-white block mt-0.5">{formatCurrency(job.depositRequired)}</span>
+                <span className="text-sm font-extrabold text-white block mt-0.5">{formatCurrency(displayDeposit)}</span>
               </div>
             </div>
           </div>
@@ -455,12 +504,42 @@ const ClientPortalPage = () => {
                 <h3 className="text-md font-bold text-white uppercase tracking-wider">Available Solution Upgrades</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {optionalAddons.map((addon, idx) => (
-                  <div key={idx} className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-white/10 transition-all">
-                    <span className="text-xs font-bold text-slate-200">{addon.name}</span>
-                    <span className="text-xs font-black text-blue-300">{formatCurrency(addon.price)}</span>
-                  </div>
-                ))}
+                {optionalAddons.map((addon, idx) => {
+                  const selected = isAddonSelected(addon.name);
+                  return (
+                    <div 
+                      key={idx} 
+                      onClick={() => !isPaid && toggleAddon(addon)}
+                      className={`flex items-center justify-between p-4 rounded-2xl border transition-all select-none ${
+                        isPaid ? 'cursor-default' : 'cursor-pointer'
+                      } ${
+                        selected 
+                          ? 'bg-blue-600/10 border-blue-500 shadow-md shadow-blue-500/5' 
+                          : 'bg-white/5 border-white/5 hover:border-white/10'
+                      }`}
+                    >
+                      <div className="flex items-center space-x-3">
+                        {!isPaid && (
+                          <input 
+                            type="checkbox"
+                            checked={selected}
+                            onChange={() => {}} // handled by onClick on wrapper
+                            className="w-4 h-4 rounded text-blue-600 focus:ring-0 focus:ring-offset-0 bg-white/10 border-white/20 cursor-pointer"
+                          />
+                        )}
+                        {isPaid && selected && (
+                          <FaCheck className="text-emerald-400 text-sm flex-shrink-0" />
+                        )}
+                        <span className={`text-xs font-bold ${selected ? 'text-white font-extrabold' : 'text-slate-200'}`}>
+                          {addon.name}
+                        </span>
+                      </div>
+                      <span className={`text-xs font-black ${selected ? 'text-blue-300' : 'text-slate-400'}`}>
+                        {formatCurrency(addon.price)}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -559,39 +638,48 @@ const ClientPortalPage = () => {
               <div className="flex flex-wrap gap-6 pt-2 text-xs">
                 <div>
                   <span className="text-slate-500 block font-bold">Total Quote:</span>
-                  <span className="text-sm font-black text-white">{formatCurrency(job.customQuoteAmount)}</span>
+                  <span className="text-sm font-black text-white">{formatCurrency(displayTotal)}</span>
                 </div>
                 {job.specialDiscount > 0 && (
                   <div>
                     <span className="text-slate-500 block font-bold">Special Discount:</span>
-                    <span className="text-sm font-black text-rose-400">-{formatCurrency(job.specialDiscount)}</span>
+                    <span className="text-sm font-black text-rose-400">-{formatCurrency(displayDiscount)}</span>
                   </div>
                 )}
                 <div>
                   <span className="text-slate-500 block font-bold">Deposit Due Now:</span>
-                  <span className="text-sm font-black text-emerald-400">{formatCurrency(job.depositRequired)}</span>
+                  <span className="text-sm font-black text-emerald-400">{formatCurrency(displayDeposit)}</span>
                 </div>
                 <div>
                   <span className="text-slate-500 block font-bold">Remaining Balance:</span>
                   <span className="text-sm font-black text-white">
-                    {formatCurrency(job.customQuoteAmount - (job.specialDiscount || 0) - job.depositRequired)}
+                    {formatCurrency(displayBalance)}
                   </span>
                 </div>
               </div>
             </div>
 
             <div className="flex-shrink-0 w-full md:w-auto">
-              {job.stripeCheckoutUrl ? (
-                <a
-                  href={job.stripeCheckoutUrl}
-                  className="w-full md:w-auto inline-flex items-center justify-center space-x-2 py-4 px-8 bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-300 transform active:scale-95"
+              {job.quoteStatus === 'quote_sent' ? (
+                <button
+                  disabled={isLoadingCheckout}
+                  onClick={handleCheckout}
+                  className="w-full md:w-auto inline-flex items-center justify-center space-x-2 py-4 px-8 bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <FaFileSignature className="text-sm flex-shrink-0" />
-                  <span>Approve & Pay Deposit</span>
-                </a>
-              ) : (
+                  {isLoadingCheckout ? (
+                    <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
+                  ) : (
+                    <FaFileSignature className="text-sm flex-shrink-0" />
+                  )}
+                  <span>{isLoadingCheckout ? 'Creating Secure Payment...' : 'Approve & Pay Deposit'}</span>
+                </button>
+              ) : job.quoteStatus === 'under_review' ? (
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-4 text-center">
-                  <span className="text-[10px] text-slate-400 font-semibold">Payment link is being finalized. Please contact your manager.</span>
+                  <span className="text-[10px] text-slate-400 font-semibold">Quote under review. Payment link will be active once proposal is sent.</span>
+                </div>
+              ) : (
+                <div className="bg-emerald-950/20 border border-emerald-500/20 rounded-2xl p-4 text-center">
+                  <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">Deposit Verified ✓</span>
                 </div>
               )}
             </div>
