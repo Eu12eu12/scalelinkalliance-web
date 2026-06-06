@@ -228,7 +228,7 @@ const RequestServicePage = () => {
   // Phone state — dial code kept separately so we can combine on submit
   const [formData, setFormData] = useState({
     firstName: '', lastName: '', email: '',
-    phoneDialCode: '+1', phoneNumber: '',
+    phoneDialCode: '+1', phoneCountryCode: 'US', phoneNumber: '',
     company: '', otherServiceDescription: '',
     projectDescription: '', timeline: '', budget: '',
     clientWebsite: '', clientLocation: '', clientIndustry: '',
@@ -240,12 +240,15 @@ const RequestServicePage = () => {
     techIntegration: '',
     techHosting: '',
     opsSupportAreas: [],
+    opsSupportAreasOther: '',
     opsHours: '',
     opsTools: '',
     creativeFormats: [],
+    creativeFormatsOther: '',
     creativeDirection: '',
     creativeTurnaround: '',
     marketingChannels: [],
+    marketingChannelsOther: '',
     marketingAdSpend: '',
     marketingAudience: ''
   });
@@ -576,8 +579,9 @@ const RequestServicePage = () => {
                   <PhoneInput
                     value={formData.phoneNumber}
                     dialCode={formData.phoneDialCode}
+                    countryCode={formData.phoneCountryCode}
                     onNumberChange={val => setFormData(p => ({ ...p, phoneNumber: val }))}
-                    onDialChange={val => setFormData(p => ({ ...p, phoneDialCode: val }))}
+                    onDialChange={(dial, code) => setFormData(p => ({ ...p, phoneDialCode: dial, phoneCountryCode: code }))}
                   />
                   <p className="mt-1 text-xs text-gray-400">Select your country flag, then enter your number</p>
                 </div>
@@ -799,9 +803,43 @@ const RequestServicePage = () => {
                                     { id: 'calendar_email', label: 'Calendar & Email Management' },
                                     { id: 'billing_bookkeep', label: 'Billing & Basic Bookkeeping' },
                                     { id: 'data_entry', label: 'Data Entry & Processing' },
-                                    { id: 'sop_writing', label: 'SOP & Process Documentation' }
+                                    { id: 'sop_writing', label: 'SOP & Process Documentation' },
+                                    { id: 'other', label: 'Others: Specify' }
                                   ].map(item => {
                                     const checked = customQuoteAnswers.opsSupportAreas.includes(item.id);
+                                    if (item.id === 'other') {
+                                      return (
+                                        <div key={item.id} className="flex flex-col gap-2 p-3 border border-slate-200 rounded-xl bg-white transition-all sm:col-span-2">
+                                          <label className="flex items-center gap-2 cursor-pointer">
+                                            <input 
+                                              type="checkbox" 
+                                              checked={checked}
+                                              onChange={() => {
+                                                const nextAreas = checked 
+                                                  ? customQuoteAnswers.opsSupportAreas.filter(a => a !== item.id)
+                                                  : [...customQuoteAnswers.opsSupportAreas, item.id];
+                                                setCustomQuoteAnswers(p => ({ 
+                                                  ...p, 
+                                                  opsSupportAreas: nextAreas,
+                                                  opsSupportAreasOther: checked ? '' : p.opsSupportAreasOther 
+                                                }));
+                                              }}
+                                              className="w-4 h-4 text-blue-600 rounded" 
+                                            />
+                                            <span className="text-xs font-semibold text-slate-700">{item.label}</span>
+                                          </label>
+                                          {checked && (
+                                            <input
+                                              type="text"
+                                              placeholder="Specify other operational support areas..."
+                                              value={customQuoteAnswers.opsSupportAreasOther || ''}
+                                              onChange={e => setCustomQuoteAnswers(p => ({ ...p, opsSupportAreasOther: e.target.value }))}
+                                              className="w-full mt-1 px-3 py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            />
+                                          )}
+                                        </div>
+                                      );
+                                    }
                                     return (
                                       <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
                                         <input 
@@ -858,9 +896,43 @@ const RequestServicePage = () => {
                                     { id: 'video_reels', label: 'Short Video / Reels Editing' },
                                     { id: 'copy_blog', label: 'Copywriting / Blog Content' },
                                     { id: 'branding_guide', label: 'Logos & Complete Branding' },
-                                    { id: 'raw_sources', label: 'Vector/Raw Source Files' }
+                                    { id: 'raw_sources', label: 'Vector/Raw Source Files' },
+                                    { id: 'other', label: 'Others: Specify' }
                                   ].map(item => {
                                     const checked = customQuoteAnswers.creativeFormats.includes(item.id);
+                                    if (item.id === 'other') {
+                                      return (
+                                        <div key={item.id} className="flex flex-col gap-2 p-3 border border-slate-200 rounded-xl bg-white transition-all sm:col-span-2">
+                                          <label className="flex items-center gap-2 cursor-pointer">
+                                            <input 
+                                              type="checkbox" 
+                                              checked={checked}
+                                              onChange={() => {
+                                                const nextFormats = checked 
+                                                  ? customQuoteAnswers.creativeFormats.filter(f => f !== item.id)
+                                                  : [...customQuoteAnswers.creativeFormats, item.id];
+                                                setCustomQuoteAnswers(p => ({ 
+                                                  ...p, 
+                                                  creativeFormats: nextFormats,
+                                                  creativeFormatsOther: checked ? '' : p.creativeFormatsOther 
+                                                }));
+                                              }}
+                                              className="w-4 h-4 text-blue-600 rounded" 
+                                            />
+                                            <span className="text-xs font-semibold text-slate-700">{item.label}</span>
+                                          </label>
+                                          {checked && (
+                                            <input
+                                              type="text"
+                                              placeholder="Specify other creative formats..."
+                                              value={customQuoteAnswers.creativeFormatsOther || ''}
+                                              onChange={e => setCustomQuoteAnswers(p => ({ ...p, creativeFormatsOther: e.target.value }))}
+                                              className="w-full mt-1 px-3 py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            />
+                                          )}
+                                        </div>
+                                      );
+                                    }
                                     return (
                                       <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
                                         <input 
@@ -918,9 +990,43 @@ const RequestServicePage = () => {
                                     { id: 'meta_ads', label: 'Meta Ads (Facebook/Instagram)' },
                                     { id: 'google_ads', label: 'Google Search & Display Ads' },
                                     { id: 'email_news', label: 'Email Newsletters / Campaigns' },
-                                    { id: 'cold_outbound', label: 'Cold Lead Outbound Campaigns' }
+                                    { id: 'cold_outbound', label: 'Cold Lead Outbound Campaigns' },
+                                    { id: 'other', label: 'Others: Specify' }
                                   ].map(item => {
                                     const checked = customQuoteAnswers.marketingChannels.includes(item.id);
+                                    if (item.id === 'other') {
+                                      return (
+                                        <div key={item.id} className="flex flex-col gap-2 p-3 border border-slate-200 rounded-xl bg-white transition-all sm:col-span-2">
+                                          <label className="flex items-center gap-2 cursor-pointer">
+                                            <input 
+                                              type="checkbox" 
+                                              checked={checked}
+                                              onChange={() => {
+                                                const nextChannels = checked 
+                                                  ? customQuoteAnswers.marketingChannels.filter(c => c !== item.id)
+                                                  : [...customQuoteAnswers.marketingChannels, item.id];
+                                                setCustomQuoteAnswers(p => ({ 
+                                                  ...p, 
+                                                  marketingChannels: nextChannels,
+                                                  marketingChannelsOther: checked ? '' : p.marketingChannelsOther 
+                                                }));
+                                              }}
+                                              className="w-4 h-4 text-blue-600 rounded" 
+                                            />
+                                            <span className="text-xs font-semibold text-slate-700">{item.label}</span>
+                                          </label>
+                                          {checked && (
+                                            <input
+                                              type="text"
+                                              placeholder="Specify other marketing channels..."
+                                              value={customQuoteAnswers.marketingChannelsOther || ''}
+                                              onChange={e => setCustomQuoteAnswers(p => ({ ...p, marketingChannelsOther: e.target.value }))}
+                                              className="w-full mt-1 px-3 py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            />
+                                          )}
+                                        </div>
+                                      );
+                                    }
                                     return (
                                       <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
                                         <input 
