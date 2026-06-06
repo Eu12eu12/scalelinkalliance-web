@@ -2539,30 +2539,50 @@ const ServiceDetailPage = () => {
 
             {/* Project Card */}
             <div className="bg-white rounded-xl shadow-md border border-gray-100 border-l-4 border-l-blue-500 p-6 md:p-8 mb-8">
-              <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-                <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold tracking-wide">
-                  🏷️ {service.sampleProject.businessType}
-                </span>
-                <h3 className="text-xl md:text-2xl font-extrabold text-gray-900">
-                  {service.sampleProject.projectName}
-                </h3>
+              {/* Metadata Row */}
+              <div className="grid sm:grid-cols-2 gap-6 mb-6 pb-6 border-b border-gray-100">
+                <div>
+                  <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
+                    Project Name
+                  </span>
+                  <span className="text-lg md:text-xl font-extrabold text-gray-900">
+                    {service.sampleProject.projectName}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
+                    Business Type
+                  </span>
+                  <span className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">
+                    {service.sampleProject.businessType}
+                  </span>
+                </div>
               </div>
 
-              <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-                {service.sampleProject.projectSummary}
-              </p>
+              {/* Summary */}
+              <div className="mb-6">
+                <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1.5">
+                  Project Summary
+                </span>
+                <p className="text-gray-700 text-base md:text-lg leading-relaxed">
+                  {service.sampleProject.projectSummary}
+                </p>
+              </div>
 
               {service.sampleProject.projectGoal && (
-                <div className="bg-blue-50/50 border border-blue-100 rounded-lg p-4 mb-6">
-                  <p className="text-blue-900 italic font-medium text-sm md:text-base">
-                    <span className="font-bold not-italic mr-1">Goal:</span> {service.sampleProject.projectGoal}
+                <div className="mb-6 bg-blue-50/30 border border-blue-100/50 rounded-lg p-4">
+                  <span className="block text-xs font-bold text-blue-500 uppercase tracking-wider mb-1">
+                    Project Goal
+                  </span>
+                  <p className="text-blue-950 italic font-medium text-sm md:text-base">
+                    {service.sampleProject.projectGoal}
                   </p>
                 </div>
               )}
 
               {/* Services Included */}
               <div className="mb-6">
-                <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3">
+                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
                   Services Included in This Concept
                 </h4>
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
@@ -2577,6 +2597,9 @@ const ServiceDetailPage = () => {
 
               {/* Summary / Portfolio Card Text */}
               <div className="border-t border-gray-100 pt-6">
+                <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
+                  Portfolio Preview Text
+                </span>
                 <div className="border-l-4 border-gray-300 pl-4 italic text-gray-600">
                   "{service.sampleProject.portfolioCardText}"
                 </div>
