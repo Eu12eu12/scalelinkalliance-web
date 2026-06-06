@@ -121,7 +121,9 @@ const blockUnpaidCustomQuote = async (req, res, next) => {
       if (!isPaid) {
         if (req.method === 'PATCH' && req.route && req.route.path === '/admin/notice-board/:id') {
           const { status, assignedTo } = req.body;
-          if (status || assignedTo) {
+          const isStatusChanging = status !== undefined && status !== job.status && status !== 'new';
+          const isWorkerBeingAssigned = assignedTo !== undefined && assignedTo !== job.assignedTo && assignedTo !== '' && assignedTo !== null;
+          if (isStatusChanging || isWorkerBeingAssigned) {
             return res.status(403).json({ error: 'Action blocked. This custom quote job has not been paid for by the client.' });
           }
         } else {

@@ -537,7 +537,7 @@ const AdminQuotes = () => {
         budget: quote.budget || '$3,000 - $5,000',
         levelOfSupport: quote.levelOfSupport || 'One-time project',
         clientAssets: parsedAssets,
-        currentProblem: quote.currentProblem || '',
+        currentProblem: quote.currentProblem || quote.description || '',
         
         recommendedPackage: quote.recommendedPackage || '',
         customQuoteAmount: quote.customQuoteAmount ? String(quote.customQuoteAmount / 100) : '',
@@ -636,15 +636,6 @@ const AdminQuotes = () => {
       return;
     }
 
-    if (includedServicesList.length === 0) {
-      showToast('You must add at least one included service/deliverable.', 'error');
-      return;
-    }
-
-    if (!formData.description) {
-      showToast('Recommended Solution Summary is required.', 'error');
-      return;
-    }
 
     setLoading(true);
     const method = editingQuote ? 'PATCH' : 'POST';
@@ -684,8 +675,17 @@ const AdminQuotes = () => {
       });
 
       if (res.ok) {
+        const savedQuote = await res.json();
         showToast(`Quote draft ${editingQuote ? 'updated' : 'created'} successfully!`, 'success');
-        setIsModalOpen(false);
+        
+        // Update references so subsequent manual saves and auto-saves PATCH the created quote
+        setEditingQuote(savedQuote);
+        editingQuoteRef.current = savedQuote;
+        
+        // Update save status indicators
+        setSaveStatus('saved');
+        setLastSaveTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+        
         setIsDirty(false);
         fetchQuotes();
       } else {
@@ -1783,6 +1783,7 @@ const AdminQuotes = () => {
           </aside>
 
         </div>
+        <ToastContainer />
       </div>
     );
   }

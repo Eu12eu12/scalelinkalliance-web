@@ -422,9 +422,11 @@ const RequestServicePage = () => {
       if (!res.ok) {
         const errorData = await res.json();
         console.error('Failed to create notice board job:', errorData.error);
+        throw new Error(errorData.error || 'Server error saving request.');
       }
     } catch (err) {
       console.error('Failed to create notice board job:', err);
+      throw err;
     }
   };
 
@@ -465,17 +467,24 @@ const RequestServicePage = () => {
         .then(() => { setSubmitSuccess(true); setIsSubmitting(false); })
         .catch(err => { 
           console.error('Submission error:', err);
-          setPaymentError('Failed to submit. Please try again.'); 
+          setPaymentError(err.message || 'Failed to submit. Please try again.'); 
           setIsSubmitting(false); 
         });
     }
   };
 
   const handlePaymentSuccess = async pi => { 
-    await createNoticeBoardJob(serverFileUrls);
-    await sendEmailNotification(pi); 
-    setPaymentStep('success'); 
-    setSubmitSuccess(true); 
+    try {
+      await createNoticeBoardJob(serverFileUrls);
+      await sendEmailNotification(pi); 
+      setPaymentStep('success'); 
+      setSubmitSuccess(true); 
+    } catch (err) {
+      console.error('Failed to create job after payment:', err);
+      setPaymentError('Payment was successful, but we encountered an issue creating your service request in our system. Our team has been notified. Please contact support if you do not receive an email shortly.');
+      setPaymentStep('success'); 
+      setSubmitSuccess(true); 
+    }
   };
   const handlePaymentError = msg => { setPaymentError(msg); setIsSubmitting(false); };
 
@@ -494,8 +503,15 @@ const RequestServicePage = () => {
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-12 text-center">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"><FaCheck className="text-3xl text-green-600" /></div>
             <h1 className="text-3xl font-bold text-gray-900 mb-4">{totalAmount > 0 ? 'Payment Successful!' : 'Request Received!'}</h1>
-            <p className="text-gray-600 mb-8 text-lg">{totalAmount > 0 ? `Thank you for your payment of ${formatPrice(totalAmount, selectedCurrency, currencyObj.symbol)}. Our team will contact you within 24 hours.` : 'Thank you for your request. We will be in touch within 24 hours.'}</p>
-            {uploadedFiles.length > 0 && <p className="text-sm text-gray-500 mb-8">{uploadedFiles.length} file(s) uploaded successfully</p>}
+            {paymentError ? (
+              <div className="mb-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800 text-sm text-left">
+                <p className="font-semibold mb-1">Notice:</p>
+                <p>{paymentError}</p>
+              </div>
+            ) : (
+              <p className="text-gray-600 mb-8 text-lg">{totalAmount > 0 ? `Thank you for your payment of ${formatPrice(totalAmount, selectedCurrency, currencyObj.symbol)}. Our team will contact you within 24 hours.` : 'Thank you for your request. We will be in touch within 24 hours.'}</p>
+            )}
+            {uploadedFiles.length > 0 && !paymentError && <p className="text-sm text-gray-500 mb-8">{uploadedFiles.length} file(s) uploaded successfully</p>}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/" className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Return to Home</Link>
               <button onClick={() => window.print()} className="px-8 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors">Print Confirmation</button>

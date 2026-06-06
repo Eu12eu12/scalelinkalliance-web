@@ -60,6 +60,7 @@ router.post('/service-request', async (req, res) => {
       title: `${firstName} ${lastName} - ${company}`,
       category: Object.keys(services || {}).join(', ') || 'Service Request',
       description: projectDescription,
+      currentProblem: projectDescription,
       status: 'new',
       priority: 'medium',
       receivedAt: new Date(),
@@ -77,7 +78,8 @@ router.post('/service-request', async (req, res) => {
       clientIndustry,
       clientTimeline: timeline,
       budget: budget,
-      warningLevel: 'green'
+      warningLevel: 'green',
+      projectScope: req.body.projectScope || null
     });
 
     // 2. Attach files if any
