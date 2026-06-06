@@ -108,7 +108,21 @@ const SERVICES_DATA = {
         examples: ['social media campaigns', 'promotional marketing sets', 'advertising graphics']
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "VisualEdge Promo Design Pack",
+      businessType: "Local service business",
+      projectSummary: "A professional graphic design concept created to help a business promote its services with clean, branded visuals across digital and print platforms.",
+      servicesIncluded: [
+              "Social media graphics",
+              "Flyer design",
+              "Promotional banners",
+              "Service highlight graphics",
+              "Branded layout",
+              "Call-to-action visuals"
+      ],
+      portfolioCardText: "A branded graphic design concept built to help a business look professional, promote offers clearly, and attract more attention."
+    }},
 
   'video-editing': {
     title: 'Video Editing & Motion Graphics',
@@ -200,7 +214,22 @@ const SERVICES_DATA = {
         ]
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "MotionPro Brand Video",
+      businessType: "Professional service business",
+      projectSummary: "A video editing and motion graphics concept designed to help a business explain its services, build trust, and promote its offer on social media or a website.",
+      servicesIncluded: [
+              "Video editing",
+              "Captions",
+              "Branded text",
+              "Motion graphics",
+              "Background music",
+              "Call-to-action screen",
+              "Social media formatting"
+      ],
+      portfolioCardText: "A polished business video concept built to capture attention, explain value, and support brand growth."
+    }},
 
   'copywriting': {
     title: 'Copywriting & Content Creation',
@@ -292,7 +321,21 @@ const SERVICES_DATA = {
         examples: ['blog content series', 'website copy package', 'campaign content', 'marketing sequences']
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "ClearMessage Website Copy Package",
+      businessType: "Professional service company",
+      projectSummary: "A content creation concept designed to help a business explain its services clearly, build trust, and encourage visitors to take action.",
+      servicesIncluded: [
+              "Homepage copy",
+              "Service page copy",
+              "Short business bio",
+              "Call-to-action writing",
+              "Web readability formatting",
+              "Basic keyword research"
+      ],
+      portfolioCardText: "A website copy concept built to make a business message clearer, more persuasive, and easier for customers to understand."
+    }},
 
   'brand-identity': {
     title: 'Brand Identity & Logo Design',
@@ -381,7 +424,21 @@ const SERVICES_DATA = {
         ]
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "FreshStart Brand Identity Concept",
+      businessType: "Startup business",
+      projectSummary: "A complete brand identity concept created to help a new business look professional, memorable, and ready to enter the market.",
+      servicesIncluded: [
+              "Logo concept",
+              "Color palette",
+              "Font pairing",
+              "Brand style direction",
+              "Business card mock-up",
+              "Social media profile branding"
+      ],
+      portfolioCardText: "A brand identity concept built to give a startup a professional look, consistent visuals, and stronger market presence."
+    }},
 
   'photography': {
     title: 'Photography & Visual Assets',
@@ -471,7 +528,22 @@ const SERVICES_DATA = {
         examples: ['brand photography', 'marketing campaign imagery', 'website image libraries']
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "ProductEdge Brand Photography",
+      businessType: "E-commerce and retail brand",
+      projectSummary: "A professional commercial photography concept designed to showcase products in high resolution, build brand authority, and increase online sales.",
+    projectGoal: "Help the business present products with commercial-grade imagery that highlights quality and details.",
+      servicesIncluded: [
+              "Commercial product shots",
+              "Lifestyle brand imagery",
+              "High-resolution editing",
+              "Color correction",
+              "Social media formatting",
+              "Lighting setup"
+      ],
+      portfolioCardText: "A professional brand photography concept built to showcase products clearly, look premium, and elevate brand imagery."
+    }},
 
   // Tech & Development Services
   'website-development': {
@@ -564,7 +636,21 @@ const SERVICES_DATA = {
         ]
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "ContractorPro Website Redesign",
+      businessType: "Home improvement contractor",
+      projectSummary: "A professional contractor website concept designed to help visitors quickly understand services, view completed work, and request a quote.",
+      servicesIncluded: [
+              "Website design",
+              "Service pages",
+              "Contact form",
+              "Mobile-friendly layout",
+              "Homepage messaging",
+              "Basic SEO structure"
+      ],
+      portfolioCardText: "A clean contractor website concept built to improve trust, explain services clearly, and generate more quote requests."
+    }},
 
   'landing-pages': {
     title: 'Landing Pages & Sales Funnels',
@@ -656,7 +742,22 @@ const SERVICES_DATA = {
         examples: ['lead capture page', 'product or service offer page', 'confirmation page', 'follow-up page', 'upsell or next-step page']
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "QuoteFlow Landing Page",
+      businessType: "Contractor / home service company",
+      projectSummary: "A conversion-focused landing page concept designed to help a business collect quote requests and turn visitors into leads.",
+      servicesIncluded: [
+              "Hero section",
+              "Service benefits",
+              "Trust section",
+              "Lead form",
+              "Call-to-action buttons",
+              "Mobile layout",
+              "Simple SEO structure"
+      ],
+      portfolioCardText: "A landing page concept built to capture leads, explain the offer quickly, and encourage visitors to request a quote."
+    }},
 
   'ecommerce-development': {
     title: 'E-Commerce Development',
@@ -746,7 +847,21 @@ const SERVICES_DATA = {
         ]
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "UrbanStyle Online Store",
+      businessType: "Fashion and lifestyle brand",
+      projectSummary: "A modern e-commerce store concept designed to help customers browse products, trust the brand, and complete purchases smoothly.",
+      servicesIncluded: [
+              "Product pages",
+              "Homepage banner",
+              "Cart layout",
+              "Checkout flow",
+              "Mobile store design",
+              "Product category structure"
+      ],
+      portfolioCardText: "A stylish online store concept built for product discovery, smooth checkout, and stronger online sales."
+    }},
 
   'web-applications': {
     title: 'Web Applications & SaaS Development',
@@ -839,7 +954,22 @@ const SERVICES_DATA = {
         ]
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "ServiceHub Client Dashboard",
+      businessType: "Business service company",
+      projectSummary: "A custom web application concept that helps a business manage clients, projects, reports, appointments, and internal tasks from one dashboard.",
+      servicesIncluded: [
+              "Dashboard design",
+              "Client management",
+              "Project tracking",
+              "Analytics cards",
+              "Calendar view",
+              "Reports",
+              "User interface planning"
+      ],
+      portfolioCardText: "A business dashboard concept built to organize clients, projects, reports, and daily operations in one place."
+    }},
 
   'api-integration': {
     title: 'API Integration & Automation',
@@ -929,7 +1059,21 @@ const SERVICES_DATA = {
         examples: ['automated lead routing systems', 'order fulfillment automation', 'marketing and CRM automation workflows']
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "SyncFlow Business Integration",
+      businessType: "E-commerce and service business",
+      projectSummary: "An API integration concept designed to connect business tools so customer data, orders, forms, payments, and reports move smoothly between systems.",
+      servicesIncluded: [
+              "CRM integration",
+              "Payment connection",
+              "Email platform connection",
+              "Website form automation",
+              "Reporting sync",
+              "Workflow mapping"
+      ],
+      portfolioCardText: "An integration concept built to connect business tools, reduce manual work, and improve daily operations."
+    }},
 
   'website-maintenance': {
     title: 'Website Maintenance & Updates',
@@ -1018,7 +1162,25 @@ const SERVICES_DATA = {
         ]
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "SiteCare Website Support Plan",
+      businessType: "Local service business",
+      projectSummary: "A website maintenance concept designed to help a business keep its website updated, secure, professional, and working properly as the business grows.",
+    projectGoal: "Help the business avoid outdated content, broken links, poor performance, and missed customer opportunities by keeping the website active and maintained.",
+      servicesIncluded: [
+              "Website updates",
+              "Content edits",
+              "Plugin/theme updates",
+              "Page adjustments",
+              "Image updates",
+              "Basic performance checks",
+              "Broken link checks",
+              "Contact form testing",
+              "Monthly website review"
+      ],
+      portfolioCardText: "A website maintenance concept built to keep a business website updated, professional, secure, and ready for customers."
+    }},
 
   // Marketing & Growth Services
   'social-media-management': {
@@ -1108,7 +1270,21 @@ const SERVICES_DATA = {
         ]
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "BrandLift Social Campaign",
+      businessType: "Beauty and wellness brand",
+      projectSummary: "A social media management concept focused on improving brand consistency, engagement, and visibility across social platforms.",
+      servicesIncluded: [
+              "Content calendar",
+              "Branded post templates",
+              "Caption writing",
+              "Campaign planning",
+              "Platform optimization",
+              "Performance tracking"
+      ],
+      portfolioCardText: "A social media campaign concept built to strengthen brand presence, improve consistency, and increase engagement."
+    }},
 
   'seo-marketing': {
     title: 'SEO & Search Marketing',
@@ -1199,7 +1375,21 @@ const SERVICES_DATA = {
         ]
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "LocalRank SEO Campaign",
+      businessType: "Local service business",
+      projectSummary: "A search marketing concept created to help a local business improve online visibility and attract more qualified leads from search engines.",
+      servicesIncluded: [
+              "Keyword research",
+              "On-page SEO",
+              "Local SEO",
+              "Service page optimization",
+              "Technical SEO review",
+              "Reporting dashboard"
+      ],
+      portfolioCardText: "An SEO campaign concept built to improve visibility, target local keywords, and attract more qualified website visitors."
+    }},
 
   'paid-advertising': {
     title: 'Paid Advertising Management',
@@ -1289,7 +1479,25 @@ const SERVICES_DATA = {
         ]
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "AdGrowth Campaign Management",
+      businessType: "Contractor / local service business",
+      projectSummary: "A paid advertising concept created to help a business reach more potential customers through targeted online ad campaigns.",
+    projectGoal: "Help the business attract better traffic, generate more leads, and promote its services to people who are more likely to take action.",
+      servicesIncluded: [
+              "Campaign planning",
+              "Audience targeting",
+              "Ad copy",
+              "Creative direction",
+              "Landing page recommendation",
+              "Budget guidance",
+              "Tracking setup",
+              "Campaign monitoring",
+              "Performance review"
+      ],
+      portfolioCardText: "A paid advertising concept built to help businesses attract targeted traffic, generate leads, and track campaign performance."
+    }},
 
   'email-marketing': {
     title: 'Email Marketing Campaigns',
@@ -1379,7 +1587,21 @@ const SERVICES_DATA = {
         ]
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "InboxGrowth Email Campaign",
+      businessType: "Online store",
+      projectSummary: "An email marketing concept designed to help an online store welcome new subscribers, promote offers, recover missed sales, and encourage repeat purchases.",
+      servicesIncluded: [
+              "Welcome sequence",
+              "Promotional emails",
+              "Abandoned cart email",
+              "Newsletter design",
+              "Customer segmentation",
+              "Reporting"
+      ],
+      portfolioCardText: "An email marketing concept built to turn subscribers into customers and keep buyers engaged."
+    }},
 
   'lead-generation': {
     title: 'Lead Generation Services',
@@ -1467,7 +1689,21 @@ const SERVICES_DATA = {
         ]
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "LeadFlow Outreach Campaign",
+      businessType: "B2B service company",
+      projectSummary: "A lead generation concept designed to help a service business identify qualified prospects, organize outreach, and create more sales opportunities.",
+      servicesIncluded: [
+              "Lead research",
+              "Prospect list building",
+              "Outreach messaging",
+              "Landing page support",
+              "CRM setup",
+              "Follow-up tracking"
+      ],
+      portfolioCardText: "A lead generation campaign concept built to identify qualified prospects and create more sales conversations."
+    }},
 
   'crm-automation': {
     title: 'CRM & Marketing Automation',
@@ -1557,7 +1793,25 @@ const SERVICES_DATA = {
         ]
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "ClientFlow CRM & Automation System",
+      businessType: "Sales-focused service company",
+      projectSummary: "A CRM and marketing automation concept created to help a business organize leads, track customer communication, and automate follow-up.",
+    projectGoal: "Help the business reduce missed opportunities by keeping leads organized and making follow-up more consistent.",
+      servicesIncluded: [
+              "CRM setup",
+              "Pipeline stages",
+              "Contact fields",
+              "Lead tagging",
+              "Automated email follow-ups",
+              "Task reminders",
+              "Form connection",
+              "Customer status updates",
+              "Reporting setup"
+      ],
+      portfolioCardText: "A CRM and automation concept built to help businesses manage leads, automate follow-up, and improve customer communication."
+    }},
 
   // Operations & Support Services
   'virtual-assistant': {
@@ -1647,7 +1901,21 @@ const SERVICES_DATA = {
         examples: ['ongoing administrative support', 'project coordination assistance', 'customer communication support']
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "AdminEase Support System",
+      businessType: "Consultant / small business owner",
+      projectSummary: "A virtual assistant support concept designed to help a busy business owner save time by organizing daily tasks, communication, and follow-ups.",
+      servicesIncluded: [
+              "Email management",
+              "Appointment scheduling",
+              "Research",
+              "Data entry",
+              "Customer follow-ups",
+              "Weekly task reporting"
+      ],
+      portfolioCardText: "A virtual assistant support concept built to handle admin tasks, scheduling, inbox management, and customer follow-ups."
+    }},
 
   'data-analytics': {
     title: 'Data Analytics & Reporting',
@@ -1736,7 +2004,24 @@ const SERVICES_DATA = {
         ]
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "InsightTrack Business Reporting Dashboard",
+      businessType: "Growing small business",
+      projectSummary: "A data analytics and reporting concept designed to help a business understand performance across marketing, website traffic, leads, and customer activity.",
+    projectGoal: "Give the business clearer insight into what is working, what needs improvement, and where growth opportunities may exist.",
+      servicesIncluded: [
+              "Performance dashboard setup",
+              "Website traffic reports",
+              "Lead tracking",
+              "Campaign reporting",
+              "KPI summaries",
+              "Monthly insights",
+              "Visual charts",
+              "Recommendation notes"
+      ],
+      portfolioCardText: "A reporting dashboard concept built to help businesses understand their numbers, track performance, and make smarter growth decisions."
+    }},
 
   'process-documentation': {
     title: 'Process Documentation & SOP Development',
@@ -1824,7 +2109,21 @@ const SERVICES_DATA = {
         ]
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "WorkflowPro Operations System",
+      businessType: "Growing small business",
+      projectSummary: "A business automation concept designed to reduce repetitive manual tasks and help a company operate more efficiently.",
+      servicesIncluded: [
+              "Workflow mapping",
+              "Form automation",
+              "Task routing",
+              "Notification setup",
+              "CRM updates",
+              "Process documentation"
+      ],
+      portfolioCardText: "An automation concept built to simplify daily operations, reduce manual work, and keep business tasks moving smoothly."
+    }},
 
   'project-management': {
     title: 'Project Management Support',
@@ -1913,7 +2212,24 @@ const SERVICES_DATA = {
         examples: ['complex operational projects', 'multi-phase marketing initiatives', 'system implementation projects']
       }
     }
-  },
+  ,
+    sampleProject: {
+      projectName: "ProjectFlow Team Coordination System",
+      businessType: "Service-based business / agency",
+      projectSummary: "A project management support concept designed to help a business organize tasks, deadlines, team responsibilities, and project progress.",
+    projectGoal: "Help the business manage projects more smoothly, reduce confusion, and keep team members aligned from start to finish.",
+      servicesIncluded: [
+              "Task board setup",
+              "Project timeline creation",
+              "Milestone tracking",
+              "Team assignment structure",
+              "Progress updates",
+              "Communication process",
+              "Document organization",
+              "Reporting support"
+      ],
+      portfolioCardText: "A project management concept built to help businesses organize tasks, manage deadlines, and keep projects moving efficiently."
+    }},
 
   'data-entry': {
     title: 'Data Entry & Processing',
@@ -2002,7 +2318,25 @@ const SERVICES_DATA = {
         examples: ['large CRM imports', 'product database updates', 'operational data processing']
       }
     }
-  }
+  ,
+    sampleProject: {
+      projectName: "DataClean Processing Support",
+      businessType: "Administrative / operations-focused business",
+      projectSummary: "A data entry and processing concept created to help a business organize, clean, update, and manage important information accurately.",
+    projectGoal: "Help the business save time, reduce errors, and maintain clean records for customers, products, leads, reports, or internal operations.",
+      servicesIncluded: [
+              "Data entry",
+              "Spreadsheet organization",
+              "Contact list cleanup",
+              "CRM data updates",
+              "Product data entry",
+              "Document processing",
+              "File organization",
+              "Data formatting",
+              "Quality checks"
+      ],
+      portfolioCardText: "A data processing concept built to help businesses organize information, reduce manual workload, and keep records accurate."
+    }}
 };
 
 const ServiceDetailPage = () => {
@@ -2184,6 +2518,91 @@ const ServiceDetailPage = () => {
                   <span className="text-gray-700">{item}</span>
                 </div>
               ))}
+            </div>
+          </section>
+        )}
+
+        {/* See What We Can Create (Sample Project Concept) */}
+        {service.sampleProject && (
+          <section className="mb-16 bg-gradient-to-br from-slate-50 to-blue-50/50 p-8 md:p-10 rounded-2xl border-t-4 border-t-blue-500 shadow-sm">
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="p-2 bg-blue-100 rounded-lg text-blue-600">
+                <FaStar className="w-6 h-6" />
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900">See What We Can Create</h2>
+                <p className="text-gray-600 mt-1">
+                  Explore a sample project concept that illustrates the type of work ScaleLink Alliance can deliver.
+                </p>
+              </div>
+            </div>
+
+            {/* Project Card */}
+            <div className="bg-white rounded-xl shadow-md border border-gray-100 border-l-4 border-l-blue-500 p-6 md:p-8 mb-8">
+              <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+                <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold tracking-wide">
+                  🏷️ {service.sampleProject.businessType}
+                </span>
+                <h3 className="text-xl md:text-2xl font-extrabold text-gray-900">
+                  {service.sampleProject.projectName}
+                </h3>
+              </div>
+
+              <p className="text-gray-700 text-lg mb-6 leading-relaxed">
+                {service.sampleProject.projectSummary}
+              </p>
+
+              {service.sampleProject.projectGoal && (
+                <div className="bg-blue-50/50 border border-blue-100 rounded-lg p-4 mb-6">
+                  <p className="text-blue-900 italic font-medium text-sm md:text-base">
+                    <span className="font-bold not-italic mr-1">Goal:</span> {service.sampleProject.projectGoal}
+                  </p>
+                </div>
+              )}
+
+              {/* Services Included */}
+              <div className="mb-6">
+                <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3">
+                  Services Included in This Concept
+                </h4>
+                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
+                  {service.sampleProject.servicesIncluded.map((item, index) => (
+                    <div key={index} className="flex items-start space-x-2">
+                      <FaCheck className="w-4 h-4 text-green-500 shrink-0 mt-1" />
+                      <span className="text-gray-700 font-medium text-sm">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Summary / Portfolio Card Text */}
+              <div className="border-t border-gray-100 pt-6">
+                <div className="border-l-4 border-gray-300 pl-4 italic text-gray-600">
+                  "{service.sampleProject.portfolioCardText}"
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Area */}
+            <div className="text-center bg-white/40 border border-blue-100/50 rounded-xl p-6 md:p-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                Want a project like this for your business?
+              </h3>
+              <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+                Request a custom quote and let ScaleLink Alliance build a solution around your goals.
+              </p>
+              <Link
+                to={`/request-service?service=${serviceSlug}`}
+                className="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              >
+                <FaRocket className="mr-2" />
+                Request a Custom Quote
+              </Link>
+              
+              {/* Disclaimer */}
+              <p className="text-xs text-gray-400 mt-6 max-w-xl mx-auto">
+                * This is a sample project concept created to show the type of solution ScaleLink Alliance can provide.
+              </p>
             </div>
           </section>
         )}
