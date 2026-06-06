@@ -38,6 +38,7 @@ const AdminNoticeBoard = () => {
     clientEmail: '',
     clientPhone: '',
     clientDialCode: '+1',
+    clientCountryCode: 'US',
     clientTimeline: '',
     otherServiceDescription: '',
     category: 'Graphic Design',
@@ -376,6 +377,26 @@ const AdminNoticeBoard = () => {
           }
           return dial;
         })(),
+        clientCountryCode: (() => {
+          if (job.clientCountryCode) return job.clientCountryCode;
+          const phone = job.clientPhone || '';
+          let dial = job.clientDialCode || '+1';
+          if (phone.startsWith('+')) {
+            const spaceIdx = phone.indexOf(' ');
+            if (spaceIdx !== -1) {
+              dial = phone.substring(0, spaceIdx);
+            }
+          }
+          if (dial === '+1') {
+            const loc = (job.clientLocation || '').toLowerCase();
+            if (loc.includes('canada') || loc.includes(', ca') || loc === 'ca') {
+              return 'CA';
+            }
+            return 'US';
+          }
+          const matched = COUNTRIES.find(c => c.dial === dial);
+          return matched ? matched.code : 'US';
+        })(),
         clientTimeline: job.clientTimeline || '',
         otherServiceDescription: job.otherServiceDescription || '',
         category: job.category || '',
@@ -396,7 +417,7 @@ const AdminNoticeBoard = () => {
       setEditingJob(null);
       setFormData({
         title: '', client: '', clientFirstName: '', clientLastName: '',
-        clientEmail: '', clientPhone: '', clientDialCode: '+1',
+        clientEmail: '', clientPhone: '', clientDialCode: '+1', clientCountryCode: 'US',
         clientTimeline: '', otherServiceDescription: '', category: '',
         services: {}, budget: '', currency: 'usd', description: '',
         assignedTo: '', receivedAt: new Date().toISOString().slice(0, 16),
@@ -1066,8 +1087,9 @@ const AdminNoticeBoard = () => {
                       <PhoneInput 
                         value={formData.clientPhone} 
                         dialCode={formData.clientDialCode}
+                        countryCode={formData.clientCountryCode}
                         onNumberChange={val => setFormData({...formData, clientPhone: val})}
-                        onDialChange={val => setFormData({...formData, clientDialCode: val})}
+                        onDialChange={(dial, code) => setFormData({...formData, clientDialCode: dial, clientCountryCode: code})}
                       />
                     </div>
                   </div>
