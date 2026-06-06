@@ -24,6 +24,11 @@ const JobDetailsModal = ({ job, currentUser, onClose, onRefresh, showToast }) =>
 
   const token = localStorage.getItem('cms_token');
 
+  const hasCustomQuoteService = job?.category && job.category.includes('Request Custom Quote');
+  const hasQuoteAmount = job?.customQuoteAmount && job.customQuoteAmount > 0;
+  const isCustomQuote = hasCustomQuoteService || hasQuoteAmount;
+  const isPaid = !isCustomQuote || ['deposit_paid', 'in_progress', 'completed', 'approved'].includes(job?.quoteStatus);
+
   const handleJobAction = async (action, extraData = {}) => {
     try {
       setLoading(true);
@@ -295,7 +300,7 @@ const JobDetailsModal = ({ job, currentUser, onClose, onRefresh, showToast }) =>
             { id: 'comments', label: `Comments (${comments.filter(c => currentUser?.role === 'super_admin' || c.visibility !== 'client').length})`, icon: <FaCommentDots /> },
             { id: 'activity', label: 'Activity Log', icon: <FaHistory /> },
             currentUser?.role === 'super_admin' && { id: 'client_portal', label: 'Client Portal', icon: <FaGlobe /> },
-            currentUser?.role === 'super_admin' && { id: 'assignment', label: 'Assignment', icon: <FaUserPlus /> }
+            currentUser?.role === 'super_admin' && isPaid && { id: 'assignment', label: 'Assignment', icon: <FaUserPlus /> }
           ].filter(Boolean).map(tab => (
             <button
               key={tab.id}
@@ -767,7 +772,7 @@ const JobDetailsModal = ({ job, currentUser, onClose, onRefresh, showToast }) =>
             </div>
           )}
 
-          {activeTab === 'assignment' && currentUser?.role === 'super_admin' && (
+          {activeTab === 'assignment' && currentUser?.role === 'super_admin' && isPaid && (
             <div className="space-y-8 animate-fade-in-up">
               <div className="space-y-6">
                 <div className="flex items-center justify-between gap-2 pb-2 border-b border-slate-100">

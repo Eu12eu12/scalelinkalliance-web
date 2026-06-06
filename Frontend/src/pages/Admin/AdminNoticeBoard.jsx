@@ -856,17 +856,7 @@ const AdminNoticeBoard = () => {
                               </>
                             )}
 
-                            {isUnpaidCustomQuote(job) ? (
-                              <button 
-                                className="p-2 text-slate-400 bg-slate-100 rounded-lg cursor-not-allowed" 
-                                title="Details Locked — Awaiting Client Payment"
-                                disabled
-                              >
-                                <FaLock size={14} className="text-slate-400" />
-                              </button>
-                            ) : (
-                              <button onClick={() => setViewingJob(job)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="View Details"><FaEye size={14} /></button>
-                            )}
+                            <button onClick={() => setViewingJob(job)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="View Details"><FaEye size={14} /></button>
                             {isSuperAdmin && (
                               <>
                                 {job.status !== 'completed' && (
