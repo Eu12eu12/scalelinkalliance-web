@@ -79,6 +79,35 @@ const ClientPortalPage = () => {
         throw new Error(data.error || 'Failed to fetch project tracking information.');
       }
       const data = await res.json();
+      
+      // Parse JSON fields if they are returned as strings in production (MySQL)
+      if (data.job) {
+        if (typeof data.job.optionalAddOns === 'string') {
+          try {
+            data.job.optionalAddOns = JSON.parse(data.job.optionalAddOns);
+          } catch (e) {
+            console.error('Failed to parse optionalAddOns:', e);
+            data.job.optionalAddOns = [];
+          }
+        }
+        if (typeof data.job.projectScope === 'string') {
+          try {
+            data.job.projectScope = JSON.parse(data.job.projectScope);
+          } catch (e) {
+            console.error('Failed to parse projectScope:', e);
+            data.job.projectScope = null;
+          }
+        }
+        if (typeof data.job.clientAssets === 'string') {
+          try {
+            data.job.clientAssets = JSON.parse(data.job.clientAssets);
+          } catch (e) {
+            console.error('Failed to parse clientAssets:', e);
+            data.job.clientAssets = null;
+          }
+        }
+      }
+
       setJob(data.job);
       setComments(data.comments);
       setFiles(data.files);
