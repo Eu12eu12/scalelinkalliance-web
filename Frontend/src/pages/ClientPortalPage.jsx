@@ -323,7 +323,27 @@ const ClientPortalPage = () => {
               .replace(/([A-Z])/g, ' $1')
               .replace(/^./, str => str.toUpperCase());
             
+            const LABEL_MAP = {
+              'customer_support': 'Customer Support / Inbox',
+              'calendar_email': 'Calendar & Email Management',
+              'billing_bookkeep': 'Billing & Basic Bookkeeping',
+              'data_entry': 'Data Entry & Processing',
+              'sop_writing': 'SOP & Process Documentation',
+              'social_graphics': 'Social Media Graphics',
+              'video_reels': 'Short Video / Reels Editing',
+              'copy_blog': 'Copywriting / Blog Content',
+              'branding_guide': 'Logos & Complete Branding',
+              'raw_sources': 'Vector/Raw Source Files',
+              'seo_search': 'SEO & Search Engine Visibility',
+              'meta_ads': 'Meta Ads (Facebook/Instagram)',
+              'google_ads': 'Google Search & Display Ads',
+              'email_news': 'Email Newsletters / Campaigns',
+              'cold_outbound': 'Cold Lead Outbound Campaigns',
+              'other': 'Others: Specify'
+            };
+
             const formatValue = (v) => {
+              if (LABEL_MAP[v]) return LABEL_MAP[v];
               if (typeof v !== 'string') return String(v);
               if (v.includes('_') && !v.includes(' ')) {
                 return v.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
