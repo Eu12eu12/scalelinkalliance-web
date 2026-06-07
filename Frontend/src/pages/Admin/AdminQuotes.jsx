@@ -1153,7 +1153,7 @@ const AdminQuotes = () => {
                   Client Questionnaire Answers
                 </h3>
                 
-                <div className="bg-slate-900 text-slate-300 p-4 rounded-xl border border-slate-800 text-[10px] font-medium space-y-3 max-h-56 overflow-y-auto">
+                <div className="space-y-3 text-[11px] font-medium text-slate-500 bg-white border border-slate-150 p-4 rounded-xl shadow-xs max-h-56 overflow-y-auto">
                   {(() => {
                     const scope = typeof editingQuote.projectScope === 'string' ? JSON.parse(editingQuote.projectScope) : editingQuote.projectScope;
                     const answers = scope.customQuoteAnswers || {};
@@ -1161,12 +1161,38 @@ const AdminQuotes = () => {
                       return <p className="italic text-slate-500 text-center py-2">No questionnaire answers submitted.</p>;
                     }
                     
+                    const LABEL_MAP = {
+                      'customer_support': 'Customer Support / Inbox',
+                      'calendar_email': 'Calendar & Email Management',
+                      'billing_bookkeep': 'Billing & Basic Bookkeeping',
+                      'data_entry': 'Data Entry & Processing',
+                      'sop_writing': 'SOP & Process Documentation',
+                      'social_graphics': 'Social Media Graphics',
+                      'video_reels': 'Short Video / Reels Editing',
+                      'copy_blog': 'Copywriting / Blog Content',
+                      'branding_guide': 'Logos & Complete Branding',
+                      'raw_sources': 'Vector/Raw Source Files',
+                      'seo_search': 'SEO & Search Engine Visibility',
+                      'meta_ads': 'Meta Ads (Facebook/Instagram)',
+                      'google_ads': 'Google Search & Display Ads',
+                      'email_news': 'Email Newsletters / Campaigns',
+                      'cold_outbound': 'Cold Lead Outbound Campaigns',
+                      'other': 'Others: Specify'
+                    };
+
+                    const formatVal = (val) => {
+                      if (Array.isArray(val)) {
+                        return val.map(item => LABEL_MAP[item] || item).join(', ');
+                      }
+                      return LABEL_MAP[val] || val;
+                    };
+                    
                     return Object.entries(answers).map(([key, val]) => {
                       if (!val || (Array.isArray(val) && val.length === 0)) return null;
                       return (
-                        <div key={key} className="space-y-0.5 border-b border-slate-800 pb-2 last:border-0 last:pb-0">
-                          <span className="text-[8px] text-slate-500 uppercase font-black tracking-wider block">{key.replace(/([A-Z])/g, ' $1')}</span>
-                          <span className="text-white block font-semibold leading-relaxed">{Array.isArray(val) ? val.join(', ') : val}</span>
+                        <div key={key}>
+                          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">{key.replace(/([A-Z])/g, ' $1')}</span>
+                          <span className="text-slate-800 font-bold block mt-0.5 whitespace-pre-line">{formatVal(val)}</span>
                         </div>
                       );
                     });
