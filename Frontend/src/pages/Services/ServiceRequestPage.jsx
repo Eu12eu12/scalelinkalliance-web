@@ -98,6 +98,7 @@ const CheckoutForm = ({ amount, currency, onSuccess, onError, formData }) => {
   const stripe = useStripe(), elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
   const [message, setMessage] = useState(null);
+  const [agreedToEscrow, setAgreedToEscrow] = useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -126,9 +127,29 @@ const CheckoutForm = ({ amount, currency, onSuccess, onError, formData }) => {
   return (
     <form onSubmit={handleSubmit} className="w-full">
       <div className="bg-white p-6 rounded-xl border-2 border-gray-200 mb-6"><PaymentElement /></div>
+      
+      {/* Escrow Checkbox inside CheckoutForm */}
+      <div className="mb-6 bg-slate-50 border border-slate-200 p-4 rounded-xl text-left">
+        <h4 className="text-sm font-bold text-slate-800 mb-1">Payment & Escrow Protection</h4>
+        <p className="text-xs text-slate-600 mb-3 leading-relaxed">
+          For approved projects, ScaleLink Alliance may use deposit, milestone, or escrow-based payment terms to protect both the client and the service team. Payment details will be clearly listed in the approved quote, invoice, or project agreement before work begins. Funds may be released based on agreed milestones, completed deliverables, client approval, or project terms.
+        </p>
+        <label className="flex items-start gap-2.5 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={agreedToEscrow}
+            onChange={e => setAgreedToEscrow(e.target.checked)}
+            className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 mt-0.5 cursor-pointer"
+          />
+          <span className="text-xs font-semibold text-slate-700 leading-tight">
+            I agree to the <a href="/legal?tab=escrow" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">ScaleLink Alliance Payment & Escrow Terms</a> and understand that my project may require a deposit, milestone payment, or escrow-based payment before work begins.
+          </span>
+        </label>
+      </div>
+
       {message && <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">{message}</div>}
-      <button type="submit" disabled={!stripe || isProcessing}
-        className={`w-full py-4 rounded-lg font-semibold text-lg flex items-center justify-center gap-2 transition-all ${!stripe || isProcessing ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'}`}>
+      <button type="submit" disabled={!stripe || isProcessing || !agreedToEscrow}
+        className={`w-full py-4 rounded-lg font-semibold text-lg flex items-center justify-center gap-2 transition-all ${!stripe || isProcessing || !agreedToEscrow ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'}`}>
         {isProcessing ? <><FaSpinner className="animate-spin" />Processing Payment...</> : <><FaCreditCard />Pay {displayAmount} Now</>}
       </button>
     </form>
@@ -1265,25 +1286,7 @@ const RequestServicePage = () => {
                           <button type="button" onClick={() => setPaymentError(null)} className="text-red-800 font-bold ml-2">✕</button>
                         </div>
                       )}
-                      {totalAmount > 0 ? (
-                        <div className="mb-6 bg-slate-50 border border-slate-200 p-4 rounded-xl text-left">
-                          <h4 className="text-sm font-bold text-slate-800 mb-1">Payment & Escrow Protection</h4>
-                          <p className="text-xs text-slate-600 mb-3 leading-relaxed font-medium">
-                            For approved projects, ScaleLink Alliance may use deposit, milestone, or escrow-based payment terms to protect both the client and the service team. Payment details will be clearly listed in the approved quote, invoice, or project agreement before work begins. Funds may be released based on agreed milestones, completed deliverables, client approval, or project terms.
-                          </p>
-                          <label className="flex items-start gap-2.5 cursor-pointer">
-                            <input
-                              type="checkbox"
-                              checked={agreedToEscrow}
-                              onChange={e => setAgreedToEscrow(e.target.checked)}
-                              className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 mt-0.5 cursor-pointer"
-                            />
-                            <span className="text-xs font-semibold text-slate-700 leading-tight">
-                              I agree to the <a href="/legal?tab=escrow" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">ScaleLink Alliance Payment & Escrow Terms</a> and understand that my project may require a deposit, milestone payment, or escrow-based payment before work begins.
-                            </span>
-                          </label>
-                        </div>
-                      ) : (
+                      {totalAmount === 0 && (
                         <div className="mb-4 bg-slate-50 border border-slate-200 p-4 rounded-xl text-left">
                           <p className="text-xs text-slate-600 mb-2 leading-relaxed font-medium">
                             Some custom projects may require a deposit or escrow-based milestone payment before work begins. This helps protect both the client and ScaleLink Alliance by clearly connecting payment to the approved project scope, milestones, and deliverables.
@@ -1302,7 +1305,7 @@ const RequestServicePage = () => {
                         </div>
                       )}
                       
-                      <button type="button" onClick={handleProceedToPayment} disabled={isSubmitting || isLoadingRates || !agreedToEscrow}
+                      <button type="button" onClick={handleProceedToPayment} disabled={isSubmitting || isLoadingRates || (totalAmount === 0 && !agreedToEscrow)}
                         className="w-full py-5 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-lg rounded-xl hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl mb-4">
                         {isSubmitting ? <><FaSpinner className="animate-spin" />{uploadedFiles.length > 0 ? 'Uploading Files...' : 'Processing...'}</> :
                           isLoadingRates ? <><FaSpinner className="animate-spin" />Loading Exchange Rates...</> :
