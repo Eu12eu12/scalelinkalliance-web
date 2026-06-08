@@ -1,14 +1,29 @@
 // src/pages/Legal.jsx
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Footer from '../components/layout/Footer';
 
 const Legal = () => {
-  const [activeSection, setActiveSection] = useState('privacy');
+  const location = useLocation();
+  const getActiveTab = (search) => {
+    const params = new URLSearchParams(search);
+    const tab = params.get('tab');
+    if (tab && ['privacy', 'terms', 'escrow'].includes(tab)) {
+      return tab;
+    }
+    return 'privacy';
+  };
+
+  const [activeSection, setActiveSection] = useState(getActiveTab(location.search));
+
+  useEffect(() => {
+    setActiveSection(getActiveTab(location.search));
+  }, [location.search]);
 
   const sections = [
     { id: 'privacy', title: 'Privacy Policy' },
     { id: 'terms', title: 'Terms of Service' },
+    { id: 'escrow', title: 'Payment & Escrow Terms' },
   ];
 
   const privacyPolicyContent = [
@@ -147,6 +162,91 @@ const Legal = () => {
     },
   ];
 
+  const escrowContent = [
+    {
+      id: 'quote-approval',
+      title: 'Project Quote and Approval',
+      content: `Before work begins, ScaleLink Alliance will provide the client with a quote, proposal, invoice, or written project summary. This may include the project scope, services included, estimated timeline, payment amount, deposit requirement, milestone schedule, and deliverables. Work will begin only after the client approves the project terms and submits the required payment or deposit.`,
+    },
+    {
+      id: 'deposits-milestones',
+      title: 'Deposits, Milestone Payments, and Escrow-Based Payments',
+      content: `Depending on the size and type of project, ScaleLink Alliance may require one of the following payment methods:`,
+      list: [
+        'Full upfront payment',
+        'Partial deposit before work begins',
+        'Milestone payments based on project progress',
+        'Escrow-based payment for larger or custom projects',
+        'Escrow-based milestone payments are designed to protect both the client and ScaleLink Alliance by making sure funds are connected to agreed project stages and deliverables.',
+      ],
+    },
+    {
+      id: 'release-conditions',
+      title: 'Payment Release Conditions',
+      content: `Funds may be released or applied when one or more of the following occurs:`,
+      list: [
+        'A project milestone is completed',
+        'A deliverable is submitted to the client',
+        'The client approves the work',
+        'The project reaches the agreed completion stage',
+        'The client does not respond within the stated review period',
+        'The payment release condition stated in the quote or agreement is met',
+      ],
+    },
+    {
+      id: 'review-period',
+      title: 'Client Review Period',
+      content: `After ScaleLink Alliance submits a milestone, draft, or deliverable, the client will have a reasonable review period, unless otherwise stated in writing. A standard review period may be 3 to 7 business days. If the client does not respond within the review period, the work may be considered approved, and the next phase may continue.`,
+    },
+    {
+      id: 'revisions',
+      title: 'Revisions',
+      content: `Each project will include the number of revisions stated in the quote or project agreement. Revisions must relate to the original approved scope. Additional revisions, major changes, or requests outside the original scope may require an additional fee.`,
+    },
+    {
+      id: 'scope-changes',
+      title: 'Scope Changes',
+      content: `Any work not included in the original project scope may require a revised quote or written approval before it is completed. Examples of scope changes include:`,
+      list: [
+        'Adding new pages, features, designs, or services',
+        'Changing the project direction after work has started',
+        'Requesting extra revisions beyond the included amount',
+        'Adding new integrations, automation, or advanced functionality',
+        'Requesting urgent or rush delivery',
+      ],
+    },
+    {
+      id: 'refunds',
+      title: 'Refunds',
+      content: `Refund eligibility depends on the project stage, work completed, and payment terms agreed to before the project begins. Deposits, completed milestones, approved deliverables, completed strategy work, purchased tools, third-party costs, and time already spent on the project may be non-refundable. If a refund request is made, ScaleLink Alliance will review the project status and determine whether any refund is available based on work completed and the written agreement.`,
+    },
+    {
+      id: 'third-party',
+      title: 'Third-Party Costs',
+      content: `Some projects may require third-party tools, hosting, plugins, software subscriptions, stock assets, advertising spend, email platforms, CRM tools, domain services, or other external costs. Unless clearly stated otherwise, third-party costs are not included in ScaleLink Alliance service fees and are the responsibility of the client.`,
+    },
+    {
+      id: 'delays',
+      title: 'Project Delays',
+      content: `Project timelines may be affected if the client does not provide required information, content, approvals, access, feedback, or payments on time. ScaleLink Alliance is not responsible for delays caused by missing client materials, delayed approvals, third-party platforms, or changes requested after the project begins.`,
+    },
+    {
+      id: 'delivery',
+      title: 'Final Delivery',
+      content: `Final files, completed deliverables, website access, campaign materials, or project assets may be delivered after the payment terms are satisfied. ScaleLink Alliance may withhold final delivery if required payments are incomplete or if the project agreement has not been fulfilled.`,
+    },
+    {
+      id: 'disputes',
+      title: 'Disputes',
+      content: `If there is a disagreement about payment, project scope, milestones, or deliverables, both parties agree to first attempt to resolve the matter in writing. ScaleLink Alliance may pause work during a dispute until the issue is resolved.`,
+    },
+    {
+      id: 'acceptance',
+      title: 'Acceptance of Terms',
+      content: `By approving a quote, submitting payment, checking the agreement box, or allowing work to begin, the client confirms that they understand and agree to these Payment & Escrow Terms.`,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -219,7 +319,7 @@ const Legal = () => {
 
           {/* Content */}
           <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
-            {activeSection === 'privacy' ? (
+            {activeSection === 'privacy' && (
               <div>
                 <div className="flex items-center mb-8">
                   <div className="p-3 bg-blue-100 rounded-lg mr-4">
@@ -264,7 +364,9 @@ const Legal = () => {
                   </div>
                 ))}
               </div>
-            ) : (
+            )}
+
+            {activeSection === 'terms' && (
               <div>
                 <div className="flex items-center mb-8">
                   <div className="p-3 bg-blue-100 rounded-lg mr-4">
@@ -311,11 +413,51 @@ const Legal = () => {
               </div>
             )}
 
+            {activeSection === 'escrow' && (
+              <div>
+                <div className="flex items-center mb-8">
+                  <div className="p-3 bg-blue-100 rounded-lg mr-4">
+                    <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 className="text-3xl font-bold text-gray-900">Payment & Escrow Terms</h2>
+                    <p className="text-gray-600 mt-2">Policies regarding deposits, milestone payments, and escrow protection</p>
+                  </div>
+                </div>
+
+                {escrowContent.map((section, index) => (
+                  <div key={section.id} className="mb-10" id={section.id}>
+                    <div className="flex items-center mb-4">
+                      <div className="shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mr-3">
+                        {index + 1}
+                      </div>
+                      <h3 className="text-2xl font-semibold text-gray-900">{section.title}</h3>
+                    </div>
+                    <div className="ml-11">
+                      <p className="text-gray-700 mb-3">{section.content}</p>
+                      {section.list && (
+                        <ul className="space-y-2 mb-4">
+                          {section.list.map((item, idx) => (
+                            <li key={idx} className="flex items-start">
+                              <span className="text-blue-600 mr-2">•</span>
+                              <span className="text-gray-700">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
             {/* Quick Navigation */}
             <div className="mt-12 pt-8 border-t border-gray-200">
               <h4 className="text-lg font-semibold text-gray-900 mb-4">Quick Navigation</h4>
               <div className="flex flex-wrap gap-3">
-                {(activeSection === 'privacy' ? privacyPolicyContent : termsContent).map((section) => (
+                {(activeSection === 'privacy' ? privacyPolicyContent : activeSection === 'terms' ? termsContent : escrowContent).map((section) => (
                   <a
                     key={section.id}
                     href={`#${section.id}`}
