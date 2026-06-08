@@ -18,8 +18,9 @@ const Footer = () => {
     secondary: [
       { name: 'Become a Chapter Director', href: '/become-director' },
       { name: 'Service Request', href: '/request-service' },
-      { name: 'Privacy Policy', href: '/legal#privacy' },
-      { name: 'Terms of Service', href: '/legal#terms' },
+      { name: 'Privacy Policy', href: '/legal?tab=privacy' },
+      { name: 'Terms of Service', href: '/legal?tab=terms' },
+      { name: 'Payment & Escrow Terms', href: '/legal?tab=escrow' },
     ],
     social: [
       { name: 'LinkedIn', icon: FaLinkedin, href: '#' },
