@@ -17,7 +17,8 @@ import {
   FaGlobe,
   FaFileAlt,
   FaChevronDown,
-  FaChevronUp
+  FaChevronUp,
+  FaShieldAlt
 } from 'react-icons/fa';
 
 const FAQPage = () => {
@@ -27,7 +28,8 @@ const FAQPage = () => {
     services: false,
     participation: false,
     operational: false,
-    gettingStarted: false
+    gettingStarted: false,
+    paymentProtection: false
   });
 
   const [openQuestions, setOpenQuestions] = useState({});
@@ -175,6 +177,32 @@ const FAQPage = () => {
             'Traditional networking: Exchanging contacts',
             'Scale Link Alliance: Building intentional, trust-based relationships that lead to strategic opportunities and sustainable business growth'
           ]
+        }
+      ]
+    },
+    {
+      category: 'Payment & Escrow Protection',
+      icon: <FaShieldAlt />,
+      questions: [
+        {
+          q: 'How does ScaleLink Alliance protect project payments?',
+          a: 'ScaleLink Alliance may use deposits, milestone payments, or escrow-based payment terms to create a clear and fair payment process for both the client and the service team. Before work begins, the client receives a quote or project agreement that explains the project scope, payment amount, timeline, deliverables, and any milestone payment terms. For larger or custom projects, payments may be connected to specific project stages. This helps the client understand what they are paying for and helps ScaleLink Alliance complete the work with clear expectations.'
+        },
+        {
+          q: 'When are funds released or applied?',
+          a: 'Funds may be released or applied when an approved milestone is completed, a deliverable is submitted, the client approves the work, or the review period has passed.'
+        },
+        {
+          q: 'Are deposits refundable?',
+          a: 'Deposits may be non-refundable once work has started, especially if planning, design, strategy, setup, development, third-party purchases, or project labor has already been completed.'
+        },
+        {
+          q: 'What happens if I request changes?',
+          a: 'Revisions included in the quote are covered. Major changes, new features, extra pages, additional services, or requests outside the approved scope may require a new quote or additional payment.'
+        },
+        {
+          q: 'Why does ScaleLink Alliance use milestone or escrow-based payments?',
+          a: 'Milestone and escrow-based payments help keep projects organized, fair, and transparent. They help protect the client by connecting payments to agreed work, and they help protect ScaleLink Alliance by ensuring the project can move forward with clear payment expectations.'
         }
       ]
     }
