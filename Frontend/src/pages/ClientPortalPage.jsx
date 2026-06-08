@@ -23,6 +23,7 @@ const ClientPortalPage = () => {
   const [verifyingPayment, setVerifyingPayment] = useState(false);
   const [selectedAddons, setSelectedAddons] = useState([]);
   const [isLoadingCheckout, setIsLoadingCheckout] = useState(false);
+  const [agreedToEscrow, setAgreedToEscrow] = useState(false);
 
   const isPaid = job && ['deposit_paid', 'in_progress', 'completed', 'approved'].includes(job.quoteStatus);
   const totalAddonsPrice = isPaid ? 0 : selectedAddons.reduce((sum, item) => sum + (item.price || 0), 0);
@@ -708,26 +709,46 @@ const ClientPortalPage = () => {
               </div>
             </div>
 
-            <div className="flex-shrink-0 w-full md:w-auto">
+            <div className="flex-shrink-0 w-full md:w-auto flex flex-col items-stretch md:items-end">
               {job.quoteStatus === 'quote_sent' ? (
-                <button
-                  disabled={isLoadingCheckout}
-                  onClick={handleCheckout}
-                  className="w-full md:w-auto inline-flex items-center justify-center space-x-2 py-4 px-8 bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isLoadingCheckout ? (
-                    <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
-                  ) : (
-                    <FaFileSignature className="text-sm flex-shrink-0" />
-                  )}
-                  <span>{isLoadingCheckout ? 'Creating Secure Payment...' : 'Approve & Pay Deposit'}</span>
-                </button>
+                <>
+                  <div className="mb-4 bg-white/5 border border-white/10 p-4 rounded-xl text-left max-w-sm">
+                    <h4 className="text-xs font-bold text-blue-300 mb-1">Payment & Escrow Protection</h4>
+                    <p className="text-[10px] text-slate-400 mb-3 leading-relaxed">
+                      For approved projects, ScaleLink Alliance may use deposit, milestone, or escrow-based payment terms to protect both the client and the service team. Funds may be released based on agreed milestones, completed deliverables, client approval, or project terms.
+                    </p>
+                    <label className="flex items-start gap-2.5 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={agreedToEscrow}
+                        onChange={e => setAgreedToEscrow(e.target.checked)}
+                        className="w-4 h-4 text-blue-600 rounded bg-white/10 border-white/20 mt-0.5 cursor-pointer"
+                      />
+                      <span className="text-[10px] font-semibold text-slate-300 leading-tight">
+                        I agree to the <a href="/legal?tab=escrow" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">ScaleLink Alliance Payment & Escrow Terms</a>.
+                      </span>
+                    </label>
+                  </div>
+
+                  <button
+                    disabled={isLoadingCheckout || !agreedToEscrow}
+                    onClick={handleCheckout}
+                    className="w-full md:w-auto inline-flex items-center justify-center space-x-2 py-4 px-8 bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isLoadingCheckout ? (
+                      <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
+                    ) : (
+                      <FaFileSignature className="text-sm flex-shrink-0" />
+                    )}
+                    <span>{isLoadingCheckout ? 'Creating Secure Payment...' : 'Approve & Pay Deposit'}</span>
+                  </button>
+                </>
               ) : job.quoteStatus === 'under_review' ? (
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-4 text-center">
+                <div className="bg-white/5 border border-white/10 rounded-2xl p-4 text-center w-full">
                   <span className="text-[10px] text-slate-400 font-semibold">Quote under review. Payment link will be active once proposal is sent.</span>
                 </div>
               ) : (
-                <div className="bg-emerald-950/20 border border-emerald-500/20 rounded-2xl p-4 text-center">
+                <div className="bg-emerald-950/20 border border-emerald-500/20 rounded-2xl p-4 text-center w-full">
                   <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">Deposit Verified ✓</span>
                 </div>
               )}
