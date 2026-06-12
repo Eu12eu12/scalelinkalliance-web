@@ -7,7 +7,7 @@ import {
   FaCheckCircle, FaTimesCircle, FaBuilding, FaUsers, FaStar,
   FaRocket, FaBriefcase, FaHeadset, FaCogs, FaPaintBrush,
   FaVideo, FaPenNib, FaPalette, FaCamera, FaCode, FaShoppingCart,
-  FaEnvelope, FaSearch, FaDatabase, FaFileAlt, FaProjectDiagram
+  FaEnvelope, FaSearch, FaDatabase, FaFileAlt, FaProjectDiagram, FaShieldAlt
 } from 'react-icons/fa';
 import ComparisonTable from '../components/sections/ComparisonTable';
 import ChapterCard from '../components/sections/ChapterCard';
@@ -19,7 +19,7 @@ const HomePage = () => {
 
   // Multiple high-quality images for different sections
   const images = {
-    hero: 'https://image2url.com/r2/default/images/1774371128423-38967f2c-f66b-4926-935e-b13570c8a575.jpg',
+    hero: '/hero-bg.jpg',
     network: 'https://image2url.com/r2/default/images/1774353122343-8aa294ba-b330-44d0-b7e0-3de067be087e.jpeg',
     services: 'https://image2url.com/r2/default/images/1774353201111-1eb8e101-7307-48e1-b565-5e18f8eec4a2.jpeg',
     growth: 'https://image2url.com/r2/default/images/1774353242591-51c285d9-8148-4e95-be8a-7957262dfb78.jpeg',
@@ -77,12 +77,43 @@ const HomePage = () => {
     { icon: <FaGlobe />, title: 'Local to Global', desc: 'Chapters nationwide with expansion plans' },
   ];
 
-  // Comparison table data for Section 8
-  const comparisonData = [
-    { traditional: 'Hire multiple employees', alliance: 'Access a full team' },
-    { traditional: 'Slow growth', alliance: 'Faster opportunities' },
-    { traditional: 'Limited network', alliance: 'Strategic referrals' },
-    { traditional: 'High overhead costs', alliance: 'Scalable support' }
+  // 7 value propositions for Section 8
+  const whyWorkData = [
+    {
+      icon: <FaBriefcase />,
+      title: "One company for multiple business needs",
+      desc: "Access design, tech, marketing, operations, and support all in a single professional partnership."
+    },
+    {
+      icon: <FaCogs />,
+      title: "Custom solutions based on your goals",
+      desc: "Get personalized, targeted approaches that align with your unique long-term objectives."
+    },
+    {
+      icon: <FaUsers />,
+      title: "Support for marketing, tech, content, and operations",
+      desc: "Enjoy full vertical support across all divisions, ready to scale up or down as you need."
+    },
+    {
+      icon: <FaHandshake />,
+      title: "Clear project quotes and milestone-based payments",
+      desc: "Transparent up-front pricing and structured schedules so you pay only as deliverables are completed."
+    },
+    {
+      icon: <FaRocket />,
+      title: "Business growth focused, not just task-focused",
+      desc: "We look at the bigger picture to ensure every project drives real, measurable business outcomes."
+    },
+    {
+      icon: <FaShieldAlt />,
+      title: "Payment & Escrow Protection",
+      desc: "Funds are secure and released systematically upon successful milestone completion."
+    },
+    {
+      icon: <FaCheckCircle />,
+      title: "Satisfaction Protection Policy",
+      desc: "Our quality guarantee ensures work meets professional standards and matches specifications."
+    }
   ];
 
   // FAQ data
@@ -124,32 +155,32 @@ const HomePage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                Scalelink Alliance helps businesses get more visibility, better leads, stronger systems and reliable support in one place
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight max-w-none mx-auto">
+                Connect. Execute. Grow Your Business.
               </h1>
-              <p className="text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto">
-                Join a network built to generate opportunities—or access expert services to scale your business without hiring a full team.
-              </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              {/* Problem guide block */}
+              <div className="bg-black/45 backdrop-blur-md border border-white/10 rounded-2xl p-6 max-w-3xl mx-auto mb-10 shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
+                <h3 className="text-lg font-bold text-white leading-snug">
+                  Not Sure What Service You Need? Start With the Problem.
+                </h3>
                 <Link
-                  to="/membership"
-                  className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-2xl hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+                  to="/services/guide-by-problem"
+                  className="inline-flex items-center px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all text-sm shrink-0 hover:scale-105 shadow-lg shadow-blue-500/20"
                 >
-                  <span>Join the Network</span>
-                  <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-                </Link>
-                <Link
-                  to="/request-service"
-                  className="px-8 py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded-lg border-2 border-white/30 shadow-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300"
-                >
-                  Get Services
+                  Start Here <FaArrowRight className="ml-2 text-xs" />
                 </Link>
               </div>
-              
-              <p className="text-white/70 text-sm">
-                Helping business owners, consultants, and service providers grow through connections and execution.
-              </p>
+
+              <div className="flex justify-center mb-8">
+                <Link
+                  to="/services"
+                  className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-2xl hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+                >
+                  <span>Get Services</span>
+                  <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -237,7 +268,7 @@ const HomePage = () => {
                   </li>
                 </ul>
                 <Link
-                  to="/request-service"
+                  to="/services"
                   className="inline-block px-6 py-3 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors"
                 >
                   Hire Services
@@ -529,26 +560,36 @@ const HomePage = () => {
       {/* 🧲 SECTION 8: WHY SCALELINK ALLIANCE */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-12">
-              Why Businesses Choose ScaleLink Alliance
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-4">
+              Why Work With ScaleLink Alliance?
             </h2>
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-              <div className="grid grid-cols-2 bg-gradient-to-r from-blue-600 to-blue-700 p-4">
-                <div className="font-bold text-white text-lg">Traditional Approach</div>
-                <div className="font-bold text-white text-lg">ScaleLink Alliance</div>
-              </div>
-              {comparisonData.map((item, index) => (
-                <div key={index} className={`grid grid-cols-2 p-4 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-                  <div className="text-gray-700 flex items-center">
-                    <FaTimesCircle className="text-red-500 mr-2" />
-                    {item.traditional}
+            <p className="text-gray-600 text-center max-w-2xl mx-auto mb-16 font-medium">
+              We provide a secure, structured professional network and verified business execution all under one roof.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+              {whyWorkData.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className={`bg-white rounded-2xl p-8 border border-gray-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col ${
+                    index === 6 ? 'md:col-span-2 lg:col-span-1 lg:col-start-2' : ''
+                  }`}
+                >
+                  <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-6 shrink-0 shadow-inner">
+                    {item.icon}
                   </div>
-                  <div className="text-gray-900 font-medium flex items-center">
-                    <FaCheckCircle className="text-green-500 mr-2" />
-                    {item.alliance}
-                  </div>
-                </div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-3 leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm leading-relaxed mt-auto">
+                    {item.desc}
+                  </p>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -592,7 +633,7 @@ const HomePage = () => {
                 Join the Network
               </Link>
               <Link
-                to="/request-service"
+                to="/services"
                 className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-colors"
               >
                 Hire Services
@@ -609,6 +650,7 @@ const HomePage = () => {
       </section>
 
       {/* Sticky Button */}
+      {/* 
       <div className="fixed bottom-8 right-8 z-50">
         <Link
           to="/contact"
@@ -618,6 +660,7 @@ const HomePage = () => {
           <span className="font-semibold">Book a Free Growth Call</span>
         </Link>
       </div>
+      */}
     </div>
   );
 };
