@@ -343,8 +343,39 @@ const RequestServicePage = () => {
   const handleServiceToggle = service => {
     setSelectedServices(prev => {
       const next = { ...prev };
-      if (prev[service]) delete next[service];
-      else next[service] = service.includes('Request Custom Quote') ? 'custom' : 'starter';
+      
+      // Find the category this service belongs to
+      let categoryServices = [];
+      for (const catKey in SERVICE_CATEGORIES) {
+        if (SERVICE_CATEGORIES[catKey].services.includes(service)) {
+          categoryServices = SERVICE_CATEGORIES[catKey].services;
+          break;
+        }
+      }
+
+      if (prev[service]) {
+        // Unchecking
+        delete next[service];
+      } else {
+        // Checking
+        if (service.includes('Request Custom Quote')) {
+          // If selecting Custom Quote, remove all other selections in this category
+          categoryServices.forEach(s => {
+            if (s !== service) {
+              delete next[s];
+            }
+          });
+          next[service] = 'custom';
+        } else {
+          // If selecting a standard service, remove Custom Quote in this category
+          categoryServices.forEach(s => {
+            if (s.includes('Request Custom Quote')) {
+              delete next[s];
+            }
+          });
+          next[service] = 'starter';
+        }
+      }
       return next;
     });
   };
