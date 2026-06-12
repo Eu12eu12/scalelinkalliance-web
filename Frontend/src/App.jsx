@@ -17,6 +17,7 @@ import MembershipPage from './pages/Memberships/MembershipPage';
 import ServicesPage from './pages/Services/ServicesPage';
 import ServiceDetailPage from './pages/Services/ServiceDetailPage';
 import ServiceRequestPage from './pages/Services/ServiceRequestPage';
+import GuideByProblemPage from './pages/Services/GuideByProblemPage';
 import BecomeDirectorPage from './pages/Director/BecomeDirectorPage';
 import AboutPage from './pages/AboutPage';
 import ResourcesPage from './pages/ResourcesPage';
@@ -56,6 +57,7 @@ function AppContent() {
               <Route path="/chapters/:city" element={<ChapterDetailPage />} />
               <Route path="/membership" element={<MembershipPage />} />
               <Route path="/services" element={<ServicesPage />} />
+              <Route path="/services/guide-by-problem" element={<GuideByProblemPage />} />
               <Route path="/services/:serviceSlug" element={<ServiceDetailPage />} />
               <Route path="/request-service" element={<ServiceRequestPage />} />
               <Route path="/become-director" element={<BecomeDirectorPage />} />

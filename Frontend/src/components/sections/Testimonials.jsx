@@ -329,7 +329,7 @@ const Testimonials = () => {
               Apply for Membership
             </Link>
             <Link
-              to="/request-service"
+              to="/services"
               className="px-8 py-4 bg-gray-900 text-white font-semibold rounded-lg hover:bg-gray-800 transition-all shadow-lg"
             >
               Request Services

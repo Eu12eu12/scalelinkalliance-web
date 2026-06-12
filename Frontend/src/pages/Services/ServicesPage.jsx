@@ -680,7 +680,7 @@ const ServicesPage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-gray-900 to-black py-16">
+      <section className="bg-gradient-to-br from-gray-900 to-black py-8">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto text-center">
             <motion.div
@@ -691,23 +691,9 @@ const ServicesPage = () => {
               <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
                 ScaleLink Alliance Services
               </h1>
-              <p className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 Professional business & marketing services designed to help you grow — no membership required.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to="/request-service"
-                  className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all"
-                >
-                  Request Service
-                </Link>
-                <Link
-                  to="/contact"
-                  className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-colors"
-                >
-                  Talk to a Specialist
-                </Link>
-              </div>
             </motion.div>
           </div>
         </div>
@@ -751,6 +737,27 @@ const ServicesPage = () => {
               <p className="text-sm leading-relaxed text-blue-800 font-medium">
                 <span className="font-semibold text-blue-950">Starting price options</span> are shown during service selection. <span className="font-semibold text-blue-950">Custom quotes</span> are available for larger or more detailed projects.
               </p>
+            </div>
+
+            {/* Problem Navigation Callout */}
+            <div className="max-w-2xl mx-auto mb-12 text-center">
+              <Link 
+                to="/services/guide-by-problem"
+                className="inline-flex items-center gap-4 px-6 py-4 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl shadow-sm hover:shadow-md hover:scale-102 transition-all duration-300 group text-left w-full"
+              >
+                <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white shrink-0 group-hover:rotate-6 transition-transform">
+                  <FaInfoCircle size={22} />
+                </div>
+                <div className="flex-grow">
+                  <h4 className="font-bold text-gray-900 leading-snug group-hover:text-blue-700 transition-colors">
+                    Not Sure What Service You Need? Start With the Problem
+                  </h4>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    Navigate our services based on your business challenges & goals
+                  </p>
+                </div>
+                <FaArrowRight className="text-blue-600 ml-auto group-hover:translate-x-1 transition-transform shrink-0" />
+              </Link>
             </div>
 
             <div className="flex flex-wrap justify-center gap-4 mb-12">

@@ -46,7 +46,7 @@ const Header = () => {
 
   const ctaButtons = [
     { name: 'Apply to Join', path: '/membership', icon: <FaUserTie />, variant: 'primary' },
-    { name: 'Request Service', path: '/request-service', icon: <FaBriefcase />, variant: 'secondary' }
+    { name: 'Request Service', path: '/services', icon: <FaBriefcase />, variant: 'secondary' }
   ];
 
   const isActive = (path) => location.pathname === path;
