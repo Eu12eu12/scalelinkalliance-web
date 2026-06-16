@@ -199,11 +199,59 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
 app.use(express.json({ limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 
-// Create uploads directory if it doesn't exist
+// Programmatically manage the uploads directory and symlink
 const uploadDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-  console.log('📁 Created uploads directory:', uploadDir);
+const isProduction = process.env.NODE_ENV === 'production';
+
+// Detect Hostinger shared hosting environment path (/home/username/...)
+const hostingerMatch = __dirname.match(/^(\/home\/[^\/]+)/);
+if (isProduction && hostingerMatch) {
+  const hostingerHomeDir = hostingerMatch[1];
+  const persistentUploadDir = path.join(hostingerHomeDir, 'shared_uploads');
+
+  console.log(`ℹ️ Production Hostinger detected. Ensuring persistent uploads dir at: ${persistentUploadDir}`);
+
+  // Create persistent uploads folder if it doesn't exist
+  if (!fs.existsSync(persistentUploadDir)) {
+    try {
+      fs.mkdirSync(persistentUploadDir, { recursive: true });
+      console.log('📁 Created persistent shared_uploads directory:', persistentUploadDir);
+    } catch (mkdirErr) {
+      console.error('❌ Failed to create persistent directory:', mkdirErr.message);
+    }
+  }
+
+  // Handle local app's uploads path
+  if (fs.existsSync(uploadDir)) {
+    try {
+      const stats = fs.lstatSync(uploadDir);
+      // If it's a physical directory, we delete it (if empty/safe) so we can create a symlink
+      if (stats.isDirectory() && !stats.isSymbolicLink()) {
+        fs.rmdirSync(uploadDir);
+        console.log('🗑️ Removed default uploads folder to prepare for symlink.');
+      }
+    } catch (cleanupErr) {
+      console.warn('⚠️ Could not remove physical uploads folder (it may not be empty):', cleanupErr.message);
+    }
+  }
+
+  // Create the symbolic link
+  if (!fs.existsSync(uploadDir)) {
+    try {
+      fs.symlinkSync(persistentUploadDir, uploadDir, 'dir');
+      console.log('🔗 Programmatic symlink created: uploads ->', persistentUploadDir);
+    } catch (symlinkErr) {
+      console.error('❌ Programmatic symlinking failed:', symlinkErr.message);
+      // Fallback: create physical directory if symlinking failed
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+  }
+} else {
+  // Local development / fallback
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+    console.log('📁 Created local uploads directory:', uploadDir);
+  }
 }
 
 // Configure multer for file uploads

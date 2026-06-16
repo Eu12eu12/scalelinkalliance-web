@@ -23,6 +23,7 @@ const AdminResources = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   
   // Pagination State
   const [page, setPage] = useState(1);
@@ -73,7 +74,7 @@ const AdminResources = () => {
     }
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -82,11 +83,28 @@ const AdminResources = () => {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setFormData(prev => ({ ...prev, imageUrl: reader.result }));
-    };
-    reader.readAsDataURL(file);
+    setUploadingImage(true);
+    try {
+      const fd = new FormData();
+      fd.append('files', file);
+
+      const res = await fetch('/api/upload-files', {
+        method: 'POST',
+        body: fd
+      });
+      const data = await res.json();
+
+      if (res.ok && data.fileUrls && data.fileUrls.length > 0) {
+        setFormData(prev => ({ ...prev, imageUrl: data.fileUrls[0].url }));
+        showToast('Image uploaded successfully!', 'success');
+      } else {
+        showToast(data.error || 'Failed to upload image.', 'error');
+      }
+    } catch (err) {
+      showToast('A network error occurred while uploading.', 'error');
+    } finally {
+      setUploadingImage(false);
+    }
   };
 
   const openCreate = () => {
@@ -121,8 +139,8 @@ const AdminResources = () => {
       publishedDate: res.publishedDate ? new Date(res.publishedDate).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
     });
     setIsSmartFit(res.imageUrl?.includes('#contain') || false);
-    const isBase64 = res.imageUrl && res.imageUrl.startsWith('data:image/');
-    setImageSource(isBase64 ? 'upload' : (res.imageUrl ? 'url' : 'upload'));
+    const isUploaded = res.imageUrl && (res.imageUrl.startsWith('data:image/') || res.imageUrl.includes('/uploads/'));
+    setImageSource(isUploaded ? 'upload' : (res.imageUrl ? 'url' : 'upload'));
     setIsModalOpen(true);
   };
 
@@ -394,7 +412,8 @@ const AdminResources = () => {
                         type="button"
                         onClick={() => {
                           setImageSource('upload');
-                          if (formData.imageUrl && !formData.imageUrl.startsWith('data:image/')) {
+                          const isUploaded = formData.imageUrl && (formData.imageUrl.startsWith('data:image/') || formData.imageUrl.includes('/uploads/'));
+                          if (formData.imageUrl && !isUploaded) {
                             setFormData(prev => ({ ...prev, imageUrl: '' }));
                           }
                         }}
@@ -406,7 +425,8 @@ const AdminResources = () => {
                         type="button"
                         onClick={() => {
                           setImageSource('url');
-                          if (formData.imageUrl && formData.imageUrl.startsWith('data:image/')) {
+                          const isUploaded = formData.imageUrl && (formData.imageUrl.startsWith('data:image/') || formData.imageUrl.includes('/uploads/'));
+                          if (formData.imageUrl && isUploaded) {
                             setFormData(prev => ({ ...prev, imageUrl: '' }));
                           }
                         }}
@@ -418,7 +438,7 @@ const AdminResources = () => {
 
                     {imageSource === 'upload' ? (
                       <div>
-                        {formData.imageUrl && formData.imageUrl.startsWith('data:image/') ? (
+                        {formData.imageUrl && (formData.imageUrl.startsWith('data:image/') || formData.imageUrl.includes('/uploads/')) ? (
                           <div className="relative border border-slate-200 rounded-xl p-3 bg-slate-50 flex items-center justify-between">
                             <div className="flex items-center space-x-3">
                               <img 
@@ -438,6 +458,11 @@ const AdminResources = () => {
                             >
                               Remove
                             </button>
+                          </div>
+                        ) : uploadingImage ? (
+                          <div className="flex flex-col items-center justify-center border border-dashed border-blue-200 rounded-xl p-6 bg-blue-50/10 transition-all">
+                            <div className="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mb-2"></div>
+                            <span className="text-xs font-bold text-blue-600">Uploading image to server...</span>
                           </div>
                         ) : (
                           <div className="flex flex-col items-center justify-center border border-dashed border-slate-200 hover:border-blue-400 hover:bg-blue-50/10 rounded-xl p-6 bg-slate-50 cursor-pointer relative transition-all">
