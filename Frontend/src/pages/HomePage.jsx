@@ -142,7 +142,7 @@ const HomePage = () => {
           <img
             src={images.hero}
             alt="Business growth background"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40 z-10"></div>
         </div>
