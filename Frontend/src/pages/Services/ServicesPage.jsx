@@ -23,7 +23,7 @@ const ServicesPage = () => {
       category: 'creative',
       icon: <FaPaintBrush />,
       description: 'Strong visual design helps businesses communicate clearly, attract attention, and create a professional brand presence.',
-      startingPrice: '$1',
+      startingPrice: '$35',
       features: [
         'Social media graphics',
         'Marketing flyers and posters',
@@ -39,9 +39,9 @@ const ServicesPage = () => {
         'build a consistent brand image across platforms'
       ],
       packages: {
-        starter: { price: '$150', includes: '1 graphic design asset, 1 revision, web-ready files' },
-        growth: { price: '$400', includes: 'up to 5 graphic design assets, 2 revision rounds' },
-        premium: { price: '$800', includes: 'up to 10 graphic design assets, priority revisions' }
+        starter: { price: '$35', includes: '1 graphic design asset, 1 revision, web-ready files' },
+        growth: { price: '$175', includes: 'up to 5 graphic design assets, 2 revision rounds' },
+        premium: { price: '$499', includes: 'up to 10 graphic design assets, priority revisions' }
       }
     },
     {
@@ -51,7 +51,7 @@ const ServicesPage = () => {
       category: 'creative',
       icon: <FaVideo />,
       description: 'Video content is one of the most powerful ways to capture attention and engage audiences. Transform raw footage into polished visual stories.',
-      startingPrice: '$500',
+      startingPrice: '$75',
       features: [
         'Promotional videos',
         'Social media video edits',
@@ -68,9 +68,9 @@ const ServicesPage = () => {
         'website video content'
       ],
       packages: {
-        starter: { price: '$500', includes: '1 video up to 60 seconds, basic cuts, music, simple motion graphics' },
-        growth: { price: '$900', includes: '3 videos up to 90 seconds each, branded intro/outro, motion graphics' },
-        premium: { price: '$1,800', includes: '5 videos up to 2 minutes each, advanced motion graphics, color grading' }
+        starter: { price: '$75', includes: '1 video up to 60 seconds, basic cuts, music, simple motion graphics' },
+        growth: { price: '$225', includes: '3 videos up to 90 seconds each, branded intro/outro, motion graphics' },
+        premium: { price: '$599', includes: '5 videos up to 2 minutes each, advanced motion graphics, color grading' }
       }
     },
     {
@@ -80,7 +80,7 @@ const ServicesPage = () => {
       category: 'creative',
       icon: <FaPenNib />,
       description: 'Clear and persuasive content is essential for turning visitors into customers. Our copywriting services help you communicate your value.',
-      startingPrice: '$200',
+      startingPrice: '$75',
       features: [
         'Website content',
         'Marketing copy',
@@ -98,9 +98,9 @@ const ServicesPage = () => {
         'advertising copy'
       ],
       packages: {
-        starter: { price: '$200', includes: '1 content piece up to 800 words, basic keyword research, 1 revision' },
-        growth: { price: '$600', includes: '3 content pieces up to 1,000 words each, SEO-friendly formatting, 2 revisions' },
-        premium: { price: '$1,200', includes: '6 content pieces up to 1,200 words each, SEO optimization, brand voice alignment' }
+        starter: { price: '$75', includes: '1 content piece up to 800 words, basic keyword research, 1 revision' },
+        growth: { price: '$225', includes: '3 content pieces up to 1,000 words each, SEO-friendly formatting, 2 revisions' },
+        premium: { price: '$599', includes: '6 content pieces up to 1,200 words each, SEO optimization, brand voice alignment' }
       }
     },
     {
@@ -110,7 +110,7 @@ const ServicesPage = () => {
       category: 'creative',
       icon: <FaPalette />,
       description: 'Your brand identity is the visual foundation of your business. A well-designed logo and consistent brand system help customers recognize your company.',
-      startingPrice: '$800',
+      startingPrice: '$199',
       features: [
         'Custom logo design',
         'Brand color palette',
@@ -126,9 +126,9 @@ const ServicesPage = () => {
         'strengthen customer trust and credibility'
       ],
       packages: {
-        starter: { price: '$800', includes: '1 custom logo concept, basic color palette, 1 revision, PNG + SVG files' },
-        growth: { price: '$1,500', includes: '3 logo concepts, color palette, typography, 2 revisions, multiple formats' },
-        premium: { price: '$2,500', includes: '3-4 logo concepts, complete brand style guide, unlimited revisions' }
+        starter: { price: '$199', includes: '1 custom logo concept, basic color palette, 1 revision, PNG + SVG files' },
+        growth: { price: '$499', includes: '3 logo concepts, color palette, typography, 2 revisions, multiple formats' },
+        premium: { price: '$999', includes: '3-4 logo concepts, complete brand style guide, unlimited revisions' }
       }
     },
     {
@@ -138,7 +138,7 @@ const ServicesPage = () => {
       category: 'creative',
       icon: <FaCamera />,
       description: 'High-quality visual imagery plays a critical role in how businesses present themselves to customers. Professional photos strengthen brand credibility.',
-      startingPrice: '$400',
+      startingPrice: '$199',
       features: [
         'Business and team photography',
         'Product photography',
@@ -154,9 +154,9 @@ const ServicesPage = () => {
         'build a recognizable visual identity'
       ],
       packages: {
-        starter: { price: '$400', includes: '10 professionally edited photos, 1 location, basic editing, web-ready files' },
-        growth: { price: '$900', includes: '25 professionally edited photos, multiple scenes, retouching, high-res formats' },
-        premium: { price: '$1,800', includes: '50 professionally edited photos, multi-scene session, advanced retouching' }
+        starter: { price: '$199', includes: '10 professionally edited photos, 1 location, basic editing, web-ready files' },
+        growth: { price: '$499', includes: '25 professionally edited photos, multiple scenes, retouching, high-res formats' },
+        premium: { price: '$999', includes: '50 professionally edited photos, multi-scene session, advanced retouching' }
       },
     },
 
@@ -168,7 +168,7 @@ const ServicesPage = () => {
       category: 'tech',
       icon: <FaCode />,
       description: 'Your website is often the first place potential customers learn about your business. A well-designed website builds credibility and communicates your value.',
-      startingPrice: '$1,200',
+      startingPrice: '$699',
       features: [
         'Custom website design',
         'Mobile-friendly layout',
@@ -184,9 +184,9 @@ const ServicesPage = () => {
         'provide information to customers'
       ],
       packages: {
-        starter: { price: '$1,200', includes: 'up to 3 website pages, responsive design, contact form, basic SEO' },
-        growth: { price: '$2,500', includes: 'up to 7 website pages, advanced layout, marketing tool integration' },
-        premium: { price: '$5,000', includes: 'up to 12 website pages, blog setup, advanced forms, SEO-ready' }
+        starter: { price: '$699', includes: 'up to 3 website pages, responsive design, contact form, basic SEO' },
+        growth: { price: '$1,499', includes: 'up to 7 website pages, advanced layout, marketing tool integration' },
+        premium: { price: '$3,499', includes: 'up to 12 website pages, blog setup, advanced forms, SEO-ready' }
       }
     },
     {
@@ -196,7 +196,7 @@ const ServicesPage = () => {
       category: 'tech',
       icon: <FaRocket />,
       description: 'Landing pages and sales funnels are designed to turn visitors into leads and customers. They focus on a single goal: encouraging visitors to take action.',
-      startingPrice: '$400',
+      startingPrice: '$499',
       features: [
         'Conversion-focused landing page design',
         'Lead capture forms',
@@ -212,9 +212,9 @@ const ServicesPage = () => {
         'guide visitors through a sales process'
       ],
       packages: {
-        starter: { price: '$400', includes: '1 landing page, lead capture form, mobile-responsive, analytics' },
-        growth: { price: '$900', includes: '3-page sales funnel, conversion-focused design, email integration' },
-        premium: { price: '$1,800', includes: 'complete 5-page funnel, advanced integrations, conversion optimization' }
+        starter: { price: '$499', includes: '1 landing page, lead capture form, mobile-responsive, analytics' },
+        growth: { price: '$1,299', includes: '3-page sales funnel, conversion-focused design, email integration' },
+        premium: { price: '$2,499', includes: 'complete 5-page funnel, advanced integrations, conversion optimization' }
       }
     },
     {
@@ -224,7 +224,7 @@ const ServicesPage = () => {
       category: 'tech',
       icon: <FaShoppingCart />,
       description: 'E-commerce platforms allow businesses to sell products online, reach a broader audience, and manage transactions efficiently.',
-      startingPrice: '$1,200',
+      startingPrice: '$999',
       features: [
         'Online store setup',
         'Product page design',
@@ -240,9 +240,9 @@ const ServicesPage = () => {
         'automate order processing'
       ],
       packages: {
-        starter: { price: '$1,200', includes: 'store setup with up to 10 products, payment gateway, shipping setup' },
-        growth: { price: '$2,500', includes: 'store with up to 50 products, categories, customer accounts' },
-        premium: { price: '$4,500', includes: 'store with up to 100 products, advanced design, product filtering' }
+        starter: { price: '$999', includes: 'store setup with up to 10 products, payment gateway, shipping setup' },
+        growth: { price: '$2,499', includes: 'store with up to 50 products, categories, customer accounts' },
+        premium: { price: '$4,999', includes: 'store with up to 100 products, advanced design, product filtering' }
       }
     },
     {
@@ -252,7 +252,7 @@ const ServicesPage = () => {
       category: 'tech',
       icon: <FaGlobe />,
       description: 'Custom web applications and SaaS platforms allow businesses to streamline operations, automate workflows, and create digital tools that support growth.',
-      startingPrice: '$2,500',
+      startingPrice: '$4,999',
       features: [
         'Custom web application development',
         'SaaS platform development',
@@ -269,9 +269,9 @@ const ServicesPage = () => {
         'data management platforms'
       ],
       packages: {
-        starter: { price: '$2,500', includes: '1 custom feature/module, database setup, user login system' },
-        growth: { price: '$6,000', includes: 'multi-feature application (up to 3 modules), user accounts, workflow automation' },
-        premium: { price: '$12,000', includes: 'complete SaaS structure, multiple user roles, API integrations' }
+        starter: { price: '$4,999', includes: '1 custom feature/module, database setup, user login system' },
+        growth: { price: '$14,999', includes: 'multi-feature application (up to 3 modules), user accounts, workflow automation' },
+        premium: { price: '$29,999', includes: 'complete SaaS structure, multiple user roles, API integrations' }
       }
     },
     {
@@ -281,7 +281,7 @@ const ServicesPage = () => {
       category: 'tech',
       icon: <FaCloudUploadAlt />,
       description: 'Modern businesses rely on multiple digital tools. API integrations connect your systems and automate repetitive workflows.',
-      startingPrice: '$600',
+      startingPrice: '$499',
       features: [
         'System integrations',
         'Data synchronization',
@@ -297,9 +297,9 @@ const ServicesPage = () => {
         'streamline operations'
       ],
       packages: {
-        starter: { price: '$600', includes: '1 system integration, basic data synchronization, simple workflow automation' },
-        growth: { price: '$1,500', includes: 'up to 3 system integrations, workflow automation, data synchronization' },
-        premium: { price: '$3,000', includes: 'multiple integrations, advanced workflow automation, API configuration' }
+        starter: { price: '$499', includes: '1 system integration, basic data synchronization, simple workflow automation' },
+        growth: { price: '$1,499', includes: 'up to 3 system integrations, workflow automation, data synchronization' },
+        premium: { price: '$3,999', includes: 'multiple integrations, advanced workflow automation, API configuration' }
       }
     },
     {
@@ -309,7 +309,7 @@ const ServicesPage = () => {
       category: 'tech',
       icon: <FaShieldAlt />,
       description: 'A website requires regular updates, monitoring, and maintenance to remain secure, functional, and effective.',
-      startingPrice: '$150/month',
+      startingPrice: '$149/month',
       features: [
         'Website updates and patches',
         'Security monitoring',
@@ -325,9 +325,9 @@ const ServicesPage = () => {
         'ensure site supports marketing efforts'
       ],
       packages: {
-        starter: { price: '$150/month', includes: 'up to 2 hours maintenance, security monitoring, minor updates' },
-        growth: { price: '$350/month', includes: 'up to 5 hours maintenance, content updates, performance optimization' },
-        premium: { price: '$750/month', includes: 'up to 10 hours maintenance, priority support, advanced security' }
+        starter: { price: '$149/month', includes: 'up to 2 hours maintenance, security monitoring, minor updates' },
+        growth: { price: '$349/month', includes: 'up to 5 hours maintenance, content updates, performance optimization' },
+        premium: { price: '$899/month', includes: 'up to 10 hours maintenance, priority support, advanced security' }
       },
     },
 
@@ -339,7 +339,7 @@ const ServicesPage = () => {
       category: 'marketing',
       icon: <FaUsers />,
       description: 'Social media platforms are effective ways for businesses to connect with customers, promote services, and build brand awareness.',
-      startingPrice: '$300/month',
+      startingPrice: '$299/month',
       features: [
         'Content posting and scheduling',
         'Social media graphics',
@@ -355,9 +355,9 @@ const ServicesPage = () => {
         'support marketing campaigns'
       ],
       packages: {
-        starter: { price: '$300/month', includes: '8 posts per month, content scheduling, engagement monitoring' },
-        growth: { price: '$600/month', includes: '15 posts per month, graphic content, monthly report' },
-        premium: { price: '$1,200/month', includes: '30 posts per month, custom graphics, detailed reporting' }
+        starter: { price: '$299/month', includes: '8 posts per month, content scheduling, engagement monitoring' },
+        growth: { price: '$599/month', includes: '15 posts per month, graphic content, monthly report' },
+        premium: { price: '$1,499/month', includes: '30 posts per month, custom graphics, detailed reporting' }
       }
     },
     {
@@ -367,7 +367,7 @@ const ServicesPage = () => {
       category: 'marketing',
       icon: <FaSearch />,
       description: 'Search Engine Optimization helps your business appear when potential customers search online for services related to your industry.',
-      startingPrice: '$400/month',
+      startingPrice: '$399/month',
       features: [
         'Keyword research',
         'On-page SEO optimization',
@@ -383,9 +383,9 @@ const ServicesPage = () => {
         'generate more inquiries'
       ],
       packages: {
-        starter: { price: '$400/month', includes: 'SEO audit, optimization of 5 pages, keyword research' },
-        growth: { price: '$900/month', includes: 'optimization of 15 pages, technical SEO, monthly report' },
-        premium: { price: '$1,800/month', includes: 'optimization of 30+ pages, backlink guidance, strategy' }
+        starter: { price: '$399/month', includes: 'SEO audit, optimization of 5 pages, keyword research' },
+        growth: { price: '$899/month', includes: 'optimization of 15 pages, technical SEO, monthly report' },
+        premium: { price: '$1,999/month', includes: 'optimization of 30+ pages, backlink guidance, strategy' }
       }
     },
     {
@@ -395,7 +395,7 @@ const ServicesPage = () => {
       category: 'marketing',
       icon: <FaAd />,
       description: 'Paid advertising can quickly generate leads and increase brand visibility. We create targeted campaigns designed to maximize ROI.',
-      startingPrice: '$500/month',
+      startingPrice: '$399/month',
       features: [
         'Google Ads management',
         'Social media advertising',
@@ -411,9 +411,9 @@ const ServicesPage = () => {
         'maximize marketing budget'
       ],
       packages: {
-        starter: { price: '$500/month', includes: '1 ad campaign, audience targeting, monthly report' },
-        growth: { price: '$1,000/month', includes: '3 campaigns, audience targeting, monthly report' },
-        premium: { price: '$2,500/month', includes: 'full ad management, 10 campaigns, audience targeting' }
+        starter: { price: '$399/month', includes: '1 ad campaign, audience targeting, monthly report' },
+        growth: { price: '$899/month', includes: '3 campaigns, audience targeting, monthly report' },
+        premium: { price: '$1,999/month', includes: 'full ad management, 10 campaigns, audience targeting' }
       }
     },
     {
@@ -423,7 +423,7 @@ const ServicesPage = () => {
       category: 'marketing',
       icon: <FaEnvelope />,
       description: 'Email marketing remains one of the most effective ways for businesses to communicate directly with their audience.',
-      startingPrice: '$250',
+      startingPrice: '$199',
       features: [
         'Email campaign design',
         'Newsletter creation',
@@ -439,9 +439,9 @@ const ServicesPage = () => {
         'encourage repeat business'
       ],
       packages: {
-        starter: { price: '$250', includes: '1 email campaign, template design, mailing list integration' },
-        growth: { price: '$600', includes: '3 email campaigns, audience segmentation, performance tracking' },
-        premium: { price: '$1,200', includes: '6 email campaigns, custom templates, strategy recommendations' }
+        starter: { price: '$199', includes: '1 email campaign, template design, mailing list integration' },
+        growth: { price: '$499', includes: '3 email campaigns, audience segmentation, performance tracking' },
+        premium: { price: '$999', includes: '6 email campaigns, custom templates, strategy recommendations' }
       }
     },
     {
@@ -451,7 +451,7 @@ const ServicesPage = () => {
       category: 'marketing',
       icon: <FaRegBuilding />,
       description: 'Consistent lead generation is essential for business growth. We help identify and connect you with qualified prospects.',
-      startingPrice: '$500',
+      startingPrice: '$199',
       features: [
         'Target audience identification',
         'Lead sourcing and research',
@@ -467,9 +467,9 @@ const ServicesPage = () => {
         'support sales efforts'
       ],
       packages: {
-        starter: { price: '$500', includes: '25 targeted leads, basic qualification, contact information' },
-        growth: { price: '$1,200', includes: '100 leads, advanced qualification, enriched data' },
-        premium: { price: '$2,500', includes: '220 leads, monthly lead updates, full qualification' }
+        starter: { price: '$199', includes: '25 targeted leads, basic qualification, contact information' },
+        growth: { price: '$599', includes: '100 leads, advanced qualification, enriched data' },
+        premium: { price: '$1,499', includes: '220 leads, monthly lead updates, full qualification' }
       }
     },
     {
@@ -479,7 +479,7 @@ const ServicesPage = () => {
       category: 'marketing',
       icon: <FaCogs />,
       description: 'CRM systems, funnels, and automations that capture leads and improve conversion efficiency.',
-      startingPrice: '$500',
+      startingPrice: '$499',
       features: [
         'CRM setup and customization',
         'Sales funnel development',
@@ -495,9 +495,9 @@ const ServicesPage = () => {
         'scale customer engagement'
       ],
       packages: {
-        starter: { price: '$500', includes: 'CRM setup, basic automation, lead capture forms' },
-        growth: { price: '$1,200', includes: 'full CRM customization, email automation, lead scoring' },
-        premium: { price: '$2,500', includes: 'complete marketing automation, multi-channel sequences, reporting' }
+        starter: { price: '$499', includes: 'CRM setup, basic automation, lead capture forms' },
+        growth: { price: '$1,499', includes: 'full CRM customization, email automation, lead scoring' },
+        premium: { price: '$2,999', includes: 'complete marketing automation, multi-channel sequences, reporting' }
       },
     },
 
@@ -509,7 +509,7 @@ const ServicesPage = () => {
       category: 'operations',
       icon: <FaHeadset />,
       description: 'Administrative and operational tasks can take valuable time away from strategic work. Virtual assistants help manage routine tasks efficiently.',
-      startingPrice: '$200/month',
+      startingPrice: '$149/month',
       features: [
         'Email and calendar management',
         'Data entry',
@@ -525,9 +525,9 @@ const ServicesPage = () => {
         'free up time for business owners'
       ],
       packages: {
-        starter: { price: '$200/month', includes: 'up to 5 hours support, email management, scheduling' },
-        growth: { price: '$500/month', includes: 'up to 15 hours support, administrative tasks, customer communication' },
-        premium: { price: '$1,200/month', includes: 'up to 40 hours support, full administrative management' }
+        starter: { price: '$149/month', includes: 'up to 5 hours support, email management, scheduling' },
+        growth: { price: '$399/month', includes: 'up to 15 hours support, administrative tasks, customer communication' },
+        premium: { price: '$999/month', includes: 'up to 40 hours support, full administrative management' }
       }
     },
     {
@@ -537,7 +537,7 @@ const ServicesPage = () => {
       category: 'operations',
       icon: <FaChartLine />,
       description: 'Data analytics helps businesses understand performance, identify trends, and make better strategic decisions.',
-      startingPrice: '$300',
+      startingPrice: '$199/month',
       features: [
         'Data analysis',
         'Business performance reports',
@@ -553,9 +553,9 @@ const ServicesPage = () => {
         'improve overall efficiency'
       ],
       packages: {
-        starter: { price: '$300', includes: '1 custom data report, basic analysis, visual charts' },
-        growth: { price: '$800', includes: '3 custom reports, dashboards, trend analysis, recommendations' },
-        premium: { price: '$1,500', includes: 'custom analytics dashboard, multiple reports, strategic insights' }
+        starter: { price: '$199/month', includes: '1 custom data report, basic analysis, visual charts' },
+        growth: { price: '$699/month', includes: '3 custom reports, dashboards, trend analysis, recommendations' },
+        premium: { price: '$1,999/month', includes: 'custom analytics dashboard, multiple reports, strategic insights' }
       }
     },
     {
@@ -582,8 +582,8 @@ const ServicesPage = () => {
       ],
       packages: {
         starter: { price: '$400', includes: '1 documented workflow, step-by-step SOP, process map' },
-        growth: { price: '$900', includes: '3 documented workflows, SOP documents, process diagrams' },
-        premium: { price: '$1,800', includes: '6+ documented workflows, complete SOP manual, operations guide' }
+        growth: { price: '$1,200', includes: '3 documented workflows, SOP documents, process diagrams' },
+        premium: { price: '$3,500', includes: '6+ documented workflows, complete SOP manual, operations guide' }
       }
     },
     {
@@ -593,7 +593,7 @@ const ServicesPage = () => {
       category: 'operations',
       icon: <FaProjectDiagram />,
       description: 'Successful projects require organization, coordination, and clear communication between team members.',
-      startingPrice: '$500',
+      startingPrice: '$499',
       features: [
         'Project planning and scheduling',
         'Task coordination',
@@ -609,9 +609,9 @@ const ServicesPage = () => {
         'ensure project completion'
       ],
       packages: {
-        starter: { price: '$500', includes: 'management of 1 project, timeline planning, progress tracking' },
-        growth: { price: '$1,200', includes: 'management of up to 3 project phases, milestone tracking' },
-        premium: { price: '$2,500', includes: 'comprehensive project management, full oversight, reporting' }
+        starter: { price: '$499', includes: 'management of 1 project, timeline planning, progress tracking' },
+        growth: { price: '$1,499', includes: 'management of up to 3 project phases, milestone tracking' },
+        premium: { price: '$3,499', includes: 'comprehensive project management, full oversight, reporting' }
       }
     },
     {
@@ -621,7 +621,7 @@ const ServicesPage = () => {
       category: 'operations',
       icon: <FaDatabase />,
       description: 'Accurate and organized data is essential for efficient business operations. We help manage large volumes of information.',
-      startingPrice: '$150',
+      startingPrice: '$99',
       features: [
         'Database management',
         'Data cleansing and validation',
@@ -637,9 +637,9 @@ const ServicesPage = () => {
         'support operational processes'
       ],
       packages: {
-        starter: { price: '$150', includes: 'up to 200 records, spreadsheet entry, basic formatting' },
-        growth: { price: '$400', includes: 'up to 800 records, database management, data organization' },
-        premium: { price: '$800', includes: 'up to 2,000 records, data cleanup, verification, quality checks' }
+        starter: { price: '$99', includes: 'up to 200 records, spreadsheet entry, basic formatting' },
+        growth: { price: '$299', includes: 'up to 800 records, database management, data organization' },
+        premium: { price: '$799', includes: 'up to 2,000 records, data cleanup, verification, quality checks' }
       },
     }
   ];

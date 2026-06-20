@@ -76,179 +76,179 @@ export const CURRENCIES = [
 
 export const SERVICES_WITH_PACKAGES = {
   'Graphic Design': {
-    basePrice: 15000,
+    basePrice: 3500,
     packages: {
-      starter: { name: 'Starter Package', price: 15000, description: 'Perfect for one-off design needs', includes: ['1 graphic design asset', '1 revision', 'Web-ready files (PNG/JPG)'] },
-      growth: { name: 'Growth Package', price: 40000, description: 'For ongoing design needs', includes: ['5 design assets', '2 revisions per design', 'Web-ready files', 'Source files included'] },
-      premium: { name: 'Premium Package', price: 80000, description: 'Comprehensive design support', includes: ['10 design assets', 'Priority turnaround', 'Unlimited revisions', 'Source files', 'Brand style guide integration'] },
+      starter: { name: 'Starter Package', price: 3500, description: 'Perfect for one-off design needs', includes: ['1 graphic design asset', '1 revision', 'Web-ready files (PNG/JPG)'] },
+      growth: { name: 'Growth Package', price: 17500, description: 'For ongoing design needs', includes: ['5 design assets', '2 revisions per design', 'Web-ready files', 'Source files included'] },
+      premium: { name: 'Premium Package', price: 49900, description: 'Comprehensive design support', includes: ['10 design assets', 'Priority turnaround', 'Unlimited revisions', 'Source files', 'Brand style guide integration'] },
     }
   },
   'Video Editing & Motion Graphics': {
-    basePrice: 50000,
+    basePrice: 7500,
     packages: {
-      starter: { name: 'Starter Package', price: 50000, description: '1 short video edit', includes: ['1 short video edit (up to 60 seconds)', 'Basic cuts and transitions', 'Music and simple motion graphics', 'Export for social media'] },
-      growth: { name: 'Growth Package', price: 90000, description: '3 edited videos', includes: ['3 edited videos', 'Basic animation elements', 'Music licensing', 'Social media optimized'] },
-      premium: { name: 'Premium Package', price: 180000, description: '5+ videos with advanced motion graphics', includes: ['5+ edited videos', 'Advanced motion graphics', 'Custom branding elements', 'Priority turnaround', 'Multi-format delivery'] },
+      starter: { name: 'Starter Package', price: 7500, description: '1 short video edit', includes: ['1 short video edit (up to 60 seconds)', 'Basic cuts and transitions', 'Music and simple motion graphics', 'Export for social media'] },
+      growth: { name: 'Growth Package', price: 22500, description: '3 edited videos', includes: ['3 edited videos', 'Basic animation elements', 'Music licensing', 'Social media optimized'] },
+      premium: { name: 'Premium Package', price: 59900, description: '5+ videos with advanced motion graphics', includes: ['5+ edited videos', 'Advanced motion graphics', 'Custom branding elements', 'Priority turnaround', 'Multi-format delivery'] },
     }
   },
   'Copywriting & Content Creation': {
-    basePrice: 20000,
+    basePrice: 7500,
     packages: {
-      starter: { name: 'Starter Package', price: 20000, description: '1 piece of content', includes: ['1 piece of content', 'Up to 800 words', 'SEO-ready formatting'] },
-      growth: { name: 'Growth Package', price: 35000, description: '3 content pieces', includes: ['3 content pieces', 'Up to 2,000 words total', 'SEO optimization', 'Keyword research included'] },
-      premium: { name: 'Premium Package', price: 75000, description: '6+ pieces with strategy', includes: ['6+ pieces of content', 'SEO optimization and strategy', 'Content calendar', 'Performance tracking', 'Unlimited revisions'] },
+      starter: { name: 'Starter Package', price: 7500, description: '1 piece of content', includes: ['1 piece of content', 'Up to 800 words', 'SEO-ready formatting'] },
+      growth: { name: 'Growth Package', price: 22500, description: '3 content pieces', includes: ['3 content pieces', 'Up to 2,000 words total', 'SEO optimization', 'Keyword research included'] },
+      premium: { name: 'Premium Package', price: 59900, description: '6+ pieces with strategy', includes: ['6+ pieces of content', 'SEO optimization and strategy', 'Content calendar', 'Performance tracking', 'Unlimited revisions'] },
     }
   },
   'Brand Identity & Logo Design': {
-    basePrice: 80000,
+    basePrice: 19900,
     packages: {
-      starter: { name: 'Starter Package', price: 80000, description: 'Essential brand identity', includes: ['1 custom logo concept', '1 revision round', 'Basic color palette', 'PNG + SVG files'] },
-      growth: { name: 'Growth Package', price: 120000, description: 'Comprehensive brand identity', includes: ['3 logo concepts', '3 revisions', 'Typography selection', 'Brand guide', 'All file formats'] },
-      premium: { name: 'Premium Package', price: 200000, description: 'Full brand identity system', includes: ['Full brand identity system', 'Complete brand guidelines', 'Stationery design', 'Social media kit', 'Priority support'] },
+      starter: { name: 'Starter Package', price: 19900, description: 'Essential brand identity', includes: ['1 custom logo concept', '1 revision round', 'Basic color palette', 'PNG + SVG files'] },
+      growth: { name: 'Growth Package', price: 49900, description: 'Comprehensive brand identity', includes: ['3 logo concepts', '3 revisions', 'Typography selection', 'Brand guide', 'All file formats'] },
+      premium: { name: 'Premium Package', price: 99900, description: 'Full brand identity system', includes: ['Full brand identity system', 'Complete brand guidelines', 'Stationery design', 'Social media kit', 'Priority support'] },
     }
   },
   'Photography & Visual Assets': {
-    basePrice: 40000,
+    basePrice: 19900,
     packages: {
-      starter: { name: 'Starter Package', price: 40000, description: '10 edited photos', includes: ['10 edited photos', '1 location', 'Basic retouching', 'Web and print ready'] },
-      growth: { name: 'Growth Package', price: 70000, description: '25 edited photos', includes: ['25 edited photos', '1-2 locations', 'Advanced retouching', 'Full usage rights'] },
-      premium: { name: 'Premium Package', price: 120000, description: 'Full branding photo shoot', includes: ['Full branding photo shoot', '50+ edited photos', 'Multiple locations', 'Team and product shots', 'Commercial license'] },
+      starter: { name: 'Starter Package', price: 19900, description: '10 edited photos', includes: ['10 edited photos', '1 location', 'Basic retouching', 'Web and print ready'] },
+      growth: { name: 'Growth Package', price: 49900, description: '25 edited photos', includes: ['25 edited photos', '1-2 locations', 'Advanced retouching', 'Full usage rights'] },
+      premium: { name: 'Premium Package', price: 99900, description: 'Full branding photo shoot', includes: ['Full branding photo shoot', '50+ edited photos', 'Multiple locations', 'Team and product shots', 'Commercial license'] },
     }
   },
   'Website Development': {
-    basePrice: 120000,
+    basePrice: 69900,
     packages: {
-      starter: { name: 'Starter Package', price: 120000, description: 'Up to 3 pages', includes: ['Up to 3 website pages', 'Responsive design', 'Contact form', 'Basic SEO setup', 'Launch support'] },
-      growth: { name: 'Growth Package', price: 250000, description: 'Up to 7 pages', includes: ['Up to 7 pages', 'Advanced layout', 'Custom integrations', 'Enhanced SEO', 'Analytics setup'] },
-      premium: { name: 'Premium Package', price: 500000, description: '10+ pages with custom functionality', includes: ['10+ pages', 'Custom functionality', 'Advanced integrations', 'Priority support', 'Training included'] },
+      starter: { name: 'Starter Package', price: 69900, description: 'Up to 3 pages', includes: ['Up to 3 website pages', 'Responsive design', 'Contact form', 'Basic SEO setup', 'Launch support'] },
+      growth: { name: 'Growth Package', price: 149900, description: 'Up to 7 pages', includes: ['Up to 7 pages', 'Advanced layout', 'Custom integrations', 'Enhanced SEO', 'Analytics setup'] },
+      premium: { name: 'Premium Package', price: 349900, description: '10+ pages with custom functionality', includes: ['10+ pages', 'Custom functionality', 'Advanced integrations', 'Priority support', 'Training included'] },
     }
   },
   'Landing Pages & Sales Funnels': {
-    basePrice: 40000,
+    basePrice: 49900,
     packages: {
-      starter: { name: 'Starter Package', price: 40000, description: 'Single landing page', includes: ['1 landing page', 'Contact form', 'Mobile optimization', 'Basic analytics', 'Launch support'] },
-      growth: { name: 'Growth Package', price: 90000, description: '3-page funnel', includes: ['3-page funnel', 'Lead capture forms', 'Thank you pages', 'Email integration', 'Conversion tracking'] },
-      premium: { name: 'Premium Package', price: 150000, description: 'Full conversion funnel', includes: ['Full conversion funnel', 'Upsell/downsell pages', 'Membership integration', 'Advanced analytics', 'A/B testing setup'] },
+      starter: { name: 'Starter Package', price: 49900, description: 'Single landing page', includes: ['1 landing page', 'Contact form', 'Mobile optimization', 'Basic analytics', 'Launch support'] },
+      growth: { name: 'Growth Package', price: 129900, description: '3-page funnel', includes: ['3-page funnel', 'Lead capture forms', 'Thank you pages', 'Email integration', 'Conversion tracking'] },
+      premium: { name: 'Premium Package', price: 249900, description: 'Full conversion funnel', includes: ['Full conversion funnel', 'Upsell/downsell pages', 'Membership integration', 'Advanced analytics', 'A/B testing setup'] },
     }
   },
   'E-Commerce Development': {
-    basePrice: 120000,
+    basePrice: 99900,
     packages: {
-      starter: { name: 'Starter Package', price: 120000, description: 'Basic store setup', includes: ['Store setup', '10 product listings', 'Payment gateway', 'Shipping setup', 'Basic theme customization'] },
-      growth: { name: 'Growth Package', price: 250000, description: '50 products', includes: ['50 products', 'Advanced theme customization', 'Product categories', 'Review system', 'Email marketing integration'] },
-      premium: { name: 'Premium Package', price: 450000, description: 'Full store customization', includes: ['Full store customization', 'Unlimited products', 'Custom features', 'Inventory management', 'Analytics dashboard', 'Training included'] },
+      starter: { name: 'Starter Package', price: 99900, description: 'Basic store setup', includes: ['Store setup', '10 product listings', 'Payment gateway', 'Shipping setup', 'Basic theme customization'] },
+      growth: { name: 'Growth Package', price: 249900, description: '50 products', includes: ['50 products', 'Advanced theme customization', 'Product categories', 'Review system', 'Email marketing integration'] },
+      premium: { name: 'Premium Package', price: 499900, description: 'Full store customization', includes: ['Full store customization', 'Unlimited products', 'Custom features', 'Inventory management', 'Analytics dashboard', 'Training included'] },
     }
   },
   'Web Applications & SaaS Development': {
-    basePrice: 250000,
+    basePrice: 499900,
     packages: {
-      starter: { name: 'Starter Package', price: 250000, description: 'MVP development', includes: ['1 custom feature/module', 'Database setup', 'User login system', 'Basic UI', 'Documentation'] },
-      growth: { name: 'Growth Package', price: 600000, description: 'Multiple modules', includes: ['Multiple modules', 'Advanced features', 'API integrations', 'Admin dashboard', 'Comprehensive testing'] },
-      premium: { name: 'Premium Package', price: 1500000, description: 'Full SaaS MVP', includes: ['Full SaaS MVP', 'Multi-tenant architecture', 'Payment integration', 'Advanced security', 'Scalable infrastructure', 'Priority support'] },
+      starter: { name: 'Starter Package', price: 499900, description: 'MVP development', includes: ['1 custom feature/module', 'Database setup', 'User login system', 'Basic UI', 'Documentation'] },
+      growth: { name: 'Growth Package', price: 1499900, description: 'Multiple modules', includes: ['Multiple modules', 'Advanced features', 'API integrations', 'Admin dashboard', 'Comprehensive testing'] },
+      premium: { name: 'Premium Package', price: 2999900, description: 'Full SaaS MVP', includes: ['Full SaaS MVP', 'Multi-tenant architecture', 'Payment integration', 'Advanced security', 'Scalable infrastructure', 'Priority support'] },
     }
   },
   'API Integration & Automation': {
-    basePrice: 60000,
+    basePrice: 49900,
     packages: {
-      starter: { name: 'Starter Package', price: 60000, description: 'Basic integration', includes: ['1 system integration', 'Basic automation workflow', 'Documentation', 'Testing'] },
-      growth: { name: 'Growth Package', price: 150000, description: 'Multiple integrations', includes: ['3 integrations', 'Advanced workflows', 'Error handling', 'Monitoring', 'Comprehensive docs'] },
-      premium: { name: 'Premium Package', price: 300000, description: 'Full automation system', includes: ['Full automation system', 'Unlimited integrations', 'Custom workflows', 'Real-time sync', 'Priority support'] },
+      starter: { name: 'Starter Package', price: 49900, description: 'Basic integration', includes: ['1 system integration', 'Basic automation workflow', 'Documentation', 'Testing'] },
+      growth: { name: 'Growth Package', price: 149900, description: 'Multiple integrations', includes: ['3 integrations', 'Advanced workflows', 'Error handling', 'Monitoring', 'Comprehensive docs'] },
+      premium: { name: 'Premium Package', price: 399900, description: 'Full automation system', includes: ['Full automation system', 'Unlimited integrations', 'Custom workflows', 'Real-time sync', 'Priority support'] },
     }
   },
   'Website Maintenance & Updates': {
-    basePrice: 15000,
+    basePrice: 14900,
     packages: {
-      starter: { name: 'Starter Package', price: 15000, description: 'Basic maintenance', includes: ['Up to 2 hours monthly updates', 'Security checks', 'Minor fixes', 'Monthly backup', 'Email support'] },
-      growth: { name: 'Growth Package', price: 35000, description: 'Comprehensive maintenance', includes: ['5 hours support', 'Weekly backups', 'Security monitoring', 'Performance optimization', 'Priority support'] },
-      premium: { name: 'Premium Package', price: 75000, description: 'Full support', includes: ['Full support', 'Unlimited updates', '24/7 monitoring', 'Emergency fixes', 'Monthly strategy call', 'Dedicated specialist'] },
+      starter: { name: 'Starter Package', price: 14900, description: 'Basic maintenance', includes: ['Up to 2 hours monthly updates', 'Security checks', 'Minor fixes', 'Monthly backup', 'Email support'] },
+      growth: { name: 'Growth Package', price: 34900, description: 'Comprehensive maintenance', includes: ['5 hours support', 'Weekly backups', 'Security monitoring', 'Performance optimization', 'Priority support'] },
+      premium: { name: 'Premium Package', price: 89900, description: 'Full support', includes: ['Full support', 'Unlimited updates', '24/7 monitoring', 'Emergency fixes', 'Monthly strategy call', 'Dedicated specialist'] },
     }
   },
   'Social Media Management': {
-    basePrice: 30000,
+    basePrice: 29900,
     packages: {
-      starter: { name: 'Starter Package', price: 30000, description: 'Essential social media', includes: ['8 posts per month', 'Content scheduling', 'Basic engagement monitoring', 'Monthly report'] },
-      growth: { name: 'Growth Package', price: 60000, description: 'Comprehensive management', includes: ['15 posts per month', 'Content strategy', 'Analytics report', 'Community engagement', 'Hashtag strategy'] },
-      premium: { name: 'Premium Package', price: 120000, description: 'Full social media management', includes: ['30 posts per month', 'Full management', 'Ad campaign coordination', 'Influencer outreach', 'Strategy calls', 'Dedicated manager'] },
+      starter: { name: 'Starter Package', price: 29900, description: 'Essential social media', includes: ['8 posts per month', 'Content scheduling', 'Basic engagement monitoring', 'Monthly report'] },
+      growth: { name: 'Growth Package', price: 59900, description: 'Comprehensive management', includes: ['15 posts per month', 'Content strategy', 'Analytics report', 'Community engagement', 'Hashtag strategy'] },
+      premium: { name: 'Premium Package', price: 149900, description: 'Full social media management', includes: ['30 posts per month', 'Full management', 'Ad campaign coordination', 'Influencer outreach', 'Strategy calls', 'Dedicated manager'] },
     }
   },
   'SEO & Search Marketing': {
-    basePrice: 40000,
+    basePrice: 39900,
     packages: {
-      starter: { name: 'Starter Package', price: 40000, description: 'Basic SEO', includes: ['SEO audit', 'Optimization of 5 pages', 'Keyword research', 'Monthly report'] },
-      growth: { name: 'Growth Package', price: 90000, description: 'Comprehensive SEO', includes: ['15 pages optimized', 'Technical SEO', 'Content recommendations', 'Link building', 'Bi-weekly reports'] },
-      premium: { name: 'Premium Package', price: 180000, description: 'Full SEO campaign', includes: ['Full SEO campaign', 'Unlimited pages', 'Advanced technical SEO', 'Comprehensive link building', 'Weekly strategy calls', 'Dedicated SEO specialist'] },
+      starter: { name: 'Starter Package', price: 39900, description: 'Basic SEO', includes: ['SEO audit', 'Optimization of 5 pages', 'Keyword research', 'Monthly report'] },
+      growth: { name: 'Growth Package', price: 89900, description: 'Comprehensive SEO', includes: ['15 pages optimized', 'Technical SEO', 'Content recommendations', 'Link building', 'Bi-weekly reports'] },
+      premium: { name: 'Premium Package', price: 199900, description: 'Full SEO campaign', includes: ['Full SEO campaign', 'Unlimited pages', 'Advanced technical SEO', 'Comprehensive link building', 'Weekly strategy calls', 'Dedicated SEO specialist'] },
     }
   },
   'Paid Advertising Management': {
-    basePrice: 50000,
+    basePrice: 39900,
     packages: {
-      starter: { name: 'Starter Package', price: 50000, description: 'Single campaign', includes: ['1 ad campaign', 'Audience targeting', 'Ad creative guidance', 'Monthly report', 'Basic optimization'] },
-      growth: { name: 'Growth Package', price: 100000, description: 'Multiple campaigns', includes: ['3 campaigns', 'Advanced targeting', 'A/B testing', 'Bi-weekly reports', 'Regular optimization'] },
-      premium: { name: 'Premium Package', price: 250000, description: 'Full ad management', includes: ['Full ad management', 'Multi-platform campaigns', 'Custom audiences', 'Weekly reports', 'Strategy calls', 'Dedicated specialist'] },
+      starter: { name: 'Starter Package', price: 39900, description: 'Single campaign', includes: ['1 ad campaign', 'Audience targeting', 'Ad creative guidance', 'Monthly report', 'Basic optimization'] },
+      growth: { name: 'Growth Package', price: 89900, description: 'Multiple campaigns', includes: ['3 campaigns', 'Advanced targeting', 'A/B testing', 'Bi-weekly reports', 'Regular optimization'] },
+      premium: { name: 'Premium Package', price: 199900, description: 'Full ad management', includes: ['Full ad management', 'Multi-platform campaigns', 'Custom audiences', 'Weekly reports', 'Strategy calls', 'Dedicated specialist'] },
     }
   },
   'Email Marketing Campaigns': {
-    basePrice: 25000,
+    basePrice: 19900,
     packages: {
-      starter: { name: 'Starter Package', price: 25000, description: 'Single campaign', includes: ['1 email campaign', 'Template design', 'List setup', 'Basic tracking', 'Performance report'] },
-      growth: { name: 'Growth Package', price: 60000, description: 'Multiple campaigns', includes: ['3 campaigns', 'Custom templates', 'Segmentation', 'A/B testing', 'Comprehensive analytics'] },
-      premium: { name: 'Premium Package', price: 120000, description: 'Full automation', includes: ['Full automation setup', 'Welcome sequences', 'Abandoned cart flows', 'Re-engagement campaigns', 'Advanced analytics', 'Strategy consultation'] },
+      starter: { name: 'Starter Package', price: 19900, description: 'Single campaign', includes: ['1 email campaign', 'Template design', 'List setup', 'Basic tracking', 'Performance report'] },
+      growth: { name: 'Growth Package', price: 49900, description: 'Multiple campaigns', includes: ['3 campaigns', 'Custom templates', 'Segmentation', 'A/B testing', 'Comprehensive analytics'] },
+      premium: { name: 'Premium Package', price: 99900, description: 'Full automation', includes: ['Full automation setup', 'Welcome sequences', 'Abandoned cart flows', 'Re-engagement campaigns', 'Advanced analytics', 'Strategy consultation'] },
     }
   },
   'Lead Generation Services': {
-    basePrice: 50000,
+    basePrice: 19900,
     packages: {
-      starter: { name: 'Starter Package', price: 50000, description: 'Basic lead generation', includes: ['25 targeted leads', 'Basic qualification', 'Contact information', 'CSV export'] },
-      growth: { name: 'Growth Package', price: 120000, description: 'Comprehensive lead gen', includes: ['100 leads', 'Advanced qualification', 'Enriched data', 'Outreach templates', 'CRM integration'] },
-      premium: { name: 'Premium Package', price: 250000, description: 'Ongoing pipeline', includes: ['Ongoing pipeline', 'Monthly lead updates', 'Full qualification', 'Outreach support', 'Strategy calls', 'Dedicated specialist'] },
+      starter: { name: 'Starter Package', price: 19900, description: 'Basic lead generation', includes: ['25 targeted leads', 'Basic qualification', 'Contact information', 'CSV export'] },
+      growth: { name: 'Growth Package', price: 59900, description: 'Comprehensive lead gen', includes: ['100 leads', 'Advanced qualification', 'Enriched data', 'Outreach templates', 'CRM integration'] },
+      premium: { name: 'Premium Package', price: 149900, description: 'Ongoing pipeline', includes: ['Ongoing pipeline', 'Monthly lead updates', 'Full qualification', 'Outreach support', 'Strategy calls', 'Dedicated specialist'] },
     }
   },
   'CRM & Marketing Automation': {
-    basePrice: 50000,
+    basePrice: 49900,
     packages: {
-      starter: { name: 'Starter Package', price: 50000, description: 'CRM setup', includes: ['CRM setup', 'Basic automation', 'Lead capture forms', 'Integration setup', 'Documentation'] },
-      growth: { name: 'Growth Package', price: 120000, description: 'Full CRM + automation', includes: ['Full CRM customization', 'Email automation', 'Lead scoring', 'Pipeline management', 'Analytics dashboard'] },
-      premium: { name: 'Premium Package', price: 250000, description: 'Complete automation system', includes: ['Complete marketing automation', 'Multi-channel sequences', 'Advanced lead scoring', 'Custom reporting', 'Strategy consultation', 'Priority support'] },
+      starter: { name: 'Starter Package', price: 49900, description: 'CRM setup', includes: ['CRM setup', 'Basic automation', 'Lead capture forms', 'Integration setup', 'Documentation'] },
+      growth: { name: 'Growth Package', price: 149900, description: 'Full CRM + automation', includes: ['Full CRM customization', 'Email automation', 'Lead scoring', 'Pipeline management', 'Analytics dashboard'] },
+      premium: { name: 'Premium Package', price: 299900, description: 'Complete automation system', includes: ['Complete marketing automation', 'Multi-channel sequences', 'Advanced lead scoring', 'Custom reporting', 'Strategy consultation', 'Priority support'] },
     }
   },
   'Virtual Assistant Services': {
-    basePrice: 20000,
+    basePrice: 14900,
     packages: {
-      starter: { name: 'Starter Package', price: 20000, description: '5 hours support', includes: ['5 hours support', 'Email management', 'Calendar scheduling', 'Basic administrative tasks', 'Weekly check-in'] },
-      growth: { name: 'Growth Package', price: 50000, description: '15 hours support', includes: ['15 hours support', 'Full administrative support', 'Task coordination', 'Customer support', 'Bi-weekly planning'] },
-      premium: { name: 'Premium Package', price: 100000, description: '40 hours support', includes: ['40 hours support', 'Dedicated assistant', 'Full operations support', 'Project coordination', 'Weekly strategy calls'] },
+      starter: { name: 'Starter Package', price: 14900, description: '5 hours support', includes: ['5 hours support', 'Email management', 'Calendar scheduling', 'Basic administrative tasks', 'Weekly check-in'] },
+      growth: { name: 'Growth Package', price: 39900, description: '15 hours support', includes: ['15 hours support', 'Full administrative support', 'Task coordination', 'Customer support', 'Bi-weekly planning'] },
+      premium: { name: 'Premium Package', price: 99900, description: '40 hours support', includes: ['40 hours support', 'Dedicated assistant', 'Full operations support', 'Project coordination', 'Weekly strategy calls'] },
     }
   },
   'Data Analytics & Reporting': {
-    basePrice: 30000,
+    basePrice: 19900,
     packages: {
-      starter: { name: 'Starter Package', price: 30000, description: 'Single report', includes: ['1 performance report', 'Data visualization charts', 'Summary insights', 'PDF/Excel delivery'] },
-      growth: { name: 'Growth Package', price: 80000, description: 'Multiple reports + dashboard', includes: ['3 custom reports', 'Dashboard setup', 'Monthly updates', 'Strategy recommendations', 'Consultation call'] },
-      premium: { name: 'Premium Package', price: 150000, description: 'Full analytics dashboard', includes: ['Full analytics dashboard', 'Automated reporting', 'Real-time data', 'Custom KPIs', 'Weekly insights', 'Dedicated analyst'] },
+      starter: { name: 'Starter Package', price: 19900, description: 'Single report', includes: ['1 performance report', 'Data visualization charts', 'Summary insights', 'PDF/Excel delivery'] },
+      growth: { name: 'Growth Package', price: 69900, description: 'Multiple reports + dashboard', includes: ['3 custom reports', 'Dashboard setup', 'Monthly updates', 'Strategy recommendations', 'Consultation call'] },
+      premium: { name: 'Premium Package', price: 199900, description: 'Full analytics dashboard', includes: ['Full analytics dashboard', 'Automated reporting', 'Real-time data', 'Custom KPIs', 'Weekly insights', 'Dedicated analyst'] },
     }
   },
   'Process Documentation & SOP Development': {
     basePrice: 40000,
     packages: {
       starter: { name: 'Starter Package', price: 40000, description: 'Single process documentation', includes: ['1 business process documented', 'Written step-by-step SOP', 'Workflow diagram', 'PDF/Word format'] },
-      growth: { name: 'Growth Package', price: 90000, description: 'Multiple processes', includes: ['3 documented workflows', 'SOP manual', 'Process maps', 'Training materials', 'Editable templates'] },
-      premium: { name: 'Premium Package', price: 180000, description: 'Full operations documentation', includes: ['Full operational process documentation', 'Company operations handbook', 'Process library', 'Training program', 'Video tutorials', 'Quarterly updates'] },
+      growth: { name: 'Growth Package', price: 120000, description: 'Multiple processes', includes: ['3 documented workflows', 'SOP manual', 'Process maps', 'Training materials', 'Editable templates'] },
+      premium: { name: 'Premium Package', price: 350000, description: 'Full operations documentation', includes: ['Full operational process documentation', 'Company operations handbook', 'Process library', 'Training program', 'Video tutorials', 'Quarterly updates'] },
     }
   },
   'Project Management Support': {
-    basePrice: 50000,
+    basePrice: 49900,
     packages: {
-      starter: { name: 'Starter Package', price: 50000, description: 'Small project management', includes: ['Management of 1 small project', 'Timeline planning', 'Progress tracking', 'Weekly updates', 'Final report'] },
-      growth: { name: 'Growth Package', price: 120000, description: 'Multi-project coordination', includes: ['Multi-project coordination', 'Resource management', 'Risk assessment', 'Team communication', 'Bi-weekly reports'] },
-      premium: { name: 'Premium Package', price: 250000, description: 'Full project oversight', includes: ['Full project oversight', 'Dedicated project manager', 'Complete planning', 'Stakeholder management', 'Weekly strategy calls', 'Comprehensive reporting'] },
+      starter: { name: 'Starter Package', price: 49900, description: 'Small project management', includes: ['Management of 1 small project', 'Timeline planning', 'Progress tracking', 'Weekly updates', 'Final report'] },
+      growth: { name: 'Growth Package', price: 149900, description: 'Multi-project coordination', includes: ['Multi-project coordination', 'Resource management', 'Risk assessment', 'Team communication', 'Bi-weekly reports'] },
+      premium: { name: 'Premium Package', price: 349900, description: 'Full project oversight', includes: ['Full project oversight', 'Dedicated project manager', 'Complete planning', 'Stakeholder management', 'Weekly strategy calls', 'Comprehensive reporting'] },
     }
   },
   'Data Entry & Processing': {
-    basePrice: 20000,
+    basePrice: 9900,
     packages: {
-      starter: { name: 'Starter Package', price: 20000, description: 'Basic data entry', includes: ['Basic data entry', '500 records', 'Data validation', 'Excel/CSV delivery'] },
-      growth: { name: 'Growth Package', price: 50000, description: 'Advanced data processing', includes: ['Advanced data processing', '2000 records', 'Data cleansing', 'Formatting', 'Multiple formats'] },
-      premium: { name: 'Premium Package', price: 100000, description: 'Full database management', includes: ['Full database management', 'Unlimited records', 'Ongoing updates', 'Data enrichment', 'CRM integration', 'Monthly maintenance'] },
+      starter: { name: 'Starter Package', price: 9900, description: 'Basic data entry', includes: ['Basic data entry', '500 records', 'Data validation', 'Excel/CSV delivery'] },
+      growth: { name: 'Growth Package', price: 29900, description: 'Advanced data processing', includes: ['Advanced data processing', '2000 records', 'Data cleansing', 'Formatting', 'Multiple formats'] },
+      premium: { name: 'Premium Package', price: 79900, description: 'Full database management', includes: ['Full database management', 'Unlimited records', 'Ongoing updates', 'Data enrichment', 'CRM integration', 'Monthly maintenance'] },
     }
   },
   'Request Custom Quote - Creative & Content': {

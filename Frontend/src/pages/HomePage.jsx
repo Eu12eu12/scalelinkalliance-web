@@ -35,11 +35,11 @@ const HomePage = () => {
       name: 'Graphic Design',
       icon: <FaPaintBrush />,
       description: 'Strong visual design helps businesses communicate clearly, attract attention, and create a professional brand presence.',
-      startingPrice: '$150',
+      startingPrice: '$35',
       packages: {
-        starter: { price: '$150', name: 'Starter Package', includes: '1 design asset, 1 revision, web-ready files' },
-        growth: { price: '$400', name: 'Growth Package', includes: '5 design assets, 2 revisions' },
-        premium: { price: '$800', name: 'Premium Package', includes: '10 design assets, priority turnaround' }
+        starter: { price: '$35', name: 'Starter Package', includes: '1 design asset, 1 revision, web-ready files' },
+        growth: { price: '$175', name: 'Growth Package', includes: '5 design assets, 2 revisions' },
+        premium: { price: '$499', name: 'Premium Package', includes: '10 design assets, priority turnaround' }
       }
     },
     {
@@ -48,11 +48,11 @@ const HomePage = () => {
       name: 'Website Development',
       icon: <FaCode />,
       description: 'Your website is often the first place potential customers learn about your business. A well-designed website builds credibility.',
-      startingPrice: '$1,200',
+      startingPrice: '$699',
       packages: {
-        starter: { price: '$1,200', name: 'Starter Package', includes: 'up to 3 pages, responsive design, contact form' },
-        growth: { price: '$2,500', name: 'Growth Package', includes: 'up to 7 pages, advanced layout' },
-        premium: { price: '$5,000', name: 'Premium Package', includes: '10+ pages, custom functionality' }
+        starter: { price: '$699', name: 'Starter Package', includes: 'up to 3 pages, responsive design, contact form' },
+        growth: { price: '$1,499', name: 'Growth Package', includes: 'up to 7 pages, advanced layout' },
+        premium: { price: '$3,499', name: 'Premium Package', includes: '10+ pages, custom functionality' }
       }
     },
     {
@@ -61,11 +61,11 @@ const HomePage = () => {
       name: 'Social Media Management',
       icon: <FaUsers />,
       description: 'Maintain a consistent and professional social media presence with content planning, creation, and regular engagement.',
-      startingPrice: '$300/month',
+      startingPrice: '$299/month',
       packages: {
-        starter: { price: '$300/month', name: 'Starter Package', includes: '8 posts/month, content scheduling' },
-        growth: { price: '$600/month', name: 'Growth Package', includes: '15 posts/month, graphic content, monthly report' },
-        premium: { price: '$1,200/month', name: 'Premium Package', includes: '30 posts/month, custom graphics, detailed reporting' }
+        starter: { price: '$299/month', name: 'Starter Package', includes: '8 posts/month, content scheduling' },
+        growth: { price: '$599/month', name: 'Growth Package', includes: '15 posts/month, graphic content, monthly report' },
+        premium: { price: '$1,499/month', name: 'Premium Package', includes: '30 posts/month, custom graphics, detailed reporting' }
       }
     }
   ];
