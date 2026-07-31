@@ -7,7 +7,7 @@ import {
   FaFileAlt, FaUsers, FaCheck, FaArrowRight, FaCode, FaGlobe,
   FaShoppingCart, FaRocket, FaAd, FaEnvelope, FaSearch, FaHeadset,
   FaProjectDiagram, FaCamera, FaPalette, FaCloudUploadAlt,
-  FaShieldAlt, FaRegBuilding, FaChartLine, FaInfoCircle
+  FaShieldAlt, FaRegBuilding, FaChartLine, FaInfoCircle,FaRobot
 } from 'react-icons/fa';
 
 const ServicesPage = () => {
@@ -670,12 +670,32 @@ const ServicesPage = () => {
     packages: { starter: { price: 'Custom Quote', includes: 'Personalized quote based on your specific needs' } }
   };
 
+
+  const aiCustomQuoteCard = {
+  id: 'ai-custom-quote-card',
+  slug: 'ai-custom-quote',
+  name: 'Request AI Custom Quote',
+  category: 'all',
+  icon: <FaRobot />,
+  description: 'Looking to build AI-powered tools, automations, or intelligent systems for your business? Request a custom AI quote tailored to your goals.',
+  startingPrice: 'Custom Quote',
+  features: ['AI workflow discovery', 'Custom automation design', 'Transparent AI project pricing', 'Ongoing AI support'],
+  whatItHelps: [
+    'automating repetitive tasks with AI',
+    'building AI-powered customer tools',
+    'integrating AI into existing workflows',
+    'scoping AI feasibility for your business'
+  ],
+  packages: { starter: { price: 'Custom Quote', includes: 'Personalized AI quote based on your specific needs' } }
+};
+
   const filteredServices = [
-    ...(activeCategory === 'all'
-      ? services
-      : services.filter(service => service.category === activeCategory)),
-    customQuoteCard
-  ];
+  ...(activeCategory === 'all'
+    ? services
+    : services.filter(service => service.category === activeCategory)),
+  customQuoteCard,
+  aiCustomQuoteCard
+];
 
   return (
     <div className="min-h-screen">
@@ -822,11 +842,11 @@ const ServicesPage = () => {
                         </Link>
                       )}
                       <Link
-                        to={service.slug === 'custom-quote' ? '/request-service' : `/request-service?service=${service.slug}`}
-                        className="py-2.5 bg-white border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors text-center text-sm"
-                      >
-                        Request This Service
-                      </Link>
+  to={`/request-service?service=${service.slug}`}
+  className="py-2.5 bg-white border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors text-center text-sm"
+>
+  Request This Service
+</Link>
                     </div>
                   </div>
                 </motion.div>
@@ -876,7 +896,7 @@ const ServicesPage = () => {
             </ul>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to="/request-service"
+                to="/request-service?service=custom-quote"
                 className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors text-center"
               >
                 Request Custom Quote

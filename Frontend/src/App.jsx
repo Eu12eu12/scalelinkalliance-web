@@ -22,6 +22,8 @@ import BecomeDirectorPage from './pages/Director/BecomeDirectorPage';
 import AboutPage from './pages/AboutPage';
 import ResourcesPage from './pages/ResourcesPage';
 import ContactPage from './pages/ContactPage';
+import BuildFromScratch from './pages/BuildFromScratch';
+import ScaleExistingWebsite from './pages/ScaleExistingWebsite';
 import NotFoundPage from './pages/NotFoundPage';
 import Legal from './pages/Legal';
 import FAQPage from './pages/FAQPage';
@@ -41,6 +43,10 @@ import CompleteProfile from './pages/Admin/CompleteProfile';
 import WorkHistory from './pages/Admin/WorkHistory';
 import BusinessPartnersPage from './pages/BusinessPartnersPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import PaymentSuccessPage from './pages/PaymentSuccessPage';
+import FreeWebsiteReview from './pages/FreeWebsiteReview';
+import AdminReviewDashboard from './pages/Admin/AdminReviewDashboard';
+import MyReviewResults from './pages/MyReviewResults';
 
 function AppContent() {
   const location = useLocation();
@@ -68,6 +74,11 @@ function AppContent() {
               <Route path="/faq" element={<FAQPage />} />
               <Route path="/verify-email" element={<VerifyEmail />} />
               <Route path="/track-job/:token" element={<ClientPortalPage />} />
+              <Route path="/build-from-scratch" element={<BuildFromScratch />} />
+              <Route path="/scale-existing-website" element={<ScaleExistingWebsite />} />
+              <Route path="/payment-success" element={<PaymentSuccessPage />} />
+              <Route path="/free-website-review" element={<FreeWebsiteReview />} />
+              <Route path="/my-review/:leadId" element={<MyReviewResults />} />
               
               {/* CMS Hub Routes */}
               <Route path="/hub/login" element={<AdminLogin />} />
@@ -83,6 +94,7 @@ function AppContent() {
               <Route path="/hub/notifications" element={<ProtectedRoute><AdminNotifications /></ProtectedRoute>} />
               <Route path="/hub/reports" element={<ProtectedRoute requiredRole="super_admin"><HubReports /></ProtectedRoute>} />
               <Route path="/business-partners" element={<BusinessPartnersPage />} />
+              <Route path="/hub/reviews" element={<ProtectedRoute requiredRole="admin"><AdminReviewDashboard /></ProtectedRoute>} />
 
               {/* Catch all route for 404 */}
               <Route path="*" element={<NotFoundPage />} />

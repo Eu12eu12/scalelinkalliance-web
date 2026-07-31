@@ -284,3 +284,86 @@
   -ms-overflow-style: none !important;  /* IE and Edge */
   scrollbar-width: none !important;  /* Firefox */
 }
+
+
+/* Phone Input Styles for react-phone-number-input */
+.PhoneInput {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: all 0.2s;
+  background-color: white;
+}
+
+.PhoneInput:focus-within {
+  border-color: #fbbf24;
+  box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+}
+
+.PhoneInputCountry {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  background-color: #f9fafb;
+  border-right: 1px solid #d1d5db;
+  cursor: pointer;
+  min-height: 42px;
+}
+
+.PhoneInputCountry:hover {
+  background-color: #f3f4f6;
+}
+
+.PhoneInputCountryIcon {
+  width: 24px;
+  height: 16px;
+  border-radius: 2px;
+  border: 1px solid #e5e7eb;
+}
+
+.PhoneInputCountrySelectArrow {
+  color: #6b7280;
+  margin-left: 4px;
+  font-size: 10px;
+}
+
+.PhoneInputInput {
+  flex: 1;
+  padding: 0.625rem 1rem;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background: transparent;
+  min-height: 42px;
+}
+
+.PhoneInputInput::placeholder {
+  color: #9ca3af;
+}
+
+/* Error state */
+.border-red-500 .PhoneInput {
+  border-color: #ef4444;
+}
+
+.border-red-500 .PhoneInput:focus-within {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .PhoneInputCountry {
+    padding: 0 6px;
+    min-height: 38px;
+  }
+  
+  .PhoneInputInput {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    min-height: 38px;
+  }
+}

@@ -6,7 +6,7 @@ import {
   FaPlus, FaTrash, FaEdit, FaCheck, FaClock, FaExclamationTriangle, 
   FaFilter, FaSearch, FaPaperPlane, FaBriefcase, FaEye, FaUser, 
   FaEnvelope, FaPhone, FaGlobeAmericas, FaLayerGroup, FaMoneyBillWave,
-  FaTimes, FaCheckDouble, FaHistory, FaLock
+  FaTimes, FaCheckDouble, FaHistory, FaLock, FaRobot
 } from 'react-icons/fa';
 import JobDetailsModal from './JobDetailsModal';
 import { 
@@ -744,10 +744,21 @@ const AdminNoticeBoard = () => {
                           <p className="text-sm font-semibold text-slate-700 mb-1.5">{job.client}</p>
                           <div className="flex flex-col space-y-1 text-[11px] text-slate-500">
                             <div className="flex flex-wrap gap-1">
-                              {job.category.split(', ').map((c, i) => (
-                                <span key={i} className="bg-slate-100 px-1.5 py-0.5 rounded text-[10px] font-medium block w-full">{c.replace(/Request Custom Quote - /g, '')}</span>
-                              ))}
-                            </div>
+  {job.category.split(', ').map((c, i) => {
+    const isAI = c === 'Request Custom Quote - AI';
+    return (
+      <span
+        key={i}
+        className={`px-1.5 py-0.5 rounded text-[10px] font-medium block w-full flex items-center gap-1 ${
+          isAI ? 'bg-purple-100 text-purple-700 font-bold' : 'bg-slate-100 text-slate-600'
+        }`}
+      >
+        {isAI && <FaRobot size={9} />}
+        {c.replace(/Request Custom Quote - /g, '')}
+      </span>
+    );
+  })}
+</div>
                             <span className="pt-1">Assignee: <span className="font-bold text-slate-700">{job.assignedTo || 'Unassigned'}</span></span>
                           </div>
                         </td>

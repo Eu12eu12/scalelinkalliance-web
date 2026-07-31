@@ -33,6 +33,7 @@ const NoticeBoardFile = require('./NoticeBoardFile')(sequelize);
 const NoticeBoardComment = require('./NoticeBoardComment')(sequelize);
 const NoticeBoardActivity = require('./NoticeBoardActivity')(sequelize);
 const NoticeBoardNotification = require('./NoticeBoardNotification')(sequelize);
+const Lead = require('./Lead')(sequelize);
 
 // Associations Configuration
 Resource.belongsTo(ResourceType, { foreignKey: 'typeId', as: 'type' });
@@ -61,7 +62,8 @@ const db = {
   NoticeBoardFile,
   NoticeBoardComment,
   NoticeBoardActivity,
-  NoticeBoardNotification
+  NoticeBoardNotification,
+  Lead
 };
 
 module.exports = db;

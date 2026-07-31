@@ -360,6 +360,8 @@ app.use('/api/cms', cmsRoutes);
 app.use('/api/cms/notifications', require('./routes/notifications'));
 app.use('/api/public', require('./routes/public'));
 app.use('/api/portal', require('./routes/clientPortal'));
+app.use('/api/leads', require('./routes/leads'));
+app.use('/api/reviews', require('./routes/reviews'));
 
 // File upload endpoint
 app.post('/api/upload-files', async (req, res) => {
@@ -471,6 +473,81 @@ app.post('/api/create-payment-intent', async (req, res) => {
   }
 });
 
+// Create Checkout Session endpoint (hosted Stripe Checkout redirect flow)
+app.post('/api/create-checkout-session', async (req, res) => {
+  try {
+    const { services, currency, amount, customer_email, success_url, cancel_url } = req.body;
+
+    if (!amount || amount <= 0) {
+      return res.status(400).json({ error: 'Invalid amount' });
+    }
+    if (!currency) {
+      return res.status(400).json({ error: 'Currency is required' });
+    }
+    if (!success_url || !cancel_url) {
+      return res.status(400).json({ error: 'success_url and cancel_url are required' });
+    }
+
+    const normalizedCurrency = currency.toLowerCase();
+    const serviceNames = services && typeof services === 'object' ? Object.keys(services) : [];
+
+    const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      line_items: [{
+        price_data: {
+          currency: normalizedCurrency,
+          product_data: {
+            name: 'ScaleLink Alliance — Service Request',
+            description: serviceNames.length > 0 ? serviceNames.join(', ').substring(0, 500) : 'Custom service request',
+          },
+          unit_amount: amount,
+        },
+        quantity: 1,
+      }],
+      customer_email: customer_email || undefined,
+      success_url,
+      cancel_url,
+      metadata: {
+        services: JSON.stringify(services || {}).substring(0, 500),
+      },
+    });
+
+    res.json({ url: session.url, sessionId: session.id });
+  } catch (error) {
+    console.error('❌ Stripe Checkout Session error:', error);
+    res.status(500).json({
+      error: error.message,
+      type: error.type
+    });
+  }
+});
+
+// Verify Checkout Session endpoint (called after redirect back from Stripe)
+app.get('/api/verify-checkout-session', async (req, res) => {
+  try {
+    const { session_id } = req.query;
+
+    if (!session_id) {
+      return res.status(400).json({ error: 'session_id is required' });
+    }
+
+    const session = await stripe.checkout.sessions.retrieve(session_id);
+
+    res.json({
+      paid: session.payment_status === 'paid',
+      email: session.customer_details?.email || session.customer_email || null,
+      amountTotal: session.amount_total,
+      currency: session.currency,
+    });
+  } catch (error) {
+    console.error('❌ Stripe verify session error:', error);
+    res.status(500).json({
+      error: error.message,
+      type: error.type
+    });
+  }
+});
+
 // ──────────────────────────────────────────
 // STATIC FILES
 // ──────────────────────────────────────────
@@ -555,6 +632,8 @@ const startServer = async () => {
     console.log(`   - GET  /api/health`);
     console.log(`   - POST /api/upload-files`);
     console.log(`   - POST /api/create-payment-intent`);
+    console.log(`   - POST /api/create-checkout-session`);
+    console.log(`   - GET  /api/verify-checkout-session`);
     console.log(`   - ANY  /api/cms/* (Authentication, Typed Resources, Features)`);
     console.log(`📍 Upload directory: ${uploadDir}`);
     console.log(`📍 Max file size: 100MB per file (multer streamed — not JSON buffered)`);

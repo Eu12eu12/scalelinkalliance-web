@@ -7,19 +7,21 @@ import {
   FaCheckCircle, FaTimesCircle, FaBuilding, FaUsers, FaStar,
   FaRocket, FaBriefcase, FaHeadset, FaCogs, FaPaintBrush,
   FaVideo, FaPenNib, FaPalette, FaCamera, FaCode, FaShoppingCart,
-  FaEnvelope, FaSearch, FaDatabase, FaFileAlt, FaProjectDiagram, FaShieldAlt
+  FaEnvelope, FaSearch, FaDatabase, FaFileAlt, FaProjectDiagram, FaShieldAlt,
+  FaChevronLeft, FaChevronRight, FaRobot, FaAd
 } from 'react-icons/fa';
 import ComparisonTable from '../components/sections/ComparisonTable';
 import ChapterCard from '../components/sections/ChapterCard';
+import FreeWebsiteReviewSection from '../components/sections/FreeWebsiteReviewSection';
 
 const HomePage = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const videoRef = useRef(null);
+  const scrollRef = useRef(null);
 
-  // Multiple high-quality images for different sections
   const images = {
-    hero: '/hero-bg.jpg',
+    hero: 'https://cdn.phototourl.com/free/2026-07-18-bc90a5a0-13c0-4190-936d-229aca3c8447.jpg',
     network: 'https://image2url.com/r2/default/images/1774353122343-8aa294ba-b330-44d0-b7e0-3de067be087e.jpeg',
     services: 'https://image2url.com/r2/default/images/1774353201111-1eb8e101-7307-48e1-b565-5e18f8eec4a2.jpeg',
     growth: 'https://image2url.com/r2/default/images/1774353242591-51c285d9-8148-4e95-be8a-7957262dfb78.jpeg',
@@ -27,7 +29,96 @@ const HomePage = () => {
     results: 'https://image2url.com/r2/default/images/1774370621484-0a34f5a5-19b9-44ca-9ff1-1a03ac18c894.jpg'
   };
 
-  // Featured Services with their packages (simplified for homepage)
+  // Popular services for horizontal scroll
+  const popularServices = [
+    {
+      slug: 'website-development',
+      name: 'Website Development',
+      icon: <FaCode className="text-4xl text-white" />,
+      gradient: 'from-blue-600 to-blue-800',
+      accent: 'bg-blue-400/20',
+      tag: 'Most Popular'
+    },
+    {
+      slug: 'graphic-design',
+      name: 'Graphic Design',
+      icon: <FaPaintBrush className="text-4xl text-white" />,
+      gradient: 'from-purple-500 to-purple-700',
+      accent: 'bg-purple-400/20',
+      tag: 'Top Rated'
+    },
+    {
+      slug: 'social-media-management',
+      name: 'Social Media Management',
+      icon: <FaUsers className="text-4xl text-white" />,
+      gradient: 'from-pink-500 to-rose-600',
+      accent: 'bg-pink-400/20',
+      tag: 'In Demand'
+    },
+    {
+      slug: 'seo-marketing',
+      name: 'SEO & Search Marketing',
+      icon: <FaSearch className="text-4xl text-white" />,
+      gradient: 'from-green-500 to-emerald-700',
+      accent: 'bg-green-400/20',
+      tag: 'High ROI'
+    },
+    {
+      slug: 'video-editing',
+      name: 'Video Editing',
+      icon: <FaVideo className="text-4xl text-white" />,
+      gradient: 'from-red-500 to-red-700',
+      accent: 'bg-red-400/20',
+      tag: 'Trending'
+    },
+    {
+      slug: 'brand-identity',
+      name: 'Brand Identity & Logo',
+      icon: <FaPalette className="text-4xl text-white" />,
+      gradient: 'from-orange-500 to-amber-600',
+      accent: 'bg-orange-400/20',
+      tag: 'Essential'
+    },
+    {
+      slug: 'paid-advertising',
+      name: 'Paid Advertising',
+      icon: <FaAd className="text-4xl text-white" />,
+      gradient: 'from-cyan-500 to-cyan-700',
+      accent: 'bg-cyan-400/20',
+      tag: 'Fast Results'
+    },
+    {
+      slug: 'ecommerce-development',
+      name: 'E-Commerce Development',
+      icon: <FaShoppingCart className="text-4xl text-white" />,
+      gradient: 'from-teal-500 to-teal-700',
+      accent: 'bg-teal-400/20',
+      tag: 'Popular'
+    },
+    {
+      slug: 'crm-automation',
+      name: 'CRM & Automation',
+      icon: <FaCogs className="text-4xl text-white" />,
+      gradient: 'from-indigo-500 to-indigo-700',
+      accent: 'bg-indigo-400/20',
+      tag: 'Scale Faster'
+    },
+    {
+      slug: 'ai-automation',
+      name: 'AI Automation',
+      icon: <FaRobot className="text-4xl text-white" />,
+      gradient: 'from-violet-600 to-purple-800',
+      accent: 'bg-violet-400/20',
+      tag: 'New'
+    }
+  ];
+
+  const scroll = (dir) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: dir === 'left' ? -320 : 320, behavior: 'smooth' });
+    }
+  };
+
   const featuredServices = [
     {
       id: 1,
@@ -77,7 +168,6 @@ const HomePage = () => {
     { icon: <FaGlobe />, title: 'Local to Global', desc: 'Chapters nationwide with expansion plans' },
   ];
 
-  // 7 value propositions for Section 8
   const whyWorkData = [
     {
       icon: <FaBriefcase />,
@@ -116,7 +206,6 @@ const HomePage = () => {
     }
   ];
 
-  // FAQ data
   const faqs = [
     { q: 'Do I need to join the network to use services?', a: 'No. You can access services independently.' },
     { q: 'What types of businesses join?', a: 'Consultants, agencies, service providers, and growing companies.' },
@@ -135,63 +224,102 @@ const HomePage = () => {
 
   return (
     <div className="overflow-hidden">
-      {/* 🔥 SECTION 1: HERO SECTION - ABOVE THE FOLD */}
-      <section className="relative py-20 lg:py-32 min-h-screen flex items-center overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src={images.hero}
-            alt="Business growth background"
-            className="w-full h-full object-cover object-top"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40 z-10"></div>
+      {/* 🔥 SECTION 1: HERO SECTION */}
+<section className="relative py-20 lg:py-32 min-h-screen flex items-center overflow-hidden">
+  <div className="absolute inset-0 z-0">
+    {/* Responsive image with proper sizing */}
+    <picture className="block w-full h-full">
+      {/* Mobile-first: smaller image for mobile */}
+      <source 
+        media="(max-width: 640px)" 
+        srcSet="https://cdn.phototourl.com/free/2026-07-18-bc90a5a0-13c0-4190-936d-229aca3c8447.jpg?w=640&h=800&fit=crop"
+      />
+      {/* Tablet: medium image */}
+      <source 
+        media="(max-width: 1024px)" 
+        srcSet="https://cdn.phototourl.com/free/2026-07-18-bc90a5a0-13c0-4190-936d-229aca3c8447.jpg?w=1024&h=768&fit=crop"
+      />
+      {/* Desktop: original image */}
+      <img
+        src={images.hero}
+        alt="Business growth background"
+        className="w-full h-full object-cover object-center"
+        loading="eager"
+        style={{ 
+          objectPosition: 'center 15%', // Adjust this to keep focus on important areas
+        }}
+      />
+    </picture>
+    <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40 z-10"></div>
+  </div>
+
+  <div className="container mx-auto px-4 relative z-20 w-full">
+    <div className="max-w-5xl mx-auto text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight max-w-none mx-auto">
+          Build From Scratch. Scale What Already Exists.
+        </h1>
+
+        <p className="text-base sm:text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto px-4">
+          ScaleLink Alliance helps businesses build powerful websites, web applications, and digital growth systems that attract customers, improve operations, and support long-term growth.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 px-4">
+          <Link
+            to="build-from-scratch"
+            className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-2xl hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base"
+          >
+            <span>Start From Scratch</span>
+            <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+          </Link>
+          <Link
+            to="/scale-existing-website"
+            className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg shadow-2xl hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base"
+          >
+            <span>Scale My Existing Website</span>
+            <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
 
-        {/* Content Layer */}
-        <div className="container mx-auto px-4 relative z-20 w-full">
-          <div className="max-w-5xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight max-w-none mx-auto">
-                Connect. Execute. Grow Your Business.
-              </h1>
-              
-              {/* Problem guide block */}
-              <div className="bg-black/45 backdrop-blur-md border border-white/10 rounded-2xl p-6 max-w-3xl mx-auto mb-10 shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
-                <h3 className="text-lg font-bold text-white leading-snug">
-                  Not Sure What Service You Need? Start With the Problem.
-                </h3>
-                <Link
-                  to="/services/guide-by-problem"
-                  className="inline-flex items-center px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all text-sm shrink-0 hover:scale-105 shadow-lg shadow-blue-500/20"
-                >
-                  Start Here <FaArrowRight className="ml-2 text-xs" />
-                </Link>
-              </div>
-
-              <div className="flex justify-center mb-8">
-                <Link
-                  to="/services"
-                  className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-2xl hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
-                >
-                  <span>Get Services</span>
-                  <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </motion.div>
-          </div>
+        {/* Free Website Review CTA */}
+        <div className="mb-8 px-4">
+          <Link
+            to="/free-website-review"
+            className="group inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base"
+          >
+            <span>⭐ Get a Free Professional Website Review</span>
+            <FaArrowRight className="group-hover:translate-x-1 transition-transform text-sm" />
+          </Link>
+          <p className="text-xs sm:text-sm text-white/70 mt-2 max-w-lg mx-auto px-4">
+            Discover what's preventing your website from generating more leads, traffic, and sales—in just a few minutes.
+          </p>
         </div>
-      </section>
+
+        <div className="bg-black/45 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 max-w-3xl mx-auto mb-8 shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left mx-4">
+          <h3 className="text-base sm:text-lg font-bold text-white leading-snug">
+            Not Sure What Service You Need? Start With the Problem.
+          </h3>
+          <Link
+            to="/services/guide-by-problem"
+            className="inline-flex items-center px-4 sm:px-5 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all text-sm shrink-0 hover:scale-105 shadow-lg shadow-blue-500/20"
+          >
+            Start Here <FaArrowRight className="ml-2 text-xs" />
+          </Link>
+        </div>
+      </motion.div>
+    </div>
+  </div>
+</section>
 
       {/* 🎯 SECTION 2: CHOOSE YOUR PATH */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8">
-              {/* LEFT SIDE - NETWORK */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -233,7 +361,6 @@ const HomePage = () => {
                 </Link>
               </motion.div>
 
-              {/* RIGHT SIDE - SERVICES */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -279,8 +406,98 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* 🌟 POPULAR SERVICES HORIZONTAL SCROLL */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
+            {/* Header row */}
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
+                  Popular Services
+                </h2>
+                <p className="text-gray-500 mt-1">Explore what other businesses are using to grow</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => scroll('left')}
+                  className="w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center hover:bg-gray-50 hover:shadow-md transition-all"
+                  aria-label="Scroll left"
+                >
+                  <FaChevronLeft className="text-gray-600 text-sm" />
+                </button>
+                <button
+                  onClick={() => scroll('right')}
+                  className="w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center hover:bg-gray-50 hover:shadow-md transition-all"
+                  aria-label="Scroll right"
+                >
+                  <FaChevronRight className="text-gray-600 text-sm" />
+                </button>
+              </div>
+            </div>
+
+            {/* Scroll container */}
+            <div
+              ref={scrollRef}
+              className="flex gap-5 overflow-x-auto pb-4 scroll-smooth"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {popularServices.map((service, index) => (
+                <Link
+                  key={service.slug}
+                  to={`/services/${service.slug}`}
+                  className="flex-shrink-0 w-52 group"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                    className="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                  >
+                    {/* Image area — gradient + icon */}
+                    <div className={`bg-gradient-to-br ${service.gradient} h-36 flex flex-col items-center justify-center relative overflow-hidden`}>
+                      {/* Decorative circles */}
+                      <div className={`absolute top-2 right-2 w-16 h-16 rounded-full ${service.accent}`}></div>
+                      <div className={`absolute bottom-0 left-0 w-20 h-20 rounded-full ${service.accent}`}></div>
+                      {/* Icon */}
+                      <div className="relative z-10">
+                        {service.icon}
+                      </div>
+                      {/* Tag badge */}
+                      <span className="absolute top-3 left-3 text-xs font-semibold text-white bg-white/20 backdrop-blur-sm px-2 py-0.5 rounded-full">
+                        {service.tag}
+                      </span>
+                    </div>
+                    {/* Label */}
+                    <div className="bg-white px-4 py-3">
+                      <p className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors leading-snug">
+                        {service.name}
+                      </p>
+                      <p className="text-xs text-gray-400 mt-0.5 flex items-center gap-1">
+                        View details <FaArrowRight className="text-xs group-hover:translate-x-0.5 transition-transform" />
+                      </p>
+                    </div>
+                  </motion.div>
+                </Link>
+              ))}
+            </div>
+
+            {/* View all link */}
+            <div className="text-center mt-8">
+              <Link
+                to="/services"
+                className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+              >
+                View all services <FaArrowRight className="text-sm" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 💡 SECTION 3: PROBLEM / PAIN with Image */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -343,7 +560,7 @@ const HomePage = () => {
       </section>
 
       {/* 🚀 SECTION 4: HOW IT WORKS */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-12">
@@ -443,7 +660,8 @@ const HomePage = () => {
         </div>
       </section>
 
-<section className="py-20 bg-gray-50">
+      {/* TESTIMONIALS */}
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-12">
@@ -476,7 +694,8 @@ const HomePage = () => {
                   ))}
                 </div>
                 <p className="text-gray-700 italic mb-4">
-                   "ScaleLink Alliance Services helped us completely redesign our brand. The process was efficient and the results exceeded our expectations."                </p>
+                  "ScaleLink Alliance Services helped us completely redesign our brand. The process was efficient and the results exceeded our expectations."
+                </p>
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-3">
                     SL
@@ -492,7 +711,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ⚡ SECTION 7: FEATURED SERVICES (REPLACED WITH ACTUAL SERVICE PACKAGES) */}
+      {/* ⚡ SECTION 7: FEATURED SERVICES */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
@@ -521,8 +740,6 @@ const HomePage = () => {
                     </div>
                     <p className="text-gray-600 text-sm mb-4">{service.description}</p>
                     <div className="text-2xl font-bold text-blue-600 mb-4 invisible">Starting at {service.startingPrice}</div>
-                    
-                    {/* Package Options */}
                     <div className="space-y-3 mb-6">
                       {Object.entries(service.packages).map(([key, pkg]) => (
                         <div key={key} className="flex items-start p-2 bg-gray-50 rounded-lg">
@@ -534,7 +751,6 @@ const HomePage = () => {
                         </div>
                       ))}
                     </div>
-                    
                     <Link
                       to={`/services/${service.slug}`}
                       className="block w-full py-3 text-center font-semibold rounded-lg bg-gray-100 text-gray-900 hover:bg-gray-200 transition-colors"
@@ -567,7 +783,6 @@ const HomePage = () => {
             <p className="text-gray-600 text-center max-w-2xl mx-auto mb-16 font-medium">
               We provide a secure, structured professional network and verified business execution all under one roof.
             </p>
-            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
               {whyWorkData.map((item, index) => (
                 <motion.div
@@ -648,19 +863,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
-      {/* Sticky Button */}
-      {/* 
-      <div className="fixed bottom-8 right-8 z-50">
-        <Link
-          to="/contact"
-          className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full shadow-2xl hover:from-blue-700 hover:to-blue-800 transition-all flex items-center space-x-2 animate-pulse"
-        >
-          <FaArrowRight className="text-sm" />
-          <span className="font-semibold">Book a Free Growth Call</span>
-        </Link>
-      </div>
-      */}
     </div>
   );
 };

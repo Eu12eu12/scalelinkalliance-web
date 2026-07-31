@@ -9,7 +9,7 @@ import {
   FaTimes, FaCheckDouble, FaHistory, FaFileInvoiceDollar, FaCalendar, 
   FaPlusCircle, FaMinusCircle, FaLink, FaExternalLinkAlt, FaTrashAlt,
   FaArrowLeft, FaCheckCircle, FaTimesCircle, FaSave, FaExternalLinkSquareAlt,
-  FaGlobe, FaMapMarkerAlt, FaFileAlt, FaLock
+  FaGlobe, FaMapMarkerAlt, FaFileAlt, FaLock, FaRobot
 } from 'react-icons/fa';
 import { 
   SERVICES_WITH_PACKAGES, 
@@ -1911,12 +1911,21 @@ const AdminQuotes = () => {
                             {quote.client}
                           </p>
                           <div className="flex flex-wrap gap-1 mb-1">
-                            {Object.keys(servicesData).map((svc, i) => (
-                              <span key={i} className="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded text-[10px] font-medium">
-                                {svc.replace(/Request Custom Quote - /g, '')}
-                              </span>
-                            ))}
-                          </div>
+  {Object.keys(servicesData).map((svc, i) => {
+    const isAI = svc === 'Request Custom Quote - AI';
+    return (
+      <span
+        key={i}
+        className={`px-1.5 py-0.5 rounded text-[10px] font-medium flex items-center gap-1 ${
+          isAI ? 'bg-purple-100 text-purple-700 font-bold' : 'bg-slate-100 text-slate-600'
+        }`}
+      >
+        {isAI && <FaRobot size={8} />}
+        {svc.replace(/Request Custom Quote - /g, '')}
+      </span>
+    );
+  })}
+</div>
                           <span className="text-[10px] text-slate-400 font-medium">Client: {quote.clientFirstName} {quote.clientLastName}</span>
                         </td>
                         <td className="px-6 py-4">

@@ -1,20 +1,17 @@
 // src/pages/Services/ServiceRequestPage.jsx
-import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import {
   FaCheck, FaArrowRight, FaArrowLeft, FaPaintBrush, FaCode, FaChartLine, FaCogs,
   FaUser, FaEnvelope, FaPhone, FaBuilding, FaCalendar, FaDollarSign, FaPaperPlane,
   FaShieldAlt, FaFileContract, FaLock, FaCreditCard, FaSpinner, FaUpload, FaFile,
-  FaTrash, FaCloudUploadAlt, FaGlobeAmericas, FaSearch, FaVideo, FaPenNib, FaPalette,
+  FaCloudUploadAlt, FaGlobeAmericas, FaVideo, FaPenNib, FaPalette,
   FaCamera, FaShoppingCart, FaRocket, FaAd, FaEnvelope as FaEnvelopeIcon,
   FaSearch as FaSearchIcon, FaHeadset, FaProjectDiagram, FaDatabase, FaFileAlt,
-  FaChartBar, FaUsers, FaRegBuilding, FaChevronDown, FaChevronUp, FaBriefcase
+  FaChartBar, FaUsers, FaRegBuilding, FaBriefcase, FaRobot
 } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
-import { useDropzone } from 'react-dropzone';
 import {
   COUNTRIES,
   CURRENCIES,
@@ -28,21 +25,50 @@ import CurrencySelector from '../../components/forms/CurrencySelector';
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-const stripePromise = loadStripe('pk_live_51SuakDBMQmmi7eKWZSZGE9s1zpSfspXZEo2MCMLEcmid1NTppH6cc92B7xumi6kd5onkvULEK9dneaPQTHVqTD4400N9yjWxac');
-
-//const EMAILJS_SERVICE_ID  = 'service_pal6nfn';
-//const EMAILJS_TEMPLATE_ID = 'template_ockfprv';
-//const EMAILJS_PUBLIC_KEY  = 'rPt33cxP6I1AxI5Bp';
 
 const EMAILJS_SERVICE_ID = 'service_z0n4bpa';
 const EMAILJS_TEMPLATE_ID = 'template_spxsoac';
 const EMAILJS_PUBLIC_KEY = 'IRwXMIYIKhUnttcdY';
 
-const MAX_FILE_SIZE = 100 * 1024 * 1024;
-const MAX_TOTAL_SIZE = 500 * 1024 * 1024;
 const MAX_FILES = 20;
 
-// Data constants now imported from ../../utils/formConstants
+const CHECKOUT_STATE_KEY = 'sla_checkout_state';
+
+// Mirrors getServiceSlug() in ServiceDetailPage.jsx, inverted — keeps the two pages in sync
+// on which slug maps to which SERVICES_WITH_PACKAGES key. If you rename a service in
+// formConstants.js, update it here too (or better: move both maps into formConstants.js
+// and import from one place).
+const SLUG_TO_SERVICE_NAME = {
+  'brand-identity': 'Brand Identity & Logo Design',
+  'copywriting': 'Copywriting & Content Creation',
+  'social-media-management': 'Social Media Management',
+  'website-development': 'Website Development',
+  'video-editing': 'Video Editing & Motion Graphics',
+  'graphic-design': 'Graphic Design',
+  'photography': 'Photography & Visual Assets',
+  'paid-advertising': 'Paid Advertising Management',
+  'seo-marketing': 'SEO & Search Marketing',
+  'email-marketing': 'Email Marketing Campaigns',
+  'lead-generation': 'Lead Generation Services',
+  'crm-automation': 'CRM & Marketing Automation',
+  'api-integration': 'API Integration & Automation',
+  'web-applications': 'Web Applications & SaaS Development',
+  'data-analytics': 'Data Analytics & Reporting',
+  'process-documentation': 'Process Documentation & SOP Development',
+  'virtual-assistant': 'Virtual Assistant Services',
+  'project-management': 'Project Management Support',
+  'data-entry': 'Data Entry & Processing',
+  'website-maintenance': 'Website Maintenance & Updates',
+  'ecommerce-development': 'E-Commerce Development',
+  'landing-pages': 'Landing Pages & Sales Funnels',
+  'ai-automation': 'AI Automation & Smart Business Systems',
+  'online-booking-systems': 'Online Booking Systems',
+  'reputation-review-management': 'Reputation & Review Management',
+  'business-process-automation': 'Business Process Automation',
+  'business-consulting-growth-strategy': 'Business Consulting & Growth Strategy',
+  'ai-custom-quote': 'Request Custom Quote - AI',
+  'custom-quote': 'Request Custom Quote - General'
+};
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const formatPrice = (amount, currencyCode, currencySymbol) => {
@@ -67,6 +93,8 @@ const getServiceIcon = (name) => ({
   'Data Analytics & Reporting': FaChartBar, 'Process Documentation & SOP Development': FaFileAlt,
   'Project Management Support': FaProjectDiagram, 'Data Entry & Processing': FaDatabase,
   'Request Custom Quote': FaCogs,
+  'Request Custom Quote - AI': FaRobot,
+  'Request Custom Quote - General': FaCogs
 }[name.split(' - ')[0]] || FaCogs);
 
 const formatFileSize = (bytes) => {
@@ -90,152 +118,183 @@ const termsContent = [
   { title: 'Governing Law', content: 'These Terms are governed by Illinois law. Continued use constitutes acceptance of any updates.' },
 ];
 
-// Currency Selector now uses shared CURRENCIES
+// ─── Fiverr-style package comparison table ────────────────────────────────────
+const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, convertedAmounts }) => {
+  const serviceData = SERVICES_WITH_PACKAGES[service];
+  const packages = serviceData?.packages || {};
+  const packageKeys = Object.keys(packages);
+  const currencyObj = CURRENCIES.find(c => c.code === currency) || CURRENCIES[0];
+  const isCustomQuote = service.includes('Request Custom Quote');
 
-// PhoneInput, FileUpload, and CurrencySelector are now imported from shared components
+  if (!serviceData) return null;
 
-const CheckoutForm = ({ amount, currency, onSuccess, onError, formData }) => {
-  const stripe = useStripe(), elements = useElements();
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [message, setMessage] = useState(null);
-  const [agreedToEscrow, setAgreedToEscrow] = useState(false);
+  if (isCustomQuote) {
+    return (
+      <div className="border-2 border-blue-200 rounded-xl bg-blue-50/50 p-5">
+        <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5">
+          {packages.custom?.includes.map((item, idx) => (
+            <li key={idx} className="text-sm text-gray-700 flex items-start gap-2">
+              <FaCheck className="text-green-500 mt-0.5 shrink-0" size={11} /><span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    if (!stripe || !elements) return;
-    setIsProcessing(true); setMessage(null);
-    try {
-      const { error: submitError } = await elements.submit();
-      if (submitError) { setMessage(submitError.message); onError(submitError.message); setIsProcessing(false); return; }
-      const { error, paymentIntent } = await stripe.confirmPayment({
-        elements,
-        confirmParams: { return_url: `${window.location.origin}/payment-success`, payment_method_data: { billing_details: { name: `${formData.firstName} ${formData.lastName}`, email: formData.email, phone: formData.phone } } },
-        redirect: 'if_required',
+  // Define package order for cascading (Starter -> Growth -> Premium)
+  const packageOrder = ['starter', 'growth', 'premium'];
+  const sortedPackageKeys = packageKeys.sort((a, b) => {
+    return packageOrder.indexOf(a) - packageOrder.indexOf(b);
+  });
+
+  // Build features with cascading logic
+  const buildCascadingFeatures = () => {
+    const featuresMap = {};
+    const allFeatures = [];
+
+    // First, collect all features from all packages in order
+    sortedPackageKeys.forEach(pkgKey => {
+      const pkgFeatures = packages[pkgKey]?.includes || [];
+      pkgFeatures.forEach(feature => {
+        if (!featuresMap[feature]) {
+          featuresMap[feature] = { 
+            name: feature, 
+            packages: {},
+            order: allFeatures.length 
+          };
+          allFeatures.push(feature);
+        }
       });
-      if (error) { setMessage(error.message); onError(error.message); setIsProcessing(false); }
-      else if (paymentIntent?.status === 'succeeded') { onSuccess(paymentIntent); setIsProcessing(false); }
-    } catch (err) { setMessage('An unexpected error occurred.'); onError('An unexpected error occurred.'); setIsProcessing(false); }
+    });
+
+    // Now assign features to packages with cascading
+    sortedPackageKeys.forEach((pkgKey, index) => {
+      const pkgFeatures = packages[pkgKey]?.includes || [];
+      
+      // For each feature, check if it exists in this package or any previous package
+      allFeatures.forEach(feature => {
+        // Check if this feature exists in current package OR any lower-tier package
+        const hasFeature = pkgFeatures.includes(feature) || 
+          sortedPackageKeys.slice(0, index).some(prevKey => 
+            packages[prevKey]?.includes?.includes(feature)
+          );
+        
+        featuresMap[feature].packages[pkgKey] = hasFeature;
+      });
+    });
+
+    return { featuresMap, allFeatures };
   };
 
-  const currencyObj = CURRENCIES.find(c => c.code === currency) || CURRENCIES[0];
-  const displayAmount = (() => {
-    const dec = currencyObj.zeroDecimal ? amount : amount / 100;
-    try { return new Intl.NumberFormat(navigator.language, { style: 'currency', currency, minimumFractionDigits: currencyObj.zeroDecimal ? 0 : 2 }).format(dec); }
-    catch { return `${currencyObj.symbol}${dec.toFixed(currencyObj.zeroDecimal ? 0 : 2)}`; }
-  })();
+  const { featuresMap, allFeatures } = buildCascadingFeatures();
 
   return (
-    <form onSubmit={handleSubmit} className="w-full">
-      <div className="bg-white p-6 rounded-xl border-2 border-gray-200 mb-6"><PaymentElement /></div>
-      
-      {/* Escrow Checkbox inside CheckoutForm */}
-      <div className="mb-6 bg-slate-50 border border-slate-200 p-4 rounded-xl text-left">
-        <h4 className="text-sm font-bold text-slate-800 mb-1">Payment & Escrow Protection</h4>
-        <p className="text-xs text-slate-600 mb-3 leading-relaxed">
-          For approved projects, ScaleLink Alliance may use deposit, milestone, or escrow-based payment terms to protect both the client and the service team. Payment details will be clearly listed in the approved quote, invoice, or project agreement before work begins. Funds may be released based on agreed milestones, completed deliverables, client approval, or project terms.
-        </p>
-        <label className="flex items-start gap-2.5 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={agreedToEscrow}
-            onChange={e => setAgreedToEscrow(e.target.checked)}
-            className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 mt-0.5 cursor-pointer"
-          />
-          <span className="text-xs font-semibold text-slate-700 leading-tight">
-            I agree to the <a href="/legal?tab=escrow" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">ScaleLink Alliance Payment & Escrow Terms</a> and understand that my project may require a deposit, milestone payment, or escrow-based payment before work begins.
-          </span>
-        </label>
+    <div className="border-2 border-gray-200 rounded-xl overflow-hidden overflow-x-auto">
+      <div className="grid min-w-[560px]" style={{ gridTemplateColumns: `1.4fr repeat(${sortedPackageKeys.length}, 1fr)` }}>
+        {/* Header row */}
+        <div className="bg-gray-50 p-3 border-b border-r border-gray-200" />
+        {sortedPackageKeys.map(k => {
+          const pkg = packages[k];
+          const amount = convertedAmounts[service]?.[k] || 0;
+          return (
+            <button key={k} type="button" onClick={() => onSelect(service, k)}
+              className={`p-3 border-b border-r last:border-r-0 border-gray-200 text-center transition-colors ${selectedPackage === k ? 'bg-blue-600 text-white' : 'bg-gray-50 hover:bg-blue-50'}`}>
+              <div className="font-bold text-sm">{pkg?.name || k}</div>
+              <div className={`text-xs mt-0.5 ${selectedPackage === k ? 'text-blue-100' : 'text-gray-500'}`}>
+                {amount > 0 ? formatPrice(amount, currency, currencyObj.symbol) : 'Custom Quote'}
+              </div>
+            </button>
+          );
+        })}
+        
+        {/* Feature rows with cascading checks */}
+        {allFeatures.map((feature) => (
+          <React.Fragment key={feature}>
+            <div className="p-3 text-xs text-gray-700 border-b border-r border-gray-200 bg-white">{feature}</div>
+            {sortedPackageKeys.map(k => {
+              const hasFeature = featuresMap[feature]?.packages[k] || false;
+              const isSelected = selectedPackage === k;
+              return (
+                <div key={k} className={`p-3 border-b border-r last:border-r-0 border-gray-200 flex items-center justify-center ${isSelected ? 'bg-blue-50/50' : 'bg-white'}`}>
+                  {hasFeature ? <FaCheck className="text-green-500" size={12} /> : <span className="text-gray-300">—</span>}
+                </div>
+              );
+            })}
+          </React.Fragment>
+        ))}
+        
+        {/* Select row */}
+        <div className="p-3 border-r border-gray-200 bg-gray-50" />
+        {sortedPackageKeys.map(k => (
+          <div key={k} className="p-3 border-r last:border-r-0 border-gray-200 bg-gray-50 flex justify-center">
+            <button type="button" onClick={() => onSelect(service, k)}
+              className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors ${selectedPackage === k ? 'bg-blue-600 text-white' : 'border border-gray-300 text-gray-700 hover:border-blue-400'}`}>
+              {selectedPackage === k ? 'Selected' : 'Select'}
+            </button>
+          </div>
+        ))}
       </div>
-
-      {message && <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">{message}</div>}
-      <button type="submit" disabled={!stripe || isProcessing || !agreedToEscrow}
-        className={`w-full py-4 rounded-lg font-semibold text-lg flex items-center justify-center gap-2 transition-all ${!stripe || isProcessing || !agreedToEscrow ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'}`}>
-        {isProcessing ? <><FaSpinner className="animate-spin" />Processing Payment...</> : <><FaCreditCard />Pay {displayAmount} Now</>}
-      </button>
-    </form>
+    </div>
   );
 };
 
-// ─── Selected Service Item ─────────────────────────────────────────────────────
-const SelectedServiceItem = ({ service, selectedPackage, onPackageChange, onRemove, currency, convertedAmounts }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const serviceData = SERVICES_WITH_PACKAGES[service];
-  const packages = serviceData?.packages || {};
-  const ServiceIcon = getServiceIcon(service);
+// ─── Live order sidebar (Step 1) ──────────────────────────────────────────────
+const OrderSidebar = ({ selectedServices, convertedAmounts, currency, totalAmount, isLoadingRates, onRemove, onContinue, continueLabel, continueDisabled }) => {
   const currencyObj = CURRENCIES.find(c => c.code === currency) || CURRENCIES[0];
-
-  const isCustomQuote = service.includes('Request Custom Quote');
-  const displayTitle = isCustomQuote
-    ? `Custom Quote: ${service.split(' - ')[1]}`
-    : service;
-
-  if (!serviceData) return null;
+  const entries = Object.entries(selectedServices);
   return (
-    <div className="border border-blue-200 rounded-lg bg-blue-50 mb-3 overflow-hidden">
-      <div className="p-4 flex items-center justify-between">
-        <div className="flex items-center flex-1">
-          <ServiceIcon className="text-blue-600 mr-3" />
-          <div>
-            <h4 className="font-semibold text-gray-900">{displayTitle}</h4>
-            {isCustomQuote ? (
-              <ul className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1">
-                {packages[selectedPackage]?.includes.map((item, idx) => (
-                  <li key={idx} className="text-xs text-gray-600 flex items-center gap-1.5">
-                    <FaCheck className="text-green-500 shrink-0" size={10} />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-sm text-gray-600">{selectedPackage ? `${packages[selectedPackage]?.name}: ${formatPrice(convertedAmounts[service]?.[selectedPackage] || 0, currency, currencyObj.symbol)}` : 'Select a package below'}</p>
-            )}
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          {!isCustomQuote && (
-            <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors">{isOpen ? <FaChevronUp /> : <FaChevronDown />}</button>
-          )}
-          <button onClick={() => onRemove(service)} className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors">×</button>
-        </div>
-      </div>
-      {isOpen && !isCustomQuote && (
-        <div className="px-4 pb-4 pt-2 border-t border-blue-200 bg-white">
-          <p className="text-sm font-medium text-gray-700 mb-3">Choose a package:</p>
-          <div className="space-y-2">
-            {Object.entries(packages).map(([key, pkg]) => (
-              <label key={key} className={`flex items-start p-3 border rounded-lg cursor-pointer transition-all ${selectedPackage === key ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <input type="radio" name={`package-${service}`} value={key} checked={selectedPackage === key} onChange={() => onPackageChange(service, key)} className="mt-1 w-4 h-4 text-blue-600" />
-                <div className="ml-3 flex-1">
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium text-gray-900">{pkg.name}</span>
-                    <span className="font-semibold text-blue-600">{formatPrice(convertedAmounts[service]?.[key] || 0, currency, currencyObj.symbol)}</span>
+    <div className="lg:sticky lg:top-24 bg-white rounded-2xl border-2 border-gray-200 shadow-lg p-6">
+      <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><FaShoppingCart className="text-blue-600" />Your Order</h3>
+      {entries.length === 0 ? (
+        <p className="text-sm text-gray-500">No services selected yet. Choose one or more services to get started.</p>
+      ) : (
+        <div className="space-y-3 mb-4 max-h-80 overflow-y-auto pr-1">
+          {entries.map(([service, pkg]) => {
+            const ServiceIcon = getServiceIcon(service);
+            const pkgData = SERVICES_WITH_PACKAGES[service]?.packages[pkg];
+            const amount = convertedAmounts[service]?.[pkg] || 0;
+            return (
+              <div key={service} className="flex items-start justify-between gap-2 text-sm border-b border-gray-100 pb-3">
+                <div className="flex items-start gap-2 flex-1 min-w-0">
+                  <ServiceIcon className="text-blue-600 mt-0.5 shrink-0" />
+                  <div className="min-w-0">
+                    <p className="font-medium text-gray-900 truncate">{service.split(' - ')[0]}</p>
+                    <p className="text-xs text-gray-500">{pkgData?.name}</p>
                   </div>
-                  <p className="text-sm text-gray-600 mt-1">{pkg.description}</p>
-                  <ul className="mt-2 space-y-1">
-                    {pkg.includes.map((item, idx) => (
-                      <li key={idx} className="text-xs text-gray-500 flex items-start"><FaCheck className="text-green-500 mr-1 mt-0.5 shrink-0" size={10} /><span>{item}</span></li>
-                    ))}
-                  </ul>
                 </div>
-              </label>
-            ))}
-          </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="font-semibold text-gray-900 text-xs">{amount > 0 ? formatPrice(amount, currency, currencyObj.symbol) : 'Quote'}</span>
+                  <button type="button" onClick={() => onRemove(service)} className="text-gray-400 hover:text-red-500">×</button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       )}
+      <div className="border-t-2 border-gray-100 pt-4 mb-5">
+        <div className="flex justify-between items-center">
+          <span className="font-bold text-gray-900">Total</span>
+          <span className="text-2xl font-bold text-blue-600">
+            {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, currency, currencyObj.symbol) : 'Custom Quote'}
+          </span>
+        </div>
+      </div>
+      <button type="button" onClick={onContinue} disabled={continueDisabled}
+        className={`w-full py-3.5 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${continueDisabled ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'}`}>
+        {continueLabel} <FaArrowRight />
+      </button>
     </div>
   );
 };
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 const RequestServicePage = () => {
-  const location = useLocation();
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(1); // 1: Select services, 2: Review terms & pay, 3: Contact + project details (post-payment)
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [agreedToEscrow, setAgreedToEscrow] = useState(false);
   const [activeLegalTab, setActiveLegalTab] = useState('privacy');
-  const [paymentStep, setPaymentStep] = useState('review');
-  const [clientSecret, setClientSecret] = useState(null);
   const [paymentError, setPaymentError] = useState(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [selectedServices, setSelectedServices] = useState({});
@@ -245,8 +304,12 @@ const RequestServicePage = () => {
   const [convertedAmounts, setConvertedAmounts] = useState({});
   const [serverFileUrls, setServerFileUrls] = useState([]);
 
+  // Payment gate
+  const [isPaid, setIsPaid] = useState(false);
+  const [isRedirectingToStripe, setIsRedirectingToStripe] = useState(false);
+  const [isVerifyingPayment, setIsVerifyingPayment] = useState(false);
+  const [checkoutSessionId, setCheckoutSessionId] = useState(null);
 
-  // Phone state — dial code kept separately so we can combine on submit
   const [formData, setFormData] = useState({
     firstName: '', lastName: '', email: '',
     phoneDialCode: '+1', phoneCountryCode: 'US', phoneNumber: '',
@@ -257,29 +320,20 @@ const RequestServicePage = () => {
   });
 
   const [customQuoteAnswers, setCustomQuoteAnswers] = useState({
-    techStack: '',
-    techIntegration: '',
-    techHosting: '',
-    opsSupportAreas: [],
-    opsSupportAreasOther: '',
-    opsHours: '',
-    opsTools: '',
-    creativeFormats: [],
-    creativeFormatsOther: '',
-    creativeDirection: '',
-    creativeTurnaround: '',
-    marketingChannels: [],
-    marketingChannelsOther: '',
-    marketingAdSpend: '',
-    marketingAudience: ''
+    techStack: '', techIntegration: '', techHosting: '',
+    opsSupportAreas: [], opsSupportAreasOther: '', opsHours: '', opsTools: '',
+    creativeFormats: [], creativeFormatsOther: '', creativeDirection: '', creativeTurnaround: '',
+    marketingChannels: [], marketingChannelsOther: '', marketingAdSpend: '', marketingAudience: '',
+    aiFeatures: [],
+    aiFeaturesOther: '',
+    aiCurrentTools: '',
+    aiTimeSpent: '',
+    aiSuccessLooksLike: '',
   });
 
-  // Full phone string for submission
   const fullPhone = formData.phoneNumber ? `${formData.phoneDialCode} ${formData.phoneNumber}` : '';
 
-  // URL params auto-selection disabled
-
-  // Fetch exchange rates
+  // ── Fetch exchange rates ──
   useEffect(() => {
     setIsLoadingRates(true);
     fetch('https://open.er-api.com/v6/latest/USD')
@@ -289,13 +343,80 @@ const RequestServicePage = () => {
       .finally(() => setIsLoadingRates(false));
   }, []);
 
-  // Auto-detect currency
+  // ── Auto-detect currency ──
   useEffect(() => {
     try {
       const c = new Intl.NumberFormat(navigator.language, { style: 'currency', currency: 'USD' }).resolvedOptions().currency.toLowerCase();
       if (CURRENCIES.find(x => x.code === c)) setSelectedCurrency(c);
     } catch { }
   }, []);
+
+  // ── Pre-select the service + package passed from ServiceDetailPage's Continue link ──
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const serviceSlug = params.get('service');
+    const pkgParam = params.get('package');
+    if (!serviceSlug) return;
+
+    const serviceName = SLUG_TO_SERVICE_NAME[serviceSlug];
+    const serviceData = serviceName ? SERVICES_WITH_PACKAGES[serviceName] : null;
+    if (!serviceData) return;
+
+    const availablePackages = Object.keys(serviceData.packages || {});
+    const packageKey = pkgParam && availablePackages.includes(pkgParam) ? pkgParam : availablePackages[0];
+    if (!packageKey) return;
+
+    setSelectedServices(prev => ({ ...prev, [serviceName]: packageKey }));
+    window.history.replaceState({}, '', window.location.pathname);
+  }, []);
+
+  // ── Handle return from Stripe Checkout (success or cancel) ──
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('session_id');
+    const canceled = params.get('canceled');
+
+    const restoreSelections = () => {
+      try {
+        const saved = JSON.parse(sessionStorage.getItem(CHECKOUT_STATE_KEY) || '{}');
+        if (saved.selectedServices) setSelectedServices(saved.selectedServices);
+        if (saved.selectedCurrency) setSelectedCurrency(saved.selectedCurrency);
+      } catch { /* ignore malformed storage */ }
+    };
+
+    if (sessionId) {
+      restoreSelections();
+      setIsVerifyingPayment(true);
+      fetch(`/api/verify-checkout-session?session_id=${encodeURIComponent(sessionId)}`)
+        .then(r => r.json().then(data => ({ ok: r.ok, data })))
+        .then(({ ok, data }) => {
+          if (!ok || !data.paid) throw new Error(data.error || 'Payment could not be verified.');
+          setIsPaid(true);
+          setCheckoutSessionId(sessionId);
+          if (data.email) setFormData(prev => ({ ...prev, email: data.email }));
+          setCurrentStep(3);
+          sessionStorage.removeItem(CHECKOUT_STATE_KEY);
+        })
+        .catch(err => {
+          setPaymentError(err.message || 'We could not verify your payment. If you were charged, please contact support.');
+          setCurrentStep(2);
+        })
+        .finally(() => {
+          setIsVerifyingPayment(false);
+          window.history.replaceState({}, '', window.location.pathname);
+        });
+    } else if (canceled) {
+      restoreSelections();
+      setCurrentStep(2);
+      setPaymentError('Checkout was canceled. Your selections have been restored below — try again when ready.');
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
+
+  // Guard: Step 3 is only reachable once payment (or the $0 custom-quote bypass) has cleared
+  useEffect(() => {
+    if (currentStep === 3 && !isPaid) setCurrentStep(2);
+  }, [currentStep, isPaid]);
 
   const convertAmount = useCallback((usd) => {
     if (!exchangeRates || usd === 0 || !selectedCurrency) return usd;
@@ -304,7 +425,6 @@ const RequestServicePage = () => {
     return Math.round(usd * rate);
   }, [exchangeRates, selectedCurrency]);
 
-  // Recompute converted amounts for ALL packages (not just selected) so dropdowns show correct prices
   useEffect(() => {
     if (!exchangeRates) return;
     const result = {};
@@ -321,18 +441,10 @@ const RequestServicePage = () => {
     return sum + (convertedAmounts[service]?.[pkg] || 0);
   }, 0);
 
-  const isStep1Complete = !!(
-    formData.firstName?.trim() &&
-    formData.lastName?.trim() &&
-    formData.email?.trim() &&
-    formData.phoneNumber?.trim() &&
-    formData.company?.trim()
-  );
-
   const steps = [
-    { number: 1, title: 'Contact Info' }, { number: 2, title: 'Service Selection' },
-    { number: 3, title: 'Project Details' }, { number: 4, title: 'Legal Agreement' },
-    { number: 5, title: 'Review & Payment' },
+    { number: 1, title: 'Select Services' },
+    { number: 2, title: 'Review & Pay' },
+    { number: 3, title: 'Your Details' },
   ];
 
   const handleInputChange = e => {
@@ -343,8 +455,6 @@ const RequestServicePage = () => {
   const handleServiceToggle = service => {
     setSelectedServices(prev => {
       const next = { ...prev };
-      
-      // Find the category this service belongs to
       let categoryServices = [];
       for (const catKey in SERVICE_CATEGORIES) {
         if (SERVICE_CATEGORIES[catKey].services.includes(service)) {
@@ -352,27 +462,14 @@ const RequestServicePage = () => {
           break;
         }
       }
-
       if (prev[service]) {
-        // Unchecking
         delete next[service];
       } else {
-        // Checking
         if (service.includes('Request Custom Quote')) {
-          // If selecting Custom Quote, remove all other selections in this category
-          categoryServices.forEach(s => {
-            if (s !== service) {
-              delete next[s];
-            }
-          });
+          categoryServices.forEach(s => { if (s !== service) delete next[s]; });
           next[service] = 'custom';
         } else {
-          // If selecting a standard service, remove Custom Quote in this category
-          categoryServices.forEach(s => {
-            if (s.includes('Request Custom Quote')) {
-              delete next[s];
-            }
-          });
+          categoryServices.forEach(s => { if (s.includes('Request Custom Quote')) delete next[s]; });
           next[service] = 'starter';
         }
       }
@@ -380,11 +477,7 @@ const RequestServicePage = () => {
     });
   };
 
-  const handleFilesAdded = f => setUploadedFiles(prev => [...prev, ...f]);
-  const handleFileRemove = id => setUploadedFiles(prev => { const f = prev.find(x => x.id === id); if (f?.preview) URL.revokeObjectURL(f.preview); return prev.filter(x => x.id !== id); });
-  const nextStep = () => { if (currentStep < 5) { setCurrentStep(p => p + 1); window.scrollTo(0, 0); } };
-  const prevStep = () => { if (currentStep > 1) { setCurrentStep(p => p - 1); window.scrollTo(0, 0); } };
-  const canProceedFromLegal = formData.agreedToPrivacy && formData.agreedToTerms;
+  const removeService = service => setSelectedServices(p => { const n = { ...p }; delete n[service]; return n; });
 
   useEffect(() => () => uploadedFiles.forEach(f => { if (f.preview) URL.revokeObjectURL(f.preview); }), []);
 
@@ -401,37 +494,26 @@ const RequestServicePage = () => {
   };
 
   // ── EMAIL TEMPLATE PARAMS ─────────────────────────────────────────────────
-  // These variable names MUST match exactly what you have in your EmailJS template.
-  // Copy-paste the variable names below into your EmailJS template as {{variable_name}}
-  const buildTemplateParams = (paymentIntent = null) => {
+  const buildTemplateParams = () => {
     const currencyObj = CURRENCIES.find(c => c.code === selectedCurrency) || CURRENCIES[0];
     const serviceEntries = Object.entries(selectedServices);
-    
-    // Safety check for services line
     const servicesLine = serviceEntries
-      .map(([svc, pkg]) => {
-        const pkgName = SERVICES_WITH_PACKAGES[svc]?.packages?.[pkg]?.name || pkg;
-        return `${svc} (${pkgName})`;
-      })
+      .map(([svc, pkg]) => `${svc} (${SERVICES_WITH_PACKAGES[svc]?.packages?.[pkg]?.name || pkg})`)
       .join(', ') || 'None selected';
-      
     const totalLine = totalAmount > 0 ? formatPrice(totalAmount, selectedCurrency, currencyObj.symbol) : 'Custom Quote';
-    
-    // File metadata with extra safety
     const totalSizeRaw = uploadedFiles.reduce((acc, f) => acc + (Number(f.size) || 0), 0);
-    const fileListFormatted = uploadedFiles.length > 0 
+    const fileListFormatted = uploadedFiles.length > 0
       ? uploadedFiles.map(f => `• ${f.name || 'File'} (${formatFileSize(f.size || 0)})`).join('\n')
       : 'No files uploaded';
-
     const fullName = `${formData.firstName || ''} ${formData.lastName || ''}`.trim() || 'Valued Client';
+    const paymentStatus = totalAmount > 0
+      ? (isPaid ? `Paid via Stripe Checkout (Session: ${checkoutSessionId})` : 'Unpaid')
+      : 'Quote Requested';
 
     return {
-      // Header variables
       title: serviceEntries.length > 0 ? serviceEntries[0][0] : 'New Service Request',
       name: fullName,
       email: formData.email || '',
-      
-      // Body variables
       from_name: fullName,
       from_email: formData.email || '',
       reply_to: formData.email || '',
@@ -443,7 +525,7 @@ const RequestServicePage = () => {
       timeline: formData.timeline || 'Not specified',
       budget: formData.budget || 'Not specified',
       total_amount: totalLine,
-      payment_status: paymentIntent ? `Paid (ID: ${paymentIntent.id})` : 'Quote Requested',
+      payment_status: paymentStatus,
       file_count: uploadedFiles.length.toString(),
       total_file_size: formatFileSize(totalSizeRaw),
       uploaded_files: fileListFormatted,
@@ -451,9 +533,9 @@ const RequestServicePage = () => {
     };
   };
 
-  const sendEmailNotification = async (paymentIntent = null) => {
+  const sendEmailNotification = async () => {
     try {
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, buildTemplateParams(paymentIntent), EMAILJS_PUBLIC_KEY);
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, buildTemplateParams(), EMAILJS_PUBLIC_KEY);
     } catch (err) { console.error('EmailJS error:', err); }
   };
 
@@ -469,14 +551,13 @@ const RequestServicePage = () => {
           totalAmount,
           currency: selectedCurrency,
           files: fileUrls,
-          projectScope: {
-            customQuoteAnswers
-          }
+          paymentStatus: totalAmount > 0 ? (isPaid ? 'paid' : 'unpaid') : 'quote_requested',
+          checkoutSessionId,
+          projectScope: { customQuoteAnswers }
         })
       });
       if (!res.ok) {
         const errorData = await res.json();
-        console.error('Failed to create notice board job:', errorData.error);
         throw new Error(errorData.error || 'Server error saving request.');
       }
     } catch (err) {
@@ -485,72 +566,98 @@ const RequestServicePage = () => {
     }
   };
 
-  const initializePayment = async () => {
-    setIsSubmitting(true); setPaymentError(null);
+  // ── Step 2 → Stripe Checkout (or bypass for $0 custom quote) ──
+  const legalAgreed = formData.agreedToPrivacy && formData.agreedToTerms;
+  const canProceedFromReview = legalAgreed && agreedToEscrow && !isSubmitting && !isLoadingRates;
+
+  const handleContinueFromReview = async () => {
+    if (!canProceedFromReview) return;
+
+    if (totalAmount === 0) {
+      setIsPaid(true);
+      setCurrentStep(3);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setIsRedirectingToStripe(true);
+    setPaymentError(null);
     try {
-      let fileUrls = [];
-      if (uploadedFiles.length) {
-        fileUrls = await uploadFiles();
-        setServerFileUrls(fileUrls);
-      }
-      
-      const res = await fetch('/api/create-payment-intent', {
-        method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      sessionStorage.setItem(CHECKOUT_STATE_KEY, JSON.stringify({ selectedServices, selectedCurrency }));
+      const res = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: totalAmount, currency: selectedCurrency, services: Object.keys(selectedServices), customer_email: formData.email,
-          metadata: { firstName: formData.firstName, lastName: formData.lastName, company: formData.company, currency: selectedCurrency, fileCount: uploadedFiles.length.toString() }
+          services: selectedServices,
+          currency: selectedCurrency,
+          amount: totalAmount,
+          customer_email: formData.email || undefined,
+          success_url: `${window.location.origin}${window.location.pathname}?session_id={CHECKOUT_SESSION_ID}`,
+          cancel_url: `${window.location.origin}${window.location.pathname}?canceled=true`,
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || `Server error: ${res.status}`);
-      if (!data.clientSecret) throw new Error('No client secret received');
-      setClientSecret(data.clientSecret); setPaymentStep('payment');
-    } catch (err) { setPaymentError(err.message || 'Failed to initialize payment. Please try again.'); }
-    finally { setIsSubmitting(false); }
-  };
-
-  const handleProceedToPayment = () => {
-    if (isSubmitting) return;
-    if (totalAmount > 0) { initializePayment(); }
-    else {
-      setIsSubmitting(true);
-      uploadFiles()
-        .then(async (fileUrls) => {
-          await createNoticeBoardJob(fileUrls);
-          return sendEmailNotification();
-        })
-        .then(() => { setSubmitSuccess(true); setIsSubmitting(false); })
-        .catch(err => { 
-          console.error('Submission error:', err);
-          setPaymentError(err.message || 'Failed to submit. Please try again.'); 
-          setIsSubmitting(false); 
-        });
-    }
-  };
-
-  const handlePaymentSuccess = async pi => { 
-    try {
-      await createNoticeBoardJob(serverFileUrls);
-      await sendEmailNotification(pi); 
-      setPaymentStep('success'); 
-      setSubmitSuccess(true); 
+      if (!res.ok || !data.url) throw new Error(data.error || 'Failed to start checkout.');
+      window.location.href = data.url;
     } catch (err) {
-      console.error('Failed to create job after payment:', err);
-      setPaymentError('Payment was successful, but we encountered an issue creating your service request in our system. Our team has been notified. Please contact support if you do not receive an email shortly.');
-      setPaymentStep('success'); 
-      setSubmitSuccess(true); 
+      setPaymentError(err.message || 'Failed to start checkout. Please try again.');
+      setIsSubmitting(false);
+      setIsRedirectingToStripe(false);
     }
   };
-  const handlePaymentError = msg => { setPaymentError(msg); setIsSubmitting(false); };
 
-  const stripeOptions = useMemo(() => ({
-    clientSecret,
-    appearance: { theme: 'stripe', variables: { colorPrimary: '#2563eb', colorBackground: '#ffffff', colorText: '#1f2937', colorDanger: '#ef4444', borderRadius: '8px' } },
-  }), [clientSecret]);
+  // ── Step 3 final submission (post-payment) ──
+  const isStep3Complete = !!(
+    formData.firstName?.trim() && formData.lastName?.trim() && formData.email?.trim() &&
+    formData.phoneNumber?.trim() && formData.company?.trim() && formData.projectDescription?.trim()
+  );
+
+  const handleFinalSubmit = async () => {
+    if (!isStep3Complete || isSubmitting) return;
+    setIsSubmitting(true);
+    setPaymentError(null);
+    try {
+      const fileUrls = await uploadFiles();
+      setServerFileUrls(fileUrls);
+      await createNoticeBoardJob(fileUrls);
+      await sendEmailNotification();
+      setSubmitSuccess(true);
+    } catch (err) {
+      console.error('Submission error:', err);
+      setPaymentError(err.message || 'Failed to submit your details. Your payment was already processed — please contact support so we can finish setting up your project.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const nextStep = () => { if (currentStep < 3) { setCurrentStep(p => p + 1); window.scrollTo(0, 0); } };
+  const prevStep = () => { if (currentStep > 1) { setCurrentStep(p => p - 1); window.scrollTo(0, 0); } };
 
   const currencyObj = CURRENCIES.find(c => c.code === selectedCurrency) || CURRENCIES[0];
+  const categoryMeta = [
+    { cat: 'creative-content', bg: 'bg-purple-100', iconColor: 'text-purple-600', border: 'hover:border-purple-200' },
+    { cat: 'tech-development', bg: 'bg-indigo-100', iconColor: 'text-indigo-600', border: 'hover:border-indigo-200' },
+    { cat: 'marketing-growth', bg: 'bg-green-100', iconColor: 'text-green-600', border: 'hover:border-green-200' },
+    { cat: 'operations-support', bg: 'bg-orange-100', iconColor: 'text-orange-600', border: 'hover:border-orange-200' },
+  ];
+  const categoryIcons = {
+    'creative-content': FaPaintBrush, 'tech-development': FaCode,
+    'marketing-growth': FaChartLine, 'operations-support': FaCogs
+  };
 
-  // ── Success screen
+  // ── Verifying payment (full-page interstitial after Stripe redirect) ──
+  if (isVerifyingPayment) {
+    return (
+      <div className="min-h-screen pt-20 bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <FaSpinner className="animate-spin text-4xl text-blue-600 mb-4 mx-auto" />
+          <p className="text-gray-600 font-medium">Confirming your payment...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Success screen ──
   if (submitSuccess) {
     return (
       <div className="min-h-screen pt-20 bg-gray-50">
@@ -558,15 +665,8 @@ const RequestServicePage = () => {
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-12 text-center">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"><FaCheck className="text-3xl text-green-600" /></div>
             <h1 className="text-3xl font-bold text-gray-900 mb-4">{totalAmount > 0 ? 'Payment Successful!' : 'Request Received!'}</h1>
-            {paymentError ? (
-              <div className="mb-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800 text-sm text-left">
-                <p className="font-semibold mb-1">Notice:</p>
-                <p>{paymentError}</p>
-              </div>
-            ) : (
-              <p className="text-gray-600 mb-8 text-lg">{totalAmount > 0 ? `Thank you for your payment of ${formatPrice(totalAmount, selectedCurrency, currencyObj.symbol)}. Our team will contact you within 24 hours.` : 'Thank you for your request. We will be in touch within 24 hours.'}</p>
-            )}
-            {uploadedFiles.length > 0 && !paymentError && <p className="text-sm text-gray-500 mb-8">{uploadedFiles.length} file(s) uploaded successfully</p>}
+            <p className="text-gray-600 mb-8 text-lg">{totalAmount > 0 ? `Thank you for your payment of ${formatPrice(totalAmount, selectedCurrency, currencyObj.symbol)}. Our team will contact you within 24 hours.` : 'Thank you for your request. We will be in touch within 24 hours.'}</p>
+            {uploadedFiles.length > 0 && <p className="text-sm text-gray-500 mb-8">{uploadedFiles.length} file(s) uploaded successfully</p>}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/" className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Return to Home</Link>
               <button onClick={() => window.print()} className="px-8 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors">Print Confirmation</button>
@@ -581,7 +681,7 @@ const RequestServicePage = () => {
     <div className="min-h-screen pt-20 bg-gray-50 pb-20">
       <div className="container mx-auto px-4">
         {/* Progress bar */}
-        <div className="max-w-4xl mx-auto mb-8 pt-8">
+        <div className="max-w-5xl mx-auto mb-8 pt-8">
           <div className="flex items-center justify-between mb-8">
             {steps.map((step, index) => (
               <div key={step.number} className={`flex items-center flex-1 ${currentStep === step.number ? 'opacity-100' : 'opacity-60'}`}>
@@ -598,113 +698,23 @@ const RequestServicePage = () => {
           </div>
         </div>
 
-        <div className="max-w-5xl mx-auto">
-          {/* ── Step 1: Contact Info ── */}
+        <div className="max-w-6xl mx-auto">
+          {/* ── Step 1: Service Selection + Add-ons ── */}
           {currentStep === 1 && (
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">Let's Get Started</h2>
-                <p className="text-gray-600 text-lg">First, tell us a bit about yourself and your company.</p>
-              </div>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">First Name *</label>
-                  <div className="relative">
-                    <FaUser className="absolute left-3 top-3.5 text-gray-400" />
-                    <input type="text" name="firstName" required value={formData.firstName} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="John" />
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="grid lg:grid-cols-[1fr_360px] gap-8 items-start">
+              <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+                <div className="mb-8">
+                  <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Step 1 of 3</span>
+                  <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-4">Service Selection</h2>
+                  <p className="text-gray-600">Pick your services, then compare packages side-by-side.</p>
+                  <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl text-blue-700 text-sm font-semibold">
+                    Starting price options are shown during service selection. Custom quotes are available for larger or more detailed projects.
                   </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Last Name *</label>
-                  <input type="text" name="lastName" required value={formData.lastName} onChange={handleInputChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Doe" />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
-                  <div className="relative">
-                    <FaEnvelope className="absolute left-3 top-3.5 text-gray-400" />
-                    <input type="email" name="email" required value={formData.email} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="john@company.com" />
-                  </div>
-                </div>
-                {/* ── Phone with country code ── */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number *</label>
-                  <PhoneInput
-                    value={formData.phoneNumber}
-                    dialCode={formData.phoneDialCode}
-                    countryCode={formData.phoneCountryCode}
-                    onNumberChange={val => setFormData(p => ({ ...p, phoneNumber: val }))}
-                    onDialChange={(dial, code) => setFormData(p => ({ ...p, phoneDialCode: dial, phoneCountryCode: code }))}
-                  />
-                  <p className="mt-1 text-xs text-gray-400">Select your country flag, then enter your number</p>
-                </div>
-                 <div>
-                   <label className="block text-sm font-semibold text-gray-700 mb-2">Company Name *</label>
-                   <div className="relative">
-                     <FaBuilding className="absolute left-3 top-3.5 text-gray-400" />
-                     <input type="text" name="company" required value={formData.company} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Acme Inc." />
-                   </div>
-                 </div>
-                 <div>
-                   <label className="block text-sm font-semibold text-gray-700 mb-2">Company Website (Optional)</label>
-                   <div className="relative">
-                     <FaGlobeAmericas className="absolute left-3 top-3.5 text-gray-400" />
-                     <input type="text" name="clientWebsite" value={formData.clientWebsite} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g. www.example.com" />
-                   </div>
-                 </div>
-                 <div>
-                   <label className="block text-sm font-semibold text-gray-700 mb-2">Business Location (Optional)</label>
-                   <div className="relative">
-                     <FaRegBuilding className="absolute left-3 top-3.5 text-gray-400" />
-                     <input type="text" name="clientLocation" value={formData.clientLocation} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g. Chicago, IL" />
-                   </div>
-                 </div>
-                 <div>
-                   <label className="block text-sm font-semibold text-gray-700 mb-2">Industry / Business Type (Optional)</label>
-                   <div className="relative">
-                     <FaBriefcase className="absolute left-3 top-3.5 text-gray-400" />
-                     <input type="text" name="clientIndustry" value={formData.clientIndustry} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g. E-Commerce, SaaS, Retail" />
-                   </div>
-                 </div>
-               </div>
-              <div className="flex justify-end mt-8">
-                <button
-                  type="button"
-                  onClick={nextStep}
-                  disabled={!isStep1Complete}
-                  className={`px-8 py-3 font-semibold rounded-lg transition-all ${!isStep1Complete ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'} flex items-center gap-2`}
-                >
-                  Continue <FaArrowRight />
-                </button>
-              </div>
-            </motion.div>
-          )}
 
-          {/* ── Step 2: Service Selection ── */}
-          {currentStep === 2 && (
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-              <div className="text-center mb-10">
-                <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Step 2 of 5</span>
-                <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-4">Service Selection</h2>
-                <p className="text-gray-600 max-w-2xl mx-auto">Which service(s) are you requesting? Select all that apply.</p>
-                <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl text-blue-700 text-sm font-semibold max-w-2xl mx-auto text-center shadow-sm">
-                  Starting price options are shown during service selection. Custom quotes are available for larger or more detailed projects.
-                </div>
-              </div>
-              <div className="grid gap-8">
-                <div className="grid md:grid-cols-2 gap-8">
-                  {[
-                    { cat: 'creative-content', bg: 'bg-purple-100', iconColor: 'text-purple-600', border: 'hover:border-purple-200' },
-                    { cat: 'tech-development', bg: 'bg-indigo-100', iconColor: 'text-indigo-600', border: 'hover:border-indigo-200' },
-                    { cat: 'marketing-growth', bg: 'bg-green-100', iconColor: 'text-green-600', border: 'hover:border-green-200' },
-                    { cat: 'operations-support', bg: 'bg-orange-100', iconColor: 'text-orange-600', border: 'hover:border-orange-200' },
-                  ].map(({ cat, bg, iconColor, border }) => {
+                <div className="grid md:grid-cols-2 gap-8 mb-10">
+                  {categoryMeta.map(({ cat, bg, iconColor, border }) => {
                     const catData = SERVICE_CATEGORIES[cat];
-                    const categoryIcons = {
-                      'creative-content': FaPaintBrush,
-                      'tech-development': FaCode,
-                      'marketing-growth': FaChartLine,
-                      'operations-support': FaCogs
-                    };
                     const CatIcon = categoryIcons[cat] || FaCogs;
                     return (
                       <div key={cat} className={`bg-white p-6 rounded-xl border-2 border-gray-100 ${border} transition-colors shadow-sm`}>
@@ -734,43 +744,229 @@ const RequestServicePage = () => {
                 </div>
 
                 {Object.keys(selectedServices).length > 0 && (
-                  <div className="mt-4">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">Selected Services — Choose Your Packages</h3>
-                    {Object.entries(selectedServices).map(([service, pkg]) => (
-                      <SelectedServiceItem key={service} service={service} selectedPackage={pkg}
-                        onPackageChange={(s, k) => setSelectedServices(p => ({ ...p, [s]: k }))}
-                        onRemove={s => setSelectedServices(p => { const n = { ...p }; delete n[s]; return n; })}
-                        currency={selectedCurrency} convertedAmounts={convertedAmounts} />
-                    ))}
-                    <div className="mt-6 bg-blue-50 p-6 rounded-xl border-2 border-blue-200">
-                      <div className="flex justify-between items-center">
-                        <span className="font-bold text-gray-900 text-lg">Total Estimate:</span>
-                        <span className="text-3xl font-bold text-blue-600">
-                          {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, selectedCurrency, currencyObj.symbol) : 'Custom Quote'}
-                        </span>
-                      </div>
-                      <p className="text-xs text-gray-600 mt-2">*Final pricing may vary based on project scope</p>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-4">Compare Packages</h3>
+                    <div className="space-y-8">
+                      {Object.entries(selectedServices).map(([service, pkg]) => (
+                        <div key={service}>
+                          <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                            {React.createElement(getServiceIcon(service), { className: 'text-blue-600' })}
+                            {service.includes('Request Custom Quote') ? `Custom Quote: ${service.split(' - ')[1]}` : service}
+                          </h4>
+                          <PackageComparisonTable
+                            service={service}
+                            selectedPackage={pkg}
+                            onSelect={(s, k) => setSelectedServices(p => ({ ...p, [s]: k }))}
+                            currency={selectedCurrency}
+                            convertedAmounts={convertedAmounts}
+                          />
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}
               </div>
-              <div className="flex justify-between mt-12 pt-8 border-t border-gray-200">
-                <button type="button" onClick={prevStep} className="px-8 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-colors flex items-center gap-2"><FaArrowLeft /> Back</button>
-                <button type="button" onClick={nextStep} disabled={Object.keys(selectedServices).length === 0}
-                  className={`px-8 py-3 font-semibold rounded-lg transition-all ${Object.keys(selectedServices).length === 0 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'}`}>
-                  Continue to Project Details <FaArrowRight className="inline ml-2" />
-                </button>
+
+              <OrderSidebar
+                selectedServices={selectedServices}
+                convertedAmounts={convertedAmounts}
+                currency={selectedCurrency}
+                totalAmount={totalAmount}
+                isLoadingRates={isLoadingRates}
+                onRemove={removeService}
+                onContinue={nextStep}
+                continueLabel="Continue to Review"
+                continueDisabled={Object.keys(selectedServices).length === 0}
+              />
+            </motion.div>
+          )}
+
+          {/* ── Step 2: Review Terms & Pay ── */}
+          {currentStep === 2 && (
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+              <div className="mb-8">
+                <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Step 2 of 3</span>
+                <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-4">Review Terms & Pay</h2>
+                <p className="text-gray-600">Agree to our terms, then complete secure checkout. You'll fill in your contact and project details right after.</p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* Left: Legal */}
+                <div>
+                  <div className="flex mb-6">
+                    <div className="bg-gray-100 p-1 rounded-lg inline-flex">
+                      {[['privacy', 'Privacy Policy', FaLock], ['terms', 'Terms of Service', FaFileContract]].map(([id, label, Icon]) => (
+                        <button key={id} type="button" onClick={() => setActiveLegalTab(id)}
+                          className={`px-5 py-2 rounded-md font-semibold text-sm transition-all ${activeLegalTab === id ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}>
+                          <Icon className="inline mr-2" />{label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 rounded-xl p-4 mb-6 max-h-72 overflow-y-auto border border-gray-200">
+                    {(activeLegalTab === 'privacy' ? privacyPolicyContent : termsContent).map((section, idx) => (
+                      <div key={idx} className="bg-white p-4 rounded-lg border border-gray-200 mb-3">
+                        <h4 className="font-bold text-gray-900 mb-2 flex items-center text-sm">
+                          <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs mr-2">{idx + 1}</span>
+                          {section.title}
+                        </h4>
+                        <p className="text-gray-700 text-sm leading-relaxed">{section.content}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="space-y-3 bg-white border-2 border-gray-200 rounded-xl p-5">
+                    {[['agreedToPrivacy', 'I agree to the Privacy Policy', 'I have read and understand how Scale Link Alliance collects, uses, and protects my personal information.'],
+                    ['agreedToTerms', 'I agree to the Terms of Service', 'I have read and agree to abide by the Terms of Service, including user conduct guidelines and liability limitations.'] 
+                    ].map(([name, title, desc]) => (
+                      <label key={name} className="flex items-start p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                        <input type="checkbox" name={name} checked={formData[name]} onChange={handleInputChange} className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300 mt-0.5" />
+                        <div className="ml-3"><span className="block font-semibold text-gray-900 text-sm">{title} *</span><span className="block text-xs text-gray-600 mt-1">{desc}</span></div>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right: Payment Summary */}
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border-2 border-blue-200 shadow-md h-fit">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2"><FaCreditCard className="text-blue-600" />Order Summary</h3>
+                  <div className="mb-6"><CurrencySelector selectedCurrency={selectedCurrency} onCurrencyChange={setSelectedCurrency} /></div>
+                  <div className="space-y-3 mb-6 bg-white p-4 rounded-lg">
+                    {Object.entries(selectedServices).map(([service, pkg]) => {
+                      const ServiceIcon = getServiceIcon(service), amount = convertedAmounts[service]?.[pkg] || 0, pkgData = SERVICES_WITH_PACKAGES[service]?.packages[pkg];
+                      return (
+                        <div key={service} className="flex justify-between items-center text-sm border-b border-gray-100 pb-2">
+                          <span className="text-gray-700 flex items-center"><ServiceIcon className="mr-2 text-gray-500" />{service}<span className="text-xs text-gray-500 ml-1">({pkgData?.name})</span></span>
+                          <span className="font-medium text-gray-900">{isLoadingRates ? '...' : amount > 0 ? formatPrice(amount, selectedCurrency, currencyObj.symbol) : 'Custom Quote'}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="border-t-2 border-blue-200 pt-4 mb-6">
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg font-bold text-gray-900">Total Due Today:</span>
+                      <span className="text-3xl font-bold text-blue-600">
+                        {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, selectedCurrency, currencyObj.symbol) : 'Custom Quote'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {paymentError && (
+                    <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex justify-between items-start">
+                      <span>{paymentError}</span>
+                      <button type="button" onClick={() => setPaymentError(null)} className="text-red-800 font-bold ml-2">✕</button>
+                    </div>
+                  )}
+
+                  <div className="mb-4 bg-slate-50 border border-slate-200 p-4 rounded-xl text-left">
+                    <p className="text-xs text-slate-600 mb-2 leading-relaxed font-medium">
+                      For approved projects, ScaleLink Alliance may use deposit, milestone, or escrow-based payment terms to protect both the client and the service team. Payment details will be clearly listed in the approved quote, invoice, or project agreement before work begins.
+                    </p>
+                    <label className="flex items-start gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={agreedToEscrow}
+                        onChange={e => setAgreedToEscrow(e.target.checked)}
+                        className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 mt-0.5 cursor-pointer"
+                      />
+                      <span className="text-xs font-semibold text-slate-700 leading-tight">
+                        I agree to the <a href="/legal?tab=escrow" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">ScaleLink Alliance Payment & Escrow Terms</a> and understand my project may require a deposit, milestone, or escrow-based payment.
+                      </span>
+                    </label>
+                  </div>
+
+                  <button type="button" onClick={handleContinueFromReview} disabled={!canProceedFromReview}
+                    className="w-full py-5 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-lg rounded-xl hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg hover:shadow-xl mb-4">
+                    {isRedirectingToStripe ? <><FaSpinner className="animate-spin" />Redirecting to Secure Checkout...</> :
+                      isLoadingRates ? <><FaSpinner className="animate-spin" />Loading Exchange Rates...</> :
+                        totalAmount > 0 ? <><FaCreditCard className="text-xl" />Proceed to Secure Checkout<FaArrowRight className="text-sm" /></> :
+                          <><FaPaperPlane />Request Custom Quote</>}
+                  </button>
+                  <div className="flex items-center justify-center gap-2 text-xs text-gray-600 bg-white bg-opacity-50 p-3 rounded-lg">
+                    <FaLock className="text-green-600" />
+                    <span>Secured by <strong>Stripe</strong>. We never store your card information.</span>
+                  </div>
+                  <div className="mt-4 text-center">
+                    <button type="button" onClick={prevStep} className="text-gray-500 hover:text-gray-700 text-sm flex items-center justify-center gap-1 mx-auto"><FaArrowLeft /> Back to services</button>
+                  </div>
+                </div>
               </div>
             </motion.div>
           )}
 
-          {/* ── Step 3: Project Details ── */}
+          {/* ── Step 3: Contact Info + Project Details (post-payment) ── */}
           {currentStep === 3 && (
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
               <div className="mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">Project Details</h2>
-                <p className="text-gray-600 text-lg">Tell us more about your project requirements.</p>
+                {totalAmount > 0 && (
+                  <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3">
+                    <div className="w-9 h-9 bg-green-100 rounded-full flex items-center justify-center shrink-0"><FaCheck className="text-green-600" /></div>
+                    <p className="text-sm text-green-800 font-semibold">Payment confirmed — {formatPrice(totalAmount, selectedCurrency, currencyObj.symbol)}. Just a few details left.</p>
+                  </div>
+                )}
+                <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Step 3 of 3</span>
+                <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-4">Your Details</h2>
+                <p className="text-gray-600 text-lg">Tell us who you are and more about your project.</p>
               </div>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-10">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">First Name *</label>
+                  <div className="relative">
+                    <FaUser className="absolute left-3 top-3.5 text-gray-400" />
+                    <input type="text" name="firstName" required value={formData.firstName} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="John" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Last Name *</label>
+                  <input type="text" name="lastName" required value={formData.lastName} onChange={handleInputChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Doe" />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
+                  <div className="relative">
+                    <FaEnvelope className="absolute left-3 top-3.5 text-gray-400" />
+                    <input type="email" name="email" required value={formData.email} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="john@company.com" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number *</label>
+                  <PhoneInput
+                    value={formData.phoneNumber}
+                    dialCode={formData.phoneDialCode}
+                    countryCode={formData.phoneCountryCode}
+                    onNumberChange={val => setFormData(p => ({ ...p, phoneNumber: val }))}
+                    onDialChange={(dial, code) => setFormData(p => ({ ...p, phoneDialCode: dial, phoneCountryCode: code }))}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Company Name *</label>
+                  <div className="relative">
+                    <FaBuilding className="absolute left-3 top-3.5 text-gray-400" />
+                    <input type="text" name="company" required value={formData.company} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Acme Inc." />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Company Website (Optional)</label>
+                  <div className="relative">
+                    <FaGlobeAmericas className="absolute left-3 top-3.5 text-gray-400" />
+                    <input type="text" name="clientWebsite" value={formData.clientWebsite} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g. www.example.com" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Business Location (Optional)</label>
+                  <div className="relative">
+                    <FaRegBuilding className="absolute left-3 top-3.5 text-gray-400" />
+                    <input type="text" name="clientLocation" value={formData.clientLocation} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g. Chicago, IL" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Industry / Business Type (Optional)</label>
+                  <div className="relative">
+                    <FaBriefcase className="absolute left-3 top-3.5 text-gray-400" />
+                    <input type="text" name="clientIndustry" value={formData.clientIndustry} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g. E-Commerce, SaaS, Retail" />
+                  </div>
+                </div>
+              </div>
+
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Project Description *</label>
@@ -789,7 +985,8 @@ const RequestServicePage = () => {
                   const isOps = service.includes('Operations & Support');
                   const isCreative = service.includes('Creative & Content');
                   const isMarketing = service.includes('Marketing & Growth');
-                  
+                  const isAI = service === 'Request Custom Quote - AI';
+
                   return (
                     <div key={service} className="mt-8 pt-8 border-t border-slate-200 space-y-6 animate-fade-in">
                       <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-6">
@@ -799,14 +996,14 @@ const RequestServicePage = () => {
                         <p className="text-slate-400 text-xs font-semibold mb-6">
                           Please answer these quick questions to help us prepare an accurate custom proposal.
                         </p>
-                        
+
                         <div className="grid md:grid-cols-2 gap-6">
                           {isTech && (
                             <>
                               <div className="md:col-span-2">
                                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Current Technology Stack / Platform</label>
-                                <select 
-                                  value={customQuoteAnswers.techStack} 
+                                <select
+                                  value={customQuoteAnswers.techStack}
                                   onChange={e => setCustomQuoteAnswers(p => ({ ...p, techStack: e.target.value }))}
                                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
                                 >
@@ -821,7 +1018,7 @@ const RequestServicePage = () => {
                               </div>
                               <div>
                                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">System Integrations Required</label>
-                                <input 
+                                <input
                                   type="text"
                                   placeholder="e.g. Stripe, HubSpot CRM, Salesforce, None"
                                   value={customQuoteAnswers.techIntegration}
@@ -831,8 +1028,8 @@ const RequestServicePage = () => {
                               </div>
                               <div>
                                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Hosting & Domain Access</label>
-                                <select 
-                                  value={customQuoteAnswers.techHosting} 
+                                <select
+                                  value={customQuoteAnswers.techHosting}
                                   onChange={e => setCustomQuoteAnswers(p => ({ ...p, techHosting: e.target.value }))}
                                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
                                 >
@@ -844,7 +1041,7 @@ const RequestServicePage = () => {
                               </div>
                             </>
                           )}
-                          
+
                           {isOps && (
                             <>
                               <div className="md:col-span-2">
@@ -863,20 +1060,20 @@ const RequestServicePage = () => {
                                       return (
                                         <div key={item.id} className="flex flex-col gap-2 p-3 border border-slate-200 rounded-xl bg-white transition-all sm:col-span-2">
                                           <label className="flex items-center gap-2 cursor-pointer">
-                                            <input 
-                                              type="checkbox" 
+                                            <input
+                                              type="checkbox"
                                               checked={checked}
                                               onChange={() => {
-                                                const nextAreas = checked 
+                                                const nextAreas = checked
                                                   ? customQuoteAnswers.opsSupportAreas.filter(a => a !== item.id)
                                                   : [...customQuoteAnswers.opsSupportAreas, item.id];
-                                                setCustomQuoteAnswers(p => ({ 
-                                                  ...p, 
+                                                setCustomQuoteAnswers(p => ({
+                                                  ...p,
                                                   opsSupportAreas: nextAreas,
-                                                  opsSupportAreasOther: checked ? '' : p.opsSupportAreasOther 
+                                                  opsSupportAreasOther: checked ? '' : p.opsSupportAreasOther
                                                 }));
                                               }}
-                                              className="w-4 h-4 text-blue-600 rounded" 
+                                              className="w-4 h-4 text-blue-600 rounded"
                                             />
                                             <span className="text-xs font-semibold text-slate-700">{item.label}</span>
                                           </label>
@@ -894,16 +1091,16 @@ const RequestServicePage = () => {
                                     }
                                     return (
                                       <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
-                                        <input 
-                                          type="checkbox" 
+                                        <input
+                                          type="checkbox"
                                           checked={checked}
                                           onChange={() => {
-                                            const nextAreas = checked 
+                                            const nextAreas = checked
                                               ? customQuoteAnswers.opsSupportAreas.filter(a => a !== item.id)
                                               : [...customQuoteAnswers.opsSupportAreas, item.id];
                                             setCustomQuoteAnswers(p => ({ ...p, opsSupportAreas: nextAreas }));
                                           }}
-                                          className="w-4 h-4 text-blue-600 rounded" 
+                                          className="w-4 h-4 text-blue-600 rounded"
                                         />
                                         <span className="text-xs font-semibold text-slate-700">{item.label}</span>
                                       </label>
@@ -913,8 +1110,8 @@ const RequestServicePage = () => {
                               </div>
                               <div>
                                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Estimated Support Hours Needed</label>
-                                <select 
-                                  value={customQuoteAnswers.opsHours} 
+                                <select
+                                  value={customQuoteAnswers.opsHours}
                                   onChange={e => setCustomQuoteAnswers(p => ({ ...p, opsHours: e.target.value }))}
                                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
                                 >
@@ -927,7 +1124,7 @@ const RequestServicePage = () => {
                               </div>
                               <div>
                                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Current Collaboration/Admin Tools Used</label>
-                                <input 
+                                <input
                                   type="text"
                                   placeholder="e.g. Slack, Trello, Zendesk, Excel, None"
                                   value={customQuoteAnswers.opsTools}
@@ -937,7 +1134,7 @@ const RequestServicePage = () => {
                               </div>
                             </>
                           )}
-                          
+
                           {isCreative && (
                             <>
                               <div className="md:col-span-2">
@@ -956,20 +1153,20 @@ const RequestServicePage = () => {
                                       return (
                                         <div key={item.id} className="flex flex-col gap-2 p-3 border border-slate-200 rounded-xl bg-white transition-all sm:col-span-2">
                                           <label className="flex items-center gap-2 cursor-pointer">
-                                            <input 
-                                              type="checkbox" 
+                                            <input
+                                              type="checkbox"
                                               checked={checked}
                                               onChange={() => {
-                                                const nextFormats = checked 
+                                                const nextFormats = checked
                                                   ? customQuoteAnswers.creativeFormats.filter(f => f !== item.id)
                                                   : [...customQuoteAnswers.creativeFormats, item.id];
-                                                setCustomQuoteAnswers(p => ({ 
-                                                  ...p, 
+                                                setCustomQuoteAnswers(p => ({
+                                                  ...p,
                                                   creativeFormats: nextFormats,
-                                                  creativeFormatsOther: checked ? '' : p.creativeFormatsOther 
+                                                  creativeFormatsOther: checked ? '' : p.creativeFormatsOther
                                                 }));
                                               }}
-                                              className="w-4 h-4 text-blue-600 rounded" 
+                                              className="w-4 h-4 text-blue-600 rounded"
                                             />
                                             <span className="text-xs font-semibold text-slate-700">{item.label}</span>
                                           </label>
@@ -987,16 +1184,16 @@ const RequestServicePage = () => {
                                     }
                                     return (
                                       <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
-                                        <input 
-                                          type="checkbox" 
+                                        <input
+                                          type="checkbox"
                                           checked={checked}
                                           onChange={() => {
-                                            const nextFormats = checked 
+                                            const nextFormats = checked
                                               ? customQuoteAnswers.creativeFormats.filter(f => f !== item.id)
                                               : [...customQuoteAnswers.creativeFormats, item.id];
                                             setCustomQuoteAnswers(p => ({ ...p, creativeFormats: nextFormats }));
                                           }}
-                                          className="w-4 h-4 text-blue-600 rounded" 
+                                          className="w-4 h-4 text-blue-600 rounded"
                                         />
                                         <span className="text-xs font-semibold text-slate-700">{item.label}</span>
                                       </label>
@@ -1006,8 +1203,8 @@ const RequestServicePage = () => {
                               </div>
                               <div>
                                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Visual Brand Direction</label>
-                                <select 
-                                  value={customQuoteAnswers.creativeDirection} 
+                                <select
+                                  value={customQuoteAnswers.creativeDirection}
                                   onChange={e => setCustomQuoteAnswers(p => ({ ...p, creativeDirection: e.target.value }))}
                                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
                                 >
@@ -1018,8 +1215,8 @@ const RequestServicePage = () => {
                               </div>
                               <div>
                                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Turnaround Urgency</label>
-                                <select 
-                                  value={customQuoteAnswers.creativeTurnaround} 
+                                <select
+                                  value={customQuoteAnswers.creativeTurnaround}
                                   onChange={e => setCustomQuoteAnswers(p => ({ ...p, creativeTurnaround: e.target.value }))}
                                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
                                 >
@@ -1031,7 +1228,7 @@ const RequestServicePage = () => {
                               </div>
                             </>
                           )}
-                          
+
                           {isMarketing && (
                             <>
                               <div className="md:col-span-2">
@@ -1050,20 +1247,20 @@ const RequestServicePage = () => {
                                       return (
                                         <div key={item.id} className="flex flex-col gap-2 p-3 border border-slate-200 rounded-xl bg-white transition-all sm:col-span-2">
                                           <label className="flex items-center gap-2 cursor-pointer">
-                                            <input 
-                                              type="checkbox" 
+                                            <input
+                                              type="checkbox"
                                               checked={checked}
                                               onChange={() => {
-                                                const nextChannels = checked 
+                                                const nextChannels = checked
                                                   ? customQuoteAnswers.marketingChannels.filter(c => c !== item.id)
                                                   : [...customQuoteAnswers.marketingChannels, item.id];
-                                                setCustomQuoteAnswers(p => ({ 
-                                                  ...p, 
+                                                setCustomQuoteAnswers(p => ({
+                                                  ...p,
                                                   marketingChannels: nextChannels,
-                                                  marketingChannelsOther: checked ? '' : p.marketingChannelsOther 
+                                                  marketingChannelsOther: checked ? '' : p.marketingChannelsOther
                                                 }));
                                               }}
-                                              className="w-4 h-4 text-blue-600 rounded" 
+                                              className="w-4 h-4 text-blue-600 rounded"
                                             />
                                             <span className="text-xs font-semibold text-slate-700">{item.label}</span>
                                           </label>
@@ -1081,16 +1278,16 @@ const RequestServicePage = () => {
                                     }
                                     return (
                                       <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
-                                        <input 
-                                          type="checkbox" 
+                                        <input
+                                          type="checkbox"
                                           checked={checked}
                                           onChange={() => {
-                                            const nextChannels = checked 
+                                            const nextChannels = checked
                                               ? customQuoteAnswers.marketingChannels.filter(c => c !== item.id)
                                               : [...customQuoteAnswers.marketingChannels, item.id];
                                             setCustomQuoteAnswers(p => ({ ...p, marketingChannels: nextChannels }));
                                           }}
-                                          className="w-4 h-4 text-blue-600 rounded" 
+                                          className="w-4 h-4 text-blue-600 rounded"
                                         />
                                         <span className="text-xs font-semibold text-slate-700">{item.label}</span>
                                       </label>
@@ -1100,8 +1297,8 @@ const RequestServicePage = () => {
                               </div>
                               <div>
                                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Monthly Ad Spend Budget (If Ads)</label>
-                                <select 
-                                  value={customQuoteAnswers.marketingAdSpend} 
+                                <select
+                                  value={customQuoteAnswers.marketingAdSpend}
                                   onChange={e => setCustomQuoteAnswers(p => ({ ...p, marketingAdSpend: e.target.value }))}
                                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
                                 >
@@ -1114,12 +1311,114 @@ const RequestServicePage = () => {
                               </div>
                               <div>
                                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Ideal Target Customer Profile</label>
-                                <input 
+                                <input
                                   type="text"
                                   placeholder="e.g. Local homeowners, B2B software companies"
                                   value={customQuoteAnswers.marketingAudience}
                                   onChange={e => setCustomQuoteAnswers(p => ({ ...p, marketingAudience: e.target.value }))}
                                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                                />
+                              </div>
+                            </>
+                          )}
+
+                          {isAI && (
+                            <>
+                              <div className="md:col-span-2">
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">What AI Features Are You Interested In?</label>
+                                <div className="grid sm:grid-cols-2 gap-3 mt-1">
+                                  {[
+                                    { id: 'ai_chat', label: 'AI Chat' },
+                                    { id: 'ai_voice', label: 'AI Voice' },
+                                    { id: 'ai_email', label: 'AI Email' },
+                                    { id: 'ai_reporting', label: 'AI Reporting' },
+                                    { id: 'workflow_automation', label: 'Workflow Automation' },
+                                    { id: 'other', label: 'Others: Specify' }
+                                  ].map(item => {
+                                    const checked = customQuoteAnswers.aiFeatures.includes(item.id);
+                                    if (item.id === 'other') {
+                                      return (
+                                        <div key={item.id} className="flex flex-col gap-2 p-3 border border-slate-200 rounded-xl bg-white transition-all sm:col-span-2">
+                                          <label className="flex items-center gap-2 cursor-pointer">
+                                            <input
+                                              type="checkbox"
+                                              checked={checked}
+                                              onChange={() => {
+                                                const nextFeatures = checked
+                                                  ? customQuoteAnswers.aiFeatures.filter(f => f !== item.id)
+                                                  : [...customQuoteAnswers.aiFeatures, item.id];
+                                                setCustomQuoteAnswers(p => ({
+                                                  ...p,
+                                                  aiFeatures: nextFeatures,
+                                                  aiFeaturesOther: checked ? '' : p.aiFeaturesOther
+                                                }));
+                                              }}
+                                              className="w-4 h-4 text-blue-600 rounded"
+                                            />
+                                            <span className="text-xs font-semibold text-slate-700">{item.label}</span>
+                                          </label>
+                                          {checked && (
+                                            <input
+                                              type="text"
+                                              placeholder="Specify other AI features..."
+                                              value={customQuoteAnswers.aiFeaturesOther || ''}
+                                              onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiFeaturesOther: e.target.value }))}
+                                              className="w-full mt-1 px-3 py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            />
+                                          )}
+                                        </div>
+                                      );
+                                    }
+                                    return (
+                                      <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
+                                        <input
+                                          type="checkbox"
+                                          checked={checked}
+                                          onChange={() => {
+                                            const nextFeatures = checked
+                                              ? customQuoteAnswers.aiFeatures.filter(f => f !== item.id)
+                                              : [...customQuoteAnswers.aiFeatures, item.id];
+                                            setCustomQuoteAnswers(p => ({ ...p, aiFeatures: nextFeatures }));
+                                          }}
+                                          className="w-4 h-4 text-blue-600 rounded"
+                                        />
+                                        <span className="text-xs font-semibold text-slate-700">{item.label}</span>
+                                      </label>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+
+                              <div>
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">What Tools Does Your Business Currently Use?</label>
+                                <input
+                                  type="text"
+                                  placeholder="e.g. HubSpot, Zapier, Google Sheets, None"
+                                  value={customQuoteAnswers.aiCurrentTools}
+                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiCurrentTools: e.target.value }))}
+                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">How Much Time Does This Currently Take?</label>
+                                <input
+                                  type="text"
+                                  placeholder="e.g. 10 hours per week"
+                                  value={customQuoteAnswers.aiTimeSpent}
+                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiTimeSpent: e.target.value }))}
+                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                                />
+                              </div>
+
+                              <div className="md:col-span-2">
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">What Does Success Look Like?</label>
+                                <textarea
+                                  rows={3}
+                                  placeholder="Describe what a successful outcome would look like for this project..."
+                                  value={customQuoteAnswers.aiSuccessLooksLike}
+                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiSuccessLooksLike: e.target.value }))}
+                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm resize-none"
                                 />
                               </div>
                             </>
@@ -1140,6 +1439,7 @@ const RequestServicePage = () => {
                     maxFiles={MAX_FILES}
                   />
                 </div>
+
                 <div className="grid md:grid-cols-2 gap-6 mt-6">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2"><FaCalendar className="inline mr-2" />Desired Timeline</label>
@@ -1163,224 +1463,21 @@ const RequestServicePage = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between mt-8">
-                <button type="button" onClick={prevStep} className="px-8 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2"><FaArrowLeft /> Back</button>
+
+              {paymentError && (
+                <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">{paymentError}</div>
+              )}
+
+              <div className="flex justify-end mt-8 pt-8 border-t border-gray-200">
                 <button
                   type="button"
-                  onClick={nextStep}
-                  disabled={!formData.projectDescription?.trim()}
-                  className={`px-8 py-3 font-semibold rounded-lg transition-all ${!formData.projectDescription?.trim() ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'} flex items-center gap-2`}
+                  onClick={handleFinalSubmit}
+                  disabled={!isStep3Complete || isSubmitting}
+                  className={`px-8 py-4 font-semibold rounded-lg transition-all flex items-center gap-2 ${!isStep3Complete || isSubmitting ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'}`}
                 >
-                  Review Legal Terms <FaArrowRight />
+                  {isSubmitting ? <><FaSpinner className="animate-spin" />{uploadedFiles.length > 0 ? 'Uploading Files...' : 'Submitting...'}</> : <><FaPaperPlane />Submit Request</>}
                 </button>
               </div>
-            </motion.div>
-          )}
-
-          {/* ── Step 4: Legal ── */}
-          {currentStep === 4 && (
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-              <div className="mb-8 text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"><FaShieldAlt className="text-3xl text-blue-600" /></div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">Legal Agreement</h2>
-                <p className="text-gray-600 text-lg max-w-2xl mx-auto">Please review and agree to both documents to proceed.</p>
-              </div>
-              <div className="flex justify-center mb-8">
-                <div className="bg-gray-100 p-1 rounded-lg inline-flex">
-                  {[['privacy', 'Privacy Policy', FaLock], ['terms', 'Terms of Service', FaFileContract]].map(([id, label, Icon]) => (
-                    <button key={id} type="button" onClick={() => setActiveLegalTab(id)}
-                      className={`px-6 py-2 rounded-md font-semibold transition-all ${activeLegalTab === id ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}>
-                      <Icon className="inline mr-2" />{label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div className="bg-gray-50 rounded-xl p-6 mb-8 max-h-96 overflow-y-auto border border-gray-200">
-                {(activeLegalTab === 'privacy' ? privacyPolicyContent : termsContent).map((section, idx) => (
-                  <div key={idx} className="bg-white p-4 rounded-lg border border-gray-200 mb-3">
-                    <h4 className="font-bold text-gray-900 mb-2 flex items-center">
-                      <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs mr-2">{idx + 1}</span>
-                      {section.title}
-                    </h4>
-                    <p className="text-gray-700 text-sm leading-relaxed">{section.content}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="space-y-4 bg-white border-2 border-gray-200 rounded-xl p-6">
-                <h4 className="font-bold text-gray-900 mb-4 text-lg">Acknowledgment Required</h4>
-                {[['agreedToPrivacy', 'I agree to the Privacy Policy', 'I have read and understand how Scale Link Alliance collects, uses, and protects my personal information.'],
-                ['agreedToTerms', 'I agree to the Terms of Service', 'I have read and agree to abide by the Terms of Service, including user conduct guidelines and liability limitations.']
-                ].map(([name, title, desc]) => (
-                  <label key={name} className="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                    <input type="checkbox" name={name} checked={formData[name]} onChange={handleInputChange} className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300 mt-0.5" />
-                    <div className="ml-3"><span className="block font-semibold text-gray-900">{title} *</span><span className="block text-sm text-gray-600 mt-1">{desc}</span></div>
-                  </label>
-                ))}
-              </div>
-              {!canProceedFromLegal && (
-                <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg flex items-start">
-                  <span className="text-yellow-600 mr-2">⚠️</span>
-                  <p className="text-sm text-yellow-800">You must agree to both the Privacy Policy and Terms of Service to proceed.</p>
-                </div>
-              )}
-              <div className="flex justify-between mt-8">
-                <button type="button" onClick={prevStep} className="px-8 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2"><FaArrowLeft /> Back</button>
-                <button type="button" onClick={nextStep} disabled={!canProceedFromLegal}
-                  className={`px-8 py-3 font-semibold rounded-lg transition-all flex items-center gap-2 ${!canProceedFromLegal ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'}`}>
-                  Continue to Review <FaArrowRight />
-                </button>
-              </div>
-            </motion.div>
-          )}
-
-          {/* ── Step 5: Review & Payment ── */}
-          {currentStep === 5 && (
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-              {paymentStep === 'review' && (
-                <>
-                  <div className="mb-8"><h2 className="text-3xl font-bold text-gray-900 mb-4">Review & Payment</h2><p className="text-gray-600">Please review your information before completing payment.</p></div>
-                  <div className="grid md:grid-cols-2 gap-8">
-                    {/* Left: review */}
-                    <div className="space-y-6 bg-gray-50 p-6 rounded-xl">
-                      <div className="grid md:grid-cols-2 gap-4">
-                        {[['Name', `${formData.firstName} ${formData.lastName}`], ['Company', formData.company], ['Email', formData.email], ['Phone', fullPhone || 'Not provided']].map(([label, val]) => (
-                          <div key={label}><p className="text-sm text-gray-500">{label}</p><p className="font-semibold text-gray-900">{val}</p></div>
-                        ))}
-                      </div>
-                      <div className="border-t border-gray-200 pt-4">
-                        <p className="text-sm text-gray-500 mb-2">Selected Services & Packages</p>
-                        <div className="space-y-2">
-                          {Object.entries(selectedServices).map(([service, pkg]) => {
-                            const ServiceIcon = getServiceIcon(service);
-                            const pkgData = SERVICES_WITH_PACKAGES[service]?.packages[pkg];
-                            return (
-                              <div key={service} className="flex items-center text-sm bg-white p-2 rounded border border-gray-200">
-                                <ServiceIcon className="mr-2 text-blue-600" />
-                                <span className="font-medium">{service}</span>
-                                <span className="mx-2 text-gray-400">→</span>
-                                <span className="text-gray-600">{pkgData?.name}</span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                      {formData.projectDescription && (
-                        <div className="border-t border-gray-200 pt-4">
-                          <p className="text-sm text-gray-500 mb-2">Project Description</p>
-                          <p className="text-gray-900 bg-white p-3 rounded-lg border border-gray-200 text-sm">{formData.projectDescription}</p>
-                        </div>
-                      )}
-                      {uploadedFiles.length > 0 && (
-                        <div className="border-t border-gray-200 pt-4">
-                          <p className="text-sm text-gray-500 mb-2">Uploaded Files ({uploadedFiles.length})</p>
-                          <div className="space-y-2 max-h-32 overflow-y-auto">
-                            {uploadedFiles.map(file => (
-                              <div key={file.id} className="flex items-center text-sm text-gray-700 bg-white p-2 rounded border border-gray-200">
-                                <FaFile className="mr-2 text-blue-500 flex-shrink-0" />
-                                <span className="truncate flex-1">{file.name}</span>
-                                <span className="ml-2 text-xs text-gray-500">({formatFileSize(file.size)})</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      <div className="border-t border-gray-200 pt-4 bg-green-50 p-4 rounded-lg border border-green-200">
-                        <div className="flex items-center"><FaCheck className="text-green-600 mr-2" /><p className="font-semibold text-green-900">Legal Agreements Confirmed</p></div>
-                      </div>
-                    </div>
-                    {/* Right: payment */}
-                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border-2 border-blue-200 shadow-md">
-                      <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2"><FaCreditCard className="text-blue-600" />Payment Summary</h3>
-                      <div className="mb-6"><CurrencySelector selectedCurrency={selectedCurrency} onCurrencyChange={setSelectedCurrency} /></div>
-                      <div className="space-y-3 mb-6 bg-white p-4 rounded-lg">
-                        {Object.entries(selectedServices).map(([service, pkg]) => {
-                          const ServiceIcon = getServiceIcon(service), amount = convertedAmounts[service]?.[pkg] || 0, pkgData = SERVICES_WITH_PACKAGES[service]?.packages[pkg];
-                          return (
-                            <div key={service} className="flex justify-between items-center text-sm border-b border-gray-100 pb-2">
-                              <span className="text-gray-700 flex items-center"><ServiceIcon className="mr-2 text-gray-500" />{service}<span className="text-xs text-gray-500 ml-1">({pkgData?.name})</span></span>
-                              <span className="font-medium text-gray-900">{isLoadingRates ? '...' : amount > 0 ? formatPrice(amount, selectedCurrency, currencyObj.symbol) : 'Custom Quote'}</span>
-                            </div>
-                          );
-                        })}
-                      </div>
-                      <div className="border-t-2 border-blue-200 pt-4 mb-6">
-                        <div className="flex justify-between items-center">
-                          <span className="text-lg font-bold text-gray-900">Total Due Today:</span>
-                          <span className="text-3xl font-bold text-blue-600">
-                            {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, selectedCurrency, currencyObj.symbol) : 'Custom Quote'}
-                          </span>
-                        </div>
-                      </div>
-                      {paymentError && (
-                        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex justify-between items-start">
-                          <span>{paymentError}</span>
-                          <button type="button" onClick={() => setPaymentError(null)} className="text-red-800 font-bold ml-2">✕</button>
-                        </div>
-                      )}
-                      {totalAmount === 0 && (
-                        <div className="mb-4 bg-slate-50 border border-slate-200 p-4 rounded-xl text-left">
-                          <p className="text-xs text-slate-600 mb-2 leading-relaxed font-medium">
-                            Some custom projects may require a deposit or escrow-based milestone payment before work begins. This helps protect both the client and ScaleLink Alliance by clearly connecting payment to the approved project scope, milestones, and deliverables.
-                          </p>
-                          <label className="flex items-start gap-2 cursor-pointer">
-                            <input
-                              type="checkbox"
-                              checked={agreedToEscrow}
-                              onChange={e => setAgreedToEscrow(e.target.checked)}
-                              className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 mt-0.5 cursor-pointer"
-                            />
-                            <span className="text-xs font-semibold text-slate-700 leading-tight">
-                              I understand that my custom quote may include deposit, milestone, or escrow-based payment terms.
-                            </span>
-                          </label>
-                        </div>
-                      )}
-                      
-                      <button type="button" onClick={handleProceedToPayment} disabled={isSubmitting || isLoadingRates || (totalAmount === 0 && !agreedToEscrow)}
-                        className="w-full py-5 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-lg rounded-xl hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl mb-4">
-                        {isSubmitting ? <><FaSpinner className="animate-spin" />{uploadedFiles.length > 0 ? 'Uploading Files...' : 'Processing...'}</> :
-                          isLoadingRates ? <><FaSpinner className="animate-spin" />Loading Exchange Rates...</> :
-                            totalAmount > 0 ? <><FaCreditCard className="text-xl" />Proceed to Payment<FaArrowRight className="text-sm" /></> :
-                              <><FaPaperPlane />Submit Request for Quote</>}
-                      </button>
-                      <div className="flex items-center justify-center gap-2 text-xs text-gray-600 bg-white bg-opacity-50 p-3 rounded-lg">
-                        <FaLock className="text-green-600" />
-                        <span>Secured by <strong>Stripe</strong>. We never store your card information.</span>
-                      </div>
-                      <div className="mt-4 text-center">
-                        <button type="button" onClick={prevStep} className="text-gray-500 hover:text-gray-700 text-sm flex items-center justify-center gap-1 mx-auto"><FaArrowLeft /> Back to edit information</button>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
-
-              {paymentStep === 'payment' && clientSecret && (
-                <div className="max-w-2xl mx-auto">
-                  <div className="mb-8 text-center">
-                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"><FaCreditCard className="text-3xl text-blue-600" /></div>
-                    <h2 className="text-3xl font-bold text-gray-900 mb-2">Complete Your Payment</h2>
-                    <p className="text-gray-600">Enter your payment details below.</p>
-                  </div>
-                  <div className="bg-white p-8 rounded-xl border-2 border-gray-200 mb-6 shadow-lg">
-                    <div className="flex justify-between items-center mb-6 pb-6 border-b border-gray-200">
-                      <span className="text-gray-600">Amount to Pay:</span>
-                      <span className="text-3xl font-bold text-blue-600">{formatPrice(totalAmount, selectedCurrency, currencyObj.symbol)}</span>
-                    </div>
-                    <Elements stripe={stripePromise} options={stripeOptions}>
-                      <CheckoutForm amount={totalAmount} currency={selectedCurrency} onSuccess={handlePaymentSuccess} onError={handlePaymentError} formData={formData} />
-                    </Elements>
-                  </div>
-                  <button type="button" onClick={() => setPaymentStep('review')} className="w-full py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors">Back to Review</button>
-                </div>
-              )}
-
-              {paymentStep === 'payment' && !clientSecret && !paymentError && (
-                <div className="flex flex-col items-center justify-center py-12">
-                  <FaSpinner className="animate-spin text-4xl text-blue-600 mb-4" />
-                  <p className="text-gray-600">Initializing secure payment...</p>
-                </div>
-              )}
             </motion.div>
           )}
         </div>
