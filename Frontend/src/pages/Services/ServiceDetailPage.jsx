@@ -9,13 +9,17 @@ import {
   FaProjectDiagram, FaCamera, FaPalette, FaCloudUploadAlt, FaShieldAlt,
   FaRegBuilding, FaChartLine, FaTools, FaStar, FaClock, FaDollarSign,
   FaInfoCircle, FaChevronDown, FaChevronUp, FaSyncAlt, FaBriefcase,
-  FaRobot, FaCalendar, FaChevronLeft, FaChevronRight, FaTimes
+  FaRobot, FaCalendar, FaChevronLeft, FaChevronRight, FaTimes, FaExpand
 } from 'react-icons/fa';
 import PackageComparison from '../../components/sections/PackageComparison';
 import OrderSidebar from '../../components/sections/OrderSidebar';
+import { SERVICE_GALLERY_LOCAL } from '../../data/serviceImagesLocal';
 
 // ─── SERVICE IMAGES MAP ───
-// 👇 REPLACE THESE WITH YOUR ACTUAL IMAGE URLs
+// Galleries here are the ORIGINAL remote fallback. getServiceImages()
+// below prefers SERVICE_GALLERY_LOCAL (locally optimized webp files from
+// scripts/optimize-images.mjs) and only falls back to these remote URLs
+// for a slug that hasn't been processed yet.
 
 const SERVICE_IMAGES = {
   'graphic-design': {
@@ -163,9 +167,13 @@ const SERVICE_IMAGES = {
   'api-integration': {
     main: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop',
     gallery: [
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop'
+      'https://i.ibb.co/srV1bGd/API-Integration-on-Laptop.jpg',
+      'https://files.catbox.moe/2r9hsz.jpg',
+      'https://files.catbox.moe/3whuwm.jpg',
+      'https://i.ibb.co/WpskT9mB/Business-Workflow-Planning.jpg',
+      'https://i.ibb.co/TM9Lynf6/Cloud-Architecture.jpg',
+      'https://i.ibb.co/Fbh932jd/Hand-Drawn-Workflow-Diagram.jpg',
+      'https://files.catbox.moe/0fa7w2.jpg'
     ]
   },
   'website-maintenance': {
@@ -262,7 +270,6 @@ const SERVICE_IMAGES = {
       'https://i.ibb.co/N6QtXKX5/Lead-generation-process-diagram.jpg',
       'https://i.ibb.co/Kp94vjyP/Tablet-with-Lead-Generation.jpg',
       'https://i.ibb.co/0pj76Vq9/Tablet-with-Lead-Generation-Network.jpg'
-
     ]
   },
   'reputation-review-management': {
@@ -290,13 +297,17 @@ const SERVICE_IMAGES = {
   'ai-automation': {
     main: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop',
     gallery: [
-      'https://i.ibb.co/HDzPDRCj/AI-Agent-Operator.jpg',
-      'https://i.ibb.co/srV1bGd/API-Integration-on-Laptop.jpg',
-      'https://i.ibb.co/hRGYwZRV/API-Workflow-Diagram.jpg',
-      'https://i.ibb.co/WpskT9mB/Business-Workflow-Planning.jpg',
-      'https://i.ibb.co/TM9Lynf6/Cloud-Architecture.jpg',
-      'https://i.ibb.co/Fbh932jd/Hand-Drawn-Workflow-Diagram.jpg',
-      'https://i.ibb.co/Kjt1Qh0q/Tablet-Workflow-Diagram.jpg'
+      'https://ibb.co/tTdH28M6',
+    'https://ibb.co/ymgrk6gf',
+    'https://ibb.co/GG86gL9',
+    'https://ibb.co/RxjHg2f',
+    'https://ibb.co/8DWbsg3y',
+    'https://ibb.co/RTVRWwmP',
+    'https://ibb.co/BV55kZjF',
+    'https://ibb.co/HDSxb1Q0',
+    'https://ibb.co/hJYjfthq',
+    'https://ibb.co/yB6twpPn',
+    'https://ibb.co/Y4psZ6kS'
     ]
   },
   'business-process-automation': {
@@ -390,7 +401,7 @@ const SERVICE_IMAGES = {
   }
 };
 
-// ─── COMPLETE SERVICES DATA ───
+// ─── COMPLETE SERVICES DATA WITH CORRECTED PRICES ───
 const SERVICES_DATA = {
   // ─── 1. CONTENT, BRANDING & CREATIVE ───
   'graphic-design': {
@@ -414,7 +425,7 @@ const SERVICES_DATA = {
       { name: 'Video Editing & Motion Graphics', reason: 'visual marketing content' }
     ],
     packages: {
-      starter: { name: 'Starter Package', price: '$1', description: 'Ideal for small design requests or single marketing assets.', includes: ['1 graphic design asset', 'basic design layout', 'web-ready file format', '1 revision round'] },
+      starter: { name: 'Starter Package', price: '$35', description: 'Ideal for small design requests or single marketing assets.', includes: ['1 graphic design asset', 'basic design layout', 'web-ready file format', '1 revision round'] },
       growth: { name: 'Growth Package', price: '$175', description: 'Ideal for businesses producing multiple marketing materials.', includes: ['up to 5 graphic design assets', 'design variations or layouts', 'web-ready file formats', '2 revision rounds'] },
       premium: { name: 'Premium Package', price: '$499', description: 'Ideal for businesses running active marketing campaigns.', includes: ['up to 10 graphic design assets', 'consistent brand styling', 'multiple design formats', 'priority revisions and updates'] }
     },
@@ -647,8 +658,7 @@ const SERVICES_DATA = {
       portfolioCardText: "A professional brand photography concept built to showcase products clearly, look premium, and elevate brand imagery."
     }
   },
-
-  // ─── 2. WEBSITE & WEB APP DEVELOPMENT ───
+// ─── 2. WEBSITE & WEB APP DEVELOPMENT ───
   'website-development': {
     title: 'Website Development',
     category: 'Tech & Development',
@@ -722,7 +732,7 @@ const SERVICES_DATA = {
       { name: 'CRM & Marketing Automation', reason: 'lead tracking' }
     ],
     packages: {
-      starter: { name: 'Starter Package', price: '$1', description: 'Ideal for businesses launching a simple marketing campaign.', includes: ['1 landing page design', 'lead capture form integration', 'mobile-responsive layout', 'basic analytics setup', 'call-to-action optimization'] },
+      starter: { name: 'Starter Package', price: '$499', description: 'Ideal for businesses launching a simple marketing campaign.', includes: ['1 landing page design', 'lead capture form integration', 'mobile-responsive layout', 'basic analytics setup', 'call-to-action optimization'] },
       growth: { name: 'Growth Package', price: '$1,299', description: 'Ideal for businesses running structured marketing campaigns.', includes: ['3-page sales funnel', 'landing page + follow-up pages', 'lead capture forms', 'conversion-focused design', 'analytics integration'] },
       premium: { name: 'Premium Package', price: '$2,499', description: 'Ideal for businesses running full digital marketing funnels.', includes: ['complete sales funnel (5 pages)', 'multiple landing pages', 'advanced form integrations', 'email marketing integration', 'conversion optimization setup'] }
     },
@@ -739,7 +749,7 @@ const SERVICES_DATA = {
         { label: 'Conversion optimization setup', values: { basic: false, standard: false, premium: true } }
       ],
       details: {
-        basic: { price: '$1', packageName: 'Starter Package', shortDescription: '1 landing page, lead capture form, mobile-responsive', description: 'Ideal for businesses launching a simple marketing campaign.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['1 landing page design', 'lead capture form integration', 'mobile-responsive layout', 'basic analytics setup', 'call-to-action optimization'] },
+        basic: { price: '$499', packageName: 'Starter Package', shortDescription: '1 landing page, lead capture form, mobile-responsive', description: 'Ideal for businesses launching a simple marketing campaign.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['1 landing page design', 'lead capture form integration', 'mobile-responsive layout', 'basic analytics setup', 'call-to-action optimization'] },
         standard: { price: '$1,299', packageName: 'Growth Package', shortDescription: '3-page sales funnel, conversion-focused design', description: 'Ideal for businesses running structured marketing campaigns.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['3-page sales funnel', 'landing page + follow-up pages', 'lead capture forms', 'conversion-focused design', 'analytics integration'] },
         premium: { price: '$2,499', packageName: 'Premium Package', shortDescription: 'Complete 5-page funnel, advanced integrations', description: 'Ideal for businesses running full digital marketing funnels.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['complete sales funnel (5 pages)', 'multiple landing pages', 'advanced form integrations', 'email marketing integration', 'conversion optimization setup'] }
       }
@@ -1477,9 +1487,9 @@ const SERVICES_DATA = {
       { name: 'Website Development', reason: 'integrate analytics tools' }
     ],
     packages: {
-      starter: { name: 'Starter Package', price: '$199/month', description: 'Ideal for businesses needing basic performance insights.', includes: ['1 custom data report', 'basic data analysis', 'visual charts or graphs', 'summary of key insights'] },
-      growth: { name: 'Growth Package', price: '$699/month', description: 'Ideal for businesses tracking multiple performance areas.', includes: ['3 custom reports', 'visual dashboards or charts', 'trend analysis', 'summary recommendations'] },
-      premium: { name: 'Premium Package', price: '$1,999/month', description: 'Ideal for businesses seeking ongoing performance monitoring.', includes: ['custom analytics dashboard', '7 custom data reports', 'visual performance charts', 'detailed trend analysis', 'strategic insight summary'] }
+      starter: { name: 'Starter Package', price: '$199', description: 'Ideal for businesses needing basic performance insights.', includes: ['1 custom data report', 'basic data analysis', 'visual charts or graphs', 'summary of key insights'] },
+      growth: { name: 'Growth Package', price: '$699', description: 'Ideal for businesses tracking multiple performance areas.', includes: ['3 custom reports', 'visual dashboards or charts', 'trend analysis', 'summary recommendations'] },
+      premium: { name: 'Premium Package', price: '$1,999', description: 'Ideal for businesses seeking ongoing performance monitoring.', includes: ['custom analytics dashboard', '7 custom data reports', 'visual performance charts', 'detailed trend analysis', 'strategic insight summary'] }
     },
     packageComparison: {
       tiers: ['basic', 'standard', 'premium'],
@@ -1492,9 +1502,9 @@ const SERVICES_DATA = {
         { label: 'Strategic insight summary', values: { basic: false, standard: false, premium: true } }
       ],
       details: {
-        basic: { price: '$199/month', packageName: 'Starter Package', shortDescription: '1 custom data report, basic analysis, visual charts', description: 'Ideal for businesses needing basic performance insights.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['1 custom data report', 'basic data analysis', 'visual charts or graphs', 'summary of key insights'] },
-        standard: { price: '$699/month', packageName: 'Growth Package', shortDescription: '3 custom reports, dashboards, trend analysis, recommendations', description: 'Ideal for businesses tracking multiple performance areas.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['3 custom reports', 'visual dashboards or charts', 'trend analysis', 'summary recommendations'] },
-        premium: { price: '$1,999/month', packageName: 'Premium Package', shortDescription: 'Custom analytics dashboard, multiple reports, strategic insights', description: 'Ideal for businesses seeking ongoing performance monitoring.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['custom analytics dashboard', '7 custom data reports', 'visual performance charts', 'detailed trend analysis', 'strategic insight summary'] }
+        basic: { price: '$199', packageName: 'Starter Package', shortDescription: '1 custom data report, basic analysis, visual charts', description: 'Ideal for businesses needing basic performance insights.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['1 custom data report', 'basic data analysis', 'visual charts or graphs', 'summary of key insights'] },
+        standard: { price: '$699', packageName: 'Growth Package', shortDescription: '3 custom reports, dashboards, trend analysis, recommendations', description: 'Ideal for businesses tracking multiple performance areas.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['3 custom reports', 'visual dashboards or charts', 'trend analysis', 'summary recommendations'] },
+        premium: { price: '$1,999', packageName: 'Premium Package', shortDescription: 'Custom analytics dashboard, multiple reports, strategic insights', description: 'Ideal for businesses seeking ongoing performance monitoring.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['custom analytics dashboard', '7 custom data reports', 'visual performance charts', 'detailed trend analysis', 'strategic insight summary'] }
       }
     },
     sampleProject: {
@@ -1764,8 +1774,13 @@ const SERVICES_DATA = {
 };
 
 // ─── HELPER FUNCTIONS ───
+
+// Gallery images now prefer the locally-optimized set generated by
+// scripts/optimize-images.mjs (public/images/services/<slug>/*.webp).
+// Falls back to the original remote gallery for any slug not yet processed.
 const getServiceImages = (slug) => {
-  return SERVICE_IMAGES[slug] || {
+  const entry = SERVICE_IMAGES[slug];
+  const fallback = {
     main: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=500&fit=crop',
     gallery: [
       'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=500&fit=crop',
@@ -1773,6 +1788,23 @@ const getServiceImages = (slug) => {
       'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=500&fit=crop'
     ]
   };
+  const localGallery = SERVICE_GALLERY_LOCAL[slug];
+  return {
+    main: entry?.main || fallback.main,
+    gallery: (localGallery && localGallery.length > 0) ? localGallery : (entry?.gallery || fallback.gallery)
+  };
+};
+
+// ─── IMAGE OPTIMIZATION HELPER (fallback path only) ───
+// Only used for gallery images NOT yet covered by SERVICE_GALLERY_LOCAL.
+// Once optimize-images.mjs has run for a slug, its images are already
+// local (/images/services/...) and this passes them through untouched.
+const optimizeImage = (url, width, quality = 75) => {
+  if (!url) return url;
+  if (url.includes('images.unsplash.com')) return url;
+  if (url.startsWith('/images/')) return url;
+  const encoded = encodeURIComponent(url);
+  return `https://images.weserv.nl/?url=${encoded}&w=${width}&q=${quality}&output=webp&fit=cover`;
 };
 
 const getServiceSlug = (serviceName) => {
@@ -1824,7 +1856,45 @@ const renderStars = (rating) => {
   return stars;
 };
 
-// ─── IMAGE GALLERY COMPONENT ───
+// ─── LAZY IMAGE ───
+// Only sets `src` once the element is actually scrolled near the viewport
+// (IntersectionObserver), instead of relying on native loading="lazy" —
+// which can fire prematurely inside a horizontally-scrolling thumbnail
+// strip and queue every request at once behind the browser's ~6
+// concurrent-connections-per-host limit.
+const LazyImg = ({ src, alt, className, width, height }) => {
+  const ref = React.useRef(null);
+  const [inView, setInView] = useState(false);
+
+  React.useEffect(() => {
+    if (!ref.current || inView) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '150px' }
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [inView]);
+
+  return (
+    <img
+      ref={ref}
+      src={inView ? src : undefined}
+      alt={alt}
+      width={width}
+      height={height}
+      decoding="async"
+      className={className}
+    />
+  );
+};
+
+// ─── IMAGE GALLERY COMPONENT (full visibility) ───
 const ImageGallery = ({ images, serviceTitle }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -1852,6 +1922,14 @@ const ImageGallery = ({ images, serviceTitle }) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isFullscreen, currentIndex]);
 
+  // Warm the browser cache for the current image's fullscreen-res version
+  // ahead of time, so clicking to expand doesn't pay a fresh network
+  // round-trip. No-op (near-instant) once images are served locally.
+  React.useEffect(() => {
+    const img = new Image();
+    img.src = optimizeImage(images[currentIndex], 1600, 82);
+  }, [currentIndex, images]);
+
   if (!images || images.length === 0) {
     return null;
   }
@@ -1859,18 +1937,23 @@ const ImageGallery = ({ images, serviceTitle }) => {
   return (
     <>
       <div className="relative">
-        <div 
+        <div
           className="rounded-xl overflow-hidden bg-gray-100 cursor-pointer group relative"
           onClick={openFullscreen}
         >
           <img
-            src={images[currentIndex]}
+            src={optimizeImage(images[currentIndex], 1200)}
             alt={`${serviceTitle} - Image ${currentIndex + 1}`}
-            className="w-full h-[300px] md:h-[400px] object-cover transition-transform duration-300 group-hover:scale-105"
+            width={1200}
+            height={600}
+            loading={currentIndex === 0 ? 'eager' : 'lazy'}
+            fetchpriority={currentIndex === 0 ? 'high' : 'auto'}
+            decoding="async"
+            className="w-full h-auto max-h-[500px] object-contain bg-gray-50 transition-transform duration-300 group-hover:scale-[1.01]"
           />
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <span className="text-white text-sm font-semibold bg-black/60 px-4 py-2 rounded-lg flex items-center gap-2">
-              Click to view fullscreen
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+            <span className="text-white text-sm font-semibold bg-black/60 px-4 py-2 rounded-lg flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <FaExpand className="inline" /> Click to view fullscreen
             </span>
           </div>
           <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-3 py-1.5 rounded-full">
@@ -1882,13 +1965,13 @@ const ImageGallery = ({ images, serviceTitle }) => {
           <>
             <button
               onClick={(e) => { e.stopPropagation(); prevImage(); }}
-              className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all hover:scale-110 hidden md:block"
+              className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2.5 rounded-full shadow-lg transition-all hover:scale-110 hover:shadow-xl"
             >
               <FaChevronLeft size={18} />
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); nextImage(); }}
-              className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all hover:scale-110 hidden md:block"
+              className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2.5 rounded-full shadow-lg transition-all hover:scale-110 hover:shadow-xl"
             >
               <FaChevronRight size={18} />
             </button>
@@ -1896,16 +1979,22 @@ const ImageGallery = ({ images, serviceTitle }) => {
         )}
 
         {images.length > 1 && (
-          <div className="flex gap-2 mt-4 overflow-x-auto pb-2">
+          <div className="flex gap-2 mt-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
             {images.map((img, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
-                className={`flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden border-2 transition-all ${
+                className={`flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden border-2 transition-all ${
                   idx === currentIndex ? 'border-blue-600 ring-2 ring-blue-200' : 'border-transparent hover:border-gray-300'
                 }`}
               >
-                <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+                <LazyImg
+                  src={optimizeImage(img, 100)}
+                  alt={`Thumbnail ${idx + 1}`}
+                  width={96}
+                  height={64}
+                  className="w-full h-full object-cover"
+                />
               </button>
             ))}
           </div>
@@ -1926,7 +2015,13 @@ const ImageGallery = ({ images, serviceTitle }) => {
             </button>
             <div className="absolute top-4 left-4 text-white/60 text-sm">{currentIndex + 1} / {images.length}</div>
             <div className="max-w-[90vw] max-h-[85vh] cursor-pointer" onClick={(e) => e.stopPropagation()}>
-              <img src={images[currentIndex]} alt={`${serviceTitle} - Fullscreen`} className="max-w-full max-h-[85vh] object-contain rounded-lg" />
+              <img
+                src={optimizeImage(images[currentIndex], 1600, 82)}
+                alt={`${serviceTitle} - Fullscreen`}
+                loading="eager"
+                decoding="async"
+                className="max-w-full max-h-[85vh] object-contain rounded-lg"
+              />
             </div>
             {images.length > 1 && (
               <>
@@ -1942,7 +2037,11 @@ const ImageGallery = ({ images, serviceTitle }) => {
               <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 max-w-[80vw] overflow-x-auto pb-2">
                 {images.map((img, idx) => (
                   <button key={idx} onClick={(e) => { e.stopPropagation(); setCurrentIndex(idx); }} className={`flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-all ${idx === currentIndex ? 'border-white ring-2 ring-blue-400' : 'border-white/30 hover:border-white/60'}`}>
-                    <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+                    <LazyImg
+                      src={optimizeImage(img, 100)}
+                      alt={`Thumbnail ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                    />
                   </button>
                 ))}
               </div>
@@ -2039,7 +2138,7 @@ const ServiceDetailPage = () => {
                       <div className="flex items-center gap-2 text-sm text-gray-600"><FaClock className="text-gray-400" /><span>Custom delivery timeline</span></div>
                       <div className="flex items-center gap-2 text-sm text-gray-600"><FaSyncAlt className="text-gray-400" /><span>Unlimited revisions</span></div>
                     </div>
-                    <Link to={`/request-service?service=${serviceSlug}&package=custom`} className="block w-full py-3 px-4 bg-purple-600 text-white font-bold rounded-lg text-center hover:bg-purple-700 transition-colors shadow-md">Request Custom Quote</Link>
+                    <Link to="/request-service?service=custom-quote&step=2" className="block w-full py-3 px-4 bg-purple-600 text-white font-bold rounded-lg text-center hover:bg-purple-700 transition-colors shadow-md">Request Custom Quote</Link>
                     <Link to="/contact" className="block w-full mt-3 py-3 px-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg text-center hover:bg-gray-50 transition-colors">Contact Me</Link>
                     <div className="mt-4 text-center"><p className="text-xs text-gray-400">Need flexibility? <Link to="/contact" className="text-blue-600 hover:underline">Hire by the hour</Link></p></div>
                   </>
@@ -2112,7 +2211,7 @@ const ServiceDetailPage = () => {
         </div>
       </div>
 
-      {/* Rest of the page - same as before */}
+      {/* Rest of the page */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* What This Service Helps Businesses Achieve */}
         <section className="mb-16">
@@ -2192,133 +2291,6 @@ const ServiceDetailPage = () => {
           </section>
         )}
 
-        {/* Sample Project
-        {service.sampleProject && (
-          <section className="mb-16 bg-gradient-to-br from-slate-50 to-blue-50/50 p-8 md:p-10 rounded-2xl border-t-4 border-t-blue-500 shadow-sm">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="p-2 bg-blue-100 rounded-lg text-blue-600"><FaStar className="w-6 h-6" /></div>
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900">See What We Can Create</h2>
-                <p className="text-gray-600 mt-1">Explore a sample project concept that illustrates the type of work ScaleLink Alliance can deliver.</p>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-md border border-gray-100 border-l-4 border-l-blue-500 p-6 md:p-8 mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6 pb-6 border-b border-gray-100">
-                <div>
-                  <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Project Name</span>
-                  <span className="text-lg md:text-xl font-extrabold text-gray-900">{service.sampleProject.projectName}</span>
-                </div>
-                <div>
-                  <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Business Type</span>
-                  <span className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">{service.sampleProject.businessType}</span>
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1.5">Project Summary</span>
-                <p className="text-gray-700 text-base md:text-lg leading-relaxed">{service.sampleProject.projectSummary}</p>
-              </div>
-
-              {service.sampleProject.projectGoal && (
-                <div className="mb-6 bg-blue-50/30 border border-blue-100/50 rounded-lg p-4">
-                  <span className="block text-xs font-bold text-blue-500 uppercase tracking-wider mb-1">Project Goal</span>
-                  <p className="text-blue-950 italic font-medium text-sm md:text-base">{service.sampleProject.projectGoal}</p>
-                </div>
-              )}
-
-              <div className="mb-6">
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Services Included in This Concept</h4>
-                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
-                  {service.sampleProject.servicesIncluded.map((item, index) => (
-                    <div key={index} className="flex items-start space-x-2">
-                      <FaCheck className="w-4 h-4 text-green-500 shrink-0 mt-1" />
-                      <span className="text-gray-700 font-medium text-sm">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="border-t border-gray-100 pt-6">
-                <div className="border-l-4 border-gray-300 pl-4 italic text-gray-600">"{service.sampleProject.portfolioCardText}"</div>
-              </div>
-            </div> */}
-           <section>
-            <div className="text-center bg-white/40 border border-blue-100/50 rounded-xl p-6 md:p-8">
-              {/* <h3 className="text-xl font-bold text-gray-900 mb-2">Want a project like this for your business?</h3> */}
-              <p className="text-gray-600 mb-6 max-w-2xl mx-auto">Request a custom quote and let ScaleLink Alliance build a solution around your goals.</p>
-              <Link to="/request-service?service=custom-quote" className="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
-  <FaRocket className="mr-2" />
-  Request a Custom Quote
-</Link>
-              {/* <p className="text-xs text-gray-400 mt-6 max-w-xl mx-auto">* This is a sample project concept created to show the type of solution ScaleLink Alliance can provide.</p> */}
-            </div>
-          </section>
-        
-
-        {/* Complementary Services */}
-        {service.complementaryServices && service.complementaryServices.length > 0 && (
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Complementary Services</h2>
-            <p className="text-gray-600 mb-6">Businesses that order <strong>{service.title}</strong> often also benefit from:</p>
-            <div className="grid md:grid-cols-2 gap-4">
-              {service.complementaryServices.map((item, index) => {
-                const slug = getServiceSlug(item.name);
-                return (
-                  <Link key={index} to={`/services/${slug}`} className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-md transition-all group">
-                    <div>
-                      <span className="font-medium text-gray-900 group-hover:text-blue-600">{item.name}</span>
-                      <p className="text-xs text-gray-500 mt-1">{item.reason}</p>
-                    </div>
-                    <FaArrowRight className="text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
-                  </Link>
-                );
-              })}
-            </div>
-            <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-green-800 text-sm"><strong>Save up to 10-20%</strong> when you bundle 2 or more services, or join the ScaleLink Alliance Network.</p>
-            </div>
-          </section>
-        )}
-
-        {/* How It Works */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">How It Works</h2>
-          <div className="grid md:grid-cols-4 gap-6">
-            {[
-              { step: 1, title: 'Submit Service Request', desc: 'Fill out our simple request form with your needs' },
-              { step: 2, title: 'We Review Your Needs', desc: 'Our specialists analyze requirements and scope' },
-              { step: 3, title: 'You Receive a Quote', desc: 'Transparent pricing & timeline delivered' },
-              { step: 4, title: 'Work Begins', desc: 'Professional execution with quality checks' }
-            ].map((item) => (
-              <div key={item.step} className="text-center">
-                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">{item.step}</div>
-                <h4 className="font-bold text-lg mb-2">{item.title}</h4>
-                <p className="text-gray-600">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            {[
-              { q: 'Do I need to be a ScaleLink Alliance member?', a: 'No. Services are available to all businesses. Membership is completely optional.' },
-              { q: 'Can members also use services?', a: 'Yes. Members receive preferred access and pricing, but services are available to everyone.' },
-              { q: 'Is there a minimum contract?', a: 'No. Projects are scoped per request. You can start with a one-time project.' },
-              { q: 'What is the typical turnaround time?', a: 'Most projects start within 24-48 hours of approval. Urgent requests can begin same-day.' },
-              { q: 'How do I know which package is right for me?', a: 'We offer a free consultation to assess your needs and recommend the best approach.' }
-            ].map((faq, index) => (
-              <div key={index} className="bg-white border border-gray-200 rounded-xl p-6">
-                <h4 className="text-xl font-bold text-gray-900 mb-3">{faq.q}</h4>
-                <p className="text-gray-700">{faq.a}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* Final CTA */}
         <section className="text-center py-12 bg-gray-50 rounded-2xl">
           <h2 className="text-4xl font-bold text-gray-900 mb-6">Ready to Get Professional Results?</h2>
@@ -2331,8 +2303,8 @@ const ServiceDetailPage = () => {
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/request-service?service=custom-quote" className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
-  <FaArrowRight className="mr-2" /> Request Service Now
-</Link>
+              <FaArrowRight className="mr-2" /> Request Service Now
+            </Link>
             <Link to="/contact" className="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-black transition-colors">
               <FaHeadset className="mr-2" /> Schedule Free Consultation
             </Link>

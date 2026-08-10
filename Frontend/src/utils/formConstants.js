@@ -114,7 +114,7 @@ export const SERVICE_CATEGORIES = {
       'API Integration',
       'Business Process Automation',
       'Data Analytics & Reports',
-      'Request Custom Quote - Automation & AI'
+      'Request Custom Quote - AI'
     ]
   },
   'operations-support': {
@@ -130,14 +130,14 @@ export const SERVICE_CATEGORIES = {
   }
 };
 
-// ─── SERVICE PACKAGES ───
+// ─── SERVICE PACKAGES WITH AMENDED PRICES ───
 export const SERVICES_WITH_PACKAGES = {
   // ─── Content, Branding & Creative ───
   'Copywriting & Content Creation': {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 7500,
+        price: 7500, // $75
         description: 'Ideal for small content needs or single-page messaging.',
         includes: [
           '1 content piece up to 800 words',
@@ -148,7 +148,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 22500,
+        price: 22500, // $225
         description: 'Ideal for businesses producing regular content.',
         includes: [
           '3 content pieces up to 1,000 words each',
@@ -159,7 +159,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 59900,
+        price: 59900, // $599
         description: 'Ideal for businesses running content marketing campaigns.',
         includes: [
           '6 content pieces up to 1,200 words each',
@@ -175,7 +175,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 100,
+        price: 3500, // $35 - AMENDED
         description: 'Ideal for small design requests or single marketing assets.',
         includes: [
           '1 graphic design asset',
@@ -186,7 +186,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 17500,
+        price: 17500, // $175 - AMENDED
         description: 'Ideal for businesses producing multiple marketing materials.',
         includes: [
           'Up to 5 graphic design assets',
@@ -197,7 +197,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 49900,
+        price: 49900, // $499 - AMENDED
         description: 'Ideal for businesses running active marketing campaigns.',
         includes: [
           'Up to 10 graphic design assets',
@@ -212,7 +212,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 19900,
+        price: 19900, // $199
         description: 'Ideal for small businesses launching a brand or refreshing their logo.',
         includes: [
           '1 custom logo concept',
@@ -223,7 +223,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 49900,
+        price: 49900, // $499
         description: 'Ideal for businesses that want a more developed brand identity.',
         includes: [
           '3 logo design concepts',
@@ -235,7 +235,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 99900,
+        price: 99900, // $999
         description: 'Ideal for companies building a full professional brand identity.',
         includes: [
           '3-4 logo concepts',
@@ -252,7 +252,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 7500,
+        price: 7500, // $75
         description: 'Ideal for small projects or social media videos.',
         includes: [
           'Editing of 1 video up to 60 seconds',
@@ -264,7 +264,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 22500,
+        price: 22500, // $225
         description: 'Ideal for businesses creating regular marketing content.',
         includes: [
           'Editing of 3 videos up to 90 seconds each',
@@ -277,7 +277,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 59900,
+        price: 59900, // $599
         description: 'Ideal for promotional campaigns or professional brand videos.',
         includes: [
           'Editing of 5 videos up to 2 minutes each',
@@ -296,7 +296,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 69900,
+        price: 69900, // $699
         description: 'Ideal for small businesses launching their first website.',
         includes: [
           'Up to 3 website pages',
@@ -308,7 +308,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 149900,
+        price: 149900, // $1,499
         description: 'Ideal for businesses expanding their online presence.',
         includes: [
           'Up to 7 website pages',
@@ -320,7 +320,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 349900,
+        price: 349900, // $3,499
         description: 'Ideal for businesses needing a full professional website.',
         includes: [
           'Up to 12 website pages',
@@ -337,7 +337,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 499900,
+        price: 499900, // $4,999
         description: 'Ideal for businesses needing a simple custom web tool or internal system.',
         includes: [
           '1 custom web application feature or module',
@@ -349,7 +349,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 1499900,
+        price: 1499900, // $14,999
         description: 'Ideal for businesses building more advanced digital systems.',
         includes: [
           'Multi-feature web application (up to 3 modules)',
@@ -361,7 +361,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 2999900,
+        price: 2999900, // $29,999
         description: 'Ideal for businesses launching a SaaS platform or full digital product.',
         includes: [
           'Complete SaaS application structure',
@@ -378,7 +378,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 99900,
+        price: 99900, // $999
         description: 'Ideal for small businesses launching their first online store.',
         includes: [
           'Store setup with up to 10 products',
@@ -390,7 +390,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 249900,
+        price: 249900, // $2,499
         description: 'Ideal for businesses expanding their product catalog.',
         includes: [
           'Store setup with up to 50 products',
@@ -402,7 +402,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 499900,
+        price: 499900, // $4,999
         description: 'Ideal for businesses building a fully developed online store.',
         includes: [
           'Store setup with up to 100 products',
@@ -419,7 +419,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 100,
+        price: 49900, // $499 - AMENDED
         description: 'Ideal for businesses launching a simple marketing campaign.',
         includes: [
           '1 landing page design',
@@ -431,7 +431,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 129900,
+        price: 129900, // $1,299 - AMENDED
         description: 'Ideal for businesses running structured marketing campaigns.',
         includes: [
           '3-page sales funnel',
@@ -443,7 +443,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 249900,
+        price: 249900, // $2,499 - AMENDED
         description: 'Ideal for businesses running full digital marketing funnels.',
         includes: [
           'Complete sales funnel (5 pages)',
@@ -459,7 +459,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 39900,
+        price: 39900, // $399 - AMENDED (not in original doc, estimated from API Integration)
         description: 'Ideal for businesses needing a simple booking system.',
         includes: [
           'Online booking system setup',
@@ -471,7 +471,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 99900,
+        price: 99900, // $999 - AMENDED (estimated)
         description: 'Ideal for businesses with multiple services or staff.',
         includes: [
           'Advanced booking system',
@@ -483,7 +483,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 199900,
+        price: 199900, // $1,999 - AMENDED (estimated)
         description: 'Ideal for businesses needing full booking automation.',
         includes: [
           'Full booking automation system',
@@ -501,7 +501,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 39900,
+        price: 39900, // $399/month
         description: 'Ideal for small businesses beginning their SEO strategy.',
         includes: [
           'SEO audit of website',
@@ -513,7 +513,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 89900,
+        price: 89900, // $899/month
         description: 'Ideal for businesses actively working to improve search rankings.',
         includes: [
           'Keyword research and strategy',
@@ -525,7 +525,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 199900,
+        price: 199900, // $1,999/month
         description: 'Ideal for businesses seeking aggressive search growth.',
         includes: [
           'Advanced keyword strategy',
@@ -542,7 +542,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 19900,
+        price: 19900, // $199
         description: 'Ideal for businesses building their initial lead pipeline.',
         includes: [
           '25 targeted leads',
@@ -553,7 +553,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 59900,
+        price: 59900, // $599
         description: 'Ideal for businesses scaling their sales efforts.',
         includes: [
           '100 leads',
@@ -565,7 +565,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 149900,
+        price: 149900, // $1,499/month - AMENDED
         description: 'Ideal for businesses needing ongoing lead flow.',
         includes: [
           '220 leads',
@@ -581,7 +581,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 39900,
+        price: 39900, // $399/month
         description: 'Ideal for businesses launching their first ad campaigns.',
         includes: [
           '1 ad campaign',
@@ -593,7 +593,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 89900,
+        price: 89900, // $899/month
         description: 'Ideal for businesses running multiple campaigns.',
         includes: [
           '3 campaigns',
@@ -605,7 +605,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 199900,
+        price: 199900, // $1,999/month
         description: 'Ideal for businesses requiring full ad management.',
         includes: [
           'Full ad management',
@@ -622,7 +622,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 19900,
+        price: 19900, // $199
         description: 'Ideal for businesses launching a simple email campaign.',
         includes: [
           '1 email campaign',
@@ -634,7 +634,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 49900,
+        price: 49900, // $499
         description: 'Ideal for businesses running regular email communication.',
         includes: [
           '3 email campaigns',
@@ -646,7 +646,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 99900,
+        price: 99900, // $999
         description: 'Ideal for businesses running structured email marketing programs.',
         includes: [
           '6 email campaigns',
@@ -662,7 +662,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 19900,
+        price: 19900, // $199 - AMENDED (estimated)
         description: 'Ideal for businesses starting to collect reviews.',
         includes: [
           'Review collection system setup',
@@ -673,7 +673,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 49900,
+        price: 49900, // $499 - AMENDED (estimated)
         description: 'Ideal for businesses actively managing reviews.',
         includes: [
           'Advanced review collection',
@@ -685,7 +685,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 99900,
+        price: 99900, // $999 - AMENDED (estimated)
         description: 'Ideal for businesses prioritizing reputation management.',
         includes: [
           'Full review management system',
@@ -701,7 +701,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 29900,
+        price: 29900, // $299/month
         description: 'Ideal for small businesses maintaining a basic social media presence.',
         includes: [
           '8 social media posts per month',
@@ -713,7 +713,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 59900,
+        price: 59900, // $599/month
         description: 'Ideal for businesses expanding their social media activity.',
         includes: [
           '15 social media posts per month',
@@ -725,7 +725,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 149900,
+        price: 149900, // $1,499/month
         description: 'Ideal for businesses using social media as a primary marketing channel.',
         includes: [
           '30 social media posts per month',
@@ -758,7 +758,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 49900,
+        price: 49900, // $499
         description: 'Ideal for businesses implementing their first CRM.',
         includes: [
           'CRM setup',
@@ -770,7 +770,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 149900,
+        price: 149900, // $1,499
         description: 'Ideal for businesses scaling their automation.',
         includes: [
           'Full CRM customization',
@@ -782,7 +782,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 299900,
+        price: 299900, // $2,999
         description: 'Ideal for comprehensive marketing automation.',
         includes: [
           'Complete marketing automation',
@@ -799,7 +799,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 49900,
+        price: 49900, // $499
         description: 'Ideal for businesses connecting two systems for the first time.',
         includes: [
           '1 system integration',
@@ -810,7 +810,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 149900,
+        price: 149900, // $1,499
         description: 'Ideal for businesses connecting multiple tools.',
         includes: [
           'Up to 3 system integrations',
@@ -821,7 +821,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 399900,
+        price: 399900, // $3,999 (Custom Quote)
         description: 'Ideal for businesses implementing full automation systems.',
         includes: [
           'Multiple system integrations',
@@ -837,7 +837,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 29900,
+        price: 29900, // $299 - AMENDED (estimated)
         description: 'Ideal for automating a single business process.',
         includes: [
           '1 automated workflow',
@@ -848,7 +848,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 99900,
+        price: 99900, // $999 - AMENDED (estimated)
         description: 'Ideal for automating multiple business processes.',
         includes: [
           '3 automated workflows',
@@ -860,7 +860,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 249900,
+        price: 249900, // $2,499 - AMENDED (estimated)
         description: 'Ideal for full business process automation.',
         includes: [
           '5+ automated workflows',
@@ -876,7 +876,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 19900,
+        price: 19900, // $199
         description: 'Ideal for businesses needing basic performance insights.',
         includes: [
           '1 custom data report',
@@ -887,7 +887,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 69900,
+        price: 69900, // $699/month
         description: 'Ideal for businesses tracking multiple performance areas.',
         includes: [
           '3 custom reports',
@@ -898,7 +898,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 199900,
+        price: 199900, // $1,999/month
         description: 'Ideal for businesses seeking ongoing performance monitoring.',
         includes: [
           'Custom analytics dashboard',
@@ -916,7 +916,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 49900,
+        price: 49900, // $499 - AMENDED (estimated)
         description: 'Ideal for businesses needing a growth plan.',
         includes: [
           '1 strategy session (60 min)',
@@ -927,7 +927,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 149900,
+        price: 149900, // $1,499 - AMENDED (estimated)
         description: 'Ideal for businesses needing ongoing strategy support.',
         includes: [
           '3 strategy sessions (60 min each)',
@@ -939,7 +939,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 499900,
+        price: 499900, // $4,999 - AMENDED (estimated)
         description: 'Ideal for businesses needing comprehensive strategic guidance.',
         includes: [
           '6 strategy sessions (90 min each)',
@@ -956,7 +956,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 14900,
+        price: 14900, // $149/month
         description: 'Ideal for businesses needing light administrative support.',
         includes: [
           'Up to 5 hours of virtual assistant support per month',
@@ -967,7 +967,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 39900,
+        price: 39900, // $399/month
         description: 'Ideal for businesses needing regular operational assistance.',
         includes: [
           'Up to 15 hours of virtual assistant support per month',
@@ -978,7 +978,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 99900,
+        price: 99900, // $999/month
         description: 'Ideal for businesses requiring consistent operational support.',
         includes: [
           'Up to 40 hours of virtual assistant support per month',
@@ -993,7 +993,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 49900,
+        price: 49900, // $499
         description: 'Ideal for managing a small project or short-term initiative.',
         includes: [
           'Management of 1 project',
@@ -1004,7 +1004,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 149900,
+        price: 149900, // $1,499
         description: 'Ideal for businesses managing multiple tasks within a project.',
         includes: [
           'Management of up to 3 project phases or workstreams',
@@ -1015,7 +1015,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 349900,
+        price: 349900, // $3,499/month
         description: 'Ideal for businesses requiring full project oversight.',
         includes: [
           'Comprehensive project management support',
@@ -1031,7 +1031,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 9900,
+        price: 9900, // $99
         description: 'Ideal for small administrative data tasks.',
         includes: [
           'Up to 200 records entered or updated',
@@ -1042,7 +1042,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       growth: {
         name: 'Growth Package',
-        price: 29900,
+        price: 29900, // $299
         description: 'Ideal for businesses managing larger datasets.',
         includes: [
           'Up to 800 records entered or updated',
@@ -1053,7 +1053,7 @@ export const SERVICES_WITH_PACKAGES = {
       },
       premium: {
         name: 'Premium Package',
-        price: 79900,
+        price: 79900, // $799/month
         description: 'Ideal for businesses processing large volumes of information.',
         includes: [
           'Up to 2,000 records entered or updated',
@@ -1115,39 +1115,21 @@ export const SERVICES_WITH_PACKAGES = {
     }
   },
   'Request Custom Quote - AI': {
-  packages: {
-    custom: {
-      name: 'Custom Quote',
-      price: 0,
-      description: 'Get a tailored quote for your AI automation, AI-powered tools, or intelligent business systems project.',
-      includes: [
-        'Discovery conversation about your AI use case and goals',
-        'Recommended AI approach based on your tools and data',
-        'Transparent custom pricing before work begins',
-        'Clear scope of what the AI solution will and will not do'
-      ]
+    packages: {
+      custom: {
+        name: 'Custom Quote',
+        price: 0,
+        description: 'Get a tailored quote for your AI automation, AI-powered tools, or intelligent business systems project.',
+        includes: [
+          'Discovery conversation about your AI use case and goals',
+          'Recommended AI approach based on your tools and data',
+          'Transparent custom pricing before work begins',
+          'Clear scope of what the AI solution will and will not do'
+        ]
+      }
     }
-  }
-},
-
-
-'Request Custom Quote - General': {
-  packages: {
-    custom: {
-      name: 'Custom Quote',
-      price: 0,
-      description: 'Get a tailored quote for a project that spans multiple areas or doesn\'t fit neatly into one category.',
-      includes: [
-        'Personalized consultation to understand your unique needs',
-        'Custom scope definition based on your specific requirements',
-        'Tailored solution designed around your goals',
-        'Flexible pricing based on project complexity and timeline'
-      ]
-    }
-  }
-},
-
-'Request Custom Quote - Business Support': {
+  },
+  'Request Custom Quote - Business Support': {
     packages: {
       custom: {
         name: 'Custom Quote',
@@ -1195,10 +1177,8 @@ export const getServiceIconName = (serviceName) => {
     'Request Custom Quote - Content & Branding': 'FaCogs',
     'Request Custom Quote - Tech & Development': 'FaCogs',
     'Request Custom Quote - Marketing & Growth': 'FaCogs',
-    'Request Custom Quote - Automation & AI': 'FaCogs',
-    'Request Custom Quote - Business Support': 'FaCogs',
     'Request Custom Quote - AI': 'FaCogs',
-    'Request Custom Quote - General': 'FaCogs'
+    'Request Custom Quote - Business Support': 'FaCogs'
   };
   return iconMap[serviceName] || 'FaCogs';
 };

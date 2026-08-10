@@ -7,7 +7,7 @@ import {
   FaFileAlt, FaUsers, FaCheck, FaArrowRight, FaCode, FaGlobe,
   FaShoppingCart, FaRocket, FaAd, FaEnvelope, FaSearch, FaHeadset,
   FaProjectDiagram, FaCamera, FaPalette, FaCloudUploadAlt,
-  FaShieldAlt, FaRegBuilding, FaChartLine, FaInfoCircle,FaRobot
+  FaShieldAlt, FaRegBuilding, FaChartLine, FaInfoCircle, FaRobot
 } from 'react-icons/fa';
 
 const ServicesPage = () => {
@@ -797,60 +797,80 @@ const ServicesPage = () => {
 
             {/* Services Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredServices.map((service, index) => (
-                <motion.div
-                  key={service.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-gray-200 overflow-hidden flex flex-col h-full"
-                >
-                  <div className="p-6 flex flex-col flex-grow">
-                    <div className="flex items-center space-x-4 mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center text-white text-xl shrink-0">
-                        {service.icon}
-                      </div>
-                      <h3 className="text-xl font-bold text-gray-900">{service.name}</h3>
-                    </div>
-
-                    <p className="text-gray-600 mb-4 flex-grow">{service.description}</p>
-
-                    <div className="mb-4">
-                      <h4 className="font-semibold text-gray-900 mb-2 text-sm">What this helps achieve:</h4>
-                      <ul className="space-y-1">
-                        {service.whatItHelps.map((item, idx) => (
-                          <li key={idx} className="flex items-start text-xs">
-                            <FaCheck className="text-green-500 mt-0.5 mr-2 shrink-0" size={10} />
-                            <span className="text-gray-600">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-
-                    <div className="flex flex-col gap-2 mt-auto">
-                      {service.slug.includes('custom-quote') ? (
-                        <div className="py-2.5 bg-gray-100 text-gray-400 font-semibold rounded-lg text-center text-sm cursor-not-allowed">
-                          Detailed Breakdown via Form
+              {filteredServices.map((service, index) => {
+                const isCustomQuoteCard = service.slug === 'custom-quote' || service.slug === 'ai-custom-quote';
+                const isAICustomQuote = service.slug === 'ai-custom-quote';
+                
+                return (
+                  <motion.div
+                    key={service.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className={`bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow border overflow-hidden flex flex-col h-full ${
+                      isCustomQuoteCard ? 'border-purple-300 bg-gradient-to-br from-purple-50/50 to-blue-50/50' : 'border-gray-200'
+                    }`}
+                  >
+                    <div className="p-6 flex flex-col flex-grow">
+                      <div className="flex items-center space-x-4 mb-4">
+                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl shrink-0 ${
+                          isCustomQuoteCard ? 'bg-gradient-to-br from-purple-600 to-blue-600' : 'bg-gradient-to-br from-gray-800 to-gray-900'
+                        }`}>
+                          {service.icon}
                         </div>
-                      ) : (
-                        <Link
-                          to={`/services/${service.slug}`}
-                          className="py-2.5 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-all text-center text-sm"
-                        >
-                          View Service Details
-                        </Link>
-                      )}
-                      <Link
-  to={`/request-service?service=${service.slug}`}
-  className="py-2.5 bg-white border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors text-center text-sm"
->
-  Request This Service
-</Link>
+                        <h3 className="text-xl font-bold text-gray-900">{service.name}</h3>
+                      </div>
+
+                      <p className="text-gray-600 mb-4 flex-grow">{service.description}</p>
+
+                      <div className="mb-4">
+                        <h4 className="font-semibold text-gray-900 mb-2 text-sm">What this helps achieve:</h4>
+                        <ul className="space-y-1">
+                          {service.whatItHelps.map((item, idx) => (
+                            <li key={idx} className="flex items-start text-xs">
+                              <FaCheck className="text-green-500 mt-0.5 mr-2 shrink-0" size={10} />
+                              <span className="text-gray-600">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+
+                      <div className="flex flex-col gap-2 mt-auto">
+                        {isCustomQuoteCard ? (
+                          // Custom Quote Cards - no "View Service Details" button, just "Request This Service" going to Step 2
+                          <Link
+                            to={`/request-service?service=${service.slug}&step=2`}
+                            className={`py-2.5 font-semibold rounded-lg text-center text-sm transition-all ${
+                              isAICustomQuote 
+                                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700' 
+                                : 'bg-blue-600 text-white hover:bg-blue-700'
+                            }`}
+                          >
+                            Request This Service
+                          </Link>
+                        ) : (
+                          // Regular Services - have both buttons
+                          <>
+                            <Link
+                              to={`/services/${service.slug}`}
+                              className="py-2.5 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-all text-center text-sm"
+                            >
+                              View Service Details
+                            </Link>
+                            <Link
+                              to={`/request-service?service=${service.slug}`}
+                              className="py-2.5 bg-white border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors text-center text-sm"
+                            >
+                              Request This Service
+                            </Link>
+                          </>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -896,7 +916,7 @@ const ServicesPage = () => {
             </ul>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to="/request-service?service=custom-quote"
+                to="/request-service?service=custom-quote&step=2"
                 className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors text-center"
               >
                 Request Custom Quote
@@ -1015,7 +1035,7 @@ const ServicesPage = () => {
                 Tell us about your goals, and we'll recommend the right solution for your business.
               </p>
               <Link
-                to="/contact"
+                to="/request-service?service=custom-quote&step=2"
                 className="inline-block px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
               >
                 Request a Custom Quote

@@ -1,6 +1,6 @@
 // src/pages/Services/ServiceRequestPage.jsx
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   FaCheck, FaArrowRight, FaArrowLeft, FaPaintBrush, FaCode, FaChartLine, FaCogs,
@@ -9,7 +9,7 @@ import {
   FaCloudUploadAlt, FaGlobeAmericas, FaVideo, FaPenNib, FaPalette,
   FaCamera, FaShoppingCart, FaRocket, FaAd, FaEnvelope as FaEnvelopeIcon,
   FaSearch as FaSearchIcon, FaHeadset, FaProjectDiagram, FaDatabase, FaFileAlt,
-  FaChartBar, FaUsers, FaRegBuilding, FaBriefcase, FaRobot
+  FaChartBar, FaUsers, FaRegBuilding, FaBriefcase, FaRobot, FaInfoCircle
 } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
 import {
@@ -34,10 +34,44 @@ const MAX_FILES = 20;
 
 const CHECKOUT_STATE_KEY = 'sla_checkout_state';
 
-// Mirrors getServiceSlug() in ServiceDetailPage.jsx, inverted — keeps the two pages in sync
-// on which slug maps to which SERVICES_WITH_PACKAGES key. If you rename a service in
-// formConstants.js, update it here too (or better: move both maps into formConstants.js
-// and import from one place).
+// ─── Helper: Get service slug ───
+const getServiceSlug = (serviceName) => {
+  const slugMap = {
+    'Copywriting & Content Creation': 'copywriting',
+    'Graphic Design': 'graphic-design',
+    'Brand Identity & Logo Design': 'brand-identity',
+    'Video Editing & Motion Graphics': 'video-editing',
+    'Photography & Visual Assets': 'photography',
+    'Website Development': 'website-development',
+    'Web Applications & SaaS Development': 'web-applications',
+    'E-Commerce Development': 'ecommerce-development',
+    'Landing Pages & Sales Funnels': 'landing-pages',
+    'Online Booking Systems': 'online-booking-systems',
+    'SEO & Search Marketing': 'seo-marketing',
+    'Lead Generation Services': 'lead-generation',
+    'Paid Advertising Management': 'paid-advertising',
+    'Email Marketing Campaigns': 'email-marketing',
+    'Reputation & Review Management': 'reputation-review-management',
+    'Social Media Management': 'social-media-management',
+    'AI Automation & Smart Business Systems': 'ai-automation',
+    'CRM Setup & Marketing Automation': 'crm-automation',
+    'API Integration': 'api-integration',
+    'Business Process Automation': 'business-process-automation',
+    'Data Analytics & Reports': 'data-analytics',
+    'Business Consulting & Growth Strategy': 'business-consulting-growth-strategy',
+    'Virtual Assistant Services': 'virtual-assistant',
+    'Project Management Support': 'project-management',
+    'Data Entry & Processing': 'data-entry',
+    'Request Custom Quote - Content & Branding': 'custom-quote',
+    'Request Custom Quote - Tech & Development': 'custom-quote',
+    'Request Custom Quote - Marketing & Growth': 'custom-quote',
+    'Request Custom Quote - AI': 'ai-custom-quote',
+    'Request Custom Quote - Business Support': 'custom-quote'
+  };
+  return slugMap[serviceName] || serviceName.toLowerCase().replace(/[&\s]/g, '-').replace(/--+/g, '-');
+};
+
+// ─── Mirrors getServiceSlug() in ServiceDetailPage.jsx ───
 const SLUG_TO_SERVICE_NAME = {
   'brand-identity': 'Brand Identity & Logo Design',
   'copywriting': 'Copywriting & Content Creation',
@@ -103,6 +137,66 @@ const formatFileSize = (bytes) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
 };
 
+// ─── Service Hover Preview Component ────────────────────────────────────────────
+const ServiceHoverPreview = ({ service, packageKey, onClose }) => {
+  const serviceData = SERVICES_WITH_PACKAGES[service];
+  const pkgData = serviceData?.packages?.[packageKey];
+  const ServiceIcon = getServiceIcon(service);
+  const isCustomQuote = service.includes('Request Custom Quote');
+  
+  if (!serviceData || !pkgData) return null;
+  
+  const slug = getServiceSlug(service);
+  
+  return (
+    <div className="bg-white rounded-xl p-5">
+      <div className="flex items-start justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <ServiceIcon className="text-blue-600 text-lg" />
+          <h4 className="font-bold text-gray-900 text-sm">{service.split(' - ')[0]}</h4>
+        </div>
+        <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-lg leading-none">×</button>
+      </div>
+      
+      <div className="space-y-2 mb-3">
+        <div className="flex justify-between items-center">
+          <span className="text-xs text-gray-500">{pkgData.name}</span>
+          <span className="text-lg font-bold text-blue-600">
+            {isCustomQuote || pkgData.price === 0 ? 'Custom Quote' : `$${(pkgData.price / 100).toFixed(2)}`}
+          </span>
+        </div>
+        <p className="text-xs text-gray-600">{pkgData.description}</p>
+      </div>
+      
+      {pkgData.includes && pkgData.includes.length > 0 && !isCustomQuote && pkgData.price > 0 && (
+        <div className="border-t border-gray-100 pt-2 mb-3">
+          <p className="text-xs font-semibold text-gray-700 mb-1">Includes:</p>
+          <ul className="space-y-0.5">
+            {pkgData.includes.slice(0, 3).map((item, idx) => (
+              <li key={idx} className="flex items-start gap-1.5 text-xs text-gray-600">
+                <FaCheck className="text-green-500 mt-0.5 shrink-0" size={10} />
+                <span className="line-clamp-1">{item}</span>
+              </li>
+            ))}
+            {pkgData.includes.length > 3 && (
+              <li className="text-xs text-gray-400">+{pkgData.includes.length - 3} more items</li>
+            )}
+          </ul>
+        </div>
+      )}
+      
+      <Link 
+        to={`/services/${slug}`}
+        className="w-full py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold text-xs rounded-lg flex items-center justify-center gap-2 transition-colors"
+        onClick={onClose}
+      >
+        <FaInfoCircle size={12} />
+        View Full Service Details
+      </Link>
+    </div>
+  );
+};
+
 // ─── Legal Content ────────────────────────────────────────────────────────────
 const privacyPolicyContent = [
   { title: 'Information We Collect', content: 'We collect Personal Information (name, email, phone, company), Usage Information (IP, browser, pages visited), and use Cookies/Tracking technologies.' },
@@ -142,18 +236,15 @@ const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, 
     );
   }
 
-  // Define package order for cascading (Starter -> Growth -> Premium)
   const packageOrder = ['starter', 'growth', 'premium'];
   const sortedPackageKeys = packageKeys.sort((a, b) => {
     return packageOrder.indexOf(a) - packageOrder.indexOf(b);
   });
 
-  // Build features with cascading logic
   const buildCascadingFeatures = () => {
     const featuresMap = {};
     const allFeatures = [];
 
-    // First, collect all features from all packages in order
     sortedPackageKeys.forEach(pkgKey => {
       const pkgFeatures = packages[pkgKey]?.includes || [];
       pkgFeatures.forEach(feature => {
@@ -168,18 +259,13 @@ const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, 
       });
     });
 
-    // Now assign features to packages with cascading
     sortedPackageKeys.forEach((pkgKey, index) => {
       const pkgFeatures = packages[pkgKey]?.includes || [];
-      
-      // For each feature, check if it exists in this package or any previous package
       allFeatures.forEach(feature => {
-        // Check if this feature exists in current package OR any lower-tier package
         const hasFeature = pkgFeatures.includes(feature) || 
           sortedPackageKeys.slice(0, index).some(prevKey => 
             packages[prevKey]?.includes?.includes(feature)
           );
-        
         featuresMap[feature].packages[pkgKey] = hasFeature;
       });
     });
@@ -192,7 +278,6 @@ const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, 
   return (
     <div className="border-2 border-gray-200 rounded-xl overflow-hidden overflow-x-auto">
       <div className="grid min-w-[560px]" style={{ gridTemplateColumns: `1.4fr repeat(${sortedPackageKeys.length}, 1fr)` }}>
-        {/* Header row */}
         <div className="bg-gray-50 p-3 border-b border-r border-gray-200" />
         {sortedPackageKeys.map(k => {
           const pkg = packages[k];
@@ -208,7 +293,6 @@ const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, 
           );
         })}
         
-        {/* Feature rows with cascading checks */}
         {allFeatures.map((feature) => (
           <React.Fragment key={feature}>
             <div className="p-3 text-xs text-gray-700 border-b border-r border-gray-200 bg-white">{feature}</div>
@@ -224,7 +308,6 @@ const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, 
           </React.Fragment>
         ))}
         
-        {/* Select row */}
         <div className="p-3 border-r border-gray-200 bg-gray-50" />
         {sortedPackageKeys.map(k => (
           <div key={k} className="p-3 border-r last:border-r-0 border-gray-200 bg-gray-50 flex justify-center">
@@ -240,9 +323,13 @@ const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, 
 };
 
 // ─── Live order sidebar (Step 1) ──────────────────────────────────────────────
-const OrderSidebar = ({ selectedServices, convertedAmounts, currency, totalAmount, isLoadingRates, onRemove, onContinue, continueLabel, continueDisabled }) => {
+const OrderSidebar = ({ selectedServices, convertedAmounts, currency, totalAmount, isLoadingRates, onRemove, onContinue, onCustomQuoteDirect, continueLabel, continueDisabled }) => {
   const currencyObj = CURRENCIES.find(c => c.code === currency) || CURRENCIES[0];
   const entries = Object.entries(selectedServices);
+  const hasCustomQuote = entries.some(([service]) => service.includes('Request Custom Quote'));
+  const isOnlyCustomQuote = hasCustomQuote && entries.length === 1;
+  const isCustomQuoteWithOthers = hasCustomQuote && entries.length > 1;
+
   return (
     <div className="lg:sticky lg:top-24 bg-white rounded-2xl border-2 border-gray-200 shadow-lg p-6">
       <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><FaShoppingCart className="text-blue-600" />Your Order</h3>
@@ -280,17 +367,36 @@ const OrderSidebar = ({ selectedServices, convertedAmounts, currency, totalAmoun
           </span>
         </div>
       </div>
-      <button type="button" onClick={onContinue} disabled={continueDisabled}
-        className={`w-full py-3.5 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${continueDisabled ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'}`}>
+      
+      {/* Custom Quote Direct Button */}
+      {hasCustomQuote && totalAmount === 0 && (
+        <button 
+          type="button" 
+          onClick={onCustomQuoteDirect}
+          className="w-full py-3.5 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 bg-purple-600 text-white hover:bg-purple-700 hover:shadow-lg mb-3"
+        >
+          Proceed with Custom Quote <FaArrowRight />
+        </button>
+      )}
+      
+      <button type="button" onClick={onContinue} disabled={continueDisabled || (hasCustomQuote && totalAmount === 0)}
+        className={`w-full py-3.5 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${continueDisabled || (hasCustomQuote && totalAmount === 0) ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'}`}>
         {continueLabel} <FaArrowRight />
       </button>
+      
+      {isCustomQuoteWithOthers && (
+        <p className="text-xs text-amber-600 mt-2 text-center">
+          Note: Custom quote services will be priced separately from standard packages.
+        </p>
+      )}
     </div>
   );
 };
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 const RequestServicePage = () => {
-  const [currentStep, setCurrentStep] = useState(1); // 1: Select services, 2: Review terms & pay, 3: Contact + project details (post-payment)
+  const location = useLocation();
+  const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [agreedToEscrow, setAgreedToEscrow] = useState(false);
@@ -303,6 +409,10 @@ const RequestServicePage = () => {
   const [isLoadingRates, setIsLoadingRates] = useState(false);
   const [convertedAmounts, setConvertedAmounts] = useState({});
   const [serverFileUrls, setServerFileUrls] = useState([]);
+  
+  // Hover preview state
+  const [hoveredService, setHoveredService] = useState(null);
+  const [previewTimer, setPreviewTimer] = useState(null);
 
   // Payment gate
   const [isPaid, setIsPaid] = useState(false);
@@ -333,6 +443,47 @@ const RequestServicePage = () => {
 
   const fullPhone = formData.phoneNumber ? `${formData.phoneDialCode} ${formData.phoneNumber}` : '';
 
+  // ── Handle direct custom quote to Step 2 ──
+  const handleCustomQuoteDirect = () => {
+    setIsPaid(true);
+    setCurrentStep(2);
+    window.scrollTo(0, 0);
+  };
+
+  // ── Check for step=2 param on load ──
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const stepParam = params.get('step');
+    const serviceSlug = params.get('service');
+    
+    // If step=2 and there's a custom quote or no services selected yet
+    if (stepParam === '2') {
+      // Check if we have any custom quote services selected
+      const hasCustomQuote = Object.keys(selectedServices).some(s => s.includes('Request Custom Quote'));
+      
+      // If custom quote is selected, go to step 2
+      if (hasCustomQuote) {
+        setIsPaid(true);
+        setCurrentStep(2);
+        window.scrollTo(0, 0);
+      } 
+      // If no services selected yet but we have a service slug, pre-select it
+      else if (serviceSlug) {
+        const serviceName = SLUG_TO_SERVICE_NAME[serviceSlug];
+        if (serviceName && serviceName.includes('Request Custom Quote')) {
+          // Select the custom quote service
+          setSelectedServices(prev => ({ ...prev, [serviceName]: 'custom' }));
+          // Then go to step 2
+          setTimeout(() => {
+            setIsPaid(true);
+            setCurrentStep(2);
+            window.scrollTo(0, 0);
+          }, 100);
+        }
+      }
+    }
+  }, [location.search, selectedServices]);
+
   // ── Fetch exchange rates ──
   useEffect(() => {
     setIsLoadingRates(true);
@@ -356,6 +507,8 @@ const RequestServicePage = () => {
     const params = new URLSearchParams(window.location.search);
     const serviceSlug = params.get('service');
     const pkgParam = params.get('package');
+    const stepParam = params.get('step');
+    
     if (!serviceSlug) return;
 
     const serviceName = SLUG_TO_SERVICE_NAME[serviceSlug];
@@ -367,10 +520,20 @@ const RequestServicePage = () => {
     if (!packageKey) return;
 
     setSelectedServices(prev => ({ ...prev, [serviceName]: packageKey }));
+    
+    // If step=2 and it's a custom quote, go directly to step 2
+    if (stepParam === '2' && serviceName && serviceName.includes('Request Custom Quote')) {
+      setTimeout(() => {
+        setIsPaid(true);
+        setCurrentStep(2);
+        window.scrollTo(0, 0);
+      }, 200);
+    }
+    
     window.history.replaceState({}, '', window.location.pathname);
   }, []);
 
-  // ── Handle return from Stripe Checkout (success or cancel) ──
+  // ── Handle return from Stripe Checkout ──
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const sessionId = params.get('session_id');
@@ -479,6 +642,22 @@ const RequestServicePage = () => {
 
   const removeService = service => setSelectedServices(p => { const n = { ...p }; delete n[service]; return n; });
 
+  // ── Hover handlers ──
+  const handleServiceHover = (service) => {
+    if (previewTimer) clearTimeout(previewTimer);
+    const timer = setTimeout(() => {
+      setHoveredService(service);
+    }, 300);
+    setPreviewTimer(timer);
+  };
+
+  const handleServiceLeave = () => {
+    if (previewTimer) clearTimeout(previewTimer);
+    setTimeout(() => {
+      setHoveredService(null);
+    }, 200);
+  };
+
   useEffect(() => () => uploadedFiles.forEach(f => { if (f.preview) URL.revokeObjectURL(f.preview); }), []);
 
   const uploadFiles = async () => {
@@ -530,6 +709,12 @@ const RequestServicePage = () => {
       total_file_size: formatFileSize(totalSizeRaw),
       uploaded_files: fileListFormatted,
       request_date: new Date().toLocaleString(),
+      // AI-specific fields
+      ai_features: customQuoteAnswers.aiFeatures.join(', ') || 'Not specified',
+      ai_features_other: customQuoteAnswers.aiFeaturesOther || '',
+      ai_current_tools: customQuoteAnswers.aiCurrentTools || 'Not specified',
+      ai_time_spent: customQuoteAnswers.aiTimeSpent || 'Not specified',
+      ai_success_looks_like: customQuoteAnswers.aiSuccessLooksLike || 'Not specified',
     };
   };
 
@@ -630,7 +815,21 @@ const RequestServicePage = () => {
     }
   };
 
-  const nextStep = () => { if (currentStep < 3) { setCurrentStep(p => p + 1); window.scrollTo(0, 0); } };
+  const nextStep = () => { 
+    // If custom quote is selected, go directly to step 2
+    const hasCustomQuote = Object.keys(selectedServices).some(s => s.includes('Request Custom Quote'));
+    if (hasCustomQuote && totalAmount === 0) {
+      setIsPaid(true);
+      setCurrentStep(2);
+      window.scrollTo(0, 0);
+      return;
+    }
+    if (currentStep < 3) { 
+      setCurrentStep(p => p + 1); 
+      window.scrollTo(0, 0); 
+    } 
+  };
+  
   const prevStep = () => { if (currentStep > 1) { setCurrentStep(p => p - 1); window.scrollTo(0, 0); } };
 
   const currencyObj = CURRENCIES.find(c => c.code === selectedCurrency) || CURRENCIES[0];
@@ -726,15 +925,61 @@ const RequestServicePage = () => {
                           {catData.services.map(service => {
                             const ServiceIcon = getServiceIcon(service);
                             const isSelected = !!selectedServices[service];
+                            const serviceSlug = getServiceSlug(service);
+                            const selectedPkg = selectedServices[service] || 'starter';
+                            
                             return (
-                              <label key={service} className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all ${isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}`}>
-                                <input type="checkbox" checked={isSelected} onChange={() => handleServiceToggle(service)} className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300" />
-                                <div className="ml-3 flex-1 flex items-center">
-                                  <ServiceIcon className="mr-2 text-gray-500" />
-                                  <span className="text-gray-700 font-medium">{service.split(' - ')[0]}</span>
-                                </div>
-                                {isSelected && <FaCheck className="text-green-500 ml-2" />}
-                              </label>
+                              <div 
+                                key={service} 
+                                className="relative"
+                                onMouseEnter={() => handleServiceHover(service)}
+                                onMouseLeave={handleServiceLeave}
+                              >
+                                <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all ${isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}`}>
+                                  <input 
+                                    type="checkbox" 
+                                    checked={isSelected} 
+                                    onChange={() => handleServiceToggle(service)} 
+                                    className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300" 
+                                  />
+                                  <div className="ml-3 flex-1 flex items-center">
+                                    <ServiceIcon className="mr-2 text-gray-500" />
+                                    <span className="text-gray-700 font-medium">{service.split(' - ')[0]}</span>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    {isSelected && <FaCheck className="text-green-500" />}
+                                    <Link
+                                      to={`/services/${serviceSlug}`}
+                                      className="px-2.5 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded hover:bg-blue-200 transition-colors flex items-center gap-1"
+                                      onClick={(e) => e.stopPropagation()}
+                                    >
+                                      <FaInfoCircle size={10} />
+                                      View Detail
+                                    </Link>
+                                  </div>
+                                </label>
+                                
+                                {/* Hover Preview */}
+                                {hoveredService === service && isSelected && (
+                                  <div 
+                                    className="absolute z-50 w-80 bg-white rounded-xl shadow-2xl border-2 border-blue-200 p-5 left-full ml-3 top-0 animate-fade-in"
+                                    onMouseEnter={() => {
+                                      if (previewTimer) clearTimeout(previewTimer);
+                                      setHoveredService(service);
+                                    }}
+                                    onMouseLeave={() => {
+                                      setHoveredService(null);
+                                    }}
+                                    style={{ minWidth: '320px' }}
+                                  >
+                                    <ServiceHoverPreview 
+                                      service={service} 
+                                      packageKey={selectedPkg}
+                                      onClose={() => setHoveredService(null)}
+                                    />
+                                  </div>
+                                )}
+                              </div>
                             );
                           })}
                         </div>
@@ -775,6 +1020,7 @@ const RequestServicePage = () => {
                 isLoadingRates={isLoadingRates}
                 onRemove={removeService}
                 onContinue={nextStep}
+                onCustomQuoteDirect={handleCustomQuoteDirect}
                 continueLabel="Continue to Review"
                 continueDisabled={Object.keys(selectedServices).length === 0}
               />
@@ -979,455 +1225,119 @@ const RequestServicePage = () => {
                   </div>
                 </div>
 
-                {/* Dynamic Custom Quote Questions */}
-                {Object.keys(selectedServices).filter(s => s.includes('Request Custom Quote')).map(service => {
-                  const isTech = service.includes('Tech & Development');
-                  const isOps = service.includes('Operations & Support');
-                  const isCreative = service.includes('Creative & Content');
-                  const isMarketing = service.includes('Marketing & Growth');
-                  const isAI = service === 'Request Custom Quote - AI';
+                {/* ─── AI-SPECIFIC QUESTIONS ─── */}
+                {/* Only show if an AI custom quote service is selected */}
+                {Object.keys(selectedServices).some(service => 
+                  service.includes('AI') || service.includes('ai') || service === 'Request Custom Quote - AI'
+                ) && (
+                  <>
+                    <div className="md:col-span-2 border-t border-gray-200 pt-6 mt-2">
+                      <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                        <FaRobot className="text-purple-600" />
+                        AI Project Details
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-4">Help us understand your AI needs better.</p>
+                    </div>
 
-                  return (
-                    <div key={service} className="mt-8 pt-8 border-t border-slate-200 space-y-6 animate-fade-in">
-                      <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-6">
-                        <h3 className="text-base font-bold text-slate-800 mb-1">
-                          Additional Specifications: {service.split(' - ')[1] || 'Custom Request'}
-                        </h3>
-                        <p className="text-slate-400 text-xs font-semibold mb-6">
-                          Please answer these quick questions to help us prepare an accurate custom proposal.
-                        </p>
-
-                        <div className="grid md:grid-cols-2 gap-6">
-                          {isTech && (
-                            <>
-                              <div className="md:col-span-2">
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Current Technology Stack / Platform</label>
-                                <select
-                                  value={customQuoteAnswers.techStack}
-                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, techStack: e.target.value }))}
-                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
-                                >
-                                  <option value="">Select current setup...</option>
-                                  <option value="New Project / None">New Project / Starting from Scratch</option>
-                                  <option value="WordPress">WordPress</option>
-                                  <option value="Shopify">Shopify</option>
-                                  <option value="React / Node">React / Node.js Custom Stack</option>
-                                  <option value="Webflow">Webflow</option>
-                                  <option value="Other">Other</option>
-                                </select>
+                    <div className="md:col-span-2">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">What AI Features Are You Interested In?</label>
+                      <div className="grid sm:grid-cols-2 gap-3 mt-1">
+                        {[
+                          { id: 'ai_chat', label: 'AI Chat' },
+                          { id: 'ai_voice', label: 'AI Voice' },
+                          { id: 'ai_email', label: 'AI Email' },
+                          { id: 'ai_reporting', label: 'AI Reporting' },
+                          { id: 'workflow_automation', label: 'Workflow Automation' },
+                          { id: 'other', label: 'Others: Specify' }
+                        ].map(item => {
+                          const checked = customQuoteAnswers.aiFeatures.includes(item.id);
+                          if (item.id === 'other') {
+                            return (
+                              <div key={item.id} className="flex flex-col gap-2 p-3 border border-slate-200 rounded-xl bg-white transition-all sm:col-span-2">
+                                <label className="flex items-center gap-2 cursor-pointer">
+                                  <input
+                                    type="checkbox"
+                                    checked={checked}
+                                    onChange={() => {
+                                      const nextFeatures = checked
+                                        ? customQuoteAnswers.aiFeatures.filter(f => f !== item.id)
+                                        : [...customQuoteAnswers.aiFeatures, item.id];
+                                      setCustomQuoteAnswers(p => ({
+                                        ...p,
+                                        aiFeatures: nextFeatures,
+                                        aiFeaturesOther: checked ? '' : p.aiFeaturesOther
+                                      }));
+                                    }}
+                                    className="w-4 h-4 text-blue-600 rounded"
+                                  />
+                                  <span className="text-xs font-semibold text-slate-700">{item.label}</span>
+                                </label>
+                                {checked && (
+                                  <input
+                                    type="text"
+                                    placeholder="Specify other AI features..."
+                                    value={customQuoteAnswers.aiFeaturesOther || ''}
+                                    onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiFeaturesOther: e.target.value }))}
+                                    className="w-full mt-1 px-3 py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                  />
+                                )}
                               </div>
-                              <div>
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">System Integrations Required</label>
-                                <input
-                                  type="text"
-                                  placeholder="e.g. Stripe, HubSpot CRM, Salesforce, None"
-                                  value={customQuoteAnswers.techIntegration}
-                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, techIntegration: e.target.value }))}
-                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
-                                />
-                              </div>
-                              <div>
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Hosting & Domain Access</label>
-                                <select
-                                  value={customQuoteAnswers.techHosting}
-                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, techHosting: e.target.value }))}
-                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
-                                >
-                                  <option value="">Select option...</option>
-                                  <option value="Have my own hosting">I already have my own domain/hosting</option>
-                                  <option value="Need setup assistance">I need help purchasing and setting up hosting</option>
-                                  <option value="Not sure">I am not sure yet</option>
-                                </select>
-                              </div>
-                            </>
-                          )}
-
-                          {isOps && (
-                            <>
-                              <div className="md:col-span-2">
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Operational Areas Needing Support</label>
-                                <div className="grid sm:grid-cols-2 gap-3 mt-1">
-                                  {[
-                                    { id: 'customer_support', label: 'Customer Support / Inbox' },
-                                    { id: 'calendar_email', label: 'Calendar & Email Management' },
-                                    { id: 'billing_bookkeep', label: 'Billing & Basic Bookkeeping' },
-                                    { id: 'data_entry', label: 'Data Entry & Processing' },
-                                    { id: 'sop_writing', label: 'SOP & Process Documentation' },
-                                    { id: 'other', label: 'Others: Specify' }
-                                  ].map(item => {
-                                    const checked = customQuoteAnswers.opsSupportAreas.includes(item.id);
-                                    if (item.id === 'other') {
-                                      return (
-                                        <div key={item.id} className="flex flex-col gap-2 p-3 border border-slate-200 rounded-xl bg-white transition-all sm:col-span-2">
-                                          <label className="flex items-center gap-2 cursor-pointer">
-                                            <input
-                                              type="checkbox"
-                                              checked={checked}
-                                              onChange={() => {
-                                                const nextAreas = checked
-                                                  ? customQuoteAnswers.opsSupportAreas.filter(a => a !== item.id)
-                                                  : [...customQuoteAnswers.opsSupportAreas, item.id];
-                                                setCustomQuoteAnswers(p => ({
-                                                  ...p,
-                                                  opsSupportAreas: nextAreas,
-                                                  opsSupportAreasOther: checked ? '' : p.opsSupportAreasOther
-                                                }));
-                                              }}
-                                              className="w-4 h-4 text-blue-600 rounded"
-                                            />
-                                            <span className="text-xs font-semibold text-slate-700">{item.label}</span>
-                                          </label>
-                                          {checked && (
-                                            <input
-                                              type="text"
-                                              placeholder="Specify other operational support areas..."
-                                              value={customQuoteAnswers.opsSupportAreasOther || ''}
-                                              onChange={e => setCustomQuoteAnswers(p => ({ ...p, opsSupportAreasOther: e.target.value }))}
-                                              className="w-full mt-1 px-3 py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                                            />
-                                          )}
-                                        </div>
-                                      );
-                                    }
-                                    return (
-                                      <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
-                                        <input
-                                          type="checkbox"
-                                          checked={checked}
-                                          onChange={() => {
-                                            const nextAreas = checked
-                                              ? customQuoteAnswers.opsSupportAreas.filter(a => a !== item.id)
-                                              : [...customQuoteAnswers.opsSupportAreas, item.id];
-                                            setCustomQuoteAnswers(p => ({ ...p, opsSupportAreas: nextAreas }));
-                                          }}
-                                          className="w-4 h-4 text-blue-600 rounded"
-                                        />
-                                        <span className="text-xs font-semibold text-slate-700">{item.label}</span>
-                                      </label>
-                                    );
-                                  })}
-                                </div>
-                              </div>
-                              <div>
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Estimated Support Hours Needed</label>
-                                <select
-                                  value={customQuoteAnswers.opsHours}
-                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, opsHours: e.target.value }))}
-                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
-                                >
-                                  <option value="">Select estimated hours...</option>
-                                  <option value="< 10 hours/week">Less than 10 hours per week</option>
-                                  <option value="10-20 hours/week">10 to 20 hours per week</option>
-                                  <option value="20-40 hours/week">20 to 40 hours per week</option>
-                                  <option value="Full-time dedicated">Dedicated full-time assistant</option>
-                                </select>
-                              </div>
-                              <div>
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Current Collaboration/Admin Tools Used</label>
-                                <input
-                                  type="text"
-                                  placeholder="e.g. Slack, Trello, Zendesk, Excel, None"
-                                  value={customQuoteAnswers.opsTools}
-                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, opsTools: e.target.value }))}
-                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
-                                />
-                              </div>
-                            </>
-                          )}
-
-                          {isCreative && (
-                            <>
-                              <div className="md:col-span-2">
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Required Creative Format Types</label>
-                                <div className="grid sm:grid-cols-2 gap-3 mt-1">
-                                  {[
-                                    { id: 'social_graphics', label: 'Social Media Graphics' },
-                                    { id: 'video_reels', label: 'Short Video / Reels Editing' },
-                                    { id: 'copy_blog', label: 'Copywriting / Blog Content' },
-                                    { id: 'branding_guide', label: 'Logos & Complete Branding' },
-                                    { id: 'raw_sources', label: 'Vector/Raw Source Files' },
-                                    { id: 'other', label: 'Others: Specify' }
-                                  ].map(item => {
-                                    const checked = customQuoteAnswers.creativeFormats.includes(item.id);
-                                    if (item.id === 'other') {
-                                      return (
-                                        <div key={item.id} className="flex flex-col gap-2 p-3 border border-slate-200 rounded-xl bg-white transition-all sm:col-span-2">
-                                          <label className="flex items-center gap-2 cursor-pointer">
-                                            <input
-                                              type="checkbox"
-                                              checked={checked}
-                                              onChange={() => {
-                                                const nextFormats = checked
-                                                  ? customQuoteAnswers.creativeFormats.filter(f => f !== item.id)
-                                                  : [...customQuoteAnswers.creativeFormats, item.id];
-                                                setCustomQuoteAnswers(p => ({
-                                                  ...p,
-                                                  creativeFormats: nextFormats,
-                                                  creativeFormatsOther: checked ? '' : p.creativeFormatsOther
-                                                }));
-                                              }}
-                                              className="w-4 h-4 text-blue-600 rounded"
-                                            />
-                                            <span className="text-xs font-semibold text-slate-700">{item.label}</span>
-                                          </label>
-                                          {checked && (
-                                            <input
-                                              type="text"
-                                              placeholder="Specify other creative formats..."
-                                              value={customQuoteAnswers.creativeFormatsOther || ''}
-                                              onChange={e => setCustomQuoteAnswers(p => ({ ...p, creativeFormatsOther: e.target.value }))}
-                                              className="w-full mt-1 px-3 py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                                            />
-                                          )}
-                                        </div>
-                                      );
-                                    }
-                                    return (
-                                      <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
-                                        <input
-                                          type="checkbox"
-                                          checked={checked}
-                                          onChange={() => {
-                                            const nextFormats = checked
-                                              ? customQuoteAnswers.creativeFormats.filter(f => f !== item.id)
-                                              : [...customQuoteAnswers.creativeFormats, item.id];
-                                            setCustomQuoteAnswers(p => ({ ...p, creativeFormats: nextFormats }));
-                                          }}
-                                          className="w-4 h-4 text-blue-600 rounded"
-                                        />
-                                        <span className="text-xs font-semibold text-slate-700">{item.label}</span>
-                                      </label>
-                                    );
-                                  })}
-                                </div>
-                              </div>
-                              <div>
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Visual Brand Direction</label>
-                                <select
-                                  value={customQuoteAnswers.creativeDirection}
-                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, creativeDirection: e.target.value }))}
-                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
-                                >
-                                  <option value="">Select brand direction...</option>
-                                  <option value="Starting from scratch">Starting from scratch (Need design ideas)</option>
-                                  <option value="Have existing guidelines">Have existing guidelines/visual preferences</option>
-                                </select>
-                              </div>
-                              <div>
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Turnaround Urgency</label>
-                                <select
-                                  value={customQuoteAnswers.creativeTurnaround}
-                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, creativeTurnaround: e.target.value }))}
-                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
-                                >
-                                  <option value="">Select timeline option...</option>
-                                  <option value="Standard">Standard turnaround (3-5 business days)</option>
-                                  <option value="Rush">Rush projects (Less than 48 hours)</option>
-                                  <option value="Ongoing monthly">Ongoing monthly assistance</option>
-                                </select>
-                              </div>
-                            </>
-                          )}
-
-                          {isMarketing && (
-                            <>
-                              <div className="md:col-span-2">
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Target Marketing Channels</label>
-                                <div className="grid sm:grid-cols-2 gap-3 mt-1">
-                                  {[
-                                    { id: 'seo_search', label: 'SEO & Search Engine visibility' },
-                                    { id: 'meta_ads', label: 'Meta Ads (Facebook/Instagram)' },
-                                    { id: 'google_ads', label: 'Google Search & Display Ads' },
-                                    { id: 'email_news', label: 'Email Newsletters / Campaigns' },
-                                    { id: 'cold_outbound', label: 'Cold Lead Outbound Campaigns' },
-                                    { id: 'other', label: 'Others: Specify' }
-                                  ].map(item => {
-                                    const checked = customQuoteAnswers.marketingChannels.includes(item.id);
-                                    if (item.id === 'other') {
-                                      return (
-                                        <div key={item.id} className="flex flex-col gap-2 p-3 border border-slate-200 rounded-xl bg-white transition-all sm:col-span-2">
-                                          <label className="flex items-center gap-2 cursor-pointer">
-                                            <input
-                                              type="checkbox"
-                                              checked={checked}
-                                              onChange={() => {
-                                                const nextChannels = checked
-                                                  ? customQuoteAnswers.marketingChannels.filter(c => c !== item.id)
-                                                  : [...customQuoteAnswers.marketingChannels, item.id];
-                                                setCustomQuoteAnswers(p => ({
-                                                  ...p,
-                                                  marketingChannels: nextChannels,
-                                                  marketingChannelsOther: checked ? '' : p.marketingChannelsOther
-                                                }));
-                                              }}
-                                              className="w-4 h-4 text-blue-600 rounded"
-                                            />
-                                            <span className="text-xs font-semibold text-slate-700">{item.label}</span>
-                                          </label>
-                                          {checked && (
-                                            <input
-                                              type="text"
-                                              placeholder="Specify other marketing channels..."
-                                              value={customQuoteAnswers.marketingChannelsOther || ''}
-                                              onChange={e => setCustomQuoteAnswers(p => ({ ...p, marketingChannelsOther: e.target.value }))}
-                                              className="w-full mt-1 px-3 py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                                            />
-                                          )}
-                                        </div>
-                                      );
-                                    }
-                                    return (
-                                      <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
-                                        <input
-                                          type="checkbox"
-                                          checked={checked}
-                                          onChange={() => {
-                                            const nextChannels = checked
-                                              ? customQuoteAnswers.marketingChannels.filter(c => c !== item.id)
-                                              : [...customQuoteAnswers.marketingChannels, item.id];
-                                            setCustomQuoteAnswers(p => ({ ...p, marketingChannels: nextChannels }));
-                                          }}
-                                          className="w-4 h-4 text-blue-600 rounded"
-                                        />
-                                        <span className="text-xs font-semibold text-slate-700">{item.label}</span>
-                                      </label>
-                                    );
-                                  })}
-                                </div>
-                              </div>
-                              <div>
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Monthly Ad Spend Budget (If Ads)</label>
-                                <select
-                                  value={customQuoteAnswers.marketingAdSpend}
-                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, marketingAdSpend: e.target.value }))}
-                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
-                                >
-                                  <option value="">Select ad spend range...</option>
-                                  <option value="No ad budget">No ad budget / Organic SEO only</option>
-                                  <option value="< $1,000">Less than $1,000 per month</option>
-                                  <option value="$1,000 - $5,000">$1,000 to $5,000 per month</option>
-                                  <option value="$5,000+">$5,000+ per month</option>
-                                </select>
-                              </div>
-                              <div>
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Ideal Target Customer Profile</label>
-                                <input
-                                  type="text"
-                                  placeholder="e.g. Local homeowners, B2B software companies"
-                                  value={customQuoteAnswers.marketingAudience}
-                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, marketingAudience: e.target.value }))}
-                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
-                                />
-                              </div>
-                            </>
-                          )}
-
-                          {isAI && (
-                            <>
-                              <div className="md:col-span-2">
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">What AI Features Are You Interested In?</label>
-                                <div className="grid sm:grid-cols-2 gap-3 mt-1">
-                                  {[
-                                    { id: 'ai_chat', label: 'AI Chat' },
-                                    { id: 'ai_voice', label: 'AI Voice' },
-                                    { id: 'ai_email', label: 'AI Email' },
-                                    { id: 'ai_reporting', label: 'AI Reporting' },
-                                    { id: 'workflow_automation', label: 'Workflow Automation' },
-                                    { id: 'other', label: 'Others: Specify' }
-                                  ].map(item => {
-                                    const checked = customQuoteAnswers.aiFeatures.includes(item.id);
-                                    if (item.id === 'other') {
-                                      return (
-                                        <div key={item.id} className="flex flex-col gap-2 p-3 border border-slate-200 rounded-xl bg-white transition-all sm:col-span-2">
-                                          <label className="flex items-center gap-2 cursor-pointer">
-                                            <input
-                                              type="checkbox"
-                                              checked={checked}
-                                              onChange={() => {
-                                                const nextFeatures = checked
-                                                  ? customQuoteAnswers.aiFeatures.filter(f => f !== item.id)
-                                                  : [...customQuoteAnswers.aiFeatures, item.id];
-                                                setCustomQuoteAnswers(p => ({
-                                                  ...p,
-                                                  aiFeatures: nextFeatures,
-                                                  aiFeaturesOther: checked ? '' : p.aiFeaturesOther
-                                                }));
-                                              }}
-                                              className="w-4 h-4 text-blue-600 rounded"
-                                            />
-                                            <span className="text-xs font-semibold text-slate-700">{item.label}</span>
-                                          </label>
-                                          {checked && (
-                                            <input
-                                              type="text"
-                                              placeholder="Specify other AI features..."
-                                              value={customQuoteAnswers.aiFeaturesOther || ''}
-                                              onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiFeaturesOther: e.target.value }))}
-                                              className="w-full mt-1 px-3 py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                                            />
-                                          )}
-                                        </div>
-                                      );
-                                    }
-                                    return (
-                                      <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
-                                        <input
-                                          type="checkbox"
-                                          checked={checked}
-                                          onChange={() => {
-                                            const nextFeatures = checked
-                                              ? customQuoteAnswers.aiFeatures.filter(f => f !== item.id)
-                                              : [...customQuoteAnswers.aiFeatures, item.id];
-                                            setCustomQuoteAnswers(p => ({ ...p, aiFeatures: nextFeatures }));
-                                          }}
-                                          className="w-4 h-4 text-blue-600 rounded"
-                                        />
-                                        <span className="text-xs font-semibold text-slate-700">{item.label}</span>
-                                      </label>
-                                    );
-                                  })}
-                                </div>
-                              </div>
-
-                              <div>
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">What Tools Does Your Business Currently Use?</label>
-                                <input
-                                  type="text"
-                                  placeholder="e.g. HubSpot, Zapier, Google Sheets, None"
-                                  value={customQuoteAnswers.aiCurrentTools}
-                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiCurrentTools: e.target.value }))}
-                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
-                                />
-                              </div>
-
-                              <div>
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">How Much Time Does This Currently Take?</label>
-                                <input
-                                  type="text"
-                                  placeholder="e.g. 10 hours per week"
-                                  value={customQuoteAnswers.aiTimeSpent}
-                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiTimeSpent: e.target.value }))}
-                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
-                                />
-                              </div>
-
-                              <div className="md:col-span-2">
-                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">What Does Success Look Like?</label>
-                                <textarea
-                                  rows={3}
-                                  placeholder="Describe what a successful outcome would look like for this project..."
-                                  value={customQuoteAnswers.aiSuccessLooksLike}
-                                  onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiSuccessLooksLike: e.target.value }))}
-                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm resize-none"
-                                />
-                              </div>
-                            </>
-                          )}
-                        </div>
+                            );
+                          }
+                          return (
+                            <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
+                              <input
+                                type="checkbox"
+                                checked={checked}
+                                onChange={() => {
+                                  const nextFeatures = checked
+                                    ? customQuoteAnswers.aiFeatures.filter(f => f !== item.id)
+                                    : [...customQuoteAnswers.aiFeatures, item.id];
+                                  setCustomQuoteAnswers(p => ({ ...p, aiFeatures: nextFeatures }));
+                                }}
+                                className="w-4 h-4 text-blue-600 rounded"
+                              />
+                              <span className="text-xs font-semibold text-slate-700">{item.label}</span>
+                            </label>
+                          );
+                        })}
                       </div>
                     </div>
-                  );
-                })}
+
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">What Tools Does Your Business Currently Use?</label>
+                      <input
+                        type="text"
+                        placeholder="e.g. HubSpot, Zapier, Google Sheets, None"
+                        value={customQuoteAnswers.aiCurrentTools}
+                        onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiCurrentTools: e.target.value }))}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">How Much Time Does Your Team Currently Spend on These Tasks?</label>
+                      <input
+                        type="text"
+                        placeholder="e.g. 10 hours/week, 5 hours/day, Not sure"
+                        value={customQuoteAnswers.aiTimeSpent}
+                        onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiTimeSpent: e.target.value }))}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">What Does AI-Powered Success Look Like for Your Business?</label>
+                      <textarea
+                        rows={3}
+                        placeholder="Describe how you envision AI improving your business operations..."
+                        value={customQuoteAnswers.aiSuccessLooksLike}
+                        onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiSuccessLooksLike: e.target.value }))}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                      />
+                    </div>
+                  </>
+                )}
 
                 <div className="mt-8 pt-8 border-t border-gray-200">
                   <h3 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2"><FaUpload className="text-blue-600" />Project Files</h3>
@@ -1482,6 +1392,23 @@ const RequestServicePage = () => {
           )}
         </div>
       </div>
+
+      {/* Add animation styles */}
+      <style>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateX(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.2s ease-out forwards;
+        }
+      `}</style>
     </div>
   );
 };

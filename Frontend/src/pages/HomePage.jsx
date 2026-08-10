@@ -225,95 +225,109 @@ const HomePage = () => {
   return (
     <div className="overflow-hidden">
       {/* 🔥 SECTION 1: HERO SECTION */}
-<section className="relative py-20 lg:py-32 min-h-screen flex items-center overflow-hidden">
-  <div className="absolute inset-0 z-0">
-    {/* Responsive image with proper sizing */}
-    <picture className="block w-full h-full">
-      {/* Mobile-first: smaller image for mobile */}
-      <source 
-        media="(max-width: 640px)" 
-        srcSet="https://cdn.phototourl.com/free/2026-07-18-bc90a5a0-13c0-4190-936d-229aca3c8447.jpg?w=640&h=800&fit=crop"
-      />
-      {/* Tablet: medium image */}
-      <source 
-        media="(max-width: 1024px)" 
-        srcSet="https://cdn.phototourl.com/free/2026-07-18-bc90a5a0-13c0-4190-936d-229aca3c8447.jpg?w=1024&h=768&fit=crop"
-      />
-      {/* Desktop: original image */}
-      <img
-        src={images.hero}
-        alt="Business growth background"
-        className="w-full h-full object-cover object-center"
-        loading="eager"
-        style={{ 
-          objectPosition: 'center 15%', // Adjust this to keep focus on important areas
-        }}
-      />
-    </picture>
-    <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40 z-10"></div>
-  </div>
-
-  <div className="container mx-auto px-4 relative z-20 w-full">
-    <div className="max-w-5xl mx-auto text-center">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight max-w-none mx-auto">
-          Build From Scratch. Scale What Already Exists.
-        </h1>
-
-        <p className="text-base sm:text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto px-4">
-          ScaleLink Alliance helps businesses build powerful websites, web applications, and digital growth systems that attract customers, improve operations, and support long-term growth.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 px-4">
-          <Link
-            to="build-from-scratch"
-            className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-2xl hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base"
-          >
-            <span>Start From Scratch</span>
-            <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-          </Link>
-          <Link
-            to="/scale-existing-website"
-            className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg shadow-2xl hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base"
-          >
-            <span>Scale My Existing Website</span>
-            <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-          </Link>
+      <section className="relative py-20 lg:py-32 min-h-screen flex items-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <picture className="block w-full h-full">
+            <source 
+              media="(max-width: 640px)" 
+              srcSet="https://cdn.phototourl.com/free/2026-07-18-bc90a5a0-13c0-4190-936d-229aca3c8447.jpg?w=640&h=800&fit=crop"
+            />
+            <source 
+              media="(max-width: 1024px)" 
+              srcSet="https://cdn.phototourl.com/free/2026-07-18-bc90a5a0-13c0-4190-936d-229aca3c8447.jpg?w=1024&h=768&fit=crop"
+            />
+            <img
+              src={images.hero}
+              alt="Business growth background"
+              className="w-full h-full object-cover object-center"
+              loading="eager"
+              style={{ 
+                objectPosition: 'center 15%',
+              }}
+            />
+          </picture>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40 z-10"></div>
         </div>
 
-        {/* Free Website Review CTA */}
-        <div className="mb-8 px-4">
-          <Link
-            to="/free-website-review"
-            className="group inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base"
-          >
-            <span>⭐ Get a Free Professional Website Review</span>
-            <FaArrowRight className="group-hover:translate-x-1 transition-transform text-sm" />
-          </Link>
-          <p className="text-xs sm:text-sm text-white/70 mt-2 max-w-lg mx-auto px-4">
-            Discover what's preventing your website from generating more leads, traffic, and sales—in just a few minutes.
-          </p>
-        </div>
+        <div className="container mx-auto px-4 relative z-20 w-full">
+          <div className="max-w-5xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              {/* Original Headline */}
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight max-w-none mx-auto">
+                Build From Scratch. Scale What Already Exists.
+              </h1>
 
-        <div className="bg-black/45 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 max-w-3xl mx-auto mb-8 shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left mx-4">
-          <h3 className="text-base sm:text-lg font-bold text-white leading-snug">
-            Not Sure What Service You Need? Start With the Problem.
-          </h3>
-          <Link
-            to="/services/guide-by-problem"
-            className="inline-flex items-center px-4 sm:px-5 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all text-sm shrink-0 hover:scale-105 shadow-lg shadow-blue-500/20"
-          >
-            Start Here <FaArrowRight className="ml-2 text-xs" />
-          </Link>
+              <p className="text-base sm:text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto px-4">
+                ScaleLink Alliance helps businesses build powerful websites, web applications, and digital growth systems that attract customers, improve operations, and support long-term growth.
+              </p>
+
+              {/* Original buttons - maintaining previous styling */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6 px-4">
+                <Link
+                  to="build-from-scratch"
+                  className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-2xl hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base"
+                >
+                  <span>Start From Scratch</span>
+                  <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link
+                  to="/scale-existing-website"
+                  className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg shadow-2xl hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base"
+                >
+                  <span>Scale My Existing Website</span>
+                  <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+
+              {/* NEW: Free Website Review Section - Before the helper card */}
+              <div className="mb-4 max-w-3xl mx-auto">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-center gap-4 sm:gap-6 bg-black/30 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-5">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 flex items-center justify-center text-white shadow-lg flex-shrink-0">
+                      <FaStar className="text-sm" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-white font-semibold text-sm">
+                        Is Your Website Costing You Customers?
+                      </p>
+                      <p className="text-white/50 text-xs">
+                        Get a free professional review
+                      </p>
+                    </div>
+                  </div>
+                  <Link
+                    to="/free-website-review"
+                    className="group inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-medium rounded-lg hover:from-amber-600 hover:to-orange-600 hover:scale-105 transition-all duration-300 text-sm shadow-lg shadow-amber-500/20 whitespace-nowrap"
+                  >
+                    <span>Get My Free Review</span>
+                    <FaArrowRight className="group-hover:translate-x-1 transition-transform text-xs" />
+                  </Link>
+                </div>
+                <p className="text-white/40 text-xs mt-2">
+                  No obligation. Get actionable insights for your website.
+                </p>
+              </div>
+
+              {/* Helper card - "Not sure what service you need?" - maintaining previous styling */}
+              <div className="bg-black/45 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 max-w-3xl mx-auto shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left mx-4">
+                <h3 className="text-base sm:text-lg font-bold text-white leading-snug">
+                  Not Sure What Service You Need? Start With the Problem.
+                </h3>
+                <Link
+                  to="/services/guide-by-problem"
+                  className="inline-flex items-center px-4 sm:px-5 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all text-sm shrink-0 hover:scale-105 shadow-lg shadow-blue-500/20"
+                >
+                  Start Here <FaArrowRight className="ml-2 text-xs" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
         </div>
-      </motion.div>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* 🎯 SECTION 2: CHOOSE YOUR PATH */}
       <section className="py-20 bg-white">
