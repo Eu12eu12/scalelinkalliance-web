@@ -204,7 +204,7 @@ const ScaleExistingWebsite = () => {
                 Choose How You Want to Scale
               </h2>
               <p className="text-gray-500 max-w-xl mx-auto">
-                Pick one service to start or combine several into a growth package. Every service is tailored to your existing setup and goals.
+                Pick one service to start or combine several into a standard package. Every service is tailored to your existing setup and goals.
               </p>
             </div>
 

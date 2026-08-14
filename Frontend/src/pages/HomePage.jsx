@@ -129,7 +129,7 @@ const HomePage = () => {
       startingPrice: '$35',
       packages: {
         starter: { price: '$35', name: 'Starter Package', includes: '1 design asset, 1 revision, web-ready files' },
-        growth: { price: '$175', name: 'Growth Package', includes: '5 design assets, 2 revisions' },
+        growth: { price: '$175', name: 'Standard Package', includes: '5 design assets, 2 revisions' },
         premium: { price: '$499', name: 'Premium Package', includes: '10 design assets, priority turnaround' }
       }
     },
@@ -142,7 +142,7 @@ const HomePage = () => {
       startingPrice: '$699',
       packages: {
         starter: { price: '$699', name: 'Starter Package', includes: 'up to 3 pages, responsive design, contact form' },
-        growth: { price: '$1,499', name: 'Growth Package', includes: 'up to 7 pages, advanced layout' },
+        growth: { price: '$1,499', name: 'Standard Package', includes: 'up to 7 pages, advanced layout' },
         premium: { price: '$3,499', name: 'Premium Package', includes: '10+ pages, custom functionality' }
       }
     },
@@ -155,7 +155,7 @@ const HomePage = () => {
       startingPrice: '$299/month',
       packages: {
         starter: { price: '$299/month', name: 'Starter Package', includes: '8 posts/month, content scheduling' },
-        growth: { price: '$599/month', name: 'Growth Package', includes: '15 posts/month, graphic content, monthly report' },
+        growth: { price: '$599/month', name: 'Standard Package', includes: '15 posts/month, graphic content, monthly report' },
         premium: { price: '$1,499/month', name: 'Premium Package', includes: '30 posts/month, custom graphics, detailed reporting' }
       }
     }
@@ -730,7 +730,7 @@ const HomePage = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-4">
-              Done-For-You Growth Systems
+              Done-For-You Standard Systems
             </h2>
             <p className="text-xl text-gray-600 text-center mb-12">
               Professional services to help you scale without hiring

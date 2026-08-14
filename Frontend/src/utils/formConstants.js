@@ -147,7 +147,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 22500, // $225
         description: 'Ideal for businesses producing regular content.',
         includes: [
@@ -185,7 +185,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 17500, // $175 - AMENDED
         description: 'Ideal for businesses producing multiple marketing materials.',
         includes: [
@@ -222,7 +222,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 49900, // $499
         description: 'Ideal for businesses that want a more developed brand identity.',
         includes: [
@@ -263,7 +263,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 22500, // $225
         description: 'Ideal for businesses creating regular marketing content.',
         includes: [
@@ -307,7 +307,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 149900, // $1,499
         description: 'Ideal for businesses expanding their online presence.',
         includes: [
@@ -348,7 +348,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 1499900, // $14,999
         description: 'Ideal for businesses building more advanced digital systems.',
         includes: [
@@ -389,7 +389,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 249900, // $2,499
         description: 'Ideal for businesses expanding their product catalog.',
         includes: [
@@ -430,7 +430,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 129900, // $1,299 - AMENDED
         description: 'Ideal for businesses running structured marketing campaigns.',
         includes: [
@@ -470,7 +470,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 99900, // $999 - AMENDED (estimated)
         description: 'Ideal for businesses with multiple services or staff.',
         includes: [
@@ -512,7 +512,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 89900, // $899/month
         description: 'Ideal for businesses actively working to improve search rankings.',
         includes: [
@@ -552,7 +552,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 59900, // $599
         description: 'Ideal for businesses scaling their sales efforts.',
         includes: [
@@ -592,7 +592,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 89900, // $899/month
         description: 'Ideal for businesses running multiple campaigns.',
         includes: [
@@ -633,7 +633,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 49900, // $499
         description: 'Ideal for businesses running regular email communication.',
         includes: [
@@ -672,7 +672,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 49900, // $499 - AMENDED (estimated)
         description: 'Ideal for businesses actively managing reviews.',
         includes: [
@@ -692,7 +692,7 @@ export const SERVICES_WITH_PACKAGES = {
           'Automated review requests',
           'Crisis response support',
           'Monthly detailed reporting',
-          'Strategic reputation growth plan'
+          'Strategic reputation standard plan'
         ]
       }
     }
@@ -712,7 +712,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 59900, // $599/month
         description: 'Ideal for businesses expanding their social media activity.',
         includes: [
@@ -769,7 +769,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 149900, // $1,499
         description: 'Ideal for businesses scaling their automation.',
         includes: [
@@ -809,7 +809,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 149900, // $1,499
         description: 'Ideal for businesses connecting multiple tools.',
         includes: [
@@ -847,7 +847,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 99900, // $999 - AMENDED (estimated)
         description: 'Ideal for automating multiple business processes.',
         includes: [
@@ -886,7 +886,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 69900, // $699/month
         description: 'Ideal for businesses tracking multiple performance areas.',
         includes: [
@@ -917,7 +917,7 @@ export const SERVICES_WITH_PACKAGES = {
       starter: {
         name: 'Starter Package',
         price: 49900, // $499 - AMENDED (estimated)
-        description: 'Ideal for businesses needing a growth plan.',
+        description: 'Ideal for businesses needing a standard plan.',
         includes: [
           '1 strategy session (60 min)',
           'Business assessment',
@@ -926,7 +926,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 149900, // $1,499 - AMENDED (estimated)
         description: 'Ideal for businesses needing ongoing strategy support.',
         includes: [
@@ -966,7 +966,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 39900, // $399/month
         description: 'Ideal for businesses needing regular operational assistance.',
         includes: [
@@ -1003,7 +1003,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 149900, // $1,499
         description: 'Ideal for businesses managing multiple tasks within a project.',
         includes: [
@@ -1041,7 +1041,7 @@ export const SERVICES_WITH_PACKAGES = {
         ]
       },
       growth: {
-        name: 'Growth Package',
+        name: 'Standard Package',
         price: 29900, // $299
         description: 'Ideal for businesses managing larger datasets.',
         includes: [

@@ -362,7 +362,7 @@ const GuideByProblemPage = () => {
           desc: "Helps make your growth process more organized and consistent."
         }
       ],
-      ctaText: "Create My Growth Plan",
+      ctaText: "Create My Standard Plan",
       ctaPath: "/services",
       bgColor: "from-emerald-500/5 to-green-500/5 border-emerald-100"
     }

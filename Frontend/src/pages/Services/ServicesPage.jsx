@@ -1026,21 +1026,7 @@ const ServicesPage = () => {
                 </p>
               </div>
             </div>
-
-            <div className="mt-8 text-center">
-              <p className="text-gray-600 mb-4">
-                <strong>Not sure which service best fits your needs?</strong>
-              </p>
-              <p className="text-gray-600 mb-6">
-                Tell us about your goals, and we'll recommend the right solution for your business.
-              </p>
-              <Link
-                to="/request-service?service=custom-quote&step=2"
-                className="inline-block px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Request a Custom Quote
-              </Link>
-            </div>
+            
           </div>
         </div>
       </section>

@@ -129,12 +129,7 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
               </ul>
             )}
 
-            <Link
-              to={`/services/${serviceSlug}`}
-              className="block w-full py-3 text-center font-semibold rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors text-sm mt-2"
-            >
-              View Full Service Details
-            </Link>
+            {/* Removed inert "View Full Service Details" link — redundant on ServiceDetailPage */}
           </div>
         </div>
       </div>
