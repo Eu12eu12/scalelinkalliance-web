@@ -16,11 +16,6 @@ import OrderSidebar from '../../components/sections/OrderSidebar';
 import { SERVICE_GALLERY_LOCAL } from '../../data/serviceImagesLocal';
 
 // ─── SERVICE IMAGES MAP ───
-// Galleries here are the ORIGINAL remote fallback. getServiceImages()
-// below prefers SERVICE_GALLERY_LOCAL (locally optimized webp files from
-// scripts/optimize-images.mjs) and only falls back to these remote URLs
-// for a slug that hasn't been processed yet.
-
 const SERVICE_IMAGES = {
   'graphic-design': {
     main: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=500&fit=crop',
@@ -298,16 +293,16 @@ const SERVICE_IMAGES = {
     main: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop',
     gallery: [
       'https://ibb.co/tTdH28M6',
-    'https://ibb.co/ymgrk6gf',
-    'https://ibb.co/GG86gL9',
-    'https://ibb.co/RxjHg2f',
-    'https://ibb.co/8DWbsg3y',
-    'https://ibb.co/RTVRWwmP',
-    'https://ibb.co/BV55kZjF',
-    'https://ibb.co/HDSxb1Q0',
-    'https://ibb.co/hJYjfthq',
-    'https://ibb.co/yB6twpPn',
-    'https://ibb.co/Y4psZ6kS'
+      'https://ibb.co/ymgrk6gf',
+      'https://ibb.co/GG86gL9',
+      'https://ibb.co/RxjHg2f',
+      'https://ibb.co/8DWbsg3y',
+      'https://ibb.co/RTVRWwmP',
+      'https://ibb.co/BV55kZjF',
+      'https://ibb.co/HDSxb1Q0',
+      'https://ibb.co/hJYjfthq',
+      'https://ibb.co/yB6twpPn',
+      'https://ibb.co/Y4psZ6kS'
     ]
   },
   'business-process-automation': {
@@ -401,9 +396,8 @@ const SERVICE_IMAGES = {
   }
 };
 
-// ─── COMPLETE SERVICES DATA WITH CORRECTED PRICES ───
+// ─── COMPLETE SERVICES DATA ───
 const SERVICES_DATA = {
-  // ─── 1. CONTENT, BRANDING & CREATIVE ───
   'graphic-design': {
     title: 'Graphic Design Services',
     category: 'Creative & Content',
@@ -453,7 +447,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A branded graphic design concept built to help a business look professional, promote offers clearly, and attract more attention."
     }
   },
-
   'video-editing': {
     title: 'Video Editing & Motion Graphics',
     category: 'Creative & Content',
@@ -504,7 +497,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A polished business video concept built to capture attention, explain value, and support brand growth."
     }
   },
-
   'copywriting': {
     title: 'Copywriting & Content Creation',
     category: 'Creative & Content',
@@ -555,7 +547,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A website copy concept built to make a business message clearer, more persuasive, and easier for customers to understand."
     }
   },
-
   'brand-identity': {
     title: 'Brand Identity & Logo Design',
     category: 'Creative & Content',
@@ -606,7 +597,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A brand identity concept built to give a startup a professional look, consistent visuals, and stronger market presence."
     }
   },
-
   'photography': {
     title: 'Photography & Visual Assets',
     category: 'Creative & Content',
@@ -658,7 +648,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A professional brand photography concept built to showcase products clearly, look premium, and elevate brand imagery."
     }
   },
-// ─── 2. WEBSITE & WEB APP DEVELOPMENT ───
   'website-development': {
     title: 'Website Development',
     category: 'Tech & Development',
@@ -710,7 +699,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A clean contractor website concept built to improve trust, explain services clearly, and generate more quote requests."
     }
   },
-
   'landing-pages': {
     title: 'Landing Pages & Sales Funnels',
     category: 'Tech & Development',
@@ -762,7 +750,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A landing page concept built to capture leads, explain the offer quickly, and encourage visitors to request a quote."
     }
   },
-
   'ecommerce-development': {
     title: 'E-Commerce Development',
     category: 'Tech & Development',
@@ -814,7 +801,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A stylish online store concept built for product discovery, smooth checkout, and stronger online sales."
     }
   },
-
   'web-applications': {
     title: 'Web Applications & SaaS Development',
     category: 'Tech & Development',
@@ -866,7 +852,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A business dashboard concept built to organize clients, projects, reports, and daily operations in one place."
     }
   },
-
   'api-integration': {
     title: 'API Integration & Automation',
     category: 'Tech & Development',
@@ -918,7 +903,6 @@ const SERVICES_DATA = {
       portfolioCardText: "An integration concept built to connect business tools, reduce manual work, and improve daily operations."
     }
   },
-
   'website-maintenance': {
     title: 'Website Maintenance & Updates',
     category: 'Tech & Development',
@@ -970,7 +954,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A website maintenance concept built to keep a business website updated, professional, secure, and ready for customers."
     }
   },
-
   'online-booking-systems': {
     title: 'Online Booking Systems',
     category: 'Tech & Development',
@@ -1020,8 +1003,6 @@ const SERVICES_DATA = {
       portfolioCardText: "An online booking concept built to streamline scheduling, reduce no-shows, and improve customer experience."
     }
   },
-
-  // ─── 3. WEBSITE GROWTH & MARKETING ───
   'social-media-management': {
     title: 'Social Media Management',
     category: 'Marketing & Growth',
@@ -1072,7 +1053,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A social media campaign concept built to strengthen brand presence, improve consistency, and increase engagement."
     }
   },
-
   'seo-marketing': {
     title: 'SEO & Search Marketing',
     category: 'Marketing & Growth',
@@ -1123,7 +1103,6 @@ const SERVICES_DATA = {
       portfolioCardText: "An SEO campaign concept built to improve visibility, target local keywords, and attract more qualified website visitors."
     }
   },
-
   'paid-advertising': {
     title: 'Paid Advertising Management',
     category: 'Marketing & Growth',
@@ -1175,7 +1154,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A paid advertising concept built to help businesses attract targeted traffic, generate leads, and track campaign performance."
     }
   },
-
   'email-marketing': {
     title: 'Email Marketing Campaigns',
     category: 'Marketing & Growth',
@@ -1226,7 +1204,6 @@ const SERVICES_DATA = {
       portfolioCardText: "An email marketing concept built to turn subscribers into customers and keep buyers engaged."
     }
   },
-
   'lead-generation': {
     title: 'Lead Generation Services',
     category: 'Marketing & Growth',
@@ -1278,7 +1255,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A lead generation campaign concept built to identify qualified prospects and create more sales conversations."
     }
   },
-
   'reputation-review-management': {
     title: 'Reputation & Review Management',
     category: 'Marketing & Growth',
@@ -1328,8 +1304,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A reputation management concept built to help businesses build trust, attract customers, and strengthen their online presence."
     }
   },
-
-  // ─── 4. AUTOMATION, CRM & AI SYSTEMS ───
   'crm-automation': {
     title: 'CRM & Marketing Automation',
     category: 'Automation & AI',
@@ -1382,7 +1356,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A CRM and automation concept built to help businesses manage leads, automate follow-up, and improve customer communication."
     }
   },
-
   'ai-automation': {
     title: 'AI Automation & Smart Business Systems',
     category: 'Automation & AI',
@@ -1415,7 +1388,6 @@ const SERVICES_DATA = {
       portfolioCardText: "An AI automation concept built to help a business respond faster, follow up consistently, and spend less time on repetitive manual work."
     }
   },
-
   'business-process-automation': {
     title: 'Business Process Automation',
     category: 'Automation & AI',
@@ -1465,7 +1437,6 @@ const SERVICES_DATA = {
       portfolioCardText: "An automation concept built to simplify daily operations, reduce manual work, and keep business tasks moving smoothly."
     }
   },
-
   'data-analytics': {
     title: 'Data Analytics & Reporting',
     category: 'Automation & AI',
@@ -1516,8 +1487,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A reporting dashboard concept built to help businesses understand their numbers, track performance, and make smarter growth decisions."
     }
   },
-
-  // ─── 5. BUSINESS STRATEGY & SUPPORT ───
   'business-consulting-growth-strategy': {
     title: 'Business Consulting & Growth Strategy',
     category: 'Operations & Support',
@@ -1567,7 +1536,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A business consulting concept built to help companies develop clear strategies, overcome challenges, and achieve sustainable growth."
     }
   },
-
   'virtual-assistant': {
     title: 'Virtual Assistant Services',
     category: 'Operations & Support',
@@ -1618,7 +1586,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A virtual assistant support concept built to handle admin tasks, scheduling, inbox management, and customer follow-ups."
     }
   },
-
   'project-management': {
     title: 'Project Management Support',
     category: 'Operations & Support',
@@ -1669,7 +1636,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A project management concept built to help businesses organize tasks, manage deadlines, and keep projects moving efficiently."
     }
   },
-
   'process-documentation': {
     title: 'Process Documentation & SOP Development',
     category: 'Operations & Support',
@@ -1719,7 +1685,6 @@ const SERVICES_DATA = {
       portfolioCardText: "A process documentation concept built to help businesses standardize operations, improve efficiency, and scale with confidence."
     }
   },
-
   'data-entry': {
     title: 'Data Entry & Processing',
     category: 'Operations & Support',
@@ -1774,10 +1739,6 @@ const SERVICES_DATA = {
 };
 
 // ─── HELPER FUNCTIONS ───
-
-// Gallery images now prefer the locally-optimized set generated by
-// scripts/optimize-images.mjs (public/images/services/<slug>/*.webp).
-// Falls back to the original remote gallery for any slug not yet processed.
 const getServiceImages = (slug) => {
   const entry = SERVICE_IMAGES[slug];
   const fallback = {
@@ -1795,10 +1756,6 @@ const getServiceImages = (slug) => {
   };
 };
 
-// ─── IMAGE OPTIMIZATION HELPER (fallback path only) ───
-// Only used for gallery images NOT yet covered by SERVICE_GALLERY_LOCAL.
-// Once optimize-images.mjs has run for a slug, its images are already
-// local (/images/services/...) and this passes them through untouched.
 const optimizeImage = (url, width, quality = 75) => {
   if (!url) return url;
   if (url.includes('images.unsplash.com')) return url;
@@ -1857,11 +1814,6 @@ const renderStars = (rating) => {
 };
 
 // ─── LAZY IMAGE ───
-// Only sets `src` once the element is actually scrolled near the viewport
-// (IntersectionObserver), instead of relying on native loading="lazy" —
-// which can fire prematurely inside a horizontally-scrolling thumbnail
-// strip and queue every request at once behind the browser's ~6
-// concurrent-connections-per-host limit.
 const LazyImg = ({ src, alt, className, width, height }) => {
   const ref = React.useRef(null);
   const [inView, setInView] = useState(false);
@@ -1894,7 +1846,7 @@ const LazyImg = ({ src, alt, className, width, height }) => {
   );
 };
 
-// ─── IMAGE GALLERY COMPONENT (full visibility) ───
+// ─── IMAGE GALLERY COMPONENT ───
 const ImageGallery = ({ images, serviceTitle }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -1922,9 +1874,6 @@ const ImageGallery = ({ images, serviceTitle }) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isFullscreen, currentIndex]);
 
-  // Warm the browser cache for the current image's fullscreen-res version
-  // ahead of time, so clicking to expand doesn't pay a fresh network
-  // round-trip. No-op (near-instant) once images are served locally.
   React.useEffect(() => {
     const img = new Image();
     img.src = optimizeImage(images[currentIndex], 1600, 82);
@@ -1949,14 +1898,14 @@ const ImageGallery = ({ images, serviceTitle }) => {
             loading={currentIndex === 0 ? 'eager' : 'lazy'}
             fetchpriority={currentIndex === 0 ? 'high' : 'auto'}
             decoding="async"
-            className="w-full h-auto max-h-[500px] object-contain bg-gray-50 transition-transform duration-300 group-hover:scale-[1.01]"
+            className="w-full h-auto max-h-[300px] sm:max-h-[400px] md:max-h-[500px] object-contain bg-gray-50 transition-transform duration-300 group-hover:scale-[1.01]"
           />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-            <span className="text-white text-sm font-semibold bg-black/60 px-4 py-2 rounded-lg flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span className="text-white text-xs sm:text-sm font-semibold bg-black/60 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <FaExpand className="inline" /> Click to view fullscreen
             </span>
           </div>
-          <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-3 py-1.5 rounded-full">
+          <div className="absolute bottom-3 sm:bottom-4 right-3 sm:right-4 bg-black/70 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
             {currentIndex + 1} / {images.length}
           </div>
         </div>
@@ -1965,26 +1914,26 @@ const ImageGallery = ({ images, serviceTitle }) => {
           <>
             <button
               onClick={(e) => { e.stopPropagation(); prevImage(); }}
-              className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2.5 rounded-full shadow-lg transition-all hover:scale-110 hover:shadow-xl"
+              className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 sm:p-2.5 rounded-full shadow-lg transition-all hover:scale-110 hover:shadow-xl"
             >
-              <FaChevronLeft size={18} />
+              <FaChevronLeft size={14} />
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); nextImage(); }}
-              className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2.5 rounded-full shadow-lg transition-all hover:scale-110 hover:shadow-xl"
+              className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 sm:p-2.5 rounded-full shadow-lg transition-all hover:scale-110 hover:shadow-xl"
             >
-              <FaChevronRight size={18} />
+              <FaChevronRight size={14} />
             </button>
           </>
         )}
 
         {images.length > 1 && (
-          <div className="flex gap-2 mt-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+          <div className="flex gap-1.5 sm:gap-2 mt-3 sm:mt-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 -mx-1 px-1">
             {images.map((img, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
-                className={`flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden border-2 transition-all ${
+                className={`flex-shrink-0 w-16 sm:w-20 md:w-24 h-11 sm:h-14 md:h-16 rounded-lg overflow-hidden border-2 transition-all ${
                   idx === currentIndex ? 'border-blue-600 ring-2 ring-blue-200' : 'border-transparent hover:border-gray-300'
                 }`}
               >
@@ -2010,33 +1959,33 @@ const ImageGallery = ({ images, serviceTitle }) => {
             className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center"
             onClick={closeFullscreen}
           >
-            <button onClick={closeFullscreen} className="absolute top-4 right-4 text-white/80 hover:text-white p-2 transition-colors z-10">
-              <FaTimes size={28} />
+            <button onClick={closeFullscreen} className="absolute top-3 sm:top-4 right-3 sm:right-4 text-white/80 hover:text-white p-2 transition-colors z-10">
+              <FaTimes size={24} />
             </button>
-            <div className="absolute top-4 left-4 text-white/60 text-sm">{currentIndex + 1} / {images.length}</div>
-            <div className="max-w-[90vw] max-h-[85vh] cursor-pointer" onClick={(e) => e.stopPropagation()}>
+            <div className="absolute top-3 sm:top-4 left-3 sm:left-4 text-white/60 text-xs sm:text-sm">{currentIndex + 1} / {images.length}</div>
+            <div className="max-w-[95vw] max-h-[80vh] sm:max-w-[90vw] sm:max-h-[85vh] cursor-pointer" onClick={(e) => e.stopPropagation()}>
               <img
                 src={optimizeImage(images[currentIndex], 1600, 82)}
                 alt={`${serviceTitle} - Fullscreen`}
                 loading="eager"
                 decoding="async"
-                className="max-w-full max-h-[85vh] object-contain rounded-lg"
+                className="max-w-full max-h-[80vh] sm:max-h-[85vh] object-contain rounded-lg"
               />
             </div>
             {images.length > 1 && (
               <>
-                <button onClick={(e) => { e.stopPropagation(); prevImage(); }} className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all hover:scale-110">
-                  <FaChevronLeft size={24} />
+                <button onClick={(e) => { e.stopPropagation(); prevImage(); }} className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-2 sm:p-3 rounded-full transition-all hover:scale-110">
+                  <FaChevronLeft size={18} />
                 </button>
-                <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all hover:scale-110">
-                  <FaChevronRight size={24} />
+                <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-2 sm:p-3 rounded-full transition-all hover:scale-110">
+                  <FaChevronRight size={18} />
                 </button>
               </>
             )}
             {images.length > 1 && (
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 max-w-[80vw] overflow-x-auto pb-2">
+              <div className="absolute bottom-16 sm:bottom-20 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 max-w-[85vw] overflow-x-auto pb-2">
                 {images.map((img, idx) => (
-                  <button key={idx} onClick={(e) => { e.stopPropagation(); setCurrentIndex(idx); }} className={`flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-all ${idx === currentIndex ? 'border-white ring-2 ring-blue-400' : 'border-white/30 hover:border-white/60'}`}>
+                  <button key={idx} onClick={(e) => { e.stopPropagation(); setCurrentIndex(idx); }} className={`flex-shrink-0 w-12 sm:w-16 h-9 sm:h-12 rounded-lg overflow-hidden border-2 transition-all ${idx === currentIndex ? 'border-white ring-2 ring-blue-400' : 'border-white/30 hover:border-white/60'}`}>
                     <LazyImg
                       src={optimizeImage(img, 100)}
                       alt={`Thumbnail ${idx + 1}`}
@@ -2046,7 +1995,7 @@ const ImageGallery = ({ images, serviceTitle }) => {
                 ))}
               </div>
             )}
-            <div className="absolute bottom-20 left-1/2 -translate-x-1/2 text-white/30 text-xs hidden md:block">← → to navigate • ESC to close</div>
+            <div className="absolute bottom-10 sm:bottom-12 left-1/2 -translate-x-1/2 text-white/30 text-[10px] sm:text-xs hidden md:block">← → to navigate • ESC to close</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -2062,11 +2011,11 @@ const ServiceDetailPage = () => {
 
   if (!service) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-16 px-4">
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-12 sm:py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">Service Not Found</h1>
-          <p className="text-gray-600 mb-8">The requested service could not be located.</p>
-          <Link to="/services" className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+          <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">Service Not Found</h1>
+          <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">The requested service could not be located.</p>
+          <Link to="/services" className="inline-flex items-center px-4 sm:px-6 py-2.5 sm:py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base">
             Browse All Services
           </Link>
         </div>
@@ -2086,72 +2035,72 @@ const ServiceDetailPage = () => {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
       {/* Hero Section with Image Gallery */}
       <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center text-sm text-gray-500 mb-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <div className="flex items-center text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4 flex-wrap">
             <Link to="/services" className="hover:text-blue-600">Services</Link>
-            <span className="mx-2">/</span>
-            <span className="text-gray-900">{service.title}</span>
+            <span className="mx-1 sm:mx-2">/</span>
+            <span className="text-gray-900 truncate">{service.title}</span>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {/* Left: Image Gallery + Content */}
             <div className="lg:col-span-2">
               <ImageGallery images={images.gallery} serviceTitle={service.title} />
 
               {service.sellerInfo && (
-                <div className="flex items-center gap-4 mt-4 flex-wrap">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-3 sm:mt-4">
                   <div className="flex items-center gap-2">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm">
                       {service.sellerInfo.name.split(' ').map(n => n[0]).join('')}
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900 text-sm">{service.sellerInfo.name}</p>
-                      <p className="text-xs text-gray-500">{service.sellerInfo.level}</p>
+                      <p className="font-semibold text-gray-900 text-xs sm:text-sm">{service.sellerInfo.name}</p>
+                      <p className="text-[10px] sm:text-xs text-gray-500">{service.sellerInfo.level}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-0.5 sm:gap-1 flex-wrap">
                     {renderStars(service.sellerInfo.rating)}
-                    <span className="text-sm font-semibold text-gray-900 ml-1">{service.sellerInfo.rating}</span>
-                    <span className="text-sm text-gray-500">({service.sellerInfo.reviews} reviews)</span>
+                    <span className="text-xs sm:text-sm font-semibold text-gray-900 ml-1">{service.sellerInfo.rating}</span>
+                    <span className="text-[10px] sm:text-sm text-gray-500">({service.sellerInfo.reviews} reviews)</span>
                   </div>
-                  {service.sellerInfo.verified && <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-semibold rounded-full">✓ Verified</span>}
-                  {service.sellerInfo.ordersInQueue && <span className="text-xs text-gray-500">{service.sellerInfo.ordersInQueue} orders in queue</span>}
+                  {service.sellerInfo.verified && <span className="px-1.5 sm:px-2 py-0.5 bg-green-100 text-green-700 text-[10px] sm:text-xs font-semibold rounded-full">✓ Verified</span>}
+                  {service.sellerInfo.ordersInQueue && <span className="text-[10px] sm:text-xs text-gray-500">{service.sellerInfo.ordersInQueue} orders in queue</span>}
                 </div>
               )}
 
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-4">{service.title}</h1>
-              <p className="text-lg text-gray-700 mb-4 leading-relaxed">{service.intro}</p>
-              <p className="text-gray-600 mb-6 leading-relaxed">{service.longDescription}</p>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mt-3 sm:mt-4 mb-2 sm:mb-4">{service.title}</h1>
+              <p className="text-base sm:text-lg text-gray-700 mb-3 sm:mb-4 leading-relaxed">{service.intro}</p>
+              <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">{service.longDescription}</p>
             </div>
 
             {/* Right Sidebar */}
             <div className="lg:col-span-1">
-              <div className="sticky top-24 bg-white border border-gray-200 rounded-xl shadow-lg p-6">
+              <div className="sticky top-24 bg-white border border-gray-200 rounded-xl shadow-lg p-4 sm:p-6">
                 {isCustomQuote ? (
                   <>
-                    <div className="text-center mb-4">
-                      <span className="inline-block bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full mb-2">Custom Quote Only</span>
-                      <h3 className="text-2xl font-bold text-gray-900">Custom Quote</h3>
-                      <p className="text-sm text-gray-500 mt-1">Based on your specific needs</p>
+                    <div className="text-center mb-3 sm:mb-4">
+                      <span className="inline-block bg-purple-100 text-purple-800 text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full mb-2">Custom Quote Only</span>
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Custom Quote</h3>
+                      <p className="text-xs sm:text-sm text-gray-500 mt-1">Based on your specific needs</p>
                     </div>
-                    <div className="space-y-3 mb-6">
-                      <div className="flex items-center gap-2 text-sm text-gray-600"><FaClock className="text-gray-400" /><span>Custom delivery timeline</span></div>
-                      <div className="flex items-center gap-2 text-sm text-gray-600"><FaSyncAlt className="text-gray-400" /><span>Unlimited revisions</span></div>
+                    <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                      <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600"><FaClock className="text-gray-400 shrink-0" /><span>Custom delivery timeline</span></div>
+                      <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600"><FaSyncAlt className="text-gray-400 shrink-0" /><span>Unlimited revisions</span></div>
                     </div>
-                    <Link to="/request-service?service=custom-quote&step=2" className="block w-full py-3 px-4 bg-purple-600 text-white font-bold rounded-lg text-center hover:bg-purple-700 transition-colors shadow-md">Request Custom Quote</Link>
-                    <Link to="/contact" className="block w-full mt-3 py-3 px-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg text-center hover:bg-gray-50 transition-colors">Contact Me</Link>
-                    <div className="mt-4 text-center"><p className="text-xs text-gray-400">Need flexibility? <Link to="/contact" className="text-blue-600 hover:underline">Hire by the hour</Link></p></div>
+                    <Link to="/request-service?service=custom-quote&step=2" className="block w-full py-2.5 sm:py-3 px-4 bg-purple-600 text-white font-bold rounded-lg text-center hover:bg-purple-700 transition-colors shadow-md text-sm sm:text-base">Request Custom Quote</Link>
+                    <Link to="/contact" className="block w-full mt-2 sm:mt-3 py-2.5 sm:py-3 px-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg text-center hover:bg-gray-50 transition-colors text-sm sm:text-base">Contact Me</Link>
+                    <div className="mt-3 sm:mt-4 text-center"><p className="text-[10px] sm:text-xs text-gray-400">Need flexibility? <Link to="/contact" className="text-blue-600 hover:underline">Hire by the hour</Link></p></div>
                   </>
                 ) : (
                   <>
                     {packageKeys.length > 0 && (
-                      <div className="mb-4">
-                        <div className="flex border-b border-gray-200">
+                      <div className="mb-3 sm:mb-4">
+                        <div className="flex border-b border-gray-200 -mx-0.5 sm:-mx-1">
                           {packageKeys.map((pkgKey) => {
                             const pkg = service.packages[pkgKey];
                             const isActive = validPackage === pkgKey;
                             return (
-                              <button key={pkgKey} onClick={() => setSelectedPackage(pkgKey)} className={`flex-1 py-2 text-sm font-semibold transition-all ${isActive ? 'text-gray-900 border-b-2 border-gray-900' : 'text-gray-400 hover:text-gray-600'}`}>
+                              <button key={pkgKey} onClick={() => setSelectedPackage(pkgKey)} className={`flex-1 py-1.5 sm:py-2 px-0.5 sm:px-1 text-[10px] sm:text-xs font-semibold transition-all truncate ${isActive ? 'text-gray-900 border-b-2 border-gray-900' : 'text-gray-400 hover:text-gray-600'}`}>
                                 {pkg?.name?.split(' ')[0] || pkgKey}
                               </button>
                             );
@@ -2162,48 +2111,48 @@ const ServiceDetailPage = () => {
 
                     {selectedPkg && (
                       <>
-                        <div className="mb-4">
-                          <div className="flex justify-between items-center">
-                            <span className="text-sm text-gray-500">{selectedPkg.name}</span>
-                            <span className="text-2xl font-bold text-gray-900">{selectedPkg.price}</span>
+                        <div className="mb-3 sm:mb-4">
+                          <div className="flex flex-wrap justify-between items-center gap-1">
+                            <span className="text-xs sm:text-sm text-gray-500">{selectedPkg.name}</span>
+                            <span className="text-xl sm:text-2xl font-bold text-gray-900">{selectedPkg.price}</span>
                           </div>
-                          <p className="text-xs text-gray-500 mt-1">{selectedPkg.description}</p>
+                          <p className="text-[10px] sm:text-xs text-gray-500 mt-1">{selectedPkg.description}</p>
                         </div>
 
-                        <div className="flex items-center gap-3 text-sm text-gray-600 mb-4">
-                          <span className="flex items-center gap-1"><FaClock className="text-gray-400" />Shown during selection</span>
-                          <span className="flex items-center gap-1"><FaSyncAlt className="text-gray-400" />Unlimited Revisions</span>
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
+                          <span className="flex items-center gap-1"><FaClock className="text-gray-400 shrink-0" />Shown during selection</span>
+                          <span className="flex items-center gap-1"><FaSyncAlt className="text-gray-400 shrink-0" />Unlimited Revisions</span>
                         </div>
 
                         {selectedPkg.includes && selectedPkg.includes.length > 0 && (
-                          <div className="border-t border-gray-200 pt-3 mb-4">
-                            <button className="w-full flex items-center justify-between text-sm font-semibold text-gray-900" onClick={() => { const el = document.getElementById('package-includes'); if (el) { el.classList.toggle('hidden'); } }}>
+                          <div className="border-t border-gray-200 pt-2 sm:pt-3 mb-3 sm:mb-4">
+                            <button className="w-full flex items-center justify-between text-xs sm:text-sm font-semibold text-gray-900" onClick={() => { const el = document.getElementById('package-includes'); if (el) { el.classList.toggle('hidden'); } }}>
                               <span>What's Included</span>
-                              <FaChevronDown className="text-gray-400 text-xs" />
+                              <FaChevronDown className="text-gray-400 text-[10px] sm:text-xs" />
                             </button>
-                            <div id="package-includes" className="mt-2 space-y-1.5">
+                            <div id="package-includes" className="mt-1.5 sm:mt-2 space-y-1 sm:space-y-1.5">
                               {selectedPkg.includes.map((item, idx) => (
-                                <div key={idx} className="flex items-start text-sm text-gray-600">
-                                  <FaCheck className="text-green-500 mr-2 mt-0.5 shrink-0" size={12} />
-                                  <span>{item}</span>
+                                <div key={idx} className="flex items-start text-xs sm:text-sm text-gray-600">
+                                  <FaCheck className="text-green-500 mr-1.5 sm:mr-2 mt-0.5 shrink-0" size={10} />
+                                  <span className="break-words">{item}</span>
                                 </div>
                               ))}
                             </div>
                           </div>
                         )}
 
-                        <Link to={`/request-service?service=${serviceSlug}&package=${validPackage}`} className="block w-full py-3 px-4 bg-blue-600 text-white font-bold rounded-lg text-center hover:bg-blue-700 transition-colors shadow-md">Continue</Link>
-                        <Link to="/contact" className="block w-full mt-3 py-3 px-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg text-center hover:bg-gray-50 transition-colors">Contact Me</Link>
-                        <div className="mt-4 text-center"><p className="text-xs text-gray-400">Need flexibility? <Link to="/contact" className="text-blue-600 hover:underline">Hire by the hour</Link></p></div>
+                        <Link to={`/request-service?service=${serviceSlug}&package=${validPackage}`} className="block w-full py-2.5 sm:py-3 px-4 bg-blue-600 text-white font-bold rounded-lg text-center hover:bg-blue-700 transition-colors shadow-md text-sm sm:text-base">Continue</Link>
+                        <Link to="/contact" className="block w-full mt-2 sm:mt-3 py-2.5 sm:py-3 px-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg text-center hover:bg-gray-50 transition-colors text-sm sm:text-base">Contact Me</Link>
+                        <div className="mt-3 sm:mt-4 text-center"><p className="text-[10px] sm:text-xs text-gray-400">Need flexibility? <Link to="/contact" className="text-blue-600 hover:underline">Hire by the hour</Link></p></div>
                       </>
                     )}
                   </>
                 )}
 
-                <div className="mt-4 pt-4 border-t border-gray-200 flex justify-center gap-4 text-xs text-gray-500">
-                  <span className="flex items-center gap-1"><FaShieldAlt className="text-green-500" />Secure</span>
-                  <span className="flex items-center gap-1"><FaClock className="text-blue-500" />5-Day Delivery</span>
-                  <span className="flex items-center gap-1"><FaSyncAlt className="text-purple-500" />Unlimited Revisions</span>
+                <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-200 flex flex-wrap justify-center gap-2 sm:gap-4 text-[10px] sm:text-xs text-gray-500">
+                  <span className="flex items-center gap-1"><FaShieldAlt className="text-green-500 shrink-0" />Secure</span>
+                  <span className="flex items-center gap-1"><FaClock className="text-blue-500 shrink-0" />5-Day Delivery</span>
+                  <span className="flex items-center gap-1"><FaSyncAlt className="text-purple-500 shrink-0" />Unlimited Revisions</span>
                 </div>
               </div>
             </div>
@@ -2212,42 +2161,42 @@ const ServiceDetailPage = () => {
       </div>
 
       {/* Rest of the page */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* What This Service Helps Businesses Achieve */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">What This Service Helps Businesses Achieve</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <section className="mb-10 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">What This Service Helps Businesses Achieve</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {service.whatItHelpsAchieve.map((item, index) => (
-              <div key={index} className="flex items-start space-x-3 p-3 bg-blue-50 rounded-lg">
-                <FaCheck className="w-5 h-5 text-green-500 mt-0.5 shrink-0" />
-                <span className="text-gray-700">{item}</span>
+              <div key={index} className="flex items-start space-x-2 sm:space-x-3 p-2.5 sm:p-3 bg-blue-50 rounded-lg">
+                <FaCheck className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mt-0.5 shrink-0" />
+                <span className="text-sm sm:text-base text-gray-700">{item}</span>
               </div>
             ))}
           </div>
         </section>
 
         {/* How This Service Is Measured */}
-        <section className="mb-16 bg-gray-50 p-8 rounded-2xl">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">How This Service Is Measured</h2>
-          <p className="text-gray-600 mb-4">This ensures transparent pricing and clear deliverables.</p>
-          <div className="grid md:grid-cols-2 gap-4">
+        <section className="mb-10 sm:mb-16 bg-gray-50 p-4 sm:p-6 md:p-8 rounded-2xl">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-4">How This Service Is Measured</h2>
+          <p className="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4">This ensures transparent pricing and clear deliverables.</p>
+          <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
             {service.howMeasured.map((item, index) => (
-              <div key={index} className="flex items-start space-x-3">
-                <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 shrink-0"></div>
-                <span className="text-gray-700">{item}</span>
+              <div key={index} className="flex items-start space-x-2 sm:space-x-3">
+                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full mt-1.5 sm:mt-2 shrink-0"></div>
+                <span className="text-sm sm:text-base text-gray-700">{item}</span>
               </div>
             ))}
           </div>
         </section>
 
         {/* Services Include */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Services Include</h2>
-          <div className="grid md:grid-cols-2 gap-4">
+        <section className="mb-10 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 md:mb-8">Services Include</h2>
+          <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
             {service.servicesInclude.map((item, index) => (
-              <div key={index} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
-                <FaCheck className="w-5 h-5 text-green-500 mt-1 shrink-0" />
-                <span className="text-gray-700">{item}</span>
+              <div key={index} className="flex items-start space-x-2 sm:space-x-3 p-2.5 sm:p-3 bg-gray-50 rounded-lg">
+                <FaCheck className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mt-0.5 sm:mt-1 shrink-0" />
+                <span className="text-sm sm:text-base text-gray-700">{item}</span>
               </div>
             ))}
           </div>
@@ -2255,14 +2204,14 @@ const ServiceDetailPage = () => {
 
         {/* Tools & Technologies */}
         {service.tools && service.tools.length > 0 && (
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
-              <FaTools className="mr-3 text-gray-700" />
+          <section className="mb-10 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 md:mb-8 flex items-center">
+              <FaTools className="mr-2 sm:mr-3 text-gray-700 shrink-0" />
               Tools & Technologies
             </h2>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               {service.tools.map((tool, index) => (
-                <span key={index} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium">{tool}</span>
+                <span key={index} className="px-2.5 sm:px-4 py-1.5 sm:py-2 bg-gray-100 text-gray-700 rounded-lg font-medium text-xs sm:text-sm">{tool}</span>
               ))}
             </div>
           </section>
@@ -2270,14 +2219,14 @@ const ServiceDetailPage = () => {
 
         {/* Add-On Options */}
         {service.addOnOptions && service.addOnOptions.length > 0 && (
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Add-On Options</h2>
-            <p className="text-gray-600 mb-4">Businesses may also request additional services such as:</p>
-            <div className="grid md:grid-cols-2 gap-4">
+          <section className="mb-10 sm:mb-16">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 md:mb-6">Add-On Options</h2>
+            <p className="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4">Businesses may also request additional services such as:</p>
+            <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
               {service.addOnOptions.map((item, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 shrink-0"></div>
-                  <span className="text-gray-700">{item}</span>
+                <div key={index} className="flex items-start space-x-2 sm:space-x-3">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full mt-1.5 sm:mt-2 shrink-0"></div>
+                  <span className="text-sm sm:text-base text-gray-700">{item}</span>
                 </div>
               ))}
             </div>
@@ -2286,31 +2235,59 @@ const ServiceDetailPage = () => {
 
         {/* Package Comparison Table */}
         {hasPackageComparison && (
-          <section className="mb-16">
+          <section className="mb-10 sm:mb-16">
             <PackageComparison packageData={service.packageComparison} serviceSlug={serviceSlug} />
           </section>
         )}
 
         {/* Final CTA */}
-        <section className="text-center py-12 bg-gray-50 rounded-2xl">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">Ready to Get Professional Results?</h2>
-          <p className="text-xl text-gray-600 mb-4 max-w-3xl mx-auto">Submit your service request today. No membership required, no commitments — just professional execution.</p>
-          <div className="flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 border-l-4 border-l-blue-500 rounded-r-xl rounded-l-md max-w-2xl mx-auto mb-8 text-left shadow-sm transition-all duration-300 hover:shadow-md">
-            <FaInfoCircle className="text-blue-600 shrink-0 mt-0.5" size={18} />
-            <p className="text-sm leading-relaxed text-blue-800 font-medium">
+        <section className="text-center py-8 sm:py-12 bg-gray-50 rounded-2xl px-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">Ready to Get Professional Results?</h2>
+          <p className="text-base sm:text-xl text-gray-600 mb-4 max-w-3xl mx-auto">Submit your service request today. No membership required, no commitments — just professional execution.</p>
+          <div className="flex items-start gap-2 sm:gap-3 p-3 sm:p-4 bg-blue-50 border border-blue-200 border-l-4 border-l-blue-500 rounded-r-xl rounded-l-md max-w-2xl mx-auto mb-6 sm:mb-8 text-left shadow-sm transition-all duration-300 hover:shadow-md">
+            <FaInfoCircle className="text-blue-600 shrink-0 mt-0.5" size={16} />
+            <p className="text-xs sm:text-sm leading-relaxed text-blue-800 font-medium">
               <span className="font-semibold text-blue-950">Starting price options</span> are shown during service selection. <span className="font-semibold text-blue-950">Custom quotes</span> are available for larger or more detailed projects.
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/request-service?service=custom-quote" className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <Link to="/request-service?service=custom-quote" className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg text-sm sm:text-base">
               <FaArrowRight className="mr-2" /> Request Service Now
             </Link>
-            <Link to="/contact" className="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-black transition-colors">
+            <Link to="/contact" className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-black transition-colors text-sm sm:text-base">
               <FaHeadset className="mr-2" /> Schedule Free Consultation
             </Link>
           </div>
         </section>
       </main>
+
+      {/* Responsive helper styles */}
+      <style>{`
+        @media (max-width: 640px) {
+          button, 
+          label,
+          input[type="checkbox"],
+          input[type="radio"] {
+            touch-action: manipulation;
+          }
+          button {
+            min-height: 44px;
+          }
+          input, select, textarea {
+            font-size: 16px !important;
+          }
+        }
+        @media (min-width: 480px) {
+          .xs\\:block {
+            display: block !important;
+          }
+        }
+        @media (max-width: 479px) {
+          .xs\\:block {
+            display: none !important;
+          }
+        }
+      `}</style>
     </motion.div>
   );
 };

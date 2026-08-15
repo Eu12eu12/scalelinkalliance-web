@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import {
   FaCode, FaGlobe, FaShoppingCart, FaRocket, FaPaintBrush,
   FaPenNib, FaPalette, FaCamera, FaVideo, FaArrowRight,
-  FaCheckCircle, FaDesktop, FaStar, FaClock, FaShieldAlt
+  FaCheckCircle, FaDesktop, FaStar, FaClock, FaShieldAlt, FaBriefcase
 } from 'react-icons/fa';
 
 const services = [
@@ -235,30 +235,46 @@ const BuildFromScratch = () => {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-800">
+      {/* Bundle callout */}
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-              Not Sure Where to Start?
-            </h2>
-            <p className="text-xl text-white/80 mb-8">
-              Tell us about your business goals and we'll recommend the right starting point — no commitment required.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-10">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center shrink-0">
+                <FaBriefcase className="text-blue-600 text-2xl" />
+              </div>
+              <div className="flex-grow">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  Save up to 20% when you bundle services
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Combining Website Development + Brand Identity + Copywriting? Or E-Commerce + Graphic Design + Photography? Bundling services with ScaleLink Alliance gives you better results at a lower cost — with one team managing everything.
+                </p>
+              </div>
               <Link
-                to="/request-service?path=start_from_scratch"
-                className="px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-gray-100 transition-colors shadow-xl"
+                to="/request-service?path=start_from_scratch&bundle=true"
+                className="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors text-sm whitespace-nowrap"
               >
-                Start My Project
-              </Link>
-              <Link
-                to="/contact"
-                className="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-xl hover:bg-white/10 transition-colors"
-              >
-                Book a Free Consultation
+                Request a Bundle Quote <FaArrowRight size={12} />
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Guide-by-problem callout */}
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-800">
+        <div className="container mx-auto px-4">
+          <div className="bg-black/45 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 max-w-3xl mx-auto shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
+            <h3 className="text-base sm:text-lg font-bold text-white leading-snug">
+              Not Sure What Service You Need? Start With the Problem.
+            </h3>
+            <Link
+              to="/services/guide-by-problem"
+              className="inline-flex items-center px-4 sm:px-5 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all text-sm shrink-0 hover:scale-105 shadow-lg shadow-blue-500/20"
+            >
+              Start Here <FaArrowRight className="ml-2 text-xs" />
+            </Link>
           </div>
         </div>
       </section>

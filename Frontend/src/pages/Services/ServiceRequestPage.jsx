@@ -403,15 +403,15 @@ const ServiceHoverPreview = ({ service, packageKey, onClose }) => {
   return (
     <div className="bg-white rounded-xl p-5">
       <div className="flex items-start justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <ServiceIcon className="text-blue-600 text-lg" />
-          <h4 className="font-bold text-gray-900 text-sm">{service.split(' - ')[0]}</h4>
+        <div className="flex items-center gap-2 min-w-0">
+          <ServiceIcon className="text-blue-600 text-lg shrink-0" />
+          <h4 className="font-bold text-gray-900 text-sm truncate">{service.split(' - ')[0]}</h4>
         </div>
-        <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-lg leading-none">×</button>
+        <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-lg leading-none shrink-0 ml-2">×</button>
       </div>
       
       <div className="space-y-2 mb-3">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-wrap justify-between items-center gap-1">
           <span className="text-xs text-gray-500">{pkgData.name}</span>
           <span className="text-lg font-bold text-blue-600">
             {isCustomQuote || pkgData.price === 0 ? 'Custom Quote' : `$${(pkgData.price / 100).toFixed(2)}`}
@@ -529,46 +529,48 @@ const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, 
 
   return (
     <div className="border-2 border-gray-200 rounded-xl overflow-hidden overflow-x-auto">
-      <div className="grid min-w-[560px]" style={{ gridTemplateColumns: `1.4fr repeat(${sortedPackageKeys.length}, 1fr)` }}>
-        <div className="bg-gray-50 p-3 border-b border-r border-gray-200" />
-        {sortedPackageKeys.map(k => {
-          const pkg = packages[k];
-          const amount = convertedAmounts[service]?.[k] || 0;
-          return (
-            <button key={k} type="button" onClick={() => onSelect(service, k)}
-              className={`p-3 border-b border-r last:border-r-0 border-gray-200 text-center transition-colors ${selectedPackage === k ? 'bg-blue-600 text-white' : 'bg-gray-50 hover:bg-blue-50'}`}>
-              <div className="font-bold text-sm">{pkg?.name || k}</div>
-              <div className={`text-xs mt-0.5 ${selectedPackage === k ? 'text-blue-100' : 'text-gray-500'}`}>
-                {amount > 0 ? formatPrice(amount, currency, currencyObj.symbol) : 'Custom Quote'}
-              </div>
-            </button>
-          );
-        })}
-        
-        {allFeatures.map((feature) => (
-          <React.Fragment key={feature}>
-            <div className="p-3 text-xs text-gray-700 border-b border-r border-gray-200 bg-white">{feature}</div>
-            {sortedPackageKeys.map(k => {
-              const hasFeature = featuresMap[feature]?.packages[k] || false;
-              const isSelected = selectedPackage === k;
-              return (
-                <div key={k} className={`p-3 border-b border-r last:border-r-0 border-gray-200 flex items-center justify-center ${isSelected ? 'bg-blue-50/50' : 'bg-white'}`}>
-                  {hasFeature ? <FaCheck className="text-green-500" size={12} /> : <span className="text-gray-300">—</span>}
+      <div className="min-w-[560px]">
+        <div className="grid" style={{ gridTemplateColumns: `1.4fr repeat(${sortedPackageKeys.length}, 1fr)` }}>
+          <div className="bg-gray-50 p-3 border-b border-r border-gray-200" />
+          {sortedPackageKeys.map(k => {
+            const pkg = packages[k];
+            const amount = convertedAmounts[service]?.[k] || 0;
+            return (
+              <button key={k} type="button" onClick={() => onSelect(service, k)}
+                className={`p-3 border-b border-r last:border-r-0 border-gray-200 text-center transition-colors ${selectedPackage === k ? 'bg-blue-600 text-white' : 'bg-gray-50 hover:bg-blue-50'}`}>
+                <div className="font-bold text-sm">{pkg?.name || k}</div>
+                <div className={`text-xs mt-0.5 ${selectedPackage === k ? 'text-blue-100' : 'text-gray-500'}`}>
+                  {amount > 0 ? formatPrice(amount, currency, currencyObj.symbol) : 'Custom Quote'}
                 </div>
-              );
-            })}
-          </React.Fragment>
-        ))}
-        
-        <div className="p-3 border-r border-gray-200 bg-gray-50" />
-        {sortedPackageKeys.map(k => (
-          <div key={k} className="p-3 border-r last:border-r-0 border-gray-200 bg-gray-50 flex justify-center">
-            <button type="button" onClick={() => onSelect(service, k)}
-              className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors ${selectedPackage === k ? 'bg-blue-600 text-white' : 'border border-gray-300 text-gray-700 hover:border-blue-400'}`}>
-              {selectedPackage === k ? 'Selected' : 'Select'}
-            </button>
-          </div>
-        ))}
+              </button>
+            );
+          })}
+          
+          {allFeatures.map((feature) => (
+            <React.Fragment key={feature}>
+              <div className="p-3 text-xs text-gray-700 border-b border-r border-gray-200 bg-white">{feature}</div>
+              {sortedPackageKeys.map(k => {
+                const hasFeature = featuresMap[feature]?.packages[k] || false;
+                const isSelected = selectedPackage === k;
+                return (
+                  <div key={k} className={`p-3 border-b border-r last:border-r-0 border-gray-200 flex items-center justify-center ${isSelected ? 'bg-blue-50/50' : 'bg-white'}`}>
+                    {hasFeature ? <FaCheck className="text-green-500" size={12} /> : <span className="text-gray-300">—</span>}
+                  </div>
+                );
+              })}
+            </React.Fragment>
+          ))}
+          
+          <div className="p-3 border-r border-gray-200 bg-gray-50" />
+          {sortedPackageKeys.map(k => (
+            <div key={k} className="p-3 border-r last:border-r-0 border-gray-200 bg-gray-50 flex justify-center">
+              <button type="button" onClick={() => onSelect(service, k)}
+                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors ${selectedPackage === k ? 'bg-blue-600 text-white' : 'border border-gray-300 text-gray-700 hover:border-blue-400'}`}>
+                {selectedPackage === k ? 'Selected' : 'Select'}
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -584,7 +586,7 @@ const OrderSidebar = ({ selectedServices, convertedAmounts, currency, totalAmoun
 
   return (
     <div className="lg:sticky lg:top-24 bg-white rounded-2xl border-2 border-gray-200 shadow-lg p-6">
-      <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><FaShoppingCart className="text-blue-600" />Your Order</h3>
+      <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><FaShoppingCart className="text-blue-600 shrink-0" />Your Order</h3>
       {entries.length === 0 ? (
         <p className="text-sm text-gray-500">No services selected yet. Choose one or more services to get started.</p>
       ) : (
@@ -600,12 +602,12 @@ const OrderSidebar = ({ selectedServices, convertedAmounts, currency, totalAmoun
                   <ServiceIcon className="text-blue-600 mt-0.5 shrink-0" />
                   <div className="min-w-0">
                     <p className="font-medium text-gray-900 truncate">{service.split(' - ')[0]}</p>
-                    <p className="text-xs text-gray-500">{pkgData?.name}</p>
+                    <p className="text-xs text-gray-500 truncate">{pkgData?.name}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="font-semibold text-gray-900 text-xs">{isCustomQuote || amount === 0 ? 'Quote' : formatPrice(amount, currency, currencyObj.symbol)}</span>
-                  <button type="button" onClick={() => onRemove(service)} className="text-gray-400 hover:text-red-500">×</button>
+                  <span className="font-semibold text-gray-900 text-xs whitespace-nowrap">{isCustomQuote || amount === 0 ? 'Quote' : formatPrice(amount, currency, currencyObj.symbol)}</span>
+                  <button type="button" onClick={() => onRemove(service)} className="text-gray-400 hover:text-red-500 text-lg leading-none">×</button>
                 </div>
               </div>
             );
@@ -613,7 +615,7 @@ const OrderSidebar = ({ selectedServices, convertedAmounts, currency, totalAmoun
         </div>
       )}
       <div className="border-t-2 border-gray-100 pt-4 mb-5">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-wrap justify-between items-center gap-2">
           <span className="font-bold text-gray-900">Total</span>
           <span className="text-2xl font-bold text-blue-600">
             {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, currency, currencyObj.symbol) : 'Custom Quote'}
@@ -1117,11 +1119,11 @@ const RequestServicePage = () => {
   if (submitSuccess) {
     return (
       <div className="min-h-screen pt-20 bg-gray-50">
-        <div className="container mx-auto px-4 py-16">
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-12 text-center">
+        <div className="container mx-auto px-4 py-8 md:py-16">
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-12 text-center">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"><FaCheck className="text-3xl text-green-600" /></div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">{totalAmount > 0 ? 'Payment Successful!' : 'Request Received!'}</h1>
-            <p className="text-gray-600 mb-8 text-lg">{totalAmount > 0 ? `Thank you for your payment of ${formatPrice(totalAmount, selectedCurrency, currencyObj.symbol)}. Our team will contact you within 24 hours.` : 'Thank you for your request. We will be in touch within 24 hours.'}</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">{totalAmount > 0 ? 'Payment Successful!' : 'Request Received!'}</h1>
+            <p className="text-gray-600 mb-8 text-base md:text-lg">{totalAmount > 0 ? `Thank you for your payment of ${formatPrice(totalAmount, selectedCurrency, currencyObj.symbol)}. Our team will contact you within 24 hours.` : 'Thank you for your request. We will be in touch within 24 hours.'}</p>
             {uploadedFiles.length > 0 && <p className="text-sm text-gray-500 mb-8">{uploadedFiles.length} file(s) uploaded successfully</p>}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/" className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Return to Home</Link>
@@ -1136,19 +1138,19 @@ const RequestServicePage = () => {
   return (
     <div className="min-h-screen pt-20 bg-gray-50 pb-20">
       <div className="container mx-auto px-4">
-        {/* Progress bar */}
+        {/* Progress bar - responsive */}
         <div className="max-w-5xl mx-auto mb-8 pt-8">
           <div className="flex items-center justify-between mb-8">
             {steps.map((step, index) => (
               <div key={step.number} className={`flex items-center flex-1 ${currentStep === step.number ? 'opacity-100' : 'opacity-60'}`}>
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${currentStep >= step.number ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'}`}>
-                  {currentStep > step.number ? <FaCheck /> : step.number}
+                <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm ${currentStep >= step.number ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'}`}>
+                  {currentStep > step.number ? <FaCheck size={14} /> : step.number}
                 </div>
-                <div className="ml-3 hidden sm:block">
-                  <p className={`text-xs font-semibold uppercase ${currentStep >= step.number ? 'text-blue-600' : 'text-gray-400'}`}>Step {step.number}</p>
-                  <p className={`text-sm font-medium ${currentStep >= step.number ? 'text-gray-900' : 'text-gray-400'}`}>{step.title}</p>
+                <div className="ml-2 sm:ml-3 hidden xs:block">
+                  <p className={`text-[10px] sm:text-xs font-semibold uppercase ${currentStep >= step.number ? 'text-blue-600' : 'text-gray-400'}`}>Step {step.number}</p>
+                  <p className={`text-[10px] sm:text-sm font-medium ${currentStep >= step.number ? 'text-gray-900' : 'text-gray-400'}`}>{step.title}</p>
                 </div>
-                {index < steps.length - 1 && <div className={`flex-1 h-1 mx-4 ${currentStep > step.number ? 'bg-blue-600' : 'bg-gray-200'}`} />}
+                {index < steps.length - 1 && <div className={`flex-1 h-1 mx-2 sm:mx-4 ${currentStep > step.number ? 'bg-blue-600' : 'bg-gray-200'}`} />}
               </div>
             ))}
           </div>
@@ -1157,28 +1159,28 @@ const RequestServicePage = () => {
         <div className="max-w-6xl mx-auto">
           {/* ── Step 1: Service Selection + Add-ons ── */}
           {currentStep === 1 && (
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="grid lg:grid-cols-[1fr_360px] gap-8 items-start">
-              <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-                <div className="mb-8">
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="grid lg:grid-cols-[1fr_360px] gap-6 md:gap-8 items-start">
+              <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 lg:p-12">
+                <div className="mb-6 md:mb-8">
                   <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Step 1 of 3</span>
-                  <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-4">Service Selection</h2>
-                  <p className="text-gray-600">Pick your services, then compare packages side-by-side.</p>
-                  <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl text-blue-700 text-sm font-semibold">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-2 mb-3 md:mb-4">Service Selection</h2>
+                  <p className="text-gray-600 text-sm sm:text-base">Pick your services, then compare packages side-by-side.</p>
+                  <div className="mt-4 p-3 md:p-4 bg-blue-50 border border-blue-200 rounded-xl text-blue-700 text-xs sm:text-sm font-semibold">
                     Starting price options are shown during service selection. Custom quotes are available for larger or more detailed projects.
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8 mb-10">
+                <div className="grid sm:grid-cols-2 gap-4 md:gap-8 mb-8 md:mb-10">
                   {categoryMeta.map(({ cat, bg, iconColor, border }) => {
                     const catData = SERVICE_CATEGORIES[cat];
                     const CatIcon = categoryIcons[cat] || FaCogs;
                     return (
-                      <div key={cat} className={`bg-white p-6 rounded-xl border-2 border-gray-100 ${border} transition-colors shadow-sm`}>
-                        <div className="flex items-center mb-4">
-                          <div className={`w-12 h-12 ${bg} rounded-lg flex items-center justify-center mr-3`}><CatIcon className={`${iconColor} text-xl`} /></div>
-                          <h3 className="text-xl font-bold text-gray-900">{catData.label}</h3>
+                      <div key={cat} className={`bg-white p-4 sm:p-6 rounded-xl border-2 border-gray-100 ${border} transition-colors shadow-sm`}>
+                        <div className="flex items-center mb-3 sm:mb-4">
+                          <div className={`w-10 h-10 sm:w-12 sm:h-12 ${bg} rounded-lg flex items-center justify-center mr-2 sm:mr-3 shrink-0`}><CatIcon className={`${iconColor} text-lg sm:text-xl`} /></div>
+                          <h3 className="text-lg sm:text-xl font-bold text-gray-900">{catData.label}</h3>
                         </div>
-                        <div className="space-y-3">
+                        <div className="space-y-2 sm:space-y-3">
                           {catData.services.map(service => {
                             const ServiceIcon = getServiceIcon(service);
                             const isSelected = !!selectedServices[service];
@@ -1193,36 +1195,36 @@ const RequestServicePage = () => {
                                 onMouseEnter={() => handleServiceHover(service)}
                                 onMouseLeave={handleServiceLeave}
                               >
-                                <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all ${isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}`}>
+                                <label className={`flex items-center p-2 sm:p-3 border rounded-lg cursor-pointer transition-all ${isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}`}>
                                   <input 
                                     type="checkbox" 
                                     checked={isSelected} 
                                     onChange={() => handleServiceToggle(service)} 
-                                    className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300" 
+                                    className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300 shrink-0" 
                                   />
-                                  <div className="ml-3 flex-1 flex items-center">
-                                    <ServiceIcon className="mr-2 text-gray-500" />
-                                    <span className="text-gray-700 font-medium">{service.split(' - ')[0]}</span>
+                                  <div className="ml-2 sm:ml-3 flex-1 flex items-center min-w-0">
+                                    <ServiceIcon className="mr-1 sm:mr-2 text-gray-500 shrink-0" size={14} />
+                                    <span className="text-gray-700 font-medium text-xs sm:text-sm truncate">{service.split(' - ')[0]}</span>
                                   </div>
-                                  <div className="flex items-center gap-2">
-                                    {isSelected && <FaCheck className="text-green-500" />}
+                                  <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+                                    {isSelected && <FaCheck className="text-green-500" size={12} />}
                                     {!isCustomQuote && (
                                       <Link
                                         to={`/services/${serviceSlug}`}
-                                        className="px-2.5 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded hover:bg-blue-200 transition-colors flex items-center gap-1"
+                                        className="px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-blue-100 text-blue-700 text-[10px] sm:text-xs font-semibold rounded hover:bg-blue-200 transition-colors flex items-center gap-0.5 sm:gap-1"
                                         onClick={(e) => e.stopPropagation()}
                                       >
-                                        <FaInfoCircle size={10} />
-                                        View Detail
+                                        <FaInfoCircle size={8} />
+                                        <span className="hidden sm:inline">View Detail</span>
                                       </Link>
                                     )}
                                   </div>
                                 </label>
                                 
-                                {/* Hover Preview */}
+                                {/* Mobile-friendly hover preview - hidden on small screens */}
                                 {hoveredService === service && isSelected && (
                                   <div 
-                                    className="absolute z-50 w-80 bg-white rounded-xl shadow-2xl border-2 border-blue-200 p-5 left-full ml-3 top-0 animate-fade-in"
+                                    className="absolute z-50 w-[min(320px,calc(100vw-2.5rem))] bg-white rounded-xl shadow-2xl border-2 border-blue-200 p-5 top-full left-0 mt-2 xl:top-0 xl:left-full xl:ml-3 xl:mt-0 animate-fade-in hidden sm:block"
                                     onMouseEnter={() => {
                                       if (previewTimer) clearTimeout(previewTimer);
                                       setHoveredService(service);
@@ -1230,7 +1232,6 @@ const RequestServicePage = () => {
                                     onMouseLeave={() => {
                                       setHoveredService(null);
                                     }}
-                                    style={{ minWidth: '320px' }}
                                   >
                                     <ServiceHoverPreview 
                                       service={service} 
@@ -1250,15 +1251,15 @@ const RequestServicePage = () => {
 
                 {Object.keys(selectedServices).length > 0 && (
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">Compare Packages</h3>
-                    <div className="space-y-8">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Compare Packages</h3>
+                    <div className="space-y-6 sm:space-y-8">
                       {Object.entries(selectedServices).map(([service, pkg]) => {
                         const isCustomQuote = service.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[service]?.packages?.custom?.price === 0;
                         return (
                           <div key={service}>
-                            <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                              {React.createElement(getServiceIcon(service), { className: 'text-blue-600' })}
-                              {isCustomQuote ? `Custom Quote: ${service.split(' - ')[0]}` : service}
+                            <h4 className="font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base">
+                              {React.createElement(getServiceIcon(service), { className: 'text-blue-600 shrink-0' })}
+                              <span className="truncate">{isCustomQuote ? `Custom Quote: ${service.split(' - ')[0]}` : service}</span>
                             </h4>
                             <PackageComparisonTable
                               service={service}
@@ -1275,100 +1276,109 @@ const RequestServicePage = () => {
                 )}
               </div>
 
-              <OrderSidebar
-                selectedServices={selectedServices}
-                convertedAmounts={convertedAmounts}
-                currency={selectedCurrency}
-                totalAmount={totalAmount}
-                isLoadingRates={isLoadingRates}
-                onRemove={removeService}
-                onContinue={nextStep}
-                onCustomQuoteDirect={handleCustomQuoteDirect}
-                continueLabel="Continue to Review"
-                continueDisabled={Object.keys(selectedServices).length === 0}
-              />
+              {/* Order Sidebar - sticky on desktop, normal flow on mobile */}
+              <div className="lg:sticky lg:top-24">
+                <OrderSidebar
+                  selectedServices={selectedServices}
+                  convertedAmounts={convertedAmounts}
+                  currency={selectedCurrency}
+                  totalAmount={totalAmount}
+                  isLoadingRates={isLoadingRates}
+                  onRemove={removeService}
+                  onContinue={nextStep}
+                  onCustomQuoteDirect={handleCustomQuoteDirect}
+                  continueLabel="Continue to Review"
+                  continueDisabled={Object.keys(selectedServices).length === 0}
+                />
+              </div>
             </motion.div>
           )}
 
           {/* ── Step 2: Review Terms & Pay ── */}
           {currentStep === 2 && (
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-              <div className="mb-8">
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 lg:p-12">
+              <div className="mb-6 md:mb-8">
                 <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Step 2 of 3</span>
-                <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-4">Review Terms & Pay</h2>
-                <p className="text-gray-600">Agree to our terms, then complete secure checkout. You'll fill in your contact and project details right after.</p>
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-2 mb-3 md:mb-4">Review Terms & Pay</h2>
+                <p className="text-gray-600 text-sm sm:text-base">Agree to our terms, then complete secure checkout. You'll fill in your contact and project details right after.</p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                 {/* Left: Legal */}
                 <div>
-                  <div className="flex mb-6">
-                    <div className="bg-gray-100 p-1 rounded-lg inline-flex">
+                 <div className="flex mb-4 md:mb-6">
+                    <div className="bg-gray-100 p-1 rounded-lg flex w-full sm:inline-flex sm:w-auto">
                       {[['privacy', 'Privacy Policy', FaLock], ['terms', 'Terms of Service', FaFileContract]].map(([id, label, Icon]) => (
                         <button key={id} type="button" onClick={() => setActiveLegalTab(id)}
-                          className={`px-5 py-2 rounded-md font-semibold text-sm transition-all ${activeLegalTab === id ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}>
-                          <Icon className="inline mr-2" />{label}
+                          className={`flex-1 sm:flex-none px-2 sm:px-5 py-1.5 sm:py-2 rounded-md font-semibold text-[10px] sm:text-sm transition-all whitespace-nowrap ${activeLegalTab === id ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}>
+                          <Icon className="inline mr-1 sm:mr-2 text-xs sm:text-sm" />{label}
                         </button>
                       ))}
                     </div>
                   </div>
-                  <div className="bg-gray-50 rounded-xl p-4 mb-6 max-h-72 overflow-y-auto border border-gray-200">
+                  <div className="bg-gray-50 rounded-xl p-3 sm:p-4 mb-4 md:mb-6 max-h-72 overflow-y-auto border border-gray-200">
                     {(activeLegalTab === 'privacy' ? privacyPolicyContent : termsContent).map((section, idx) => (
-                      <div key={idx} className="bg-white p-4 rounded-lg border border-gray-200 mb-3">
-                        <h4 className="font-bold text-gray-900 mb-2 flex items-center text-sm">
-                          <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs mr-2">{idx + 1}</span>
+                      <div key={idx} className="bg-white p-3 sm:p-4 rounded-lg border border-gray-200 mb-3">
+                        <h4 className="font-bold text-gray-900 mb-2 flex items-center text-xs sm:text-sm">
+                          <span className="w-5 h-5 sm:w-6 sm:h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-[10px] sm:text-xs mr-2 shrink-0">{idx + 1}</span>
                           {section.title}
                         </h4>
-                        <p className="text-gray-700 text-sm leading-relaxed">{section.content}</p>
+                        <p className="text-gray-700 text-xs sm:text-sm leading-relaxed">{section.content}</p>
                       </div>
                     ))}
                   </div>
-                  <div className="space-y-3 bg-white border-2 border-gray-200 rounded-xl p-5">
+                  <div className="space-y-3 bg-white border-2 border-gray-200 rounded-xl p-3 sm:p-5">
                     {[['agreedToPrivacy', 'I agree to the Privacy Policy', 'I have read and understand how Scale Link Alliance collects, uses, and protects my personal information.'],
                     ['agreedToTerms', 'I agree to the Terms of Service', 'I have read and agree to abide by the Terms of Service, including user conduct guidelines and liability limitations.'] 
                     ].map(([name, title, desc]) => (
-                      <label key={name} className="flex items-start p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="checkbox" name={name} checked={formData[name]} onChange={handleInputChange} className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300 mt-0.5" />
-                        <div className="ml-3"><span className="block font-semibold text-gray-900 text-sm">{title} *</span><span className="block text-xs text-gray-600 mt-1">{desc}</span></div>
+                      <label key={name} className="flex items-start p-2 sm:p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                        <input type="checkbox" name={name} checked={formData[name]} onChange={handleInputChange} className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300 mt-0.5 shrink-0" />
+                        <div className="ml-2 sm:ml-3">
+                          <span className="block font-semibold text-gray-900 text-xs sm:text-sm">{title} *</span>
+                          <span className="block text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">{desc}</span>
+                        </div>
                       </label>
                     ))}
                   </div>
                 </div>
 
-                {/* Right: Payment Summary */}
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border-2 border-blue-200 shadow-md h-fit">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2"><FaCreditCard className="text-blue-600" />Order Summary</h3>
-                  <div className="mb-6"><CurrencySelector selectedCurrency={selectedCurrency} onCurrencyChange={setSelectedCurrency} /></div>
-                  <div className="space-y-3 mb-6 bg-white p-4 rounded-lg">
+                {/* Right: Payment Summary - responsive */}
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 sm:p-6 rounded-xl border-2 border-blue-200 shadow-md h-fit">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 flex items-center gap-2"><FaCreditCard className="text-blue-600 shrink-0" />Order Summary</h3>
+                  <div className="mb-4 md:mb-6"><CurrencySelector selectedCurrency={selectedCurrency} onCurrencyChange={setSelectedCurrency} /></div>
+                  <div className="space-y-2 sm:space-y-3 mb-4 md:mb-6 bg-white p-3 sm:p-4 rounded-lg">
                     {Object.entries(selectedServices).map(([service, pkg]) => {
                       const ServiceIcon = getServiceIcon(service), amount = convertedAmounts[service]?.[pkg] || 0, pkgData = SERVICES_WITH_PACKAGES[service]?.packages[pkg];
                       const isCustomQuote = service.includes('Request Custom Quote') || pkgData?.price === 0;
                       return (
-                        <div key={service} className="flex justify-between items-center text-sm border-b border-gray-100 pb-2">
-                          <span className="text-gray-700 flex items-center"><ServiceIcon className="mr-2 text-gray-500" />{service}<span className="text-xs text-gray-500 ml-1">({pkgData?.name})</span></span>
-                          <span className="font-medium text-gray-900">{isLoadingRates ? '...' : isCustomQuote || amount === 0 ? 'Custom Quote' : formatPrice(amount, selectedCurrency, currencyObj.symbol)}</span>
+                        <div key={service} className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-sm border-b border-gray-100 pb-2">
+                          <span className="text-gray-700 flex items-start sm:items-center min-w-0">
+                            <ServiceIcon className="mr-1 sm:mr-2 text-gray-500 mt-0.5 sm:mt-0 shrink-0" size={14} />
+                            <span className="break-words text-xs sm:text-sm">{service}<span className="text-[10px] sm:text-xs text-gray-500 ml-1">({pkgData?.name})</span></span>
+                          </span>
+                          <span className="font-medium text-gray-900 shrink-0 text-xs sm:text-sm">{isLoadingRates ? '...' : isCustomQuote || amount === 0 ? 'Custom Quote' : formatPrice(amount, selectedCurrency, currencyObj.symbol)}</span>
                         </div>
                       );
                     })}
                   </div>
-                  <div className="border-t-2 border-blue-200 pt-4 mb-6">
-                    <div className="flex justify-between items-center">
-                      <span className="text-lg font-bold text-gray-900">Total Due Today:</span>
-                      <span className="text-3xl font-bold text-blue-600">
+                  <div className="border-t-2 border-blue-200 pt-3 sm:pt-4 mb-4 md:mb-6">
+                    <div className="flex flex-wrap justify-between items-center gap-2">
+                      <span className="text-base sm:text-lg font-bold text-gray-900">Total Due Today:</span>
+                      <span className="text-2xl sm:text-3xl font-bold text-blue-600">
                         {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, selectedCurrency, currencyObj.symbol) : 'Custom Quote'}
                       </span>
                     </div>
                   </div>
 
                   {paymentError && (
-                    <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex justify-between items-start">
-                      <span>{paymentError}</span>
-                      <button type="button" onClick={() => setPaymentError(null)} className="text-red-800 font-bold ml-2">✕</button>
+                    <div className="mb-4 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-xs sm:text-sm flex justify-between items-start">
+                      <span className="break-words">{paymentError}</span>
+                      <button type="button" onClick={() => setPaymentError(null)} className="text-red-800 font-bold ml-2 shrink-0">✕</button>
                     </div>
                   )}
 
-                  <div className="mb-4 bg-slate-50 border border-slate-200 p-4 rounded-xl text-left">
-                    <p className="text-xs text-slate-600 mb-2 leading-relaxed font-medium">
+                  <div className="mb-3 sm:mb-4 bg-slate-50 border border-slate-200 p-3 sm:p-4 rounded-xl text-left">
+                    <p className="text-[10px] sm:text-xs text-slate-600 mb-2 leading-relaxed font-medium">
                       For approved projects, ScaleLink Alliance may use deposit, milestone, or escrow-based payment terms to protect both the client and the service team. Payment details will be clearly listed in the approved quote, invoice, or project agreement before work begins.
                     </p>
                     <label className="flex items-start gap-2 cursor-pointer">
@@ -1376,27 +1386,27 @@ const RequestServicePage = () => {
                         type="checkbox"
                         checked={agreedToEscrow}
                         onChange={e => setAgreedToEscrow(e.target.checked)}
-                        className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 mt-0.5 cursor-pointer"
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 mt-0.5 cursor-pointer shrink-0"
                       />
-                      <span className="text-xs font-semibold text-slate-700 leading-tight">
+                      <span className="text-[10px] sm:text-xs font-semibold text-slate-700 leading-tight">
                         I agree to the <a href="/legal?tab=escrow" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">ScaleLink Alliance Payment & Escrow Terms</a> and understand my project may require a deposit, milestone, or escrow-based payment.
                       </span>
                     </label>
                   </div>
 
                   <button type="button" onClick={handleContinueFromReview} disabled={!canProceedFromReview}
-                    className="w-full py-5 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-lg rounded-xl hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg hover:shadow-xl mb-4">
+                    className="w-full py-4 sm:py-5 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-base sm:text-lg rounded-xl hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-2 sm:gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg hover:shadow-xl mb-3 sm:mb-4 text-center">
                     {isRedirectingToStripe ? <><FaSpinner className="animate-spin" />Redirecting to Secure Checkout...</> :
                       isLoadingRates ? <><FaSpinner className="animate-spin" />Loading Exchange Rates...</> :
-                        totalAmount > 0 ? <><FaCreditCard className="text-xl" />Proceed to Secure Checkout<FaArrowRight className="text-sm" /></> :
+                        totalAmount > 0 ? <><FaCreditCard className="text-lg sm:text-xl" />Proceed to Secure Checkout<FaArrowRight className="text-xs sm:text-sm" /></> :
                           <><FaPaperPlane />Request Custom Quote</>}
                   </button>
-                  <div className="flex items-center justify-center gap-2 text-xs text-gray-600 bg-white bg-opacity-50 p-3 rounded-lg">
-                    <FaLock className="text-green-600" />
+                  <div className="flex items-center justify-center gap-2 text-[10px] sm:text-xs text-gray-600 bg-white bg-opacity-50 p-2 sm:p-3 rounded-lg">
+                    <FaLock className="text-green-600 shrink-0" />
                     <span>Secured by <strong>Stripe</strong>. We never store your card information.</span>
                   </div>
-                  <div className="mt-4 text-center">
-                    <button type="button" onClick={prevStep} className="text-gray-500 hover:text-gray-700 text-sm flex items-center justify-center gap-1 mx-auto"><FaArrowLeft /> Back to services</button>
+                  <div className="mt-3 sm:mt-4 text-center">
+                    <button type="button" onClick={prevStep} className="text-gray-500 hover:text-gray-700 text-xs sm:text-sm flex items-center justify-center gap-1 mx-auto"><FaArrowLeft className="text-xs" /> Back to services</button>
                   </div>
                 </div>
               </div>
@@ -1405,36 +1415,36 @@ const RequestServicePage = () => {
 
           {/* ── Step 3: Contact Info + Project Details (post-payment) ── */}
           {currentStep === 3 && (
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-              <div className="mb-8">
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 lg:p-12">
+              <div className="mb-6 md:mb-8">
                 {totalAmount > 0 && (
-                  <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3">
-                    <div className="w-9 h-9 bg-green-100 rounded-full flex items-center justify-center shrink-0"><FaCheck className="text-green-600" /></div>
-                    <p className="text-sm text-green-800 font-semibold">Payment confirmed — {formatPrice(totalAmount, selectedCurrency, currencyObj.symbol)}. Just a few details left.</p>
+                  <div className="mb-4 md:mb-6 p-3 sm:p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3">
+                    <div className="w-7 h-7 sm:w-9 sm:h-9 bg-green-100 rounded-full flex items-center justify-center shrink-0"><FaCheck className="text-green-600 text-sm sm:text-base" /></div>
+                    <p className="text-xs sm:text-sm text-green-800 font-semibold break-words">Payment confirmed — {formatPrice(totalAmount, selectedCurrency, currencyObj.symbol)}. Just a few details left.</p>
                   </div>
                 )}
                 <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Step 3 of 3</span>
-                <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-4">Your Details</h2>
-                <p className="text-gray-600 text-lg">Tell us who you are and more about your project.</p>
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-2 mb-3 md:mb-4">Your Details</h2>
+                <p className="text-gray-600 text-base sm:text-lg">Tell us who you are and more about your project.</p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6 mb-10">
+              <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-8 md:mb-10">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">First Name *</label>
                   <div className="relative">
-                    <FaUser className="absolute left-3 top-3.5 text-gray-400" />
-                    <input type="text" name="firstName" required value={formData.firstName} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="John" />
+                    <FaUser className="absolute left-3 top-3.5 text-gray-400" size={14} />
+                    <input type="text" name="firstName" required value={formData.firstName} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="John" />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Last Name *</label>
-                  <input type="text" name="lastName" required value={formData.lastName} onChange={handleInputChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Doe" />
+                  <input type="text" name="lastName" required value={formData.lastName} onChange={handleInputChange} className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="Doe" />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
                   <div className="relative">
-                    <FaEnvelope className="absolute left-3 top-3.5 text-gray-400" />
-                    <input type="email" name="email" required value={formData.email} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="john@company.com" />
+                    <FaEnvelope className="absolute left-3 top-3.5 text-gray-400" size={14} />
+                    <input type="email" name="email" required value={formData.email} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="john@company.com" />
                   </div>
                 </div>
                 <div>
@@ -1450,62 +1460,61 @@ const RequestServicePage = () => {
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Company Name *</label>
                   <div className="relative">
-                    <FaBuilding className="absolute left-3 top-3.5 text-gray-400" />
-                    <input type="text" name="company" required value={formData.company} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Acme Inc." />
+                    <FaBuilding className="absolute left-3 top-3.5 text-gray-400" size={14} />
+                    <input type="text" name="company" required value={formData.company} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="Acme Inc." />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Company Website (Optional)</label>
                   <div className="relative">
-                    <FaGlobeAmericas className="absolute left-3 top-3.5 text-gray-400" />
-                    <input type="text" name="clientWebsite" value={formData.clientWebsite} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g. www.example.com" />
+                    <FaGlobeAmericas className="absolute left-3 top-3.5 text-gray-400" size={14} />
+                    <input type="text" name="clientWebsite" value={formData.clientWebsite} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="e.g. www.example.com" />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Business Location (Optional)</label>
                   <div className="relative">
-                    <FaRegBuilding className="absolute left-3 top-3.5 text-gray-400" />
-                    <input type="text" name="clientLocation" value={formData.clientLocation} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g. Chicago, IL" />
+                    <FaRegBuilding className="absolute left-3 top-3.5 text-gray-400" size={14} />
+                    <input type="text" name="clientLocation" value={formData.clientLocation} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="e.g. Chicago, IL" />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Industry / Business Type (Optional)</label>
                   <div className="relative">
-                    <FaBriefcase className="absolute left-3 top-3.5 text-gray-400" />
-                    <input type="text" name="clientIndustry" value={formData.clientIndustry} onChange={handleInputChange} className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g. E-Commerce, SaaS, Retail" />
+                    <FaBriefcase className="absolute left-3 top-3.5 text-gray-400" size={14} />
+                    <input type="text" name="clientIndustry" value={formData.clientIndustry} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="e.g. E-Commerce, SaaS, Retail" />
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Project Description *</label>
                   <textarea name="projectDescription" required rows={4} maxLength={1000} value={formData.projectDescription} onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                     placeholder="Describe your project, goals, and any specific requirements..." />
-                  <div className="flex justify-between items-center mt-1">
-                    <span className="text-xs text-gray-400">Please provide a clear description of your requirements.</span>
-                    <span className="text-xs text-gray-500 font-medium">{(formData.projectDescription || '').length}/1000 characters</span>
+                  <div className="flex flex-wrap justify-between items-center mt-1 gap-1">
+                    <span className="text-[10px] sm:text-xs text-gray-400">Please provide a clear description of your requirements.</span>
+                    <span className="text-[10px] sm:text-xs text-gray-500 font-medium">{(formData.projectDescription || '').length}/1000 characters</span>
                   </div>
                 </div>
 
                 {/* ─── AI-SPECIFIC QUESTIONS ─── */}
-                {/* Only show if an AI custom quote service is selected */}
                 {Object.keys(selectedServices).some(service => 
                   service.includes('AI') || service === 'AI Automation & Smart Business Systems' || service === 'Request Custom Quote - AI'
                 ) && (
                   <>
-                    <div className="md:col-span-2 border-t border-gray-200 pt-6 mt-2">
-                      <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                        <FaRobot className="text-purple-600" />
+                    <div className="border-t border-gray-200 pt-4 sm:pt-6 mt-4 sm:mt-6">
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4 flex items-center gap-2">
+                        <FaRobot className="text-purple-600 shrink-0" />
                         AI Project Details
                       </h3>
-                      <p className="text-sm text-gray-600 mb-4">Help us understand your AI needs better.</p>
+                      <p className="text-sm text-gray-600 mb-3 sm:mb-4">Help us understand your AI needs better.</p>
                     </div>
 
-                    <div className="md:col-span-2">
+                    <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">What AI Features Are You Interested In?</label>
-                      <div className="grid sm:grid-cols-2 gap-3 mt-1">
+                      <div className="grid sm:grid-cols-2 gap-2 sm:gap-3 mt-1">
                         {[
                           { id: 'ai_chat', label: 'AI Chat' },
                           { id: 'ai_voice', label: 'AI Voice' },
@@ -1517,7 +1526,7 @@ const RequestServicePage = () => {
                           const checked = customQuoteAnswers.aiFeatures.includes(item.id);
                           if (item.id === 'other') {
                             return (
-                              <div key={item.id} className="flex flex-col gap-2 p-3 border border-slate-200 rounded-xl bg-white transition-all sm:col-span-2">
+                              <div key={item.id} className="flex flex-col gap-2 p-2 sm:p-3 border border-slate-200 rounded-xl bg-white transition-all sm:col-span-2">
                                 <label className="flex items-center gap-2 cursor-pointer">
                                   <input
                                     type="checkbox"
@@ -1532,7 +1541,7 @@ const RequestServicePage = () => {
                                         aiFeaturesOther: checked ? '' : p.aiFeaturesOther
                                       }));
                                     }}
-                                    className="w-4 h-4 text-blue-600 rounded"
+                                    className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 rounded shrink-0"
                                   />
                                   <span className="text-xs font-semibold text-slate-700">{item.label}</span>
                                 </label>
@@ -1542,14 +1551,14 @@ const RequestServicePage = () => {
                                     placeholder="Specify other AI features..."
                                     value={customQuoteAnswers.aiFeaturesOther || ''}
                                     onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiFeaturesOther: e.target.value }))}
-                                    className="w-full mt-1 px-3 py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    className="w-full mt-1 px-3 py-1.5 sm:py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                   />
                                 )}
                               </div>
                             );
                           }
                           return (
-                            <label key={item.id} className="flex items-center gap-2 p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
+                            <label key={item.id} className="flex items-center gap-2 p-2 sm:p-3 border border-slate-200 hover:border-slate-300 rounded-xl bg-white cursor-pointer transition-all">
                               <input
                                 type="checkbox"
                                 checked={checked}
@@ -1559,7 +1568,7 @@ const RequestServicePage = () => {
                                     : [...customQuoteAnswers.aiFeatures, item.id];
                                   setCustomQuoteAnswers(p => ({ ...p, aiFeatures: nextFeatures }));
                                 }}
-                                className="w-4 h-4 text-blue-600 rounded"
+                                className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 rounded shrink-0"
                               />
                               <span className="text-xs font-semibold text-slate-700">{item.label}</span>
                             </label>
@@ -1575,7 +1584,7 @@ const RequestServicePage = () => {
                         placeholder="e.g. HubSpot, Zapier, Google Sheets, None"
                         value={customQuoteAnswers.aiCurrentTools}
                         onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiCurrentTools: e.target.value }))}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                        className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
                       />
                     </div>
 
@@ -1586,7 +1595,7 @@ const RequestServicePage = () => {
                         placeholder="e.g. 10 hours/week, 5 hours/day, Not sure"
                         value={customQuoteAnswers.aiTimeSpent}
                         onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiTimeSpent: e.target.value }))}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                        className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
                       />
                     </div>
 
@@ -1597,15 +1606,15 @@ const RequestServicePage = () => {
                         placeholder="Describe how you envision AI improving your business operations..."
                         value={customQuoteAnswers.aiSuccessLooksLike}
                         onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiSuccessLooksLike: e.target.value }))}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                        className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
                       />
                     </div>
                   </>
                 )}
 
-                <div className="mt-8 pt-8 border-t border-gray-200">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2"><FaUpload className="text-blue-600" />Project Files</h3>
-                  <p className="text-gray-600 mb-4">Upload any relevant files (designs, documents, briefs, etc.)</p>
+                <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gray-200">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 flex items-center gap-2"><FaUpload className="text-blue-600 shrink-0" />Project Files</h3>
+                  <p className="text-gray-600 text-sm mb-3 sm:mb-4">Upload any relevant files (designs, documents, briefs, etc.)</p>
                   <FileUpload
                     files={uploadedFiles.map(f => ({ ...f.file, name: f.name, size: f.size, type: f.type }))}
                     onFilesAdded={files => setUploadedFiles(prev => [...prev, ...files.map(file => ({ file, id: Math.random().toString(36).substr(2, 9), name: file.name, size: file.size, type: file.type, preview: file.type.startsWith('image/') ? URL.createObjectURL(file) : null }))])}
@@ -1614,10 +1623,10 @@ const RequestServicePage = () => {
                   />
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6 mt-6">
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 mt-4 sm:mt-6">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2"><FaCalendar className="inline mr-2" />Desired Timeline</label>
-                    <select name="timeline" value={formData.timeline} onChange={handleInputChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <select name="timeline" value={formData.timeline} onChange={handleInputChange} className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
                       <option value="">Select Timeline</option>
                       <option value="ASAP">As soon as possible</option>
                       <option value="1-2 weeks">1-2 weeks</option>
@@ -1628,7 +1637,7 @@ const RequestServicePage = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2"><FaDollarSign className="inline mr-2" />Budget Range</label>
-                    <select name="budget" value={formData.budget} onChange={handleInputChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <select name="budget" value={formData.budget} onChange={handleInputChange} className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
                       <option value="">Select Budget Range</option>
                       {BUDGET_RANGES.map(range => (
                         <option key={range} value={range}>{range}</option>
@@ -1639,15 +1648,15 @@ const RequestServicePage = () => {
               </div>
 
               {paymentError && (
-                <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">{paymentError}</div>
+                <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-xs sm:text-sm break-words">{paymentError}</div>
               )}
 
-              <div className="flex justify-end mt-8 pt-8 border-t border-gray-200">
+              <div className="flex justify-end mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gray-200">
                 <button
                   type="button"
                   onClick={handleFinalSubmit}
                   disabled={!isStep3Complete || isSubmitting}
-                  className={`px-8 py-4 font-semibold rounded-lg transition-all flex items-center gap-2 ${!isStep3Complete || isSubmitting ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'}`}
+                  className={`px-4 sm:px-8 py-3 sm:py-4 font-semibold rounded-lg transition-all flex items-center gap-2 text-sm sm:text-base ${!isStep3Complete || isSubmitting ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'}`}
                 >
                   {isSubmitting ? <><FaSpinner className="animate-spin" />{uploadedFiles.length > 0 ? 'Uploading Files...' : 'Submitting...'}</> : <><FaPaperPlane />Submit Request</>}
                 </button>
@@ -1657,7 +1666,7 @@ const RequestServicePage = () => {
         </div>
       </div>
 
-      {/* Add animation styles */}
+      {/* Add animation styles and responsive helper */}
       <style>{`
         @keyframes fadeIn {
           from {
@@ -1671,6 +1680,45 @@ const RequestServicePage = () => {
         }
         .animate-fade-in {
           animation: fadeIn 0.2s ease-out forwards;
+        }
+        /* Extra small breakpoint helper */
+        @media (min-width: 480px) {
+          .xs\\:block {
+            display: block !important;
+          }
+        }
+        @media (max-width: 479px) {
+          .xs\\:block {
+            display: none !important;
+          }
+        }
+        /* Fix for progress bar on very small screens */
+        @media (max-width: 400px) {
+          .container.px-4 {
+            padding-left: 8px;
+            padding-right: 8px;
+          }
+          .bg-white.rounded-2xl {
+            border-radius: 12px;
+          }
+          .p-4 {
+            padding: 12px;
+          }
+        }
+        /* Ensure proper touch targets on mobile */
+        @media (max-width: 640px) {
+          button, 
+          label,
+          input[type="checkbox"],
+          input[type="radio"] {
+            touch-action: manipulation;
+          }
+          button {
+            min-height: 44px;
+          }
+          input, select, textarea {
+            font-size: 16px !important; /* Prevents iOS zoom */
+          }
         }
       `}</style>
     </div>
