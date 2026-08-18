@@ -205,11 +205,11 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 // Detect Hostinger shared hosting environment path (/home/username/...)
 const hostingerMatch = __dirname.match(/^(\/home\/[^\/]+)/);
-if (isProduction && hostingerMatch) {
+if (hostingerMatch) {
   const hostingerHomeDir = hostingerMatch[1];
   const persistentUploadDir = path.join(hostingerHomeDir, 'shared_uploads');
 
-  console.log(`ℹ️ Production Hostinger detected. Ensuring persistent uploads dir at: ${persistentUploadDir}`);
+  console.log(`ℹ️ Hostinger environment detected. Ensuring persistent uploads dir at: ${persistentUploadDir}`);
 
   // Create persistent uploads folder if it doesn't exist
   if (!fs.existsSync(persistentUploadDir)) {
@@ -221,22 +221,44 @@ if (isProduction && hostingerMatch) {
     }
   }
 
+  // Ensure persistent subdirectories exist
+  ['jobs', 'partner'].forEach(subDir => {
+    const subPath = path.join(persistentUploadDir, subDir);
+    if (!fs.existsSync(subPath)) {
+      try {
+        fs.mkdirSync(subPath, { recursive: true });
+      } catch (err) {
+        console.error(`❌ Failed to create subdirectory ${subDir}:`, err.message);
+      }
+    }
+  });
+
   // Handle local app's uploads path
+  let shouldCreateSymlink = true;
   if (fs.existsSync(uploadDir)) {
     try {
       const stats = fs.lstatSync(uploadDir);
-      // If it's a physical directory, we delete it (if empty/safe) so we can create a symlink
-      if (stats.isDirectory() && !stats.isSymbolicLink()) {
-        fs.rmdirSync(uploadDir);
-        console.log('🗑️ Removed default uploads folder to prepare for symlink.');
+      if (stats.isSymbolicLink()) {
+        const target = fs.readlinkSync(uploadDir);
+        if (target === persistentUploadDir) {
+          console.log('🔗 Verified existing symlink: uploads ->', persistentUploadDir);
+          shouldCreateSymlink = false;
+        } else {
+          fs.unlinkSync(uploadDir);
+          console.log('🗑️ Removed outdated symlink.');
+        }
+      } else if (stats.isDirectory()) {
+        // Physical directory extracted from zip or created previously - remove with rmSync
+        fs.rmSync(uploadDir, { recursive: true, force: true });
+        console.log('🗑️ Removed physical uploads folder to prepare for symlink.');
       }
     } catch (cleanupErr) {
-      console.warn('⚠️ Could not remove physical uploads folder (it may not be empty):', cleanupErr.message);
+      console.warn('⚠️ Could not remove physical uploads folder:', cleanupErr.message);
     }
   }
 
   // Create the symbolic link
-  if (!fs.existsSync(uploadDir)) {
+  if (shouldCreateSymlink && !fs.existsSync(uploadDir)) {
     try {
       fs.symlinkSync(persistentUploadDir, uploadDir, 'dir');
       console.log('🔗 Programmatic symlink created: uploads ->', persistentUploadDir);
