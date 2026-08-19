@@ -518,7 +518,7 @@ const SERVICES_DATA = {
       { name: 'Social Media Management', reason: 'distribute content' }
     ],
     packages: {
-      starter: { name: 'Starter Package', price: '$75', description: 'Ideal for small content needs or single-page messaging.', includes: ['1 content piece up to 800 words', 'basic keyword research (if needed)', 'formatting for web readability', '1 revision round'] },
+      starter: { name: 'Starter Package', price: '$1', description: 'Ideal for small content needs or single-page messaging.', includes: ['1 content piece up to 800 words', 'basic keyword research (if needed)', 'formatting for web readability', '1 revision round'] },
       growth: { name: 'Standard Package', price: '$225', description: 'Ideal for businesses producing regular content.', includes: ['3 content pieces up to 1,000 words each', 'content structure and messaging optimization', 'SEO-friendly formatting', '2 revision rounds'] },
       premium: { name: 'Premium Package', price: '$599', description: 'Ideal for businesses running content marketing campaigns.', includes: ['6 content pieces up to 1,200 words each', 'deeper keyword research and SEO optimization', 'brand voice alignment', 'content strategy recommendations', '2-3 revision rounds'] }
     },
@@ -534,7 +534,7 @@ const SERVICES_DATA = {
         { label: 'Content strategy recommendations', values: { basic: false, standard: false, premium: true } }
       ],
       details: {
-        basic: { price: '$75', packageName: 'Starter Package', shortDescription: '1 content piece up to 800 words, 1 revision', description: 'Ideal for small content needs or single-page messaging.', deliveryLabel: 'Shown during service selection', revisions: '1 revision round', includes: ['1 content piece up to 800 words', 'basic keyword research (if needed)', 'formatting for web readability', '1 revision round'] },
+        basic: { price: '$1', packageName: 'Starter Package', shortDescription: '1 content piece up to 800 words, 1 revision', description: 'Ideal for small content needs or single-page messaging.', deliveryLabel: 'Shown during service selection', revisions: '1 revision round', includes: ['1 content piece up to 800 words', 'basic keyword research (if needed)', 'formatting for web readability', '1 revision round'] },
         standard: { price: '$225', packageName: 'Standard Package', shortDescription: '3 content pieces up to 1,000 words each, SEO formatting', description: 'Ideal for businesses producing regular content.', deliveryLabel: 'Shown during service selection', revisions: '2 revision rounds', includes: ['3 content pieces up to 1,000 words each', 'content structure and messaging optimization', 'SEO-friendly formatting', '2 revision rounds'] },
         premium: { price: '$599', packageName: 'Premium Package', shortDescription: '6 content pieces up to 1,200 words each, SEO optimization', description: 'Ideal for businesses running content marketing campaigns.', deliveryLabel: 'Shown during service selection', revisions: '2-3 revision rounds', includes: ['6 content pieces up to 1,200 words each', 'deeper keyword research and SEO optimization', 'brand voice alignment', 'content strategy recommendations', '2-3 revision rounds'] }
       }
@@ -568,7 +568,7 @@ const SERVICES_DATA = {
       { name: 'Photography & Visual Assets', reason: 'brand imagery' }
     ],
     packages: {
-      starter: { name: 'Starter Package', price: '$199', description: 'Ideal for small businesses launching a brand or refreshing their logo.', includes: ['1 custom logo concept', 'basic color palette selection', '1 revision round', 'logo files delivered in PNG and SVG formats'] },
+      starter: { name: 'Starter Package', price: '$1', description: 'Ideal for small businesses launching a brand or refreshing their logo.', includes: ['1 custom logo concept', 'basic color palette selection', '1 revision round', 'logo files delivered in PNG and SVG formats'] },
       growth: { name: 'Standard Package', price: '$499', description: 'Ideal for businesses that want a more developed brand identity.', includes: ['3 logo design concepts', '2 revision rounds', 'brand color palette', 'typography selection', 'logo files in multiple formats (PNG, SVG, PDF)'] },
       premium: { name: 'Premium Package', price: '$999', description: 'Ideal for companies building a full professional brand identity.', includes: ['3-4 logo concepts', 'multiple revision rounds', 'brand color palette and typography', 'brand style guide', 'logo usage guidelines', 'complete brand identity package'] }
     },
@@ -584,7 +584,7 @@ const SERVICES_DATA = {
         { label: 'Complete brand identity package', values: { basic: false, standard: false, premium: true } }
       ],
       details: {
-        basic: { price: '$199', packageName: 'Starter Package', shortDescription: '1 logo concept, basic palette, 1 revision', description: 'Ideal for small businesses launching a brand or refreshing their logo.', deliveryLabel: 'Shown during service selection', revisions: '1 revision round', includes: ['1 custom logo concept', 'basic color palette selection', '1 revision round', 'logo files delivered in PNG and SVG formats'] },
+        basic: { price: '$1', packageName: 'Starter Package', shortDescription: '1 logo concept, basic palette, 1 revision', description: 'Ideal for small businesses launching a brand or refreshing their logo.', deliveryLabel: 'Shown during service selection', revisions: '1 revision round', includes: ['1 custom logo concept', 'basic color palette selection', '1 revision round', 'logo files delivered in PNG and SVG formats'] },
         standard: { price: '$499', packageName: 'Standard Package', shortDescription: '3 logo concepts, color palette, typography', description: 'Ideal for businesses that want a more developed brand identity.', deliveryLabel: 'Shown during service selection', revisions: '2 revision rounds', includes: ['3 logo design concepts', '2 revision rounds', 'brand color palette', 'typography selection', 'logo files in multiple formats (PNG, SVG, PDF)'] },
         premium: { price: '$999', packageName: 'Premium Package', shortDescription: '3-4 logo concepts, complete brand style guide', description: 'Ideal for companies building a full professional brand identity.', deliveryLabel: 'Shown during service selection', revisions: 'Multiple revision rounds', includes: ['3-4 logo concepts', 'multiple revision rounds', 'brand color palette and typography', 'brand style guide', 'logo usage guidelines', 'complete brand identity package'] }
       }
@@ -873,7 +873,7 @@ const SERVICES_DATA = {
       { name: 'Process Documentation & SOP Development', reason: 'document workflows' }
     ],
     packages: {
-      starter: { name: 'Starter Package', price: '$499', description: 'Ideal for businesses connecting two systems for the first time.', includes: ['1 system integration', 'basic data synchronization', 'simple workflow automation', 'testing and configuration'] },
+      starter: { name: 'Starter Package', price: '$1', description: 'Ideal for businesses connecting two systems for the first time.', includes: ['1 system integration', 'basic data synchronization', 'simple workflow automation', 'testing and configuration'] },
       growth: { name: 'Standard Package', price: '$1,499', description: 'Ideal for businesses connecting multiple tools.', includes: ['up to 3 system integrations', 'workflow automation setup', 'data synchronization between platforms', 'automation testing and optimization'] },
       premium: { name: 'Premium Package', price: '$3,999', description: 'Ideal for businesses implementing full automation systems.', includes: ['multiple system integrations', 'advanced workflow automation', 'API configuration and data mapping', 'automation testing and optimization', 'documentation of automated workflows'] }
     },
@@ -890,7 +890,7 @@ const SERVICES_DATA = {
         { label: 'Workflow documentation', values: { basic: false, standard: false, premium: true } }
       ],
       details: {
-        basic: { price: '$499', packageName: 'Starter Package', shortDescription: '1 system integration, basic synchronization', description: 'Ideal for businesses connecting two systems for the first time.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['1 system integration', 'basic data synchronization', 'simple workflow automation', 'testing and configuration'] },
+        basic: { price: '$1', packageName: 'Starter Package', shortDescription: '1 system integration, basic synchronization', description: 'Ideal for businesses connecting two systems for the first time.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['1 system integration', 'basic data synchronization', 'simple workflow automation', 'testing and configuration'] },
         standard: { price: '$1,499', packageName: 'Standard Package', shortDescription: 'Up to 3 system integrations, workflow automation', description: 'Ideal for businesses connecting multiple tools.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['up to 3 system integrations', 'workflow automation setup', 'data synchronization between platforms', 'automation testing and optimization'] },
         premium: { price: '$3,999', packageName: 'Premium Package', shortDescription: 'Multiple integrations, advanced automation', description: 'Ideal for businesses implementing full automation systems.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['multiple system integrations', 'advanced workflow automation', 'API configuration and data mapping', 'automation testing and optimization', 'documentation of automated workflows'] }
       }
@@ -1175,7 +1175,7 @@ const SERVICES_DATA = {
       { name: 'Landing Pages & Sales Funnels', reason: 'convert email traffic' }
     ],
     packages: {
-      starter: { name: 'Starter Package', price: '$199', description: 'Ideal for businesses launching a simple email campaign.', includes: ['1 email campaign', 'email template design', 'content formatting', 'mailing list integration', 'campaign scheduling'] },
+      starter: { name: 'Starter Package', price: '$1', description: 'Ideal for businesses launching a simple email campaign.', includes: ['1 email campaign', 'email template design', 'content formatting', 'mailing list integration', 'campaign scheduling'] },
       growth: { name: 'Standard Package', price: '$499', description: 'Ideal for businesses running regular email communication.', includes: ['3 email campaigns', 'email template customization', 'campaign scheduling and delivery', 'basic audience segmentation', 'performance tracking summary'] },
       premium: { name: 'Premium Package', price: '$999', description: 'Ideal for businesses running structured email marketing programs.', includes: ['6 email campaigns', 'custom email templates', 'audience segmentation', 'performance analysis and reporting', 'campaign strategy recommendations'] }
     },
@@ -1191,7 +1191,7 @@ const SERVICES_DATA = {
         { label: 'Campaign strategy recommendations', values: { basic: false, standard: false, premium: true } }
       ],
       details: {
-        basic: { price: '$199', packageName: 'Starter Package', shortDescription: '1 email campaign, template design', description: 'Ideal for businesses launching a simple email campaign.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['1 email campaign', 'email template design', 'content formatting', 'mailing list integration', 'campaign scheduling'] },
+        basic: { price: '$1', packageName: 'Starter Package', shortDescription: '1 email campaign, template design', description: 'Ideal for businesses launching a simple email campaign.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['1 email campaign', 'email template design', 'content formatting', 'mailing list integration', 'campaign scheduling'] },
         standard: { price: '$499', packageName: 'Standard Package', shortDescription: '3 email campaigns, audience segmentation', description: 'Ideal for businesses running regular email communication.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['3 email campaigns', 'email template customization', 'campaign scheduling and delivery', 'basic audience segmentation', 'performance tracking summary'] },
         premium: { price: '$999', packageName: 'Premium Package', shortDescription: '6 email campaigns, custom templates', description: 'Ideal for businesses running structured email marketing programs.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['6 email campaigns', 'custom email templates', 'audience segmentation', 'performance analysis and reporting', 'campaign strategy recommendations'] }
       }
@@ -1607,7 +1607,7 @@ const SERVICES_DATA = {
       { name: 'Website Development or Marketing Services', reason: 'projects being implemented' }
     ],
     packages: {
-      starter: { name: 'Starter Package', price: '$499', description: 'Ideal for managing a small project or short-term initiative.', includes: ['management of 1 project', 'project planning and timeline development', 'task coordination', 'progress tracking and status updates'] },
+      starter: { name: 'Starter Package', price: '$1', description: 'Ideal for managing a small project or short-term initiative.', includes: ['management of 1 project', 'project planning and timeline development', 'task coordination', 'progress tracking and status updates'] },
       growth: { name: 'Standard Package', price: '$1,499', description: 'Ideal for businesses managing multiple tasks within a project.', includes: ['management of up to 3 project phases or workstreams', 'project planning and scheduling', 'task and milestone tracking', 'team coordination and communication'] },
       premium: { name: 'Premium Package', price: '$3,499', description: 'Ideal for businesses requiring full project oversight.', includes: ['comprehensive project management support', 'project planning and scheduling', 'team coordination across departments', 'progress tracking and milestone reporting', 'project performance review'] }
     },
@@ -1622,7 +1622,7 @@ const SERVICES_DATA = {
         { label: 'Project performance review', values: { basic: false, standard: false, premium: true } }
       ],
       details: {
-        basic: { price: '$499', packageName: 'Starter Package', shortDescription: 'Management of 1 project, timeline planning', description: 'Ideal for managing a small project or short-term initiative.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['management of 1 project', 'project planning and timeline development', 'task coordination', 'progress tracking and status updates'] },
+        basic: { price: '$1', packageName: 'Starter Package', shortDescription: 'Management of 1 project, timeline planning', description: 'Ideal for managing a small project or short-term initiative.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['management of 1 project', 'project planning and timeline development', 'task coordination', 'progress tracking and status updates'] },
         standard: { price: '$1,499', packageName: 'Standard Package', shortDescription: 'Management of up to 3 project phases, milestone tracking', description: 'Ideal for businesses managing multiple tasks within a project.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['management of up to 3 project phases or workstreams', 'project planning and scheduling', 'task and milestone tracking', 'team coordination and communication'] },
         premium: { price: '$3,499', packageName: 'Premium Package', shortDescription: 'Comprehensive project management, full oversight, reporting', description: 'Ideal for businesses requiring full project oversight.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['comprehensive project management support', 'project planning and scheduling', 'team coordination across departments', 'progress tracking and milestone reporting', 'project performance review'] }
       }
@@ -2120,8 +2120,6 @@ const ServiceDetailPage = () => {
                         </div>
 
                         <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
-                          <span className="flex items-center gap-1"><FaClock className="text-gray-400 shrink-0" />Shown during selection</span>
-                          <span className="flex items-center gap-1"><FaSyncAlt className="text-gray-400 shrink-0" />Unlimited Revisions</span>
                         </div>
 
                         {selectedPkg.includes && selectedPkg.includes.length > 0 && (
@@ -2151,8 +2149,6 @@ const ServiceDetailPage = () => {
 
                 <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-200 flex flex-wrap justify-center gap-2 sm:gap-4 text-[10px] sm:text-xs text-gray-500">
                   <span className="flex items-center gap-1"><FaShieldAlt className="text-green-500 shrink-0" />Secure</span>
-                  <span className="flex items-center gap-1"><FaClock className="text-blue-500 shrink-0" />5-Day Delivery</span>
-                  <span className="flex items-center gap-1"><FaSyncAlt className="text-purple-500 shrink-0" />Unlimited Revisions</span>
                 </div>
               </div>
             </div>
@@ -2251,7 +2247,7 @@ const ServiceDetailPage = () => {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <Link to="/request-service?service=custom-quote" className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg text-sm sm:text-base">
+            <Link to={`/request-service?service=${serviceSlug}&package=${validPackage}`} className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg text-sm sm:text-base">
               <FaArrowRight className="mr-2" /> Request Service Now
             </Link>
             <Link to="/contact" className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-black transition-colors text-sm sm:text-base">

@@ -137,7 +137,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 7500, // $75
+        price: 100, // $1
         description: 'Ideal for small content needs or single-page messaging.',
         includes: [
           '1 content piece up to 800 words',
@@ -212,7 +212,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 19900, // $199
+        price: 100, // $1
         description: 'Ideal for small businesses launching a brand or refreshing their logo.',
         includes: [
           '1 custom logo concept',
@@ -622,7 +622,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 19900, // $199
+        price: 100, // $1
         description: 'Ideal for businesses launching a simple email campaign.',
         includes: [
           '1 email campaign',
@@ -799,7 +799,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 49900, // $499
+        price: 100, // $1
         description: 'Ideal for businesses connecting two systems for the first time.',
         includes: [
           '1 system integration',
@@ -993,7 +993,7 @@ export const SERVICES_WITH_PACKAGES = {
     packages: {
       starter: {
         name: 'Starter Package',
-        price: 49900, // $499
+        price: 100, // $1
         description: 'Ideal for managing a small project or short-term initiative.',
         includes: [
           'Management of 1 project',

@@ -288,7 +288,7 @@ const ScaleExistingWebsite = () => {
                 </p>
               </div>
               <Link
-                to="/request-service?path=scale_existing&bundle=true"
+                to="/request-service?service=custom-quote"
                 className="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition-colors text-sm whitespace-nowrap"
               >
                 Request a Bundle Quote <FaArrowRight size={12} />

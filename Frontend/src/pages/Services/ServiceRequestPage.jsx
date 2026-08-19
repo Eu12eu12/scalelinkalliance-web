@@ -62,6 +62,8 @@ const getServiceSlug = (serviceName) => {
     'Process Documentation & SOP Development': 'process-documentation',
     'Project Management Support': 'project-management',
     'Data Entry & Processing': 'data-entry',
+    // AI
+    'AI Automation & Smart Business Systems': 'ai-automation',
 
     // Custom Quotes
     'Request Custom Quote - General': 'custom-quote',
@@ -98,6 +100,8 @@ const SLUG_TO_SERVICE_NAME = {
   'process-documentation': 'Process Documentation & SOP Development',
   'project-management': 'Project Management Support',
   'data-entry': 'Data Entry & Processing',
+  // AI
+  'ai-automation': 'AI Automation & Smart Business Systems',
 
   // Custom Quotes
   'custom-quote': 'Request Custom Quote - General',
@@ -123,14 +127,14 @@ const SERVICES_WITH_PACKAGES = {
   },
   'Copywriting & Content Creation': {
     packages: {
-      starter: { name: 'Starter Package', price: 7500, description: 'Ideal for small content needs or single-page messaging.', includes: ['1 content piece up to 800 words', 'basic keyword research (if needed)', 'formatting for web readability', '1 revision round'] },
+      starter: { name: 'Starter Package', price: 100, description: 'Ideal for small content needs or single-page messaging.', includes: ['1 content piece up to 800 words', 'basic keyword research (if needed)', 'formatting for web readability', '1 revision round'] },
       growth: { name: 'Standard Package', price: 22500, description: 'Ideal for businesses producing regular content.', includes: ['3 content pieces up to 1,000 words each', 'content structure and messaging optimization', 'SEO-friendly formatting', '2 revision rounds'] },
       premium: { name: 'Premium Package', price: 59900, description: 'Ideal for businesses running content marketing campaigns.', includes: ['6 content pieces up to 1,200 words each', 'deeper keyword research and SEO optimization', 'brand voice alignment', 'content strategy recommendations', '2-3 revision rounds'] }
     }
   },
   'Brand Identity & Logo Design': {
     packages: {
-      starter: { name: 'Starter Package', price: 19900, description: 'Ideal for small businesses launching a brand or refreshing their logo.', includes: ['1 custom logo concept', 'basic color palette selection', '1 revision round', 'logo files delivered in PNG and SVG formats'] },
+      starter: { name: 'Starter Package', price: 100, description: 'Ideal for small businesses launching a brand or refreshing their logo.', includes: ['1 custom logo concept', 'basic color palette selection', '1 revision round', 'logo files delivered in PNG and SVG formats'] },
       growth: { name: 'Standard Package', price: 49900, description: 'Ideal for businesses that want a more developed brand identity.', includes: ['3 logo design concepts', '2 revision rounds', 'brand color palette', 'typography selection', 'logo files in multiple formats (PNG, SVG, PDF)'] },
       premium: { name: 'Premium Package', price: 99900, description: 'Ideal for companies building a full professional brand identity.', includes: ['3-4 logo concepts', 'multiple revision rounds', 'brand color palette and typography', 'brand style guide', 'logo usage guidelines', 'complete brand identity package'] }
     }
@@ -174,7 +178,7 @@ const SERVICES_WITH_PACKAGES = {
   },
   'API Integration & Automation': {
     packages: {
-      starter: { name: 'Starter Package', price: 49900, description: 'Ideal for businesses connecting two systems for the first time.', includes: ['1 system integration', 'basic data synchronization', 'simple workflow automation', 'testing and configuration'] },
+      starter: { name: 'Starter Package', price: 100, description: 'Ideal for businesses connecting two systems for the first time.', includes: ['1 system integration', 'basic data synchronization', 'simple workflow automation', 'testing and configuration'] },
       growth: { name: 'Standard Package', price: 149900, description: 'Ideal for businesses connecting multiple tools.', includes: ['up to 3 system integrations', 'workflow automation setup', 'data synchronization between platforms', 'automation testing and optimization'] },
       premium: { name: 'Premium Package', price: 399900, description: 'Ideal for businesses implementing full automation systems.', includes: ['multiple system integrations', 'advanced workflow automation', 'API configuration and data mapping', 'automation testing and optimization', 'documentation of automated workflows'] }
     }
@@ -211,7 +215,7 @@ const SERVICES_WITH_PACKAGES = {
   },
   'Email Marketing Campaigns': {
     packages: {
-      starter: { name: 'Starter Package', price: 19900, description: 'Ideal for businesses launching a simple email campaign.', includes: ['1 email campaign', 'email template design', 'content formatting', 'mailing list integration', 'campaign scheduling'] },
+      starter: { name: 'Starter Package', price: 100, description: 'Ideal for businesses launching a simple email campaign.', includes: ['1 email campaign', 'email template design', 'content formatting', 'mailing list integration', 'campaign scheduling'] },
       growth: { name: 'Standard Package', price: 49900, description: 'Ideal for businesses running regular email communication.', includes: ['3 email campaigns', 'email template customization', 'campaign scheduling and delivery', 'basic audience segmentation', 'performance tracking summary'] },
       premium: { name: 'Premium Package', price: 99900, description: 'Ideal for businesses running structured email marketing programs.', includes: ['6 email campaigns', 'custom email templates', 'audience segmentation', 'performance analysis and reporting', 'campaign strategy recommendations'] }
     }
@@ -255,7 +259,7 @@ const SERVICES_WITH_PACKAGES = {
   },
   'Project Management Support': {
     packages: {
-      starter: { name: 'Starter Package', price: 49900, description: 'Ideal for managing a small project or short-term initiative.', includes: ['management of 1 project', 'project planning and timeline development', 'task coordination', 'progress tracking and status updates'] },
+      starter: { name: 'Starter Package', price: 100, description: 'Ideal for managing a small project or short-term initiative.', includes: ['management of 1 project', 'project planning and timeline development', 'task coordination', 'progress tracking and status updates'] },
       growth: { name: 'Standard Package', price: 149900, description: 'Ideal for businesses managing multiple tasks within a project.', includes: ['management of up to 3 project phases or workstreams', 'project planning and scheduling', 'task and milestone tracking', 'team coordination and communication'] },
       premium: { name: 'Premium Package', price: 349900, description: 'Ideal for businesses requiring full project oversight.', includes: ['comprehensive project management support', 'project planning and scheduling', 'team coordination across departments', 'progress tracking and milestone reporting', 'project performance review'] }
     }
@@ -268,7 +272,14 @@ const SERVICES_WITH_PACKAGES = {
     }
   },
 
-
+  // ─── AI ────────────────────────────────────────────────────────────────────
+  'AI Automation & Smart Business Systems': {
+    packages: {
+      starter: { name: 'Starter Package', price: 49900, description: 'Ideal for businesses implementing their first AI solution.', includes: ['AI workflow assessment', 'basic AI automation setup', 'integration with existing tools', 'training and documentation', '1-month support'] },
+      growth: { name: 'Standard Package', price: 149900, description: 'Ideal for businesses scaling AI capabilities.', includes: ['custom AI workflow design', 'AI automation implementation', 'multi-system integration', 'team training', '3-month support'] },
+      premium: { name: 'Premium Package', price: 399900, description: 'Ideal for businesses building full AI-powered operations.', includes: ['end-to-end AI workflow design', 'advanced AI automation', 'custom AI agent development', 'full team training', '6-month priority support'] }
+    }
+  },
 
   // ─── CUSTOM QUOTES ──────────────────────────────────────────────────────────
   'Request Custom Quote - General': {
@@ -283,51 +294,56 @@ const SERVICES_WITH_PACKAGES = {
   }
 };
 
-// ─── SERVICE CATEGORIES ──────────────────────────────────────────────────────
+// ─── SERVICE CATEGORIES (5 categories matching the image) ──────────────────
 const SERVICE_CATEGORIES = {
-  'creative-content': {
-    label: 'Creative & Content',
-    services: [
-      'Graphic Design',
-      'Video Editing & Motion Graphics',
-      'Copywriting & Content Creation',
-      'Brand Identity & Logo Design',
-      'Photography & Visual Assets'
-    ]
-  },
-  'tech-development': {
-    label: 'Tech & Development',
+  'website-webapp': {
+    label: 'Website & Web App Development',
     services: [
       'Website Development',
-      'Landing Pages & Sales Funnels',
-      'E-Commerce Development',
       'Web Applications & SaaS Development',
-      'API Integration & Automation',
-      'Website Maintenance & Updates'
+      'E-Commerce Development',
+      'Landing Pages & Sales Funnels'
     ]
   },
-  'marketing-growth': {
-    label: 'Marketing & Growth',
+  'growth-marketing': {
+    label: 'Website Growth & Marketing',
     services: [
-      'Social Media Management',
       'SEO & Search Marketing',
+      'Lead Generation Services',
       'Paid Advertising Management',
       'Email Marketing Campaigns',
-      'Lead Generation Services',
-      'CRM & Marketing Automation'
+      'Social Media Management'
     ]
   },
-  'operations-support': {
-    label: 'Operations & Support',
+  'creative-branding': {
+    label: 'Content, Branding & Creative',
     services: [
-      'Virtual Assistant Services',
+      'Graphic Design',
+      'Brand Identity & Logo Design',
+      'Copywriting & Content Creation',
+      'Photography & Visual Assets',
+      'Video Editing & Motion Graphics'
+    ]
+  },
+  'automation-crm': {
+    label: 'Automation, CRM & Integration',
+    services: [
+      'CRM & Marketing Automation',
+      'AI Automation & Smart Business Systems',
+      'API Integration & Automation',
       'Data Analytics & Reporting',
-      'Process Documentation & SOP Development',
-      'Project Management Support',
       'Data Entry & Processing'
     ]
   },
-
+  'business-operations': {
+    label: 'Business Support & Operations',
+    services: [
+      'Virtual Assistant Services',
+      'Project Management Support',
+      'Process Documentation & SOP Development',
+      'Website Maintenance & Updates'
+    ]
+  },
   'custom-quotes': {
     label: 'Custom Quotes',
     services: [
@@ -371,11 +387,7 @@ const getServiceIcon = (name) => {
     'Process Documentation & SOP Development': FaFileAlt,
     'Project Management Support': FaProjectDiagram,
     'Data Entry & Processing': FaDatabase,
-    'Online Booking Systems': FaCalendarIcon,
-    'Reputation & Review Management': FaStar,
     'AI Automation & Smart Business Systems': FaRobot,
-    'Business Process Automation': FaSyncAlt,
-    'Business Consulting & Growth Strategy': FaBriefcase,
     'Request Custom Quote - General': FaCogs,
     'Request Custom Quote - AI': FaRobot
   };
@@ -1089,18 +1101,60 @@ const RequestServicePage = () => {
   const prevStep = () => { if (currentStep > 1) { setCurrentStep(p => p - 1); window.scrollTo(0, 0); } };
 
   const currencyObj = CURRENCIES.find(c => c.code === selectedCurrency) || CURRENCIES[0];
-  const categoryMeta = [
-    { cat: 'creative-content', bg: 'bg-purple-100', iconColor: 'text-purple-600', border: 'hover:border-purple-200' },
-    { cat: 'tech-development', bg: 'bg-indigo-100', iconColor: 'text-indigo-600', border: 'hover:border-indigo-200' },
-    { cat: 'marketing-growth', bg: 'bg-green-100', iconColor: 'text-green-600', border: 'hover:border-green-200' },
-    { cat: 'operations-support', bg: 'bg-orange-100', iconColor: 'text-orange-600', border: 'hover:border-orange-200' },
-  ];
-  const categoryIcons = {
-    'creative-content': FaPaintBrush, 
-    'tech-development': FaCode,
-    'marketing-growth': FaChartLine, 
-    'operations-support': FaCogs,
   
+  // ── Category Meta with proper colors for each of the 5 categories ──
+  const categoryMeta = [
+    { 
+      cat: 'website-webapp', 
+      bg: 'bg-blue-100', 
+      iconColor: 'text-blue-600', 
+      border: 'hover:border-blue-300',
+      gradient: 'from-blue-50 to-blue-100/30'
+    },
+    { 
+      cat: 'growth-marketing', 
+      bg: 'bg-emerald-100', 
+      iconColor: 'text-emerald-600', 
+      border: 'hover:border-emerald-300',
+      gradient: 'from-emerald-50 to-emerald-100/30'
+    },
+    { 
+      cat: 'creative-branding', 
+      bg: 'bg-purple-100', 
+      iconColor: 'text-purple-600', 
+      border: 'hover:border-purple-300',
+      gradient: 'from-purple-50 to-purple-100/30'
+    },
+    { 
+      cat: 'automation-crm', 
+      bg: 'bg-amber-100', 
+      iconColor: 'text-amber-600', 
+      border: 'hover:border-amber-300',
+      gradient: 'from-amber-50 to-amber-100/30'
+    },
+    { 
+      cat: 'business-operations', 
+      bg: 'bg-rose-100', 
+      iconColor: 'text-rose-600', 
+      border: 'hover:border-rose-300',
+      gradient: 'from-rose-50 to-rose-100/30'
+    },
+    { 
+      cat: 'custom-quotes', 
+      bg: 'bg-indigo-100', 
+      iconColor: 'text-indigo-600', 
+      border: 'hover:border-indigo-300',
+      gradient: 'from-indigo-50 to-indigo-100/30'
+    }
+  ];
+  
+  const categoryIcons = {
+    'website-webapp': FaCode,
+    'growth-marketing': FaChartLine,
+    'creative-branding': FaPaintBrush,
+    'automation-crm': FaCogs,
+    'business-operations': FaBriefcase,
+    'custom-quotes': FaStar
   };
 
   // ── Verifying payment (full-page interstitial after Stripe redirect) ──
@@ -1170,17 +1224,19 @@ const RequestServicePage = () => {
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4 md:gap-8 mb-8 md:mb-10">
-                  {categoryMeta.map(({ cat, bg, iconColor, border }) => {
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
+                  {categoryMeta.map(({ cat, bg, iconColor, border, gradient }) => {
                     const catData = SERVICE_CATEGORIES[cat];
                     const CatIcon = categoryIcons[cat] || FaCogs;
                     return (
-                      <div key={cat} className={`bg-white p-4 sm:p-6 rounded-xl border-2 border-gray-100 ${border} transition-colors shadow-sm`}>
+                      <div key={cat} className={`bg-gradient-to-br ${gradient} p-4 sm:p-5 rounded-xl border-2 border-gray-200 ${border} transition-all duration-200 shadow-sm hover:shadow-md`}>
                         <div className="flex items-center mb-3 sm:mb-4">
-                          <div className={`w-10 h-10 sm:w-12 sm:h-12 ${bg} rounded-lg flex items-center justify-center mr-2 sm:mr-3 shrink-0`}><CatIcon className={`${iconColor} text-lg sm:text-xl`} /></div>
-                          <h3 className="text-lg sm:text-xl font-bold text-gray-900">{catData.label}</h3>
+                          <div className={`w-10 h-10 sm:w-12 sm:h-12 ${bg} rounded-lg flex items-center justify-center mr-2 sm:mr-3 shrink-0`}>
+                            <CatIcon className={`${iconColor} text-lg sm:text-xl`} />
+                          </div>
+                          <h3 className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 leading-tight">{catData.label}</h3>
                         </div>
-                        <div className="space-y-2 sm:space-y-3">
+                        <div className="space-y-2 sm:space-y-2.5">
                           {catData.services.map(service => {
                             const ServiceIcon = getServiceIcon(service);
                             const isSelected = !!selectedServices[service];
@@ -1195,7 +1251,7 @@ const RequestServicePage = () => {
                                 onMouseEnter={() => handleServiceHover(service)}
                                 onMouseLeave={handleServiceLeave}
                               >
-                                <label className={`flex items-center p-2 sm:p-3 border rounded-lg cursor-pointer transition-all ${isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}`}>
+                                <label className={`flex items-center p-2 sm:p-2.5 border rounded-lg cursor-pointer transition-all ${isSelected ? 'border-blue-500 bg-blue-50/70' : 'border-gray-200 hover:border-gray-300 hover:bg-white/70'}`}>
                                   <input 
                                     type="checkbox" 
                                     checked={isSelected} 
@@ -1203,7 +1259,7 @@ const RequestServicePage = () => {
                                     className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300 shrink-0" 
                                   />
                                   <div className="ml-2 sm:ml-3 flex-1 flex items-center min-w-0">
-                                    <ServiceIcon className="mr-1 sm:mr-2 text-gray-500 shrink-0" size={14} />
+                                    <ServiceIcon className="mr-1.5 sm:mr-2 text-gray-500 shrink-0" size={13} />
                                     <span className="text-gray-700 font-medium text-xs sm:text-sm truncate">{service.split(' - ')[0]}</span>
                                   </div>
                                   <div className="flex items-center gap-1 sm:gap-2 shrink-0">

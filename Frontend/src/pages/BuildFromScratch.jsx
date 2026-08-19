@@ -252,7 +252,7 @@ const BuildFromScratch = () => {
                 </p>
               </div>
               <Link
-                to="/request-service?path=start_from_scratch&bundle=true"
+                to="/request-service?service=custom-quote"
                 className="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors text-sm whitespace-nowrap"
               >
                 Request a Bundle Quote <FaArrowRight size={12} />

@@ -52,6 +52,30 @@ const FreeWebsiteReview = () => {
     if (submitError) setSubmitError('');
   };
 
+  // Helper function to format URL
+  const formatUrl = (url) => {
+    url = url.trim();
+    if (!url) return url;
+    
+    // If URL doesn't start with http:// or https://, add https://
+    if (!/^https?:\/\//i.test(url)) {
+      return `https://${url}`;
+    }
+    return url;
+  };
+
+  // Helper function to validate URL
+  const isValidUrl = (url) => {
+    try {
+      // Add https:// if missing for validation
+      const formattedUrl = formatUrl(url);
+      new URL(formattedUrl);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   const validate = () => {
     const newErrors = {};
     if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
@@ -59,8 +83,8 @@ const FreeWebsiteReview = () => {
     
     if (!formData.websiteUrl.trim()) {
       newErrors.websiteUrl = 'Website URL is required';
-    } else if (!/^https?:\/\/.+/.test(formData.websiteUrl)) {
-      newErrors.websiteUrl = 'Please enter a valid URL (e.g., https://example.com)';
+    } else if (!isValidUrl(formData.websiteUrl)) {
+      newErrors.websiteUrl = 'Please enter a valid URL (e.g., youtube.com or www.youtube.com)';
     }
     
     if (!formData.email.trim()) {
@@ -89,8 +113,12 @@ const FreeWebsiteReview = () => {
     setSubmitError('');
     
     try {
+      // Format the URL before sending
+      const formattedWebsiteUrl = formatUrl(formData.websiteUrl);
+      
       const response = await axios.post('/api/leads/website-review', {
         ...formData,
+        websiteUrl: formattedWebsiteUrl, // Send the formatted URL
         leadType: 'website_review',
         leadSource: 'website_review_form',
         reviewStatus: 'pending'
@@ -282,12 +310,12 @@ const FreeWebsiteReview = () => {
                         Website Address <span className="text-red-500">*</span>
                       </label>
                       <input
-                        type="url"
+                        type="text"
                         name="websiteUrl"
                         value={formData.websiteUrl}
                         onChange={handleChange}
                         className={`w-full px-4 py-2.5 border ${errors.websiteUrl ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent transition outline-none`}
-                        placeholder="https://yourwebsite.com"
+                        placeholder="youtube.com or www.youtube.com"
                       />
                       {errors.websiteUrl && <p className="text-red-500 text-xs mt-1">{errors.websiteUrl}</p>}
                     </div>

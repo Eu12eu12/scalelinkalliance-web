@@ -114,13 +114,13 @@ const ServicesMegaMenu = ({ onClose }) => (
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -8 }}
     transition={{ duration: 0.18 }}
-    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[780px] bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
+    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[780px] max-w-[90vw] bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
   >
     <div className="p-6">
       <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-5">
         Browse by Category
       </p>
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {servicesDropdownCategories.map((cat) => (
           <div key={cat.category}>
             <div className="flex items-center gap-2 mb-3">
@@ -143,7 +143,7 @@ const ServicesMegaMenu = ({ onClose }) => (
           </div>
         ))}
       </div>
-      <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between">
+      <div className="mt-5 pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3">
         <span className="text-xs text-gray-400">22+ professional services available</span>
         <Link
           to="/services"
@@ -164,7 +164,7 @@ const BuildMegaMenu = ({ onClose }) => (
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -8 }}
     transition={{ duration: 0.18 }}
-    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[620px] bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
+    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[620px] max-w-[90vw] bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
   >
     <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
       <div className="flex items-center gap-3">
@@ -177,7 +177,7 @@ const BuildMegaMenu = ({ onClose }) => (
         </div>
       </div>
     </div>
-    <div className="p-5 grid grid-cols-3 gap-2">
+    <div className="p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
       {buildFromScratchServices.map((s) => (
         <Link
           key={s.name}
@@ -212,7 +212,7 @@ const ScaleMegaMenu = ({ onClose }) => (
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -8 }}
     transition={{ duration: 0.18 }}
-    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[680px] bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
+    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[680px] max-w-[90vw] bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
   >
     <div className="bg-gradient-to-r from-green-600 to-emerald-700 px-6 py-4">
       <div className="flex items-center gap-3">
@@ -225,7 +225,7 @@ const ScaleMegaMenu = ({ onClose }) => (
         </div>
       </div>
     </div>
-    <div className="p-5 grid grid-cols-3 gap-2">
+    <div className="p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
       {scaleExistingServices.map((s) => (
         <Link
           key={s.name}
@@ -327,21 +327,21 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
-      <nav className="container mx-auto pl-2 pr-4">
-        <div className="flex justify-between items-center h-20">
+      <nav className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center shrink-0">
             <img
               src="/scalelink-logo.png"
               alt="ScaleLink Alliance"
-              className="h-16 w-auto object-contain"
+              className="h-12 sm:h-16 w-auto object-contain"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.style.display = 'none';
                 e.target.parentElement.innerHTML = `
                   <div class="flex flex-col">
-                    <h1 class="text-2xl font-bold text-gray-900 tracking-tight leading-none">ScaleLink</h1>
-                    <p class="text-xs text-gray-600 uppercase tracking-[0.2em] font-semibold mt-0.5">ALLIANCE</p>
+                    <h1 class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight leading-none">ScaleLink</h1>
+                    <p class="text-[10px] sm:text-xs text-gray-600 uppercase tracking-[0.2em] font-semibold mt-0.5">ALLIANCE</p>
                   </div>
                 `;
               }}
@@ -433,7 +433,7 @@ const Header = () => {
             </div>
           </div>
 
-          {/* CTA Buttons - UPDATED */}
+          {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-2 ml-4 shrink-0">
             <Link
               to="/membership"
@@ -444,10 +444,11 @@ const Header = () => {
             </Link>
             <Link
               to="/free-website-review"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold bg-gradient-to-r from-amber-400 to-amber-500 text-gray-900 hover:from-amber-500 hover:to-amber-600 shadow-lg shadow-amber-400/30 hover:scale-105 transition-all whitespace-nowrap"
+              className="flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg text-sm font-bold bg-gradient-to-r from-amber-400 to-amber-500 text-gray-900 hover:from-amber-500 hover:to-amber-600 shadow-lg shadow-amber-400/30 hover:scale-105 transition-all whitespace-nowrap"
             >
               <FaStar className="text-sm" />
-              Free Website Review
+              <span className="hidden sm:inline">Free Website Review</span>
+              <span className="sm:hidden">Review</span>
             </Link>
           </div>
 
@@ -536,7 +537,7 @@ const Header = () => {
                   </div>
                 ))}
 
-                {/* Mobile CTAs - UPDATED */}
+                {/* Mobile CTAs */}
                 <div className="pt-3 mt-3 border-t border-gray-200 space-y-2 px-1">
                   <Link
                     to="/membership"
