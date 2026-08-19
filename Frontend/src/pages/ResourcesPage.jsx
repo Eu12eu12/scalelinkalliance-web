@@ -113,7 +113,7 @@ const DocumentArticle = ({ title, content, author, imageUrl, date, onClose, isHt
 
             <div className="max-w-3xl mx-auto">
               <div
-                className="prose prose-lg prose-blue prose-premium max-w-none text-gray-900 leading-relaxed text-left"
+                className="prose prose-lg prose-blue max-w-none text-gray-900 leading-relaxed text-left"
                 style={{ overflowWrap: 'break-word', wordBreak: 'normal' }}
                 dangerouslySetInnerHTML={{ __html: fixCompoundHyphens(content) }}
               />

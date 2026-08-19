@@ -2,33 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 @layer utilities {
-  /* Premium Resource Heading Circles */
-  .prose-premium {
-    counter-reset: section;
-  }
-  
-  .prose-premium h2, 
-  .prose-premium h3 {
-    display: flex;
-    align-items: center;
-    counter-increment: section;
-  }
 
-  .prose-premium h2::before,
-  .prose-premium h3::before {
-    content: counter(section);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 2rem;
-    height: 2rem;
-    background-color: #dbeafe; /* bg-blue-100 */
-    color: #2563eb; /* text-blue-600 */
-    border-radius: 9999px; /* rounded-full */
-    margin-right: 0.75rem; /* mr-3 */
-    font-size: 0.875rem; /* text-sm */
-    font-weight: 700; /* font-bold */
-  }
 
   /* ===== Resource Modal: Word-Wrap Fix ===== */
   /* Prevent Tailwind prose from breaking words mid-character.
@@ -189,15 +163,6 @@
     color: #111 !important;
     font-size: 11pt !important;
     line-height: 1.5 !important;
-  }
-
-  /* Force premium circles to show in print */
-  .prose-premium h2::before,
-  .prose-premium h3::before {
-    background-color: #dbeafe !important;
-    color: #2563eb !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
   }
 
   /* CTA Hide (Optional but usually better for formal prints) */
