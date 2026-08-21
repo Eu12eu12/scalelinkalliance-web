@@ -1,6 +1,6 @@
 // src/pages/ResourcesPage.jsx
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaFileAlt, FaNetworkWired, FaHandshake, FaChartLine, FaDownload, FaVideo, FaBookOpen, FaCalculator, FaArrowRight, FaTimes, FaChevronLeft, FaChevronRight, FaShareAlt, FaPrint, FaTags, FaCalendarAlt } from 'react-icons/fa';
 
@@ -18,14 +18,14 @@ const formatDate = (dateString) => {
 // Component for individual document articles
 // Replaces regular hyphens between letters with Non-Breaking Hyphen (U+2011)
 // so the browser cannot use them as line-break opportunities.
-// Only processes text — safely skips HTML tags and their attributes.
+// Only processes text â€” safely skips HTML tags and their attributes.
 const fixCompoundHyphens = (html) => {
   if (!html) return html;
   // Split on HTML tags (< ... >). Process text segments only.
   return html
     .split(/(<[^>]+>)/)
     .map((segment) => {
-      // Skip HTML tags — they start with '<'
+      // Skip HTML tags â€” they start with '<'
       if (segment.startsWith('<')) return segment;
       // Replace letter-hyphen-letter with letter + non-breaking hyphen (U+2011) + letter
       return segment.replace(/([a-zA-Z])-([a-zA-Z])/g, '$1\u2011$2');
@@ -153,10 +153,10 @@ const DocumentArticle = ({ title, content, author, imageUrl, date, onClose, isHt
     .split('\n')
     .map(line => {
       // Handle bullet points
-      if (line.trim().startsWith('•') || line.trim().startsWith('-')) {
+      if (line.trim().startsWith('â€¢') || line.trim().startsWith('-')) {
         // Remove multiple bullets and ensure single bullet
-        const cleanLine = line.replace(/^[•\-]\s*/, '').replace(/[•\-]/g, '').trim();
-        return `• ${cleanLine}`;
+        const cleanLine = line.replace(/^[â€¢\-]\s*/, '').replace(/[â€¢\-]/g, '').trim();
+        return `â€¢ ${cleanLine}`;
       }
       // Handle numbered lists
       else if (line.match(/^\d+\./)) {
@@ -173,11 +173,11 @@ const DocumentArticle = ({ title, content, author, imageUrl, date, onClose, isHt
     })
     .join('\n')
     // Replace multiple dashes with em dash
-    .replace(/---+/g, '—')
+    .replace(/---+/g, 'â€”')
     // Clean up multiple bullet points in same line
-    .replace(/•.*•/g, match => {
-      const bullets = match.split('•').filter(b => b.trim());
-      return bullets.map(b => `• ${b.trim()}`).join('\n');
+    .replace(/â€¢.*â€¢/g, match => {
+      const bullets = match.split('â€¢').filter(b => b.trim());
+      return bullets.map(b => `â€¢ ${b.trim()}`).join('\n');
     })
     // Remove random punctuation at start of bold headings
     .replace(/[.,!?]\s*<strong>/g, '<strong>')
@@ -263,14 +263,14 @@ const DocumentArticle = ({ title, content, author, imageUrl, date, onClose, isHt
                   return (
                     <div key={index} dangerouslySetInnerHTML={{ __html: section }} />
                   );
-                } else if (section.includes('•')) {
+                } else if (section.includes('â€¢')) {
                   // Handle bullet points
                   const bullets = section.split('\n').filter(line => line.trim());
                   return (
                     <ul key={index} className="list-disc pl-6 text-gray-700 space-y-2 mb-6">
                       {bullets.map((bullet, bulletIndex) => (
                         <li key={bulletIndex} className="text-gray-700">
-                          {bullet.replace('•', '').trim()}
+                          {bullet.replace('â€¢', '').trim()}
                         </li>
                       ))}
                     </ul>
@@ -304,6 +304,7 @@ const DocumentArticle = ({ title, content, author, imageUrl, date, onClose, isHt
 };
 
 const ResourcesPage = () => {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeDocument, setActiveDocument] = useState(null);
 
@@ -370,16 +371,16 @@ const ResourcesPage = () => {
       date: 'Feb 28, 2024',
       content: `How a Tech Consultant Generated $500K in New Business Through Strategic Networking
 
-Most tech consultants believe growth comes from more ads, more outreach, or lowering prices. This case study tells a different story. It is the story of how one independent technology consultant transformed inconsistent project work into $500,000 in new business—not by working more hours, but by building a strategic referral network.
+Most tech consultants believe growth comes from more ads, more outreach, or lowering prices. This case study tells a different story. It is the story of how one independent technology consultant transformed inconsistent project work into $500,000 in new businessâ€”not by working more hours, but by building a strategic referral network.
 
 <strong>The Starting Point: Skilled, But Stuck</strong>
 
 Alex was a highly skilled technology consultant specializing in cloud infrastructure and systems optimization for mid-sized businesses. The problem was not talent. The problem was predictability.
 
-• Referrals came randomly
-• Sales cycles were inconsistent
-• Growth depended on constant prospecting
-• Each new client felt like starting over
+â€¢ Referrals came randomly
+â€¢ Sales cycles were inconsistent
+â€¢ Growth depended on constant prospecting
+â€¢ Each new client felt like starting over
 
 Alex was respected but invisible outside immediate circles.
 
@@ -393,11 +394,11 @@ The breakthrough came when Alex stopped networking and started networking with i
 
 Alex identified five non-competing professionals who served the same audience:
 
-• Managed service providers
-• Cybersecurity consultants
-• Business operations advisors
-• CFO consultants
-• Digital transformation strategists
+â€¢ Managed service providers
+â€¢ Cybersecurity consultants
+â€¢ Business operations advisors
+â€¢ CFO consultants
+â€¢ Digital transformation strategists
 
 Each had trust. Each had access. None were direct competitors. Rather than pitching services, Alex focused on understanding their clients' pain points, sharing insights and value, and creating clarity around who Alex was best suited to help. Within weeks, introductions started happening naturally.
 
@@ -405,10 +406,10 @@ Each had trust. Each had access. None were direct competitors. Rather than pitch
 
 The first referral led to a $40,000 project. That client referred another. That partner introduced Alex to a larger organization. Within 12 months:
 
-• Multiple six-figure contracts were secured
-• Referral partners became consistent lead sources
-• Sales conversations were shorter and warmer
-• Alex stopped cold outreach entirely
+â€¢ Multiple six-figure contracts were secured
+â€¢ Referral partners became consistent lead sources
+â€¢ Sales conversations were shorter and warmer
+â€¢ Alex stopped cold outreach entirely
 
 By the end of the year, over $500,000 in new business came directly from referral relationships. No ads. No aggressive selling. Just trust, alignment, and structure.
 
@@ -416,11 +417,11 @@ By the end of the year, over $500,000 in new business came directly from referra
 
 Three factors made the difference:
 
-<strong>Trust Transfer</strong> — Every referral came with built-in credibility. Prospects arrived ready to listen.
+<strong>Trust Transfer</strong> â€” Every referral came with built-in credibility. Prospects arrived ready to listen.
 
-<strong>Clear Positioning</strong> — Referral partners knew exactly when and why to introduce Alex.
+<strong>Clear Positioning</strong> â€” Referral partners knew exactly when and why to introduce Alex.
 
-<strong>Consistent Relationship Management</strong> — Follow-ups were intentional. Relationships were nurtured, not neglected.
+<strong>Consistent Relationship Management</strong> â€” Follow-ups were intentional. Relationships were nurtured, not neglected.
 
 This was not luck. It was a system.
 
@@ -428,13 +429,13 @@ This was not luck. It was a system.
 
 Alex's results came from intentional effort but imagine if the system already existed. That is exactly what Scale Link Alliance membership is designed to provide.
 
-<strong>Instant Access to Aligned Professionals</strong> — Instead of searching for the right partners, members enter a network built around mutual growth and referrals.
+<strong>Instant Access to Aligned Professionals</strong> â€” Instead of searching for the right partners, members enter a network built around mutual growth and referrals.
 
-<strong>Structured Referral Standards</strong> — Members understand how to give, receive, and qualify referrals eliminating guesswork.
+<strong>Structured Referral Standards</strong> â€” Members understand how to give, receive, and qualify referrals eliminating guesswork.
 
-<strong>Built-In Credibility</strong> — Introductions carry more weight when they come from a trusted alliance.
+<strong>Built-In Credibility</strong> â€” Introductions carry more weight when they come from a trusted alliance.
 
-<strong>Repeatable Growth Opportunities</strong> — Referrals do not happen by chance they are facilitated through intentional collaboration.
+<strong>Repeatable Growth Opportunities</strong> â€” Referrals do not happen by chance they are facilitated through intentional collaboration.
 
 For consultants like Alex, Scale Link Alliance removes years of trial and error and replaces it with a ready-made referral ecosystem.
 
@@ -471,9 +472,9 @@ People can sense when they are being evaluated as a transaction. Conversations s
 
 Shift your mindset:
 
-• Focus on understanding, not pitching
-• Ask about their clients, challenges, and goals
-• Think in terms of long-term alignment, not immediate ROI
+â€¢ Focus on understanding, not pitching
+â€¢ Ask about their clients, challenges, and goals
+â€¢ Think in terms of long-term alignment, not immediate ROI
 
 The best referrals often come weeks or months later, not the same day.
 
@@ -485,9 +486,9 @@ Many professionals think they are being flexible by keeping their message broad.
 
 Create a clear referral identity:
 
-• "I help this type of client with this specific problem"
-• Use real examples, not generic titles
-• Make it easy for others to recognize opportunities for you
+â€¢ "I help this type of client with this specific problem"
+â€¢ Use real examples, not generic titles
+â€¢ Make it easy for others to recognize opportunities for you
 
 Clarity creates confidence and confidence creates referrals.
 
@@ -501,9 +502,9 @@ Networking conversations fade fast. Without intentional follow-up, even strong c
 
 <strong>How to fix it</strong>
 
-• Follow up within 24 to 48 hours
-• Reference the actual conversation
-• Keep it relationship-focused, not sales-focused
+â€¢ Follow up within 24 to 48 hours
+â€¢ Reference the actual conversation
+â€¢ Keep it relationship-focused, not sales-focused
 
 Consistency beats charisma every time.
 
@@ -515,9 +516,9 @@ Attending events without structure feels productive but rarely is. Many professi
 
 Adopt structured networking:
 
-• Focus on a smaller, aligned network
-• Build depth instead of breadth
-• Engage consistently with the same professionals
+â€¢ Focus on a smaller, aligned network
+â€¢ Build depth instead of breadth
+â€¢ Engage consistently with the same professionals
 
 This is where Scale Link Alliance becomes powerful by providing a framework where referrals are intentional, not accidental.
 
@@ -527,9 +528,9 @@ Even experienced professionals sometimes forget this rule: Networking is an exch
 
 <strong>How to fix it</strong>
 
-• Look for ways to help before asking
-• Share introductions freely
-• Become known as a connector
+â€¢ Look for ways to help before asking
+â€¢ Share introductions freely
+â€¢ Become known as a connector
 
 The professionals who receive the most referrals are usually the ones who give the most value first.
 
@@ -566,10 +567,10 @@ That is why effective follow-up systems are essential for anyone serious about r
 
 Networking events create opportunity, but follow-up creates results. Effective follow-up:
 
-• Reinforces trust after the initial meeting
-• Turns casual conversations into relationships
-• Positions you as professional and intentional
-• Increases referral and collaboration opportunities
+â€¢ Reinforces trust after the initial meeting
+â€¢ Turns casual conversations into relationships
+â€¢ Positions you as professional and intentional
+â€¢ Increases referral and collaboration opportunities
 
 Most people either do not follow up at all, follow-up too late, or follow up with generic, forgettable messages. Structured follow-up is what separates networkers from business builders.
 
@@ -671,10 +672,10 @@ This case study explores how one independent financial advisor doubled their cli
 
 Jordan was a licensed financial advisor serving professionals and small business owners. Clients were happy. Retention was solid. Results were strong. But growth was slow.
 
-• New clients came mostly from word-of-mouth
-• Referrals were unpredictable
-• Networking events felt busy but unproductive
-• Time spent prospecting cut into client service
+â€¢ New clients came mostly from word-of-mouth
+â€¢ Referrals were unpredictable
+â€¢ Networking events felt busy but unproductive
+â€¢ Time spent prospecting cut into client service
 
 Jordan's biggest challenge was not performance it was scale.
 
@@ -688,10 +689,10 @@ So Jordan stopped asking "How do I find more clients?" and started asking "How d
 
 Instead of attending random events, Jordan focused on intentional relationship building. The approach was simple but disciplined:
 
-• Identify professionals who already serve ideal clients
-• Build relationships without selling
-• Clarify exactly who Jordan helps best
-• Stay visible through consistent follow-up
+â€¢ Identify professionals who already serve ideal clients
+â€¢ Build relationships without selling
+â€¢ Clarify exactly who Jordan helps best
+â€¢ Stay visible through consistent follow-up
 
 Jordan prioritized quality connections over quantity, meeting fewer people but building deeper alignment with each one.
 
@@ -699,26 +700,26 @@ Jordan prioritized quality connections over quantity, meeting fewer people but b
 
 Within the first few months:
 
-• An accountant introduced Jordan to three clients
-• A business consultant sent a steady stream of warm leads
-• A legal professional referred high-net-worth prospects
+â€¢ An accountant introduced Jordan to three clients
+â€¢ A business consultant sent a steady stream of warm leads
+â€¢ A legal professional referred high-net-worth prospects
 
 Each new client strengthened the advisor's credibility inside the network. Referrals began feeding more referrals. By month 12:
 
-• The client base had doubled
-• Prospecting time dropped significantly
-• Revenue became more predictable
-• Trust replaced persuasion in sales conversations
+â€¢ The client base had doubled
+â€¢ Prospecting time dropped significantly
+â€¢ Revenue became more predictable
+â€¢ Trust replaced persuasion in sales conversations
 
 <strong>Why This Strategy Worked</strong>
 
 Three factors drove the outcome:
 
-<strong>Trust Was Borrowed, Not Built from Scratch</strong> — Introductions came with credibility attached.
+<strong>Trust Was Borrowed, Not Built from Scratch</strong> â€” Introductions came with credibility attached.
 
-<strong>Referral Clarity</strong> — Partners knew exactly when to refer and when not to.
+<strong>Referral Clarity</strong> â€” Partners knew exactly when to refer and when not to.
 
-<strong>Consistent Relationship Management</strong> — No one was forgotten. Every connection was nurtured intentionally.
+<strong>Consistent Relationship Management</strong> â€” No one was forgotten. Every connection was nurtured intentionally.
 
 This was not luck. It was structured networking.
 
@@ -726,13 +727,13 @@ This was not luck. It was structured networking.
 
 Jordan built this system manually over time. Now imagine starting inside an ecosystem already designed for it. That is where Scale Link Alliance membership comes in.
 
-<strong>Curated Professional Connections</strong> — Members connect with aligned professionals who understand referrals, not casual networking.
+<strong>Curated Professional Connections</strong> â€” Members connect with aligned professionals who understand referrals, not casual networking.
 
-<strong>Clear Referral Standards</strong> — No awkward asks. Members know how to give and receive referrals professionally.
+<strong>Clear Referral Standards</strong> â€” No awkward asks. Members know how to give and receive referrals professionally.
 
-<strong>Credibility by Association</strong> — Introductions carry more weight inside a trusted alliance.
+<strong>Credibility by Association</strong> â€” Introductions carry more weight inside a trusted alliance.
 
-<strong>Repeatable Referral Opportunities</strong> — Growth does not rely on chance it is facilitated through structure and consistency.
+<strong>Repeatable Referral Opportunities</strong> â€” Growth does not rely on chance it is facilitated through structure and consistency.
 
 For financial advisors, this removes years of trial-and-error and replaces it with immediate leverage.
 
@@ -763,11 +764,11 @@ An ROI (Return on Investment) Calculator for Networking Groups helps bring clari
 
 An ROI calculator for networking groups is a tool that helps you evaluate whether the time and cost invested in networking produce meaningful business returns. It typically measures:
 
-• Membership fees
-• Time spent attending meetings and events
-• Revenue generated from referrals
-• Deals influenced by networking relationships
-• Long-term client value
+â€¢ Membership fees
+â€¢ Time spent attending meetings and events
+â€¢ Revenue generated from referrals
+â€¢ Deals influenced by networking relationships
+â€¢ Long-term client value
 
 The goal is not perfection it is better decision-making.
 
@@ -775,10 +776,10 @@ The goal is not perfection it is better decision-making.
 
 Many professionals rely on gut feeling: "This group feels valuable." But feelings do not scale businesses. An ROI calculator helps you:
 
-• Identify high-performing networking groups
-• Justify time spent networking
-• Compare networking against other growth channels
-• Improve focus and efficiency
+â€¢ Identify high-performing networking groups
+â€¢ Justify time spent networking
+â€¢ Compare networking against other growth channels
+â€¢ Improve focus and efficiency
 
 When networking becomes measurable, it becomes strategic.
 
@@ -786,42 +787,42 @@ When networking becomes measurable, it becomes strategic.
 
 A simple networking ROI formula looks like this:
 
-(Revenue Generated from Networking − Cost of Networking) ÷ Cost of Networking
+(Revenue Generated from Networking âˆ’ Cost of Networking) Ã· Cost of Networking
 
 Where costs may include:
 
-• Membership fees
-• Event tickets
-• Travel expenses
-• Time value (hours × hourly rate)
+â€¢ Membership fees
+â€¢ Event tickets
+â€¢ Travel expenses
+â€¢ Time value (hours Ã— hourly rate)
 
 Revenue includes:
 
-• Closed deals from referrals
-• Clients influenced by introductions
-• Long-term value of referred clients
+â€¢ Closed deals from referrals
+â€¢ Clients influenced by introductions
+â€¢ Long-term value of referred clients
 
 Even an estimated calculation can provide powerful insights.
 
 <strong>The Pros of Using an ROI Calculator</strong>
 
-<strong>Clarity</strong> — You can clearly see which groups and relationships are contributing to growth.
+<strong>Clarity</strong> â€” You can clearly see which groups and relationships are contributing to growth.
 
-<strong>Focus</strong> — It helps you double down on high-impact networking and reduce low-return activity.
+<strong>Focus</strong> â€” It helps you double down on high-impact networking and reduce low-return activity.
 
-<strong>Accountability</strong> — You become intentional instead of passively attending events.
+<strong>Accountability</strong> â€” You become intentional instead of passively attending events.
 
-<strong>Strategic Growth</strong> — Networking shifts from nice to have to a measurable growth channel.
+<strong>Strategic Growth</strong> â€” Networking shifts from nice to have to a measurable growth channel.
 
 <strong>The Cons and Limitations of Networking ROI</strong>
 
 ROI calculators are powerful but imperfect.
 
-<strong>Delayed Returns</strong> — Networking often produces results months or even years later. Early ROI may look negative even when long-term value is high.
+<strong>Delayed Returns</strong> â€” Networking often produces results months or even years later. Early ROI may look negative even when long-term value is high.
 
-<strong>Hard-to-Measure Trust</strong> — Not all value is immediate revenue. Credibility, reputation, and access are difficult to quantify.
+<strong>Hard-to-Measure Trust</strong> â€” Not all value is immediate revenue. Credibility, reputation, and access are difficult to quantify.
 
-<strong>Attribution Challenges</strong> — A client may come through multiple touchpoints, not just one introduction.
+<strong>Attribution Challenges</strong> â€” A client may come through multiple touchpoints, not just one introduction.
 
 This is why ROI should guide decisions not dictate them blindly.
 
@@ -829,13 +830,13 @@ This is why ROI should guide decisions not dictate them blindly.
 
 The biggest mistake professionals make is using ROI too narrowly.
 
-<strong>Track Trends, Not Just Numbers</strong> — Look at ROI over time, not just a single period.
+<strong>Track Trends, Not Just Numbers</strong> â€” Look at ROI over time, not just a single period.
 
-<strong>Separate Short-Term and Long-Term Value</strong> — Some groups generate quick wins. Others build pipelines.
+<strong>Separate Short-Term and Long-Term Value</strong> â€” Some groups generate quick wins. Others build pipelines.
 
-<strong>Evaluate Quality, Not Just Quantity</strong> — One strong referral partner can outperform dozens of casual contacts.
+<strong>Evaluate Quality, Not Just Quantity</strong> â€” One strong referral partner can outperform dozens of casual contacts.
 
-<strong>Use ROI as a Filter, Not a Verdict</strong> — ROI helps prioritize not eliminate relationship-building.
+<strong>Use ROI as a Filter, Not a Verdict</strong> â€” ROI helps prioritize not eliminate relationship-building.
 
 <strong>Why Structured Networking Improves ROI</strong>
 
@@ -843,16 +844,16 @@ ROI improves dramatically when networking is intentional and structured.
 
 Unstructured networking:
 
-• Produces random results
-• Lacks accountability
-• Makes ROI unclear
+â€¢ Produces random results
+â€¢ Lacks accountability
+â€¢ Makes ROI unclear
 
 Structured networking:
 
-• Clarifies referral expectations
-• Encourages consistency
-• Improves referral quality
-• Shortens the path to revenue
+â€¢ Clarifies referral expectations
+â€¢ Encourages consistency
+â€¢ Improves referral quality
+â€¢ Shortens the path to revenue
 
 This is where alliances like Scale Link Alliance stand out by providing a framework where networking outcomes are easier to track and improve.
 
@@ -860,10 +861,10 @@ This is where alliances like Scale Link Alliance stand out by providing a framew
 
 The most valuable networking groups do not just generate revenue they create leverage:
 
-• Access to trusted introductions
-• Faster deal cycles
-• Higher-quality clients
-• Compounding referral relationships
+â€¢ Access to trusted introductions
+â€¢ Faster deal cycles
+â€¢ Higher-quality clients
+â€¢ Compounding referral relationships
 
 An ROI calculator helps you see that leverage more clearly but only when paired with the right environment.
 
@@ -947,21 +948,21 @@ If networking feels busy but unproductive, the issue is not effort it is measure
       title: 'Referral Tracking Template',
       description: 'Excel template to track referrals, follow-ups, and revenue generated from networking.',
       icon: <FaFileAlt />,
-      format: 'Excel • 45 KB'
+      format: 'Excel â€¢ 45 KB'
     },
     {
       id: 2,
       title: 'Network Mapping Guide',
       description: 'Step-by-step guide to mapping your professional network and identifying growth opportunities.',
       icon: <FaNetworkWired />,
-      format: 'PDF • 2.1 MB'
+      format: 'PDF â€¢ 2.1 MB'
     },
     {
       id: 3,
       title: 'Introduction Scripts',
       description: 'Professional scripts for making effective introductions and asking for referrals.',
       icon: <FaHandshake />,
-      format: 'PDF • 1.5 MB'
+      format: 'PDF â€¢ 1.5 MB'
     }
   ];
 
@@ -993,10 +994,12 @@ If networking feels busy but unproductive, the issue is not effort it is measure
   ];
 
   const handleResourceClick = (resource) => {
-    if (resource.onClick) {
+    if (resource.slug || resource.id) {
+      navigate(/resources/);
+    } else if (resource.onClick) {
       resource.onClick();
     } else if (resource.richHtmlContent) {
-      // CMS resource — render rich HTML in the DocumentArticle modal
+      // CMS resource â€” render rich HTML in the DocumentArticle modal
       setActiveDocument({
         title: resource.title,
         content: resource.richHtmlContent,
@@ -1072,16 +1075,12 @@ If networking feels busy but unproductive, the issue is not effort it is measure
                       : 'Learn proven strategies to build a referral-based business and accelerate your growth.'}
                   </p>
                 </div>
-                <button
-                  onClick={() => {
-                    if (cmsFeatured) {
-                      handleResourceClick(cmsFeatured);
-                    }
-                  }}
-                  className="px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors whitespace-nowrap"
+                <Link
+                  to={cmsFeatured ? `/resources/${cmsFeatured.slug || cmsFeatured.id}` : '/resources/1'}
+                  className="px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors whitespace-nowrap inline-flex items-center justify-center shadow-md font-semibold"
                 >
                   Read Full Guide
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -1111,53 +1110,63 @@ If networking feels busy but unproductive, the issue is not effort it is measure
 
             {/* Resources Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {activeResourceList.map((resource, index) => (
-                <motion.div
-                  key={resource.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden border border-gray-200 cursor-pointer relative"
-                  onClick={() => handleResourceClick(resource)}
-                >
-                  {resource.featured && (
-                    <div className="absolute top-4 left-4 z-10">
-                      <span className="px-3 py-1 bg-blue-600 text-white text-xs font-semibold rounded-full">
-                        Featured
-                      </span>
-                    </div>
-                  )}
-                  <div className="aspect-[3/2] overflow-hidden bg-gray-100">
-                    <img 
-                      src={resource.imageUrl || resource.image} 
-                      alt={resource.title}
-                      className={`w-full h-full ${(resource.imageUrl || resource.image)?.endsWith('#contain') ? 'object-contain' : 'object-cover'} hover:scale-105 transition-transform duration-500`}
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex justify-between items-start mb-4">
-                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getTypeColor(resource)}`}>
-                        {getTypeLabel(resource)}
-                      </span>
-                    </div>
-                    
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                      {resource.title}
-                    </h3>
-                    <p className="text-gray-600 mb-4 line-clamp-3">
-                      {resource.plainTextSnippet || resource.description}
-                    </p>
-                    
-                    <div className="flex justify-between items-center mt-6">
-                      <span className="text-sm text-gray-500">{resource.date}</span>
-                      <button className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 font-semibold">
-                        <span>View Resource</span>
-                        <FaArrowRight />
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+              {activeResourceList.map((resource, index) => {
+                const targetSlug = resource.slug || resource.id;
+                return (
+                  <motion.div
+                    key={resource.id || index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                  >
+                    <Link
+                      to={`/resources/${targetSlug}`}
+                      className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 flex flex-col h-full hover:-translate-y-1 block"
+                    >
+                      {resource.isFeatured && (
+                        <div className="absolute top-4 left-4 z-10">
+                          <span className="px-3 py-1 bg-blue-600 text-white text-xs font-semibold rounded-full shadow-sm">
+                            Featured
+                          </span>
+                        </div>
+                      )}
+                      <div className="aspect-16/10 overflow-hidden bg-gray-100 relative">
+                        <img 
+                          src={resource.imageUrl || resource.image} 
+                          alt={resource.title}
+                          className={`w-full h-full ${(resource.imageUrl || resource.image)?.endsWith('#contain') ? 'object-contain' : 'object-cover'} group-hover:scale-105 transition-transform duration-500`}
+                        />
+                      </div>
+                      <div className="p-6 flex flex-col justify-between flex-1">
+                        <div>
+                          <div className="flex justify-between items-start mb-3">
+                            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getTypeColor(resource)}`}>
+                              {getTypeLabel(resource)}
+                            </span>
+                          </div>
+                          
+                          <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-3 line-clamp-2">
+                            {resource.title}
+                          </h3>
+                          <p className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed">
+                            {resource.plainTextSnippet || resource.description}
+                          </p>
+                        </div>
+                        
+                        <div className="flex justify-between items-center pt-4 border-t border-gray-100 mt-auto">
+                          <span className="text-xs text-gray-500 font-medium">
+                            {formatDate(resource.publishedDate || resource.date)}
+                          </span>
+                          <span className="inline-flex items-center space-x-2 text-blue-600 group-hover:text-blue-800 font-semibold text-sm">
+                            <span>View Resource</span>
+                            <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
 
             {/* Pagination Controls */}
@@ -1221,39 +1230,46 @@ If networking feels busy but unproductive, the issue is not effort it is measure
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {(hasCmsData ? archiveResources : documentResources.slice(0, 3)).map((resource, index) => (
-                <motion.div
-                  key={resource.id || index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  whileHover={{ y: -8 }}
-                  className="group relative h-64 rounded-2xl overflow-hidden cursor-pointer shadow-lg"
-                  onClick={() => handleResourceClick(resource)}
-                >
-                  {/* Background Image */}
-                  <img 
-                    src={resource.imageUrl || resource.image} 
-                    alt={resource.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-linear-to-t from-gray-900 via-gray-900/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-                  
-                  {/* Content Overlay */}
-                  <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                    <h3 className="text-xl font-bold text-white group-hover:text-blue-200 transition-colors leading-tight">
-                      {resource.title}
-                    </h3>
-                    <div className="mt-4 flex items-center text-blue-400 font-semibold text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all">
-                      <span>Read Insight</span>
-                      <FaArrowRight className="ml-2 w-3 h-3" />
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+              {(hasCmsData ? archiveResources : documentResources.slice(0, 3)).map((resource, index) => {
+                const targetSlug = resource.slug || resource.id;
+                return (
+                  <motion.div
+                    key={resource.id || index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    whileHover={{ y: -8 }}
+                    className="h-64"
+                  >
+                    <Link
+                      to={`/resources/${targetSlug}`}
+                      className="group relative h-full rounded-2xl overflow-hidden shadow-lg block"
+                    >
+                      {/* Background Image */}
+                      <img 
+                        src={resource.imageUrl || resource.image} 
+                        alt={resource.title}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-linear-to-t from-gray-900 via-gray-900/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                      
+                      {/* Content Overlay */}
+                      <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                        <h3 className="text-xl font-bold text-white group-hover:text-blue-200 transition-colors leading-tight">
+                          {resource.title}
+                        </h3>
+                        <div className="mt-4 flex items-center text-blue-400 font-semibold text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all">
+                          <span>Read Insight</span>
+                          <FaArrowRight className="ml-2 w-3 h-3" />
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>
