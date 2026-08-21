@@ -34,11 +34,11 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
     try {
       event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
     } catch (err) {
-      console.error('⚠️ Webhook signature verification failed:', err.message);
+      console.error('âš ï¸ Webhook signature verification failed:', err.message);
       return res.status(400).send(`Webhook Error: ${err.message}`);
     }
   } else {
-    console.warn('⚠️ STRIPE_WEBHOOK_SECRET is not set. Signature verification skipped.');
+    console.warn('âš ï¸ STRIPE_WEBHOOK_SECRET is not set. Signature verification skipped.');
     try {
       event = JSON.parse(req.body.toString());
     } catch (err) {
@@ -62,7 +62,7 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
               selectedAddons = JSON.parse(session.metadata.selectedAddons);
             }
           } catch (err) {
-            console.error('❌ Error parsing selectedAddons metadata in webhook:', err);
+            console.error('âŒ Error parsing selectedAddons metadata in webhook:', err);
           }
 
           const addonsTotal = selectedAddons.reduce((sum, item) => sum + (item.price || 0), 0);
@@ -73,7 +73,7 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
           // Update included services string
           let currentIncluded = job.includedServices || '';
           if (selectedAddons.length > 0) {
-            const addonLines = selectedAddons.map(a => `✓ Upgrade: ${a.name} ($${(a.price / 100).toFixed(2)} USD)`).join('\n');
+            const addonLines = selectedAddons.map(a => `âœ“ Upgrade: ${a.name} ($${(a.price / 100).toFixed(2)} USD)`).join('\n');
             currentIncluded = currentIncluded ? `${currentIncluded}\n${addonLines}` : addonLines;
           }
 
@@ -96,7 +96,7 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
 
           // Notify all Super Admins
           const clientName = `${job.clientFirstName || ''} ${job.clientLastName || ''}`.trim() || 'Client';
-          const notificationMsg = `💳 [Deposit Paid] Client ${clientName} (${job.client}) paid deposit of $${(session.amount_total / 100).toFixed(2)} for job #${job.id}!`;
+          const notificationMsg = `ðŸ’³ [Deposit Paid] Client ${clientName} (${job.client}) paid deposit of $${(session.amount_total / 100).toFixed(2)} for job #${job.id}!`;
 
           const admins = await db.AdminUser.findAll({ where: { role: 'super_admin' } });
           const { sendNotificationEmail, sendClientPhaseNotificationEmail } = require('./utils/mailer');
@@ -116,7 +116,7 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
             });
 
             sendNotificationEmail(admin.email, 'comment', notificationMsg, job.id).catch(err => {
-              console.error('❌ Super Admin webhook email notification failed:', err);
+              console.error('âŒ Super Admin webhook email notification failed:', err);
             });
           }
 
@@ -131,15 +131,15 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
               isRead: false
             });
             sendNotificationEmail(job.assignedTo, 'assignment', `Quote deposit paid! Project is ready for production.`, job.id).catch(err => {
-              console.error('❌ Worker webhook notification failed:', err);
+              console.error('âŒ Worker webhook notification failed:', err);
             });
           }
 
           // Trigger "In Production" email immediately
-          sendClientPhaseNotificationEmail(job, 'in_production').catch(err => console.error('❌ Client webhook production email failed:', err));
+          sendClientPhaseNotificationEmail(job, 'in_production').catch(err => console.error('âŒ Client webhook production email failed:', err));
         }
       } catch (err) {
-        console.error('❌ Webhook handler error (checkout.session.completed):', err);
+        console.error('âŒ Webhook handler error (checkout.session.completed):', err);
         return res.status(500).json({ error: err.message });
       }
     }
@@ -163,7 +163,7 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
           });
 
           // Notify all Super Admins
-          const notificationMsg = `⚠️ [Quote Expired] Stripe payment link for job #${job.id} ("${job.title}") has expired without payment. You may need to re-send the quote.`;
+          const notificationMsg = `âš ï¸ [Quote Expired] Stripe payment link for job #${job.id} ("${job.title}") has expired without payment. You may need to re-send the quote.`;
 
           const admins = await db.AdminUser.findAll({ where: { role: 'super_admin' } });
           const { sendNotificationEmail } = require('./utils/mailer');
@@ -179,12 +179,12 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
             });
 
             sendNotificationEmail(admin.email, 'comment', notificationMsg, job.id).catch(err => {
-              console.error('❌ Super Admin expiration email notification failed:', err);
+              console.error('âŒ Super Admin expiration email notification failed:', err);
             });
           }
         }
       } catch (err) {
-        console.error('❌ Webhook handler error (checkout.session.expired):', err);
+        console.error('âŒ Webhook handler error (checkout.session.expired):', err);
         return res.status(500).json({ error: err.message });
       }
     }
@@ -193,7 +193,7 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
   res.json({ received: true });
 });
 
-// JSON limit set to 25mb — enough to handle base64-encoded logos up to ~16MB.
+// JSON limit set to 25mb â€” enough to handle base64-encoded logos up to ~16MB.
 // NOTE: Hostinger's nginx proxy enforces its own body size limits.
 // Do NOT raise this beyond 25mb or the proxy will reject requests with 413/503.
 app.use(express.json({ limit: '25mb' }));
@@ -209,15 +209,15 @@ if (hostingerMatch) {
   const hostingerHomeDir = hostingerMatch[1];
   const persistentUploadDir = path.join(hostingerHomeDir, 'shared_uploads');
 
-  console.log(`ℹ️ Hostinger environment detected. Ensuring persistent uploads dir at: ${persistentUploadDir}`);
+  console.log(`â„¹ï¸ Hostinger environment detected. Ensuring persistent uploads dir at: ${persistentUploadDir}`);
 
   // Create persistent uploads folder if it doesn't exist
   if (!fs.existsSync(persistentUploadDir)) {
     try {
       fs.mkdirSync(persistentUploadDir, { recursive: true });
-      console.log('📁 Created persistent shared_uploads directory:', persistentUploadDir);
+      console.log('ðŸ“ Created persistent shared_uploads directory:', persistentUploadDir);
     } catch (mkdirErr) {
-      console.error('❌ Failed to create persistent directory:', mkdirErr.message);
+      console.error('âŒ Failed to create persistent directory:', mkdirErr.message);
     }
   }
 
@@ -228,7 +228,7 @@ if (hostingerMatch) {
       try {
         fs.mkdirSync(subPath, { recursive: true });
       } catch (err) {
-        console.error(`❌ Failed to create subdirectory ${subDir}:`, err.message);
+        console.error(`âŒ Failed to create subdirectory ${subDir}:`, err.message);
       }
     }
   });
@@ -241,19 +241,19 @@ if (hostingerMatch) {
       if (stats.isSymbolicLink()) {
         const target = fs.readlinkSync(uploadDir);
         if (target === persistentUploadDir) {
-          console.log('🔗 Verified existing symlink: uploads ->', persistentUploadDir);
+          console.log('ðŸ”— Verified existing symlink: uploads ->', persistentUploadDir);
           shouldCreateSymlink = false;
         } else {
           fs.unlinkSync(uploadDir);
-          console.log('🗑️ Removed outdated symlink.');
+          console.log('ðŸ—‘ï¸ Removed outdated symlink.');
         }
       } else if (stats.isDirectory()) {
         // Physical directory extracted from zip or created previously - remove with rmSync
         fs.rmSync(uploadDir, { recursive: true, force: true });
-        console.log('🗑️ Removed physical uploads folder to prepare for symlink.');
+        console.log('ðŸ—‘ï¸ Removed physical uploads folder to prepare for symlink.');
       }
     } catch (cleanupErr) {
-      console.warn('⚠️ Could not remove physical uploads folder:', cleanupErr.message);
+      console.warn('âš ï¸ Could not remove physical uploads folder:', cleanupErr.message);
     }
   }
 
@@ -261,9 +261,9 @@ if (hostingerMatch) {
   if (shouldCreateSymlink && !fs.existsSync(uploadDir)) {
     try {
       fs.symlinkSync(persistentUploadDir, uploadDir, 'dir');
-      console.log('🔗 Programmatic symlink created: uploads ->', persistentUploadDir);
+      console.log('ðŸ”— Programmatic symlink created: uploads ->', persistentUploadDir);
     } catch (symlinkErr) {
-      console.error('❌ Programmatic symlinking failed:', symlinkErr.message);
+      console.error('âŒ Programmatic symlinking failed:', symlinkErr.message);
       // Fallback: create physical directory if symlinking failed
       fs.mkdirSync(uploadDir, { recursive: true });
     }
@@ -272,7 +272,7 @@ if (hostingerMatch) {
   // Local development / fallback
   if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
-    console.log('📁 Created local uploads directory:', uploadDir);
+    console.log('ðŸ“ Created local uploads directory:', uploadDir);
   }
 }
 
@@ -361,9 +361,9 @@ const handleMulterUpload = (req, res) => {
   });
 };
 
-// ──────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // API ROUTES
-// ──────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -388,7 +388,7 @@ app.use('/api/reviews', require('./routes/reviews'));
 // File upload endpoint
 app.post('/api/upload-files', async (req, res) => {
   try {
-    console.log('📤 Received file upload request');
+    console.log('ðŸ“¤ Received file upload request');
     
     await handleMulterUpload(req, res);
 
@@ -396,7 +396,7 @@ app.post('/api/upload-files', async (req, res) => {
       return res.status(400).json({ error: 'No files uploaded' });
     }
 
-    console.log(`✅ Successfully uploaded ${req.files.length} files`);
+    console.log(`âœ… Successfully uploaded ${req.files.length} files`);
 
     const totalSize = req.files.reduce((sum, file) => sum + file.size, 0);
     const maxTotalSize = 500 * 1024 * 1024;
@@ -422,7 +422,7 @@ app.post('/api/upload-files', async (req, res) => {
     }));
 
     fileUrls.forEach((file, index) => {
-      console.log(`  📄 File ${index + 1}: ${file.filename} (${(file.size / 1024 / 1024).toFixed(2)}MB)`);
+      console.log(`  ðŸ“„ File ${index + 1}: ${file.filename} (${(file.size / 1024 / 1024).toFixed(2)}MB)`);
     });
 
     res.status(200).json({
@@ -434,7 +434,7 @@ app.post('/api/upload-files', async (req, res) => {
     });
 
   } catch (error) {
-    console.error('❌ Upload error:', error);
+    console.error('âŒ Upload error:', error);
     
     if (req.files) {
       req.files.forEach(file => {
@@ -470,7 +470,7 @@ app.post('/api/create-payment-intent', async (req, res) => {
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
-      currency: normalizedCurrency,  // ← The fix
+      currency: normalizedCurrency,  // â† The fix
       automatic_payment_methods: { enabled: true },
       receipt_email: customer_email,
       metadata: {
@@ -487,7 +487,7 @@ app.post('/api/create-payment-intent', async (req, res) => {
       paymentIntentId: paymentIntent.id 
     });
   } catch (error) {
-    console.error('❌ Stripe error:', error);
+    console.error('âŒ Stripe error:', error);
     res.status(500).json({ 
       error: error.message,
       type: error.type 
@@ -519,7 +519,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
         price_data: {
           currency: normalizedCurrency,
           product_data: {
-            name: 'ScaleLink Alliance — Service Request',
+            name: 'ScaleLink Alliance â€” Service Request',
             description: serviceNames.length > 0 ? serviceNames.join(', ').substring(0, 500) : 'Custom service request',
           },
           unit_amount: amount,
@@ -536,7 +536,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
 
     res.json({ url: session.url, sessionId: session.id });
   } catch (error) {
-    console.error('❌ Stripe Checkout Session error:', error);
+    console.error('âŒ Stripe Checkout Session error:', error);
     res.status(500).json({
       error: error.message,
       type: error.type
@@ -562,7 +562,7 @@ app.get('/api/verify-checkout-session', async (req, res) => {
       currency: session.currency,
     });
   } catch (error) {
-    console.error('❌ Stripe verify session error:', error);
+    console.error('âŒ Stripe verify session error:', error);
     res.status(500).json({
       error: error.message,
       type: error.type
@@ -570,9 +570,9 @@ app.get('/api/verify-checkout-session', async (req, res) => {
   }
 });
 
-// ──────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // STATIC FILES
-// ──────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 // Serve uploaded files
 app.use('/uploads', express.static(uploadDir));
@@ -584,17 +584,113 @@ const frontendDistPath = fs.existsSync(path.join(__dirname, 'dist'))
 
 app.use(express.static(frontendDistPath));
 
-// ──────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // ERROR HANDLING
-// ──────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 // Global error handler
 app.use((err, req, res, next) => {
-  console.error('❌ Global error:', err);
+  console.error('âŒ Global error:', err);
   res.status(500).json({ 
     error: 'Something went wrong!',
     message: err.message 
   });
+});
+
+// Open Graph & Social Media Preview Metadata Injection for /resources/:slug
+function escapeHtml(text) {
+  if (!text) return '';
+  return text
+    .toString()
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+app.get('/resources/:slug', async (req, res, next) => {
+  const { slug } = req.params;
+  const indexPath = path.join(frontendDistPath, 'index.html');
+  
+  if (!fs.existsSync(indexPath)) {
+    return next();
+  }
+
+  try {
+    const isNumericId = /^\d+$/.test(slug);
+    const whereCondition = isNumericId
+      ? { [db.Sequelize.Op.or]: [{ slug }, { id: parseInt(slug, 10) }] }
+      : { slug };
+
+    const resource = await db.Resource.findOne({
+      where: {
+        ...whereCondition,
+        status: 'published'
+      }
+    });
+
+    if (!resource) {
+      return res.sendFile(indexPath);
+    }
+
+    let html = fs.readFileSync(indexPath, 'utf8');
+
+    const canonicalUrl = `https://scalelinkalliance.com/resources/${resource.slug || slug}`;
+    const pageTitle = `${escapeHtml(resource.title)} | Scale Link Alliance`;
+    const description = escapeHtml(resource.plainTextSnippet || 'Discover insights, guides, and strategic resources from Scale Link Alliance.');
+    const imageUrl = escapeHtml(resource.imageUrl ? resource.imageUrl.split('#')[0] : 'https://scalelinkalliance.com/logo.png');
+
+    const metaTags = `
+    <title>${pageTitle}</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${canonicalUrl}">
+    <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Scale Link Alliance">
+    <meta property="og:title" content="${pageTitle}">
+    <meta property="og:description" content="${description}">
+    <meta property="og:image" content="${imageUrl}">
+    <meta property="og:url" content="${canonicalUrl}">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${pageTitle}">
+    <meta name="twitter:description" content="${description}">
+    <meta name="twitter:image" content="${imageUrl}">
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "${escapeHtml(resource.title)}",
+      "description": "${description}",
+      "image": "${imageUrl}",
+      "author": {
+        "@type": "Organization",
+        "name": "${escapeHtml(resource.author || 'Scale Link Alliance')}"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Scale Link Alliance",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://scalelinkalliance.com/logo.png"
+        }
+      },
+      "datePublished": "${resource.publishedDate || resource.createdAt}"
+    }
+    </script>
+    `;
+
+    html = html.replace(/<title>.*?<\/title>/i, '');
+    html = html.replace('</head>', `${metaTags}\n</head>`);
+
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    return res.send(html);
+  } catch (err) {
+    console.error('Error injecting resource metadata:', err);
+    return res.sendFile(indexPath);
+  }
 });
 
 // Catch-all: serve React app for any non-API route (must be last)
@@ -603,9 +699,9 @@ app.get('/*path', (req, res) => {
   res.sendFile(path.join(frontendDistPath, 'index.html'));
 });
 
-// ──────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // START SERVER
-// ──────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const PORT = process.env.PORT || 3001;
 
@@ -615,9 +711,9 @@ const startServer = async () => {
   try {
     const migrate = require('./scripts/migrate.js');
     await migrate();
-    console.log('✅ Production custom database migration completed.');
+    console.log('âœ… Production custom database migration completed.');
   } catch (migErr) {
-    console.error('⚠️ Production custom database migration failed or skipped:', migErr.message);
+    console.error('âš ï¸ Production custom database migration failed or skipped:', migErr.message);
   }
 
   // Phase 1: Try sync with schema alteration (adds/modifies columns safely)
@@ -626,22 +722,22 @@ const startServer = async () => {
       await db.sequelize.query('PRAGMA foreign_keys = OFF');
     }
     const isMySQL = db.sequelize.options.dialect === 'mysql';
-    await db.sequelize.sync(isMySQL ? {} : { alter: true });
+    await db.sequelize.sync();
     if (db.sequelize.options.dialect === 'sqlite') {
       await db.sequelize.query('PRAGMA foreign_keys = ON');
     }
-    console.log('✅ Database synced successfully (alter mode)');
+    console.log('âœ… Database synced successfully (alter mode)');
   } catch (alterErr) {
     // Phase 2 fallback: alter failed (e.g. MySQL column lock/permission issue).
     // Try a safe no-op sync that only creates missing tables, never drops or alters.
-    console.warn('⚠️  Database alter-sync failed, falling back to safe sync:', alterErr.message);
+    console.warn('âš ï¸  Database alter-sync failed, falling back to safe sync:', alterErr.message);
     try {
       await db.sequelize.sync();
-      console.log('✅ Database synced successfully (safe mode — no schema alterations)');
+      console.log('âœ… Database synced successfully (safe mode â€” no schema alterations)');
     } catch (syncErr) {
-      // Phase 3: Even basic sync failed. Log and continue — the server must stay up.
+      // Phase 3: Even basic sync failed. Log and continue â€” the server must stay up.
       // Existing tables will still work; only missing tables will cause errors.
-      console.error('❌ Database sync failed entirely. Server starting anyway:', syncErr.message);
+      console.error('âŒ Database sync failed entirely. Server starting anyway:', syncErr.message);
     }
   }
 
@@ -649,18 +745,18 @@ const startServer = async () => {
   // Always start the HTTP server regardless of DB sync outcome.
   // A running server that returns 500 on DB errors is far better than a 503.
   app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT} [v1.0.2-STABLE]`);
-    console.log(`📍 API endpoints:`);
+    console.log(`ðŸš€ Server running on http://localhost:${PORT} [v1.0.2-STABLE]`);
+    console.log(`ðŸ“ API endpoints:`);
     console.log(`   - GET  /api/health`);
     console.log(`   - POST /api/upload-files`);
     console.log(`   - POST /api/create-payment-intent`);
     console.log(`   - POST /api/create-checkout-session`);
     console.log(`   - GET  /api/verify-checkout-session`);
     console.log(`   - ANY  /api/cms/* (Authentication, Typed Resources, Features)`);
-    console.log(`📍 Upload directory: ${uploadDir}`);
-    console.log(`📍 Max file size: 100MB per file (multer streamed — not JSON buffered)`);
-    console.log(`📍 Max JSON body: 25MB`);
-    console.log(`📍 Max files: 20\n`);
+    console.log(`ðŸ“ Upload directory: ${uploadDir}`);
+    console.log(`ðŸ“ Max file size: 100MB per file (multer streamed â€” not JSON buffered)`);
+    console.log(`ðŸ“ Max JSON body: 25MB`);
+    console.log(`ðŸ“ Max files: 20\n`);
   });
 };
 
