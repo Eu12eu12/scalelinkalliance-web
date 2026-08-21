@@ -1,8 +1,19 @@
 const { v4: uuidv4 } = require('uuid');
 const db = require('../models');
 
+function generateSlug(text) {
+  if (!text) return '';
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 const migrate = async () => {
-  console.log('🔄 Starting Database Migration for Client Portal...');
+  console.log('🔄 Starting Database Migration for Client Portal & Resources...');
   const queryInterface = db.sequelize.getQueryInterface();
   const transaction = await db.sequelize.transaction();
 
@@ -15,8 +26,6 @@ const migrate = async () => {
       
       if (!jobsTable.clientToken) {
         console.log('➕ Adding clientToken column to NoticeBoardJobs...');
-        // To bypass SQLite strict non-null/unique constraint failures on existing rows,
-        // we initially add the column as nullable.
         await queryInterface.addColumn('NoticeBoardJobs', 'clientToken', {
           type: db.Sequelize.UUID,
           allowNull: true
@@ -95,7 +104,7 @@ const migrate = async () => {
       if (!commentsTable.visibility) {
         console.log('➕ Adding visibility column to NoticeBoardComments...');
         await queryInterface.addColumn('NoticeBoardComments', 'visibility', {
-          type: db.Sequelize.TEXT, // SQLite enum fallback
+          type: db.Sequelize.TEXT,
           defaultValue: 'internal',
           allowNull: false
         }, { transaction });
@@ -135,9 +144,23 @@ const migrate = async () => {
       console.warn('⚠️ NoticeBoardFiles migration skipped (table might not exist yet):', filesErr.message);
     }
 
+    // 4. Migrate Resources (Add slug column)
+    try {
+      const resourcesTable = await queryInterface.describeTable('Resources');
+      if (!resourcesTable.slug) {
+        console.log('➕ Adding slug column to Resources...');
+        await queryInterface.addColumn('Resources', 'slug', {
+          type: db.Sequelize.STRING,
+          allowNull: true
+        }, { transaction });
+      }
+    } catch (resErr) {
+      console.warn('⚠️ Resources migration skipped (table might not exist yet):', resErr.message);
+    }
+
     await transaction.commit();
 
-    // 4. Backfill Retroactive Client Tokens for Existing Jobs
+    // 5. Backfill Retroactive Client Tokens for Existing Jobs
     try {
       console.log('🩹 Backfilling unique clientTokens for existing jobs...');
       const jobs = await db.NoticeBoardJob.findAll({ where: { clientToken: null } });
@@ -148,19 +171,54 @@ const migrate = async () => {
         }
         console.log(`✅ Backfilled ${jobs.length} jobs with retrofitted UUID client tokens.`);
       } else {
-        console.log('✅ No backfilling needed.');
+        console.log('✅ No job token backfilling needed.');
       }
     } catch (backfillErr) {
-      console.warn('⚠️ Backfill unique clientTokens skipped (NoticeBoardJobs might not exist yet):', backfillErr.message);
+      console.warn('⚠️ Backfill unique clientTokens skipped:', backfillErr.message);
     }
 
-    // 5. Enforce clientToken constraints if SQLite or other dialect allows it post-fill
-    // (Sequelize sync alter will now run without breaking since all rows possess values).
+    // 6. Backfill Retroactive Slugs for Existing Resources
+    try {
+      console.log('🩹 Backfilling unique slugs for existing resources...');
+      const resources = await db.Resource.findAll();
+      const usedSlugs = new Set();
+      let updatedCount = 0;
+
+      for (const r of resources) {
+        let baseSlug = r.slug || generateSlug(r.title) || `resource-${r.id}`;
+        let candidate = baseSlug;
+        let counter = 1;
+
+        while (usedSlugs.has(candidate)) {
+          counter++;
+          candidate = `${baseSlug}-${counter}`;
+        }
+
+        usedSlugs.add(candidate);
+
+        if (r.slug !== candidate) {
+          r.slug = candidate;
+          await r.save();
+          updatedCount++;
+          console.log(`   ✨ Assigned slug "${candidate}" to resource ID ${r.id} ("${r.title}")`);
+        }
+      }
+
+      if (updatedCount > 0) {
+        console.log(`✅ Backfilled ${updatedCount} resources with clean permalink slugs.`);
+      } else {
+        console.log('✅ All existing resources have verified slugs.');
+      }
+    } catch (slugBackfillErr) {
+      console.warn('⚠️ Backfill resource slugs skipped:', slugBackfillErr.message);
+    }
+
+    // 7. Enforce schema sync
     console.log('🚀 Running final Sequelize Sync...');
     if (isSqlite) {
       await db.sequelize.query('PRAGMA foreign_keys = OFF');
     }
-    await db.sequelize.sync(isSqlite ? { alter: true } : {});
+    await db.sequelize.sync();
     if (isSqlite) {
       await db.sequelize.query('PRAGMA foreign_keys = ON');
     }
@@ -180,4 +238,3 @@ if (require.main === module) {
 } else {
   module.exports = migrate;
 }
-
