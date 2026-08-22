@@ -589,73 +589,189 @@ const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, 
 };
 
 // ─── Live order sidebar (Step 1) ──────────────────────────────────────────────
-const OrderSidebar = ({ selectedServices, convertedAmounts, currency, totalAmount, isLoadingRates, onRemove, onContinue, onCustomQuoteDirect, continueLabel, continueDisabled }) => {
+const OrderSidebar = ({ 
+  selectedServices, 
+  convertedAmounts, 
+  currency, 
+  subtotalAmount = 0,
+  discountRate = 0,
+  discountAmount = 0,
+  totalAmount, 
+  isLoadingRates, 
+  onRemove, 
+  onContinue, 
+  onCustomQuoteDirect, 
+  continueLabel, 
+  continueDisabled 
+}) => {
   const currencyObj = CURRENCIES.find(c => c.code === currency) || CURRENCIES[0];
   const entries = Object.entries(selectedServices);
   const hasCustomQuote = entries.some(([service]) => service.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[service]?.packages?.custom?.price === 0);
   const isOnlyCustomQuote = hasCustomQuote && entries.length === 1;
   const isCustomQuoteWithOthers = hasCustomQuote && entries.length > 1;
+  const count = entries.length;
 
   return (
-    <div className="lg:sticky lg:top-24 bg-white rounded-2xl border-2 border-gray-200 shadow-lg p-6">
-      <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><FaShoppingCart className="text-blue-600 shrink-0" />Your Order</h3>
-      {entries.length === 0 ? (
-        <p className="text-sm text-gray-500">No services selected yet. Choose one or more services to get started.</p>
-      ) : (
-        <div className="space-y-3 mb-4 max-h-80 overflow-y-auto pr-1">
-          {entries.map(([service, pkg]) => {
+    <div className="lg:sticky lg:top-24 max-h-[calc(100vh-7.5rem)] flex flex-col bg-white rounded-2xl border-2 border-gray-200 shadow-xl overflow-hidden">
+      
+      {/* ── Fixed Card Header ── */}
+      <div className="p-4 sm:p-5 pb-3 shrink-0 border-b border-gray-100 bg-white">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-base sm:text-lg font-bold text-gray-900 flex items-center gap-2">
+            <FaShoppingCart className="text-blue-600 shrink-0" />
+            Your Order
+          </h3>
+          {count > 0 && (
+            <span className="px-2.5 py-0.5 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
+              {count} {count === 1 ? 'service' : 'services'}
+            </span>
+          )}
+        </div>
+
+        {/* ── Tiered Bundle Discount Banner ── */}
+        {count === 1 && (
+          <div className="p-2.5 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl text-xs text-blue-900 flex items-center gap-2 shadow-xs">
+            <span className="text-sm shrink-0">💡</span>
+            <p className="text-[11px] leading-tight">Add <strong>1 more service</strong> to save <strong>10%</strong> on your bundle!</p>
+          </div>
+        )}
+
+        {count >= 2 && count <= 5 && (
+          <div className="p-2.5 bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 flex items-center justify-between gap-2 shadow-xs">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className="text-sm shrink-0">🎉</span>
+              <div className="truncate">
+                <p className="font-bold text-emerald-950 text-xs leading-tight">10% Bundle Discount Applied!</p>
+                <p className="text-[10px] text-emerald-700 leading-tight">Add {6 - count} more for <strong>20% OFF</strong></p>
+              </div>
+            </div>
+            <span className="px-2 py-0.5 bg-emerald-600 text-white font-extrabold text-[10px] rounded-full shrink-0 shadow-xs">
+              10% OFF
+            </span>
+          </div>
+        )}
+
+        {count >= 6 && (
+          <div className="p-2.5 bg-gradient-to-r from-emerald-100/80 to-teal-50 border border-emerald-300 rounded-xl text-xs text-emerald-950 flex items-center justify-between gap-2 shadow-xs">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className="text-sm shrink-0">🔥</span>
+              <div className="truncate">
+                <p className="font-bold text-emerald-950 text-xs leading-tight">Max 20% Discount Applied!</p>
+                <p className="text-[10px] text-emerald-700 leading-tight">Saving 20% across all {count} services</p>
+              </div>
+            </div>
+            <span className="px-2 py-0.5 bg-emerald-700 text-white font-extrabold text-[10px] rounded-full shrink-0 shadow-xs">
+              20% OFF
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* ── Scrollable Service Entries List (Flex-1) ── */}
+      <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-2 min-h-[90px] max-h-[30vh] lg:max-h-none">
+        {entries.length === 0 ? (
+          <div className="py-8 text-center text-gray-400 text-xs">
+            <p>No services selected yet.</p>
+            <p className="text-[11px] mt-1 text-gray-400">Select services from the left to build your package.</p>
+          </div>
+        ) : (
+          entries.map(([service, pkg]) => {
             const ServiceIcon = getServiceIcon(service);
             const pkgData = SERVICES_WITH_PACKAGES[service]?.packages[pkg];
             const amount = convertedAmounts[service]?.[pkg] || 0;
             const isCustomQuote = service.includes('Request Custom Quote') || pkgData?.price === 0;
             return (
-              <div key={service} className="flex items-start justify-between gap-2 text-sm border-b border-gray-100 pb-3">
-                <div className="flex items-start gap-2 flex-1 min-w-0">
-                  <ServiceIcon className="text-blue-600 mt-0.5 shrink-0" />
-                  <div className="min-w-0">
-                    <p className="font-medium text-gray-900 truncate">{service.split(' - ')[0]}</p>
-                    <p className="text-xs text-gray-500 truncate">{pkgData?.name}</p>
+              <div key={service} className="flex items-center justify-between gap-2 text-xs bg-gray-50/80 hover:bg-gray-100/80 border border-gray-100 rounded-xl p-2 sm:p-2.5 transition-colors">
+                <div className="flex items-center gap-2 flex-1 min-w-0">
+                  <div className="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                    <ServiceIcon size={11} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold text-gray-900 truncate text-[11px] sm:text-xs">{service.split(' - ')[0]}</p>
+                    <p className="text-[10px] text-gray-500 truncate">{pkgData?.name}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="font-semibold text-gray-900 text-xs whitespace-nowrap">{isCustomQuote || amount === 0 ? 'Quote' : formatPrice(amount, currency, currencyObj.symbol)}</span>
-                  <button type="button" onClick={() => onRemove(service)} className="text-gray-400 hover:text-red-500 text-lg leading-none">×</button>
+                  <span className="font-bold text-gray-900 text-xs whitespace-nowrap">
+                    {isCustomQuote || amount === 0 ? 'Quote' : formatPrice(amount, currency, currencyObj.symbol)}
+                  </span>
+                  <button 
+                    type="button" 
+                    onClick={() => onRemove(service)} 
+                    className="w-5 h-5 rounded-full hover:bg-red-50 text-gray-400 hover:text-red-600 flex items-center justify-center transition-colors text-sm font-bold"
+                    title="Remove service"
+                  >
+                    ×
+                  </button>
                 </div>
               </div>
             );
-          })}
-        </div>
-      )}
-      <div className="border-t-2 border-gray-100 pt-4 mb-5">
-        <div className="flex flex-wrap justify-between items-center gap-2">
-          <span className="font-bold text-gray-900">Total</span>
-          <span className="text-2xl font-bold text-blue-600">
-            {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, currency, currencyObj.symbol) : 'Custom Quote'}
-          </span>
-        </div>
+          })
+        )}
       </div>
-      
-      {/* Custom Quote Direct Button */}
-      {hasCustomQuote && totalAmount === 0 && (
+
+      {/* ── Pinned Bottom Action Footer (Always Visible & Accessible) ── */}
+      <div className="shrink-0 p-4 sm:p-5 pt-3 bg-gray-50/95 border-t border-gray-200">
+        {/* Price Breakdown */}
+        {discountAmount > 0 ? (
+          <div className="space-y-1 mb-3 text-xs">
+            <div className="flex justify-between items-center text-gray-500 text-[11px]">
+              <span>Subtotal ({count} items)</span>
+              <span>{formatPrice(subtotalAmount, currency, currencyObj.symbol)}</span>
+            </div>
+            <div className="flex justify-between items-center text-emerald-700 font-bold text-[11px]">
+              <span>Bundle Discount ({Math.round(discountRate * 100)}% OFF)</span>
+              <span>-{formatPrice(discountAmount, currency, currencyObj.symbol)}</span>
+            </div>
+            <div className="flex justify-between items-center pt-1.5 border-t border-gray-200">
+              <span className="font-bold text-gray-900 text-xs sm:text-sm">Total Due Today</span>
+              <span className="text-xl sm:text-2xl font-extrabold text-blue-600">
+                {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : formatPrice(totalAmount, currency, currencyObj.symbol)}
+              </span>
+            </div>
+          </div>
+        ) : (
+          <div className="flex justify-between items-center mb-3 pt-1">
+            <span className="font-bold text-gray-900 text-xs sm:text-sm">Total</span>
+            <span className="text-xl sm:text-2xl font-extrabold text-blue-600">
+              {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, currency, currencyObj.symbol) : 'Custom Quote'}
+            </span>
+          </div>
+        )}
+
+        {/* Custom Quote Direct Button */}
+        {hasCustomQuote && totalAmount === 0 && (
+          <button 
+            type="button" 
+            onClick={onCustomQuoteDirect}
+            className="w-full py-3 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 bg-purple-600 text-white hover:bg-purple-700 hover:shadow-md mb-2"
+          >
+            Proceed with Custom Quote <FaArrowRight size={11} />
+          </button>
+        )}
+
+        {/* Continue to Review CTA (Always Pinned & Accessible) */}
         <button 
           type="button" 
-          onClick={onCustomQuoteDirect}
-          className="w-full py-3.5 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 bg-purple-600 text-white hover:bg-purple-700 hover:shadow-lg mb-3"
+          onClick={onContinue} 
+          disabled={continueDisabled || (hasCustomQuote && totalAmount === 0)}
+          className={`w-full py-3 sm:py-3.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg ${
+            continueDisabled || (hasCustomQuote && totalAmount === 0) 
+              ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none' 
+              : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.01]'
+          }`}
         >
-          Proceed with Custom Quote <FaArrowRight />
+          <span>{continueLabel}</span>
+          <FaArrowRight size={12} />
         </button>
-      )}
-      
-      <button type="button" onClick={onContinue} disabled={continueDisabled || (hasCustomQuote && totalAmount === 0)}
-        className={`w-full py-3.5 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${continueDisabled || (hasCustomQuote && totalAmount === 0) ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'}`}>
-        {continueLabel} <FaArrowRight />
-      </button>
-      
-      {isCustomQuoteWithOthers && (
-        <p className="text-xs text-amber-600 mt-2 text-center">
-          Note: Custom quote services will be priced separately from standard packages.
-        </p>
-      )}
+
+        {isCustomQuoteWithOthers && (
+          <p className="text-[10px] text-amber-700 mt-2 text-center font-medium leading-tight">
+            Custom quote services will be scoped separately.
+          </p>
+        )}
+      </div>
+
     </div>
   );
 };
@@ -859,9 +975,28 @@ const RequestServicePage = () => {
     setConvertedAmounts(result);
   }, [selectedCurrency, exchangeRates, convertAmount]);
 
-  const totalAmount = Object.entries(selectedServices).reduce((sum, [service, pkg]) => {
-    return sum + (convertedAmounts[service]?.[pkg] || 0);
-  }, 0);
+  const serviceCount = Object.keys(selectedServices).length;
+
+  const discountRate = useMemo(() => {
+    if (serviceCount >= 6) return 0.20;
+    if (serviceCount >= 2) return 0.10;
+    return 0;
+  }, [serviceCount]);
+
+  const subtotalAmount = useMemo(() => {
+    return Object.entries(selectedServices).reduce((sum, [service, pkg]) => {
+      return sum + (convertedAmounts[service]?.[pkg] || 0);
+    }, 0);
+  }, [selectedServices, convertedAmounts]);
+
+  const discountAmount = useMemo(() => {
+    if (discountRate === 0 || subtotalAmount === 0) return 0;
+    return Math.round(subtotalAmount * discountRate);
+  }, [subtotalAmount, discountRate]);
+
+  const totalAmount = useMemo(() => {
+    return Math.max(0, subtotalAmount - discountAmount);
+  }, [subtotalAmount, discountAmount]);
 
   const steps = [
     { number: 1, title: 'Select Services' },
@@ -1002,6 +1137,9 @@ const RequestServicePage = () => {
           ...formData,
           phone: fullPhone,
           services: selectedServices,
+          subtotalAmount,
+          discountPercentage: Math.round(discountRate * 100),
+          discountAmount,
           totalAmount,
           currency: selectedCurrency,
           files: fileUrls,
@@ -1037,14 +1175,24 @@ const RequestServicePage = () => {
     setIsRedirectingToStripe(true);
     setPaymentError(null);
     try {
-      sessionStorage.setItem(CHECKOUT_STATE_KEY, JSON.stringify({ selectedServices, selectedCurrency }));
+      sessionStorage.setItem(CHECKOUT_STATE_KEY, JSON.stringify({
+        selectedServices,
+        selectedCurrency,
+        subtotalAmount,
+        discountRate,
+        discountAmount,
+        totalAmount
+      }));
       const res = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           services: selectedServices,
           currency: selectedCurrency,
-          amount: totalAmount,
+          amount: totalAmount, // Exact discounted amount
+          subtotalAmount,
+          discountPercentage: Math.round(discountRate * 100),
+          discountAmount,
           customer_email: formData.email || undefined,
           success_url: `${window.location.origin}${window.location.pathname}?session_id={CHECKOUT_SESSION_ID}`,
           cancel_url: `${window.location.origin}${window.location.pathname}?canceled=true`,
@@ -1338,6 +1486,9 @@ const RequestServicePage = () => {
                   selectedServices={selectedServices}
                   convertedAmounts={convertedAmounts}
                   currency={selectedCurrency}
+                  subtotalAmount={subtotalAmount}
+                  discountRate={discountRate}
+                  discountAmount={discountAmount}
                   totalAmount={totalAmount}
                   isLoadingRates={isLoadingRates}
                   onRemove={removeService}
@@ -1417,8 +1568,36 @@ const RequestServicePage = () => {
                       );
                     })}
                   </div>
-                  <div className="border-t-2 border-blue-200 pt-3 sm:pt-4 mb-4 md:mb-6">
-                    <div className="flex flex-wrap justify-between items-center gap-2">
+                  {/* Bundle Discount Callout in Step 2 */}
+                  {discountAmount > 0 && (
+                    <div className="mb-4 p-3 bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-300 rounded-xl flex items-center justify-between text-xs text-emerald-900 shadow-xs">
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">🎉</span>
+                        <div>
+                          <span className="font-bold">{Math.round(discountRate * 100)}% Bundle Savings Applied</span>
+                          <p className="text-[10px] text-emerald-700">You save {formatPrice(discountAmount, selectedCurrency, currencyObj.symbol)} on this bundle</p>
+                        </div>
+                      </div>
+                      <span className="px-2.5 py-1 bg-emerald-600 text-white font-extrabold text-xs rounded-full">
+                        -{Math.round(discountRate * 100)}%
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="border-t-2 border-blue-200 pt-3 sm:pt-4 mb-4 md:mb-6 space-y-2">
+                    {discountAmount > 0 && (
+                      <>
+                        <div className="flex justify-between text-xs sm:text-sm text-gray-600">
+                          <span>Subtotal ({serviceCount} services):</span>
+                          <span>{formatPrice(subtotalAmount, selectedCurrency, currencyObj.symbol)}</span>
+                        </div>
+                        <div className="flex justify-between text-xs sm:text-sm text-emerald-700 font-bold">
+                          <span>Bundle Discount ({Math.round(discountRate * 100)}% OFF):</span>
+                          <span>-{formatPrice(discountAmount, selectedCurrency, currencyObj.symbol)}</span>
+                        </div>
+                      </>
+                    )}
+                    <div className="flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-blue-100">
                       <span className="text-base sm:text-lg font-bold text-gray-900">Total Due Today:</span>
                       <span className="text-2xl sm:text-3xl font-bold text-blue-600">
                         {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, selectedCurrency, currencyObj.symbol) : 'Custom Quote'}

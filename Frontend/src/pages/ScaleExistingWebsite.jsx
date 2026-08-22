@@ -281,15 +281,15 @@ const ScaleExistingWebsite = () => {
               </div>
               <div className="flex-grow">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Save up to 20% when you bundle services
+                  Save 10% to 20% when you bundle services
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  Combining SEO + Paid Ads + Social Media? Or CRM + Email Marketing + Lead Generation? Bundling services with ScaleLink Alliance gives you better results at a lower cost — with one team managing everything.
+                  Combining SEO + Paid Ads + Social Media? Or CRM + Email Marketing + Lead Generation? Select 2 to 5 services for an automatic 10% discount, or bundle 6+ services to save 20% on your entire upgrade package.
                 </p>
               </div>
               <Link
-                to="/request-service?service=custom-quote"
-                className="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition-colors text-sm whitespace-nowrap"
+                to="/request-service?bundle=true"
+                className="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition-colors text-sm whitespace-nowrap shadow-md hover:shadow-lg"
               >
                 Request a Bundle Quote <FaArrowRight size={12} />
               </Link>
