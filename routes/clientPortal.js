@@ -5,7 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
-const { sendNotificationEmail, sendClientPhaseNotificationEmail } = require('../utils/mailer');
+const { sendNotificationEmail, sendClientPhaseNotificationEmail, sendPaymentInvoiceEmail } = require('../utils/mailer');
 
 // Setup storage for job files (Client Portal upload destination)
 const jobUploadDir = path.join(__dirname, '../uploads/jobs');
@@ -445,6 +445,9 @@ router.post('/track/:token/confirm-payment', validateClientToken, async (req, re
 
     // Trigger "In Production" email immediately
     sendClientPhaseNotificationEmail(job, 'in_production').catch(err => console.error('❌ Client production email failed:', err));
+    
+    // Send Official Invoice Email to Customer
+    sendPaymentInvoiceEmail(job, session).catch(err => console.error('❌ Customer invoice email failed:', err));
 
     res.json({
       success: true,

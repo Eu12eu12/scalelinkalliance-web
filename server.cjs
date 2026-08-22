@@ -99,7 +99,7 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
           const notificationMsg = `ðŸ’³ [Deposit Paid] Client ${clientName} (${job.client}) paid deposit of $${(session.amount_total / 100).toFixed(2)} for job #${job.id}!`;
 
           const admins = await db.AdminUser.findAll({ where: { role: 'super_admin' } });
-          const { sendNotificationEmail, sendClientPhaseNotificationEmail } = require('./utils/mailer');
+          const { sendNotificationEmail, sendClientPhaseNotificationEmail, sendPaymentInvoiceEmail } = require('./utils/mailer');
           
           for (const admin of admins) {
             await db.NoticeBoardNotification.create({
