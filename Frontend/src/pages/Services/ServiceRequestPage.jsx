@@ -734,7 +734,7 @@ const OrderSidebar = ({
           <div className="flex justify-between items-center mb-3 pt-1">
             <span className="font-bold text-gray-900 text-xs sm:text-sm">Total</span>
             <span className="text-xl sm:text-2xl font-extrabold text-blue-600">
-              {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, currency, currencyObj.symbol) : 'Custom Quote'}
+              {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, currency, currencyObj.symbol) : (hasCustomQuote && count > 0) ? 'Custom Quote' : formatPrice(0, currency, currencyObj.symbol)}
             </span>
           </div>
         )}
@@ -1600,7 +1600,7 @@ const RequestServicePage = () => {
                     <div className="flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-blue-100">
                       <span className="text-base sm:text-lg font-bold text-gray-900">Total Due Today:</span>
                       <span className="text-2xl sm:text-3xl font-bold text-blue-600">
-                        {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, selectedCurrency, currencyObj.symbol) : 'Custom Quote'}
+                        {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, selectedCurrency, currencyObj.symbol) : hasCustomQuote ? 'Custom Quote' : formatPrice(0, selectedCurrency, currencyObj.symbol)}
                       </span>
                     </div>
                   </div>
