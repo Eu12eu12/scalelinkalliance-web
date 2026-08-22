@@ -983,6 +983,12 @@ const RequestServicePage = () => {
 
   const serviceCount = Object.keys(selectedServices).length;
 
+  const hasCustomQuote = useMemo(() => {
+    return Object.keys(selectedServices).some(
+      s => s.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[s]?.packages?.custom?.price === 0
+    );
+  }, [selectedServices]);
+
   const discountRate = useMemo(() => {
     if (serviceCount >= 6) return 0.20;
     if (serviceCount >= 2) return 0.10;
