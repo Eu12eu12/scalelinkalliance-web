@@ -356,11 +356,17 @@ const SERVICE_CATEGORIES = {
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const formatPrice = (amount, currencyCode, currencySymbol) => {
   const currency = CURRENCIES.find(c => c.code === currencyCode) || CURRENCIES[0];
-  if (amount === 0) return 'Custom Quote';
-  const decimalAmount = currency.zeroDecimal ? amount : amount / 100;
+  const decimalAmount = currency.zeroDecimal ? (amount || 0) : (amount || 0) / 100;
   try {
-    return new Intl.NumberFormat(navigator.language, { style: 'currency', currency: currencyCode, minimumFractionDigits: currency.zeroDecimal ? 0 : 2, maximumFractionDigits: currency.zeroDecimal ? 0 : 2 }).format(decimalAmount);
-  } catch { return `${currencySymbol}${decimalAmount.toFixed(currency.zeroDecimal ? 0 : 2)}`; }
+    return new Intl.NumberFormat(navigator.language, { 
+      style: 'currency', 
+      currency: currencyCode, 
+      minimumFractionDigits: currency.zeroDecimal ? 0 : 2, 
+      maximumFractionDigits: currency.zeroDecimal ? 0 : 2 
+    }).format(decimalAmount);
+  } catch { 
+    return `${currencySymbol}${decimalAmount.toFixed(currency.zeroDecimal ? 0 : 2)}`; 
+  }
 };
 
 const getServiceIcon = (name) => {
