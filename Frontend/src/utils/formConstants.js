@@ -1,43 +1,43 @@
 // src/utils/formConstants.js
 
 export const COUNTRIES = [
-  { code: 'US', name: 'United States', dialCode: '+1' },
-  { code: 'GB', name: 'United Kingdom', dialCode: '+44' },
-  { code: 'CA', name: 'Canada', dialCode: '+1' },
-  { code: 'AU', name: 'Australia', dialCode: '+61' },
-  { code: 'DE', name: 'Germany', dialCode: '+49' },
-  { code: 'FR', name: 'France', dialCode: '+33' },
-  { code: 'ES', name: 'Spain', dialCode: '+34' },
-  { code: 'IT', name: 'Italy', dialCode: '+39' },
-  { code: 'NL', name: 'Netherlands', dialCode: '+31' },
-  { code: 'BE', name: 'Belgium', dialCode: '+32' },
-  { code: 'CH', name: 'Switzerland', dialCode: '+41' },
-  { code: 'SE', name: 'Sweden', dialCode: '+46' },
-  { code: 'NO', name: 'Norway', dialCode: '+47' },
-  { code: 'DK', name: 'Denmark', dialCode: '+45' },
-  { code: 'FI', name: 'Finland', dialCode: '+358' },
-  { code: 'IE', name: 'Ireland', dialCode: '+353' },
-  { code: 'PT', name: 'Portugal', dialCode: '+351' },
-  { code: 'AT', name: 'Austria', dialCode: '+43' },
-  { code: 'PL', name: 'Poland', dialCode: '+48' },
-  { code: 'CZ', name: 'Czech Republic', dialCode: '+420' },
-  { code: 'HU', name: 'Hungary', dialCode: '+36' },
-  { code: 'GR', name: 'Greece', dialCode: '+30' },
-  { code: 'JP', name: 'Japan', dialCode: '+81' },
-  { code: 'CN', name: 'China', dialCode: '+86' },
-  { code: 'IN', name: 'India', dialCode: '+91' },
-  { code: 'BR', name: 'Brazil', dialCode: '+55' },
-  { code: 'MX', name: 'Mexico', dialCode: '+52' },
-  { code: 'ZA', name: 'South Africa', dialCode: '+27' },
-  { code: 'NG', name: 'Nigeria', dialCode: '+234' },
-  { code: 'KE', name: 'Kenya', dialCode: '+254' },
-  { code: 'EG', name: 'Egypt', dialCode: '+20' },
-  { code: 'AE', name: 'UAE', dialCode: '+971' },
-  { code: 'SA', name: 'Saudi Arabia', dialCode: '+966' },
-  { code: 'SG', name: 'Singapore', dialCode: '+65' },
-  { code: 'MY', name: 'Malaysia', dialCode: '+60' },
-  { code: 'PH', name: 'Philippines', dialCode: '+63' },
-  { code: 'NZ', name: 'New Zealand', dialCode: '+64' },
+  { code: 'US', name: 'United States', dialCode: '+1', dial: '+1' },
+  { code: 'GB', name: 'United Kingdom', dialCode: '+44', dial: '+44' },
+  { code: 'CA', name: 'Canada', dialCode: '+1', dial: '+1' },
+  { code: 'AU', name: 'Australia', dialCode: '+61', dial: '+61' },
+  { code: 'DE', name: 'Germany', dialCode: '+49', dial: '+49' },
+  { code: 'FR', name: 'France', dialCode: '+33', dial: '+33' },
+  { code: 'ES', name: 'Spain', dialCode: '+34', dial: '+34' },
+  { code: 'IT', name: 'Italy', dialCode: '+39', dial: '+39' },
+  { code: 'NL', name: 'Netherlands', dialCode: '+31', dial: '+31' },
+  { code: 'BE', name: 'Belgium', dialCode: '+32', dial: '+32' },
+  { code: 'CH', name: 'Switzerland', dialCode: '+41', dial: '+41' },
+  { code: 'SE', name: 'Sweden', dialCode: '+46', dial: '+46' },
+  { code: 'NO', name: 'Norway', dialCode: '+47', dial: '+47' },
+  { code: 'DK', name: 'Denmark', dialCode: '+45', dial: '+45' },
+  { code: 'FI', name: 'Finland', dialCode: '+358', dial: '+358' },
+  { code: 'IE', name: 'Ireland', dialCode: '+353', dial: '+353' },
+  { code: 'PT', name: 'Portugal', dialCode: '+351', dial: '+351' },
+  { code: 'AT', name: 'Austria', dialCode: '+43', dial: '+43' },
+  { code: 'PL', name: 'Poland', dialCode: '+48', dial: '+48' },
+  { code: 'CZ', name: 'Czech Republic', dialCode: '+420', dial: '+420' },
+  { code: 'HU', name: 'Hungary', dialCode: '+36', dial: '+36' },
+  { code: 'GR', name: 'Greece', dialCode: '+30', dial: '+30' },
+  { code: 'JP', name: 'Japan', dialCode: '+81', dial: '+81' },
+  { code: 'CN', name: 'China', dialCode: '+86', dial: '+86' },
+  { code: 'IN', name: 'India', dialCode: '+91', dial: '+91' },
+  { code: 'BR', name: 'Brazil', dialCode: '+55', dial: '+55' },
+  { code: 'MX', name: 'Mexico', dialCode: '+52', dial: '+52' },
+  { code: 'ZA', name: 'South Africa', dialCode: '+27', dial: '+27' },
+  { code: 'NG', name: 'Nigeria', dialCode: '+234', dial: '+234' },
+  { code: 'KE', name: 'Kenya', dialCode: '+254', dial: '+254' },
+  { code: 'EG', name: 'Egypt', dialCode: '+20', dial: '+20' },
+  { code: 'AE', name: 'UAE', dialCode: '+971', dial: '+971' },
+  { code: 'SA', name: 'Saudi Arabia', dialCode: '+966', dial: '+966' },
+  { code: 'SG', name: 'Singapore', dialCode: '+65', dial: '+65' },
+  { code: 'MY', name: 'Malaysia', dialCode: '+60', dial: '+60' },
+  { code: 'PH', name: 'Philippines', dialCode: '+63', dial: '+63' },
+  { code: 'NZ', name: 'New Zealand', dialCode: '+64', dial: '+64' },
 ];
 
 export const CURRENCIES = [
@@ -73,10 +73,11 @@ export const SERVICE_CATEGORIES = {
     id: 'creative-content',
     label: 'Content, Branding & Creative',
     services: [
-      'Copywriting & Content Creation',
       'Graphic Design',
-      'Brand Identity & Logo Design',
       'Video Editing & Motion Graphics',
+      'Copywriting & Content Creation',
+      'Brand Identity & Logo Design',
+      'Photography & Visual Assets',
       'Request Custom Quote - Content & Branding'
     ]
   },
@@ -85,9 +86,11 @@ export const SERVICE_CATEGORIES = {
     label: 'Website & Web App Development',
     services: [
       'Website Development',
-      'Web Applications & SaaS Development',
-      'E-Commerce Development',
       'Landing Pages & Sales Funnels',
+      'E-Commerce Development',
+      'Web Applications & SaaS Development',
+      'API Integration & Automation',
+      'Website Maintenance & Updates',
       'Online Booking Systems',
       'Request Custom Quote - Tech & Development'
     ]
@@ -96,12 +99,13 @@ export const SERVICE_CATEGORIES = {
     id: 'marketing-growth',
     label: 'Website Growth & Marketing',
     services: [
+      'Social Media Management',
       'SEO & Search Marketing',
-      'Lead Generation Services',
       'Paid Advertising Management',
       'Email Marketing Campaigns',
+      'Lead Generation Services',
+      'CRM & Marketing Automation',
       'Reputation & Review Management',
-      'Social Media Management',
       'Request Custom Quote - Marketing & Growth'
     ]
   },
@@ -111,9 +115,9 @@ export const SERVICE_CATEGORIES = {
     services: [
       'AI Automation & Smart Business Systems',
       'CRM Setup & Marketing Automation',
-      'API Integration',
+      'API Integration & Automation',
       'Business Process Automation',
-      'Data Analytics & Reports',
+      'Data Analytics & Reporting',
       'Request Custom Quote - AI'
     ]
   },
@@ -121,10 +125,12 @@ export const SERVICE_CATEGORIES = {
     id: 'operations-support',
     label: 'Business Strategy & Support',
     services: [
-      'Business Consulting & Growth Strategy',
       'Virtual Assistant Services',
+      'Data Analytics & Reporting',
+      'Process Documentation & SOP Development',
       'Project Management Support',
       'Data Entry & Processing',
+      'Business Consulting & Growth Strategy',
       'Request Custom Quote - Business Support'
     ]
   }
@@ -132,6 +138,244 @@ export const SERVICE_CATEGORIES = {
 
 // ─── SERVICE PACKAGES WITH AMENDED PRICES ───
 export const SERVICES_WITH_PACKAGES = {
+'CRM & Marketing Automation': {
+    packages: {
+      starter: {
+        name: 'Starter Package',
+        price: 49900, // $499
+        description: 'Ideal for businesses implementing their first CRM.',
+        includes: [
+          'CRM setup',
+          'Basic automation',
+          'Lead capture forms',
+          'Integration setup',
+          'Documentation'
+        ]
+      },
+      growth: {
+        name: 'Standard Package',
+        price: 149900, // $1,499
+        description: 'Ideal for businesses scaling their automation.',
+        includes: [
+          'Full CRM customization',
+          'Email automation',
+          'Lead scoring',
+          'Pipeline management',
+          'Analytics dashboard'
+        ]
+      },
+      premium: {
+        name: 'Premium Package',
+        price: 299900, // $2,999
+        description: 'Ideal for comprehensive marketing automation.',
+        includes: [
+          'Complete marketing automation',
+          'Multi-channel sequences',
+          'Advanced lead scoring',
+          'Custom reporting',
+          'Strategy consultation',
+          'Priority support'
+        ]
+      }
+    }
+  },
+
+'Data Analytics & Reporting': {
+    packages: {
+      starter: {
+        name: 'Starter Package',
+        price: 19900, // $199
+        description: 'Ideal for businesses needing basic performance insights.',
+        includes: [
+          '1 custom data report',
+          'Basic data analysis',
+          'Visual charts or graphs',
+          'Summary of key insights'
+        ]
+      },
+      growth: {
+        name: 'Standard Package',
+        price: 69900, // $699/month
+        description: 'Ideal for businesses tracking multiple performance areas.',
+        includes: [
+          '3 custom reports',
+          'Visual dashboards or charts',
+          'Trend analysis',
+          'Summary recommendations'
+        ]
+      },
+      premium: {
+        name: 'Premium Package',
+        price: 199900, // $1,999/month
+        description: 'Ideal for businesses seeking ongoing performance monitoring.',
+        includes: [
+          'Custom analytics dashboard',
+          '7 custom data reports',
+          'Visual performance charts',
+          'Detailed trend analysis',
+          'Strategic insight summary'
+        ]
+      }
+    }
+  },
+
+'API Integration & Automation': {
+    packages: {
+      starter: {
+        name: 'Starter Package',
+        price: 100, // $1
+        description: 'Ideal for businesses connecting two systems for the first time.',
+        includes: [
+          '1 system integration',
+          'Basic data synchronization',
+          'Simple workflow automation',
+          'Testing and configuration'
+        ]
+      },
+      growth: {
+        name: 'Standard Package',
+        price: 149900, // $1,499
+        description: 'Ideal for businesses connecting multiple tools.',
+        includes: [
+          'Up to 3 system integrations',
+          'Workflow automation setup',
+          'Data synchronization between platforms',
+          'Automation testing and optimization'
+        ]
+      },
+      premium: {
+        name: 'Premium Package',
+        price: 399900, // $3,999 (Custom Quote)
+        description: 'Ideal for businesses implementing full automation systems.',
+        includes: [
+          'Multiple system integrations',
+          'Advanced workflow automation',
+          'API configuration and data mapping',
+          'Automation testing and optimization',
+          'Documentation of automated workflows'
+        ]
+      }
+    }
+  },
+
+  'Process Documentation & SOP Development': {
+    packages: {
+      starter: {
+        name: 'Starter Package',
+        price: 14900,
+        description: 'Ideal for documenting a single core business process.',
+        includes: [
+          '1 standard operating procedure (SOP)',
+          'Process workflow mapping',
+          'Step-by-step documentation',
+          '1 revision round'
+        ]
+      },
+      growth: {
+        name: 'Standard Package',
+        price: 39900,
+        description: 'Ideal for growing teams needing standardized workflows.',
+        includes: [
+          'Up to 5 comprehensive SOPs',
+          'Visual workflow charts',
+          'Role-based checklists',
+          '2 revision rounds'
+        ]
+      },
+      premium: {
+        name: 'Premium Package',
+        price: 89900,
+        description: 'Ideal for departments scaling operations and onboarding.',
+        includes: [
+          'Up to 12 complete operational SOPs',
+          'Full team knowledge base setup',
+          'Visual process diagrams & video walkthrough guides',
+          'Departmental review & training guide'
+        ]
+      }
+    }
+  },
+
+  'Website Maintenance & Updates': {
+    packages: {
+      starter: {
+        name: 'Starter Package',
+        price: 14900,
+        description: 'Ideal for small websites needing occasional updates.',
+        includes: [
+          'Up to 2 hours of maintenance per month',
+          'Basic security monitoring',
+          'Minor content updates',
+          'Plugin and system updates',
+          'Website performance check'
+        ]
+      },
+      growth: {
+        name: 'Standard Package',
+        price: 34900,
+        description: 'Ideal for businesses regularly updating their website.',
+        includes: [
+          'Up to 5 hours of maintenance per month',
+          'Security monitoring and updates',
+          'Content updates and small design changes',
+          'Plugin and system updates',
+          'Website performance optimization'
+        ]
+      },
+      premium: {
+        name: 'Premium Package',
+        price: 89900,
+        description: 'Ideal for businesses that rely heavily on their website.',
+        includes: [
+          'Up to 10 hours of maintenance per month',
+          'Advanced security monitoring',
+          'Priority support for website issues',
+          'Regular content updates',
+          'Performance optimization and technical adjustments'
+        ]
+      }
+    }
+  },
+
+  'Photography & Visual Assets': {
+    packages: {
+      starter: {
+        name: 'Starter Package',
+        price: 19900,
+        description: 'Ideal for small businesses needing essential visual content.',
+        includes: [
+          '10 professionally edited photos',
+          '1 location or subject focus',
+          'Basic color correction and editing',
+          'Digital image delivery (web-ready format)'
+        ]
+      },
+      growth: {
+        name: 'Standard Package',
+        price: 49900,
+        description: 'Ideal for businesses creating marketing content.',
+        includes: [
+          '25 professionally edited photos',
+          'Multiple subjects or scenes',
+          'Color correction and retouching',
+          'Web and high-resolution formats'
+        ]
+      },
+      premium: {
+        name: 'Premium Package',
+        price: 99900,
+        description: 'Ideal for brand campaigns and full marketing visuals.',
+        includes: [
+          '50 professionally edited photos',
+          'Multi-scene photography session',
+          'Advanced retouching and editing',
+          'Full-resolution and web-ready images',
+          'Image selection consultation'
+        ]
+      }
+    }
+  },
+
   // ─── Content, Branding & Creative ───
   'Copywriting & Content Creation': {
     packages: {
