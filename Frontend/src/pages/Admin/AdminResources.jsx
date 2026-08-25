@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AdminLayout from './AdminLayout';
 import { useToast } from './Toast';
 import { Link } from 'react-router-dom';
-import { FaPlus, FaEdit, FaTrash, FaStar, FaRegStar, FaNewspaper, FaTags, FaImage, FaAlignLeft, FaUser, FaCalendarAlt } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaStar, FaRegStar, FaNewspaper, FaTags, FaImage, FaAlignLeft, FaUser, FaCalendarAlt, FaLink, FaExternalLinkAlt } from 'react-icons/fa';
 
 // Helper to format dates to "Month DD, YYYY"
 const formatDate = (dateString) => {
@@ -14,6 +14,18 @@ const formatDate = (dateString) => {
     year: 'numeric'
   }).format(date);
 };
+
+const generateSlug = (text) => {
+  if (!text) return '';
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};
+
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 
@@ -34,6 +46,7 @@ const AdminResources = () => {
 
   const [formData, setFormData] = useState({ 
     title: '', 
+    slug: '', 
     typeId: '', 
     richHtmlContent: '', 
     plainTextSnippet: '', 
@@ -111,6 +124,7 @@ const AdminResources = () => {
     setEditingId(null);
     setFormData({ 
       title: '', 
+      slug: '', 
       typeId: types[0]?.id || '', 
       richHtmlContent: '', 
       plainTextSnippet: '', 
@@ -129,6 +143,7 @@ const AdminResources = () => {
     setEditingId(res.id);
     setFormData({ 
       title: res.title, 
+      slug: res.slug || generateSlug(res.title), 
       typeId: res.typeId, 
       richHtmlContent: res.richHtmlContent || '', 
       plainTextSnippet: res.plainTextSnippet || '', 
@@ -173,6 +188,13 @@ const AdminResources = () => {
     }
   };
 
+  
+  const copyPublicLink = (res) => {
+    const slugOrId = res.slug || res.id;
+    const url = `${window.location.origin}/resources/${slugOrId}`;
+    navigator.clipboard.writeText(url);
+    showToast('Public link copied to clipboard!', 'success');
+  };
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this resource? This cannot be undone.')) return;
     try {
@@ -294,6 +316,22 @@ const AdminResources = () => {
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
+                        onClick={() => copyPublicLink(res)}
+                        className="p-2 rounded-lg text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                        title="Copy Public Link"
+                      >
+                        <FaLink size={13} />
+                      </button>
+                      <a
+                        href={`/resources/${res.slug || res.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-lg text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 transition-colors"
+                        title="Open Public Page"
+                      >
+                        <FaExternalLinkAlt size={12} />
+                      </a>
+                      <button
                         onClick={() => openEdit(res)}
                         className="p-2 rounded-lg text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-colors"
                         title="Edit"
@@ -383,7 +421,14 @@ const AdminResources = () => {
                       required
                       type="text"
                       value={formData.title}
-                      onChange={e => setFormData({ ...formData, title: e.target.value })}
+                      onChange={e => {
+                        const newTitle = e.target.value;
+                        setFormData(prev => ({
+                          ...prev,
+                          title: newTitle,
+                          slug: editingId ? prev.slug : generateSlug(newTitle)
+                        }));
+                      }}
                       placeholder="e.g. The Ultimate Networking Guide"
                       className="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm"
                     />
@@ -400,6 +445,24 @@ const AdminResources = () => {
                       {types.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                     </select>
                   </div>
+                </div>
+
+                {/* Permalink Slug */}
+                <div>
+                  <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Permalink / URL Slug</label>
+                  <div className="flex items-center">
+                    <span className="px-3.5 py-2.5 bg-slate-100 border border-r-0 border-slate-200 rounded-l-xl text-xs text-slate-500 font-mono select-none">
+                      /resources/
+                    </span>
+                    <input
+                      type="text"
+                      value={formData.slug || ''}
+                      onChange={e => setFormData({ ...formData, slug: generateSlug(e.target.value) })}
+                      placeholder="url-slug-preview"
+                      className="w-full px-4 py-2.5 text-sm rounded-r-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm font-mono text-xs"
+                    />
+                  </div>
+                  <p className="text-[10px] text-slate-400 mt-1">Unique public link for sharing on LinkedIn, X/Twitter, and other web platforms.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

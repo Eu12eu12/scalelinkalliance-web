@@ -6,20 +6,26 @@ const PhoneInput = ({ value, dialCode, countryCode, onNumberChange, onDialChange
   const [open, setOpen]     = useState(false);
   const [search, setSearch] = useState('');
   const ref                 = useRef(null);
+
+  const getDial = (c) => c?.dialCode || c?.dial || '+1';
   
   const selected = countryCode
     ? (COUNTRIES.find(c => c.code === countryCode) || COUNTRIES[0])
-    : (COUNTRIES.find(c => c.dial === dialCode) || COUNTRIES[0]);
+    : (COUNTRIES.find(c => (c.dialCode === dialCode || c.dial === dialCode)) || COUNTRIES[0]);
 
-  const filtered = COUNTRIES.filter(c =>
-    c.name.toLowerCase().includes(search.toLowerCase()) || c.dial.includes(search)
-  );
+  const filtered = COUNTRIES.filter(c => {
+    const nameMatch = (c.name || '').toLowerCase().includes((search || '').toLowerCase());
+    const dialMatch = (c.dialCode || c.dial || '').includes(search || '');
+    return nameMatch || dialMatch;
+  });
 
   useEffect(() => {
     const handler = e => { if (ref.current && !ref.current.contains(e.target)) { setOpen(false); setSearch(''); } };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
   }, []);
+
+  const currentDial = getDial(selected);
 
   return (
     <div className="relative flex w-full" ref={ref}>
@@ -30,20 +36,20 @@ const PhoneInput = ({ value, dialCode, countryCode, onNumberChange, onDialChange
         className={`flex items-center gap-2 px-3 ${py} border border-r-0 border-slate-200 rounded-l-xl bg-slate-50 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[88px]`}
       >
         <img 
-          src={`https://flagcdn.com/w20/${selected.code.toLowerCase()}.png`} 
-          srcSet={`https://flagcdn.com/w40/${selected.code.toLowerCase()}.png 2x`}
+          src={`https://flagcdn.com/w20/${(selected.code || 'us').toLowerCase()}.png`} 
+          srcSet={`https://flagcdn.com/w40/${(selected.code || 'us').toLowerCase()}.png 2x`}
           width="20"
-          alt={selected.name}
+          alt={selected.name || 'Country'}
           className="rounded-sm flex-shrink-0 object-contain"
         />
-        <span className="text-sm font-medium text-slate-700">{selected.dial}</span>
+        <span className="text-sm font-medium text-slate-700">{currentDial}</span>
         <FaChevronDown className={`text-slate-400 text-xs transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
 
       {/* Number input */}
       <input
         type="tel"
-        value={value}
+        value={value || ''}
         onChange={e => onNumberChange(e.target.value.replace(/[^\d\s\-()+]/g, ''))}
         className={`flex-1 min-w-0 px-4 ${py} border border-slate-200 rounded-r-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none text-sm`}
         placeholder="800 000 0000"
@@ -66,27 +72,30 @@ const PhoneInput = ({ value, dialCode, countryCode, onNumberChange, onDialChange
             </div>
           </div>
           <ul className="max-h-52 overflow-y-auto">
-            {filtered.length > 0 ? filtered.map(c => (
-              <li key={c.code}>
-                <button
-                  type="button"
-                  onClick={() => { onDialChange(c.dial, c.code); setOpen(false); setSearch(''); }}
-                  className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-blue-50 transition-colors text-left ${
-                    selected.code === c.code ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700'
-                  }`}
-                >
-                  <img 
-                    src={`https://flagcdn.com/w20/${c.code.toLowerCase()}.png`} 
-                    srcSet={`https://flagcdn.com/w40/${c.code.toLowerCase()}.png 2x`}
-                    width="20"
-                    alt={c.name}
-                    className="rounded-sm flex-shrink-0 object-contain"
-                  />
-                  <span className="flex-1">{c.name}</span>
-                  <span className="text-gray-400 text-xs font-mono">{c.dial}</span>
-                </button>
-              </li>
-            )) : (
+            {filtered.length > 0 ? filtered.map(c => {
+              const cDial = getDial(c);
+              return (
+                <li key={c.code}>
+                  <button
+                    type="button"
+                    onClick={() => { onDialChange(cDial, c.code); setOpen(false); setSearch(''); }}
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-blue-50 transition-colors text-left ${
+                      selected.code === c.code ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700'
+                    }`}
+                  >
+                    <img 
+                      src={`https://flagcdn.com/w20/${c.code.toLowerCase()}.png`} 
+                      srcSet={`https://flagcdn.com/w40/${c.code.toLowerCase()}.png 2x`}
+                      width="20"
+                      alt={c.name}
+                      className="rounded-sm flex-shrink-0 object-contain"
+                    />
+                    <span className="flex-1">{c.name}</span>
+                    <span className="text-gray-400 text-xs font-mono">{cDial}</span>
+                  </button>
+                </li>
+              );
+            }) : (
               <li className="px-4 py-3 text-sm text-gray-500 text-center">No results</li>
             )}
           </ul>

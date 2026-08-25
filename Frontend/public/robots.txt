@@ -1,6 +1,21 @@
 User-agent: *
 Allow: /
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+Sitemap: https://www.scalelinkalliance.com/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /cms/
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /free-website-review/thank-you/
+=======
+>>>>>>> temp-save
 # Non-public / account / transactional routes — keep out of the index
 Disallow: /admin
 Disallow: /admin/
@@ -14,4 +29,9 @@ Disallow: /free-website-review/results
 Disallow: /membership/apply/confirmation
 Disallow: /api/
 
+<<<<<<< HEAD
 Sitemap: https://www.scalelinkalliance.com/sitemap.xml
+=======
+Sitemap: https://www.scalelinkalliance.com/sitemap.xml
+>>>>>>> 6699993 (Update project with latest changes)
+>>>>>>> temp-save

@@ -28,6 +28,31 @@ const AdminNoticeBoard = () => {
   const [viewingJob, setViewingJob] = useState(null);
   const [editingJob, setEditingJob] = useState(null);
   const [isAssignModalOpen, setIsAssignModalOpen] = useState(false);
+  const [isTimestampManuallyEdited, setIsTimestampManuallyEdited] = useState(false);
+
+  // Live real-time timestamp sync while modal is open (unless manually modified or editing)
+  useEffect(() => {
+    if (!isModalOpen || editingJob || isTimestampManuallyEdited) return;
+
+    const updateCurrentTime = () => {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const formatted = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+      setFormData(prev => {
+        if (prev.receivedAt === formatted) return prev;
+        return { ...prev, receivedAt: formatted };
+      });
+    };
+
+    updateCurrentTime();
+    const interval = setInterval(updateCurrentTime, 1000);
+    return () => clearInterval(interval);
+  }, [isModalOpen, editingJob, isTimestampManuallyEdited]);
   const [assigningJob, setAssigningJob] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [formData, setFormData] = useState({
@@ -425,6 +450,7 @@ const AdminNoticeBoard = () => {
         projectFee: '', files: []
       });
     }
+    setIsTimestampManuallyEdited(false);
     setIsModalOpen(true);
   };
 
@@ -542,37 +568,38 @@ const AdminNoticeBoard = () => {
   );
 
   const isUnpaidCustomQuote = (job) => {
-    const hasCustomQuoteService = job.category && job.category.includes('Request Custom Quote');
-    const hasQuoteAmount = job.customQuoteAmount && job.customQuoteAmount > 0;
-    const isCustomQuote = hasCustomQuoteService || hasQuoteAmount;
-    if (!isCustomQuote) return false;
-    return job.quoteStatus !== 'deposit_paid' && 
-           job.quoteStatus !== 'in_progress' && 
-           job.quoteStatus !== 'completed' && 
-           job.quoteStatus !== 'approved';
+    if (job.isDirectAssignment) return false;
+    const isPaid = job.quoteStatus === 'deposit_paid' || 
+                   job.quoteStatus === 'paid_full' ||
+                   job.quoteStatus === 'in_progress' || 
+                   job.quoteStatus === 'completed' || 
+                   job.quoteStatus === 'approved';
+    return !isPaid;
   };
 
   const getPaymentStatusBadge = (job) => {
-    const hasCustomQuoteService = job.category && job.category.includes('Request Custom Quote');
-    const hasQuoteAmount = job.customQuoteAmount && job.customQuoteAmount > 0;
-    const isCustomQuote = hasCustomQuoteService || hasQuoteAmount;
-
-    if (!isCustomQuote) {
+    if (job.isDirectAssignment && (!job.quoteStatus || job.quoteStatus === 'new_request')) {
       return (
-        <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-700">
-          Paid ✓
+        <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+          Direct Internal
         </span>
       );
     }
 
     switch (job.quoteStatus) {
       case 'deposit_paid':
+        return (
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-700">
+            Deposit Paid ✓
+          </span>
+        );
+      case 'paid_full':
       case 'in_progress':
       case 'completed':
       case 'approved':
         return (
           <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-700">
-            Deposit Paid ✓
+            Paid ✓
           </span>
         );
       case 'quote_sent':
@@ -590,6 +617,7 @@ const AdminNoticeBoard = () => {
         );
       case 'new_request':
       case 'under_review':
+      case 'draft':
       default:
         return (
           <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-700">
@@ -1280,122 +1308,192 @@ const AdminNoticeBoard = () => {
                     </div>
                   </div>
 
-                  {/* Section 4: Work Management */}
+                  {/* Section 4: Work Management & Dispatch Routing */}
                   <div className="space-y-4">
                     <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
                       <div className="p-1.5 bg-orange-50 text-orange-600 rounded-lg"><FaBriefcase size={14} /></div>
-                      <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wider">Work Management</h4>
+                      <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wider">Intake & Dispatch Routing</h4>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {/* Row 1: Assigned Worker & Status */}
-                      <div className="relative">
-                        <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1 ml-1">Assigned Worker</label>
-                        <div className="relative">
-                          <FaUser className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 text-xs" />
-                          <input 
-                            value={formData.assignedTo} 
-                            onChange={e => !editingJob && handleWorkerSearch(e.target.value)}
-                            onFocus={() => !editingJob && formData.assignedTo.length >= 2 && setShowSuggestions(true)}
-                            onBlur={handleWorkerBlur}
-                            readOnly={!!editingJob}
-                            className={`w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all ${editingJob ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`} 
-                            placeholder={editingJob ? "Use Assignment tab in View Details" : "Search by email..."} 
-                          />
+                    {editingJob ? (
+                      <div className="p-4 bg-blue-50 border border-blue-100 rounded-2xl flex items-start gap-3 text-blue-800 text-xs leading-relaxed">
+                        <div className="p-1.5 bg-blue-100 rounded-lg text-blue-600 shrink-0 mt-0.5">
+                          <FaUserPlus size={14} />
                         </div>
-                        {isSearchingWorker && (
-                          <div className="absolute right-3 top-[34px]">
-                            <div className="animate-spin h-4 w-4 border-2 border-blue-600 border-t-transparent rounded-full" />
-                          </div>
-                        )}
-                        {showSuggestions && (
-                          <div className="absolute z-[60] left-0 right-0 top-[65px] bg-white border border-slate-200 rounded-xl shadow-2xl max-h-48 overflow-y-auto ring-1 ring-black/5">
-                            {workerSuggestions.map(w => (
-                              <button
-                                key={w.id}
-                                type="button"
-                                onClick={() => selectWorker(w.email)}
-                                className="w-full text-left px-4 py-3 hover:bg-blue-50 text-sm font-semibold text-slate-700 transition-colors border-b border-slate-50 last:border-0"
-                              >
-                                {w.email}
-                              </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                      <div>
-                        <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1 ml-1">Status</label>
-                        <div className="w-full px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50 text-sm font-bold text-slate-500 flex items-center justify-between">
-                          <span className="capitalize">{formData.status.replace('_', ' ')}</span>
+                        <div>
+                          <p className="font-bold text-blue-900 mb-1">Active Job Management</p>
+                          <p>Worker assignment, deadlines, priority, and fee adjustments are managed in the dedicated <strong>Assignment</strong> tab inside <strong>View Details</strong> once the notice is posted.</p>
                         </div>
                       </div>
+                    ) : (
+                      <>
+                        {/* Dispatch Mode Selector */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div 
+                            onClick={() => {
+                              setFormData({
+                                ...formData,
+                                isDirectAssignment: false,
+                                assignedTo: '',
+                                status: 'new'
+                              });
+                            }}
+                            className={`p-3.5 rounded-2xl border-2 cursor-pointer transition-all ${
+                              !formData.isDirectAssignment 
+                                ? 'border-blue-500 bg-blue-50/40 shadow-sm ring-1 ring-blue-500/20' 
+                                : 'border-slate-100 bg-white hover:border-slate-200'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between mb-1.5">
+                              <span className="text-xs font-bold text-slate-800">Commercial Quote First</span>
+                              {!formData.isDirectAssignment && <FaCheck className="text-blue-600" size={12} />}
+                            </div>
+                            <p className="text-[11px] text-slate-500 leading-normal">
+                              Create work notice for quoting & deposit collection. Assignment unlocks after payment.
+                            </p>
+                          </div>
 
-                      {/* Row 2: Received At & Deadline */}
+                          <div 
+                            onClick={() => {
+                              setFormData({
+                                ...formData,
+                                isDirectAssignment: true,
+                                status: formData.assignedTo ? 'assigned' : 'new'
+                              });
+                            }}
+                            className={`p-3.5 rounded-2xl border-2 cursor-pointer transition-all ${
+                              formData.isDirectAssignment 
+                                ? 'border-orange-500 bg-orange-50/40 shadow-sm ring-1 ring-orange-500/20' 
+                                : 'border-slate-100 bg-white hover:border-slate-200'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between mb-1.5">
+                              <span className="text-xs font-bold text-slate-800">Direct Internal Assignment</span>
+                              {formData.isDirectAssignment && <FaCheck className="text-orange-600" size={12} />}
+                            </div>
+                            <p className="text-[11px] text-slate-500 leading-normal">
+                              Bypass quote gate for internal projects or direct offline client retainers.
+                            </p>
+                          </div>
+                        </div>
+
+                        {formData.isDirectAssignment && (
+                          <div className="p-4 bg-orange-50/60 border border-orange-200/80 rounded-2xl space-y-4 animate-fade-in">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div className="relative">
+                                <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1 ml-1">Assign Worker *</label>
+                                <div className="relative">
+                                  <FaUser className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 text-xs" />
+                                  <input 
+                                    value={formData.assignedTo} 
+                                    onChange={e => handleWorkerSearch(e.target.value)}
+                                    onFocus={() => formData.assignedTo.length >= 2 && setShowSuggestions(true)}
+                                    onBlur={handleWorkerBlur}
+                                    className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none text-sm transition-all bg-white" 
+                                    placeholder="Search by worker email..." 
+                                  />
+                                </div>
+                                {isSearchingWorker && (
+                                  <div className="absolute right-3 top-[34px]">
+                                    <div className="animate-spin h-4 w-4 border-2 border-orange-600 border-t-transparent rounded-full" />
+                                  </div>
+                                )}
+                                {showSuggestions && (
+                                  <div className="absolute z-[60] left-0 right-0 top-[65px] bg-white border border-slate-200 rounded-xl shadow-2xl max-h-48 overflow-y-auto ring-1 ring-black/5">
+                                    {workerSuggestions.map(w => (
+                                      <button
+                                        key={w.id}
+                                        type="button"
+                                        onClick={() => selectWorker(w.email)}
+                                        className="w-full text-left px-4 py-3 hover:bg-orange-50 text-sm font-semibold text-slate-700 transition-colors border-b border-slate-50 last:border-0"
+                                      >
+                                        {w.email}
+                                      </button>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+
+                              <div>
+                                <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1 ml-1">Deadline / Due Date</label>
+                                <input 
+                                  type="datetime-local" 
+                                  value={formData.dueAt} 
+                                  onChange={e => setFormData({...formData, dueAt: e.target.value})} 
+                                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none text-sm bg-white" 
+                                />
+                              </div>
+
+                              <div>
+                                <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1 ml-1">Priority</label>
+                                <select 
+                                  value={formData.priority} 
+                                  onChange={e => setFormData({...formData, priority: e.target.value})} 
+                                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none text-sm bg-white font-medium capitalize"
+                                >
+                                  <option value="low">Low</option>
+                                  <option value="medium">Medium</option>
+                                  <option value="high">High</option>
+                                  <option value="urgent">Urgent</option>
+                                </select>
+                              </div>
+
+                              <div>
+                                <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1 ml-1">Worker Payout Fee (USD)</label>
+                                <div className="relative">
+                                  <FaMoneyBillWave className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 text-xs" />
+                                  <input 
+                                    type="number"
+                                    min="0"
+                                    value={formData.projectFee} 
+                                    onChange={e => setFormData({...formData, projectFee: e.target.value})} 
+                                    className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none text-sm bg-white" 
+                                    placeholder="e.g. 150" 
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
+
+                    <div className="space-y-4">
+                      {/* Full-width Received Timestamp with Live Tracking */}
                       <div>
-                        <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1 ml-1">Received At *</label>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1 ml-1 flex items-center justify-between">
+                          <span>Received Timestamp *</span>
+                          {!editingJob && !isTimestampManuallyEdited && (
+                            <span className="text-[10px] font-medium text-emerald-600 flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                              Live Current Time
+                            </span>
+                          )}
+                        </label>
                         <input 
                           required 
                           type="datetime-local" 
                           value={formData.receivedAt} 
-                          onChange={e => !editingJob && setFormData({...formData, receivedAt: e.target.value})} 
+                          onChange={e => {
+                            setIsTimestampManuallyEdited(true);
+                            setFormData({...formData, receivedAt: e.target.value});
+                          }} 
                           readOnly={!!editingJob}
-                          className={`w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm ${editingJob ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`} 
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1 ml-1">Deadline *</label>
-                        <input 
-                          required 
-                          type="datetime-local" 
-                          value={formData.dueAt} 
-                          onChange={e => !editingJob && setFormData({...formData, dueAt: e.target.value})} 
-                          readOnly={!!editingJob}
-                          className={`w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm ${editingJob ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`} 
+                          className={`w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm ${editingJob ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : 'bg-white'}`} 
                         />
                       </div>
 
-                      {/* Row 3: Priority & Project Fee */}
+                      {/* Full-width Internal Notes Textarea */}
                       <div>
-                        <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1 ml-1">Priority</label>
-                        <select 
-                          value={formData.priority} 
-                          onChange={e => !editingJob && setFormData({...formData, priority: e.target.value})} 
-                          disabled={!!editingJob}
-                          className={`w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm bg-white ${editingJob ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
-                        >
-                          <option value="low">Low</option>
-                          <option value="medium">Medium</option>
-                          <option value="high">High</option>
-                          <option value="urgent">Urgent</option>
-                        </select>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1 ml-1">Internal Notes</label>
+                        <textarea 
+                          rows={3}
+                          value={formData.notes} 
+                          onChange={e => setFormData({...formData, notes: e.target.value})} 
+                          className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm bg-white resize-none" 
+                          placeholder="Add private notes for the team..." 
+                        />
                       </div>
-                      <div>
-                        <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1 ml-1">Project Fee (USD)</label>
-                        <div className="relative">
-                          <FaMoneyBillWave className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 text-xs" />
-                          <input 
-                            type="number"
-                            min="0"
-                            value={formData.projectFee} 
-                            onChange={e => !editingJob && setFormData({...formData, projectFee: e.target.value})} 
-                            readOnly={!!editingJob}
-                            className={`w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm ${editingJob ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : 'bg-white'}`} 
-                            placeholder="e.g. 150" 
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1 ml-1">Internal Notes</label>
-                      <textarea 
-                        rows={2} 
-                        value={formData.notes} 
-                        onChange={e => !editingJob && setFormData({...formData, notes: e.target.value})} 
-                        readOnly={!!editingJob}
-                        className={`w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm resize-none ${editingJob ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`} 
-                        placeholder={editingJob ? "Use Assignment tab in View Details" : "Add private notes for the team..."} 
-                      />
                     </div>
                   </div>
                 </div>

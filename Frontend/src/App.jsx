@@ -21,6 +21,7 @@ import GuideByProblemPage from './pages/Services/GuideByProblemPage';
 import BecomeDirectorPage from './pages/Director/BecomeDirectorPage';
 import AboutPage from './pages/AboutPage';
 import ResourcesPage from './pages/ResourcesPage';
+import ResourceDetailPage from './pages/Resources/ResourceDetailPage';
 import ContactPage from './pages/ContactPage';
 import BuildFromScratch from './pages/BuildFromScratch';
 import ScaleExistingWebsite from './pages/ScaleExistingWebsite';
@@ -71,6 +72,7 @@ function AppContent() {
               <Route path="/become-director" element={<BecomeDirectorPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/resources" element={<ResourcesPage />} />
+              <Route path="/resources/:slug" element={<ResourceDetailPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/legal" element={<Legal />} />
               <Route path="/faq" element={<FAQPage />} />
