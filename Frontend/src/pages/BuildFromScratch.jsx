@@ -1,5 +1,5 @@
 // src/pages/BuildFromScratch.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -100,6 +100,23 @@ const whyBuild = [
 ];
 
 const BuildFromScratch = () => {
+  useEffect(() => {
+    document.title = 'Build a Website From Scratch | ScaleLink Alliance';
+
+    const setMeta = (name, content) => {
+      let tag = document.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    setMeta('description', 'Build a custom website, web app, ecommerce store, or brand identity from scratch with ScaleLink Alliance.');
+    setMeta('keywords', 'website development from scratch, custom business website, web app development, ecommerce website design, brand identity design, custom website build, business website build');
+  }, []);
+
   return (
     <div className="min-h-screen">
       {/* Hero */}

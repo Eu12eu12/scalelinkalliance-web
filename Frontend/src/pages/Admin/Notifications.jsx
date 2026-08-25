@@ -133,6 +133,11 @@ const formatDate = (dateString) => {
 };
 
 // ===== RENDER HELPERS =====
+const isWebsiteReviewNotification = (notification) => {
+  const type = notification?.type;
+  return type === 'website_review_request' || type === 'website_review' || type === 'lead';
+};
+
 const renderMessage = (notification, isWorker) => {
   if (!notification) return '';
   
@@ -637,7 +642,7 @@ const Notifications = () => {
     }
 
     // Website Review Request
-    if (notification.type === 'website_review_request') {
+    if (isWebsiteReviewNotification(notification)) {
       const clientName = meta.clientName || notification.fromUser || 'System';
       const websiteUrl = meta.websiteUrl || meta.url || meta.website || 'N/A';
       const company = meta.company || 'N/A';

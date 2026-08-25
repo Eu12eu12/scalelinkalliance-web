@@ -308,6 +308,22 @@ const ResourcesPage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeDocument, setActiveDocument] = useState(null);
 
+  useEffect(() => {
+    document.title = 'Business Growth & Digital Marketing Resources | ScaleLink Alliance';
+
+    const setMeta = (name, content) => {
+      let tag = document.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    setMeta('keywords', 'business growth resources');
+  }, []);
+
   // CMS API State
   const [cmsResources, setCmsResources] = useState([]);
   const [cmsTypes, setCmsTypes] = useState([]);

@@ -1,5 +1,5 @@
 // src/pages/AboutPage.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
@@ -51,6 +51,21 @@ const AboutPage = () => {
     experience: '8 years'
   }
 ];
+
+  useEffect(() => {
+      document.title = 'About ScaleLink Alliance | Your Business Growth Partner';
+  
+      const setMeta = (name, content) => {
+        let tag = document.querySelector(`meta[name="${name}"]`);
+        if (!tag) {
+          tag = document.createElement('meta');
+          tag.setAttribute('name', name);
+          document.head.appendChild(tag);
+        }
+        tag.setAttribute('content', content);
+      };
+  }, []);
+
 
   const values = [
     {

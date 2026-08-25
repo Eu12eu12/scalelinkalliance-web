@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock, FaUsers, FaCalendarAlt, FaArrowRight, FaCheck, FaTimes } from 'react-icons/fa';
@@ -7,6 +7,20 @@ import ContactForm from '../components/forms/ContactForm';
 const ContactPage = () => {
   const [selectedTime, setSelectedTime] = useState(null);
   const [contactType, setContactType] = useState('general');
+
+  useEffect(() => {
+      document.title = 'Contact ScaleLink Alliance | Business Services & Partnerships';
+  
+      const setMeta = (name, content) => {
+        let tag = document.querySelector(`meta[name="${name}"]`);
+        if (!tag) {
+          tag = document.createElement('meta');
+          tag.setAttribute('name', name);
+          document.head.appendChild(tag);
+        }
+        tag.setAttribute('content', content);
+      };
+  }, []);
 
   const contactInfo = {
     headquarters: {

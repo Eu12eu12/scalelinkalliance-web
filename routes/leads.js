@@ -72,7 +72,16 @@ router.post('/website-review', async (req, res) => {
           type: 'website_review_request',
           message: `New Free Website Review request: ${firstName} ${lastName} (${websiteUrl})`,
           fromUser: 'System',
-          metadata: { leadId: lead.id, email, websiteUrl },
+          metadata: {
+            leadId: lead.id,
+            id: lead.id,
+            clientName: `${firstName} ${lastName}`,
+            clientEmail: email,
+            company: businessName || '',
+            websiteUrl,
+            businessDescription: message || 'Website review request',
+            status: lead.reviewStatus || 'pending'
+          },
           isRead: false
         });
       }

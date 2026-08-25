@@ -1,5 +1,5 @@
 // src/pages/ScaleExistingWebsite.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -129,6 +129,23 @@ const outcomes = [
 ];
 
 const ScaleExistingWebsite = () => {
+  useEffect(() => {
+    document.title = 'Scale Existing Website | ScaleLink Alliance';
+
+    const setMeta = (name, content) => {
+      let tag = document.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    setMeta('description', 'Scale your existing website with SEO, paid ads, automation, CRM, and conversion improvements from ScaleLink Alliance.');
+    setMeta('keywords', 'scale existing website, website optimization services, SEO for existing websites, website growth agency, website maintenance and growth, lead generation website optimization, website conversion services');
+  }, []);
+
   return (
     <div className="min-h-screen">
       {/* Hero */}

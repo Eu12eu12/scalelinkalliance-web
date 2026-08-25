@@ -1,13 +1,17 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.scalelinkalliance.com/sitemap.xml
-
-# Disallow admin and private areas
+# Non-public / account / transactional routes — keep out of the index
+Disallow: /admin
 Disallow: /admin/
-Disallow: /cms/
-Disallow: /wp-admin/
-Disallow: /wp-login.php
+Disallow: /login
+Disallow: /signup
+Disallow: /dashboard
+Disallow: /account
+Disallow: /request-service
+Disallow: /checkout
+Disallow: /free-website-review/results
+Disallow: /membership/apply/confirmation
 Disallow: /api/
-Disallow: /dashboard/
-Disallow: /free-website-review/thank-you/
+
+Sitemap: https://www.scalelinkalliance.com/sitemap.xml

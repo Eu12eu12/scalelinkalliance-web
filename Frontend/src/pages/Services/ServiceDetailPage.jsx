@@ -1,5 +1,5 @@
 // src/pages/Services/ServiceDetailPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -11,7 +11,7 @@ import {
   FaInfoCircle, FaChevronDown, FaChevronUp, FaSyncAlt, FaBriefcase,
   FaRobot, FaCalendar, FaChevronLeft, FaChevronRight, FaTimes, FaExpand
 } from 'react-icons/fa';
-import PackageComparison from '../../components/sections/PackageComparison';
+import PackageComparison, { getPackageFeatures } from '../../components/sections/PackageComparison';
 import OrderSidebar from '../../components/sections/OrderSidebar';
 import { SERVICE_GALLERY_LOCAL } from '../../data/serviceImagesLocal';
 
@@ -410,7 +410,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of design assets created', 'number of revisions required', 'complexity of design elements', 'number of formats delivered'],
     servicesInclude: ['Social media graphics', 'Marketing flyers and posters', 'Business cards and stationery', 'Presentation and report visuals', 'Advertising graphics and banners'],
     tools: ['Adobe Creative Suite', 'Figma', 'Canva', 'Procreate', 'Sketch'],
-    addOnOptions: ['brand identity design', 'social media design templates', 'infographic design', 'presentation design', 'marketing material design packages'],
     complementaryServices: [
       { name: 'Brand Identity & Logo Design', reason: 'consistent branding' },
       { name: 'Copywriting & Content Creation', reason: 'marketing messaging' },
@@ -459,7 +458,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of videos', 'video length', 'motion graphics complexity', 'number of revisions'],
     servicesInclude: ['Promotional videos', 'Social media video edits', 'Motion graphics and animations', 'Video branding elements', 'Short-form marketing videos'],
     tools: ['Adobe Premiere Pro', 'After Effects', 'DaVinci Resolve', 'Final Cut Pro'],
-    addOnOptions: ['subtitles and captions', 'YouTube optimization', 'animated logo intros', 'promotional video scripting', 'thumbnail graphics'],
     complementaryServices: [
       { name: 'Graphic Design', reason: 'thumbnails, social media visuals' },
       { name: 'Copywriting & Content Creation', reason: 'video scripts' },
@@ -509,7 +507,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of content pieces', 'word count', 'number of revisions', 'research and SEO requirements'],
     servicesInclude: ['Website content', 'Marketing copy', 'Blog articles', 'Social media captions', 'Email marketing content'],
     tools: ['SEMrush', 'Ahrefs', 'Grammarly', 'Hemingway Editor'],
-    addOnOptions: ['email marketing sequences', 'long-form blog content (2,000+ words)', 'sales page copywriting', 'website rewrite packages', 'editing and proofreading'],
     complementaryServices: [
       { name: 'Graphic Design', reason: 'visual marketing materials' },
       { name: 'Website Development', reason: 'publish the content' },
@@ -559,7 +556,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of logo concepts', 'revision rounds', 'additional brand assets included', 'development of brand guidelines'],
     servicesInclude: ['Custom logo design', 'Brand color palette', 'Typography selection', 'Brand style guide', 'Visual brand assets'],
     tools: ['Adobe Illustrator', 'Adobe Photoshop', 'Figma', 'Procreate'],
-    addOnOptions: ['business card design', 'brand pattern or icon design', 'social media brand templates', 'marketing collateral design', 'brand guidelines document'],
     complementaryServices: [
       { name: 'Graphic Design', reason: 'marketing materials and social media graphics' },
       { name: 'Website Development', reason: 'brand-consistent website' },
@@ -609,7 +605,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of edited photos delivered', 'number of locations or scenes', 'level of editing and retouching', 'project scope or session length'],
     servicesInclude: ['Business and team photography', 'Product photography', 'Website imagery', 'Marketing visuals', 'Promotional image assets'],
     tools: ['Professional camera equipment', 'Adobe Lightroom', 'Adobe Photoshop'],
-    addOnOptions: ['background removal', 'product staging', 'lifestyle photography', 'photo retouching', 'custom image libraries for marketing'],
     complementaryServices: [
       { name: 'Graphic Design', reason: 'marketing materials using the photos' },
       { name: 'Website Development', reason: 'placing visuals on websites' },
@@ -660,7 +655,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of pages created', 'level of design customization', 'integrations required', 'additional functionality'],
     servicesInclude: ['Custom website design', 'Mobile-friendly layout', 'Basic SEO setup', 'Contact and lead capture forms', 'Website launch support'],
     tools: ['React', 'Node.js', 'WordPress', 'Webflow', 'HTML/CSS/JavaScript'],
-    addOnOptions: ['e-commerce functionality', 'landing page development', 'website content writing', 'advanced SEO optimization', 'website maintenance plans'],
     complementaryServices: [
       { name: 'Graphic Design', reason: 'website visuals and marketing materials' },
       { name: 'Copywriting & Content Creation', reason: 'website text and messaging' },
@@ -711,7 +705,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of pages designed', 'level of funnel complexity', 'integrations with marketing tools', 'optimization features'],
     servicesInclude: ['Conversion-focused landing page design', 'Lead capture forms', 'Marketing funnel integration', 'Analytics setup', 'Call-to-action optimization'],
     tools: ['Webflow', 'Unbounce', 'Instapage', 'WordPress', 'React'],
-    addOnOptions: ['copywriting for landing pages', 'email marketing automation', 'advertising campaign setup', 'A/B testing for conversions', 'CRM integration'],
     complementaryServices: [
       { name: 'Copywriting & Content Creation', reason: 'persuasive messaging' },
       { name: 'Graphic Design', reason: 'visual campaign assets' },
@@ -762,7 +755,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of products added', 'number of store pages created', 'payment and shipping integrations', 'additional features and automation'],
     servicesInclude: ['Online store setup', 'Product page design', 'Payment gateway integration', 'Shopping cart configuration', 'Order management tools'],
     tools: ['Shopify', 'WooCommerce', 'BigCommerce', 'Magento'],
-    addOnOptions: ['product photography and visual assets', 'product description copywriting', 'email marketing integration', 'inventory automation', 'advanced analytics and reporting'],
     complementaryServices: [
       { name: 'Graphic Design', reason: 'product images and promotional materials' },
       { name: 'Copywriting & Content Creation', reason: 'product descriptions' },
@@ -813,7 +805,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of application features or modules', 'complexity of functionality', 'integrations required', 'database architecture and scalability'],
     servicesInclude: ['Custom web application development', 'SaaS platform development', 'System integrations', 'Workflow automation tools', 'Database integration'],
     tools: ['React', 'Node.js', 'Python', 'Django', 'Ruby on Rails', 'PostgreSQL'],
-    addOnOptions: ['payment gateway integration', 'subscription billing systems', 'third-party API integrations', 'advanced analytics dashboards', 'cloud hosting and infrastructure setup'],
     complementaryServices: [
       { name: 'API Integration & Automation', reason: 'connect systems' },
       { name: 'Website Development', reason: 'public-facing platform' },
@@ -864,7 +855,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of systems integrated', 'number of automated workflows', 'complexity of data mapping', 'customization requirements'],
     servicesInclude: ['System integrations', 'Data synchronization', 'Workflow automation', 'API configuration', 'Integration troubleshooting'],
     tools: ['Zapier', 'Make', 'n8n', 'Custom APIs', 'REST', 'GraphQL'],
-    addOnOptions: ['CRM setup and automation', 'marketing automation workflows', 'payment system integrations', 'reporting and data automation', 'ongoing automation maintenance'],
     complementaryServices: [
       { name: 'CRM & Marketing Automation', reason: 'lead management systems' },
       { name: 'Web Applications & SaaS Development', reason: 'custom digital tools' },
@@ -915,7 +905,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of maintenance hours per month', 'complexity of updates', 'level of monitoring required', 'additional technical support requests'],
     servicesInclude: ['Website updates and patches', 'Security monitoring', 'Performance checks', 'Content updates', 'Technical support'],
     tools: ['WordPress', 'React', 'Node.js', 'PHP', 'Security plugins'],
-    addOnOptions: ['website backups and recovery', 'SEO updates and optimization', 'landing page creation', 'website performance audits', 'technical troubleshooting'],
     complementaryServices: [
       { name: 'Website Development', reason: 'new features or redesigns' },
       { name: 'SEO & Search Marketing', reason: 'improve search visibility' },
@@ -966,7 +955,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of booking slots', 'integration complexity', 'customization level', 'automation features'],
     servicesInclude: ['Online booking system setup', 'Calendar integration', 'Email notifications', 'Mobile-friendly booking form', 'Basic customization'],
     tools: ['Calendly API', 'Google Calendar', 'Outlook', 'Zapier', 'Custom booking systems'],
-    addOnOptions: ['payment integration', 'automated reminders', 'multi-staff support', 'custom booking rules', 'client management'],
     complementaryServices: [
       { name: 'Website Development', reason: 'integrate booking on your site' },
       { name: 'CRM & Marketing Automation', reason: 'manage customer data' },
@@ -1015,7 +1003,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of posts created and published', 'engagement monitoring activities', 'platforms managed', 'performance reporting'],
     servicesInclude: ['Content posting and scheduling', 'Social media graphics', 'Audience engagement', 'Performance insights', 'Caption writing'],
     tools: ['Buffer', 'Hootsuite', 'Later', 'Sprout Social', 'Canva'],
-    addOnOptions: ['social media advertising campaigns', 'short-form video content creation', 'content calendar planning', 'influencer outreach support', 'brand strategy consultation'],
     complementaryServices: [
       { name: 'Graphic Design', reason: 'visual social media content' },
       { name: 'Video Editing & Motion Graphics', reason: 'short-form video posts' },
@@ -1065,7 +1052,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of pages optimized', 'keyword rankings', 'website traffic growth', 'search visibility improvements', 'lead generation from organic traffic'],
     servicesInclude: ['Keyword research', 'On-page SEO optimization', 'Technical SEO improvements', 'Content recommendations', 'Search performance tracking'],
     tools: ['SEMrush', 'Ahrefs', 'Google Search Console', 'Moz', 'Screaming Frog'],
-    addOnOptions: ['blog content creation for SEO', 'local SEO optimization', 'competitor keyword analysis', 'SEO content strategy development', 'website technical SEO audits'],
     complementaryServices: [
       { name: 'Website Development', reason: 'SEO-friendly website structure' },
       { name: 'Copywriting & Content Creation', reason: 'optimized website content' },
@@ -1115,7 +1101,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of campaigns', 'audience targeting accuracy', 'conversion rates', 'return on ad spend'],
     servicesInclude: ['Google Ads management', 'Social media advertising', 'Audience targeting', 'Campaign performance optimization', 'Monthly reporting'],
     tools: ['Google Ads', 'Facebook Ads Manager', 'LinkedIn Ads', 'TikTok Ads'],
-    addOnOptions: ['ad creative design', 'A/B testing', 'conversion tracking', 'budget optimization', 'performance analytics'],
     complementaryServices: [
       { name: 'Landing Pages', reason: 'conversion-optimized destinations' },
       { name: 'Copywriting', reason: 'ad messaging' },
@@ -1166,7 +1151,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of email campaigns created', 'level of customization and design', 'audience segmentation', 'performance tracking and reporting'],
     servicesInclude: ['Email campaign design', 'Newsletter creation', 'Marketing automation setup', 'Customer engagement emails', 'Campaign performance tracking'],
     tools: ['Mailchimp', 'Klaviyo', 'ActiveCampaign', 'ConvertKit', 'HubSpot'],
-    addOnOptions: ['automated email sequences', 'newsletter design and management', 'email list growth strategies', 'CRM integration for email campaigns', 'campaign performance optimization'],
     complementaryServices: [
       { name: 'Lead Generation Services', reason: 'grow email lists' },
       { name: 'Copywriting & Content Creation', reason: 'email messaging' },
@@ -1216,7 +1200,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of leads delivered', 'targeting criteria', 'level of research and qualification', 'delivery format of lead data'],
     servicesInclude: ['Target audience identification', 'Lead sourcing and research', 'Outreach strategies', 'Prospect qualification', 'Lead list delivery'],
     tools: ['LinkedIn Sales Navigator', 'Apollo.io', 'Hunter.io', 'CRM tools'],
-    addOnOptions: ['CRM integration', 'outreach templates', 'follow-up sequences', 'lead enrichment', 'ongoing pipeline management'],
     complementaryServices: [
       { name: 'CRM & Marketing Automation', reason: 'manage leads' },
       { name: 'Email Marketing Campaigns', reason: 'contact prospects' },
@@ -1267,7 +1250,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of reviews collected', 'average rating improvement', 'review response rate', 'reputation score'],
     servicesInclude: ['Review collection system setup', 'Review monitoring', 'Response management', 'Reputation analysis', 'Monthly reporting'],
     tools: ['Google Business Profile', 'Trustpilot', 'Yelp', 'Birdeye', 'Reputation management platforms'],
-    addOnOptions: ['review response templates', 'automated review requests', 'crisis response planning', 'competitive analysis', 'review generation campaigns'],
     complementaryServices: [
       { name: 'Social Media Management', reason: 'integrated reputation management' },
       { name: 'SEO & Search Marketing', reason: 'improve search visibility' },
@@ -1316,7 +1298,6 @@ const SERVICES_DATA = {
     howMeasured: ['CRM setup complexity', 'number of automation workflows', 'integrations completed', 'lead tracking accuracy'],
     servicesInclude: ['CRM setup and customization', 'Sales funnel development', 'Email automation sequences', 'Lead tracking and scoring', 'Integration with existing tools'],
     tools: ['HubSpot', 'Salesforce', 'ActiveCampaign', 'Klaviyo', 'Zapier', 'Make'],
-    addOnOptions: ['lead capture forms', 'automated workflows', 'lead scoring', 'pipeline tracking', 'analytics dashboards'],
     complementaryServices: [
       { name: 'Lead Generation', reason: 'feed leads into CRM' },
       { name: 'Email Marketing', reason: 'integrated campaigns' },
@@ -1368,7 +1349,6 @@ const SERVICES_DATA = {
     howMeasured: ['complexity of the workflow being automated', 'number of tools and systems involved', 'volume of tasks or messages handled', 'level of custom logic required'],
     servicesInclude: ['AI lead follow-up systems', 'AI customer support chatbots', 'AI appointment booking assistants', 'AI voice or call automation', 'AI email response workflows', 'AI CRM update automation', 'AI reporting dashboards', 'AI content workflow automation', 'AI sales assistant systems', 'AI internal task automation'],
     tools: ['Zapier', 'Make', 'n8n', 'Custom APIs', 'OpenAI / Claude API', 'CRM platforms'],
-    addOnOptions: ['CRM setup and integration', 'custom reporting dashboards', 'multi-channel notification routing', 'voice or call automation', 'ongoing automation maintenance and tuning'],
     complementaryServices: [
       { name: 'CRM & Marketing Automation', reason: 'organize the leads the automation manages' },
       { name: 'API Integration & Automation', reason: 'connect the tools your automation depends on' },
@@ -1400,7 +1380,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of automated workflows', 'time saved per task', 'error reduction rate', 'process complexity'],
     servicesInclude: ['Workflow mapping', 'Process automation setup', 'Integration with existing tools', 'Testing and optimization', 'Documentation'],
     tools: ['Zapier', 'Make', 'n8n', 'Microsoft Power Automate', 'Custom solutions'],
-    addOnOptions: ['custom workflow development', 'API integration', 'training and documentation', 'ongoing support', 'advanced analytics'],
     complementaryServices: [
       { name: 'API Integration', reason: 'connect automated workflows' },
       { name: 'CRM & Marketing Automation', reason: 'automate sales processes' },
@@ -1449,7 +1428,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of reports created', 'complexity of data analysis', 'number of data sources analyzed', 'creation of dashboards or visualizations'],
     servicesInclude: ['Data analysis', 'Business performance reports', 'Dashboard creation', 'Insight recommendations', 'KPI tracking'],
     tools: ['Google Analytics', 'Tableau', 'Power BI', 'Looker', 'Excel'],
-    addOnOptions: ['automated reporting dashboards', 'marketing campaign performance tracking', 'CRM data analysis', 'customer behavior analysis', 'monthly reporting services'],
     complementaryServices: [
       { name: 'CRM & Marketing Automation', reason: 'data collection and management' },
       { name: 'Lead Generation Services', reason: 'track prospect performance' },
@@ -1499,7 +1477,6 @@ const SERVICES_DATA = {
     howMeasured: ['strategy sessions', 'action plans developed', 'recommendations provided', 'implementation support'],
     servicesInclude: ['Business assessment', 'Growth strategy development', 'Action plan creation', 'Implementation guidance', 'Performance tracking'],
     tools: ['Strategic frameworks', 'Business modeling', 'Market analysis', 'Competitive analysis', 'Financial modeling'],
-    addOnOptions: ['quarterly strategy reviews', 'team workshops', 'market research', 'competitive analysis', 'implementation support'],
     complementaryServices: [
       { name: 'Data Analytics', reason: 'data-driven decisions' },
       { name: 'Lead Generation', reason: 'identify opportunities' },
@@ -1548,7 +1525,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of hours provided per month', 'scope of administrative tasks', 'level of coordination required', 'complexity of support activities'],
     servicesInclude: ['Email management', 'Calendar scheduling', 'Data entry', 'Administrative coordination', 'Customer support assistance'],
     tools: ['Google Workspace', 'Microsoft Office', 'Slack', 'Trello', 'Asana'],
-    addOnOptions: ['travel booking', 'research tasks', 'document preparation', 'meeting scheduling', 'inbox management'],
     complementaryServices: [
       { name: 'Data Entry', reason: 'database management' },
       { name: 'Project Management', reason: 'task coordination' },
@@ -1598,7 +1574,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of projects or phases managed', 'project complexity', 'level of coordination required', 'reporting and oversight responsibilities'],
     servicesInclude: ['Project planning and scheduling', 'Task coordination', 'Progress tracking', 'Team communication support', 'Project reporting'],
     tools: ['Asana', 'Trello', 'Monday.com', 'ClickUp', 'Jira', 'Basecamp'],
-    addOnOptions: ['workflow optimization consulting', 'team training on project management tools', 'documentation of project processes', 'reporting dashboards for project performance'],
     complementaryServices: [
       { name: 'Process Documentation & SOP Development', reason: 'structured workflows' },
       { name: 'Virtual Assistant Services', reason: 'task execution support' },
@@ -1648,7 +1623,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of workflows documented', 'complexity of business processes', 'depth of documentation required', 'inclusion of workflow diagrams or guides'],
     servicesInclude: ['Workflow mapping', 'SOP documentation', 'Process improvement recommendations', 'Operational guidelines', 'Process diagrams'],
     tools: ['Notion', 'Process Street', 'LucidChart', 'Google Docs', 'Trainual'],
-    addOnOptions: ['team training documentation', 'workflow automation recommendations', 'internal operations manuals', 'onboarding process documentation', 'knowledge base development'],
     complementaryServices: [
       { name: 'Project Management Support', reason: 'implement documented workflows' },
       { name: 'Virtual Assistant Services', reason: 'execute operational tasks' },
@@ -1697,7 +1671,6 @@ const SERVICES_DATA = {
     howMeasured: ['number of records processed', 'complexity of data structure', 'level of formatting required', 'system or database used'],
     servicesInclude: ['Database management', 'Data cleansing and validation', 'Spreadsheet organization', 'Record keeping', 'Data migration'],
     tools: ['Excel', 'Google Sheets', 'Airtable', 'Monday.com', 'CRM systems'],
-    addOnOptions: ['CRM database cleanup', 'data migration between systems', 'spreadsheet automation', 'document digitization', 'ongoing data management support'],
     complementaryServices: [
       { name: 'CRM & Marketing Automation', reason: 'organize and automate data' },
       { name: 'Data Analytics & Reporting', reason: 'analyze business data' },
@@ -1736,6 +1709,30 @@ const SERVICES_DATA = {
       portfolioCardText: "A data processing concept built to help businesses organize information, reduce manual workload, and keep records accurate."
     }
   }
+};
+
+// ─── SEO META (from ScaleLink SEO doc) ───
+const SEO_META = {
+  'website-development': { title: 'Website Development Services for Businesses | ScaleLink Alliance', description: 'Build a professional, responsive and conversion-focused business website with ScaleLink Alliance website design and development services.', keywords: 'website development services, business website development, custom website development, professional website design, small business website development, responsive web development' },
+  'seo-marketing': { title: 'SEO Services for Businesses | ScaleLink Alliance', description: 'Increase search visibility and qualified website traffic with ScaleLink Alliance SEO services, including technical SEO, content, keywords and optimization.', keywords: 'SEO services for businesses, small business SEO services, search engine optimization services, technical SEO services, on-page SEO, SEO consulting, organic search marketing' },
+  'lead-generation': { title: 'Lead Generation Services for Businesses | ScaleLink Alliance', description: 'Generate more qualified business opportunities through strategic lead generation campaigns, landing pages, search marketing and automated follow-up.', keywords: 'lead generation services, B2B lead generation services, online lead generation, business lead generation, qualified leads, digital lead generation, customer acquisition services' },
+  'landing-pages': { title: 'Landing Page & Sales Funnel Development | ScaleLink Alliance', description: 'Convert more visitors into leads and customers with professionally designed landing pages and sales funnels built around your campaign goals.', keywords: 'landing page design services' },
+  'crm-automation': { title: 'CRM & Marketing Automation Services | ScaleLink Alliance', description: 'Automate lead management, follow-up, customer communication and business workflows with CRM and marketing automation from ScaleLink Alliance.', keywords: 'CRM automation services' },
+  'api-integration': { title: 'API Integration Services for Businesses | ScaleLink Alliance', description: 'Connect your websites, CRMs, payment systems, marketing tools and business software with custom API integration services from ScaleLink Alliance.', keywords: 'API integration services, business API integration, CRM integration services, software integration, website API integration, custom API development, system integration' },
+  'ai-automation': { title: 'AI & Business Automation Services | ScaleLink Alliance', description: 'Automate repetitive work, customer communication, lead handling and business workflows with practical AI automation solutions.', keywords: 'AI automation services for businesses' },
+  'web-applications': { title: 'Custom Web Application Development | ScaleLink Alliance', description: 'Build custom business web applications, client portals, dashboards and SaaS platforms with ScaleLink Alliance development services.', keywords: 'custom web application development' },
+  'ecommerce-development': { title: 'E-commerce Website Development | ScaleLink Alliance', description: 'Build an online store designed to sell, with product setup, checkout, payments and conversion optimization built in.', keywords: 'ecommerce development services' },
+  'email-marketing': { title: 'Email Marketing & Automation Services | ScaleLink Alliance', description: 'Turn leads into customers with strategic email campaigns, automation, segmentation and reporting from ScaleLink Alliance.', keywords: 'email marketing services' },
+  'paid-advertising': { title: 'PPC & Paid Advertising Management | ScaleLink Alliance', description: 'Paid advertising designed to generate qualified opportunities through Google Ads, Microsoft Ads and conversion-focused campaigns.', keywords: 'PPC management services' },
+  'data-analytics': { title: 'Business Data Analytics Services | ScaleLink Alliance', description: 'Turn business data into better decisions with reporting, dashboards, marketing analytics and performance tracking.', keywords: 'business data analytics services' },
+  'graphic-design': { title: 'Business Graphic Design Services | ScaleLink Alliance', description: 'Professional visual design for marketing graphics, social media, advertising creative and sales materials.', keywords: 'graphic design services for businesses' },
+  'brand-identity': { title: 'Brand Identity & Logo Design | ScaleLink Alliance', description: 'Build a brand customers recognize and remember with logo design, brand identity systems and guidelines.', keywords: 'brand identity design services' },
+  'copywriting': { title: 'Copywriting & Content Creation | ScaleLink Alliance', description: 'Content designed to inform, persuade and convert — website copy, SEO content, sales copy and more.', keywords: 'business copywriting services' },
+  'video-editing': { title: 'Video Editing & Motion Graphics | ScaleLink Alliance', description: 'Professional video content built for your brand, from social clips to full promotional videos.', keywords: 'business video editing services' },
+  'photography': { title: 'Business Photography Services | ScaleLink Alliance', description: 'Visual assets that strengthen your brand — website imagery, product visuals and promotional photography.', keywords: 'business photography services' },
+  'website-maintenance': { title: 'Website Maintenance & Support | ScaleLink Alliance', description: 'Keep your business website secure, updated and working with ongoing maintenance and support.', keywords: 'website maintenance services' },
+  'virtual-assistant': { title: 'Virtual Assistant Services for Businesses | ScaleLink Alliance', description: 'Reliable business support without adding full-time overhead — administrative, CRM, and customer support help.', keywords: 'virtual assistant services for businesses' },
+  'data-entry': { title: 'Business Data Entry Services | ScaleLink Alliance', description: 'Accurate data processing for your business, from records entry to cleanup and categorization.', keywords: 'business data entry services' },
 };
 
 // ─── HELPER FUNCTIONS ───
@@ -1797,6 +1794,38 @@ const getServiceSlug = (serviceName) => {
     'Business Consulting & Growth Strategy': 'business-consulting-growth-strategy'
   };
   return slugMap[serviceName] || serviceName.toLowerCase().replace(/[&\s]/g, '-').replace(/--+/g, '-');
+};
+
+// ─── Matches an add-on option's free text to a real service, if one exists ───
+const ADDON_MATCH_KEYWORDS = {
+  'brand-identity': ['brand identity', 'logo design', 'logo concept'],
+  'graphic-design': ['graphic design', 'design assets', 'social media design templates', 'infographic design', 'presentation design', 'marketing material design'],
+  'copywriting': ['copywriting', 'blog content', 'sales page copywriting', 'website rewrite', 'editing and proofreading', 'email marketing sequences'],
+  'photography': ['photography', 'product staging', 'lifestyle photography', 'photo retouching', 'background removal', 'image libraries'],
+  'video-editing': ['subtitles and captions', 'youtube optimization', 'animated logo intros', 'video scripting', 'thumbnail graphics'],
+  'website-development': ['website content writing', 'website maintenance plans'],
+  'website-maintenance': ['website backups', 'website performance audits', 'technical troubleshooting'],
+  'seo-marketing': ['seo', 'local seo', 'competitor keyword analysis', 'seo content strategy', 'technical seo audits'],
+  'landing-pages': ['landing page', 'a/b testing for conversions'],
+  'ecommerce-development': ['inventory automation', 'product description copywriting'],
+  'crm-automation': ['crm setup', 'lead scoring', 'pipeline tracking', 'analytics dashboards', 'marketing automation workflows'],
+  'api-integration': ['api integration', 'crm integration', 'system integrations'],
+  'email-marketing': ['email list growth', 'newsletter design', 'automated email sequences'],
+  'lead-generation': ['outreach templates', 'follow-up sequences', 'lead enrichment'],
+  'data-analytics': ['automated reporting dashboards', 'campaign performance tracking', 'customer behavior analysis'],
+  'social-media-management': ['social media advertising', 'short-form video content', 'content calendar planning', 'influencer outreach'],
+  'paid-advertising': ['ad creative design', 'conversion tracking', 'budget optimization'],
+  'virtual-assistant': ['travel booking', 'document preparation', 'meeting scheduling', 'inbox management'],
+  'process-documentation': ['team training documentation', 'onboarding process documentation', 'knowledge base development'],
+  'data-entry': ['crm database cleanup', 'data migration', 'document digitization'],
+};
+
+const matchAddOnToServiceSlug = (addOnText) => {
+  const lower = addOnText.toLowerCase();
+  for (const [slug, keywords] of Object.entries(ADDON_MATCH_KEYWORDS)) {
+    if (keywords.some(kw => lower.includes(kw))) return slug;
+  }
+  return null;
 };
 
 const renderStars = (rating) => {
@@ -1896,7 +1925,7 @@ const ImageGallery = ({ images, serviceTitle }) => {
             width={1200}
             height={600}
             loading={currentIndex === 0 ? 'eager' : 'lazy'}
-            fetchpriority={currentIndex === 0 ? 'high' : 'auto'}
+            fetchPriority={currentIndex === 0 ? 'high' : 'auto'}
             decoding="async"
             className="w-full h-auto max-h-[300px] sm:max-h-[400px] md:max-h-[500px] object-contain bg-gray-50 transition-transform duration-300 group-hover:scale-[1.01]"
           />
@@ -2007,6 +2036,25 @@ const ImageGallery = ({ images, serviceTitle }) => {
 const ServiceDetailPage = () => {
   const { serviceSlug } = useParams();
   const service = SERVICES_DATA[serviceSlug];
+  useEffect(() => {
+    if (!service) return;
+    const meta = SEO_META[serviceSlug];
+    document.title = meta?.title || `${service.title} | ScaleLink Alliance`;
+
+    const setMeta = (name, content) => {
+      if (!content) return;
+      let tag = document.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    setMeta('description', meta?.description || service.intro);
+    setMeta('keywords', meta?.keywords);
+  }, [serviceSlug, service]);
   const [selectedPackage, setSelectedPackage] = useState('starter');
 
   if (!service) {
@@ -2087,7 +2135,7 @@ const ServiceDetailPage = () => {
                       <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600"><FaClock className="text-gray-400 shrink-0" /><span>Custom delivery timeline</span></div>
                       <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600"><FaSyncAlt className="text-gray-400 shrink-0" /><span>Unlimited revisions</span></div>
                     </div>
-                    <Link to="/request-service?service=custom-quote&step=2" className="block w-full py-2.5 sm:py-3 px-4 bg-purple-600 text-white font-bold rounded-lg text-center hover:bg-purple-700 transition-colors shadow-md text-sm sm:text-base">Request Custom Quote</Link>
+                    <Link to="/request-service?service=ai-automation&step=2" className="block w-full py-2.5 sm:py-3 px-4 bg-purple-600 text-white font-bold rounded-lg text-center hover:bg-purple-700 transition-colors shadow-md text-sm sm:text-base">Request AI Custom Quote</Link>
                     <Link to="/contact" className="block w-full mt-2 sm:mt-3 py-2.5 sm:py-3 px-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg text-center hover:bg-gray-50 transition-colors text-sm sm:text-base">Contact Me</Link>
                     <div className="mt-3 sm:mt-4 text-center"><p className="text-[10px] sm:text-xs text-gray-400">Need flexibility? <Link to="/contact" className="text-blue-600 hover:underline">Hire by the hour</Link></p></div>
                   </>
@@ -2112,30 +2160,54 @@ const ServiceDetailPage = () => {
                     {selectedPkg && (
                       <>
                         <div className="mb-3 sm:mb-4">
-                          <div className="flex flex-wrap justify-between items-center gap-1">
-                            <span className="text-xs sm:text-sm text-gray-500">{selectedPkg.name}</span>
-                            <span className="text-xl sm:text-2xl font-bold text-gray-900">{selectedPkg.price}</span>
-                          </div>
+                          <span className="text-xs sm:text-sm text-gray-500">{selectedPkg.name}</span>
                           <p className="text-[10px] sm:text-xs text-gray-500 mt-1">{selectedPkg.description}</p>
+                          <p className="text-[10px] sm:text-xs text-blue-600 font-semibold mt-2">Pricing shown at checkout</p>
                         </div>
 
                         <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
                         </div>
 
-                        {selectedPkg.includes && selectedPkg.includes.length > 0 && (
+                        {selectedPkg && (
                           <div className="border-t border-gray-200 pt-2 sm:pt-3 mb-3 sm:mb-4">
-                            <button className="w-full flex items-center justify-between text-xs sm:text-sm font-semibold text-gray-900" onClick={() => { const el = document.getElementById('package-includes'); if (el) { el.classList.toggle('hidden'); } }}>
-                              <span>What's Included</span>
-                              <FaChevronDown className="text-gray-400 text-[10px] sm:text-xs" />
-                            </button>
-                            <div id="package-includes" className="mt-1.5 sm:mt-2 space-y-1 sm:space-y-1.5">
-                              {selectedPkg.includes.map((item, idx) => (
-                                <div key={idx} className="flex items-start text-xs sm:text-sm text-gray-600">
-                                  <FaCheck className="text-green-500 mr-1.5 sm:mr-2 mt-0.5 shrink-0" size={10} />
-                                  <span className="break-words">{item}</span>
-                                </div>
-                              ))}
-                            </div>
+                            {(() => {
+                              const comparisonTier = {
+                                starter: 'basic',
+                                growth: 'standard',
+                                standard: 'standard',
+                                basic: 'basic',
+                                premium: 'premium'
+                              }[validPackage];
+                              const hasSharedFeatureList = Boolean(
+                                comparisonTier && service.packageComparison
+                              );
+                              const includedItems = hasSharedFeatureList
+                                ? getPackageFeatures(serviceSlug, comparisonTier, service.packageComparison)
+                                : (selectedPkg.includes || []);
+
+                              return (
+                                <>
+                                  <button
+                                    className="w-full flex items-center justify-between text-xs sm:text-sm font-semibold text-gray-900"
+                                    onClick={() => {
+                                      const el = document.getElementById('package-includes');
+                                      if (el) el.classList.toggle('hidden');
+                                    }}
+                                  >
+                                    <span>What's Included</span>
+                                    <FaChevronDown className="text-gray-400 text-[10px] sm:text-xs" />
+                                  </button>
+                                  <div id="package-includes" className="mt-1.5 sm:mt-2 space-y-1 sm:space-y-1.5 max-h-72 overflow-y-auto pr-1">
+                                    {includedItems.map((item, idx) => (
+                                      <div key={idx} className="flex items-start text-xs sm:text-sm text-gray-600">
+                                        <FaCheck className="text-green-500 mr-1.5 sm:mr-2 mt-0.5 shrink-0" size={10} />
+                                        <span className="break-words">{item}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </>
+                              );
+                            })()}
                           </div>
                         )}
 
@@ -2213,18 +2285,29 @@ const ServiceDetailPage = () => {
           </section>
         )}
 
-        {/* Add-On Options */}
-        {service.addOnOptions && service.addOnOptions.length > 0 && (
+
+        {/* Related Services */}
+        {service.complementaryServices && service.complementaryServices.length > 0 && (
           <section className="mb-10 sm:mb-16">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 md:mb-6">Add-On Options</h2>
-            <p className="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4">Businesses may also request additional services such as:</p>
-            <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
-              {service.addOnOptions.map((item, index) => (
-                <div key={index} className="flex items-start space-x-2 sm:space-x-3">
-                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full mt-1.5 sm:mt-2 shrink-0"></div>
-                  <span className="text-sm sm:text-base text-gray-700">{item}</span>
-                </div>
-              ))}
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Related Services</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+              {service.complementaryServices.map((rel, index) => {
+                const relSlug = getServiceSlug(rel.name);
+                const RelIcon = SERVICES_DATA[relSlug]?.icon || <FaCogs />;
+                return (
+                  <Link
+                    key={index}
+                    to={`/services/${relSlug}`}
+                    className="flex items-start gap-3 p-3 sm:p-4 bg-white border border-gray-200 rounded-xl hover:border-blue-400 hover:shadow-md transition-all group"
+                  >
+                    <span className="text-blue-600 mt-0.5 shrink-0">{RelIcon}</span>
+                    <span>
+                      <span className="block text-sm font-semibold text-gray-900 group-hover:text-blue-600">{rel.name}</span>
+                      <span className="block text-xs text-gray-500 mt-0.5">For {rel.reason}</span>
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           </section>
         )}

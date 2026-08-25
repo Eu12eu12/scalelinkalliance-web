@@ -43,19 +43,20 @@ const scaleExistingServices = [
 
 const servicesDropdownCategories = [
   {
-    category: 'Website & Web App Development',
+    category: 'Websites & Development',
     icon: <FaCode />,
     color: 'text-blue-600',
     bg: 'bg-blue-50',
     services: [
       { name: 'Website Development', path: '/services/website-development' },
+      { name: 'E-commerce Development', path: '/services/ecommerce-development' },
       { name: 'Web Applications & SaaS', path: '/services/web-applications' },
-      { name: 'E-Commerce Development', path: '/services/ecommerce-development' },
       { name: 'Landing Pages & Funnels', path: '/services/landing-pages' },
+      { name: 'Website Maintenance', path: '/services/website-maintenance' },
     ]
   },
   {
-    category: 'Website Growth & Marketing',
+    category: 'Marketing & Growth',
     icon: <FaChartBar />,
     color: 'text-green-600',
     bg: 'bg-green-50',
@@ -64,45 +65,33 @@ const servicesDropdownCategories = [
       { name: 'Lead Generation', path: '/services/lead-generation' },
       { name: 'Paid Advertising', path: '/services/paid-advertising' },
       { name: 'Email Marketing', path: '/services/email-marketing' },
-      { name: 'Social Media Management', path: '/services/social-media-management' },
+      { name: 'Content Creation', path: '/services/copywriting' },
     ]
   },
   {
-    category: 'Content, Branding & Creative',
-    icon: <FaPaintBrush />,
-    color: 'text-purple-600',
-    bg: 'bg-purple-50',
-    services: [
-      { name: 'Graphic Design', path: '/services/graphic-design' },
-      { name: 'Brand Identity & Logo', path: '/services/brand-identity' },
-      { name: 'Copywriting & Content', path: '/services/copywriting' },
-      { name: 'Photography & Visual Assets', path: '/services/photography' },
-      { name: 'Video Editing & Motion', path: '/services/video-editing' },
-    ]
-  },
-  {
-    category: 'Automation, CRM & Integration',
+    category: 'Automation & Technology',
     icon: <FaRobot />,
     color: 'text-orange-600',
     bg: 'bg-orange-50',
     services: [
       { name: 'CRM & Marketing Automation', path: '/services/crm-automation' },
-      { name: 'AI Automation Systems', path: '/services/ai-automation' },
       { name: 'API Integration', path: '/services/api-integration' },
-      { name: 'Data Analytics & Reporting', path: '/services/data-analytics' },
-      { name: 'Data Entry & Processing', path: '/services/data-entry' },
+      { name: 'AI Automation', path: '/services/ai-automation' },
+      { name: 'Data Analytics', path: '/services/data-analytics' },
     ]
   },
   {
-    category: 'Business Support & Operations',
-    icon: <FaHeadset />,
-    color: 'text-teal-600',
-    bg: 'bg-teal-50',
+    category: 'Creative & Support',
+    icon: <FaPaintBrush />,
+    color: 'text-purple-600',
+    bg: 'bg-purple-50',
     services: [
-      { name: 'Virtual Assistant Services', path: '/services/virtual-assistant' },
-      { name: 'Project Management', path: '/services/project-management' },
-      { name: 'Process Documentation', path: '/services/process-documentation' },
-      { name: 'Website Maintenance', path: '/services/website-maintenance' },
+      { name: 'Graphic Design', path: '/services/graphic-design' },
+      { name: 'Brand Identity', path: '/services/brand-identity' },
+      { name: 'Video & Motion Graphics', path: '/services/video-editing' },
+      { name: 'Photography', path: '/services/photography' },
+      { name: 'Virtual Assistant', path: '/services/virtual-assistant' },
+      { name: 'Data Entry', path: '/services/data-entry' },
     ]
   },
 ];
@@ -144,7 +133,7 @@ const ServicesMegaMenu = ({ onClose }) => (
         ))}
       </div>
       <div className="mt-5 pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <span className="text-xs text-gray-400">22+ professional services available</span>
+        <span className="text-xs text-gray-400">20+ professional services available</span>
         <Link
           to="/services"
           onClick={onClose}
@@ -303,13 +292,11 @@ const Header = () => {
     { name: 'Resources', path: '/resources' },
     { name: 'Business Partners', path: '/business-partners' },
     { name: 'Contact', path: '/contact' },
+    { name: 'Sitemap', path: '/sitemap' },
   ];
 
   const mobileSections = [
     { label: 'Home', path: '/', isLink: true },
-    { label: 'How It Works', path: '/how-it-works', isLink: true },
-    { label: 'About Us', path: '/about', isLink: true },
-    { label: 'Membership', path: '/membership', isLink: true },
     {
       label: 'Services',
       children: servicesDropdownCategories.map(cat => ({
@@ -317,6 +304,9 @@ const Header = () => {
         items: cat.services
       }))
     },
+    { label: 'How It Works', path: '/how-it-works', isLink: true },
+    { label: 'About Us', path: '/about', isLink: true },
+    { label: 'Membership', path: '/membership', isLink: true },
     { label: 'Build From Scratch', path: '/build-from-scratch', isLink: true },
     { label: 'Scale Existing Website', path: '/scale-existing-website', isLink: true },
     {
@@ -359,16 +349,7 @@ const Header = () => {
               Home
             </Link>
 
-            <Link
-              to="/how-it-works"
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
-                isActive('/how-it-works') ? 'text-blue-600 bg-blue-50 font-semibold' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-              }`}
-            >
-              How It Works
-            </Link>
-
-            <div
+           <div
               className="relative"
               onMouseEnter={() => handleMouseEnter('services')}
               onMouseLeave={handleMouseLeave}
@@ -386,6 +367,15 @@ const Header = () => {
                 )}
               </AnimatePresence>
             </div>
+
+            <Link
+              to="/how-it-works"
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
+                isActive('/how-it-works') ? 'text-blue-600 bg-blue-50 font-semibold' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+              }`}
+            >
+              How It Works
+            </Link>
 
             <Link
               to="/build-from-scratch"

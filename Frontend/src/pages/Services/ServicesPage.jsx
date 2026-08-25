@@ -1,5 +1,5 @@
 // src/pages/Services/ServicesPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -13,6 +13,22 @@ import {
 const ServicesPage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
 
+    useEffect(() => {
+      document.title = 'Business Growth Services | ScaleLink Alliance';
+  
+      const setMeta = (name, content) => {
+        let tag = document.querySelector(`meta[name="${name}"]`);
+        if (!tag) {
+          tag = document.createElement('meta');
+          tag.setAttribute('name', name);
+          document.head.appendChild(tag);
+        }
+        tag.setAttribute('content', content);
+      };
+
+  }, []);
+
+
   // All services from the documentation
   const services = [
     // Creative & Content Services (5)
@@ -20,7 +36,7 @@ const ServicesPage = () => {
       id: 1,
       slug: 'graphic-design',
       name: 'Graphic Design',
-      category: 'creative',
+      category: 'creative-support',
       icon: <FaPaintBrush />,
       description: 'Strong visual design helps businesses communicate clearly, attract attention, and create a professional brand presence.',
       startingPrice: '$35',
@@ -48,7 +64,7 @@ const ServicesPage = () => {
       id: 2,
       slug: 'video-editing',
       name: 'Video Editing & Motion Graphics',
-      category: 'creative',
+      category: 'creative-support',
       icon: <FaVideo />,
       description: 'Video content is one of the most powerful ways to capture attention and engage audiences. Transform raw footage into polished visual stories.',
       startingPrice: '$75',
@@ -77,7 +93,7 @@ const ServicesPage = () => {
       id: 3,
       slug: 'copywriting',
       name: 'Copywriting & Content Creation',
-      category: 'creative',
+      category: 'marketing-growth',
       icon: <FaPenNib />,
       description: 'Clear and persuasive content is essential for turning visitors into customers. Our copywriting services help you communicate your value.',
       startingPrice: '$75',
@@ -107,7 +123,7 @@ const ServicesPage = () => {
       id: 4,
       slug: 'brand-identity',
       name: 'Brand Identity & Logo Design',
-      category: 'creative',
+      category: 'creative-support',
       icon: <FaPalette />,
       description: 'Your brand identity is the visual foundation of your business. A well-designed logo and consistent brand system help customers recognize your company.',
       startingPrice: '$199',
@@ -135,7 +151,7 @@ const ServicesPage = () => {
       id: 5,
       slug: 'photography',
       name: 'Photography & Visual Assets',
-      category: 'creative',
+      category: 'creative-support',
       icon: <FaCamera />,
       description: 'High-quality visual imagery plays a critical role in how businesses present themselves to customers. Professional photos strengthen brand credibility.',
       startingPrice: '$199',
@@ -165,7 +181,7 @@ const ServicesPage = () => {
       id: 6,
       slug: 'website-development',
       name: 'Website Development',
-      category: 'tech',
+      category: 'websites-development',
       icon: <FaCode />,
       description: 'Your website is often the first place potential customers learn about your business. A well-designed website builds credibility and communicates your value.',
       startingPrice: '$699',
@@ -193,7 +209,7 @@ const ServicesPage = () => {
       id: 7,
       slug: 'landing-pages',
       name: 'Landing Pages & Sales Funnels',
-      category: 'tech',
+      category: 'websites-development',
       icon: <FaRocket />,
       description: 'Landing pages and sales funnels are designed to turn visitors into leads and customers. They focus on a single goal: encouraging visitors to take action.',
       startingPrice: '$499',
@@ -221,7 +237,7 @@ const ServicesPage = () => {
       id: 8,
       slug: 'ecommerce-development',
       name: 'E-Commerce Development',
-      category: 'tech',
+      category: 'websites-development',
       icon: <FaShoppingCart />,
       description: 'E-commerce platforms allow businesses to sell products online, reach a broader audience, and manage transactions efficiently.',
       startingPrice: '$999',
@@ -249,7 +265,7 @@ const ServicesPage = () => {
       id: 9,
       slug: 'web-applications',
       name: 'Web Applications & SaaS Development',
-      category: 'tech',
+      category: 'websites-development',
       icon: <FaGlobe />,
       description: 'Custom web applications and SaaS platforms allow businesses to streamline operations, automate workflows, and create digital tools that support growth.',
       startingPrice: '$4,999',
@@ -278,7 +294,7 @@ const ServicesPage = () => {
       id: 10,
       slug: 'api-integration',
       name: 'API Integration & Automation',
-      category: 'tech',
+      category: 'automation-technology',
       icon: <FaCloudUploadAlt />,
       description: 'Modern businesses rely on multiple digital tools. API integrations connect your systems and automate repetitive workflows.',
       startingPrice: '$499',
@@ -306,7 +322,7 @@ const ServicesPage = () => {
       id: 11,
       slug: 'website-maintenance',
       name: 'Website Maintenance & Updates',
-      category: 'tech',
+      category: 'websites-development',
       icon: <FaShieldAlt />,
       description: 'A website requires regular updates, monitoring, and maintenance to remain secure, functional, and effective.',
       startingPrice: '$149/month',
@@ -333,38 +349,10 @@ const ServicesPage = () => {
 
     // Marketing & Growth Services (6)
     {
-      id: 12,
-      slug: 'social-media-management',
-      name: 'Social Media Management',
-      category: 'marketing',
-      icon: <FaUsers />,
-      description: 'Social media platforms are effective ways for businesses to connect with customers, promote services, and build brand awareness.',
-      startingPrice: '$299/month',
-      features: [
-        'Content posting and scheduling',
-        'Social media graphics',
-        'Audience engagement',
-        'Performance insights',
-        'Caption writing'
-      ],
-      whatItHelps: [
-        'increase brand visibility',
-        'engage with customers',
-        'promote products and services',
-        'maintain consistent content presence',
-        'support marketing campaigns'
-      ],
-      packages: {
-        starter: { price: '$299/month', includes: '8 posts per month, content scheduling, engagement monitoring' },
-        growth: { price: '$599/month', includes: '15 posts per month, graphic content, monthly report' },
-        premium: { price: '$1,499/month', includes: '30 posts per month, custom graphics, detailed reporting' }
-      }
-    },
-    {
       id: 13,
       slug: 'seo-marketing',
       name: 'SEO & Search Marketing',
-      category: 'marketing',
+      category: 'marketing-growth',
       icon: <FaSearch />,
       description: 'Search Engine Optimization helps your business appear when potential customers search online for services related to your industry.',
       startingPrice: '$399/month',
@@ -392,7 +380,7 @@ const ServicesPage = () => {
       id: 14,
       slug: 'paid-advertising',
       name: 'Paid Advertising Management',
-      category: 'marketing',
+      category: 'marketing-growth',
       icon: <FaAd />,
       description: 'Paid advertising can quickly generate leads and increase brand visibility. We create targeted campaigns designed to maximize ROI.',
       startingPrice: '$399/month',
@@ -420,7 +408,7 @@ const ServicesPage = () => {
       id: 15,
       slug: 'email-marketing',
       name: 'Email Marketing Campaigns',
-      category: 'marketing',
+      category: 'marketing-growth',
       icon: <FaEnvelope />,
       description: 'Email marketing remains one of the most effective ways for businesses to communicate directly with their audience.',
       startingPrice: '$199',
@@ -448,7 +436,7 @@ const ServicesPage = () => {
       id: 16,
       slug: 'lead-generation',
       name: 'Lead Generation Services',
-      category: 'marketing',
+      category: 'marketing-growth',
       icon: <FaRegBuilding />,
       description: 'Consistent lead generation is essential for business growth. We help identify and connect you with qualified prospects.',
       startingPrice: '$199',
@@ -476,7 +464,7 @@ const ServicesPage = () => {
       id: 17,
       slug: 'crm-automation',
       name: 'CRM & Marketing Automation',
-      category: 'marketing',
+      category: 'automation-technology',
       icon: <FaCogs />,
       description: 'CRM systems, funnels, and automations that capture leads and improve conversion efficiency.',
       startingPrice: '$499',
@@ -506,7 +494,7 @@ const ServicesPage = () => {
       id: 18,
       slug: 'virtual-assistant',
       name: 'Virtual Assistant Services',
-      category: 'operations',
+      category: 'creative-support',
       icon: <FaHeadset />,
       description: 'Administrative and operational tasks can take valuable time away from strategic work. Virtual assistants help manage routine tasks efficiently.',
       startingPrice: '$149/month',
@@ -534,7 +522,7 @@ const ServicesPage = () => {
       id: 19,
       slug: 'data-analytics',
       name: 'Data Analytics & Reporting',
-      category: 'operations',
+      category: 'automation-technology',
       icon: <FaChartLine />,
       description: 'Data analytics helps businesses understand performance, identify trends, and make better strategic decisions.',
       startingPrice: '$199/month',
@@ -559,66 +547,10 @@ const ServicesPage = () => {
       }
     },
     {
-      id: 20,
-      slug: 'process-documentation',
-      name: 'Process Documentation & SOP Development',
-      category: 'operations',
-      icon: <FaFileAlt />,
-      description: 'Clear processes are essential for businesses that want to operate efficiently and scale effectively.',
-      startingPrice: '$400',
-      features: [
-        'Workflow mapping',
-        'SOP documentation',
-        'Process improvement recommendations',
-        'Operational guidelines',
-        'Process diagrams'
-      ],
-      whatItHelps: [
-        'standardize workflows',
-        'improve team efficiency',
-        'simplify employee training',
-        'reduce operational errors',
-        'create systems that support growth'
-      ],
-      packages: {
-        starter: { price: '$400', includes: '1 documented workflow, step-by-step SOP, process map' },
-        growth: { price: '$1,200', includes: '3 documented workflows, SOP documents, process diagrams' },
-        premium: { price: '$3,500', includes: '6+ documented workflows, complete SOP manual, operations guide' }
-      }
-    },
-    {
-      id: 21,
-      slug: 'project-management',
-      name: 'Project Management Support',
-      category: 'operations',
-      icon: <FaProjectDiagram />,
-      description: 'Successful projects require organization, coordination, and clear communication between team members.',
-      startingPrice: '$499',
-      features: [
-        'Project planning and scheduling',
-        'Task coordination',
-        'Progress tracking',
-        'Team communication support',
-        'Project reporting'
-      ],
-      whatItHelps: [
-        'keep projects organized',
-        'coordinate tasks',
-        'improve team communication',
-        'track project milestones',
-        'ensure project completion'
-      ],
-      packages: {
-        starter: { price: '$499', includes: 'management of 1 project, timeline planning, progress tracking' },
-        growth: { price: '$1,499', includes: 'management of up to 3 project phases, milestone tracking' },
-        premium: { price: '$3,499', includes: 'comprehensive project management, full oversight, reporting' }
-      }
-    },
-    {
       id: 22,
       slug: 'data-entry',
       name: 'Data Entry & Processing',
-      category: 'operations',
+      category: 'creative-support',
       icon: <FaDatabase />,
       description: 'Accurate and organized data is essential for efficient business operations. We help manage large volumes of information.',
       startingPrice: '$99',
@@ -644,12 +576,12 @@ const ServicesPage = () => {
     }
   ];
 
-  const categories = [
+    const categories = [
     { id: 'all', name: 'All Services' },
-    { id: 'creative', name: 'Creative & Content' },
-    { id: 'tech', name: 'Tech & Development' },
-    { id: 'marketing', name: 'Marketing & Growth' },
-    { id: 'operations', name: 'Operations & Support' }
+    { id: 'websites-development', name: 'Websites & Development' },
+    { id: 'marketing-growth', name: 'Marketing & Growth' },
+    { id: 'automation-technology', name: 'Automation & Technology' },
+    { id: 'creative-support', name: 'Creative & Support' }
   ];
 
   const customQuoteCard = {
@@ -673,7 +605,7 @@ const ServicesPage = () => {
 
   const aiCustomQuoteCard = {
   id: 'ai-custom-quote-card',
-  slug: 'ai-custom-quote',
+  slug: 'ai-automation',
   name: 'Request AI Custom Quote',
   category: 'all',
   icon: <FaRobot />,
@@ -840,7 +772,7 @@ const ServicesPage = () => {
                         {isCustomQuoteCard ? (
                           // Custom Quote Cards - no "View Service Details" button, just "Request This Service" going to Step 2
                           <Link
-                            to={`/request-service?service=${service.slug}&step=2`}
+                            to={`/request-service?service=${service.slug === 'ai-automation' ? 'ai-automation' : service.slug}&step=2`}
                             className={`py-2.5 font-semibold rounded-lg text-center text-sm transition-all ${
                               isAICustomQuote 
                                 ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700' 

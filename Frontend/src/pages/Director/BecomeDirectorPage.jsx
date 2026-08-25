@@ -1,5 +1,5 @@
 // src/pages/Director/BecomeDirectorPage.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaAward, FaUsers, FaChartLine, FaDollarSign, FaGraduationCap, FaHandshake, FaArrowRight } from 'react-icons/fa';
@@ -27,6 +27,21 @@ const BecomeDirectorPage = () => {
       description: 'Scale your impact and income as your chapter expands.'
     }
   ];
+
+    useEffect(() => {
+      document.title = 'Become a ScaleLink Alliance Chapter Director | Business Networking';
+  
+      const setMeta = (name, content) => {
+        let tag = document.querySelector(`meta[name="${name}"]`);
+        if (!tag) {
+          tag = document.createElement('meta');
+          tag.setAttribute('name', name);
+          document.head.appendChild(tag);
+        }
+        tag.setAttribute('content', content);
+      };
+  }, []);
+
 
   const requirements = [
     'Minimum 2 years in business or leadership role',
