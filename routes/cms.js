@@ -24,7 +24,7 @@ const handleClientPhaseEmail = async (oldStatus, newStatus, job) => {
       await mailer.sendClientPhaseNotificationEmail(job, 'delivered');
     }
   } catch (err) {
-    console.error('❌ Failed to send client phase email:', err);
+    console.error('âŒ Failed to send client phase email:', err);
   }
 };
 
@@ -168,11 +168,11 @@ const createNotification = async (sentTo, type, message, jobId = null, fromUser 
       const { sendNotificationEmail } = require('../utils/mailer');
       // Fire and forget email to not block the request
       sendNotificationEmail(sentTo, type, finalMessage, jobId).catch(err => {
-        console.error('❌ Background email sending failed:', err);
+        console.error('âŒ Background email sending failed:', err);
       });
     }
   } catch (error) {
-    console.error('❌ Failed to create notification:', error);
+    console.error('âŒ Failed to create notification:', error);
   }
 };
 
@@ -481,6 +481,67 @@ router.get('/resources', async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// Public endpoint for single Resource detail by Slug or ID
+router.get('/resources/by-slug/:slugOrId', async (req, res) => {
+  try {
+    const { slugOrId } = req.params;
+    const isNumericId = /^\d+$/.test(slugOrId);
+    
+    const whereCondition = isNumericId
+      ? { [Op.or]: [{ slug: slugOrId }, { id: parseInt(slugOrId, 10) }] }
+      : { slug: slugOrId };
+
+    const resource = await db.Resource.findOne({
+      where: {
+        ...whereCondition,
+        status: 'published'
+      },
+      include: [{ model: db.ResourceType, as: 'type' }]
+    });
+
+    if (!resource) {
+      return res.status(404).json({ error: 'Resource not found' });
+    }
+
+    // Fetch up to 3 related resources in the same category (or latest other resources)
+    const relatedWhere = {
+      status: 'published',
+      id: { [Op.ne]: resource.id }
+    };
+    if (resource.typeId) {
+      relatedWhere.typeId = resource.typeId;
+    }
+
+    let related = await db.Resource.findAll({
+      where: relatedWhere,
+      include: [{ model: db.ResourceType, as: 'type' }],
+      order: [['publishedDate', 'DESC']],
+      limit: 3
+    });
+
+    // Fallback if not enough in same category
+    if (related.length < 3) {
+      const moreRelated = await db.Resource.findAll({
+        where: {
+          status: 'published',
+          id: { [Op.notIn]: [resource.id, ...related.map(r => r.id)] }
+        },
+        include: [{ model: db.ResourceType, as: 'type' }],
+        order: [['publishedDate', 'DESC']],
+        limit: 3 - related.length
+      });
+      related = [...related, ...moreRelated];
+    }
+
+    res.json({
+      resource,
+      related
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Get the single featured resource (public)
 router.get('/resources/featured', async (req, res) => {
   try {
@@ -776,7 +837,7 @@ router.post('/admin-users', authMiddleware, restrictTo('super_admin'), async (re
       try {
         await mailer.sendVerificationEmail(email, verificationToken);
       } catch (mailError) {
-        console.error('📧 Email Send Failed:', mailError);
+        console.error('ðŸ“§ Email Send Failed:', mailError);
         // We still created the user, but admin should be notified email failed
         return res.status(201).json({ 
           id: user.id, 
@@ -946,7 +1007,7 @@ router.get('/admin/notice-board', authMiddleware, enforceProfileComplete, restri
         assignedTo: req.user.email,
         status: { [Op.ne]: 'assigned' }
       };
-      console.log(`📋 Worker fetching jobs: User=${req.user.email}`);
+      console.log(`ðŸ“‹ Worker fetching jobs: User=${req.user.email}`);
     }
     
     const jobs = await db.NoticeBoardJob.findAll({
@@ -1029,11 +1090,11 @@ router.post('/admin/notice-board', authMiddleware, restrictTo('super_admin', 'wo
     const isDraft = req.body.isDraft === 'true' || req.body.isDraft === true || req.body.isAutoSave === 'true' || req.body.isAutoSave === true;
     if (job.clientEmail && !isDraft) {
       const { sendClientOnboardingEmail } = require('../utils/mailer');
-      sendClientOnboardingEmail(job).catch(err => console.error('❌ Admin onboarding email failed:', err));
+      sendClientOnboardingEmail(job).catch(err => console.error('âŒ Admin onboarding email failed:', err));
 
       // Trigger "In Production" email immediately if created in assigned/in_progress state
       if (job.status === 'assigned' || job.status === 'in_progress') {
-        handleClientPhaseEmail('new', job.status, job).catch(err => console.error('❌ Admin initial production email failed:', err));
+        handleClientPhaseEmail('new', job.status, job).catch(err => console.error('âŒ Admin initial production email failed:', err));
       }
     }
     
@@ -1513,7 +1574,7 @@ router.post('/admin/notice-board/:id/files', authMiddleware, restrictTo('super_a
           const clientTitle = `Assets Uploaded`;
           const clientMsg = `Our team has uploaded ${req.files.length} new file asset(s) to your project "${job.title.replace(/Request Custom Quote - /g, '')}".`;
           sendClientNotificationEmail(job.clientEmail, clientSubject, clientTitle, clientMsg, job).catch(err => {
-            console.error('❌ Failed to email client portal file alert:', err);
+            console.error('âŒ Failed to email client portal file alert:', err);
           });
         }
       }
@@ -1600,7 +1661,7 @@ router.post('/admin/notice-board/:id/comments', authMiddleware, restrictTo('supe
           const clientTitle = `New Message from Rep`;
           const clientMsg = `Our team has sent a new update regarding your project "${job.title.replace(/Request Custom Quote - /g, '')}":\n\n"${comment}"`;
           sendClientNotificationEmail(job.clientEmail, clientSubject, clientTitle, clientMsg, job).catch(err => {
-            console.error('❌ Failed to email client portal message alert:', err);
+            console.error('âŒ Failed to email client portal message alert:', err);
           });
         }
       } else {
@@ -1803,7 +1864,7 @@ router.post('/admin/notice-board/:id/send-quote', authMiddleware, restrictTo('su
       const quoteAmountStr = job.customQuoteAmount 
         ? `$${((job.customQuoteAmount - (job.specialDiscount || 0)) / 100).toFixed(2)}` 
         : 'TBD';
-      const notificationMsg = `📄 [Quote Sent] Custom quote proposal of ${quoteAmountStr} sent to client (${job.client}) for job #${job.id}.`;
+      const notificationMsg = `ðŸ“„ [Quote Sent] Custom quote proposal of ${quoteAmountStr} sent to client (${job.client}) for job #${job.id}.`;
       
       for (const admin of admins) {
         await db.NoticeBoardNotification.create({
@@ -1816,7 +1877,7 @@ router.post('/admin/notice-board/:id/send-quote', authMiddleware, restrictTo('su
         });
       }
     } catch (notifErr) {
-      console.error('❌ Failed to create quote sent in-app notifications:', notifErr);
+      console.error('âŒ Failed to create quote sent in-app notifications:', notifErr);
     }
 
     res.json({
@@ -1825,7 +1886,7 @@ router.post('/admin/notice-board/:id/send-quote', authMiddleware, restrictTo('su
       stripeCheckoutUrl: session.url
     });
   } catch (err) {
-    console.error('❌ Error sending quote:', err);
+    console.error('âŒ Error sending quote:', err);
     res.status(500).json({ error: err.message });
   }
 });

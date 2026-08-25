@@ -47,6 +47,7 @@ import PaymentSuccessPage from './pages/PaymentSuccessPage';
 import FreeWebsiteReview from './pages/FreeWebsiteReview';
 import AdminReviewDashboard from './pages/Admin/AdminReviewDashboard';
 import MyReviewResults from './pages/MyReviewResults';
+import Sitemap from './pages/Sitemap';
 
 
 function AppContent() {
@@ -80,6 +81,7 @@ function AppContent() {
               <Route path="/payment-success" element={<PaymentSuccessPage />} />
               <Route path="/free-website-review" element={<FreeWebsiteReview />} />
               <Route path="/my-review/:leadId" element={<MyReviewResults />} />
+              <Route path="/sitemap" element={<Sitemap />} />
               
               {/* CMS Hub Routes */}
               <Route path="/hub/login" element={<AdminLogin />} />

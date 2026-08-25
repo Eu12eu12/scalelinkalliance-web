@@ -518,7 +518,128 @@ const sendQuoteEmail = async (job) => {
   }
 };
 
+
+const sendPaymentInvoiceEmail = async (job, session) => {
+  if (!job.clientEmail) return;
+  const clientName = `${job.clientFirstName || ''} ${job.clientLastName || ''}`.trim() || 'Valued Client';
+  const businessName = job.client || 'Client Business';
+  const portalLink = `${process.env.FRONTEND_URL || 'https://scalelinkalliance.com'}/track-job/${job.clientToken}`;
+  const amountPaidCents = session?.amount_total || (job.depositRequired || job.customQuoteAmount || 0);
+  const amountPaidFormatted = (amountPaidCents / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+  const invoiceNumber = `INV-${job.id}-${(session?.id || Date.now().toString()).slice(-6).toUpperCase()}`;
+  const dateFormatted = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  // Calculate balance due
+  const totalQuote = job.customQuoteAmount || amountPaidCents;
+  const totalQuoteFormatted = (totalQuote / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+  const balanceDue = Math.max(0, (totalQuote - amountPaidCents) / 100);
+  const balanceDueFormatted = balanceDue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+  const subject = `Official Payment Invoice: ${job.title} [#${invoiceNumber}] - ScaleLink Alliance`;
+
+  const htmlContent = `
+    <!--[if mso]>
+    <style type="text/css">
+      body, table, td, p, div {font-family: Arial, Helvetica, sans-serif !important;}
+    </style>
+    <![endif]-->
+    <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 620px; margin: 0 auto; padding: 40px; border: 1px solid #e2e8f0; border-radius: 24px; color: #1e293b; background-color: #ffffff;">
+      <div style="text-align: center; margin-bottom: 28px;">
+        <img src="https://scalelinkalliance.com/scalelink-logo.png" alt="ScaleLink Alliance" style="height: 44px; width: auto;">
+      </div>
+      
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div style="display: inline-block; padding: 6px 14px; background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 9999px;">
+          <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #059669;">Payment Confirmed & Verified</span>
+        </div>
+      </div>
+      
+      <h1 style="font-size: 22px; font-weight: 800; color: #0f172a; margin-bottom: 6px; text-align: center;">Official Invoice & Payment Receipt</h1>
+      <p style="font-size: 14px; color: #64748b; margin-top: 0; margin-bottom: 28px; text-align: center;">Thank you for your payment. Your project has been officially cleared for production.</p>
+      
+      <!-- Invoice Metadata Card -->
+      <div style="background-color: #f8fafc; padding: 20px; border-radius: 16px; border: 1px solid #f1f5f9; margin-bottom: 24px;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr>
+            <td style="font-size: 12px; color: #64748b; padding-bottom: 8px;"><strong>Invoice No:</strong> #${invoiceNumber}</td>
+            <td style="font-size: 12px; color: #64748b; padding-bottom: 8px; text-align: right;"><strong>Date:</strong> ${dateFormatted}</td>
+          </tr>
+          <tr>
+            <td style="font-size: 12px; color: #64748b;"><strong>Billed To:</strong> ${clientName} (${businessName})</td>
+            <td style="font-size: 12px; color: #64748b; text-align: right;"><strong>Payment Method:</strong> Stripe Verified Card</td>
+          </tr>
+        </table>
+      </div>
+      
+      <!-- Itemized Table -->
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+        <thead>
+          <tr style="border-bottom: 2px solid #e2e8f0; text-align: left;">
+            <th style="padding: 10px 0; font-size: 12px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.5px;">Service / Deliverable</th>
+            <th style="padding: 10px 0; font-size: 12px; font-weight: 800; color: #475569; text-align: right; text-transform: uppercase; letter-spacing: 0.5px;">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #f1f5f9;">
+            <td style="padding: 12px 0; font-size: 14px; font-weight: 600; color: #0f172a;">
+              ${job.title || 'Solution Engagement'}
+              <div style="font-size: 12px; font-weight: 400; color: #64748b; margin-top: 4px;">${job.category || 'Professional Services'}</div>
+            </td>
+            <td style="padding: 12px 0; font-size: 14px; font-weight: 700; color: #0f172a; text-align: right;">${totalQuoteFormatted}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td style="padding: 10px 0 4px 0; font-size: 13px; color: #475569;">Total Project Value:</td>
+            <td style="padding: 10px 0 4px 0; font-size: 14px; font-weight: 700; color: #0f172a; text-align: right;">${totalQuoteFormatted}</td>
+          </tr>
+          <tr style="border-bottom: 1px dashed #cbd5e1;">
+            <td style="padding: 4px 0 10px 0; font-size: 14px; font-weight: 800; color: #059669;">Amount Paid Today:</td>
+            <td style="padding: 4px 0 10px 0; font-size: 16px; font-weight: 800; color: #059669; text-align: right;">${amountPaidFormatted}</td>
+          </tr>
+          ${balanceDue > 0 ? `
+          <tr>
+            <td style="padding: 10px 0 0 0; font-size: 13px; color: #64748b;">Remaining Balance (Due upon delivery):</td>
+            <td style="padding: 10px 0 0 0; font-size: 14px; font-weight: 700; color: #0f172a; text-align: right;">${balanceDueFormatted}</td>
+          </tr>
+          ` : ''}
+        </tfoot>
+      </table>
+      
+      <!-- Action Portal Box -->
+      <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 24px; border-radius: 20px; margin-bottom: 32px; text-align: center;">
+        <h3 style="font-size: 15px; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 8px;">Track Your Project in Real Time</h3>
+        <p style="font-size: 13px; color: #1e40af; margin: 0 0 20px 0; line-height: 1.5;">
+          You can track production milestones, download deliverables, and communicate directly with the team inside your secure client portal.
+        </p>
+        <a href="${portalLink}" style="display: inline-block; background-color: #2563eb; color: #ffffff; padding: 14px 32px; font-weight: 700; border-radius: 12px; text-decoration: none; font-size: 14px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);">View Client Portal</a>
+      </div>
+      
+      <hr style="border: 0; border-top: 1px solid #f1f5f9; margin-bottom: 24px;">
+      
+      <p style="font-size: 12px; color: #94a3b8; text-align: center; line-height: 1.5; margin: 0;">
+        Questions about this invoice? Reply directly to this email or contact support@scalelinkalliance.com<br>
+        &copy; 2026 ScaleLink Alliance. All rights reserved.
+      </p>
+    </div>
+  `;
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'ScaleLink Alliance Invoicing <support@scalelinkalliance.com>',
+      to: [job.clientEmail],
+      subject: subject,
+      html: htmlContent
+    });
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error('❌ Failed to send invoice email:', error);
+  }
+};
+
 module.exports = {
+  sendPaymentInvoiceEmail,
   sendVerificationEmail,
   sendNotificationEmail,
   sendClientNotificationEmail,

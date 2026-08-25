@@ -13,6 +13,21 @@ const ChaptersPage = () => {
   const [filteredChapters, setFilteredChapters] = useState(chapters);
   const [isLoading, setIsLoading] = useState(false);
 
+    useEffect(() => {
+      document.title = 'ScaleLink Alliance Business Networking Chapters';
+  
+      const setMeta = (name, content) => {
+        let tag = document.querySelector(`meta[name="${name}"]`);
+        if (!tag) {
+          tag = document.createElement('meta');
+          tag.setAttribute('name', name);
+          document.head.appendChild(tag);
+        }
+        tag.setAttribute('content', content);
+      };
+  }, []);
+
+
   const regions = [
     { id: 'all', name: 'All Regions' },
     { id: 'northeast', name: 'Northeast' },

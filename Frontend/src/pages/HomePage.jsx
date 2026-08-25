@@ -1,14 +1,14 @@
 // src/pages/HomePage.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FaHandshake, FaUserTie, FaChartLine, FaGlobe, FaArrowRight, 
   FaCheckCircle, FaTimesCircle, FaBuilding, FaUsers, FaStar,
   FaRocket, FaBriefcase, FaHeadset, FaCogs, FaPaintBrush,
   FaVideo, FaPenNib, FaPalette, FaCamera, FaCode, FaShoppingCart,
   FaEnvelope, FaSearch, FaDatabase, FaFileAlt, FaProjectDiagram, FaShieldAlt,
-  FaChevronLeft, FaChevronRight, FaRobot, FaAd
+  FaChevronLeft, FaChevronRight, FaRobot, FaAd, FaTimes
 } from 'react-icons/fa';
 import ComparisonTable from '../components/sections/ComparisonTable';
 import ChapterCard from '../components/sections/ChapterCard';
@@ -17,8 +17,11 @@ import FreeWebsiteReviewSection from '../components/sections/FreeWebsiteReviewSe
 const HomePage = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [selectedWhyWork, setSelectedWhyWork] = useState(0);
+  const [isWhyWorkModalOpen, setIsWhyWorkModalOpen] = useState(false);
   const videoRef = useRef(null);
   const scrollRef = useRef(null);
+  const whyWorkDetailRef = useRef(null);
 
   const images = {
     hero: 'https://cdn.phototourl.com/free/2026-07-18-bc90a5a0-13c0-4190-936d-229aca3c8447.jpg',
@@ -48,9 +51,9 @@ const HomePage = () => {
       tag: 'Top Rated'
     },
     {
-      slug: 'social-media-management',
-      name: 'Social Media Management',
-      icon: <FaUsers className="text-4xl text-white" />,
+      slug: 'photography & visual assets',
+      name: 'Photography & Visual Assets',
+      icon: <FaCamera className="text-4xl text-white" />,
       gradient: 'from-pink-500 to-rose-600',
       accent: 'bg-pink-400/20',
       tag: 'In Demand'
@@ -170,41 +173,78 @@ const HomePage = () => {
 
   const whyWorkData = [
     {
+      number: '01',
       icon: <FaBriefcase />,
-      title: "One company for multiple business needs",
-      desc: "Access design, tech, marketing, operations, and support all in a single professional partnership."
+      title: 'One Team for Multiple Business Needs',
+      shortDesc: 'Multiple capabilities, one professional relationship.',
+      details: 'Get the expertise you need without managing multiple providers. Access web development, digital marketing, design, content, automation, and business support through one professional relationship. Whether your project requires one specialized service or several services working together, ScaleLink Alliance helps coordinate the work under one roof.'
     },
     {
+      number: '02',
       icon: <FaCogs />,
-      title: "Custom solutions based on your goals",
-      desc: "Get personalized, targeted approaches that align with your unique long-term objectives."
+      title: 'Solutions Built Around You',
+      shortDesc: 'Solutions based on your business goals.',
+      details: "Your business isn't one-size-fits-all, so your solution shouldn't be either. We consider your goals, challenges, requirements, budget, and growth priorities before determining the appropriate approach. That means your project is structured around what your business is actually trying to accomplish—not simply around completing a task."
     },
     {
-      icon: <FaUsers />,
-      title: "Support for marketing, tech, content, and operations",
-      desc: "Enjoy full vertical support across all divisions, ready to scale up or down as you need."
+      number: '03',
+      icon: <FaProjectDiagram />,
+      title: 'Dedicated Project Tracking Portal',
+      shortDesc: 'See your project progress after purchasing.',
+      details: 'Once your project is established, you receive access to a dedicated project tracking portal where you can monitor project progress and production steps, view your current project status, communicate directly with your Support Representative, keep important project communication organized, and access or download completed project packages. No separate account or password is required.',
+      image: '/images/Fah.jpeg'
     },
     {
+      number: '04',
       icon: <FaHandshake />,
-      title: "Clear project quotes and milestone-based payments",
-      desc: "Transparent up-front pricing and structured schedules so you pay only as deliverables are completed."
+      title: 'Clear Pricing & Milestone-Based Payments',
+      shortDesc: 'Defined scope, pricing, and milestones.',
+      details: 'Know what you are paying for before work begins. Your project can include a defined scope, deliverables, pricing, milestones, and project requirements. This helps reduce unexpected costs and gives you a clearer understanding of what will be delivered. For applicable projects, payments can be structured around agreed milestones rather than treating the entire project as one undefined transaction.'
     },
     {
+      number: '05',
       icon: <FaRocket />,
-      title: "Business growth focused, not just task-focused",
-      desc: "We look at the bigger picture to ensure every project drives real, measurable business outcomes."
+      title: 'Focused on Business Results, Not Just Deliverables',
+      shortDesc: 'Work connected to meaningful outcomes.',
+      details: "Completing the work is only part of the objective. A website should support your business goals, marketing should help reach the right audience, and automation should make a useful business process more efficient. We look beyond individual tasks and consider outcomes such as more qualified leads, better customer experiences, improved efficiency, a stronger digital presence, better business processes, and long-term growth."
     },
     {
+      number: '06',
       icon: <FaShieldAlt />,
-      title: "Payment & Escrow Protection",
-      desc: "Funds are secure and released systematically upon successful milestone completion."
+      title: 'Payment & Escrow Protection',
+      shortDesc: 'Greater accountability around project payments.',
+      details: "For projects using ScaleLink's applicable payment protection process, project funds can be managed according to agreed project terms and milestones. This creates greater accountability between payment and project delivery and gives clients additional confidence when purchasing professional services online."
     },
     {
+      number: '07',
       icon: <FaCheckCircle />,
-      title: "Satisfaction Protection Policy",
-      desc: "Our quality guarantee ensures work meets professional standards and matches specifications."
+      title: 'Satisfaction Protection',
+      shortDesc: 'Work reviewed against the agreed scope.',
+      details: 'Projects are reviewed against the agreed scope, requirements, and specifications to help ensure the completed work meets the expected professional standards. If something within the agreed scope requires attention, our structured project process provides a clear path for addressing it before completion.'
     }
   ];
+
+  const handleWhyWorkSelect = (index) => {
+    setSelectedWhyWork(index);
+    setIsWhyWorkModalOpen(true);
+  };
+
+  useEffect(() => {
+    if (!isWhyWorkModalOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setIsWhyWorkModalOpen(false);
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isWhyWorkModalOpen]);
 
   const faqs = [
     { q: 'Do I need to join the network to use services?', a: 'No. You can access services independently.' },
@@ -220,6 +260,23 @@ const HomePage = () => {
         setVideoError(true);
       });
     }
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Business Growth, Web & Marketing Services | ScaleLink Alliance';
+
+    const setMeta = (name, content) => {
+      let tag = document.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    setMeta('description', 'Grow your business with ScaleLink Alliance through website development, SEO, lead generation, automation, digital marketing and strategic business connections.');
+    setMeta('keywords', 'business growth services, digital business services, website development services, digital marketing services, business automation services, business growth solutions, professional business network');
   }, []);
 
   return (
@@ -258,7 +315,7 @@ const HomePage = () => {
             >
               {/* Original Headline */}
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight max-w-none mx-auto">
-                Build From Scratch. Scale What Already Exists.
+                Grow Your Business With the Right Digital Services and Connections
               </h1>
 
               <p className="text-base sm:text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto px-4">
@@ -328,6 +385,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
 
       {/* 🎯 SECTION 2: CHOOSE YOUR PATH */}
       <section className="py-20 bg-white">
@@ -420,15 +478,14 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* 🌟 POPULAR SERVICES HORIZONTAL SCROLL */}
-      <section className="py-16 bg-gray-50">
+      
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             {/* Header row */}
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
-                  Popular Services
+                  Everything Your Business Needs to Grow
                 </h2>
                 <p className="text-gray-500 mt-1">Explore what other businesses are using to grow</p>
               </div>
@@ -508,7 +565,6 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-      </section>
 
       {/* 💡 SECTION 3: PROBLEM / PAIN with Image */}
       <section className="py-20 bg-white">
@@ -788,39 +844,208 @@ const HomePage = () => {
       </section>
 
       {/* 🧲 SECTION 8: WHY SCALELINK ALLIANCE */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gradient-to-b from-gray-50 via-white to-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-4">
-              Why Work With ScaleLink Alliance?
-            </h2>
-            <p className="text-gray-600 text-center max-w-2xl mx-auto mb-16 font-medium">
-              We provide a secure, structured professional network and verified business execution all under one roof.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-[0.18em]">
+                Why ScaleLink
+              </span>
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mt-4 mb-4">
+                Why Work With ScaleLink Alliance?
+              </h2>
+              <p className="text-gray-600 font-medium leading-relaxed">
+                Professional expertise, transparent pricing, project visibility, and built-in protection—from start to finish.
+              </p>
+            </div>
+
+            {/* Compact grid — click any card to open the full experience */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {whyWorkData.map((item, index) => (
-                <motion.div
-                  key={index}
+                <motion.button
+                  key={item.number}
+                  type="button"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={`bg-white rounded-2xl p-8 border border-gray-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col ${
-                    index === 6 ? 'md:col-span-2 lg:col-span-1 lg:col-start-2' : ''
-                  }`}
+                  transition={{ duration: 0.45, delay: index * 0.06 }}
+                  onClick={() => handleWhyWorkSelect(index)}
+                  aria-haspopup="dialog"
+                  className="group relative overflow-hidden text-left bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 >
-                  <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-6 shrink-0 shadow-inner">
-                    {item.icon}
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500 scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300" />
+
+                  <div className="flex items-start justify-between gap-4 mb-5">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-600 flex items-center justify-center shrink-0 ring-1 ring-blue-100 group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white transition-all duration-300">
+                      {item.icon}
+                    </div>
+                    <span className="text-xs font-black tracking-[0.2em] text-gray-300 group-hover:text-blue-500 transition-colors">
+                      {item.number}
+                    </span>
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-3 leading-snug">
+
+                  <h3 className="text-lg font-bold leading-snug text-gray-900 mb-3 group-hover:text-blue-700 transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mt-auto">
-                    {item.desc}
+
+                  <p className="text-sm leading-relaxed text-gray-600 line-clamp-2">
+                    {item.shortDesc}
                   </p>
-                </motion.div>
+
+                  <div className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-blue-600">
+                    Explore reason
+                    <FaArrowRight className="text-[10px] group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </motion.button>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Mini pop-up experience */}
+        <AnimatePresence>
+          {isWhyWorkModalOpen && (
+            <motion.div
+              className="fixed inset-0 z-[100] bg-slate-950/70 backdrop-blur-md p-4 sm:p-6 lg:p-10 flex items-center justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onMouseDown={(event) => {
+                if (event.target === event.currentTarget) setIsWhyWorkModalOpen(false);
+              }}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="why-work-modal-title"
+            >
+              <motion.div
+                ref={whyWorkDetailRef}
+                initial={{ opacity: 0, y: 28, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.98 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="relative w-full max-w-6xl max-h-[92vh] overflow-hidden rounded-[28px] bg-white shadow-[0_30px_100px_rgba(0,0,0,0.35)] border border-white/70"
+              >
+                {/* Modal chrome / hero */}
+                <div className="relative overflow-hidden bg-gradient-to-br from-[#172554] via-[#1d4ed8] to-[#4f46e5] px-6 sm:px-8 lg:px-10 py-7 sm:py-8 text-white">
+                  <div className="absolute -top-24 -right-20 w-72 h-72 rounded-full bg-white/10 blur-3xl" />
+                  <div className="absolute -bottom-24 left-1/3 w-72 h-72 rounded-full bg-cyan-300/10 blur-3xl" />
+
+                  <div className="relative flex items-start justify-between gap-6">
+                    <div className="min-w-0">
+                      <div className="inline-flex items-center gap-2 rounded-full bg-white/12 border border-white/15 backdrop-blur-sm px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-white/90 mb-4">
+                        <span className="w-2 h-2 rounded-full bg-emerald-300 shadow-[0_0_0_4px_rgba(110,231,183,0.14)]" />
+                        ScaleLink Insight
+                      </div>
+                      <div className="flex items-start gap-4">
+                        <div className="hidden sm:flex w-12 h-12 rounded-2xl bg-white/10 border border-white/15 items-center justify-center shrink-0 backdrop-blur-sm">
+                          {whyWorkData[selectedWhyWork].icon}
+                        </div>
+                        <div>
+                          <p className="text-xs font-bold tracking-[0.18em] uppercase text-white/55 mb-1">
+                            Reason {whyWorkData[selectedWhyWork].number}
+                          </p>
+                          <h3 id="why-work-modal-title" className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight pr-4">
+                            {whyWorkData[selectedWhyWork].title}
+                          </h3>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setIsWhyWorkModalOpen(false)}
+                      className="w-11 h-11 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center shrink-0 transition-colors"
+                      aria-label="Close details"
+                    >
+                      <FaTimes />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Scrollable body */}
+                <div className="max-h-[calc(92vh-170px)] overflow-y-auto overscroll-contain">
+                  <div className={`grid ${whyWorkData[selectedWhyWork].image ? 'lg:grid-cols-[0.9fr_1.1fr]' : ''}`}>
+                    <div className="p-6 sm:p-8 lg:p-10">
+                      <p className="text-gray-700 text-base sm:text-lg leading-8">
+                        {whyWorkData[selectedWhyWork].details}
+                      </p>
+
+                      {selectedWhyWork === 2 && (
+                        <div className="mt-7 space-y-3">
+                          <div className="text-xs font-bold uppercase tracking-[0.16em] text-gray-400 mb-3">
+                            What your portal gives you
+                          </div>
+                          {[
+                            'Monitor project progress and production steps',
+                            'View your current project status',
+                            'Communicate with your Support Representative',
+                            'Keep project communication organized',
+                            'Access and download completed project packages',
+                            'No separate account or password required'
+                          ].map((feature) => (
+                            <div key={feature} className="flex items-start gap-3 rounded-xl border border-gray-100 bg-gray-50 p-3.5">
+                              <span className="w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+                                <FaCheckCircle className="text-sm" />
+                              </span>
+                              <span className="text-sm text-gray-700 leading-relaxed">{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {whyWorkData[selectedWhyWork].image && (
+                      <div className="p-5 sm:p-7 lg:p-8 bg-slate-50 border-t lg:border-t-0 lg:border-l border-gray-100">
+                        <div className="rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.14)]">
+                          {/* Mock browser header */}
+                          <div className="flex items-center justify-between gap-4 px-4 py-3 bg-white border-b border-gray-100">
+                            <div className="flex items-center gap-2">
+                              <span className="w-2.5 h-2.5 rounded-full bg-red-300" />
+                              <span className="w-2.5 h-2.5 rounded-full bg-yellow-300" />
+                              <span className="w-2.5 h-2.5 rounded-full bg-green-300" />
+                            </div>
+                            <span className="text-[10px] sm:text-xs font-semibold text-gray-400 truncate">
+                              scalelinkalliance.com / project-portal
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-bold text-emerald-600">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                              Live
+                            </span>
+                          </div>
+
+                          <div className="relative bg-gray-100">
+                            <img
+                              src="public/Fah.jpeg"
+                              alt="ScaleLink Alliance dedicated project tracking portal"
+                              className="block w-full h-auto max-h-[52vh] object-contain bg-white"
+                              loading="lazy"
+                            />
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-400 mt-3 text-center">
+                          A live-style preview of the dedicated project tracking portal.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </section>
+
+      {/* CTA after Why ScaleLink Alliance */}
+      <section className="py-8 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <Link
+              to="/services"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-800 hover:scale-[1.02] transition-all"
+            >
+              Hire Services Now
+              <FaArrowRight className="text-sm" />
+            </Link>
           </div>
         </div>
       </section>

@@ -1,5 +1,5 @@
 // src/pages/HowItWorksPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { motion } from 'framer-motion';
 import { 
   FaUsers, FaHandshake, FaChartLine, FaBriefcase, FaCalendarCheck, 
@@ -13,6 +13,23 @@ import { Link } from 'react-router-dom';
 
 const HowItWorksPage = () => {
   const [activeTab, setActiveTab] = useState('network');
+
+    useEffect(() => {
+      document.title = 'How ScaleLink Alliance Works | Services, Growth & Partnerships';
+  
+      const setMeta = (name, content) => {
+        let tag = document.querySelector(`meta[name="${name}"]`);
+        if (!tag) {
+          tag = document.createElement('meta');
+          tag.setAttribute('name', name);
+          document.head.appendChild(tag);
+        }
+        tag.setAttribute('content', content);
+      };
+
+      setMeta('description', 'Get in touch with ScaleLink Alliance for business services and partnerships.');
+  }, []);
+
 
   // Images from the provided URLs
   const images = {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
@@ -43,6 +43,21 @@ const MembershipPage = () => {
       description: 'Grow into chapter leadership roles and expand your influence.'
     }
   ];
+
+    useEffect(() => {
+      document.title = 'ScaleLink Alliance Membership | Business Connections & Referrals';
+  
+      const setMeta = (name, content) => {
+        let tag = document.querySelector(`meta[name="${name}"]`);
+        if (!tag) {
+          tag = document.createElement('meta');
+          tag.setAttribute('name', name);
+          document.head.appendChild(tag);
+        }
+        tag.setAttribute('content', content);
+      };
+  }, []);
+
 
   const roleComparison = [
     {

@@ -1,5 +1,5 @@
 // src/pages/BuildFromScratch.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -100,6 +100,23 @@ const whyBuild = [
 ];
 
 const BuildFromScratch = () => {
+  useEffect(() => {
+    document.title = 'Build a Website From Scratch | ScaleLink Alliance';
+
+    const setMeta = (name, content) => {
+      let tag = document.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    setMeta('description', 'Build a custom website, web app, ecommerce store, or brand identity from scratch with ScaleLink Alliance.');
+    setMeta('keywords', 'website development from scratch, custom business website, web app development, ecommerce website design, brand identity design, custom website build, business website build');
+  }, []);
+
   return (
     <div className="min-h-screen">
       {/* Hero */}
@@ -245,15 +262,15 @@ const BuildFromScratch = () => {
               </div>
               <div className="flex-grow">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Save up to 20% when you bundle services
+                  Save 10% to 20% when you bundle services
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  Combining Website Development + Brand Identity + Copywriting? Or E-Commerce + Graphic Design + Photography? Bundling services with ScaleLink Alliance gives you better results at a lower cost — with one team managing everything.
+                  Combining Website Development + Brand Identity + Copywriting? Select 2 to 5 services for an automatic 10% discount, or bundle 6+ services to save 20% on your entire project.
                 </p>
               </div>
               <Link
-                to="/request-service?service=custom-quote"
-                className="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors text-sm whitespace-nowrap"
+                to="/request-service?bundle=true"
+                className="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors text-sm whitespace-nowrap shadow-md hover:shadow-lg"
               >
                 Request a Bundle Quote <FaArrowRight size={12} />
               </Link>

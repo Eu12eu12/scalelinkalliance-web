@@ -1,5 +1,5 @@
 // Frontend/src/pages/FreeWebsiteReview.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
@@ -22,6 +22,23 @@ const FreeWebsiteReview = () => {
     message: '',
     agreeToContact: false
   });
+
+    useEffect(() => {
+      document.title = 'Free Business Website Review | ScaleLink Alliance';
+  
+      const setMeta = (name, content) => {
+        let tag = document.querySelector(`meta[name="${name}"]`);
+        if (!tag) {
+          tag = document.createElement('meta');
+          tag.setAttribute('name', name);
+          document.head.appendChild(tag);
+        }
+        tag.setAttribute('content', content);
+      };
+
+      setMeta('description', 'Get in touch with ScaleLink Alliance for business services and partnerships.');
+  }, []);
+
   
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);

@@ -42,32 +42,39 @@ const getServiceSlug = (serviceName) => {
     'Copywriting & Content Creation': 'copywriting',
     'Brand Identity & Logo Design': 'brand-identity',
     'Photography & Visual Assets': 'photography',
-    // Tech & Development
+
+    // Websites & Development
     'Website Development': 'website-development',
     'Landing Pages & Sales Funnels': 'landing-pages',
     'E-Commerce Development': 'ecommerce-development',
     'Web Applications & SaaS Development': 'web-applications',
-    'API Integration & Automation': 'api-integration',
     'Website Maintenance & Updates': 'website-maintenance',
+    'Online Booking Systems': 'online-booking-systems',
+
     // Marketing & Growth
     'Social Media Management': 'social-media-management',
     'SEO & Search Marketing': 'seo-marketing',
     'Paid Advertising Management': 'paid-advertising',
     'Email Marketing Campaigns': 'email-marketing',
     'Lead Generation Services': 'lead-generation',
+    'Reputation & Review Management': 'reputation-review-management',
+
+    // Automation & Technology
     'CRM & Marketing Automation': 'crm-automation',
-    // Operations & Support
-    'Virtual Assistant Services': 'virtual-assistant',
+    'API Integration & Automation': 'api-integration',
+    'AI Automation': 'ai-automation',
+    'Business Process Automation': 'business-process-automation',
     'Data Analytics & Reporting': 'data-analytics',
-    'Process Documentation & SOP Development': 'process-documentation',
+
+    // Operations & Support
+    'Business Consulting & Growth Strategy': 'business-consulting-growth-strategy',
+    'Virtual Assistant Services': 'virtual-assistant',
     'Project Management Support': 'project-management',
+    'Process Documentation & SOP Development': 'process-documentation',
     'Data Entry & Processing': 'data-entry',
-    // AI
-    'AI Automation & Smart Business Systems': 'ai-automation',
 
     // Custom Quotes
-    'Request Custom Quote - General': 'custom-quote',
-    'Request Custom Quote - AI': 'ai-custom-quote'
+    'Request Custom Quote': 'custom-quote'
   };
   return slugMap[serviceName] || serviceName.toLowerCase().replace(/[&\s]/g, '-').replace(/--+/g, '-');
 };
@@ -80,32 +87,40 @@ const SLUG_TO_SERVICE_NAME = {
   'copywriting': 'Copywriting & Content Creation',
   'brand-identity': 'Brand Identity & Logo Design',
   'photography': 'Photography & Visual Assets',
-  // Tech & Development
+
+  // Websites & Development
   'website-development': 'Website Development',
   'landing-pages': 'Landing Pages & Sales Funnels',
   'ecommerce-development': 'E-Commerce Development',
   'web-applications': 'Web Applications & SaaS Development',
-  'api-integration': 'API Integration & Automation',
   'website-maintenance': 'Website Maintenance & Updates',
+  'online-booking-systems': 'Online Booking Systems',
+
   // Marketing & Growth
   'social-media-management': 'Social Media Management',
   'seo-marketing': 'SEO & Search Marketing',
   'paid-advertising': 'Paid Advertising Management',
   'email-marketing': 'Email Marketing Campaigns',
   'lead-generation': 'Lead Generation Services',
-  'crm-automation': 'CRM & Marketing Automation',
-  // Operations & Support
-  'virtual-assistant': 'Virtual Assistant Services',
-  'data-analytics': 'Data Analytics & Reporting',
-  'process-documentation': 'Process Documentation & SOP Development',
-  'project-management': 'Project Management Support',
-  'data-entry': 'Data Entry & Processing',
-  // AI
-  'ai-automation': 'AI Automation & Smart Business Systems',
+  'reputation-review-management': 'Reputation & Review Management',
 
-  // Custom Quotes
-  'custom-quote': 'Request Custom Quote - General',
-  'ai-custom-quote': 'Request Custom Quote - AI'
+  // Automation & Technology
+  'crm-automation': 'CRM & Marketing Automation',
+  'api-integration': 'API Integration & Automation',
+  'ai-automation': 'AI Automation',
+  'ai-custom-quote': 'AI Automation',
+  'business-process-automation': 'Business Process Automation',
+  'data-analytics': 'Data Analytics & Reporting',
+
+  // Operations & Support
+  'business-consulting-growth-strategy': 'Business Consulting & Growth Strategy',
+  'virtual-assistant': 'Virtual Assistant Services',
+  'project-management': 'Project Management Support',
+  'process-documentation': 'Process Documentation & SOP Development',
+  'data-entry': 'Data Entry & Processing',
+
+  // General custom quote only
+  'custom-quote': 'Request Custom Quote'
 };
 
 // ─── ALL SERVICES WITH PACKAGES (from ServiceDetailPage) ────────────────────
@@ -113,30 +128,30 @@ const SERVICES_WITH_PACKAGES = {
   // ─── CREATIVE & CONTENT ────────────────────────────────────────────────────
   'Graphic Design': {
     packages: {
-      starter: { name: 'Starter Package', price: 3500, description: 'Ideal for small design requests or single marketing assets.', includes: ['1 graphic design asset', 'basic design layout', 'web-ready file format', '1 revision round'] },
-      growth: { name: 'Standard Package', price: 17500, description: 'Ideal for businesses producing multiple marketing materials.', includes: ['up to 5 graphic design assets', 'design variations or layouts', 'web-ready file formats', '2 revision rounds'] },
-      premium: { name: 'Premium Package', price: 49900, description: 'Ideal for businesses running active marketing campaigns.', includes: ['up to 10 graphic design assets', 'consistent brand styling', 'multiple design formats', 'priority revisions and updates'] }
+      starter: { name: 'Starter Package', price: 4900, description: 'Ideal for a single marketing asset or quick design need.', includes: ['1 marketing asset', 'basic custom design', '1 revision round', 'final web-ready file'] },
+      growth: { name: 'Standard Package', price: 19900, description: 'Ideal for businesses needing a coordinated set of marketing assets.', includes: ['up to 5 coordinated assets', 'consistent visual direction', 'basic image sourcing', '2 revision rounds'] },
+      premium: { name: 'Premium Package', price: 49900, description: 'Ideal for businesses running full marketing campaigns.', includes: ['up to 12 coordinated marketing assets', 'creative direction & brand-consistent system', 'multiple campaign formats', 'up to 3 revision rounds', 'print-ready files when required'] }
     }
   },
   'Video Editing & Motion Graphics': {
     packages: {
-      starter: { name: 'Starter Package', price: 7500, description: 'Ideal for small projects or social media videos.', includes: ['editing of 1 video up to 60 seconds', 'basic cuts and transitions', 'background music', 'simple motion graphics or text overlays', 'export optimized for social media'] },
-      growth: { name: 'Standard Package', price: 22500, description: 'Ideal for businesses creating regular marketing content.', includes: ['editing of 3 videos up to 90 seconds each', 'branded intro/outro', 'motion graphics elements', 'text animations and transitions', 'color correction', 'export for social media and website use'] },
-      premium: { name: 'Premium Package', price: 59900, description: 'Ideal for promotional campaigns or professional brand videos.', includes: ['editing of 5 videos up to 2 minutes each', 'advanced motion graphics', 'animated titles and brand elements', 'color grading', 'sound optimization', 'multiple export formats for marketing platforms'] }
+      starter: { name: 'Starter Package', price: 9900, description: 'Ideal for a single short video up to 60 seconds.', includes: ['1 video up to 60 seconds', 'basic cuts and transitions', 'text/captions', 'basic audio balancing', '1 revision round'] },
+      growth: { name: 'Standard Package', price: 29900, description: 'Ideal for a single longer video with professional polish.', includes: ['1 video up to 5 minutes', 'professional editing with B-roll placement', 'titles, text graphics & basic motion graphics', 'audio cleanup and color correction', 'up to 2 aspect ratios', '2 revision rounds'] },
+      premium: { name: 'Premium Package', price: 69900, description: 'Ideal for a long-form video or a small batch of short-form videos.', includes: ['1 long-form video up to 12 minutes, or up to 5 short-form videos', 'advanced editing & motion graphics', 'audio enhancement and color correction', 'branded graphics and captions', 'multiple export formats', 'up to 3 revision rounds'] }
     }
   },
   'Copywriting & Content Creation': {
     packages: {
       starter: { name: 'Starter Package', price: 100, description: 'Ideal for small content needs or single-page messaging.', includes: ['1 content piece up to 800 words', 'basic keyword research (if needed)', 'formatting for web readability', '1 revision round'] },
-      growth: { name: 'Standard Package', price: 22500, description: 'Ideal for businesses producing regular content.', includes: ['3 content pieces up to 1,000 words each', 'content structure and messaging optimization', 'SEO-friendly formatting', '2 revision rounds'] },
-      premium: { name: 'Premium Package', price: 59900, description: 'Ideal for businesses running content marketing campaigns.', includes: ['6 content pieces up to 1,200 words each', 'deeper keyword research and SEO optimization', 'brand voice alignment', 'content strategy recommendations', '2-3 revision rounds'] }
+      growth: { name: 'Standard Package', price: 29900, description: 'Ideal for businesses needing multiple content pieces with keyword awareness.', includes: ['up to 2,500 total words across up to 3 pieces', 'keyword consideration & headline development', 'CTA development', 'basic competitor/content review', '2 revision rounds'] },
+      premium: { name: 'Premium Package', price: 69900, description: 'Ideal for businesses running content marketing campaigns.', includes: ['up to 6,000 total words across up to 6 pieces', 'content strategy & SEO-oriented structure', 'conversion-focused CTA development', 'brand voice consistency', 'up to 3 revision rounds'] }
     }
   },
   'Brand Identity & Logo Design': {
     packages: {
       starter: { name: 'Starter Package', price: 100, description: 'Ideal for small businesses launching a brand or refreshing their logo.', includes: ['1 custom logo concept', 'basic color palette selection', '1 revision round', 'logo files delivered in PNG and SVG formats'] },
-      growth: { name: 'Standard Package', price: 49900, description: 'Ideal for businesses that want a more developed brand identity.', includes: ['3 logo design concepts', '2 revision rounds', 'brand color palette', 'typography selection', 'logo files in multiple formats (PNG, SVG, PDF)'] },
-      premium: { name: 'Premium Package', price: 99900, description: 'Ideal for companies building a full professional brand identity.', includes: ['3-4 logo concepts', 'multiple revision rounds', 'brand color palette and typography', 'brand style guide', 'logo usage guidelines', 'complete brand identity package'] }
+      growth: { name: 'Standard Package', price: 59900, description: 'Ideal for businesses that want a more developed brand identity.', includes: ['brand discovery + 3 initial logo concepts', 'primary logo, secondary variation & icon/mark', 'color palette & typography system', 'social profile assets & basic brand guidelines', '3 revision rounds'] },
+      premium: { name: 'Premium Package', price: 129900, description: 'Ideal for companies building a full professional brand identity.', includes: ['brand strategy session & competitive visual review', '3 refined creative directions', 'primary + secondary logos, brand mark, color & typography systems', 'basic business card/letterhead templates', 'comprehensive brand guideline document', 'up to 3 revision rounds'] }
     }
   },
   'Photography & Visual Assets': {
@@ -150,9 +165,9 @@ const SERVICES_WITH_PACKAGES = {
   // ─── TECH & DEVELOPMENT ─────────────────────────────────────────────────────
   'Website Development': {
     packages: {
-      starter: { name: 'Starter Package', price: 69900, description: 'Ideal for small businesses launching their first website.', includes: ['up to 3 website pages', 'responsive mobile-friendly design', 'contact form setup', 'basic SEO page structure', 'website deployment and launch support'] },
-      growth: { name: 'Standard Package', price: 149900, description: 'Ideal for businesses expanding their online presence.', includes: ['up to 7 website pages', 'responsive design', 'contact forms and lead capture', 'basic SEO optimization', 'integration of marketing tools'] },
-      premium: { name: 'Premium Package', price: 349900, description: 'Ideal for businesses needing a full professional website.', includes: ['up to 12 website pages', 'responsive and modern layout', 'advanced forms and integrations', 'blog or content management setup', 'SEO-ready structure', 'launch and testing support'] }
+      starter: { name: 'Starter Package', price: 79900, description: 'Ideal for new businesses needing a professional online presence.', includes: ['up to 5 core website pages', 'custom homepage design', 'mobile & tablet responsive design', 'contact form + click-to-call', 'basic on-page SEO & Google Analytics setup', '2 revision rounds'] },
+      growth: { name: 'Standard Package', price: 179900, description: 'Ideal for businesses that want their website to actively support lead generation.', includes: ['up to 10 pages with more custom layouts', 'blog or resource section', 'up to 2 lead-generation forms + thank-you page', 'CRM or email platform connection', 'enhanced on-page SEO & sitemap setup', '3 revision rounds + CMS training'] },
+      premium: { name: 'Premium Package', price: 399900, description: 'Ideal for growing businesses requiring a larger, conversion-focused presence.', includes: ['up to 20 pages with custom UX/UI direction', 'conversion-focused page architecture', 'up to 5 lead-generation forms', 'advanced CRM/form integrations & marketing automation connection', 'enhanced technical SEO & staging environment', 'team training + post-launch review'] }
     }
   },
   'Landing Pages & Sales Funnels': {
@@ -164,34 +179,102 @@ const SERVICES_WITH_PACKAGES = {
   },
   'E-Commerce Development': {
     packages: {
-      starter: { name: 'Starter Package', price: 99900, description: 'Ideal for small businesses launching their first online store.', includes: ['store setup with up to 10 products', 'product page design', 'payment gateway integration', 'basic shipping setup', 'mobile-responsive layout'] },
-      growth: { name: 'Standard Package', price: 249900, description: 'Ideal for businesses expanding their product catalog.', includes: ['store setup with up to 50 products', 'product categories and navigation', 'payment and shipping integrations', 'customer account setup', 'basic SEO product structure'] },
-      premium: { name: 'Premium Package', price: 499900, description: 'Ideal for businesses building a fully developed online store.', includes: ['store setup with up to 100 products', 'advanced store design', 'multiple payment gateways', 'shipping automation', 'product filtering and search features', 'performance optimization'] }
+      starter: { name: 'Starter Package', price: 119900, description: 'Ideal for new or smaller online stores.', includes: ['store setup with up to 10 products', 'up to 5 informational pages', 'one payment gateway + basic shipping/tax setup', 'order notification setup & basic SEO', 'store management training'] },
+      growth: { name: 'Standard Package', price: 299900, description: 'Ideal for established businesses expanding online sales.', includes: ['store setup with up to 50 products', 'advanced product variations & coupon/discount functionality', 'email marketing integration', 'customer account & review functionality', 'up to 2 payment gateways'] },
+      premium: { name: 'Premium Package', price: 599900, description: 'Ideal for businesses requiring a more advanced commerce environment.', includes: ['store setup with up to 150 initial products', 'custom storefront components & enhanced checkout', 'CRM integration & advanced email automation', 'subscription functionality where supported', 'data migration assistance & team training'] }
     }
   },
   'Web Applications & SaaS Development': {
     packages: {
-      starter: { name: 'Starter Package', price: 499900, description: 'Ideal for businesses needing a simple custom web tool or internal system.', includes: ['1 custom web application feature or module', 'basic user interface design', 'database setup', 'user login and access control', 'basic functionality testing'] },
-      growth: { name: 'Standard Package', price: 1499900, description: 'Ideal for businesses building more advanced digital systems.', includes: ['multi-feature web application (up to 3 modules)', 'user account system', 'database integration', 'workflow automation features', 'responsive interface design'] },
-      premium: { name: 'Premium Package', price: 2999900, description: 'Ideal for businesses launching a SaaS platform or full digital product.', includes: ['complete SaaS application structure', 'multiple user roles and permissions', 'scalable database architecture', 'dashboard and reporting features', 'API integrations and automation', 'performance optimization and testing'] }
+      starter: { name: 'Starter MVP', price: 499900, description: 'Ideal for validating a focused software concept.', includes: ['requirements workshop & basic product architecture', 'user authentication, 1 primary user role', 'up to 5 core application screens', 'database setup & basic admin functionality', '1 third-party integration', 'testing & deployment assistance'] },
+      growth: { name: 'Growth Application', price: 1199900, description: 'Ideal for businesses building more advanced digital systems.', includes: ['up to 15 core screens, up to 2 user roles', 'advanced database structure & admin dashboard', 'up to 3 integrations', 'notification & user-account management functionality', 'QA testing, deployment, documentation & team handoff'] },
+      premium: { name: 'Premium SaaS / Custom Platform', price: 2499900, description: 'Ideal for businesses launching a SaaS platform or full digital product.', includes: ['complex product architecture, multiple user roles', 'subscription/billing systems & custom dashboards', 'API integrations & automated workflows', 'role-based permissions & reporting', 'staging/production environments, advanced QA & post-launch support'] }
     }
   },
   'API Integration & Automation': {
     packages: {
       starter: { name: 'Starter Package', price: 100, description: 'Ideal for businesses connecting two systems for the first time.', includes: ['1 system integration', 'basic data synchronization', 'simple workflow automation', 'testing and configuration'] },
-      growth: { name: 'Standard Package', price: 149900, description: 'Ideal for businesses connecting multiple tools.', includes: ['up to 3 system integrations', 'workflow automation setup', 'data synchronization between platforms', 'automation testing and optimization'] },
-      premium: { name: 'Premium Package', price: 399900, description: 'Ideal for businesses implementing full automation systems.', includes: ['multiple system integrations', 'advanced workflow automation', 'API configuration and data mapping', 'automation testing and optimization', 'documentation of automated workflows'] }
+      growth: { name: 'Standard Package', price: 129900, description: 'Ideal for businesses connecting multiple tools.', includes: ['integration of up to 2 systems, up to 6 endpoints/actions', 'advanced data mapping & workflow logic', 'error logging & testing environment', 'documentation & deployment assistance'] },
+      premium: { name: 'Premium Package', price: 349900, description: 'Ideal for businesses implementing full automation systems.', includes: ['up to 3 interconnected systems, up to 15 endpoints/actions', 'complex workflow logic & data transformations', 'authentication/security configuration', 'error handling, testing & deployment support', 'technical documentation & post-launch review'] }
     }
   },
   'Website Maintenance & Updates': {
     packages: {
-      starter: { name: 'Starter Package', price: 14900, description: 'Ideal for small websites needing occasional updates.', includes: ['up to 2 hours of maintenance per month', 'basic security monitoring', 'minor content updates', 'plugin and system updates', 'website performance check'] },
-      growth: { name: 'Standard Package', price: 34900, description: 'Ideal for businesses regularly updating their website.', includes: ['up to 5 hours of maintenance per month', 'security monitoring and updates', 'content updates and small design changes', 'plugin and system updates', 'website performance optimization'] },
-      premium: { name: 'Premium Package', price: 89900, description: 'Ideal for businesses that rely heavily on their website.', includes: ['up to 10 hours of maintenance per month', 'advanced security monitoring', 'priority support for website issues', 'regular content updates', 'performance optimization and technical adjustments'] }
+      starter: { name: 'Starter Care', price: 14900, description: 'Ideal for small websites needing occasional updates.', includes: ['up to 2 hours of website work per month', 'core/plugin updates & basic backup monitoring', 'basic uptime checks & minor content edits', 'monthly maintenance summary'] },
+      growth: { name: 'Growth Care', price: 34900, description: 'Ideal for businesses regularly updating their website.', includes: ['up to 5 support hours per month', 'backup & uptime monitoring', 'content changes & minor design adjustments', 'form/function testing & priority support', 'monthly maintenance report'] },
+      premium: { name: 'Premium Care', price: 79900, description: 'Ideal for businesses that rely heavily on their website.', includes: ['up to 10 support hours per month', 'priority issue handling & regular site health review', 'conversion-form testing & analytics review', 'minor page creation & minor development work', 'monthly strategy recommendations'] }
     }
   },
 
   // ─── MARKETING & GROWTH ────────────────────────────────────────────────────
+  'SEO & Search Marketing': {
+    packages: {
+      starter: { name: 'Starter Package', price: 49900, description: 'Ideal for small businesses beginning their SEO strategy.', includes: ['initial SEO audit & keyword research (up to 10 keywords)', 'optimization of up to 5 priority pages', 'meta titles, headings & internal-link improvements', 'GSC/GA & XML sitemap review', 'monthly ranking review & report'] },
+      growth: { name: 'Standard Package', price: 99900, description: 'Ideal for businesses actively working to improve search rankings.', includes: ['up to 20 tracked keywords, optimization across up to 15 pages', 'competitor SEO review & content-gap analysis', '2 SEO content pieces/optimizations per month', 'local SEO optimization where applicable', 'monthly strategy review'] },
+      premium: { name: 'Premium Package', price: 199900, description: 'Ideal for businesses seeking aggressive search growth.', includes: ['up to 40 tracked keywords, up to 30 priority pages', 'up to 4 SEO content pieces/optimizations per month', 'advanced competitor research & schema strategy', 'link opportunity research & outreach strategy', 'monthly strategy call & executive reporting'] }
+    }
+  },
+  'Paid Advertising Management': {
+    packages: {
+      starter: { name: 'Starter Package', price: 39900, description: 'Ideal for smaller businesses testing paid acquisition.', includes: ['1 advertising platform, up to 1 active campaign', 'up to 3 ad groups/sets, up to 6 ad variations', 'conversion tracking setup & budget monitoring', 'monthly report & one campaign review'] },
+      growth: { name: 'Standard Package', price: 79900, description: 'Ideal for businesses running multiple campaigns.', includes: ['up to 2 active campaigns, up to 8 ad groups/sets', 'up to 12 active ad variations', 'retargeting campaign setup & landing-page recommendations', 'weekly optimization & monthly strategy call'] },
+      premium: { name: 'Premium Package', price: 149900, description: 'Ideal for larger or more complex advertising programs.', includes: ['multi-campaign management, up to 2 platforms', 'advanced audience segmentation & retargeting', 'creative testing & funnel performance analysis', 'weekly performance monitoring', 'monthly strategy call & executive reporting'] }
+    }
+  },
+  'Email Marketing Campaigns': {
+    packages: {
+      starter: { name: 'Starter Package', price: 100, description: 'Ideal for businesses launching a simple email campaign.', includes: ['1 email campaign', 'email template design', 'content formatting', 'mailing list integration', 'campaign scheduling'] },
+      growth: { name: 'Standard Package', price: 59900, description: 'Ideal for businesses running regular email communication.', includes: ['up to 4 emails with campaign strategy', 'subject-line development & basic copywriting', 'audience segmentation & UTM/tracking setup', 'basic automation & performance report', '2 revision rounds'] },
+      premium: { name: 'Premium Package', price: 119900, description: 'Ideal for businesses running structured email marketing programs.', includes: ['up to 8 emails with full campaign strategy', 'copywriting, design & segmentation strategy', 'automated email flow & lead tagging', 'basic A/B testing & conversion tracking', 'performance analysis & optimization recommendations'] }
+    }
+  },
+  'Lead Generation Services': {
+    packages: {
+      starter: { name: 'Starter Package', price: 29900, description: 'Ideal for businesses building their initial lead pipeline.', includes: ['ideal customer profile definition & basic market research', 'up to 150 prospect records per month', 'basic lead-list organization & contact-data cleanup', 'one outreach sequence framework', 'monthly results summary'] },
+      growth: { name: 'Standard Package', price: 69900, description: 'Ideal for businesses scaling their sales efforts.', includes: ['up to 500 prospect records per month', 'multiple target segments & enhanced prospect research', 'up to 2 outreach sequences & basic personalization framework', 'CRM import assistance & lead tagging', 'monthly performance analysis'] },
+      premium: { name: 'Premium Package', price: 149900, description: 'Ideal for businesses needing ongoing lead flow.', includes: ['up to 1,000 prospect records per month', 'multiple customer profiles & advanced account research', 'multi-step outreach strategy & CRM pipeline setup', 'lead qualification framework & follow-up automation', 'monthly strategy session'] }
+    }
+  },
+  'CRM & Marketing Automation': {
+    packages: {
+      starter: { name: 'Starter Package', price: 49900, description: 'Ideal for businesses implementing their first CRM.', includes: ['1 CRM pipeline, basic CRM configuration', 'up to 2 forms, up to 3 automated workflows', 'contact tagging & basic lead notifications', '1 third-party integration', 'one training session'] },
+      growth: { name: 'Standard Package', price: 129900, description: 'Ideal for businesses scaling their automation.', includes: ['up to 2 CRM pipelines, up to 5 automated workflows', 'up to 3 integrations, lead routing', 'email follow-up & task automation', 'contact segmentation & pipeline stages', 'testing, documentation & team training'] },
+      premium: { name: 'Premium Package', price: 299900, description: 'Ideal for comprehensive marketing automation.', includes: ['up to 4 pipelines, up to 12 automated workflows', 'up to 6 integrations, advanced lead routing', 'multi-step customer journeys, sales & marketing automation', 'customer tagging/scoring rules & reporting dashboard', 'up to 2 hours team training + post-launch review'] }
+    }
+  },
+  // ─── OPERATIONS & SUPPORT ──────────────────────────────────────────────────
+  'Virtual Assistant Services': {
+    packages: {
+      starter: { name: 'Starter Package', price: 19900, description: 'Ideal for businesses needing light administrative support.', includes: ['up to 10 hours of virtual assistant support per month', 'basic administrative tasks & calendar support', 'data organization & basic research', 'document formatting & routine email assistance'] },
+      growth: { name: 'Standard Package', price: 49900, description: 'Ideal for businesses needing regular operational assistance.', includes: ['up to 25 hours of virtual assistant support per month', 'everything in Starter, plus CRM updates', 'customer follow-up support & content scheduling', 'reporting assistance & recurring admin workflows'] },
+      premium: { name: 'Premium Package', price: 89900, description: 'Ideal for businesses requiring consistent operational support.', includes: ['up to 50 hours of virtual assistant support per month', 'advanced administrative support & CRM management', 'customer-service support & research', 'reporting, content administration & project coordination'] }
+    }
+  },
+  'Data Analytics & Reporting': {
+    packages: {
+      starter: { name: 'Starter Package', price: 24900, description: 'Ideal for businesses needing basic performance insights.', includes: ['up to 1 primary data source', 'data cleanup for the agreed dataset', 'up to 8 key metrics', 'one basic dashboard/report & key observations'] },
+      growth: { name: 'Standard Package', price: 69900, description: 'Ideal for businesses tracking multiple performance areas.', includes: ['up to 3 regular data sources', 'monthly dashboard updates & KPI tracking', 'trend analysis & data-quality review', 'one monthly review meeting'] },
+      premium: { name: 'Premium Package', price: 149900, description: 'Ideal for businesses seeking ongoing performance monitoring.', includes: ['up to 5 regular data sources', 'advanced dashboards & department/channel segmentation', 'KPI framework, trend & conversion analysis', 'monthly executive report & strategy meeting'] }
+    }
+  },
+  'Data Entry & Processing': {
+    packages: {
+      starter: { name: 'Starter Package', price: 9900, description: 'Ideal for small administrative data tasks.', includes: ['up to 500 straightforward records', 'data entry & basic formatting', 'basic duplicate review & quality check', 'one agreed data source/output format'] },
+      growth: { name: 'Standard Package', price: 29900, description: 'Ideal for businesses managing larger datasets.', includes: ['up to 2,000 straightforward records', 'data entry, cleanup & formatting', 'duplicate detection & categorization', 'quality review, up to 2 output formats'] },
+      premium: { name: 'Premium Package', price: 69900, description: 'Ideal for businesses needing ongoing data processing.', includes: ['up to 5,000 records per month, recurring processing', 'data cleanup & categorization', 'formatting & quality-control checks', 'regular status reporting'] }
+    }
+  },
+
+  // ─── WEBSITES & DEVELOPMENT ────────────────────────────────────────────────
+  'Online Booking Systems': {
+    packages: {
+      starter: { name: 'Starter Package', price: 39900, description: 'Ideal for businesses needing a simple booking system.', includes: ['online booking system setup', 'calendar integration', 'email notifications', 'mobile-friendly booking form', 'basic customization'] },
+      growth: { name: 'Standard Package', price: 99900, description: 'Ideal for businesses with multiple services or staff.', includes: ['advanced booking system', 'multiple service and slot configurations', 'automated reminders', 'payment integration', 'customizable booking form'] },
+      premium: { name: 'Premium Package', price: 199900, description: 'Ideal for businesses needing full booking automation.', includes: ['full booking automation system', 'multi-location support', 'advanced notifications', 'CRM integration', 'reporting and analytics'] }
+    }
+  },
+
+  // ─── MARKETING & GROWTH ─────────────────────────────────────────────────────
   'Social Media Management': {
     packages: {
       starter: { name: 'Starter Package', price: 29900, description: 'Ideal for small businesses maintaining a basic social media presence.', includes: ['8 social media posts per month', 'content scheduling', 'basic caption writing', 'engagement monitoring', 'performance overview'] },
@@ -199,62 +282,29 @@ const SERVICES_WITH_PACKAGES = {
       premium: { name: 'Premium Package', price: 149900, description: 'Ideal for businesses using social media as a primary marketing channel.', includes: ['30 social media posts per month', 'custom graphics and visuals', 'caption writing and strategy', 'engagement management', 'detailed performance reporting'] }
     }
   },
-  'SEO & Search Marketing': {
+  'Reputation & Review Management': {
     packages: {
-      starter: { name: 'Starter Package', price: 39900, description: 'Ideal for small businesses beginning their SEO strategy.', includes: ['SEO audit of website', 'keyword research', 'optimization of up to 5 website pages', 'meta titles and descriptions', 'basic search performance tracking'] },
-      growth: { name: 'Standard Package', price: 89900, description: 'Ideal for businesses actively working to improve search rankings.', includes: ['keyword research and strategy', 'optimization of up to 15 website pages', 'content optimization recommendations', 'technical SEO improvements', 'monthly performance report'] },
-      premium: { name: 'Premium Package', price: 199900, description: 'Ideal for businesses seeking aggressive search growth.', includes: ['advanced keyword strategy', 'optimization of 30+ website pages', 'content strategy and recommendations', 'technical SEO improvements', 'backlink development guidance', 'monthly performance reporting and insights'] }
+      starter: { name: 'Starter Package', price: 19900, description: 'Ideal for businesses starting to collect reviews.', includes: ['review collection system setup', 'review monitoring', 'basic response templates', 'monthly review summary report'] },
+      growth: { name: 'Standard Package', price: 49900, description: 'Ideal for businesses actively managing reviews.', includes: ['advanced review collection', 'multi-platform monitoring', 'custom response management', 'quarterly review analysis', 'reputation improvement recommendations'] },
+      premium: { name: 'Premium Package', price: 99900, description: 'Ideal for businesses prioritizing reputation management.', includes: ['full review management system', 'automated review requests', 'crisis response support', 'monthly detailed reporting', 'strategic reputation standard plan'] }
     }
   },
-  'Paid Advertising Management': {
+
+  // ─── AUTOMATION & TECHNOLOGY ───────────────────────────────────────────────
+  'Business Process Automation': {
     packages: {
-      starter: { name: 'Starter Package', price: 39900, description: 'Ideal for businesses launching their first ad campaigns.', includes: ['1 ad campaign', 'audience targeting', 'ad creative guidance', 'monthly report', 'basic optimization'] },
-      growth: { name: 'Standard Package', price: 89900, description: 'Ideal for businesses running multiple campaigns.', includes: ['3 campaigns', 'advanced targeting', 'A/B testing', 'bi-weekly reports', 'regular optimization'] },
-      premium: { name: 'Premium Package', price: 199900, description: 'Ideal for businesses requiring full ad management.', includes: ['full ad management', '10 campaigns', 'multi-platform campaigns', 'custom audiences', 'weekly reports', 'dedicated specialist'] }
-    }
-  },
-  'Email Marketing Campaigns': {
-    packages: {
-      starter: { name: 'Starter Package', price: 100, description: 'Ideal for businesses launching a simple email campaign.', includes: ['1 email campaign', 'email template design', 'content formatting', 'mailing list integration', 'campaign scheduling'] },
-      growth: { name: 'Standard Package', price: 49900, description: 'Ideal for businesses running regular email communication.', includes: ['3 email campaigns', 'email template customization', 'campaign scheduling and delivery', 'basic audience segmentation', 'performance tracking summary'] },
-      premium: { name: 'Premium Package', price: 99900, description: 'Ideal for businesses running structured email marketing programs.', includes: ['6 email campaigns', 'custom email templates', 'audience segmentation', 'performance analysis and reporting', 'campaign strategy recommendations'] }
-    }
-  },
-  'Lead Generation Services': {
-    packages: {
-      starter: { name: 'Starter Package', price: 19900, description: 'Ideal for businesses building their initial lead pipeline.', includes: ['25 targeted leads', 'basic qualification', 'contact information', 'CSV export'] },
-      growth: { name: 'Standard Package', price: 59900, description: 'Ideal for businesses scaling their sales efforts.', includes: ['100 leads', 'advanced qualification', 'enriched data', 'outreach templates', 'CRM integration support'] },
-      premium: { name: 'Premium Package', price: 149900, description: 'Ideal for businesses needing ongoing lead flow.', includes: ['220 leads', 'monthly lead updates', 'full qualification', 'outreach support', 'strategy consultation'] }
-    }
-  },
-  'CRM & Marketing Automation': {
-    packages: {
-      starter: { name: 'Starter Package', price: 49900, description: 'Ideal for businesses implementing their first CRM.', includes: ['CRM setup', 'basic automation', 'lead capture forms', 'integration setup', 'documentation'] },
-      growth: { name: 'Standard Package', price: 149900, description: 'Ideal for businesses scaling their automation.', includes: ['full CRM customization', 'email automation', 'lead scoring', 'pipeline management', 'analytics dashboard'] },
-      premium: { name: 'Premium Package', price: 299900, description: 'Ideal for comprehensive marketing automation.', includes: ['complete marketing automation', 'multi-channel sequences', 'advanced lead scoring', 'custom reporting', 'strategy consultation', 'priority support'] }
+      starter: { name: 'Starter Package', price: 29900, description: 'Ideal for automating a single business process.', includes: ['1 automated workflow', 'process mapping', 'automation setup', 'testing and documentation'] },
+      growth: { name: 'Standard Package', price: 99900, description: 'Ideal for automating multiple business processes.', includes: ['3 automated workflows', 'process mapping and optimization', 'integration setup', 'testing and documentation', 'training support'] },
+      premium: { name: 'Premium Package', price: 249900, description: 'Ideal for full business process automation.', includes: ['5+ automated workflows', 'full process optimization', 'multi-system integration', 'comprehensive documentation', 'team training and ongoing support'] }
     }
   },
 
   // ─── OPERATIONS & SUPPORT ──────────────────────────────────────────────────
-  'Virtual Assistant Services': {
+  'Business Consulting & Growth Strategy': {
     packages: {
-      starter: { name: 'Starter Package', price: 14900, description: 'Ideal for businesses needing light administrative support.', includes: ['up to 5 hours of virtual assistant support per month', 'email and calendar organization', 'basic administrative tasks', 'task tracking and reporting'] },
-      growth: { name: 'Standard Package', price: 39900, description: 'Ideal for businesses needing regular operational assistance.', includes: ['up to 15 hours of virtual assistant support per month', 'administrative and scheduling support', 'basic customer communication assistance', 'document organization and data entry'] },
-      premium: { name: 'Premium Package', price: 99900, description: 'Ideal for businesses requiring consistent operational support.', includes: ['up to 40 hours of virtual assistant support per month', 'administrative task management', 'coordination of communications and scheduling', 'task monitoring and reporting'] }
-    }
-  },
-  'Data Analytics & Reporting': {
-    packages: {
-      starter: { name: 'Starter Package', price: 19900, description: 'Ideal for businesses needing basic performance insights.', includes: ['1 custom data report', 'basic data analysis', 'visual charts or graphs', 'summary of key insights'] },
-      growth: { name: 'Standard Package', price: 69900, description: 'Ideal for businesses tracking multiple performance areas.', includes: ['3 custom reports', 'visual dashboards or charts', 'trend analysis', 'summary recommendations'] },
-      premium: { name: 'Premium Package', price: 199900, description: 'Ideal for businesses seeking ongoing performance monitoring.', includes: ['custom analytics dashboard', '7 custom data reports', 'visual performance charts', 'detailed trend analysis', 'strategic insight summary'] }
-    }
-  },
-  'Process Documentation & SOP Development': {
-    packages: {
-      starter: { name: 'Starter Package', price: 40000, description: 'Ideal for businesses documenting a single workflow.', includes: ['1 documented business process', 'step-by-step SOP document', 'workflow outline or process map', 'basic formatting for easy reference'] },
-      growth: { name: 'Standard Package', price: 120000, description: 'Ideal for businesses organizing multiple operational procedures.', includes: ['3 documented workflows', 'structured SOP documents', 'workflow diagrams or visual process maps', 'process improvement recommendations'] },
-      premium: { name: 'Premium Package', price: 350000, description: 'Ideal for businesses building a full operational framework.', includes: ['6+ documented workflows', 'complete SOP manual or operations guide', 'workflow diagrams and structured documentation', 'recommendations for process optimization'] }
+      starter: { name: 'Starter Package', price: 49900, description: 'Ideal for businesses needing a standard plan.', includes: ['1 strategy session (60 min)', 'business assessment', 'growth recommendations', 'action plan document'] },
+      growth: { name: 'Standard Package', price: 149900, description: 'Ideal for businesses needing ongoing strategy support.', includes: ['3 strategy sessions (60 min each)', 'growth strategy development', 'implementation roadmap', 'monthly progress reviews', 'strategy adjustments'] },
+      premium: { name: 'Premium Package', price: 499900, description: 'Ideal for businesses needing comprehensive strategic guidance.', includes: ['6 strategy sessions (90 min each)', 'full business assessment', 'detailed growth roadmap', 'quarterly strategy reviews', 'team support and implementation guidance', 'priority access for consulting support'] }
     }
   },
   'Project Management Support': {
@@ -264,91 +314,108 @@ const SERVICES_WITH_PACKAGES = {
       premium: { name: 'Premium Package', price: 349900, description: 'Ideal for businesses requiring full project oversight.', includes: ['comprehensive project management support', 'project planning and scheduling', 'team coordination across departments', 'progress tracking and milestone reporting', 'project performance review'] }
     }
   },
-  'Data Entry & Processing': {
+  'Process Documentation & SOP Development': {
     packages: {
-      starter: { name: 'Starter Package', price: 9900, description: 'Ideal for small administrative data tasks.', includes: ['up to 200 records entered or updated', 'spreadsheet or database entry', 'basic data formatting', 'accuracy verification'] },
-      growth: { name: 'Standard Package', price: 29900, description: 'Ideal for businesses managing larger datasets.', includes: ['up to 800 records entered or updated', 'spreadsheet or database management', 'data formatting and organization', 'accuracy verification and review'] },
-      premium: { name: 'Premium Package', price: 79900, description: 'Ideal for businesses processing large volumes of information.', includes: ['up to 2,000 records entered or updated', 'structured data organization', 'formatting and data cleanup', 'verification and quality checks'] }
+      starter: { name: 'Starter Package', price: 40000, description: 'Ideal for businesses documenting a single workflow.', includes: ['1 documented business process', 'step-by-step SOP document', 'workflow outline or process map', 'basic formatting for easy reference'] },
+      growth: { name: 'Standard Package', price: 120000, description: 'Ideal for businesses organizing multiple operational procedures.', includes: ['3 documented workflows', 'structured SOP documents', 'workflow diagrams or visual process maps', 'process improvement recommendations'] },
+      premium: { name: 'Premium Package', price: 350000, description: 'Ideal for businesses building a full operational framework.', includes: ['6+ documented workflows', 'complete SOP manual or operations guide', 'workflow diagrams and structured documentation', 'recommendations for process optimization'] }
     }
   },
 
-  // ─── AI ────────────────────────────────────────────────────────────────────
-  'AI Automation & Smart Business Systems': {
+  // ─── AI (CUSTOM QUOTE ONLY) ────────────────────────────────────────────────
+  'AI Automation': {
     packages: {
-      starter: { name: 'Starter Package', price: 49900, description: 'Ideal for businesses implementing their first AI solution.', includes: ['AI workflow assessment', 'basic AI automation setup', 'integration with existing tools', 'training and documentation', '1-month support'] },
-      growth: { name: 'Standard Package', price: 149900, description: 'Ideal for businesses scaling AI capabilities.', includes: ['custom AI workflow design', 'AI automation implementation', 'multi-system integration', 'team training', '3-month support'] },
-      premium: { name: 'Premium Package', price: 399900, description: 'Ideal for businesses building full AI-powered operations.', includes: ['end-to-end AI workflow design', 'advanced AI automation', 'custom AI agent development', 'full team training', '6-month priority support'] }
+      custom: {
+        name: 'AI Custom Quote',
+        price: 0,
+        description: 'Every AI automation project is custom quoted based on your workflow, tools, goals, and required integrations.',
+        includes: [
+          'AI workflow discovery',
+          'Custom automation design',
+          'AI system and tool integration planning',
+          'Transparent custom pricing before work begins',
+          'Clear project scope and deliverables',
+          'Implementation and support plan'
+        ]
+      }
     }
   },
 
   // ─── CUSTOM QUOTES ──────────────────────────────────────────────────────────
-  'Request Custom Quote - General': {
+  'Request Custom Quote': {
     packages: {
-      custom: { name: 'Custom Quote', price: 0, description: 'Get a personalized solution built around your business goals.', includes: ['Personalized consultation', 'Custom scope definition', 'Tailored solution', 'Flexible pricing'] }
-    }
-  },
-  'Request Custom Quote - AI': {
-    packages: {
-      custom: { name: 'Custom Quote', price: 0, description: 'Get a custom AI solution tailored to your business needs.', includes: ['AI workflow discovery', 'Custom automation design', 'Transparent AI project pricing', 'Ongoing AI support'] }
+      custom: {
+        name: 'Custom Quote',
+        price: 0,
+        description: 'Get a personalized solution built around your business goals.',
+        includes: [
+          'Personalized consultation',
+          'Custom scope definition',
+          'Tailored solution',
+          'Clear project requirements',
+          'Flexible project approach',
+          'Custom pricing based on scope'
+        ]
+      }
     }
   }
 };
 
-// ─── SERVICE CATEGORIES (5 categories matching the image) ──────────────────
+// ─── SERVICE CATEGORIES (5 categories including Custom Quotes) ─────────────
 const SERVICE_CATEGORIES = {
-  'website-webapp': {
-    label: 'Website & Web App Development',
+  // ─── CATEGORY 1: WEBSITES & DEVELOPMENT ────────────────────────────────────
+  'websites-development': {
+    label: 'Websites & Development',
     services: [
       'Website Development',
-      'Web Applications & SaaS Development',
       'E-Commerce Development',
-      'Landing Pages & Sales Funnels'
+      'Web Applications & SaaS Development',
+      'Landing Pages & Sales Funnels',
+      'Website Maintenance & Updates'
     ]
   },
-  'growth-marketing': {
-    label: 'Website Growth & Marketing',
+
+  // ─── CATEGORY 2: MARKETING & GROWTH ─────────────────────────────────────────
+  'marketing-growth': {
+    label: 'Marketing & Growth',
     services: [
       'SEO & Search Marketing',
       'Lead Generation Services',
       'Paid Advertising Management',
       'Email Marketing Campaigns',
-      'Social Media Management'
+      'Copywriting & Content Creation'
     ]
   },
-  'creative-branding': {
-    label: 'Content, Branding & Creative',
+
+  // ─── CATEGORY 3: AUTOMATION & TECHNOLOGY ────────────────────────────────────
+  'automation-technology': {
+    label: 'Automation & Technology',
+    services: [
+      'CRM & Marketing Automation',
+      'API Integration & Automation',
+      'AI Automation',
+      'Data Analytics & Reporting'
+    ]
+  },
+
+  // ─── CATEGORY 4: CREATIVE & SUPPORT ────────────────────────────────────────
+  'creative-support': {
+    label: 'Creative & Support',
     services: [
       'Graphic Design',
       'Brand Identity & Logo Design',
-      'Copywriting & Content Creation',
+      'Video Editing & Motion Graphics',
       'Photography & Visual Assets',
-      'Video Editing & Motion Graphics'
-    ]
-  },
-  'automation-crm': {
-    label: 'Automation, CRM & Integration',
-    services: [
-      'CRM & Marketing Automation',
-      'AI Automation & Smart Business Systems',
-      'API Integration & Automation',
-      'Data Analytics & Reporting',
+      'Virtual Assistant Services',
       'Data Entry & Processing'
     ]
   },
-  'business-operations': {
-    label: 'Business Support & Operations',
+
+  // ─── CATEGORY 5: CUSTOM SOLUTIONS ──────────────────────────────────────────
+  'custom-solutions': {
+    label: 'Custom Solutions',
     services: [
-      'Virtual Assistant Services',
-      'Project Management Support',
-      'Process Documentation & SOP Development',
-      'Website Maintenance & Updates'
-    ]
-  },
-  'custom-quotes': {
-    label: 'Custom Quotes',
-    services: [
-      'Request Custom Quote - General',
-      'Request Custom Quote - AI'
+      'Request Custom Quote'
     ]
   }
 };
@@ -356,11 +423,22 @@ const SERVICE_CATEGORIES = {
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const formatPrice = (amount, currencyCode, currencySymbol) => {
   const currency = CURRENCIES.find(c => c.code === currencyCode) || CURRENCIES[0];
-  if (amount === 0) return 'Custom Quote';
-  const decimalAmount = currency.zeroDecimal ? amount : amount / 100;
+  const decimalAmount = currency.zeroDecimal ? (amount || 0) : (amount || 0) / 100;
   try {
-    return new Intl.NumberFormat(navigator.language, { style: 'currency', currency: currencyCode, minimumFractionDigits: currency.zeroDecimal ? 0 : 2, maximumFractionDigits: currency.zeroDecimal ? 0 : 2 }).format(decimalAmount);
-  } catch { return `${currencySymbol}${decimalAmount.toFixed(currency.zeroDecimal ? 0 : 2)}`; }
+    return new Intl.NumberFormat(navigator.language, { 
+      style: 'currency', 
+      currency: currencyCode, 
+      minimumFractionDigits: currency.zeroDecimal ? 0 : 2, 
+      maximumFractionDigits: currency.zeroDecimal ? 0 : 2 
+    }).format(decimalAmount);
+  } catch { 
+    return `${currencySymbol}${decimalAmount.toFixed(currency.zeroDecimal ? 0 : 2)}`; 
+  }
+};
+
+const getServiceDisplayName = (service) => {
+  const value = typeof service === 'string' ? service : '';
+  return value.split(' - ')[0]?.trim() || value.trim() || 'Service';
 };
 
 const getServiceIcon = (name) => {
@@ -376,22 +454,25 @@ const getServiceIcon = (name) => {
     'Web Applications & SaaS Development': FaGlobeAmericas,
     'API Integration & Automation': FaCloudUploadAlt,
     'Website Maintenance & Updates': FaShieldAlt,
+    'Online Booking Systems': FaCalendar,
     'Social Media Management': FaUsers,
     'SEO & Search Marketing': FaSearchIcon,
     'Paid Advertising Management': FaAd,
     'Email Marketing Campaigns': FaEnvelopeIcon,
     'Lead Generation Services': FaRegBuilding,
+    'Reputation & Review Management': FaStar,
     'CRM & Marketing Automation': FaCogs,
     'Virtual Assistant Services': FaHeadset,
     'Data Analytics & Reporting': FaChartBar,
     'Process Documentation & SOP Development': FaFileAlt,
     'Project Management Support': FaProjectDiagram,
     'Data Entry & Processing': FaDatabase,
-    'AI Automation & Smart Business Systems': FaRobot,
-    'Request Custom Quote - General': FaCogs,
-    'Request Custom Quote - AI': FaRobot
-  };
-  const key = name.split(' - ')[0];
+    'AI Automation': FaRobot,
+    'Business Process Automation': FaSyncAlt,
+    'Business Consulting & Growth Strategy': FaBriefcase,
+    'Request Custom Quote': FaCogs,
+      };
+  const key = getServiceDisplayName(name);
   return iconMap[key] || FaCogs;
 };
 
@@ -406,7 +487,7 @@ const ServiceHoverPreview = ({ service, packageKey, onClose }) => {
   const serviceData = SERVICES_WITH_PACKAGES[service];
   const pkgData = serviceData?.packages?.[packageKey];
   const ServiceIcon = getServiceIcon(service);
-  const isCustomQuote = service.includes('Request Custom Quote') || pkgData?.price === 0;
+  const isCustomQuote = service === 'Request Custom Quote' || service.includes('Request Custom Quote') || pkgData?.price === 0;
   
   if (!serviceData || !pkgData) return null;
   
@@ -417,7 +498,7 @@ const ServiceHoverPreview = ({ service, packageKey, onClose }) => {
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2 min-w-0">
           <ServiceIcon className="text-blue-600 text-lg shrink-0" />
-          <h4 className="font-bold text-gray-900 text-sm truncate">{service.split(' - ')[0]}</h4>
+          <h4 className="font-bold text-gray-900 text-sm leading-snug break-words">{getServiceDisplayName(service)}</h4>
         </div>
         <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-lg leading-none shrink-0 ml-2">×</button>
       </div>
@@ -482,7 +563,7 @@ const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, 
   const packages = serviceData?.packages || {};
   const packageKeys = Object.keys(packages);
   const currencyObj = CURRENCIES.find(c => c.code === currency) || CURRENCIES[0];
-  const isCustomQuote = service.includes('Request Custom Quote') || packages.custom?.price === 0;
+  const isCustomQuote = service === 'Request Custom Quote' || service.includes('Request Custom Quote') || packages.custom?.price === 0;
 
   if (!serviceData) return null;
 
@@ -589,73 +670,189 @@ const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, 
 };
 
 // ─── Live order sidebar (Step 1) ──────────────────────────────────────────────
-const OrderSidebar = ({ selectedServices, convertedAmounts, currency, totalAmount, isLoadingRates, onRemove, onContinue, onCustomQuoteDirect, continueLabel, continueDisabled }) => {
+const OrderSidebar = ({ 
+  selectedServices, 
+  convertedAmounts, 
+  currency, 
+  subtotalAmount = 0,
+  discountRate = 0,
+  discountAmount = 0,
+  totalAmount, 
+  isLoadingRates, 
+  onRemove, 
+  onContinue, 
+  onCustomQuoteDirect, 
+  continueLabel, 
+  continueDisabled 
+}) => {
   const currencyObj = CURRENCIES.find(c => c.code === currency) || CURRENCIES[0];
   const entries = Object.entries(selectedServices);
   const hasCustomQuote = entries.some(([service]) => service.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[service]?.packages?.custom?.price === 0);
   const isOnlyCustomQuote = hasCustomQuote && entries.length === 1;
   const isCustomQuoteWithOthers = hasCustomQuote && entries.length > 1;
+  const count = entries.length;
 
   return (
-    <div className="lg:sticky lg:top-24 bg-white rounded-2xl border-2 border-gray-200 shadow-lg p-6">
-      <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><FaShoppingCart className="text-blue-600 shrink-0" />Your Order</h3>
-      {entries.length === 0 ? (
-        <p className="text-sm text-gray-500">No services selected yet. Choose one or more services to get started.</p>
-      ) : (
-        <div className="space-y-3 mb-4 max-h-80 overflow-y-auto pr-1">
-          {entries.map(([service, pkg]) => {
+    <div className="lg:sticky lg:top-24 max-h-[calc(100vh-7.5rem)] flex flex-col bg-white rounded-2xl border-2 border-gray-200 shadow-xl overflow-hidden">
+      
+      {/* ── Fixed Card Header ── */}
+      <div className="p-4 sm:p-5 pb-3 shrink-0 border-b border-gray-100 bg-white">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-base sm:text-lg font-bold text-gray-900 flex items-center gap-2">
+            <FaShoppingCart className="text-blue-600 shrink-0" />
+            Your Order
+          </h3>
+          {count > 0 && (
+            <span className="px-2.5 py-0.5 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
+              {count} {count === 1 ? 'service' : 'services'}
+            </span>
+          )}
+        </div>
+
+        {/* ── Tiered Bundle Discount Banner ── */}
+        {count === 1 && (
+          <div className="p-2.5 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl text-xs text-blue-900 flex items-center gap-2 shadow-xs">
+            <span className="text-sm shrink-0">💡</span>
+            <p className="text-[11px] leading-tight">Add <strong>1 more service</strong> to save <strong>10%</strong> on your bundle!</p>
+          </div>
+        )}
+
+        {count >= 2 && count <= 5 && (
+          <div className="p-2.5 bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 flex items-center justify-between gap-2 shadow-xs">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className="text-sm shrink-0">🎉</span>
+              <div className="truncate">
+                <p className="font-bold text-emerald-950 text-xs leading-tight">10% Bundle Discount Applied!</p>
+                <p className="text-[10px] text-emerald-700 leading-tight">Add {6 - count} more for <strong>20% OFF</strong></p>
+              </div>
+            </div>
+            <span className="px-2 py-0.5 bg-emerald-600 text-white font-extrabold text-[10px] rounded-full shrink-0 shadow-xs">
+              10% OFF
+            </span>
+          </div>
+        )}
+
+        {count >= 6 && (
+          <div className="p-2.5 bg-gradient-to-r from-emerald-100/80 to-teal-50 border border-emerald-300 rounded-xl text-xs text-emerald-950 flex items-center justify-between gap-2 shadow-xs">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className="text-sm shrink-0">🔥</span>
+              <div className="truncate">
+                <p className="font-bold text-emerald-950 text-xs leading-tight">Max 20% Discount Applied!</p>
+                <p className="text-[10px] text-emerald-700 leading-tight">Saving 20% across all {count} services</p>
+              </div>
+            </div>
+            <span className="px-2 py-0.5 bg-emerald-700 text-white font-extrabold text-[10px] rounded-full shrink-0 shadow-xs">
+              20% OFF
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* ── Scrollable Service Entries List (Flex-1) ── */}
+      <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-2 min-h-[90px] max-h-[30vh] lg:max-h-none">
+        {entries.length === 0 ? (
+          <div className="py-8 text-center text-gray-400 text-xs">
+            <p>No services selected yet.</p>
+            <p className="text-[11px] mt-1 text-gray-400">Select services from the left to build your package.</p>
+          </div>
+        ) : (
+          entries.map(([service, pkg]) => {
             const ServiceIcon = getServiceIcon(service);
             const pkgData = SERVICES_WITH_PACKAGES[service]?.packages[pkg];
             const amount = convertedAmounts[service]?.[pkg] || 0;
-            const isCustomQuote = service.includes('Request Custom Quote') || pkgData?.price === 0;
+            const isCustomQuote = service === 'Request Custom Quote' || service.includes('Request Custom Quote') || pkgData?.price === 0;
             return (
-              <div key={service} className="flex items-start justify-between gap-2 text-sm border-b border-gray-100 pb-3">
-                <div className="flex items-start gap-2 flex-1 min-w-0">
-                  <ServiceIcon className="text-blue-600 mt-0.5 shrink-0" />
-                  <div className="min-w-0">
-                    <p className="font-medium text-gray-900 truncate">{service.split(' - ')[0]}</p>
-                    <p className="text-xs text-gray-500 truncate">{pkgData?.name}</p>
+              <div key={service} className="flex items-center justify-between gap-2 text-xs bg-gray-50/80 hover:bg-gray-100/80 border border-gray-100 rounded-xl p-2 sm:p-2.5 transition-colors">
+                <div className="flex items-center gap-2 flex-1 min-w-0">
+                  <div className="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                    <ServiceIcon size={11} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold text-gray-900 text-[11px] sm:text-xs break-words leading-snug">{getServiceDisplayName(service)}</p>
+                    <p className="text-[10px] text-gray-500 break-words leading-snug">{pkgData?.name}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="font-semibold text-gray-900 text-xs whitespace-nowrap">{isCustomQuote || amount === 0 ? 'Quote' : formatPrice(amount, currency, currencyObj.symbol)}</span>
-                  <button type="button" onClick={() => onRemove(service)} className="text-gray-400 hover:text-red-500 text-lg leading-none">×</button>
+                  <span className="font-bold text-gray-900 text-xs whitespace-nowrap">
+                    {isCustomQuote || amount === 0 ? 'Quote' : formatPrice(amount, currency, currencyObj.symbol)}
+                  </span>
+                  <button 
+                    type="button" 
+                    onClick={() => onRemove(service)} 
+                    className="w-5 h-5 rounded-full hover:bg-red-50 text-gray-400 hover:text-red-600 flex items-center justify-center transition-colors text-sm font-bold"
+                    title="Remove service"
+                  >
+                    ×
+                  </button>
                 </div>
               </div>
             );
-          })}
-        </div>
-      )}
-      <div className="border-t-2 border-gray-100 pt-4 mb-5">
-        <div className="flex flex-wrap justify-between items-center gap-2">
-          <span className="font-bold text-gray-900">Total</span>
-          <span className="text-2xl font-bold text-blue-600">
-            {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, currency, currencyObj.symbol) : 'Custom Quote'}
-          </span>
-        </div>
+          })
+        )}
       </div>
-      
-      {/* Custom Quote Direct Button */}
-      {hasCustomQuote && totalAmount === 0 && (
+
+      {/* ── Pinned Bottom Action Footer (Always Visible & Accessible) ── */}
+      <div className="shrink-0 p-4 sm:p-5 pt-3 bg-gray-50/95 border-t border-gray-200">
+        {/* Price Breakdown */}
+        {discountAmount > 0 ? (
+          <div className="space-y-1 mb-3 text-xs">
+            <div className="flex justify-between items-center text-gray-500 text-[11px]">
+              <span>Subtotal ({count} items)</span>
+              <span>{formatPrice(subtotalAmount, currency, currencyObj.symbol)}</span>
+            </div>
+            <div className="flex justify-between items-center text-emerald-700 font-bold text-[11px]">
+              <span>Bundle Discount ({Math.round(discountRate * 100)}% OFF)</span>
+              <span>-{formatPrice(discountAmount, currency, currencyObj.symbol)}</span>
+            </div>
+            <div className="flex justify-between items-center pt-1.5 border-t border-gray-200">
+              <span className="font-bold text-gray-900 text-xs sm:text-sm">Total Due Today</span>
+              <span className="text-xl sm:text-2xl font-extrabold text-blue-600">
+                {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : formatPrice(totalAmount, currency, currencyObj.symbol)}
+              </span>
+            </div>
+          </div>
+        ) : (
+          <div className="flex justify-between items-center mb-3 pt-1">
+            <span className="font-bold text-gray-900 text-xs sm:text-sm">Total</span>
+            <span className="text-xl sm:text-2xl font-extrabold text-blue-600">
+              {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, currency, currencyObj.symbol) : (hasCustomQuote && count > 0) ? 'Custom Quote' : formatPrice(0, currency, currencyObj.symbol)}
+            </span>
+          </div>
+        )}
+
+        {/* Custom Quote Direct Button */}
+        {hasCustomQuote && totalAmount === 0 && (
+          <button 
+            type="button" 
+            onClick={onCustomQuoteDirect}
+            className="w-full py-3 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 bg-purple-600 text-white hover:bg-purple-700 hover:shadow-md mb-2"
+          >
+            Proceed with Custom Quote <FaArrowRight size={11} />
+          </button>
+        )}
+
+        {/* Continue to Review CTA (Always Pinned & Accessible) */}
         <button 
           type="button" 
-          onClick={onCustomQuoteDirect}
-          className="w-full py-3.5 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 bg-purple-600 text-white hover:bg-purple-700 hover:shadow-lg mb-3"
+          onClick={onContinue} 
+          disabled={continueDisabled || (hasCustomQuote && totalAmount === 0)}
+          className={`w-full py-3 sm:py-3.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg ${
+            continueDisabled || (hasCustomQuote && totalAmount === 0) 
+              ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none' 
+              : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.01]'
+          }`}
         >
-          Proceed with Custom Quote <FaArrowRight />
+          <span>{continueLabel}</span>
+          <FaArrowRight size={12} />
         </button>
-      )}
-      
-      <button type="button" onClick={onContinue} disabled={continueDisabled || (hasCustomQuote && totalAmount === 0)}
-        className={`w-full py-3.5 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${continueDisabled || (hasCustomQuote && totalAmount === 0) ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'}`}>
-        {continueLabel} <FaArrowRight />
-      </button>
-      
-      {isCustomQuoteWithOthers && (
-        <p className="text-xs text-amber-600 mt-2 text-center">
-          Note: Custom quote services will be priced separately from standard packages.
-        </p>
-      )}
+
+        {isCustomQuoteWithOthers && (
+          <p className="text-[10px] text-amber-700 mt-2 text-center font-medium leading-tight">
+            Custom quote services will be scoped separately.
+          </p>
+        )}
+      </div>
+
     </div>
   );
 };
@@ -721,7 +918,8 @@ const RequestServicePage = () => {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const stepParam = params.get('step');
-    const serviceSlug = params.get('service');
+    const requestedSlug = params.get('service');
+    const serviceSlug = requestedSlug === 'ai-custom-quote' ? 'ai-automation' : requestedSlug;
     
     if (stepParam === '2') {
       const hasCustomQuote = Object.keys(selectedServices).some(s => s.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[s]?.packages?.custom?.price === 0);
@@ -765,7 +963,8 @@ const RequestServicePage = () => {
   // ── Pre-select the service + package passed from ServiceDetailPage's Continue link ──
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const serviceSlug = params.get('service');
+    const requestedSlug = params.get('service');
+    const serviceSlug = requestedSlug === 'ai-custom-quote' ? 'ai-automation' : requestedSlug;
     const pkgParam = params.get('package');
     const stepParam = params.get('step');
     
@@ -859,9 +1058,34 @@ const RequestServicePage = () => {
     setConvertedAmounts(result);
   }, [selectedCurrency, exchangeRates, convertAmount]);
 
-  const totalAmount = Object.entries(selectedServices).reduce((sum, [service, pkg]) => {
-    return sum + (convertedAmounts[service]?.[pkg] || 0);
-  }, 0);
+  const serviceCount = Object.keys(selectedServices).length;
+
+  const hasCustomQuote = useMemo(() => {
+    return Object.keys(selectedServices).some(
+      s => s.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[s]?.packages?.custom?.price === 0
+    );
+  }, [selectedServices]);
+
+  const discountRate = useMemo(() => {
+    if (serviceCount >= 6) return 0.20;
+    if (serviceCount >= 2) return 0.10;
+    return 0;
+  }, [serviceCount]);
+
+  const subtotalAmount = useMemo(() => {
+    return Object.entries(selectedServices).reduce((sum, [service, pkg]) => {
+      return sum + (convertedAmounts[service]?.[pkg] || 0);
+    }, 0);
+  }, [selectedServices, convertedAmounts]);
+
+  const discountAmount = useMemo(() => {
+    if (discountRate === 0 || subtotalAmount === 0) return 0;
+    return Math.round(subtotalAmount * discountRate);
+  }, [subtotalAmount, discountRate]);
+
+  const totalAmount = useMemo(() => {
+    return Math.max(0, subtotalAmount - discountAmount);
+  }, [subtotalAmount, discountAmount]);
 
   const steps = [
     { number: 1, title: 'Select Services' },
@@ -1002,6 +1226,9 @@ const RequestServicePage = () => {
           ...formData,
           phone: fullPhone,
           services: selectedServices,
+          subtotalAmount,
+          discountPercentage: Math.round(discountRate * 100),
+          discountAmount,
           totalAmount,
           currency: selectedCurrency,
           files: fileUrls,
@@ -1037,14 +1264,24 @@ const RequestServicePage = () => {
     setIsRedirectingToStripe(true);
     setPaymentError(null);
     try {
-      sessionStorage.setItem(CHECKOUT_STATE_KEY, JSON.stringify({ selectedServices, selectedCurrency }));
+      sessionStorage.setItem(CHECKOUT_STATE_KEY, JSON.stringify({
+        selectedServices,
+        selectedCurrency,
+        subtotalAmount,
+        discountRate,
+        discountAmount,
+        totalAmount
+      }));
       const res = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           services: selectedServices,
           currency: selectedCurrency,
-          amount: totalAmount,
+          amount: totalAmount, // Exact discounted amount
+          subtotalAmount,
+          discountPercentage: Math.round(discountRate * 100),
+          discountAmount,
           customer_email: formData.email || undefined,
           success_url: `${window.location.origin}${window.location.pathname}?session_id={CHECKOUT_SESSION_ID}`,
           cancel_url: `${window.location.origin}${window.location.pathname}?canceled=true`,
@@ -1102,62 +1339,53 @@ const RequestServicePage = () => {
 
   const currencyObj = CURRENCIES.find(c => c.code === selectedCurrency) || CURRENCIES[0];
   
-  // ── Category Meta with proper colors for each of the 5 categories ──
-  const categoryMeta = [
-    { 
-      cat: 'website-webapp', 
-      bg: 'bg-blue-100', 
-      iconColor: 'text-blue-600', 
-      border: 'hover:border-blue-300',
-      gradient: 'from-blue-50 to-blue-100/30'
-    },
-    { 
-      cat: 'growth-marketing', 
-      bg: 'bg-emerald-100', 
-      iconColor: 'text-emerald-600', 
-      border: 'hover:border-emerald-300',
-      gradient: 'from-emerald-50 to-emerald-100/30'
-    },
-    { 
-      cat: 'creative-branding', 
-      bg: 'bg-purple-100', 
-      iconColor: 'text-purple-600', 
-      border: 'hover:border-purple-300',
-      gradient: 'from-purple-50 to-purple-100/30'
-    },
-    { 
-      cat: 'automation-crm', 
-      bg: 'bg-amber-100', 
-      iconColor: 'text-amber-600', 
-      border: 'hover:border-amber-300',
-      gradient: 'from-amber-50 to-amber-100/30'
-    },
-    { 
-      cat: 'business-operations', 
-      bg: 'bg-rose-100', 
-      iconColor: 'text-rose-600', 
-      border: 'hover:border-rose-300',
-      gradient: 'from-rose-50 to-rose-100/30'
-    },
-    { 
-      cat: 'custom-quotes', 
-      bg: 'bg-indigo-100', 
-      iconColor: 'text-indigo-600', 
-      border: 'hover:border-indigo-300',
-      gradient: 'from-indigo-50 to-indigo-100/30'
-    }
-  ];
-  
-  const categoryIcons = {
-    'website-webapp': FaCode,
-    'growth-marketing': FaChartLine,
-    'creative-branding': FaPaintBrush,
-    'automation-crm': FaCogs,
-    'business-operations': FaBriefcase,
-    'custom-quotes': FaStar
-  };
+const categoryMeta = [
+  {
+    cat: 'websites-development',
+    bg: 'bg-blue-100',
+    iconColor: 'text-blue-600',
+    border: 'hover:border-blue-300',
+    gradient: 'from-blue-50 to-blue-100/30'
+  },
+  {
+    cat: 'marketing-growth',
+    bg: 'bg-emerald-100',
+    iconColor: 'text-emerald-600',
+    border: 'hover:border-emerald-300',
+    gradient: 'from-emerald-50 to-emerald-100/30'
+  },
+  {
+    cat: 'automation-technology',
+    bg: 'bg-amber-100',
+    iconColor: 'text-amber-600',
+    border: 'hover:border-amber-300',
+    gradient: 'from-amber-50 to-amber-100/30'
+  },
+  {
+    cat: 'creative-support',
+    bg: 'bg-purple-100',
+    iconColor: 'text-purple-600',
+    border: 'hover:border-purple-300',
+    gradient: 'from-purple-50 to-purple-100/30'
+  },
+  {
+    cat: 'custom-solutions',
+    bg: 'bg-slate-100',
+    iconColor: 'text-slate-600',
+    border: 'hover:border-slate-300',
+    gradient: 'from-slate-50 to-slate-100/30'
+  }
+];
 
-  // ── Verifying payment (full-page interstitial after Stripe redirect) ──
+const categoryIcons = {
+  'websites-development': FaCode,
+  'marketing-growth': FaChartLine,
+  'automation-technology': FaCogs,
+  'creative-support': FaPaintBrush,
+  'custom-solutions': FaCogs
+};
+
+// ── Verifying payment (full-page interstitial after Stripe redirect) ──
   if (isVerifyingPayment) {
     return (
       <div className="min-h-screen pt-20 bg-gray-50 flex items-center justify-center">
@@ -1224,7 +1452,7 @@ const RequestServicePage = () => {
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
                   {categoryMeta.map(({ cat, bg, iconColor, border, gradient }) => {
                     const catData = SERVICE_CATEGORIES[cat];
                     const CatIcon = categoryIcons[cat] || FaCogs;
@@ -1259,21 +1487,10 @@ const RequestServicePage = () => {
                                     className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300 shrink-0" 
                                   />
                                   <div className="ml-2 sm:ml-3 flex-1 flex items-center min-w-0">
-                                    <ServiceIcon className="mr-1.5 sm:mr-2 text-gray-500 shrink-0" size={13} />
-                                    <span className="text-gray-700 font-medium text-xs sm:text-sm truncate">{service.split(' - ')[0]}</span>
+                                    <span className="text-gray-700 font-medium text-xs sm:text-sm break-words leading-snug">{getServiceDisplayName(service)}</span>
                                   </div>
                                   <div className="flex items-center gap-1 sm:gap-2 shrink-0">
                                     {isSelected && <FaCheck className="text-green-500" size={12} />}
-                                    {!isCustomQuote && (
-                                      <Link
-                                        to={`/services/${serviceSlug}`}
-                                        className="px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-blue-100 text-blue-700 text-[10px] sm:text-xs font-semibold rounded hover:bg-blue-200 transition-colors flex items-center gap-0.5 sm:gap-1"
-                                        onClick={(e) => e.stopPropagation()}
-                                      >
-                                        <FaInfoCircle size={8} />
-                                        <span className="hidden sm:inline">View Detail</span>
-                                      </Link>
-                                    )}
                                   </div>
                                 </label>
                                 
@@ -1314,8 +1531,7 @@ const RequestServicePage = () => {
                         return (
                           <div key={service}>
                             <h4 className="font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base">
-                              {React.createElement(getServiceIcon(service), { className: 'text-blue-600 shrink-0' })}
-                              <span className="truncate">{isCustomQuote ? `Custom Quote: ${service.split(' - ')[0]}` : service}</span>
+                              <span className="break-words leading-snug">{isCustomQuote ? `Custom Quote: ${getServiceDisplayName(service)}` : getServiceDisplayName(service)}</span>
                             </h4>
                             <PackageComparisonTable
                               service={service}
@@ -1338,6 +1554,9 @@ const RequestServicePage = () => {
                   selectedServices={selectedServices}
                   convertedAmounts={convertedAmounts}
                   currency={selectedCurrency}
+                  subtotalAmount={subtotalAmount}
+                  discountRate={discountRate}
+                  discountAmount={discountAmount}
                   totalAmount={totalAmount}
                   isLoadingRates={isLoadingRates}
                   onRemove={removeService}
@@ -1405,11 +1624,10 @@ const RequestServicePage = () => {
                   <div className="space-y-2 sm:space-y-3 mb-4 md:mb-6 bg-white p-3 sm:p-4 rounded-lg">
                     {Object.entries(selectedServices).map(([service, pkg]) => {
                       const ServiceIcon = getServiceIcon(service), amount = convertedAmounts[service]?.[pkg] || 0, pkgData = SERVICES_WITH_PACKAGES[service]?.packages[pkg];
-                      const isCustomQuote = service.includes('Request Custom Quote') || pkgData?.price === 0;
+                      const isCustomQuote = service === 'Request Custom Quote' || service.includes('Request Custom Quote') || pkgData?.price === 0;
                       return (
                         <div key={service} className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-sm border-b border-gray-100 pb-2">
                           <span className="text-gray-700 flex items-start sm:items-center min-w-0">
-                            <ServiceIcon className="mr-1 sm:mr-2 text-gray-500 mt-0.5 sm:mt-0 shrink-0" size={14} />
                             <span className="break-words text-xs sm:text-sm">{service}<span className="text-[10px] sm:text-xs text-gray-500 ml-1">({pkgData?.name})</span></span>
                           </span>
                           <span className="font-medium text-gray-900 shrink-0 text-xs sm:text-sm">{isLoadingRates ? '...' : isCustomQuote || amount === 0 ? 'Custom Quote' : formatPrice(amount, selectedCurrency, currencyObj.symbol)}</span>
@@ -1417,11 +1635,39 @@ const RequestServicePage = () => {
                       );
                     })}
                   </div>
-                  <div className="border-t-2 border-blue-200 pt-3 sm:pt-4 mb-4 md:mb-6">
-                    <div className="flex flex-wrap justify-between items-center gap-2">
+                  {/* Bundle Discount Callout in Step 2 */}
+                  {discountAmount > 0 && (
+                    <div className="mb-4 p-3 bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-300 rounded-xl flex items-center justify-between text-xs text-emerald-900 shadow-xs">
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">🎉</span>
+                        <div>
+                          <span className="font-bold">{Math.round(discountRate * 100)}% Bundle Savings Applied</span>
+                          <p className="text-[10px] text-emerald-700">You save {formatPrice(discountAmount, selectedCurrency, currencyObj.symbol)} on this bundle</p>
+                        </div>
+                      </div>
+                      <span className="px-2.5 py-1 bg-emerald-600 text-white font-extrabold text-xs rounded-full">
+                        -{Math.round(discountRate * 100)}%
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="border-t-2 border-blue-200 pt-3 sm:pt-4 mb-4 md:mb-6 space-y-2">
+                    {discountAmount > 0 && (
+                      <>
+                        <div className="flex justify-between text-xs sm:text-sm text-gray-600">
+                          <span>Subtotal ({serviceCount} services):</span>
+                          <span>{formatPrice(subtotalAmount, selectedCurrency, currencyObj.symbol)}</span>
+                        </div>
+                        <div className="flex justify-between text-xs sm:text-sm text-emerald-700 font-bold">
+                          <span>Bundle Discount ({Math.round(discountRate * 100)}% OFF):</span>
+                          <span>-{formatPrice(discountAmount, selectedCurrency, currencyObj.symbol)}</span>
+                        </div>
+                      </>
+                    )}
+                    <div className="flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-blue-100">
                       <span className="text-base sm:text-lg font-bold text-gray-900">Total Due Today:</span>
                       <span className="text-2xl sm:text-3xl font-bold text-blue-600">
-                        {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, selectedCurrency, currencyObj.symbol) : 'Custom Quote'}
+                        {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, selectedCurrency, currencyObj.symbol) : hasCustomQuote ? 'Custom Quote' : formatPrice(0, selectedCurrency, currencyObj.symbol)}
                       </span>
                     </div>
                   </div>
@@ -1556,9 +1802,7 @@ const RequestServicePage = () => {
                 </div>
 
                 {/* ─── AI-SPECIFIC QUESTIONS ─── */}
-                {Object.keys(selectedServices).some(service => 
-                  service.includes('AI') || service === 'AI Automation & Smart Business Systems' || service === 'Request Custom Quote - AI'
-                ) && (
+                {selectedServices['AI Automation'] === 'custom' && (
                   <>
                     <div className="border-t border-gray-200 pt-4 sm:pt-6 mt-4 sm:mt-6">
                       <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4 flex items-center gap-2">

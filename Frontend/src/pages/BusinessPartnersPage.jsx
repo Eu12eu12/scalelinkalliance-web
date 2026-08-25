@@ -26,6 +26,23 @@ const BusinessPartnersPage = () => {
   const DESC_MAX = 80;
 
   useEffect(() => {
+    document.title = 'Business Growth Partner Network | ScaleLink Alliance';
+
+    const setMeta = (name, content) => {
+      let tag = document.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    setMeta('description', 'Join the ScaleLink Alliance business partner network for strategic referrals, growth partnerships, and collaborative business opportunities.');
+    setMeta('keywords', 'business growth partner network, business partnerships, strategic referral partners, business networking partners, scale link alliance partners');
+  }, []);
+
+  useEffect(() => {
     fetch('/api/cms/partners')
       .then(r => r.json())
       .then(data => { if (Array.isArray(data)) setPartners(data); })
