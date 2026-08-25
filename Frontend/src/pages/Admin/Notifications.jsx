@@ -124,7 +124,35 @@ const sanitizeContent = (content) => {
     .replace(/'/g, '&#039;');
 };
 
-const getNotificationConfig = (type) => {
+const isWebsiteReviewNotification = (notification) => {
+  if (!notification) return false;
+  const type = notification.type;
+  if (type === 'website_review_request' || type === 'website_review' || type === 'lead') return true;
+
+  // Check if message text indicates a website review
+  if (notification.message && (/website review/i.test(notification.message) || /free website/i.test(notification.message))) {
+    return true;
+  }
+
+  // Check metadata for website review / lead fields
+  try {
+    const meta = parseMeta(notification.metadata);
+    if (!meta || typeof meta !== 'object') return false;
+    const hasWebsite = Boolean(meta.websiteUrl || meta.url || meta.website);
+    const hasLead = Boolean(meta.clientName || meta.clientEmail || meta.businessDescription || meta.email || meta.leadId || meta.id);
+    return Boolean(hasWebsite || hasLead);
+  } catch (e) {
+    return false;
+  }
+};
+
+const getNotificationConfig = (type, notification = null) => {
+  if (notification && isWebsiteReviewNotification(notification)) {
+    return NOTIFICATION_CONFIG.website_review_request;
+  }
+  if (type === 'website_review_request' || type === 'website_review' || type === 'lead') {
+    return NOTIFICATION_CONFIG.website_review_request;
+  }
   return NOTIFICATION_CONFIG[type] || DEFAULT_CONFIG;
 };
 
@@ -136,22 +164,36 @@ const formatDate = (dateString) => {
   }
 };
 
-// ===== RENDER HELPERS =====
-const isWebsiteReviewNotification = (notification) => {
-  const type = notification?.type;
-  if (type === 'website_review_request' || type === 'website_review' || type === 'lead') return true;
+// Robust helper to extract website review information from metadata + message fallback
+const getWebsiteReviewData = (notification) => {
+  if (!notification) return {};
+  const meta = parseMeta(notification.metadata) || {};
+  let clientName = meta.clientName || meta.name || '';
+  let websiteUrl = meta.websiteUrl || meta.url || meta.website || '';
+  let clientEmail = meta.clientEmail || meta.email || '';
+  let company = meta.company || meta.businessName || '';
+  let leadId = meta.leadId || meta.id || notification.leadId || null;
 
-  // Some production notifications come through with a generic type but include website/lead metadata.
-  // Detect those by inspecting metadata for website/lead fields.
-  try {
-    const meta = parseMeta(notification?.metadata);
-    if (!meta) return false;
-    const hasWebsite = meta.websiteUrl || meta.url || meta.website;
-    const hasLead = meta.clientName || meta.clientEmail || meta.businessDescription;
-    return Boolean(hasWebsite || hasLead);
-  } catch (e) {
-    return false;
+  // If clientName or websiteUrl is missing from metadata, parse from message string
+  // Format typically: "New Free Website Review request: Jon Cee (https://youtube.com)"
+  if ((!clientName || !websiteUrl) && notification.message) {
+    const match = notification.message.match(/request:\s*([^(]+?)(?:\s*\((https?:\/\/[^\s)]+|[^\s)]+)\))?$/i);
+    if (match) {
+      if (!clientName && match[1]) clientName = match[1].trim();
+      if (!websiteUrl && match[2]) websiteUrl = match[2].trim();
+    }
   }
+
+  return {
+    leadId,
+    clientName: clientName || notification.fromUser || 'System',
+    clientEmail: clientEmail && clientEmail !== 'N/A' ? clientEmail : 'N/A',
+    websiteUrl: websiteUrl || 'N/A',
+    company: company && company !== 'N/A' ? company : '',
+    businessDescription: meta.businessDescription || meta.message || 'Website review request',
+    status: meta.status || meta.reviewStatus || 'pending',
+    createdAt: notification.createdAt || new Date().toISOString()
+  };
 };
 
 const renderMessage = (notification, isWorker) => {
@@ -219,7 +261,7 @@ const Notifications = () => {
       });
       const data = await res.json();
       if (res.ok) {
-        setNotifications(data);
+        setNotifications(Array.isArray(data) ? data : []);
       } else {
         toast.error(data.message || 'Failed to load notifications');
       }
@@ -332,39 +374,18 @@ const Notifications = () => {
       return;
     }
     
-    const meta = parseMeta(notification.metadata);
-    console.log('Opening lead modal for:', notification);
-    console.log('Metadata:', meta);
+    const reviewData = getWebsiteReviewData(notification);
+    let leadId = reviewData.leadId;
     
-    // Try multiple ways to get the lead ID
-    let leadId = null;
-    
-    if (meta.leadId) {
-      leadId = meta.leadId;
-    } else if (meta.id) {
-      leadId = meta.id;
-    } else if (notification.leadId) {
-      leadId = notification.leadId;
-    } else if (notification.job && notification.job.leadId) {
-      leadId = notification.job.leadId;
-    } else if (notification.job && notification.job.id) {
-      leadId = notification.job.id;
+    if (!leadId && notification.job) {
+      leadId = notification.job.leadId || notification.job.id;
     }
     
-    // If still no lead ID, use data from metadata directly
+    // If no lead ID, show data directly from parsed notification
     if (!leadId) {
-      // Show data from metadata without API call
       setShowLeadModal(true);
       setLoadingLead(false);
-      setActiveLead({
-        clientName: meta.clientName || notification.fromUser || 'System',
-        clientEmail: meta.clientEmail || 'N/A',
-        company: meta.company || 'N/A',
-        websiteUrl: meta.websiteUrl || meta.url || 'N/A',
-        businessDescription: meta.businessDescription || 'Website review request',
-        status: meta.status || 'pending',
-        createdAt: notification.createdAt || new Date().toISOString()
-      });
+      setActiveLead(reviewData);
       
       if (!notification.isRead) {
         await markAsRead(notification.id);
@@ -377,7 +398,6 @@ const Notifications = () => {
     setActiveLead(null);
     
     try {
-      console.log('Fetching lead with ID:', leadId);
       const res = await fetch(`/api/leads/${leadId}`, {
         headers: { 
           'Authorization': `Bearer ${token}`,
@@ -385,44 +405,28 @@ const Notifications = () => {
         }
       });
       
-      console.log('Response status:', res.status);
       const data = await res.json();
-      console.log('Response data:', data);
       
-      if (res.ok && data.success) {
-        setActiveLead(data.data);
-        if (!notification.isRead) {
-          await markAsRead(notification.id);
-        }
-      } else {
-        // Fallback to metadata
+      if (res.ok && data.success && data.data) {
+        const lead = data.data;
         setActiveLead({
-          clientName: meta.clientName || notification.fromUser || 'System',
-          clientEmail: meta.clientEmail || 'N/A',
-          company: meta.company || 'N/A',
-          websiteUrl: meta.websiteUrl || meta.url || 'N/A',
-          businessDescription: meta.businessDescription || 'Website review request',
-          status: meta.status || 'pending',
-          createdAt: notification.createdAt || new Date().toISOString()
+          clientName: `${lead.firstName || ''} ${lead.lastName || ''}`.trim() || reviewData.clientName,
+          clientEmail: lead.email || reviewData.clientEmail,
+          company: lead.businessName || reviewData.company,
+          websiteUrl: lead.websiteUrl || reviewData.websiteUrl,
+          businessDescription: lead.message || reviewData.businessDescription,
+          status: lead.reviewStatus || reviewData.status,
+          createdAt: lead.createdAt || lead.dateSubmitted || reviewData.createdAt
         });
-        toast.info('Showing lead data from notification');
-        if (!notification.isRead) {
-          await markAsRead(notification.id);
-        }
+      } else {
+        setActiveLead(reviewData);
+      }
+      if (!notification.isRead) {
+        await markAsRead(notification.id);
       }
     } catch (err) {
       console.error('Error fetching lead:', err);
-      // Fallback to metadata on error
-      setActiveLead({
-        clientName: meta.clientName || notification.fromUser || 'System',
-        clientEmail: meta.clientEmail || 'N/A',
-        company: meta.company || 'N/A',
-        websiteUrl: meta.websiteUrl || meta.url || 'N/A',
-        businessDescription: meta.businessDescription || 'Website review request',
-        status: meta.status || 'pending',
-        createdAt: notification.createdAt || new Date().toISOString()
-      });
-      toast.info('Showing lead data from notification');
+      setActiveLead(reviewData);
       if (!notification.isRead) {
         await markAsRead(notification.id);
       }
@@ -555,8 +559,8 @@ const Notifications = () => {
   }, [declineReason, activeJobForDecline, token, markAsRead, fetchNotifications, isProcessingAction]);
 
   // ===== RENDER HELPERS =====
-  const renderNotificationBadge = useCallback((type) => {
-    const config = getNotificationConfig(type);
+  const renderNotificationBadge = useCallback((notification) => {
+    const config = getNotificationConfig(notification?.type, notification);
     const label = config.label;
     return (
       <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${config.badgeColor}`}>
@@ -659,38 +663,36 @@ const Notifications = () => {
 
     // Website Review Request
     if (isWebsiteReviewNotification(notification)) {
-      const clientName = meta.clientName || notification.fromUser || 'System';
-      const websiteUrl = meta.websiteUrl || meta.url || meta.website || 'N/A';
-      const company = meta.company || 'N/A';
+      const reviewData = getWebsiteReviewData(notification);
       
       return (
         <div className="mb-4 mt-2 p-4 bg-amber-50/30 border border-amber-100 rounded-xl space-y-2 shadow-sm">
           <p className="text-sm">
             <span className="font-bold text-slate-700">Client:</span> 
-            <span className="text-slate-600 ml-2">{sanitizeContent(clientName)}</span>
+            <span className="text-slate-600 ml-2">{sanitizeContent(reviewData.clientName)}</span>
           </p>
-          {websiteUrl && websiteUrl !== 'N/A' && (
+          {reviewData.websiteUrl && reviewData.websiteUrl !== 'N/A' && (
             <p className="text-sm">
               <span className="font-bold text-slate-700">Website:</span> 
               <a 
-                href={websiteUrl} 
+                href={reviewData.websiteUrl.startsWith('http') ? reviewData.websiteUrl : `https://${reviewData.websiteUrl}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-amber-600 ml-2 hover:underline"
+                className="text-amber-600 ml-2 hover:underline font-medium"
               >
-                {sanitizeContent(websiteUrl)}
+                {sanitizeContent(reviewData.websiteUrl)}
               </a>
             </p>
           )}
-          {company && company !== 'N/A' && (
+          {reviewData.company && (
             <p className="text-sm">
               <span className="font-bold text-slate-700">Company:</span> 
-              <span className="text-slate-600 ml-2">{sanitizeContent(company)}</span>
+              <span className="text-slate-600 ml-2">{sanitizeContent(reviewData.company)}</span>
             </p>
           )}
           <button 
             onClick={() => openLeadModal(notification)}
-            className="mt-2 px-6 py-2 bg-amber-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-amber-600 transition-all shadow-md active:scale-95"
+            className="mt-2 px-6 py-2 bg-amber-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-amber-600 transition-all shadow-md active:scale-95 cursor-pointer"
           >
             View Details
           </button>
@@ -761,7 +763,7 @@ const Notifications = () => {
             <button 
               onClick={() => handleAcceptJob(notification)}
               disabled={isProcessingAction}
-              className="px-6 py-2 bg-green-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-green-700 transition-all shadow-md active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-2 bg-green-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-green-700 transition-all shadow-md active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               Accept
             </button>
@@ -771,7 +773,7 @@ const Notifications = () => {
                 setShowDeclineModal(true);
               }}
               disabled={isProcessingAction}
-              className="px-6 py-2 bg-red-50 text-red-600 border border-red-100 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-red-100 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-2 bg-red-50 text-red-600 border border-red-100 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-red-100 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               Decline
             </button>
@@ -810,14 +812,14 @@ const Notifications = () => {
         <div className="flex items-center gap-2">
           <button 
             onClick={() => window.location.href = '/hub/notice-board'}
-            className="px-6 py-2 bg-blue-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-md active:scale-95"
+            className="px-6 py-2 bg-blue-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-md active:scale-95 cursor-pointer"
           >
             View in Notice Board
           </button>
           {isCustomQuote && (
             <button 
               onClick={() => window.location.href = `/hub/quotes?editJobId=${notification.jobId}`}
-              className="px-6 py-2 bg-emerald-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-md active:scale-95"
+              className="px-6 py-2 bg-emerald-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-md active:scale-95 cursor-pointer"
             >
               View in Custom Quote
             </button>
@@ -874,30 +876,26 @@ const Notifications = () => {
             
             <div className="space-y-6 text-left">
               <div className="group">
-                <label htmlFor="declineReason" className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3 ml-1 group-focus-within:text-red-500 transition-colors">
+                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3 ml-1 group-focus-within:text-red-500 transition-colors">
                   Reason for Decline
                 </label>
                 <textarea
-                  id="declineReason"
                   value={declineReason}
                   onChange={(e) => setDeclineReason(e.target.value)}
                   placeholder="e.g., Timeline is too tight for my current schedule..."
                   className="w-full px-6 py-5 bg-slate-50 border border-slate-100 rounded-3xl text-sm focus:ring-4 focus:ring-red-500/10 focus:border-red-500 outline-none transition-all resize-none h-40 font-medium text-slate-700 placeholder:text-slate-300 shadow-inner"
-                  disabled={isProcessingAction}
-                  aria-label="Reason for declining the assignment"
+                  aria-label="Reason for decline"
                 />
               </div>
               
               <div className="flex gap-4 pt-2">
                 <button 
                   onClick={() => {
-                    if (!isProcessingAction) {
-                      setShowDeclineModal(false);
-                      setDeclineReason('');
-                    }
+                    setShowDeclineModal(false);
+                    setDeclineReason('');
                   }}
                   disabled={isProcessingAction}
-                  className="flex-1 px-6 py-5 bg-slate-100 text-slate-600 rounded-[1.5rem] text-sm font-black uppercase tracking-widest hover:bg-slate-200 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 px-6 py-5 bg-slate-100 text-slate-600 rounded-[1.5rem] text-sm font-black uppercase tracking-widest hover:bg-slate-200 transition-all active:scale-95 disabled:opacity-50"
                 >
                   Back
                 </button>
@@ -906,7 +904,7 @@ const Notifications = () => {
                   onClick={handleDeclineJob}
                   className="flex-[1.5] px-6 py-5 bg-red-600 text-white rounded-[1.5rem] text-sm font-black uppercase tracking-widest hover:bg-red-700 transition-all shadow-xl shadow-red-500/25 active:scale-95 disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed"
                 >
-                  {isProcessingAction ? 'Processing...' : 'Confirm Decline'}
+                  {isProcessingAction ? 'Declining...' : 'Confirm Decline'}
                 </button>
               </div>
             </div>
@@ -914,7 +912,7 @@ const Notifications = () => {
         </div>
       </div>
     );
-  }, [showDeclineModal, declineReason, isProcessingAction, handleDeclineJob]);
+  }, [showDeclineModal, declineReason, handleDeclineJob, isProcessingAction]);
 
   const LeadModal = useCallback(() => {
     if (!showLeadModal) return null;
@@ -930,8 +928,8 @@ const Notifications = () => {
             }
           }} 
         />
-        <div className="bg-white w-full max-w-2xl rounded-[2.5rem] shadow-2xl relative animate-in zoom-in-95 slide-in-from-bottom-8 duration-300 overflow-hidden border border-white/20 max-h-[90vh] flex flex-col">
-          <div className="relative h-32 bg-amber-600 flex items-center justify-center flex-shrink-0">
+        <div className="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl relative animate-in zoom-in-95 slide-in-from-bottom-8 duration-300 overflow-hidden border border-white/20 max-h-[90vh] flex flex-col">
+          <div className="relative h-28 bg-amber-500 flex items-center justify-center shrink-0">
             <div className="absolute top-6 right-6">
               <button 
                 onClick={() => {
@@ -941,14 +939,14 @@ const Notifications = () => {
                   }
                 }}
                 disabled={loadingLead}
-                className="p-2 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all disabled:opacity-50"
+                className="p-2 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all disabled:opacity-50 cursor-pointer"
                 aria-label="Close lead modal"
               >
                 <FaTimes size={18} />
               </button>
             </div>
-            <div className="w-20 h-20 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl flex items-center justify-center text-white shadow-xl">
-              <FaFileAlt size={32} />
+            <div className="w-16 h-16 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl flex items-center justify-center text-white shadow-xl">
+              <FaFileAlt size={28} />
             </div>
           </div>
 
@@ -978,10 +976,10 @@ const Notifications = () => {
                     <p className="text-lg font-bold text-slate-800 mt-1">
                       {activeLead.websiteUrl && activeLead.websiteUrl !== 'N/A' ? (
                         <a 
-                          href={activeLead.websiteUrl} 
+                          href={activeLead.websiteUrl.startsWith('http') ? activeLead.websiteUrl : `https://${activeLead.websiteUrl}`} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="text-amber-600 hover:underline"
+                          className="text-amber-600 hover:underline font-medium break-all"
                         >
                           {sanitizeContent(activeLead.websiteUrl)}
                         </a>
@@ -998,11 +996,11 @@ const Notifications = () => {
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Status</label>
                     <p className="text-lg font-bold text-slate-800 mt-1">
                       <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
-                        activeLead.status === 'active' ? 'bg-green-100 text-green-700' :
+                        activeLead.status === 'active' || activeLead.status === 'completed' ? 'bg-green-100 text-green-700' :
                         activeLead.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
                         'bg-slate-100 text-slate-700'
                       }`}>
-                        {activeLead.status || 'N/A'}
+                        {activeLead.status || 'pending'}
                       </span>
                     </p>
                   </div>
@@ -1042,7 +1040,7 @@ const Notifications = () => {
             <button 
               onClick={markAllRead}
               disabled={isProcessingAction || unreadCount === 0}
-              className="flex items-center space-x-2 px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-50 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center space-x-2 px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-50 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               aria-label="Mark all notifications as read"
             >
               <FaCheckDouble size={14} aria-hidden="true" />
@@ -1051,7 +1049,7 @@ const Notifications = () => {
             <button 
               onClick={clearRead}
               disabled={isProcessingAction}
-              className="flex items-center space-x-2 px-4 py-2 bg-white border border-slate-200 text-red-600 rounded-xl text-sm font-bold hover:bg-red-50 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center space-x-2 px-4 py-2 bg-white border border-slate-200 text-red-600 rounded-xl text-sm font-bold hover:bg-red-50 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               aria-label="Clear read notifications"
             >
               <FaTrash size={14} aria-hidden="true" />
@@ -1066,7 +1064,7 @@ const Notifications = () => {
             onClick={() => setFilter('all')}
             role="tab"
             aria-selected={filter === 'all'}
-            className={`flex-1 flex items-center justify-center space-x-2 py-2 rounded-xl text-sm font-bold transition-all ${
+            className={`flex-1 flex items-center justify-center space-x-2 py-2 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               filter === 'all' 
                 ? 'bg-slate-800 text-white shadow-lg' 
                 : 'text-slate-500 hover:bg-slate-50'
@@ -1084,7 +1082,7 @@ const Notifications = () => {
             onClick={() => setFilter('unread')}
             role="tab"
             aria-selected={filter === 'unread'}
-            className={`flex-1 flex items-center justify-center space-x-2 py-2 rounded-xl text-sm font-bold transition-all ${
+            className={`flex-1 flex items-center justify-center space-x-2 py-2 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               filter === 'unread' 
                 ? 'bg-blue-600 text-white shadow-lg' 
                 : 'text-slate-500 hover:bg-slate-50'
@@ -1110,7 +1108,7 @@ const Notifications = () => {
           ) : filteredNotifications.length > 0 ? (
             <>
               {currentNotifications.map(notification => {
-                const config = getNotificationConfig(notification.type);
+                const config = getNotificationConfig(notification.type, notification);
                 const Icon = config.icon;
                 const isUnread = !notification.isRead;
 
@@ -1127,7 +1125,7 @@ const Notifications = () => {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
-                          {renderNotificationBadge(notification.type)}
+                          {renderNotificationBadge(notification)}
                           <div className="flex items-center gap-1 text-[10px] font-bold text-slate-400">
                             <FaClock size={10} aria-hidden="true" />
                             {formatDate(notification.createdAt)}
@@ -1147,7 +1145,7 @@ const Notifications = () => {
                             <button 
                               onClick={() => markAsRead(notification.id)}
                               disabled={isProcessingAction}
-                              className="text-xs font-bold text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1 disabled:opacity-50"
+                              className="text-xs font-bold text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1 disabled:opacity-50 cursor-pointer"
                               aria-label="Mark notification as read"
                             >
                               <FaCheckDouble size={10} aria-hidden="true" />
@@ -1168,7 +1166,7 @@ const Notifications = () => {
                   <button
                     disabled={currentPage === 1 || isProcessingAction}
                     onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                    className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-600 disabled:opacity-50 hover:bg-slate-50 transition-all"
+                    className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-600 disabled:opacity-50 hover:bg-slate-50 transition-all cursor-pointer"
                     aria-label="Previous page"
                   >
                     Previous
@@ -1179,7 +1177,7 @@ const Notifications = () => {
                         key={i + 1}
                         onClick={() => setCurrentPage(i + 1)}
                         disabled={isProcessingAction}
-                        className={`w-10 h-10 rounded-xl text-sm font-bold transition-all ${
+                        className={`w-10 h-10 rounded-xl text-sm font-bold transition-all cursor-pointer ${
                           currentPage === i + 1 
                             ? 'bg-blue-600 text-white shadow-lg' 
                             : 'bg-white text-slate-500 border border-slate-100 hover:bg-slate-50'
@@ -1194,7 +1192,7 @@ const Notifications = () => {
                   <button
                     disabled={currentPage === totalPages || isProcessingAction}
                     onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                    className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-600 disabled:opacity-50 hover:bg-slate-50 transition-all"
+                    className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-600 disabled:opacity-50 hover:bg-slate-50 transition-all cursor-pointer"
                     aria-label="Next page"
                   >
                     Next
