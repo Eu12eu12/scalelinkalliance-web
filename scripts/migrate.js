@@ -158,9 +158,22 @@ const migrate = async () => {
       console.warn('⚠️ Resources migration skipped (table might not exist yet):', resErr.message);
     }
 
+    // 5. Migrate NoticeBoardNotifications (ensure type column is VARCHAR/supports website_review_request)
+    try {
+      if (!isSqlite) {
+        console.log('➕ Ensuring NoticeBoardNotifications type column is VARCHAR(50)...');
+        await queryInterface.changeColumn('NoticeBoardNotifications', 'type', {
+          type: db.Sequelize.STRING(50),
+          allowNull: false
+        }, { transaction });
+      }
+    } catch (notifErr) {
+      console.warn('⚠️ NoticeBoardNotifications migration skipped:', notifErr.message);
+    }
+
     await transaction.commit();
 
-    // 5. Backfill Retroactive Client Tokens for Existing Jobs
+    // 6. Backfill Retroactive Client Tokens for Existing Jobs
     try {
       console.log('🩹 Backfilling unique clientTokens for existing jobs...');
       const jobs = await db.NoticeBoardJob.findAll({ where: { clientToken: null } });
@@ -177,7 +190,7 @@ const migrate = async () => {
       console.warn('⚠️ Backfill unique clientTokens skipped:', backfillErr.message);
     }
 
-    // 6. Backfill Retroactive Slugs for Existing Resources
+    // 7. Backfill Retroactive Slugs for Existing Resources
     try {
       console.log('🩹 Backfilling unique slugs for existing resources...');
       const resources = await db.Resource.findAll();
@@ -213,7 +226,30 @@ const migrate = async () => {
       console.warn('⚠️ Backfill resource slugs skipped:', slugBackfillErr.message);
     }
 
-    // 7. Enforce schema sync
+    // 8. Backfill Retroactive Notification Types for Website Reviews
+    try {
+      console.log('🩹 Backfilling notification types for website review requests...');
+      const reviewNotifs = await db.NoticeBoardNotification.findAll({
+        where: {
+          message: {
+            [db.Sequelize.Op.like]: '%Website Review%'
+          }
+        }
+      });
+      for (const n of reviewNotifs) {
+        if (n.type !== 'website_review_request') {
+          n.type = 'website_review_request';
+          await n.save();
+        }
+      }
+      if (reviewNotifs.length > 0) {
+        console.log(`✅ Backfilled ${reviewNotifs.length} notifications to website_review_request type.`);
+      }
+    } catch (notifBackfillErr) {
+      console.warn('⚠️ Backfill notification types skipped:', notifBackfillErr.message);
+    }
+
+    // 9. Enforce schema sync
     console.log('🚀 Running final Sequelize Sync...');
     if (isSqlite) {
       await db.sequelize.query('PRAGMA foreign_keys = OFF');

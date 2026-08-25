@@ -12,21 +12,7 @@ module.exports = (sequelize) => {
       allowNull: true, // Some notifications might be general
     },
     type: {
-      type: DataTypes.ENUM(
-        'assignment', 
-        'acceptance', 
-        'check_out', 
-        'review', 
-        'completed', 
-        'returned', 
-        '24h_reminder', 
-        '2h_reminder', 
-        'overdue',
-        'cancelled',
-        'service_request',
-        'comment',
-        'file'
-      ),
+      type: DataTypes.STRING(50),
       allowNull: false,
     },
     message: {
