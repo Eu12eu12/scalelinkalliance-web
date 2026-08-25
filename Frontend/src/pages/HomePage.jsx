@@ -1015,7 +1015,7 @@ const HomePage = () => {
 
                           <div className="relative bg-gray-100">
                             <img
-                              src="public/Fah.jpeg"
+                              src="https://www.image2url.com/r2/default/images/1787666355043-5c438831-cf2e-493f-aeea-2492ae89d51c.jpeg"
                               alt="ScaleLink Alliance dedicated project tracking portal"
                               className="block w-full h-auto max-h-[52vh] object-contain bg-white"
                               loading="lazy"
