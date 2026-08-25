@@ -88,6 +88,10 @@ const NOTIFICATION_CONFIG = {
   }
 };
 
+// Alias common review-related types to the same visual config (some environments use different type names)
+NOTIFICATION_CONFIG.website_review = NOTIFICATION_CONFIG.website_review_request;
+NOTIFICATION_CONFIG.lead = NOTIFICATION_CONFIG.website_review_request;
+
 const DEFAULT_CONFIG = {
   icon: FaBell,
   bgColor: 'bg-slate-100',
@@ -135,7 +139,19 @@ const formatDate = (dateString) => {
 // ===== RENDER HELPERS =====
 const isWebsiteReviewNotification = (notification) => {
   const type = notification?.type;
-  return type === 'website_review_request' || type === 'website_review' || type === 'lead';
+  if (type === 'website_review_request' || type === 'website_review' || type === 'lead') return true;
+
+  // Some production notifications come through with a generic type but include website/lead metadata.
+  // Detect those by inspecting metadata for website/lead fields.
+  try {
+    const meta = parseMeta(notification?.metadata);
+    if (!meta) return false;
+    const hasWebsite = meta.websiteUrl || meta.url || meta.website;
+    const hasLead = meta.clientName || meta.clientEmail || meta.businessDescription;
+    return Boolean(hasWebsite || hasLead);
+  } catch (e) {
+    return false;
+  }
 };
 
 const renderMessage = (notification, isWorker) => {
