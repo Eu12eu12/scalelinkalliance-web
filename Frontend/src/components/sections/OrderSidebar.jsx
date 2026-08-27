@@ -55,7 +55,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'lead-generation',         name: 'Lead Generation' },
     { slug: 'graphic-design',          name: 'Social Media Graphics' },
   ],
-  
+
   // Landing Pages - 6 add-ons
   'landing-pages': [
     { slug: 'copywriting',             name: 'Copywriting' },
@@ -65,7 +65,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'crm-automation',          name: 'CRM Integration' },
     { slug: 'seo-marketing',           name: 'SEO Setup' },
   ],
-  
+
   // E-Commerce Development - 8 add-ons
   'ecommerce-development': [
     { slug: 'data-entry',              name: 'Product Upload' },
@@ -77,7 +77,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'seo-marketing',           name: 'SEO Setup' },
     { slug: 'data-analytics',          name: 'Analytics Reports' },
   ],
-  
+
   // SEO Marketing - 6 add-ons
   'seo-marketing': [
     { slug: 'website-development',     name: 'Website Development' },
@@ -87,7 +87,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'lead-generation',         name: 'Lead Generation' },
     { slug: 'graphic-design',          name: 'Blog Graphics' },
   ],
-  
+
   // Paid Advertising - 5 add-ons
   'paid-advertising': [
     { slug: 'landing-pages',           name: 'Landing Pages' },
@@ -96,7 +96,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'lead-generation',         name: 'Lead Generation' },
     { slug: 'data-analytics',          name: 'Performance Analytics' },
   ],
-  
+
   // Lead Generation - 7 add-ons
   'lead-generation': [
     { slug: 'landing-pages',           name: 'Landing Page' },
@@ -107,7 +107,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'data-analytics',          name: 'Data Reports' },
     { slug: 'virtual-assistant',       name: 'VA Follow-Up' },
   ],
-  
+
   // CRM & Marketing Automation - 5 add-ons
   'crm-automation': [
     { slug: 'lead-generation',         name: 'Lead Generation' },
@@ -116,7 +116,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'api-integration',         name: 'API Integration' },
     { slug: 'data-analytics',          name: 'Analytics Dashboard' },
   ],
-  
+
   // Email Marketing - 5 add-ons
   'email-marketing': [
     { slug: 'lead-generation',         name: 'Lead Generation' },
@@ -125,7 +125,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'crm-automation',          name: 'CRM Automation' },
     { slug: 'landing-pages',           name: 'Landing Pages' },
   ],
-  
+
   // Social Media Management - 5 add-ons
   'social-media-management': [
     { slug: 'graphic-design',          name: 'Graphic Design' },
@@ -134,7 +134,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'paid-advertising',        name: 'Social Media Ads' },
     { slug: 'photography',             name: 'Photography' },
   ],
-  
+
   // Graphic Design - 5 add-ons
   'graphic-design': [
     { slug: 'brand-identity',          name: 'Brand Identity' },
@@ -143,7 +143,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'website-development',     name: 'Website Development' },
     { slug: 'video-editing',           name: 'Video Editing' },
   ],
-  
+
   // Brand Identity - 5 add-ons
   'brand-identity': [
     { slug: 'graphic-design',          name: 'Graphic Design' },
@@ -152,7 +152,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'social-media-management', name: 'Social Media Management' },
     { slug: 'photography',             name: 'Brand Photography' },
   ],
-  
+
   // Photography - 5 add-ons
   'photography': [
     { slug: 'graphic-design',          name: 'Graphic Design' },
@@ -161,7 +161,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'video-editing',           name: 'Video Editing' },
     { slug: 'brand-identity',          name: 'Brand Identity' },
   ],
-  
+
   // Video Editing - 5 add-ons
   'video-editing': [
     { slug: 'graphic-design',          name: 'Thumbnail Design' },
@@ -170,7 +170,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'paid-advertising',        name: 'Video Ads' },
     { slug: 'landing-pages',           name: 'Landing Page' },
   ],
-  
+
   // Copywriting - 5 add-ons
   'copywriting': [
     { slug: 'graphic-design',          name: 'Graphic Design' },
@@ -179,7 +179,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'email-marketing',         name: 'Email Marketing' },
     { slug: 'social-media-management', name: 'Social Media Management' },
   ],
-  
+
   // API Integration - 5 add-ons
   'api-integration': [
     { slug: 'crm-automation',          name: 'CRM Automation' },
@@ -188,7 +188,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'website-development',     name: 'Website Development' },
     { slug: 'process-documentation',   name: 'Process Documentation' },
   ],
-  
+
   // Web Applications - 6 add-ons
   'web-applications': [
     { slug: 'api-integration',         name: 'API Integration' },
@@ -198,7 +198,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'seo-marketing',           name: 'SEO Setup' },
     { slug: 'copywriting',             name: 'Copywriting' },
   ],
-  
+
   // Website Maintenance - 5 add-ons
   'website-maintenance': [
     { slug: 'website-development',     name: 'Website Development' },
@@ -207,7 +207,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'copywriting',             name: 'Content Updates' },
     { slug: 'data-analytics',          name: 'Performance Reports' },
   ],
-  
+
   // Virtual Assistant - 4 add-ons
   'virtual-assistant': [
     { slug: 'data-entry',              name: 'Data Entry' },
@@ -215,7 +215,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'process-documentation',   name: 'Process Documentation' },
     { slug: 'lead-generation',         name: 'Lead Generation' },
   ],
-  
+
   // Data Analytics - 5 add-ons
   'data-analytics': [
     { slug: 'crm-automation',          name: 'CRM Automation' },
@@ -224,7 +224,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'paid-advertising',        name: 'Ad Performance Tracking' },
     { slug: 'website-development',     name: 'Analytics Integration' },
   ],
-  
+
   // Process Documentation - 5 add-ons
   'process-documentation': [
     { slug: 'project-management',      name: 'Project Management' },
@@ -233,7 +233,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'data-analytics',          name: 'Performance Reporting' },
     { slug: 'data-entry',              name: 'Data Entry' },
   ],
-  
+
   // Project Management - 4 add-ons
   'project-management': [
     { slug: 'process-documentation',   name: 'Process Documentation' },
@@ -241,7 +241,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'data-analytics',          name: 'Performance Tracking' },
     { slug: 'crm-automation',          name: 'CRM Automation' },
   ],
-  
+
   // Data Entry - 5 add-ons
   'data-entry': [
     { slug: 'crm-automation',          name: 'CRM Automation' },
@@ -250,7 +250,7 @@ const FULL_SERVICE_ADDONS = {
     { slug: 'process-documentation',   name: 'Process Documentation' },
     { slug: 'lead-generation',         name: 'Lead Database' },
   ],
-  
+
   // AI Automation - 5 add-ons
   'ai-automation': [
     { slug: 'crm-automation',          name: 'CRM Setup' },
@@ -1301,17 +1301,17 @@ const OrderSidebar = ({ serviceSlug, selectedPackage, packagePrice, packageName,
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden sticky top-6">
+    <div className="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden lg:sticky lg:top-6">
       {/* Header */}
-      <div className="bg-gray-900 px-6 py-4">
-        <h3 className="text-white font-bold text-base">Your Order</h3>
+      <div className="bg-gray-900 px-4 sm:px-6 py-3 sm:py-4">
+        <h3 className="text-white font-bold text-sm sm:text-base">Your Order</h3>
       </div>
 
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Selected package */}
-        <div className="flex items-center justify-between mb-1">
-          <span className="text-sm font-semibold text-gray-800">{packageName || 'Selected Package'}</span>
-          <span className="text-sm font-bold text-gray-900">
+        <div className="flex items-center justify-between mb-1 gap-2">
+          <span className="text-sm font-semibold text-gray-800 truncate">{packageName || 'Selected Package'}</span>
+          <span className="text-sm font-bold text-gray-900 shrink-0">
             {isCustomQuoteOnly ? 'Custom Quote' : `$${basePrice.toLocaleString()}`}
           </span>
         </div>
@@ -1339,7 +1339,11 @@ const OrderSidebar = ({ serviceSlug, selectedPackage, packagePrice, packageName,
             <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-3 flex items-center gap-1.5">
               <FaTag className="text-blue-500" size={10} /> Add-On Services
             </p>
-            <div className="space-y-2.5 max-h-75 overflow-y-auto pr-2">
+            {/* Fixed: max-h-75 is not a valid Tailwind class and was silently doing
+                nothing, letting this list grow unbounded (10 add-ons on some
+                services) and blow out page height on mobile. max-h-64 + scroll
+                keeps it contained on any screen size. */}
+            <div className="space-y-2.5 max-h-64 overflow-y-auto pr-2">
               {addOns.map(addon => (
                 <div key={addon.slug} className="flex items-start gap-3">
                   <input
@@ -1349,9 +1353,9 @@ const OrderSidebar = ({ serviceSlug, selectedPackage, packagePrice, packageName,
                     onChange={() => toggleAddOn(addon.slug)}
                     className="mt-0.5 w-4 h-4 rounded border-gray-300 text-blue-600 cursor-pointer shrink-0"
                   />
-                  <label htmlFor={`addon-${addon.slug}`} className="grow cursor-pointer">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-gray-800 leading-snug">{addon.name}</span>
+                  <label htmlFor={`addon-${addon.slug}`} className="grow cursor-pointer min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-semibold text-gray-800 leading-snug break-words">{addon.name}</span>
                     </div>
                   </label>
                 </div>
@@ -1365,11 +1369,11 @@ const OrderSidebar = ({ serviceSlug, selectedPackage, packagePrice, packageName,
           <div className="bg-gray-50 rounded-xl p-3 mb-4 space-y-1.5">
             <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Additional Features</p>
             {selectedAddOns.map(a => (
-              <div key={a.slug} className="flex items-center justify-between text-sm">
-                <span className="text-gray-700 text-xs">{a.name}</span>
+              <div key={a.slug} className="flex items-center justify-between text-sm gap-2">
+                <span className="text-gray-700 text-xs truncate">{a.name}</span>
                 <button
                   onClick={() => toggleAddOn(a.slug)}
-                  className="text-gray-400 hover:text-red-500 transition-colors"
+                  className="text-gray-400 hover:text-red-500 transition-colors shrink-0"
                 >
                   <FaTimes size={10} />
                 </button>
@@ -1381,18 +1385,18 @@ const OrderSidebar = ({ serviceSlug, selectedPackage, packagePrice, packageName,
         {/* Totals */}
         {!isCustomQuoteOnly && (
           <div className="border-t border-gray-100 pt-4 space-y-2 mb-5">
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm gap-2">
               <span className="text-gray-600">Subtotal</span>
               <span className="font-semibold text-gray-900">${subtotal.toLocaleString()}</span>
             </div>
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm gap-2">
               <span className="text-gray-500 flex items-center gap-1">
                 Platform Fee (5%)
-                <FaInfoCircle className="text-gray-300 text-xs" />
+                <FaInfoCircle className="text-gray-300 text-xs shrink-0" />
               </span>
               <span className="text-gray-700">${platformFee.toLocaleString()}</span>
             </div>
-            <div className="flex justify-between text-base font-bold pt-2 border-t border-gray-200">
+            <div className="flex justify-between text-base font-bold pt-2 border-t border-gray-200 gap-2">
               <span className="text-gray-900">Total</span>
               <span className="text-blue-600">${total.toLocaleString()}</span>
             </div>
@@ -1418,12 +1422,12 @@ const OrderSidebar = ({ serviceSlug, selectedPackage, packagePrice, packageName,
           <button
             onClick={handleCheckout}
             disabled={loading || total === 0}
-            className="w-full py-3.5 font-bold rounded-xl bg-green-600 text-white hover:bg-green-700 disabled:opacity-60 disabled:cursor-not-allowed transition-colors text-sm flex items-center justify-center gap-2"
+            className="w-full py-3.5 font-bold rounded-xl bg-green-600 text-white hover:bg-green-700 disabled:opacity-60 disabled:cursor-not-allowed transition-colors text-xs sm:text-sm flex items-center justify-center gap-1.5 sm:gap-2 text-center leading-tight px-2"
           >
             {loading ? (
-              <><FaSpinner className="animate-spin" /> Redirecting to checkout...</>
+              <><FaSpinner className="animate-spin shrink-0" /> Redirecting...</>
             ) : (
-              <><FaLock size={12} /> Continue to Checkout — ${total.toLocaleString()}</>
+              <><FaLock size={12} className="shrink-0" /> Checkout — ${total.toLocaleString()}</>
             )}
           </button>
         )}

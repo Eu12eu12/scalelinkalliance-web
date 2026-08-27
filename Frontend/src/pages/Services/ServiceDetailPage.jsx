@@ -9,7 +9,7 @@ import {
   FaProjectDiagram, FaCamera, FaPalette, FaCloudUploadAlt, FaShieldAlt,
   FaRegBuilding, FaChartLine, FaTools, FaStar, FaClock, FaDollarSign,
   FaInfoCircle, FaChevronDown, FaChevronUp, FaSyncAlt, FaBriefcase,
-  FaRobot, FaCalendar, FaChevronLeft, FaChevronRight, FaTimes, FaExpand
+  FaRobot, FaCalendar, FaChevronLeft, FaChevronRight, FaTimes
 } from 'react-icons/fa';
 import PackageComparison, { getPackageFeatures } from '../../components/sections/PackageComparison';
 import OrderSidebar from '../../components/sections/OrderSidebar';
@@ -1878,153 +1878,205 @@ const LazyImg = ({ src, alt, className, width, height }) => {
 // ─── IMAGE GALLERY COMPONENT ───
 const ImageGallery = ({ images, serviceTitle }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+
+  const safeImages = Array.isArray(images) ? images.filter(Boolean) : [];
 
   const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
+    if (safeImages.length < 2) return;
+    setCurrentIndex((prev) => (prev + 1) % safeImages.length);
   };
 
   const prevImage = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    if (safeImages.length < 2) return;
+    setCurrentIndex((prev) => (prev - 1 + safeImages.length) % safeImages.length);
   };
 
-  const openFullscreen = () => setIsFullscreen(true);
-  const closeFullscreen = () => setIsFullscreen(false);
+  useEffect(() => {
+    if (!isViewerOpen) return;
 
-  React.useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (isFullscreen) {
-        if (e.key === 'ArrowRight') nextImage();
-        if (e.key === 'ArrowLeft') prevImage();
-        if (e.key === 'Escape') closeFullscreen();
-      }
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setIsViewerOpen(false);
+      if (event.key === 'ArrowRight') nextImage();
+      if (event.key === 'ArrowLeft') prevImage();
     };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isFullscreen, currentIndex]);
 
-  React.useEffect(() => {
-    const img = new Image();
-    img.src = optimizeImage(images[currentIndex], 1600, 82);
-  }, [currentIndex, images]);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isViewerOpen, safeImages.length]);
 
-  if (!images || images.length === 0) {
-    return null;
-  }
+  if (!safeImages.length) return null;
+
+  const currentImage = safeImages[currentIndex];
 
   return (
     <>
-      <div className="relative">
-        <div
-          className="rounded-xl overflow-hidden bg-gray-100 cursor-pointer group relative"
-          onClick={openFullscreen}
+      <section className="w-full min-w-0" aria-label={`${serviceTitle} gallery`}>
+        <button
+          type="button"
+          onClick={() => setIsViewerOpen(true)}
+          className="group relative block w-full overflow-hidden rounded-2xl bg-slate-100 border border-slate-200 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          aria-label={`Open ${serviceTitle} image ${currentIndex + 1}`}
         >
-          <img
-            src={optimizeImage(images[currentIndex], 1200)}
-            alt={`${serviceTitle} - Image ${currentIndex + 1}`}
-            width={1200}
-            height={600}
-            loading={currentIndex === 0 ? 'eager' : 'lazy'}
-            fetchPriority={currentIndex === 0 ? 'high' : 'auto'}
-            decoding="async"
-            className="w-full h-auto max-h-[300px] sm:max-h-[400px] md:max-h-[500px] object-contain bg-gray-50 transition-transform duration-300 group-hover:scale-[1.01]"
-          />
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-            <span className="text-white text-xs sm:text-sm font-semibold bg-black/60 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <FaExpand className="inline" /> Click to view fullscreen
-            </span>
-          </div>
-          <div className="absolute bottom-3 sm:bottom-4 right-3 sm:right-4 bg-black/70 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
-            {currentIndex + 1} / {images.length}
-          </div>
-        </div>
+          <div className="relative aspect-[16/9] w-full min-h-[180px] sm:min-h-[220px] md:min-h-[280px] lg:min-h-[320px] max-h-[520px]">
+            <img
+              src={optimizeImage(currentImage, 1000, 78)}
+              alt={`${serviceTitle} preview ${currentIndex + 1}`}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+              loading={currentIndex === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+            />
 
-        {images.length > 1 && (
-          <>
-            <button
-              onClick={(e) => { e.stopPropagation(); prevImage(); }}
-              className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 sm:p-2.5 rounded-full shadow-lg transition-all hover:scale-110 hover:shadow-xl"
-            >
-              <FaChevronLeft size={14} />
-            </button>
-            <button
-              onClick={(e) => { e.stopPropagation(); nextImage(); }}
-              className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 sm:p-2.5 rounded-full shadow-lg transition-all hover:scale-110 hover:shadow-xl"
-            >
-              <FaChevronRight size={14} />
-            </button>
-          </>
-        )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
 
-        {images.length > 1 && (
-          <div className="flex gap-1.5 sm:gap-2 mt-3 sm:mt-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 -mx-1 px-1">
-            {images.map((img, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                className={`flex-shrink-0 w-16 sm:w-20 md:w-24 h-11 sm:h-14 md:h-16 rounded-lg overflow-hidden border-2 transition-all ${
-                  idx === currentIndex ? 'border-blue-600 ring-2 ring-blue-200' : 'border-transparent hover:border-gray-300'
-                }`}
-              >
-                <LazyImg
-                  src={optimizeImage(img, 100)}
-                  alt={`Thumbnail ${idx + 1}`}
-                  width={96}
-                  height={64}
-                  className="w-full h-full object-cover"
-                />
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
+            <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 flex items-end justify-between gap-3">
+              <span className="inline-flex items-center rounded-full bg-black/65 backdrop-blur-sm px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-white">
+                Click to view full image
+              </span>
 
-      <AnimatePresence>
-        {isFullscreen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center"
-            onClick={closeFullscreen}
-          >
-            <button onClick={closeFullscreen} className="absolute top-3 sm:top-4 right-3 sm:right-4 text-white/80 hover:text-white p-2 transition-colors z-10">
-              <FaTimes size={24} />
-            </button>
-            <div className="absolute top-3 sm:top-4 left-3 sm:left-4 text-white/60 text-xs sm:text-sm">{currentIndex + 1} / {images.length}</div>
-            <div className="max-w-[95vw] max-h-[80vh] sm:max-w-[90vw] sm:max-h-[85vh] cursor-pointer" onClick={(e) => e.stopPropagation()}>
-              <img
-                src={optimizeImage(images[currentIndex], 1600, 82)}
-                alt={`${serviceTitle} - Fullscreen`}
-                loading="eager"
-                decoding="async"
-                className="max-w-full max-h-[80vh] sm:max-h-[85vh] object-contain rounded-lg"
-              />
+              {safeImages.length > 1 && (
+                <span className="shrink-0 rounded-full bg-black/65 backdrop-blur-sm px-2.5 py-1 text-[10px] sm:text-xs font-semibold text-white">
+                  {currentIndex + 1} / {safeImages.length}
+                </span>
+              )}
             </div>
-            {images.length > 1 && (
-              <>
-                <button onClick={(e) => { e.stopPropagation(); prevImage(); }} className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-2 sm:p-3 rounded-full transition-all hover:scale-110">
-                  <FaChevronLeft size={18} />
-                </button>
-                <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-2 sm:p-3 rounded-full transition-all hover:scale-110">
-                  <FaChevronRight size={18} />
-                </button>
-              </>
-            )}
-            {images.length > 1 && (
-              <div className="absolute bottom-16 sm:bottom-20 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 max-w-[85vw] overflow-x-auto pb-2">
-                {images.map((img, idx) => (
-                  <button key={idx} onClick={(e) => { e.stopPropagation(); setCurrentIndex(idx); }} className={`flex-shrink-0 w-12 sm:w-16 h-9 sm:h-12 rounded-lg overflow-hidden border-2 transition-all ${idx === currentIndex ? 'border-white ring-2 ring-blue-400' : 'border-white/30 hover:border-white/60'}`}>
-                    <LazyImg
-                      src={optimizeImage(img, 100)}
-                      alt={`Thumbnail ${idx + 1}`}
+          </div>
+        </button>
+
+        {safeImages.length > 1 && (
+          <div className="mt-3 flex items-center gap-2 min-w-0">
+            <button
+              type="button"
+              onClick={prevImage}
+              className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-slate-200 bg-white shadow-sm text-slate-700 flex items-center justify-center hover:bg-slate-50"
+              aria-label="Previous image"
+            >
+              <FaChevronLeft size={13} />
+            </button>
+
+            <div className="min-w-0 flex-1 overflow-x-auto overscroll-x-contain scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-transparent">
+              <div className="flex gap-2 w-max pr-1">
+                {safeImages.map((image, index) => (
+                  <button
+                    type="button"
+                    key={`${index}-${image}`}
+                    onClick={() => setCurrentIndex(index)}
+                    className={`shrink-0 w-16 h-10 sm:w-20 sm:h-12 rounded-lg overflow-hidden border-2 ${
+                      index === currentIndex
+                        ? 'border-blue-600 ring-2 ring-blue-100'
+                        : 'border-transparent hover:border-slate-300'
+                    }`}
+                    aria-label={`Select image ${index + 1}`}
+                  >
+                    <img
+                      src={optimizeImage(image, 120, 70)}
+                      alt=""
                       className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </button>
                 ))}
               </div>
-            )}
-            <div className="absolute bottom-10 sm:bottom-12 left-1/2 -translate-x-1/2 text-white/30 text-[10px] sm:text-xs hidden md:block">← → to navigate • ESC to close</div>
+            </div>
+
+            <button
+              type="button"
+              onClick={nextImage}
+              className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-slate-200 bg-white shadow-sm text-slate-700 flex items-center justify-center hover:bg-slate-50"
+              aria-label="Next image"
+            >
+              <FaChevronRight size={13} />
+            </button>
+          </div>
+        )}
+      </section>
+
+      <AnimatePresence>
+        {isViewerOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[9999] bg-slate-950/95 backdrop-blur-sm p-3 sm:p-5 md:p-8 flex items-center justify-center"
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget) setIsViewerOpen(false);
+            }}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${serviceTitle} image viewer`}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.985, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.985, y: 10 }}
+              transition={{ duration: 0.2 }}
+              className="relative w-full max-w-7xl min-w-0"
+              onMouseDown={(event) => event.stopPropagation()}
+            >
+              <div className="flex items-center justify-between gap-3 mb-3">
+                <div className="min-w-0">
+                  <p className="truncate text-sm sm:text-base font-semibold text-white">{serviceTitle}</p>
+                  <p className="text-[10px] sm:text-xs text-white/50">
+                    {currentIndex + 1} of {safeImages.length}
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setIsViewerOpen(false)}
+                  className="shrink-0 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white flex items-center justify-center"
+                  aria-label="Close image viewer"
+                >
+                  <FaTimes size={17} />
+                </button>
+              </div>
+
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/40">
+                <div className="max-h-[78vh] min-h-[240px] overflow-auto flex items-center justify-center p-1 sm:p-3">
+                  <img
+                    src={optimizeImage(currentImage, 1800, 88)}
+                    alt={`${serviceTitle} full image ${currentIndex + 1}`}
+                    className="block max-w-full max-h-[75vh] w-auto h-auto object-contain"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </div>
+
+                {safeImages.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={prevImage}
+                      className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/55 hover:bg-black/75 border border-white/10 text-white flex items-center justify-center"
+                      aria-label="Previous image"
+                    >
+                      <FaChevronLeft />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={nextImage}
+                      className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/55 hover:bg-black/75 border border-white/10 text-white flex items-center justify-center"
+                      aria-label="Next image"
+                    >
+                      <FaChevronRight />
+                    </button>
+                  </>
+                )}
+              </div>
+
+              <p className="mt-2 text-center text-[10px] sm:text-xs text-white/40">
+                Press Esc or click outside to close
+              </p>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -2080,19 +2132,19 @@ const ServiceDetailPage = () => {
   const selectedPkg = validPackage && service.packages ? service.packages[validPackage] : null;
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+    <motion.div className="w-full min-w-0 overflow-x-clip" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
       {/* Hero Section with Image Gallery */}
       <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
-          <div className="flex items-center text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4 flex-wrap">
+        <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+          <div className="flex items-center text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4 flex-wrap break-words">
             <Link to="/services" className="hover:text-blue-600">Services</Link>
             <span className="mx-1 sm:mx-2">/</span>
             <span className="text-gray-900 truncate">{service.title}</span>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1.7fr)_minmax(290px,0.8fr)] gap-5 sm:gap-6 lg:gap-8 items-start">
             {/* Left: Image Gallery + Content */}
-            <div className="lg:col-span-2">
+            <div className="min-w-0 w-full">
               <ImageGallery images={images.gallery} serviceTitle={service.title} />
 
               {service.sellerInfo && (
@@ -2116,14 +2168,14 @@ const ServiceDetailPage = () => {
                 </div>
               )}
 
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mt-3 sm:mt-4 mb-2 sm:mb-4">{service.title}</h1>
-              <p className="text-base sm:text-lg text-gray-700 mb-3 sm:mb-4 leading-relaxed">{service.intro}</p>
-              <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">{service.longDescription}</p>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mt-3 sm:mt-4 mb-2 sm:mb-4 break-words">{service.title}</h1>
+              <p className="text-base sm:text-lg text-gray-700 mb-3 sm:mb-4 leading-relaxed break-words">{service.intro}</p>
+              <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed break-words">{service.longDescription}</p>
             </div>
 
             {/* Right Sidebar */}
-            <div className="lg:col-span-1">
-              <div className="sticky top-24 bg-white border border-gray-200 rounded-xl shadow-lg p-4 sm:p-6">
+            <div className="min-w-0 w-full">
+              <div className="xl:sticky xl:top-24 relative bg-white border border-gray-200 rounded-xl shadow-lg p-4 sm:p-6">
                 {isCustomQuote ? (
                   <>
                     <div className="text-center mb-3 sm:mb-4">
@@ -2143,7 +2195,7 @@ const ServiceDetailPage = () => {
                   <>
                     {packageKeys.length > 0 && (
                       <div className="mb-3 sm:mb-4">
-                        <div className="flex border-b border-gray-200 -mx-0.5 sm:-mx-1">
+                        <div className="flex flex-wrap border-b border-gray-200 -mx-0.5 sm:-mx-1">
                           {packageKeys.map((pkgKey) => {
                             const pkg = service.packages[pkgKey];
                             const isActive = validPackage === pkgKey;
@@ -2197,7 +2249,7 @@ const ServiceDetailPage = () => {
                                     <span>What's Included</span>
                                     <FaChevronDown className="text-gray-400 text-[10px] sm:text-xs" />
                                   </button>
-                                  <div id="package-includes" className="mt-1.5 sm:mt-2 space-y-1 sm:space-y-1.5 max-h-72 overflow-y-auto pr-1">
+                                  <div id="package-includes" className="mt-1.5 sm:mt-2 space-y-1 sm:space-y-1.5 max-h-72 overflow-y-auto pr-1"> 
                                     {includedItems.map((item, idx) => (
                                       <div key={idx} className="flex items-start text-xs sm:text-sm text-gray-600">
                                         <FaCheck className="text-green-500 mr-1.5 sm:mr-2 mt-0.5 shrink-0" size={10} />
@@ -2229,7 +2281,7 @@ const ServiceDetailPage = () => {
       </div>
 
       {/* Rest of the page */}
-      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <main className="w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-12">
         {/* What This Service Helps Businesses Achieve */}
         <section className="mb-10 sm:mb-16">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">What This Service Helps Businesses Achieve</h2>
@@ -2244,7 +2296,7 @@ const ServiceDetailPage = () => {
         </section>
 
         {/* How This Service Is Measured */}
-        <section className="mb-10 sm:mb-16 bg-gray-50 p-4 sm:p-6 md:p-8 rounded-2xl">
+        <section className="mb-10 sm:mb-16 w-full min-w-0 overflow-hidden bg-gray-50 p-4 sm:p-6 md:p-8 rounded-2xl">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-4">How This Service Is Measured</h2>
           <p className="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4">This ensures transparent pricing and clear deliverables.</p>
           <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
@@ -2314,13 +2366,17 @@ const ServiceDetailPage = () => {
 
         {/* Package Comparison Table */}
         {hasPackageComparison && (
-          <section className="mb-10 sm:mb-16">
-            <PackageComparison packageData={service.packageComparison} serviceSlug={serviceSlug} />
+          <section className="mb-10 sm:mb-16 w-full min-w-0">
+            <div className="w-full min-w-0 overflow-x-auto overscroll-x-contain">
+              <div className="min-w-0 sm:min-w-[720px]">
+                <PackageComparison packageData={service.packageComparison} serviceSlug={serviceSlug} />
+              </div>
+            </div>
           </section>
         )}
 
         {/* Final CTA */}
-        <section className="text-center py-8 sm:py-12 bg-gray-50 rounded-2xl px-4">
+        <section className="w-full min-w-0 text-center py-8 sm:py-12 bg-gray-50 rounded-2xl px-3 sm:px-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">Ready to Get Professional Results?</h2>
           <p className="text-base sm:text-xl text-gray-600 mb-4 max-w-3xl mx-auto">Submit your service request today. No membership required, no commitments — just professional execution.</p>
           <div className="flex items-start gap-2 sm:gap-3 p-3 sm:p-4 bg-blue-50 border border-blue-200 border-l-4 border-l-blue-500 rounded-r-xl rounded-l-md max-w-2xl mx-auto mb-6 sm:mb-8 text-left shadow-sm transition-all duration-300 hover:shadow-md">

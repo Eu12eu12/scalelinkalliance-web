@@ -967,17 +967,17 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
 
   return (
     <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse">
+      <div className="overflow-x-auto -mx-4 px-4">
+        <table className="w-full min-w-[600px] md:min-w-full table-auto border-collapse">
           <thead>
             <tr className="bg-gray-50 border-b border-gray-200">
-              <th className="text-left p-4 text-sm font-semibold text-gray-700 w-1/4"></th>
+              <th className="text-left p-4 text-sm font-semibold text-gray-700 w-1/4 whitespace-normal break-words"></th>
               {packageData.tiers.map((tier) => {
                 const d = packageData.details[tier];
                 return (
                   <th 
                     key={tier}
-                    className={`text-left p-4 align-top cursor-pointer min-w-[160px] ${
+                    className={`text-left p-4 align-top cursor-pointer min-w-[160px] whitespace-normal break-words ${
                       activeTab === tier ? 'border-b-2 border-blue-600' : ''
                     }`}
                     onClick={() => handleTabChange(tier)}
@@ -1002,11 +1002,11 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
                 key={idx} 
                 className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50/60'}
               >
-                <td className="p-3 text-sm text-gray-700 border-b border-gray-100">
+                <td className="p-3 text-sm text-gray-700 border-b border-gray-100 whitespace-normal break-words">
                   {row.label}
                 </td>
                 {packageData.tiers.map((tier) => (
-                  <td key={tier} className="p-3 border-b border-gray-100">
+                  <td key={tier} className="p-3 border-b border-gray-100 whitespace-normal break-words">
                     <FaCheck
                       className={row.values[tier] ? 'text-green-600' : 'text-gray-300'}
                       size={16}

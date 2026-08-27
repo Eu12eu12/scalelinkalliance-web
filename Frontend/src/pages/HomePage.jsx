@@ -122,48 +122,6 @@ const HomePage = () => {
     }
   };
 
-  const featuredServices = [
-    {
-      id: 1,
-      slug: 'graphic-design',
-      name: 'Graphic Design',
-      icon: <FaPaintBrush />,
-      description: 'Strong visual design helps businesses communicate clearly, attract attention, and create a professional brand presence.',
-      startingPrice: '$35',
-      packages: {
-        starter: { price: '$35', name: 'Starter Package', includes: '1 design asset, 1 revision, web-ready files' },
-        growth: { price: '$175', name: 'Standard Package', includes: '5 design assets, 2 revisions' },
-        premium: { price: '$499', name: 'Premium Package', includes: '10 design assets, priority turnaround' }
-      }
-    },
-    {
-      id: 2,
-      slug: 'website-development',
-      name: 'Website Development',
-      icon: <FaCode />,
-      description: 'Your website is often the first place potential customers learn about your business. A well-designed website builds credibility.',
-      startingPrice: '$699',
-      packages: {
-        starter: { price: '$699', name: 'Starter Package', includes: 'up to 3 pages, responsive design, contact form' },
-        growth: { price: '$1,499', name: 'Standard Package', includes: 'up to 7 pages, advanced layout' },
-        premium: { price: '$3,499', name: 'Premium Package', includes: '10+ pages, custom functionality' }
-      }
-    },
-    {
-      id: 3,
-      slug: 'social-media-management',
-      name: 'Social Media Management',
-      icon: <FaUsers />,
-      description: 'Maintain a consistent and professional social media presence with content planning, creation, and regular engagement.',
-      startingPrice: '$299/month',
-      packages: {
-        starter: { price: '$299/month', name: 'Starter Package', includes: '8 posts/month, content scheduling' },
-        growth: { price: '$599/month', name: 'Standard Package', includes: '15 posts/month, graphic content, monthly report' },
-        premium: { price: '$1,499/month', name: 'Premium Package', includes: '30 posts/month, custom graphics, detailed reporting' }
-      }
-    }
-  ];
-
   const valuePoints = [
     { icon: <FaHandshake />, title: 'Weekly Referral Meetings', desc: 'Structured, purpose-driven networking' },
     { icon: <FaUserTie />, title: 'Industry Exclusivity', desc: 'No competition within your chapter' },
@@ -188,35 +146,27 @@ const HomePage = () => {
     },
     {
       number: '03',
-      icon: <FaProjectDiagram />,
-      title: 'Dedicated Project Tracking Portal',
-      shortDesc: 'See your project progress after purchasing.',
-      details: 'Once your project is established, you receive access to a dedicated project tracking portal where you can monitor project progress and production steps, view your current project status, communicate directly with your Support Representative, keep important project communication organized, and access or download completed project packages. No separate account or password is required.',
-      image: '/images/Fah.jpeg'
-    },
-    {
-      number: '04',
       icon: <FaHandshake />,
       title: 'Clear Pricing & Milestone-Based Payments',
       shortDesc: 'Defined scope, pricing, and milestones.',
       details: 'Know what you are paying for before work begins. Your project can include a defined scope, deliverables, pricing, milestones, and project requirements. This helps reduce unexpected costs and gives you a clearer understanding of what will be delivered. For applicable projects, payments can be structured around agreed milestones rather than treating the entire project as one undefined transaction.'
     },
     {
-      number: '05',
+      number: '04',
       icon: <FaRocket />,
       title: 'Focused on Business Results, Not Just Deliverables',
       shortDesc: 'Work connected to meaningful outcomes.',
       details: "Completing the work is only part of the objective. A website should support your business goals, marketing should help reach the right audience, and automation should make a useful business process more efficient. We look beyond individual tasks and consider outcomes such as more qualified leads, better customer experiences, improved efficiency, a stronger digital presence, better business processes, and long-term growth."
     },
     {
-      number: '06',
+      number: '05',
       icon: <FaShieldAlt />,
       title: 'Payment & Escrow Protection',
       shortDesc: 'Greater accountability around project payments.',
       details: "For projects using ScaleLink's applicable payment protection process, project funds can be managed according to agreed project terms and milestones. This creates greater accountability between payment and project delivery and gives clients additional confidence when purchasing professional services online."
     },
     {
-      number: '07',
+      number: '06',
       icon: <FaCheckCircle />,
       title: 'Satisfaction Protection',
       shortDesc: 'Work reviewed against the agreed scope.',
@@ -250,7 +200,7 @@ const HomePage = () => {
     { q: 'Do I need to join the network to use services?', a: 'No. You can access services independently.' },
     { q: 'What types of businesses join?', a: 'Consultants, agencies, service providers, and growing companies.' },
     { q: 'How fast can I see results?', a: 'Many businesses begin seeing opportunities within weeks.' },
-    { q: 'Is this better than hiring staff?', a: 'Yes—ScaleLink gives you flexible, on-demand support without long-term costs.' }
+    { q: 'How does ScaleLink compare with hiring in-house?', a: 'ScaleLink gives businesses access to specialized support without the recruiting, payroll, and long-term commitment of adding another full-time employee.' }
   ];
 
   useEffect(() => {
@@ -781,63 +731,89 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ⚡ SECTION 7: FEATURED SERVICES */}
-      <section className="py-20 bg-white">
+      {/* ⚡ SECTION 7: DEDICATED PROJECT TRACKING PORTAL */}
+      <section className="py-20 bg-gradient-to-b from-white via-slate-50 to-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-4">
-              Done-For-You Standard Systems
-            </h2>
-            <p className="text-xl text-gray-600 text-center mb-12">
-              Professional services to help you scale without hiring
-            </p>
-            <div className="grid md:grid-cols-3 gap-8">
-              {featuredServices.map((service, index) => (
-                <motion.div
-                  key={service.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white rounded-2xl shadow-xl overflow-hidden border-2 border-gray-200 transition-all hover:shadow-2xl hover:border-blue-300"
-                >
-                  <div className="p-8">
-                    <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white text-xl mr-3">
-                        {service.icon}
-                      </div>
-                      <h3 className="text-xl font-bold text-gray-900">{service.name}</h3>
-                    </div>
-                    <p className="text-gray-600 text-sm mb-4">{service.description}</p>
-                    <div className="text-2xl font-bold text-blue-600 mb-4 invisible">Starting at {service.startingPrice}</div>
-                    <div className="space-y-3 mb-6">
-                      {Object.entries(service.packages).map(([key, pkg]) => (
-                        <div key={key} className="flex items-start p-2 bg-gray-50 rounded-lg">
-                          <FaCheckCircle className="text-green-500 mr-2 mt-0.5 shrink-0 text-sm" />
-                          <div>
-                            <span className="font-semibold text-gray-800 text-sm">{pkg.name}:</span>
-                            <span className="text-gray-600 text-sm ml-1">{pkg.includes}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <Link
-                      to={`/services/${service.slug}`}
-                      className="block w-full py-3 text-center font-semibold rounded-lg bg-gray-100 text-gray-900 hover:bg-gray-200 transition-colors"
-                    >
-                      View Details
-                    </Link>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-            <div className="text-center mt-12">
-              <Link
-                to="/services"
-                className="inline-block px-8 py-4 bg-gray-900 text-white font-semibold rounded-lg hover:bg-gray-800 transition-colors"
+            <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
               >
-                View All Services
-              </Link>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-[0.18em] mb-5">
+                  <FaProjectDiagram className="text-[11px]" />
+                  Client Experience
+                </span>
+                <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-5 leading-tight">
+                  A Dedicated Project Tracking Portal
+                </h2>
+                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  Once your project is established, you receive access to a dedicated project tracking portal where you can monitor progress, stay updated on your status, and communicate directly with your Support Representative—no separate account or password required.
+                </p>
+
+                <div className="space-y-3">
+                  {[
+                    'Monitor project progress and production steps',
+                    'View your current project status',
+                    'Communicate with your Support Representative',
+                    'Keep project communication organized',
+                    'Access and download completed project packages',
+                    'No separate account or password required'
+                  ].map((feature) => (
+                    <div key={feature} className="flex items-start gap-3 rounded-xl border border-gray-100 bg-white p-3.5 shadow-sm">
+                      <span className="w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+                        <FaCheckCircle className="text-sm" />
+                      </span>
+                      <span className="text-sm text-gray-700 leading-relaxed">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <Link
+                  to="/services"
+                  className="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all"
+                >
+                  Start a Project
+                  <FaArrowRight className="text-sm" />
+                </Link>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.14)]">
+                  {/* Mock browser header */}
+                  <div className="flex items-center justify-between gap-4 px-4 py-3 bg-white border-b border-gray-100">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-300" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-yellow-300" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-green-300" />
+                    </div>
+                    <span className="text-[10px] sm:text-xs font-semibold text-gray-400 truncate">
+                      scalelinkalliance.com / project-portal
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-bold text-emerald-600">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                      Live
+                    </span>
+                  </div>
+
+                  <img
+                    src="https://www.image2url.com/r2/default/images/1787666355043-5c438831-cf2e-493f-aeea-2492ae89d51c.jpeg"
+                    alt="ScaleLink Alliance dedicated project tracking portal"
+                    className="block w-full h-auto object-contain bg-white"
+                    loading="lazy"
+                  />
+                </div>
+                <p className="text-xs text-gray-400 mt-3 text-center">
+                  A live-style preview of the dedicated project tracking portal.
+                </p>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -964,69 +940,10 @@ const HomePage = () => {
 
                 {/* Scrollable body */}
                 <div className="max-h-[calc(92vh-170px)] overflow-y-auto overscroll-contain">
-                  <div className={`grid ${whyWorkData[selectedWhyWork].image ? 'lg:grid-cols-[0.9fr_1.1fr]' : ''}`}>
-                    <div className="p-6 sm:p-8 lg:p-10">
-                      <p className="text-gray-700 text-base sm:text-lg leading-8">
-                        {whyWorkData[selectedWhyWork].details}
-                      </p>
-
-                      {selectedWhyWork === 2 && (
-                        <div className="mt-7 space-y-3">
-                          <div className="text-xs font-bold uppercase tracking-[0.16em] text-gray-400 mb-3">
-                            What your portal gives you
-                          </div>
-                          {[
-                            'Monitor project progress and production steps',
-                            'View your current project status',
-                            'Communicate with your Support Representative',
-                            'Keep project communication organized',
-                            'Access and download completed project packages',
-                            'No separate account or password required'
-                          ].map((feature) => (
-                            <div key={feature} className="flex items-start gap-3 rounded-xl border border-gray-100 bg-gray-50 p-3.5">
-                              <span className="w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
-                                <FaCheckCircle className="text-sm" />
-                              </span>
-                              <span className="text-sm text-gray-700 leading-relaxed">{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    {whyWorkData[selectedWhyWork].image && (
-                      <div className="p-5 sm:p-7 lg:p-8 bg-slate-50 border-t lg:border-t-0 lg:border-l border-gray-100">
-                        <div className="rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.14)]">
-                          {/* Mock browser header */}
-                          <div className="flex items-center justify-between gap-4 px-4 py-3 bg-white border-b border-gray-100">
-                            <div className="flex items-center gap-2">
-                              <span className="w-2.5 h-2.5 rounded-full bg-red-300" />
-                              <span className="w-2.5 h-2.5 rounded-full bg-yellow-300" />
-                              <span className="w-2.5 h-2.5 rounded-full bg-green-300" />
-                            </div>
-                            <span className="text-[10px] sm:text-xs font-semibold text-gray-400 truncate">
-                              scalelinkalliance.com / project-portal
-                            </span>
-                            <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-bold text-emerald-600">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                              Live
-                            </span>
-                          </div>
-
-                          <div className="relative bg-gray-100">
-                            <img
-                              src="https://www.image2url.com/r2/default/images/1787666355043-5c438831-cf2e-493f-aeea-2492ae89d51c.jpeg"
-                              alt="ScaleLink Alliance dedicated project tracking portal"
-                              className="block w-full h-auto max-h-[52vh] object-contain bg-white"
-                              loading="lazy"
-                            />
-                          </div>
-                        </div>
-                        <p className="text-xs text-gray-400 mt-3 text-center">
-                          A live-style preview of the dedicated project tracking portal.
-                        </p>
-                      </div>
-                    )}
+                  <div className="p-6 sm:p-8 lg:p-10">
+                    <p className="text-gray-700 text-base sm:text-lg leading-8">
+                      {whyWorkData[selectedWhyWork].details}
+                    </p>
                   </div>
                 </div>
               </motion.div>
