@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { getServiceIcon } from '../../utils/serviceIcons';
+import { subscribeToServiceUpdates } from '../../utils/serviceSync';
 import {
   FaPaintBrush, FaVideo, FaPenNib, FaCogs, FaChartBar, FaDatabase,
   FaFileAlt, FaUsers, FaCheck, FaArrowRight, FaCode, FaGlobe,
@@ -12,6 +14,35 @@ import {
 
 const ServicesPage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [apiServices, setApiServices] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchApiServices = async () => {
+      try {
+        const res = await fetch('/api/cms/services?catalogOnly=true');
+        if (res.ok) {
+          const data = await res.json();
+          const list = Array.isArray(data) ? data : (Array.isArray(data?.services) ? data.services : []);
+          if (isMounted && list.length > 0) {
+            setApiServices(list);
+          }
+        }
+      } catch (err) {
+        console.warn('Using local fallback for services catalog:', err);
+      }
+    };
+
+    fetchApiServices();
+    const unsubscribe = subscribeToServiceUpdates(() => {
+      fetchApiServices();
+    });
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
+  }, []);
 
     useEffect(() => {
       document.title = 'Business Growth Services | ScaleLink Alliance';
@@ -621,13 +652,28 @@ const ServicesPage = () => {
   packages: { starter: { price: 'Custom Quote', includes: 'Personalized AI quote based on your specific needs' } }
 };
 
+  const catalogSource = apiServices
+    ? apiServices.map(s => ({
+        id: s.id,
+        slug: s.slug,
+        name: s.title,
+        category: s.category,
+        icon: getServiceIcon(s.iconName || s.icon, { size: 20 }),
+        description: s.description || s.intro,
+        startingPrice: s.startingPrice,
+        features: Array.isArray(s.features) ? s.features : [],
+        whatItHelps: Array.isArray(s.whatItHelpsAchieve) ? s.whatItHelpsAchieve : (Array.isArray(s.whatItHelps) ? s.whatItHelps : []),
+        packages: s.packages || {}
+      }))
+    : services;
+
   const filteredServices = [
-  ...(activeCategory === 'all'
-    ? services
-    : services.filter(service => service.category === activeCategory)),
-  customQuoteCard,
-  aiCustomQuoteCard
-];
+    ...(activeCategory === 'all'
+      ? catalogSource
+      : catalogSource.filter(service => service.category === activeCategory)),
+    customQuoteCard,
+    aiCustomQuoteCard
+  ];
 
   return (
     <div className="min-h-screen">

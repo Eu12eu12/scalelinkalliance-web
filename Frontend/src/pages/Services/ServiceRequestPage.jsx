@@ -21,6 +21,7 @@ import {
 import PhoneInput from '../../components/forms/PhoneInput';
 import FileUpload from '../../components/forms/FileUpload';
 import CurrencySelector from '../../components/forms/CurrencySelector';
+import { subscribeToServiceUpdates, mergeServicesWithPackages, parsePriceToCents } from '../../utils/serviceSync';
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
@@ -483,8 +484,15 @@ const formatFileSize = (bytes) => {
 };
 
 // ─── Service Hover Preview Component ────────────────────────────────────────
-const ServiceHoverPreview = ({ service, packageKey, onClose }) => {
-  const serviceData = SERVICES_WITH_PACKAGES[service];
+const ServiceHoverPreview = ({ 
+  service, 
+  packageKey, 
+  onClose, 
+  servicesWithPackages = SERVICES_WITH_PACKAGES,
+  convertedAmounts,
+  currency = 'usd'
+}) => {
+  const serviceData = servicesWithPackages[service] || SERVICES_WITH_PACKAGES[service];
   const pkgData = serviceData?.packages?.[packageKey];
   const ServiceIcon = getServiceIcon(service);
   const isCustomQuote = service === 'Request Custom Quote' || service.includes('Request Custom Quote') || pkgData?.price === 0;
@@ -492,6 +500,13 @@ const ServiceHoverPreview = ({ service, packageKey, onClose }) => {
   if (!serviceData || !pkgData) return null;
   
   const slug = getServiceSlug(service);
+  const currencyObj = CURRENCIES.find(c => c.code === currency) || CURRENCIES[0];
+  const rawAmount = convertedAmounts?.[service]?.[packageKey] !== undefined
+    ? convertedAmounts[service][packageKey]
+    : pkgData.price;
+  const formattedPrice = isCustomQuote || rawAmount === 0 
+    ? 'Custom Quote' 
+    : `${currencyObj.symbol}${(rawAmount / 100).toFixed(2)}`;
   
   return (
     <div className="bg-white rounded-xl p-5">
@@ -507,7 +522,7 @@ const ServiceHoverPreview = ({ service, packageKey, onClose }) => {
         <div className="flex flex-wrap justify-between items-center gap-1">
           <span className="text-xs text-gray-500">{pkgData.name}</span>
           <span className="text-lg font-bold text-blue-600">
-            {isCustomQuote || pkgData.price === 0 ? 'Custom Quote' : `$${(pkgData.price / 100).toFixed(2)}`}
+            {formattedPrice}
           </span>
         </div>
         <p className="text-xs text-gray-600">{pkgData.description}</p>
@@ -558,8 +573,8 @@ const termsContent = [
 ];
 
 // ─── Fiverr-style package comparison table ────────────────────────────────────
-const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, convertedAmounts }) => {
-  const serviceData = SERVICES_WITH_PACKAGES[service];
+const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, convertedAmounts, servicesWithPackages = SERVICES_WITH_PACKAGES }) => {
+  const serviceData = servicesWithPackages[service] || SERVICES_WITH_PACKAGES[service];
   const packages = serviceData?.packages || {};
   const packageKeys = Object.keys(packages);
   const currencyObj = CURRENCIES.find(c => c.code === currency) || CURRENCIES[0];
@@ -683,11 +698,12 @@ const OrderSidebar = ({
   onContinue, 
   onCustomQuoteDirect, 
   continueLabel, 
-  continueDisabled 
+  continueDisabled,
+  servicesWithPackages = SERVICES_WITH_PACKAGES
 }) => {
   const currencyObj = CURRENCIES.find(c => c.code === currency) || CURRENCIES[0];
   const entries = Object.entries(selectedServices);
-  const hasCustomQuote = entries.some(([service]) => service.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[service]?.packages?.custom?.price === 0);
+  const hasCustomQuote = entries.some(([service]) => service.includes('Request Custom Quote') || (servicesWithPackages[service] || SERVICES_WITH_PACKAGES[service])?.packages?.custom?.price === 0);
   const isOnlyCustomQuote = hasCustomQuote && entries.length === 1;
   const isCustomQuoteWithOthers = hasCustomQuote && entries.length > 1;
   const count = entries.length;
@@ -758,7 +774,7 @@ const OrderSidebar = ({
         ) : (
           entries.map(([service, pkg]) => {
             const ServiceIcon = getServiceIcon(service);
-            const pkgData = SERVICES_WITH_PACKAGES[service]?.packages[pkg];
+            const pkgData = (servicesWithPackages[service] || SERVICES_WITH_PACKAGES[service])?.packages[pkg];
             const amount = convertedAmounts[service]?.[pkg] || 0;
             const isCustomQuote = service === 'Request Custom Quote' || service.includes('Request Custom Quote') || pkgData?.price === 0;
             return (
@@ -860,6 +876,30 @@ const OrderSidebar = ({
 // ─── Main Page ────────────────────────────────────────────────────────────────
 const RequestServicePage = () => {
   const location = useLocation();
+  const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_PACKAGES);
+
+  const fetchLiveCatalog = useCallback(async () => {
+    try {
+      const res = await fetch('/api/cms/services');
+      if (res.ok) {
+        const data = await res.json();
+        const list = Array.isArray(data) ? data : (Array.isArray(data?.services) ? data.services : []);
+        if (list.length > 0) {
+          setServicesWithPackages(prev => mergeServicesWithPackages(list, prev, SLUG_TO_SERVICE_NAME));
+        }
+      }
+    } catch (err) {
+      console.warn('Using base packages fallback:', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchLiveCatalog();
+    const unsubscribe = subscribeToServiceUpdates(() => {
+      fetchLiveCatalog();
+    });
+    return () => unsubscribe();
+  }, [fetchLiveCatalog]);
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -922,7 +962,7 @@ const RequestServicePage = () => {
     const serviceSlug = requestedSlug === 'ai-custom-quote' ? 'ai-automation' : requestedSlug;
     
     if (stepParam === '2') {
-      const hasCustomQuote = Object.keys(selectedServices).some(s => s.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[s]?.packages?.custom?.price === 0);
+      const hasCustomQuote = Object.keys(selectedServices).some(s => s.includes('Request Custom Quote') || servicesWithPackages[s]?.packages?.custom?.price === 0);
       
       if (hasCustomQuote) {
         setIsPaid(true);
@@ -930,7 +970,7 @@ const RequestServicePage = () => {
         window.scrollTo(0, 0);
       } else if (serviceSlug) {
         const serviceName = SLUG_TO_SERVICE_NAME[serviceSlug];
-        if (serviceName && (serviceName.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[serviceName]?.packages?.custom?.price === 0)) {
+        if (serviceName && (serviceName.includes('Request Custom Quote') || servicesWithPackages[serviceName]?.packages?.custom?.price === 0)) {
           setSelectedServices(prev => ({ ...prev, [serviceName]: 'custom' }));
           setTimeout(() => {
             setIsPaid(true);
@@ -971,7 +1011,7 @@ const RequestServicePage = () => {
     if (!serviceSlug) return;
 
     const serviceName = SLUG_TO_SERVICE_NAME[serviceSlug];
-    const serviceData = serviceName ? SERVICES_WITH_PACKAGES[serviceName] : null;
+    const serviceData = serviceName ? (servicesWithPackages[serviceName] || SERVICES_WITH_PACKAGES[serviceName]) : null;
     if (!serviceData) return;
 
     const availablePackages = Object.keys(serviceData.packages || {});
@@ -1047,22 +1087,21 @@ const RequestServicePage = () => {
   }, [exchangeRates, selectedCurrency]);
 
   useEffect(() => {
-    if (!exchangeRates) return;
     const result = {};
-    Object.keys(SERVICES_WITH_PACKAGES).forEach(service => {
+    Object.keys(servicesWithPackages).forEach(service => {
       result[service] = {};
-      Object.entries(SERVICES_WITH_PACKAGES[service].packages).forEach(([key, pkg]) => {
+      Object.entries(servicesWithPackages[service]?.packages || {}).forEach(([key, pkg]) => {
         result[service][key] = convertAmount(pkg.price);
       });
     });
     setConvertedAmounts(result);
-  }, [selectedCurrency, exchangeRates, convertAmount]);
+  }, [servicesWithPackages, selectedCurrency, exchangeRates, convertAmount]);
 
   const serviceCount = Object.keys(selectedServices).length;
 
   const hasCustomQuote = useMemo(() => {
     return Object.keys(selectedServices).some(
-      s => s.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[s]?.packages?.custom?.price === 0
+      s => s.includes('Request Custom Quote') || servicesWithPackages[s]?.packages?.custom?.price === 0
     );
   }, [selectedServices]);
 
@@ -1111,16 +1150,16 @@ const RequestServicePage = () => {
       if (prev[service]) {
         delete next[service];
       } else {
-        const isCustomQuote = service.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[service]?.packages?.custom?.price === 0;
+        const isCustomQuote = service.includes('Request Custom Quote') || servicesWithPackages[service]?.packages?.custom?.price === 0;
         if (isCustomQuote) {
           categoryServices.forEach(s => { 
-            const sIsCustom = s.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[s]?.packages?.custom?.price === 0;
+            const sIsCustom = s.includes('Request Custom Quote') || servicesWithPackages[s]?.packages?.custom?.price === 0;
             if (s !== service && sIsCustom) delete next[s]; 
           });
           next[service] = 'custom';
         } else {
           categoryServices.forEach(s => { 
-            const sIsCustom = s.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[s]?.packages?.custom?.price === 0;
+            const sIsCustom = s.includes('Request Custom Quote') || servicesWithPackages[s]?.packages?.custom?.price === 0;
             if (sIsCustom) delete next[s]; 
           });
           next[service] = 'starter';
@@ -1168,7 +1207,7 @@ const RequestServicePage = () => {
     const serviceEntries = Object.entries(selectedServices);
     const servicesLine = serviceEntries
       .map(([svc, pkg]) => {
-        const pkgData = SERVICES_WITH_PACKAGES[svc]?.packages?.[pkg];
+        const pkgData = (servicesWithPackages[svc] || SERVICES_WITH_PACKAGES[svc])?.packages?.[pkg];
         return `${svc} (${pkgData?.name || pkg})`;
       })
       .join(', ') || 'None selected';
@@ -1322,7 +1361,7 @@ const RequestServicePage = () => {
 
   const nextStep = () => { 
     // If custom quote is selected, go directly to step 2
-    const hasCustomQuote = Object.keys(selectedServices).some(s => s.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[s]?.packages?.custom?.price === 0);
+    const hasCustomQuote = Object.keys(selectedServices).some(s => s.includes('Request Custom Quote') || servicesWithPackages[s]?.packages?.custom?.price === 0);
     if (hasCustomQuote && totalAmount === 0) {
       setIsPaid(true);
       setCurrentStep(2);
@@ -1470,7 +1509,7 @@ const categoryIcons = {
                             const isSelected = !!selectedServices[service];
                             const serviceSlug = getServiceSlug(service);
                             const selectedPkg = selectedServices[service] || 'starter';
-                            const isCustomQuote = service.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[service]?.packages?.custom?.price === 0;
+                            const isCustomQuote = service.includes('Request Custom Quote') || servicesWithPackages[service]?.packages?.custom?.price === 0;
                             
                             return (
                               <div 
@@ -1510,6 +1549,9 @@ const categoryIcons = {
                                       service={service} 
                                       packageKey={selectedPkg}
                                       onClose={() => setHoveredService(null)}
+                                      servicesWithPackages={servicesWithPackages}
+                                      convertedAmounts={convertedAmounts}
+                                      currency={selectedCurrency}
                                     />
                                   </div>
                                 )}
@@ -1527,7 +1569,7 @@ const categoryIcons = {
                     <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Compare Packages</h3>
                     <div className="space-y-6 sm:space-y-8">
                       {Object.entries(selectedServices).map(([service, pkg]) => {
-                        const isCustomQuote = service.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[service]?.packages?.custom?.price === 0;
+                        const isCustomQuote = service.includes('Request Custom Quote') || servicesWithPackages[service]?.packages?.custom?.price === 0;
                         return (
                           <div key={service}>
                             <h4 className="font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base">
@@ -1539,6 +1581,7 @@ const categoryIcons = {
                               onSelect={(s, k) => setSelectedServices(p => ({ ...p, [s]: k }))}
                               currency={selectedCurrency}
                               convertedAmounts={convertedAmounts}
+                              servicesWithPackages={servicesWithPackages}
                             />
                           </div>
                         );
@@ -1564,6 +1607,7 @@ const categoryIcons = {
                   onCustomQuoteDirect={handleCustomQuoteDirect}
                   continueLabel="Continue to Review"
                   continueDisabled={Object.keys(selectedServices).length === 0}
+                  servicesWithPackages={servicesWithPackages}
                 />
               </div>
             </motion.div>
@@ -1623,7 +1667,7 @@ const categoryIcons = {
                   <div className="mb-4 md:mb-6"><CurrencySelector selectedCurrency={selectedCurrency} onCurrencyChange={setSelectedCurrency} /></div>
                   <div className="space-y-2 sm:space-y-3 mb-4 md:mb-6 bg-white p-3 sm:p-4 rounded-lg">
                     {Object.entries(selectedServices).map(([service, pkg]) => {
-                      const ServiceIcon = getServiceIcon(service), amount = convertedAmounts[service]?.[pkg] || 0, pkgData = SERVICES_WITH_PACKAGES[service]?.packages[pkg];
+                      const ServiceIcon = getServiceIcon(service), amount = convertedAmounts[service]?.[pkg] || 0, pkgData = (servicesWithPackages[service] || SERVICES_WITH_PACKAGES[service])?.packages[pkg];
                       const isCustomQuote = service === 'Request Custom Quote' || service.includes('Request Custom Quote') || pkgData?.price === 0;
                       return (
                         <div key={service} className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-sm border-b border-gray-100 pb-2">

@@ -956,14 +956,16 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
     tiers.flatMap((tier) => tierFeatures[tier] || [])
   )];
 
-  const comparisonRows = allFeatures.map((label) => ({
-    label,
-    values: {
-      basic: tierFeatures.basic.includes(label),
-      standard: tierFeatures.standard.includes(label),
-      premium: tierFeatures.premium.includes(label)
-    }
-  }));
+  const comparisonRows = (Array.isArray(packageData?.rows) && packageData.rows.length > 0)
+    ? packageData.rows
+    : allFeatures.map((label) => ({
+        label,
+        values: {
+          basic: tierFeatures.basic.includes(label),
+          standard: tierFeatures.standard.includes(label),
+          premium: tierFeatures.premium.includes(label)
+        }
+      }));
 
   return (
     <div className="bg-white rounded-2xl shadow-sm overflow-hidden">

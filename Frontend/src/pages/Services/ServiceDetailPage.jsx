@@ -14,6 +14,8 @@ import {
 import PackageComparison, { getPackageFeatures } from '../../components/sections/PackageComparison';
 import OrderSidebar from '../../components/sections/OrderSidebar';
 import { SERVICE_GALLERY_LOCAL } from '../../data/serviceImagesLocal';
+import { getServiceIcon } from '../../utils/serviceIcons';
+import { subscribeToServiceUpdates } from '../../utils/serviceSync';
 
 // ─── SERVICE IMAGES MAP ───
 const SERVICE_IMAGES = {
@@ -2087,7 +2089,59 @@ const ImageGallery = ({ images, serviceTitle }) => {
 // ─── MAIN COMPONENT ───
 const ServiceDetailPage = () => {
   const { serviceSlug } = useParams();
-  const service = SERVICES_DATA[serviceSlug];
+  const [backendService, setBackendService] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchBackendService = async () => {
+      try {
+        const res = await fetch(`/api/cms/services/${serviceSlug}`);
+        if (res.ok) {
+          const data = await res.json();
+          const svc = (data && data.id) ? data : (data?.service || null);
+          if (isMounted && svc) {
+            setBackendService(svc);
+          }
+        }
+      } catch (err) {
+        console.warn('Using local fallback for service details:', err);
+      }
+    };
+
+    if (serviceSlug) {
+      fetchBackendService();
+    }
+
+    const unsubscribe = subscribeToServiceUpdates((payload) => {
+      if (serviceSlug) {
+        fetchBackendService();
+      }
+    });
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
+  }, [serviceSlug]);
+
+  const staticService = SERVICES_DATA[serviceSlug];
+  const service = backendService ? {
+    ...backendService,
+    title: backendService.title,
+    category: (backendService.category || '').replace(/-/g, ' '),
+    icon: getServiceIcon(backendService.iconName, { size: 20 }),
+    whatItHelpsAchieve: Array.isArray(backendService.whatItHelpsAchieve) ? backendService.whatItHelpsAchieve : (staticService ? staticService.whatItHelpsAchieve : []),
+    howMeasured: Array.isArray(backendService.howMeasured) ? backendService.howMeasured : (staticService ? staticService.howMeasured : []),
+    servicesInclude: Array.isArray(backendService.servicesInclude) ? backendService.servicesInclude : (staticService ? staticService.servicesInclude : []),
+    tools: Array.isArray(backendService.tools) ? backendService.tools : (staticService ? staticService.tools : []),
+    complementaryServices: Array.isArray(backendService.complementaryServices) ? backendService.complementaryServices : (staticService ? staticService.complementaryServices : []),
+    packages: (backendService.packages && Object.keys(backendService.packages).length > 0)
+      ? backendService.packages
+      : (staticService ? staticService.packages : {}),
+    packageComparison: backendService.packageComparison || (staticService ? staticService.packageComparison : null),
+    sampleProject: backendService.sampleProject || (staticService ? staticService.sampleProject : null),
+    sellerInfo: backendService.sellerInfo || (staticService ? staticService.sellerInfo : { name: 'ScaleLink Alliance Team', level: 'Professional', rating: 4.9, reviews: 150, ordersInQueue: 4, verified: true })
+  } : staticService;
   useEffect(() => {
     if (!service) return;
     const meta = SEO_META[serviceSlug];
@@ -2123,7 +2177,13 @@ const ServiceDetailPage = () => {
     );
   }
 
-  const images = getServiceImages(serviceSlug);
+  const baseImages = getServiceImages(serviceSlug);
+  const images = {
+    main: backendService?.mainImage || baseImages.main,
+    gallery: (Array.isArray(backendService?.galleryImages) && backendService.galleryImages.length > 0)
+      ? backendService.galleryImages
+      : baseImages.gallery
+  };
   const hasPackageComparison = service.packageComparison !== undefined && service.packageComparison !== null;
   const isCustomQuote = serviceSlug === 'ai-automation';
 
@@ -2338,7 +2398,7 @@ const ServiceDetailPage = () => {
         )}
 
 
-        {/* Related Services */}
+                {/* Related Services */}
         {service.complementaryServices && service.complementaryServices.length > 0 && (
           <section className="mb-10 sm:mb-16">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Related Services</h2>
