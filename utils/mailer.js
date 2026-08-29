@@ -1,6 +1,28 @@
 const { Resend } = require('resend');
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const getResendClient = () => {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return null;
+  try {
+    return new Resend(apiKey);
+  } catch (err) {
+    console.warn('⚠️ Could not initialize Resend client:', err.message);
+    return null;
+  }
+};
+
+const resend = {
+  emails: {
+    send: async (options) => {
+      const client = getResendClient();
+      if (!client) {
+        console.warn('⚠️ RESEND_API_KEY is not configured or invalid. Skipping email dispatch to:', options?.to);
+        return { data: { id: 'mock-no-key' }, error: null };
+      }
+      return await client.emails.send(options);
+    }
+  }
+};
 
 const sendVerificationEmail = async (email, token) => {
   const verifyUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/verify-email?token=${token}`;
