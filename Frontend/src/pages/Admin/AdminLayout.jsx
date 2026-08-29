@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate, Link } from 'react-router-dom';
 import {
-  FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes, FaCog, FaHandshake, FaFileAlt, FaBriefcase, FaChartLine, FaBell, FaHistory, FaFileInvoiceDollar
+  FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes, FaCog, FaCogs, FaHandshake, FaFileAlt, FaBriefcase, FaChartLine, FaBell, FaHistory, FaFileInvoiceDollar
 } from 'react-icons/fa';
 
 
@@ -157,6 +157,10 @@ const AdminLayout = ({ children, pageTitle }) => {
         {(sessionUser?.role === 'super_admin' || sessionUser?.role === 'admin') && (
           <div className="space-y-1">
             <p className="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Content</p>
+            <NavLink to="/hub/services" className={({ isActive }) => `flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}>
+              <FaCogs size={16} />
+              <span>Services</span>
+            </NavLink>
             <NavLink to="/hub/resources" className={({ isActive }) => `flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}>
               <FaFileAlt size={16} />
               <span>Resources</span>

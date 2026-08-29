@@ -33,6 +33,7 @@ import ClientPortalPage from './pages/ClientPortalPage';
 import AdminLogin from './pages/Admin/AdminLogin';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminResources from './pages/Admin/AdminResources';
+import AdminServices from './pages/Admin/AdminServices';
 import AdminCategories from './pages/Admin/AdminCategories';
 import AdminSettings from './pages/Admin/AdminSettings';
 import AdminPartners from './pages/Admin/AdminPartners';
@@ -89,6 +90,7 @@ function AppContent() {
               <Route path="/hub/login" element={<AdminLogin />} />
               <Route path="/hub/complete-profile" element={<ProtectedRoute><CompleteProfile /></ProtectedRoute>} />
               <Route path="/hub" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+              <Route path="/hub/services" element={<ProtectedRoute><AdminServices /></ProtectedRoute>} />
               <Route path="/hub/resources" element={<ProtectedRoute><AdminResources /></ProtectedRoute>} />
               <Route path="/hub/categories" element={<ProtectedRoute><AdminCategories /></ProtectedRoute>} />
               <Route path="/hub/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
