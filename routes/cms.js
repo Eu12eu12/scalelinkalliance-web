@@ -1891,4 +1891,397 @@ router.post('/admin/notice-board/:id/send-quote', authMiddleware, restrictTo('su
   }
 });
 
+
+// ==========================================
+// --- SERVICES MANAGEMENT (CMS & PUBLIC) ---
+// ==========================================
+
+// Public: Get all published services
+router.get('/services', async (req, res) => {
+  try {
+    const { category, search, catalogOnly } = req.query;
+    const where = { status: 'published' };
+
+    if (catalogOnly === 'true') {
+      where.showOnCatalogGrid = true;
+    }
+
+    if (category && category !== 'all') {
+      where.category = category;
+    }
+
+    if (search) {
+      where[db.Sequelize.Op.or] = [
+        { title: { [db.Sequelize.Op.like]: `%${search}%` } },
+        { description: { [db.Sequelize.Op.like]: `%${search}%` } },
+        { slug: { [db.Sequelize.Op.like]: `%${search}%` } }
+      ];
+    }
+
+    const services = await db.Service.findAll({
+      where,
+      order: [
+        ['sortOrder', 'ASC'],
+        ['id', 'ASC']
+      ]
+    });
+
+    res.json(services);
+  } catch (err) {
+    console.error('Error fetching services:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Public: Get service categories with counts
+router.get('/service-categories', async (req, res) => {
+  try {
+    const services = await db.Service.findAll({
+      where: { status: 'published' },
+      attributes: ['category']
+    });
+
+    const categoryCounts = {
+      all: services.length,
+      'creative-support': 0,
+      'websites-development': 0,
+      'marketing-growth': 0,
+      'automation-technology': 0
+    };
+
+    services.forEach(s => {
+      const cat = s.category || 'creative-support';
+      categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+    });
+
+    const categories = [
+      { id: 'all', name: 'All Services', count: categoryCounts.all },
+      { id: 'websites-development', name: 'Websites & Development', count: categoryCounts['websites-development'] || 0 },
+      { id: 'marketing-growth', name: 'Marketing & Growth', count: categoryCounts['marketing-growth'] || 0 },
+      { id: 'automation-technology', name: 'Automation & Technology', count: categoryCounts['automation-technology'] || 0 },
+      { id: 'creative-support', name: 'Creative & Support', count: categoryCounts['creative-support'] || 0 }
+    ];
+
+    res.json(categories);
+  } catch (err) {
+    console.error('Error fetching service categories:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Public: Get single service by slug or ID
+router.get('/services/:slugOrId', async (req, res) => {
+  try {
+    const { slugOrId } = req.params;
+    let service = null;
+
+    if (/^\d+$/.test(slugOrId)) {
+      service = await db.Service.findByPk(slugOrId);
+    }
+
+    if (!service) {
+      service = await db.Service.findOne({ where: { slug: slugOrId } });
+    }
+
+    if (!service) {
+      return res.status(404).json({ error: 'Service not found' });
+    }
+
+    res.json(service);
+  } catch (err) {
+    console.error('Error fetching service:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Admin: Get all services with pagination & filtering
+router.get('/admin/services', authMiddleware, restrictTo('super_admin', 'admin'), async (req, res) => {
+  try {
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 20;
+    const offset = (page - 1) * limit;
+    const { category, search, status } = req.query;
+
+    const where = {};
+
+    if (category && category !== 'all') {
+      where.category = category;
+    }
+
+    if (status && status !== 'all') {
+      where.status = status;
+    }
+
+    if (search) {
+      where[db.Sequelize.Op.or] = [
+        { title: { [db.Sequelize.Op.like]: `%${search}%` } },
+        { slug: { [db.Sequelize.Op.like]: `%${search}%` } },
+        { description: { [db.Sequelize.Op.like]: `%${search}%` } }
+      ];
+    }
+
+    const { rows: services, count: totalCount } = await db.Service.findAndCountAll({
+      where,
+      order: [
+        ['sortOrder', 'ASC'],
+        ['id', 'ASC']
+      ],
+      limit,
+      offset
+    });
+
+    res.json({
+      services,
+      totalCount,
+      totalPages: Math.ceil(totalCount / limit) || 1,
+      currentPage: page
+    });
+  } catch (err) {
+    console.error('Error fetching admin services:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Admin: Get single service for editing
+router.get('/admin/services/:id', authMiddleware, restrictTo('super_admin', 'admin'), async (req, res) => {
+  try {
+    const service = await db.Service.findByPk(req.params.id);
+    if (!service) return res.status(404).json({ error: 'Service not found' });
+    res.json(service);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Admin: Create new service
+router.post('/services', authMiddleware, restrictTo('super_admin', 'admin'), async (req, res) => {
+  try {
+    const {
+      title,
+      slug,
+      category,
+      isCustomQuote,
+      showOnCatalogGrid,
+      iconName,
+      startingPrice,
+      intro,
+      description,
+      longDescription,
+      features,
+      whatItHelpsAchieve,
+      howMeasured,
+      servicesInclude,
+      tools,
+      sellerInfo,
+      complementaryServices,
+      packages,
+      packageComparison,
+      sampleProject,
+      mainImage,
+      galleryImages,
+      seoTitle,
+      seoDescription,
+      seoKeywords,
+      sortOrder,
+      status
+    } = req.body;
+
+    if (!title) {
+      return res.status(400).json({ error: 'Service title is required' });
+    }
+
+    // Auto-generate slug if not provided
+    let finalSlug = slug;
+    if (!finalSlug) {
+      finalSlug = title
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/[\s_-]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    // Ensure slug is unique
+    let candidateSlug = finalSlug;
+    let counter = 1;
+    while (await db.Service.findOne({ where: { slug: candidateSlug } })) {
+      counter++;
+      candidateSlug = `${finalSlug}-${counter}`;
+    }
+
+    const highestSort = await db.Service.max('sortOrder') || 0;
+
+    const newService = await db.Service.create({
+      title,
+      slug: candidateSlug,
+      category: category || 'creative-support',
+      isCustomQuote: isCustomQuote === true || isCustomQuote === 'true',
+      showOnCatalogGrid: showOnCatalogGrid !== false && showOnCatalogGrid !== 'false',
+      iconName: iconName || 'FaCogs',
+      startingPrice: startingPrice || (isCustomQuote ? 'Custom Quote' : '$35'),
+      intro: intro || '',
+      description: description || '',
+      longDescription: longDescription || '',
+      features: Array.isArray(features) ? features : [],
+      whatItHelpsAchieve: Array.isArray(whatItHelpsAchieve) ? whatItHelpsAchieve : [],
+      howMeasured: Array.isArray(howMeasured) ? howMeasured : [],
+      servicesInclude: Array.isArray(servicesInclude) ? servicesInclude : [],
+      tools: Array.isArray(tools) ? tools : [],
+      sellerInfo: sellerInfo || {
+        name: 'ScaleLink Alliance Team',
+        level: 'Professional',
+        rating: 4.9,
+        reviews: 150,
+        ordersInQueue: 4,
+        verified: true
+      },
+      complementaryServices: Array.isArray(complementaryServices) ? complementaryServices : [],
+      packages: packages || {},
+      packageComparison: packageComparison || null,
+      sampleProject: sampleProject || null,
+      mainImage: mainImage || null,
+      galleryImages: Array.isArray(galleryImages) ? galleryImages : [],
+      seoTitle: seoTitle || `${title} | ScaleLink Alliance`,
+      seoDescription: seoDescription || description || '',
+      seoKeywords: seoKeywords || '',
+      sortOrder: sortOrder !== undefined ? parseInt(sortOrder, 10) : highestSort + 1,
+      status: status || 'published'
+    });
+
+    res.status(201).json(newService);
+  } catch (err) {
+    console.error('Error creating service:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Admin: Update existing service
+router.put('/services/:id', authMiddleware, restrictTo('super_admin', 'admin'), async (req, res) => {
+  try {
+    const service = await db.Service.findByPk(req.params.id);
+    if (!service) return res.status(404).json({ error: 'Service not found' });
+
+    const {
+      title,
+      slug,
+      category,
+      isCustomQuote,
+      showOnCatalogGrid,
+      iconName,
+      startingPrice,
+      intro,
+      description,
+      longDescription,
+      features,
+      whatItHelpsAchieve,
+      howMeasured,
+      servicesInclude,
+      tools,
+      sellerInfo,
+      complementaryServices,
+      packages,
+      packageComparison,
+      sampleProject,
+      mainImage,
+      galleryImages,
+      seoTitle,
+      seoDescription,
+      seoKeywords,
+      sortOrder,
+      status
+    } = req.body;
+
+    // If slug changed, ensure uniqueness
+    let targetSlug = service.slug;
+    if (slug && slug !== service.slug) {
+      let candidateSlug = slug
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/[\s_-]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+      let counter = 1;
+      while (await db.Service.findOne({ where: { slug: candidateSlug, id: { [db.Sequelize.Op.ne]: service.id } } })) {
+        counter++;
+        candidateSlug = `${slug}-${counter}`;
+      }
+      targetSlug = candidateSlug;
+    }
+
+    await service.update({
+      title: title !== undefined ? title : service.title,
+      slug: targetSlug,
+      category: category !== undefined ? category : service.category,
+      isCustomQuote: isCustomQuote !== undefined ? (isCustomQuote === true || isCustomQuote === 'true') : service.isCustomQuote,
+      showOnCatalogGrid: showOnCatalogGrid !== undefined ? (showOnCatalogGrid === true || showOnCatalogGrid === 'true') : service.showOnCatalogGrid,
+      iconName: iconName !== undefined ? iconName : service.iconName,
+      startingPrice: startingPrice !== undefined ? startingPrice : service.startingPrice,
+      intro: intro !== undefined ? intro : service.intro,
+      description: description !== undefined ? description : service.description,
+      longDescription: longDescription !== undefined ? longDescription : service.longDescription,
+      features: features !== undefined ? features : service.features,
+      whatItHelpsAchieve: whatItHelpsAchieve !== undefined ? whatItHelpsAchieve : service.whatItHelpsAchieve,
+      howMeasured: howMeasured !== undefined ? howMeasured : service.howMeasured,
+      servicesInclude: servicesInclude !== undefined ? servicesInclude : service.servicesInclude,
+      tools: tools !== undefined ? tools : service.tools,
+      sellerInfo: sellerInfo !== undefined ? sellerInfo : service.sellerInfo,
+      complementaryServices: complementaryServices !== undefined ? complementaryServices : service.complementaryServices,
+      packages: packages !== undefined ? packages : service.packages,
+      packageComparison: packageComparison !== undefined ? packageComparison : service.packageComparison,
+      sampleProject: sampleProject !== undefined ? sampleProject : service.sampleProject,
+      mainImage: mainImage !== undefined ? mainImage : service.mainImage,
+      galleryImages: galleryImages !== undefined ? galleryImages : service.galleryImages,
+      seoTitle: seoTitle !== undefined ? seoTitle : service.seoTitle,
+      seoDescription: seoDescription !== undefined ? seoDescription : service.seoDescription,
+      seoKeywords: seoKeywords !== undefined ? seoKeywords : service.seoKeywords,
+      sortOrder: sortOrder !== undefined ? parseInt(sortOrder, 10) : service.sortOrder,
+      status: status !== undefined ? status : service.status
+    });
+
+    res.json(service);
+  } catch (err) {
+    console.error('Error updating service:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Admin: Delete service
+router.delete('/services/:id', authMiddleware, restrictTo('super_admin', 'admin'), async (req, res) => {
+  try {
+    const service = await db.Service.findByPk(req.params.id);
+    if (!service) return res.status(404).json({ error: 'Service not found' });
+    await service.destroy();
+    res.json({ message: 'Service deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting service:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Admin: Reorder services
+router.post('/services/reorder', authMiddleware, restrictTo('super_admin', 'admin'), async (req, res) => {
+  const transaction = await db.sequelize.transaction();
+  try {
+    const { orderedIds } = req.body;
+    if (!Array.isArray(orderedIds)) {
+      return res.status(400).json({ error: 'orderedIds array is required' });
+    }
+
+    for (let index = 0; index < orderedIds.length; index++) {
+      const id = orderedIds[index];
+      await db.Service.update(
+        { sortOrder: index + 1 },
+        { where: { id }, transaction }
+      );
+    }
+
+    await transaction.commit();
+    res.json({ message: 'Services reordered successfully' });
+  } catch (err) {
+    await transaction.rollback();
+    console.error('Error reordering services:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;
