@@ -226,6 +226,30 @@ const migrate = async () => {
       console.warn('⚠️ Backfill resource slugs skipped:', slugBackfillErr.message);
     }
 
+    // 9. Sync & Migrate Services Table
+    try {
+      console.log('?? Ensuring Services table is created and synced...');
+      await db.Service.sync();
+      console.log('? Services table synced successfully.');
+
+      // Check if services need full comparison matrix synchronization
+      const sampleSvc = await db.Service.findOne({ where: { slug: "graphic-design" } });
+      const currentRows = sampleSvc?.packageComparison?.rows?.length || 0;
+      
+      // If table is empty or has old short 7-row matrix, run idempotent seeder
+      if (!sampleSvc || currentRows < 15) {
+        console.log('?? Updating comparison matrices in database (found ' + currentRows + ' rows, upgrading to full 19+ rows)...');
+        const seedServices = require('./seed-services.cjs');
+        if (typeof seedServices === 'function') {
+          await seedServices();
+        }
+      } else {
+        console.log('? Services table already has full ' + currentRows + ' comparison matrix rows.');
+      }
+    } catch (serviceSyncErr) {
+      console.warn('?? Services table sync error:', serviceSyncErr.message);
+    }
+
     // 8. Backfill Retroactive Notification Types for Website Reviews
     try {
       console.log('🩹 Backfilling notification types for website review requests...');
