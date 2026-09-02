@@ -2673,6 +2673,7 @@ const ServiceDetailPage = () => {
     main: backendService?.mainImage || baseImages.main,
     gallery: cleanedGallery
   };
+  const isCustomQuote = serviceSlug === 'ai-automation';
   const hasPackageComparison = Boolean(
     !isCustomQuote &&
     service.packageComparison &&
@@ -2681,7 +2682,6 @@ const ServiceDetailPage = () => {
     service.packageComparison.details &&
     Object.keys(service.packageComparison.details).length > 0
   );
-  const isCustomQuote = serviceSlug === 'ai-automation';
 
   const packageKeys = service.packages ? Object.keys(service.packages) : [];
   const validPackage = packageKeys.includes(selectedPackage) ? selectedPackage : (packageKeys[0] || '');
