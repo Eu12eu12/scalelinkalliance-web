@@ -332,7 +332,7 @@ const SERVICE_IMAGES = {
       'https://i.ibb.co/gMymzwfD/Very-modern-Saa-S-analytics-interface.jpg'
     ]
   },
-  'business-consulting-growth-strategy': {
+  'business-consulting-Standard-strategy': {
     main: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&h=500&fit=crop',
     gallery: [
       'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&h=500&fit=crop',
@@ -359,7 +359,7 @@ const SERVICE_IMAGES = {
     main: 'https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=800&h=500&fit=crop',
     gallery: [
       'https://i.ibb.co/3mYfVM51/Business-meeting-reviewing-reports-and-charts.jpg',
-      'https://i.ibb.co/RknZxzDx/Business-person-drawing-growth-chart.jpg',
+      'https://i.ibb.co/RknZxzDx/Business-person-drawing-Standard-chart.jpg',
       'https://i.ibb.co/wNGBk7Br/Consultant-reviewing-paperwork-with-client.jpg',
       'https://i.ibb.co/zhYZHLg9/Handshake-between-client-and-project-manager.jpg',
       'https://i.ibb.co/dwcXxd3z/High-five-after-project-success.jpg',
@@ -421,7 +421,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$49', description: 'Best for a single marketing asset — e.g. flyer, promotional graphic, social graphic, or simple banner.', includes: ['1 marketing asset', '1 finished size/format', 'Basic custom design', 'Client-provided brand assets', '1 revision round', 'Final web-ready file'] },
-      growth: { name: 'Growth Package', price: '$199', description: 'Growth Design Package — a coordinated set of marketing assets.', includes: ['Up to 5 coordinated assets', 'Consistent visual direction', 'Up to 2 sizes per core design where required', 'Basic image sourcing', '2 revision rounds', 'Web-ready final files'] },
+      Standard: { name: 'Standard Package', price: '$199', description: 'Standard Design Package — a coordinated set of marketing assets.', includes: ['Up to 5 coordinated assets', 'Consistent visual direction', 'Up to 2 sizes per core design where required', 'Basic image sourcing', '2 revision rounds', 'Web-ready final files'] },
       premium: { name: 'Premium Package', price: '$499', description: 'Premium Design Package — for businesses running full marketing campaigns.', includes: ['Up to 12 coordinated marketing assets', 'Creative direction', 'Brand-consistent design system', 'Multiple campaign formats', 'Up to 3 revision rounds', 'Organized final files', 'Print-ready files when required'] }
     },
     packageComparison: {
@@ -449,7 +449,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$49', packageName: 'Starter Package', shortDescription: '1 marketing asset, 1 revision round, final web-ready file', description: 'Best for a single marketing asset — e.g. flyer, promotional graphic, social graphic, or simple banner.', deliveryLabel: 'Shown during service selection', revisions: '1 revision round', includes: ['1 marketing asset', '1 finished size/format', 'Basic custom design', 'Client-provided brand assets', '1 revision round', 'Final web-ready file'] },
-        standard: { price: '$199', packageName: 'Growth Package', shortDescription: 'Up to 5 coordinated assets, 2 revision rounds', description: 'Growth Design Package — a coordinated set of marketing assets.', deliveryLabel: 'Shown during service selection', revisions: '2 revision rounds', includes: ['Up to 5 coordinated assets', 'Consistent visual direction', 'Up to 2 sizes per core design where required', 'Basic image sourcing', '2 revision rounds', 'Web-ready final files'] },
+        standard: { price: '$199', packageName: 'Standard Package', shortDescription: 'Up to 5 coordinated assets, 2 revision rounds', description: 'Standard Design Package — a coordinated set of marketing assets.', deliveryLabel: 'Shown during service selection', revisions: '2 revision rounds', includes: ['Up to 5 coordinated assets', 'Consistent visual direction', 'Up to 2 sizes per core design where required', 'Basic image sourcing', '2 revision rounds', 'Web-ready final files'] },
         premium: { price: '$499', packageName: 'Premium Package', shortDescription: 'Up to 12 coordinated assets, print-ready files', description: 'Premium Design Package — for businesses running full marketing campaigns.', deliveryLabel: 'Shown during service selection', revisions: 'Up to 3 revision rounds', includes: ['Up to 12 coordinated marketing assets', 'Creative direction', 'Brand-consistent design system', 'Multiple campaign formats', 'Up to 3 revision rounds', 'Organized final files', 'Print-ready files when required'] }
       }
     },
@@ -482,7 +482,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$99', description: 'Best for a single short video up to 60 seconds.', includes: ['1 video up to 60 seconds', 'Basic cuts', 'Basic transitions', 'Text/captions', 'Basic audio balancing', 'Client-provided footage', '1 aspect ratio', '1 revision round', 'Final exported video'] },
-      growth: { name: 'Growth Package', price: '$299', description: 'A single longer video with professional polish.', includes: ['1 video up to 5 minutes', 'Professional editing', 'B-roll placement', 'Titles/text graphics', 'Basic motion graphics', 'Audio cleanup', 'Color correction', 'Captions', 'Up to 2 aspect ratios', '2 revision rounds'] },
+      Standard: { name: 'Standard Package', price: '$299', description: 'A single longer video with professional polish.', includes: ['1 video up to 5 minutes', 'Professional editing', 'B-roll placement', 'Titles/text graphics', 'Basic motion graphics', 'Audio cleanup', 'Color correction', 'Captions', 'Up to 2 aspect ratios', '2 revision rounds'] },
       premium: { name: 'Premium Package', price: '$699', description: 'A long-form video or a small batch of short-form videos.', includes: ['1 long-form video up to 12 minutes OR up to 5 short-form videos from supplied footage', 'Advanced editing', 'Motion graphics', 'B-roll', 'Audio enhancement', 'Color correction', 'Captions', 'Branded graphics', 'Multiple export formats', 'Up to 3 revision rounds'] }
     },
     packageComparison: {
@@ -518,7 +518,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$99', packageName: 'Starter Package', shortDescription: '1 video up to 60 seconds, basic cuts, 1 revision', description: 'Best for a single short video up to 60 seconds.', deliveryLabel: 'Shown during service selection', revisions: '1 revision round', includes: ['1 video up to 60 seconds', 'Basic cuts', 'Basic transitions', 'Text/captions', 'Basic audio balancing', 'Client-provided footage', '1 aspect ratio', '1 revision round', 'Final exported video'] },
-        standard: { price: '$299', packageName: 'Growth Package', shortDescription: '1 video up to 5 minutes, professional editing, 2 revisions', description: 'A single longer video with professional polish.', deliveryLabel: 'Shown during service selection', revisions: '2 revision rounds', includes: ['1 video up to 5 minutes', 'Professional editing', 'B-roll placement', 'Titles/text graphics', 'Basic motion graphics', 'Audio cleanup', 'Color correction', 'Captions', 'Up to 2 aspect ratios', '2 revision rounds'] },
+        standard: { price: '$299', packageName: 'Standard Package', shortDescription: '1 video up to 5 minutes, professional editing, 2 revisions', description: 'A single longer video with professional polish.', deliveryLabel: 'Shown during service selection', revisions: '2 revision rounds', includes: ['1 video up to 5 minutes', 'Professional editing', 'B-roll placement', 'Titles/text graphics', 'Basic motion graphics', 'Audio cleanup', 'Color correction', 'Captions', 'Up to 2 aspect ratios', '2 revision rounds'] },
         premium: { price: '$699', packageName: 'Premium Package', shortDescription: 'Long-form or up to 5 short-form videos, advanced editing', description: 'A long-form video or a small batch of short-form videos.', deliveryLabel: 'Shown during service selection', revisions: 'Up to 3 revision rounds', includes: ['1 long-form video up to 12 minutes OR up to 5 short-form videos from supplied footage', 'Advanced editing', 'Motion graphics', 'B-roll', 'Audio enhancement', 'Color correction', 'Captions', 'Branded graphics', 'Multiple export formats', 'Up to 3 revision rounds'] }
       }
     },
@@ -527,7 +527,7 @@ const SERVICES_DATA = {
       businessType: "Professional service business",
       projectSummary: "A video editing and motion graphics concept designed to help a business explain its services, build trust, and promote its offer on social media or a website.",
       servicesIncluded: ["Video editing", "Captions", "Branded text", "Motion graphics", "Background music", "Call-to-action screen", "Social media formatting"],
-      portfolioCardText: "A polished business video concept built to capture attention, explain value, and support brand growth."
+      portfolioCardText: "A polished business video concept built to capture attention, explain value, and support brand Standard."
     }
   },
   'copywriting': {
@@ -551,7 +551,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$99', description: 'Small content needs or single-page messaging.', includes: ['Blog/article up to 800 words, OR short sales page, OR email copy package, OR small website-page rewrite', 'Topic research', 'Brand-tone alignment', 'Basic SEO considerations where applicable', '1 revision round'] },
-      growth: { name: 'Growth Package', price: '$299', description: 'Businesses needing multiple content pieces with keyword awareness.', includes: ['Up to 2,500 total words', 'Up to 3 content pieces/pages', 'Keyword consideration', 'CTA development', 'Headline development', 'Basic competitor/content review', '2 revision rounds'] },
+      Standard: { name: 'Standard Package', price: '$299', description: 'Businesses needing multiple content pieces with keyword awareness.', includes: ['Up to 2,500 total words', 'Up to 3 content pieces/pages', 'Keyword consideration', 'CTA development', 'Headline development', 'Basic competitor/content review', '2 revision rounds'] },
       premium: { name: 'Premium Package', price: '$699', description: 'Businesses running content marketing campaigns.', includes: ['Up to 6,000 total words', 'Up to 6 pages/content pieces', 'Content strategy', 'SEO-oriented structure where applicable', 'Conversion-focused CTA development', 'Brand voice consistency', 'Content formatting recommendations', 'Up to 3 revision rounds'] }
     },
     packageComparison: {
@@ -580,7 +580,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$99', packageName: 'Starter Package', shortDescription: '1 content piece up to 800 words, 1 revision round', description: 'Small content needs or single-page messaging.', deliveryLabel: 'Shown during service selection', revisions: '1 revision round', includes: ['Blog/article up to 800 words, OR short sales page, OR email copy package, OR small website-page rewrite', 'Topic research', 'Brand-tone alignment', 'Basic SEO considerations where applicable', '1 revision round'] },
-        standard: { price: '$299', packageName: 'Growth Package', shortDescription: 'Up to 2,500 words across 3 pieces, 2 revisions', description: 'Businesses needing multiple content pieces with keyword awareness.', deliveryLabel: 'Shown during service selection', revisions: '2 revision rounds', includes: ['Up to 2,500 total words', 'Up to 3 content pieces/pages', 'Keyword consideration', 'CTA development', 'Headline development', 'Basic competitor/content review', '2 revision rounds'] },
+        standard: { price: '$299', packageName: 'Standard Package', shortDescription: 'Up to 2,500 words across 3 pieces, 2 revisions', description: 'Businesses needing multiple content pieces with keyword awareness.', deliveryLabel: 'Shown during service selection', revisions: '2 revision rounds', includes: ['Up to 2,500 total words', 'Up to 3 content pieces/pages', 'Keyword consideration', 'CTA development', 'Headline development', 'Basic competitor/content review', '2 revision rounds'] },
         premium: { price: '$699', packageName: 'Premium Package', shortDescription: 'Up to 6,000 words across 6 pieces, content strategy', description: 'Businesses running content marketing campaigns.', deliveryLabel: 'Shown during service selection', revisions: 'Up to 3 revision rounds', includes: ['Up to 6,000 total words', 'Up to 6 pages/content pieces', 'Content strategy', 'SEO-oriented structure where applicable', 'Conversion-focused CTA development', 'Brand voice consistency', 'Content formatting recommendations', 'Up to 3 revision rounds'] }
       }
     },
@@ -613,7 +613,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$249', description: 'Starter Identity — small businesses launching a brand or refreshing their logo.', includes: ['Brand discovery questionnaire', '2 initial logo concepts', '2 revision rounds', 'Primary logo', 'Basic color palette', 'Basic typography recommendations', 'PNG, JPG and transparent logo files'] },
-      growth: { name: 'Growth Package', price: '$599', description: 'Growth Identity — businesses that want a more developed brand identity.', includes: ['Brand discovery', '3 initial logo concepts', 'Primary logo', 'Secondary logo variation', 'Icon/mark', 'Color palette', 'Typography system', 'Social profile assets', 'Basic brand guidelines', '3 revision rounds', 'Organized final files'] },
+      Standard: { name: 'Standard Package', price: '$599', description: 'Standard Identity — businesses that want a more developed brand identity.', includes: ['Brand discovery', '3 initial logo concepts', 'Primary logo', 'Secondary logo variation', 'Icon/mark', 'Color palette', 'Typography system', 'Social profile assets', 'Basic brand guidelines', '3 revision rounds', 'Organized final files'] },
       premium: { name: 'Premium Package', price: '$1,299', description: 'Premium Brand Identity — companies building a full professional brand identity.', includes: ['Brand strategy session', 'Competitive visual review', '3 refined creative directions', 'Primary and secondary logos', 'Brand mark', 'Color system', 'Typography system', 'Brand imagery direction', 'Social assets', 'Basic business-card/letterhead templates', 'Comprehensive brand guideline document', 'Up to 3 revision rounds', 'Complete final-file package'] }
     },
     packageComparison: {
@@ -651,7 +651,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$249', packageName: 'Starter Package', shortDescription: '2 logo concepts, basic palette, 2 revisions', description: 'Starter Identity — small businesses launching a brand or refreshing their logo.', deliveryLabel: 'Shown during service selection', revisions: '2 revision rounds', includes: ['Brand discovery questionnaire', '2 initial logo concepts', '2 revision rounds', 'Primary logo', 'Basic color palette', 'Basic typography recommendations', 'PNG, JPG and transparent logo files'] },
-        standard: { price: '$599', packageName: 'Growth Package', shortDescription: '3 logo concepts, secondary logo, typography system', description: 'Growth Identity — businesses that want a more developed brand identity.', deliveryLabel: 'Shown during service selection', revisions: '3 revision rounds', includes: ['Brand discovery', '3 initial logo concepts', 'Primary logo', 'Secondary logo variation', 'Icon/mark', 'Color palette', 'Typography system', 'Social profile assets', 'Basic brand guidelines', '3 revision rounds', 'Organized final files'] },
+        standard: { price: '$599', packageName: 'Standard Package', shortDescription: '3 logo concepts, secondary logo, typography system', description: 'Standard Identity — businesses that want a more developed brand identity.', deliveryLabel: 'Shown during service selection', revisions: '3 revision rounds', includes: ['Brand discovery', '3 initial logo concepts', 'Primary logo', 'Secondary logo variation', 'Icon/mark', 'Color palette', 'Typography system', 'Social profile assets', 'Basic brand guidelines', '3 revision rounds', 'Organized final files'] },
         premium: { price: '$1,299', packageName: 'Premium Package', shortDescription: '3 creative directions, complete brand guideline document', description: 'Premium Brand Identity — companies building a full professional brand identity.', deliveryLabel: 'Shown during service selection', revisions: 'Up to 3 revision rounds', includes: ['Brand strategy session', 'Competitive visual review', '3 refined creative directions', 'Primary and secondary logos', 'Brand mark', 'Color system', 'Typography system', 'Brand imagery direction', 'Social assets', 'Basic business-card/letterhead templates', 'Comprehensive brand guideline document', 'Up to 3 revision rounds', 'Complete final-file package'] }
       }
     },
@@ -684,7 +684,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$249', description: 'Small businesses needing essential visual content.', includes: ['Up to 1 hour on location', 'Up to 10 edited final photographs', 'Basic color correction', 'Web-resolution files', 'One local location'] },
-      growth: { name: 'Growth Package', price: '$599', description: 'Businesses creating marketing content.', includes: ['Up to 2.5 hours', 'Up to 30 edited photographs', 'Product/team/location combinations', 'Enhanced retouching', 'Web and high-resolution files', 'Basic shot planning'] },
+      Standard: { name: 'Standard Package', price: '$599', description: 'Businesses creating marketing content.', includes: ['Up to 2.5 hours', 'Up to 30 edited photographs', 'Product/team/location combinations', 'Enhanced retouching', 'Web and high-resolution files', 'Basic shot planning'] },
       premium: { name: 'Premium Package', price: '$1,299', description: 'Brand campaigns and full marketing visuals.', includes: ['Up to half-day shoot', 'Up to 60 edited photographs', 'Pre-shoot planning', 'Multiple setups', 'Advanced retouching', 'Web and high-resolution files', 'Organized image library'] }
     },
     packageComparison: {
@@ -710,7 +710,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$249', packageName: 'Starter Package', shortDescription: 'Up to 1 hour on location, 10 edited photos', description: 'Small businesses needing essential visual content.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Up to 1 hour on location', 'Up to 10 edited final photographs', 'Basic color correction', 'Web-resolution files', 'One local location'] },
-        standard: { price: '$599', packageName: 'Growth Package', shortDescription: 'Up to 2.5 hours, 30 edited photos, enhanced retouching', description: 'Businesses creating marketing content.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Up to 2.5 hours', 'Up to 30 edited photographs', 'Product/team/location combinations', 'Enhanced retouching', 'Web and high-resolution files', 'Basic shot planning'] },
+        standard: { price: '$599', packageName: 'Standard Package', shortDescription: 'Up to 2.5 hours, 30 edited photos, enhanced retouching', description: 'Businesses creating marketing content.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Up to 2.5 hours', 'Up to 30 edited photographs', 'Product/team/location combinations', 'Enhanced retouching', 'Web and high-resolution files', 'Basic shot planning'] },
         premium: { price: '$1,299', packageName: 'Premium Package', shortDescription: 'Up to half-day shoot, 60 edited photos, advanced retouching', description: 'Brand campaigns and full marketing visuals.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Up to half-day shoot', 'Up to 60 edited photographs', 'Pre-shoot planning', 'Multiple setups', 'Advanced retouching', 'Web and high-resolution files', 'Organized image library'] }
       }
     },
@@ -744,8 +744,8 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$799', description: 'New businesses, local businesses, consultants, and companies needing a professional online presence.', includes: ['Up to 5 core website pages', 'Custom homepage design', 'Mobile and tablet responsive design', 'Contact form', 'Click-to-call and email functionality', 'Social media links', 'Basic on-page SEO setup', 'Page titles and meta descriptions', 'Basic image optimization', 'Google Analytics setup', 'Google Search Console setup', 'SSL configuration assistance', 'Basic speed optimization', 'One primary conversion CTA', 'Two revision rounds', 'Basic launch support'] },
-      growth: { name: 'Growth Package', price: '$1,799', description: 'Established businesses that want their website to actively support lead generation and marketing.', includes: ['Everything in Starter', 'Up to 10 pages', 'More customized page layouts', 'Blog or resource section', 'Up to 2 lead-generation forms', 'Thank-you page', 'CRM or email platform connection', 'Basic conversion tracking', 'Enhanced on-page SEO', 'Internal linking setup', 'XML sitemap configuration', 'Robots.txt configuration', 'Basic schema implementation where appropriate', 'Website analytics configuration', 'Basic lead funnel structure', 'Three revision rounds', 'CMS training session'] },
-      premium: { name: 'Premium Package', price: '$3,999', description: 'Growing businesses requiring a larger, conversion-focused digital presence.', includes: ['Everything in Growth', 'Up to 20 pages', 'Custom UX/UI direction', 'Advanced page layouts', 'Conversion-focused page architecture', 'Multiple service or location pages', 'Up to 5 lead-generation forms', 'Advanced CRM/form integrations', 'Marketing automation connection', 'Advanced analytics and conversion tracking', 'Enhanced technical SEO setup', 'Custom website components', 'Resource/download functionality', 'Basic booking or scheduling integration', 'Advanced site navigation', 'Staging environment', 'Three revision rounds per major design phase', 'Team training', 'Post-launch review'] }
+      Standard: { name: 'Standard Package', price: '$1,799', description: 'Established businesses that want their website to actively support lead generation and marketing.', includes: ['Everything in Starter', 'Up to 10 pages', 'More customized page layouts', 'Blog or resource section', 'Up to 2 lead-generation forms', 'Thank-you page', 'CRM or email platform connection', 'Basic conversion tracking', 'Enhanced on-page SEO', 'Internal linking setup', 'XML sitemap configuration', 'Robots.txt configuration', 'Basic schema implementation where appropriate', 'Website analytics configuration', 'Basic lead funnel structure', 'Three revision rounds', 'CMS training session'] },
+      premium: { name: 'Premium Package', price: '$3,999', description: 'Growing businesses requiring a larger, conversion-focused digital presence.', includes: ['Everything in Standard', 'Up to 20 pages', 'Custom UX/UI direction', 'Advanced page layouts', 'Conversion-focused page architecture', 'Multiple service or location pages', 'Up to 5 lead-generation forms', 'Advanced CRM/form integrations', 'Marketing automation connection', 'Advanced analytics and conversion tracking', 'Enhanced technical SEO setup', 'Custom website components', 'Resource/download functionality', 'Basic booking or scheduling integration', 'Advanced site navigation', 'Staging environment', 'Three revision rounds per major design phase', 'Team training', 'Post-launch review'] }
     },
     packageComparison: {
       tiers: ['basic', 'standard', 'premium'],
@@ -803,8 +803,8 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$799', packageName: 'Starter Package', shortDescription: 'Up to 5 pages, responsive design, contact form', description: 'New businesses, local businesses, consultants, and companies needing a professional online presence.', deliveryLabel: 'Shown during service selection', revisions: 'Two revision rounds', includes: ['Up to 5 core website pages', 'Custom homepage design', 'Mobile and tablet responsive design', 'Contact form', 'Click-to-call and email functionality', 'Social media links', 'Basic on-page SEO setup', 'Page titles and meta descriptions', 'Basic image optimization', 'Google Analytics setup', 'Google Search Console setup', 'SSL configuration assistance', 'Basic speed optimization', 'One primary conversion CTA', 'Two revision rounds', 'Basic launch support'] },
-        standard: { price: '$1,799', packageName: 'Growth Package', shortDescription: 'Up to 10 pages, lead-generation forms, CMS training', description: 'Established businesses that want their website to actively support lead generation and marketing.', deliveryLabel: 'Shown during service selection', revisions: 'Three revision rounds', includes: ['Everything in Starter', 'Up to 10 pages', 'More customized page layouts', 'Blog or resource section', 'Up to 2 lead-generation forms', 'Thank-you page', 'CRM or email platform connection', 'Basic conversion tracking', 'Enhanced on-page SEO', 'Internal linking setup', 'XML sitemap configuration', 'Robots.txt configuration', 'Basic schema implementation where appropriate', 'Website analytics configuration', 'Basic lead funnel structure', 'Three revision rounds', 'CMS training session'] },
-        premium: { price: '$3,999', packageName: 'Premium Package', shortDescription: 'Up to 20 pages, custom UX/UI, staging environment', description: 'Growing businesses requiring a larger, conversion-focused digital presence.', deliveryLabel: 'Shown during service selection', revisions: 'Three revision rounds per major design phase', includes: ['Everything in Growth', 'Up to 20 pages', 'Custom UX/UI direction', 'Advanced page layouts', 'Conversion-focused page architecture', 'Multiple service or location pages', 'Up to 5 lead-generation forms', 'Advanced CRM/form integrations', 'Marketing automation connection', 'Advanced analytics and conversion tracking', 'Enhanced technical SEO setup', 'Custom website components', 'Resource/download functionality', 'Basic booking or scheduling integration', 'Advanced site navigation', 'Staging environment', 'Three revision rounds per major design phase', 'Team training', 'Post-launch review'] }
+        standard: { price: '$1,799', packageName: 'Standard Package', shortDescription: 'Up to 10 pages, lead-generation forms, CMS training', description: 'Established businesses that want their website to actively support lead generation and marketing.', deliveryLabel: 'Shown during service selection', revisions: 'Three revision rounds', includes: ['Everything in Starter', 'Up to 10 pages', 'More customized page layouts', 'Blog or resource section', 'Up to 2 lead-generation forms', 'Thank-you page', 'CRM or email platform connection', 'Basic conversion tracking', 'Enhanced on-page SEO', 'Internal linking setup', 'XML sitemap configuration', 'Robots.txt configuration', 'Basic schema implementation where appropriate', 'Website analytics configuration', 'Basic lead funnel structure', 'Three revision rounds', 'CMS training session'] },
+        premium: { price: '$3,999', packageName: 'Premium Package', shortDescription: 'Up to 20 pages, custom UX/UI, staging environment', description: 'Growing businesses requiring a larger, conversion-focused digital presence.', deliveryLabel: 'Shown during service selection', revisions: 'Three revision rounds per major design phase', includes: ['Everything in Standard', 'Up to 20 pages', 'Custom UX/UI direction', 'Advanced page layouts', 'Conversion-focused page architecture', 'Multiple service or location pages', 'Up to 5 lead-generation forms', 'Advanced CRM/form integrations', 'Marketing automation connection', 'Advanced analytics and conversion tracking', 'Enhanced technical SEO setup', 'Custom website components', 'Resource/download functionality', 'Basic booking or scheduling integration', 'Advanced site navigation', 'Staging environment', 'Three revision rounds per major design phase', 'Team training', 'Post-launch review'] }
       }
     },
     sampleProject: {
@@ -836,7 +836,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$399', description: 'Best for a single offer, campaign, lead magnet, consultation, or advertisement.', includes: ['1 custom landing page', 'Mobile responsive design', 'Lead capture form', 'Thank-you page', 'One primary CTA', 'Basic conversion tracking', 'Email/CRM form connection', 'Basic copy formatting', 'Two revision rounds'] },
-      growth: { name: 'Growth Package', price: '$899', description: 'Businesses running campaigns that need more than a single page.', includes: ['Up to 3 funnel pages', 'Landing page', 'Thank-you/confirmation page', 'Secondary conversion page', 'Lead form integration', 'CRM/email integration', 'Conversion tracking', 'Basic automation setup', 'Mobile optimization', 'A/B testing-ready structure', 'Up to 2 audience paths', 'Three revision rounds'] },
+      Standard: { name: 'Standard Package', price: '$899', description: 'Businesses running campaigns that need more than a single page.', includes: ['Up to 3 funnel pages', 'Landing page', 'Thank-you/confirmation page', 'Secondary conversion page', 'Lead form integration', 'CRM/email integration', 'Conversion tracking', 'Basic automation setup', 'Mobile optimization', 'A/B testing-ready structure', 'Up to 2 audience paths', 'Three revision rounds'] },
       premium: { name: 'Premium Package', price: '$1,999', description: 'Businesses building a complete customer-acquisition funnel.', includes: ['Up to 6 funnel pages', 'Custom conversion-focused design', 'Lead capture system', 'Booking or checkout integration', 'CRM integration', 'Up to 5 automated follow-up emails', 'Conversion tracking', 'Analytics setup', 'Basic funnel automation', 'Lead tagging/segmentation', 'Thank-you and next-step flows', 'A/B test configuration for one key page', 'Three revision rounds', 'Funnel walkthrough'] }
     },
     packageComparison: {
@@ -878,7 +878,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$399', packageName: 'Starter Package', shortDescription: '1 landing page, lead capture form, mobile-responsive', description: 'Best for a single offer, campaign, lead magnet, consultation, or advertisement.', deliveryLabel: 'Shown during service selection', revisions: 'Two revision rounds', includes: ['1 custom landing page', 'Mobile responsive design', 'Lead capture form', 'Thank-you page', 'One primary CTA', 'Basic conversion tracking', 'Email/CRM form connection', 'Basic copy formatting', 'Two revision rounds'] },
-        standard: { price: '$899', packageName: 'Growth Package', shortDescription: 'Up to 3 funnel pages, CRM/email integration', description: 'Businesses running campaigns that need more than a single page.', deliveryLabel: 'Shown during service selection', revisions: 'Three revision rounds', includes: ['Up to 3 funnel pages', 'Landing page', 'Thank-you/confirmation page', 'Secondary conversion page', 'Lead form integration', 'CRM/email integration', 'Conversion tracking', 'Basic automation setup', 'Mobile optimization', 'A/B testing-ready structure', 'Up to 2 audience paths', 'Three revision rounds'] },
+        standard: { price: '$899', packageName: 'Standard Package', shortDescription: 'Up to 3 funnel pages, CRM/email integration', description: 'Businesses running campaigns that need more than a single page.', deliveryLabel: 'Shown during service selection', revisions: 'Three revision rounds', includes: ['Up to 3 funnel pages', 'Landing page', 'Thank-you/confirmation page', 'Secondary conversion page', 'Lead form integration', 'CRM/email integration', 'Conversion tracking', 'Basic automation setup', 'Mobile optimization', 'A/B testing-ready structure', 'Up to 2 audience paths', 'Three revision rounds'] },
         premium: { price: '$1,999', packageName: 'Premium Package', shortDescription: 'Up to 6 funnel pages, booking/checkout integration', description: 'Businesses building a complete customer-acquisition funnel.', deliveryLabel: 'Shown during service selection', revisions: 'Three revision rounds', includes: ['Up to 6 funnel pages', 'Custom conversion-focused design', 'Lead capture system', 'Booking or checkout integration', 'CRM integration', 'Up to 5 automated follow-up emails', 'Conversion tracking', 'Analytics setup', 'Basic funnel automation', 'Lead tagging/segmentation', 'Thank-you and next-step flows', 'A/B test configuration for one key page', 'Three revision rounds', 'Funnel walkthrough'] }
       }
     },
@@ -896,7 +896,7 @@ const SERVICES_DATA = {
     icon: <FaShoppingCart />,
     intro: 'E-commerce platforms allow businesses to sell products and services online, reach a broader audience, and manage transactions efficiently.',
     description: 'A professionally developed online store ensures customers can browse products easily, complete purchases securely, and return for future orders.',
-    longDescription: 'Scale Link Alliance provides comprehensive e-commerce development services that help businesses launch and manage online stores designed for growth, usability, and reliability.',
+    longDescription: 'Scale Link Alliance provides comprehensive e-commerce development services that help businesses launch and manage online stores designed for Standard, usability, and reliability.',
     sellerInfo: { name: 'ScaleLink Alliance Team', level: 'Professional', rating: 4.9, reviews: 93, ordersInQueue: 6, verified: true },
     whatItHelpsAchieve: ['sell products online', 'manage inventory and orders', 'accept secure payments', 'expand to new markets', 'automate order processing'],
     howMeasured: ['number of products added', 'number of store pages created', 'payment and shipping integrations', 'additional features and automation'],
@@ -911,8 +911,8 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$1,199', description: 'Best for new or smaller online stores.', includes: ['Store setup', 'Up to 10 products', 'Up to 5 informational pages', 'Mobile responsive design', 'Product category setup', 'Shopping cart', 'Checkout configuration', 'One payment gateway', 'Basic shipping configuration', 'Basic tax settings', 'Order notification setup', 'Google Analytics', 'Basic SEO setup', 'Two revision rounds', 'Store management training'] },
-      growth: { name: 'Growth Package', price: '$2,999', description: 'Established businesses expanding online sales.', includes: ['Everything in Starter', 'Up to 50 products', 'Advanced product variations', 'Coupon/discount functionality', 'Abandoned-cart setup where supported', 'Email marketing integration', 'Enhanced analytics', 'Enhanced product SEO', 'Customer account functionality', 'Review functionality', 'Up to 2 payment gateways', 'Advanced shipping rules', 'Basic product-data import', 'Three revision rounds'] },
-      premium: { name: 'Premium Package', price: '$5,999', description: 'Businesses requiring a more advanced commerce environment.', includes: ['Everything in Growth', 'Up to 150 initial products', 'Advanced product/category structure', 'Custom storefront components', 'Enhanced checkout configuration', 'Advanced conversion tracking', 'CRM integration', 'Advanced email automation', 'Subscription functionality where platform-supported', 'Multi-location or advanced inventory configuration where supported', 'Advanced shipping logic', 'Data migration assistance', 'Custom reporting configuration', 'Team training'] }
+      Standard: { name: 'Standard Package', price: '$2,999', description: 'Established businesses expanding online sales.', includes: ['Everything in Starter', 'Up to 50 products', 'Advanced product variations', 'Coupon/discount functionality', 'Abandoned-cart setup where supported', 'Email marketing integration', 'Enhanced analytics', 'Enhanced product SEO', 'Customer account functionality', 'Review functionality', 'Up to 2 payment gateways', 'Advanced shipping rules', 'Basic product-data import', 'Three revision rounds'] },
+      premium: { name: 'Premium Package', price: '$5,999', description: 'Businesses requiring a more advanced commerce environment.', includes: ['Everything in Standard', 'Up to 150 initial products', 'Advanced product/category structure', 'Custom storefront components', 'Enhanced checkout configuration', 'Advanced conversion tracking', 'CRM integration', 'Advanced email automation', 'Subscription functionality where platform-supported', 'Multi-location or advanced inventory configuration where supported', 'Advanced shipping logic', 'Data migration assistance', 'Custom reporting configuration', 'Team training'] }
     },
     packageComparison: {
       tiers: ['basic', 'standard', 'premium'],
@@ -961,8 +961,8 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$1,199', packageName: 'Starter Package', shortDescription: 'Store setup with up to 10 products', description: 'Best for new or smaller online stores.', deliveryLabel: 'Shown during service selection', revisions: 'Two revision rounds', includes: ['Store setup', 'Up to 10 products', 'Up to 5 informational pages', 'Mobile responsive design', 'Product category setup', 'Shopping cart', 'Checkout configuration', 'One payment gateway', 'Basic shipping configuration', 'Basic tax settings', 'Order notification setup', 'Google Analytics', 'Basic SEO setup', 'Two revision rounds', 'Store management training'] },
-        standard: { price: '$2,999', packageName: 'Growth Package', shortDescription: 'Store with up to 50 products, coupons, customer accounts', description: 'Established businesses expanding online sales.', deliveryLabel: 'Shown during service selection', revisions: 'Three revision rounds', includes: ['Everything in Starter', 'Up to 50 products', 'Advanced product variations', 'Coupon/discount functionality', 'Abandoned-cart setup where supported', 'Email marketing integration', 'Enhanced analytics', 'Enhanced product SEO', 'Customer account functionality', 'Review functionality', 'Up to 2 payment gateways', 'Advanced shipping rules', 'Basic product-data import', 'Three revision rounds'] },
-        premium: { price: '$5,999', packageName: 'Premium Package', shortDescription: 'Store with up to 150 products, custom storefront, CRM', description: 'Businesses requiring a more advanced commerce environment.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Everything in Growth', 'Up to 150 initial products', 'Advanced product/category structure', 'Custom storefront components', 'Enhanced checkout configuration', 'Advanced conversion tracking', 'CRM integration', 'Advanced email automation', 'Subscription functionality where platform-supported', 'Multi-location or advanced inventory configuration where supported', 'Advanced shipping logic', 'Data migration assistance', 'Custom reporting configuration', 'Team training'] }
+        standard: { price: '$2,999', packageName: 'Standard Package', shortDescription: 'Store with up to 50 products, coupons, customer accounts', description: 'Established businesses expanding online sales.', deliveryLabel: 'Shown during service selection', revisions: 'Three revision rounds', includes: ['Everything in Starter', 'Up to 50 products', 'Advanced product variations', 'Coupon/discount functionality', 'Abandoned-cart setup where supported', 'Email marketing integration', 'Enhanced analytics', 'Enhanced product SEO', 'Customer account functionality', 'Review functionality', 'Up to 2 payment gateways', 'Advanced shipping rules', 'Basic product-data import', 'Three revision rounds'] },
+        premium: { price: '$5,999', packageName: 'Premium Package', shortDescription: 'Store with up to 150 products, custom storefront, CRM', description: 'Businesses requiring a more advanced commerce environment.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Everything in Standard', 'Up to 150 initial products', 'Advanced product/category structure', 'Custom storefront components', 'Enhanced checkout configuration', 'Advanced conversion tracking', 'CRM integration', 'Advanced email automation', 'Subscription functionality where platform-supported', 'Multi-location or advanced inventory configuration where supported', 'Advanced shipping logic', 'Data migration assistance', 'Custom reporting configuration', 'Team training'] }
       }
     },
     sampleProject: {
@@ -977,7 +977,7 @@ const SERVICES_DATA = {
     title: 'Web Applications & SaaS Development',
     category: 'Tech & Development',
     icon: <FaGlobe />,
-    intro: 'Custom web applications and Software-as-a-Service (SaaS) platforms allow businesses to streamline operations, automate workflows, and create digital tools that support growth.',
+    intro: 'Custom web applications and Software-as-a-Service (SaaS) platforms allow businesses to streamline operations, automate workflows, and create digital tools that support Standard.',
     description: 'Unlike standard websites, web applications provide interactive functionality such as dashboards, user accounts, data management systems, and automation tools.',
     longDescription: 'Scale Link Alliance develops scalable web applications and SaaS solutions tailored to the specific operational needs of businesses, helping organizations improve efficiency and deliver digital services to their customers.',
     sellerInfo: { name: 'ScaleLink Alliance Team', level: 'Professional', rating: 4.8, reviews: 67, ordersInQueue: 3, verified: true },
@@ -994,7 +994,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter MVP', price: '$4,999', description: 'Best for validating a focused software concept.', includes: ['Requirements workshop', 'Basic product architecture', 'User authentication', '1 primary user role', 'Up to 5 core application screens', 'Database setup', 'Basic admin functionality', '1 third-party integration', 'Responsive interface', 'Testing', 'Deployment assistance', 'Basic technical documentation'] },
-      growth: { name: 'Growth Application', price: '$11,999', description: 'Businesses building more advanced digital systems.', includes: ['Product planning', 'Up to 15 core screens', 'Up to 2 user roles', 'Advanced database structure', 'Admin dashboard', 'Up to 3 integrations', 'Notification functionality', 'User-account management', 'Responsive application', 'QA testing', 'Deployment', 'Documentation', 'Team handoff'] },
+      Standard: { name: 'Standard Application', price: '$11,999', description: 'Businesses building more advanced digital systems.', includes: ['Product planning', 'Up to 15 core screens', 'Up to 2 user roles', 'Advanced database structure', 'Admin dashboard', 'Up to 3 integrations', 'Notification functionality', 'User-account management', 'Responsive application', 'QA testing', 'Deployment', 'Documentation', 'Team handoff'] },
       premium: { name: 'Premium SaaS / Custom Platform', price: '$24,999', description: 'Best for larger custom software platforms — final pricing established after technical discovery.', includes: ['Complex product architecture', 'Multiple user roles', 'Subscription/billing systems', 'Custom dashboards', 'Advanced database architecture', 'API integrations', 'Automated workflows', 'Role-based permissions', 'Reporting', 'Notifications', 'Staging/production environments', 'Advanced QA', 'Deployment', 'Technical documentation', 'Post-launch support'] }
     },
     packageComparison: {
@@ -1042,7 +1042,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$4,999', packageName: 'Starter MVP', shortDescription: '1 user role, up to 5 core screens, database setup', description: 'Best for validating a focused software concept.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Requirements workshop', 'Basic product architecture', 'User authentication', '1 primary user role', 'Up to 5 core application screens', 'Database setup', 'Basic admin functionality', '1 third-party integration', 'Responsive interface', 'Testing', 'Deployment assistance', 'Basic technical documentation'] },
-        standard: { price: '$11,999', packageName: 'Growth Application', shortDescription: 'Up to 15 core screens, up to 2 user roles, admin dashboard', description: 'Businesses building more advanced digital systems.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Product planning', 'Up to 15 core screens', 'Up to 2 user roles', 'Advanced database structure', 'Admin dashboard', 'Up to 3 integrations', 'Notification functionality', 'User-account management', 'Responsive application', 'QA testing', 'Deployment', 'Documentation', 'Team handoff'] },
+        standard: { price: '$11,999', packageName: 'Standard Application', shortDescription: 'Up to 15 core screens, up to 2 user roles, admin dashboard', description: 'Businesses building more advanced digital systems.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Product planning', 'Up to 15 core screens', 'Up to 2 user roles', 'Advanced database structure', 'Admin dashboard', 'Up to 3 integrations', 'Notification functionality', 'User-account management', 'Responsive application', 'QA testing', 'Deployment', 'Documentation', 'Team handoff'] },
         premium: { price: '$24,999', packageName: 'Premium SaaS / Custom Platform', shortDescription: 'Complex architecture, multiple user roles, billing systems', description: 'Best for larger custom software platforms — final pricing established after technical discovery.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Complex product architecture', 'Multiple user roles', 'Subscription/billing systems', 'Custom dashboards', 'Advanced database architecture', 'API integrations', 'Automated workflows', 'Role-based permissions', 'Reporting', 'Notifications', 'Staging/production environments', 'Advanced QA', 'Deployment', 'Technical documentation', 'Post-launch support'] }
       }
     },
@@ -1075,7 +1075,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$499', description: 'Starter Integration.', includes: ['1 straightforward system integration', 'Up to 2 API endpoints/actions', 'Authentication configuration', 'Basic data mapping', 'Testing', 'Basic error handling', 'Documentation'] },
-      growth: { name: 'Growth Package', price: '$1,299', description: 'Growth Integration.', includes: ['Integration of up to 2 systems', 'Up to 6 endpoints/actions', 'Advanced data mapping', 'Workflow logic', 'Error logging', 'Testing environment', 'Documentation', 'Deployment assistance'] },
+      Standard: { name: 'Standard Package', price: '$1,299', description: 'Standard Integration.', includes: ['Integration of up to 2 systems', 'Up to 6 endpoints/actions', 'Advanced data mapping', 'Workflow logic', 'Error logging', 'Testing environment', 'Documentation', 'Deployment assistance'] },
       premium: { name: 'Premium Package', price: '$3,499', description: 'Premium Integration.', includes: ['Up to 3 interconnected systems', 'Up to 15 endpoints/actions', 'Complex workflow logic', 'Data transformations', 'Authentication/security configuration', 'Error handling and logging', 'Testing', 'Deployment support', 'Technical documentation', 'Post-launch review'] }
     },
     packageComparison: {
@@ -1107,7 +1107,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$499', packageName: 'Starter Package', shortDescription: '1 system integration, basic data mapping', description: 'Starter Integration.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['1 straightforward system integration', 'Up to 2 API endpoints/actions', 'Authentication configuration', 'Basic data mapping', 'Testing', 'Basic error handling', 'Documentation'] },
-        standard: { price: '$1,299', packageName: 'Growth Package', shortDescription: 'Up to 2 systems, up to 6 endpoints, workflow logic', description: 'Growth Integration.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Integration of up to 2 systems', 'Up to 6 endpoints/actions', 'Advanced data mapping', 'Workflow logic', 'Error logging', 'Testing environment', 'Documentation', 'Deployment assistance'] },
+        standard: { price: '$1,299', packageName: 'Standard Package', shortDescription: 'Up to 2 systems, up to 6 endpoints, workflow logic', description: 'Standard Integration.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Integration of up to 2 systems', 'Up to 6 endpoints/actions', 'Advanced data mapping', 'Workflow logic', 'Error logging', 'Testing environment', 'Documentation', 'Deployment assistance'] },
         premium: { price: '$3,499', packageName: 'Premium Package', shortDescription: 'Up to 3 systems, up to 15 endpoints, complex logic', description: 'Premium Integration.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Up to 3 interconnected systems', 'Up to 15 endpoints/actions', 'Complex workflow logic', 'Data transformations', 'Authentication/security configuration', 'Error handling and logging', 'Testing', 'Deployment support', 'Technical documentation', 'Post-launch review'] }
       }
     },
@@ -1140,8 +1140,8 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Care', price: '$149/month', description: 'Up to 2 hours of website work per month.', includes: ['Up to 2 hours of website work per month', 'Core/plugin updates where applicable', 'Basic backup monitoring', 'Basic uptime checks', 'Minor content edits', 'Basic technical health review', 'Monthly maintenance summary'] },
-      growth: { name: 'Growth Care', price: '$349/month', description: 'Up to 5 support hours per month.', includes: ['Up to 5 support hours per month', 'Updates', 'Backup monitoring', 'Uptime monitoring', 'Content changes', 'Minor design adjustments', 'Basic speed review', 'Form/function testing', 'Priority support', 'Monthly maintenance report'] },
-      premium: { name: 'Premium Care', price: '$799/month', description: 'Up to 10 support hours per month.', includes: ['Up to 10 support hours per month', 'Everything in Growth', 'Priority issue handling', 'Regular site health review', 'Conversion-form testing', 'Analytics review', 'Minor page creation', 'Minor development work', 'Monthly strategy recommendations'] }
+      Standard: { name: 'Standard Care', price: '$349/month', description: 'Up to 5 support hours per month.', includes: ['Up to 5 support hours per month', 'Updates', 'Backup monitoring', 'Uptime monitoring', 'Content changes', 'Minor design adjustments', 'Basic speed review', 'Form/function testing', 'Priority support', 'Monthly maintenance report'] },
+      premium: { name: 'Premium Care', price: '$799/month', description: 'Up to 10 support hours per month.', includes: ['Up to 10 support hours per month', 'Everything in Standard', 'Priority issue handling', 'Regular site health review', 'Conversion-form testing', 'Analytics review', 'Minor page creation', 'Minor development work', 'Monthly strategy recommendations'] }
     },
     packageComparison: {
       tiers: ['basic', 'standard', 'premium'],
@@ -1174,8 +1174,8 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$149/month', packageName: 'Starter Care', shortDescription: 'Up to 2 hours maintenance, basic monitoring', description: 'Up to 2 hours of website work per month.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 2 hours of website work per month', 'Core/plugin updates where applicable', 'Basic backup monitoring', 'Basic uptime checks', 'Minor content edits', 'Basic technical health review', 'Monthly maintenance summary'] },
-        standard: { price: '$349/month', packageName: 'Growth Care', shortDescription: 'Up to 5 hours maintenance, content updates', description: 'Up to 5 support hours per month.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 5 support hours per month', 'Updates', 'Backup monitoring', 'Uptime monitoring', 'Content changes', 'Minor design adjustments', 'Basic speed review', 'Form/function testing', 'Priority support', 'Monthly maintenance report'] },
-        premium: { price: '$799/month', packageName: 'Premium Care', shortDescription: 'Up to 10 hours maintenance, priority support', description: 'Up to 10 support hours per month.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 10 support hours per month', 'Everything in Growth', 'Priority issue handling', 'Regular site health review', 'Conversion-form testing', 'Analytics review', 'Minor page creation', 'Minor development work', 'Monthly strategy recommendations'] }
+        standard: { price: '$349/month', packageName: 'Standard Care', shortDescription: 'Up to 5 hours maintenance, content updates', description: 'Up to 5 support hours per month.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 5 support hours per month', 'Updates', 'Backup monitoring', 'Uptime monitoring', 'Content changes', 'Minor design adjustments', 'Basic speed review', 'Form/function testing', 'Priority support', 'Monthly maintenance report'] },
+        premium: { price: '$799/month', packageName: 'Premium Care', shortDescription: 'Up to 10 hours maintenance, priority support', description: 'Up to 10 support hours per month.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 10 support hours per month', 'Everything in Standard', 'Priority issue handling', 'Regular site health review', 'Conversion-form testing', 'Analytics review', 'Minor page creation', 'Minor development work', 'Monthly strategy recommendations'] }
       }
     },
     sampleProject: {
@@ -1207,7 +1207,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$399', description: 'Ideal for businesses needing a simple booking system.', includes: ['Online booking system setup', 'Calendar integration', 'Email notifications', 'Mobile-friendly booking form', 'Basic customization'] },
-      growth: { name: 'Standard Package', price: '$999', description: 'Ideal for businesses with multiple services or staff.', includes: ['Advanced booking system', 'Multiple service/slot configurations', 'Automated reminders', 'Payment integration', 'Customizable booking form'] },
+      Standard: { name: 'Standard Package', price: '$999', description: 'Ideal for businesses with multiple services or staff.', includes: ['Advanced booking system', 'Multiple service/slot configurations', 'Automated reminders', 'Payment integration', 'Customizable booking form'] },
       premium: { name: 'Premium Package', price: '$1,999', description: 'Ideal for businesses needing full booking automation.', includes: ['Full booking automation system', 'Multi-location support', 'Advanced notifications', 'CRM integration', 'Reporting and analytics'] }
     },
     packageComparison: {
@@ -1237,7 +1237,7 @@ const SERVICES_DATA = {
   },
   'social-media-management': {
     title: 'Social Media Management',
-    category: 'Marketing & Growth',
+    category: 'Marketing & Standard',
     icon: <FaUsers />,
     intro: 'Social media platforms have become one of the most effective ways for businesses to connect with customers, promote services, and build brand awareness.',
     description: 'Maintaining a consistent and professional social media presence requires planning, content creation, and regular engagement.',
@@ -1256,7 +1256,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$349/month', description: 'Businesses that need a consistent presence.', includes: ['1 social platform', 'Up to 8 feed posts per month', 'Caption writing', 'Basic graphic creation', 'Hashtag/topic research where relevant', 'Content scheduling', 'Monthly content calendar', 'Basic monthly report', 'One revision round on the monthly content batch'] },
-      growth: { name: 'Growth Package', price: '$699/month', description: 'Growth tier social media management.', includes: ['Up to 2 platforms', 'Up to 16 feed posts per month', 'Up to 4 short-form videos/reels using provided or existing footage', 'Caption writing', 'Graphic design', 'Monthly content calendar', 'Scheduling', 'Basic community-response support', 'Monthly analytics', 'Monthly strategy review'] },
+      Standard: { name: 'Standard Package', price: '$699/month', description: 'Standard tier social media management.', includes: ['Up to 2 platforms', 'Up to 16 feed posts per month', 'Up to 4 short-form videos/reels using provided or existing footage', 'Caption writing', 'Graphic design', 'Monthly content calendar', 'Scheduling', 'Basic community-response support', 'Monthly analytics', 'Monthly strategy review'] },
       premium: { name: 'Premium Package', price: '$1,499/month', description: 'Premium tier social media management.', includes: ['Up to 3 platforms', 'Up to 24 feed posts per month', 'Up to 8 short-form videos', 'Content calendar', 'Graphic design', 'Caption/copy development', 'Scheduling', 'Basic weekday community management', 'Social listening', 'Monthly campaign planning', 'Performance reporting', 'Monthly strategy call', 'Ongoing optimization'] }
     },
     packageComparison: {
@@ -1293,7 +1293,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$349/month', packageName: 'Starter Package', shortDescription: '1 platform, 8 posts/month, content scheduling', description: 'Businesses that need a consistent presence.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['1 social platform', 'Up to 8 feed posts per month', 'Caption writing', 'Basic graphic creation', 'Hashtag/topic research where relevant', 'Content scheduling', 'Monthly content calendar', 'Basic monthly report', 'One revision round on the monthly content batch'] },
-        standard: { price: '$699/month', packageName: 'Growth Package', shortDescription: '2 platforms, 16 posts/month, short-form videos', description: 'Growth tier social media management.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 2 platforms', 'Up to 16 feed posts per month', 'Up to 4 short-form videos/reels using provided or existing footage', 'Caption writing', 'Graphic design', 'Monthly content calendar', 'Scheduling', 'Basic community-response support', 'Monthly analytics', 'Monthly strategy review'] },
+        standard: { price: '$699/month', packageName: 'Standard Package', shortDescription: '2 platforms, 16 posts/month, short-form videos', description: 'Standard tier social media management.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 2 platforms', 'Up to 16 feed posts per month', 'Up to 4 short-form videos/reels using provided or existing footage', 'Caption writing', 'Graphic design', 'Monthly content calendar', 'Scheduling', 'Basic community-response support', 'Monthly analytics', 'Monthly strategy review'] },
         premium: { price: '$1,499/month', packageName: 'Premium Package', shortDescription: '3 platforms, 24 posts/month, community management', description: 'Premium tier social media management.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 3 platforms', 'Up to 24 feed posts per month', 'Up to 8 short-form videos', 'Content calendar', 'Graphic design', 'Caption/copy development', 'Scheduling', 'Basic weekday community management', 'Social listening', 'Monthly campaign planning', 'Performance reporting', 'Monthly strategy call', 'Ongoing optimization'] }
       }
     },
@@ -1307,14 +1307,14 @@ const SERVICES_DATA = {
   },
   'seo-marketing': {
     title: 'SEO & Search Marketing',
-    category: 'Marketing & Growth',
+    category: 'Marketing & Standard',
     icon: <FaSearch />,
     intro: 'Search Engine Optimization helps your business appear when potential customers search online for services or products related to your industry.',
-    description: 'Effective SEO improves your website visibility in search engines, attracts targeted traffic, and supports long-term growth.',
+    description: 'Effective SEO improves your website visibility in search engines, attracts targeted traffic, and supports long-term Standard.',
     longDescription: 'Scale Link Alliance provides professional SEO and search marketing services designed to strengthen your online presence, optimize your website structure, and improve search rankings so the right audience can find your business.',
     sellerInfo: { name: 'ScaleLink Alliance Team', level: 'Professional', rating: 4.6, reviews: 78, ordersInQueue: 5, verified: true },
     whatItHelpsAchieve: ['increase website visibility in search engines', 'attract targeted organic traffic', 'improve search rankings for relevant keywords', 'strengthen online authority', 'generate more inquiries and leads'],
-    howMeasured: ['number of pages optimized', 'keyword rankings', 'website traffic growth', 'search visibility improvements', 'lead generation from organic traffic'],
+    howMeasured: ['number of pages optimized', 'keyword rankings', 'website traffic Standard', 'search visibility improvements', 'lead generation from organic traffic'],
     servicesInclude: ['Keyword research', 'On-page SEO optimization', 'Technical SEO improvements', 'Content recommendations', 'Search performance tracking'],
     tools: ['SEMrush', 'Ahrefs', 'Google Search Console', 'Moz', 'Screaming Frog'],
     complementaryServices: [
@@ -1326,8 +1326,8 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$499/month', description: 'Small businesses beginning to build organic search visibility.', includes: ['Initial SEO audit', 'Keyword research for up to 10 target keywords', 'Optimization of up to 5 priority pages', 'Page title optimization', 'Meta description optimization', 'Heading structure review', 'Internal-link improvements', 'Google Search Console review', 'Google Analytics review', 'XML sitemap review', 'Basic technical SEO checks', 'One existing page/content optimization per month', 'Monthly ranking review', 'Monthly performance report', 'Monthly recommendations'] },
-      growth: { name: 'Growth Package', price: '$999/month', description: 'Most Popular — everything in Starter, plus expanded keyword tracking and content.', includes: ['Everything in Starter', 'Up to 20 tracked target keywords', 'Optimization across up to 15 priority pages', 'Competitor SEO review', 'Two SEO-focused content pieces or substantial content optimizations per month', 'Enhanced internal-link strategy', 'Technical issue monitoring', 'Search intent analysis', 'Content-gap analysis', 'Local SEO optimization when applicable', 'Google Business Profile recommendations when applicable', 'Basic structured-data recommendations', 'Conversion-page SEO review', 'Monthly strategy review'] },
-      premium: { name: 'Premium Package', price: '$1,999/month', description: 'Businesses pursuing more aggressive organic growth.', includes: ['Everything in Growth', 'Up to 40 tracked keywords', 'Up to 30 priority pages', 'Up to 4 SEO content pieces or major optimizations per month', 'Advanced competitor research', 'Advanced content-gap analysis', 'Technical SEO monitoring', 'Schema strategy', 'Multi-service or multi-location SEO strategy', 'Content-cluster planning', 'Link opportunity research and outreach strategy', 'Conversion optimization recommendations', 'Priority implementation support', 'Monthly strategy call', 'Detailed executive reporting'] }
+      Standard: { name: 'Standard Package', price: '$999/month', description: 'Most Popular — everything in Starter, plus expanded keyword tracking and content.', includes: ['Everything in Starter', 'Up to 20 tracked target keywords', 'Optimization across up to 15 priority pages', 'Competitor SEO review', 'Two SEO-focused content pieces or substantial content optimizations per month', 'Enhanced internal-link strategy', 'Technical issue monitoring', 'Search intent analysis', 'Content-gap analysis', 'Local SEO optimization when applicable', 'Google Business Profile recommendations when applicable', 'Basic structured-data recommendations', 'Conversion-page SEO review', 'Monthly strategy review'] },
+      premium: { name: 'Premium Package', price: '$1,999/month', description: 'Businesses pursuing more aggressive organic Standard.', includes: ['Everything in Standard', 'Up to 40 tracked keywords', 'Up to 30 priority pages', 'Up to 4 SEO content pieces or major optimizations per month', 'Advanced competitor research', 'Advanced content-gap analysis', 'Technical SEO monitoring', 'Schema strategy', 'Multi-service or multi-location SEO strategy', 'Content-cluster planning', 'Link opportunity research and outreach strategy', 'Conversion optimization recommendations', 'Priority implementation support', 'Monthly strategy call', 'Detailed executive reporting'] }
     },
     packageComparison: {
       tiers: ['basic', 'standard', 'premium'],
@@ -1377,8 +1377,8 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$499/month', packageName: 'Starter Package', shortDescription: 'SEO audit, 10 keywords, optimization of 5 pages', description: 'Small businesses beginning to build organic search visibility.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Initial SEO audit', 'Keyword research for up to 10 target keywords', 'Optimization of up to 5 priority pages', 'Page title optimization', 'Meta description optimization', 'Heading structure review', 'Internal-link improvements', 'Google Search Console review', 'Google Analytics review', 'XML sitemap review', 'Basic technical SEO checks', 'One existing page/content optimization per month', 'Monthly ranking review', 'Monthly performance report', 'Monthly recommendations'] },
-        standard: { price: '$999/month', packageName: 'Growth Package', shortDescription: '20 keywords, optimization of 15 pages, content pieces', description: 'Most Popular — everything in Starter, plus expanded keyword tracking and content.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Everything in Starter', 'Up to 20 tracked target keywords', 'Optimization across up to 15 priority pages', 'Competitor SEO review', 'Two SEO-focused content pieces or substantial content optimizations per month', 'Enhanced internal-link strategy', 'Technical issue monitoring', 'Search intent analysis', 'Content-gap analysis', 'Local SEO optimization when applicable', 'Google Business Profile recommendations when applicable', 'Basic structured-data recommendations', 'Conversion-page SEO review', 'Monthly strategy review'] },
-        premium: { price: '$1,999/month', packageName: 'Premium Package', shortDescription: '40 keywords, 30 pages, schema & outreach strategy', description: 'Businesses pursuing more aggressive organic growth.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Everything in Growth', 'Up to 40 tracked keywords', 'Up to 30 priority pages', 'Up to 4 SEO content pieces or major optimizations per month', 'Advanced competitor research', 'Advanced content-gap analysis', 'Technical SEO monitoring', 'Schema strategy', 'Multi-service or multi-location SEO strategy', 'Content-cluster planning', 'Link opportunity research and outreach strategy', 'Conversion optimization recommendations', 'Priority implementation support', 'Monthly strategy call', 'Detailed executive reporting'] }
+        standard: { price: '$999/month', packageName: 'Standard Package', shortDescription: '20 keywords, optimization of 15 pages, content pieces', description: 'Most Popular — everything in Starter, plus expanded keyword tracking and content.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Everything in Starter', 'Up to 20 tracked target keywords', 'Optimization across up to 15 priority pages', 'Competitor SEO review', 'Two SEO-focused content pieces or substantial content optimizations per month', 'Enhanced internal-link strategy', 'Technical issue monitoring', 'Search intent analysis', 'Content-gap analysis', 'Local SEO optimization when applicable', 'Google Business Profile recommendations when applicable', 'Basic structured-data recommendations', 'Conversion-page SEO review', 'Monthly strategy review'] },
+        premium: { price: '$1,999/month', packageName: 'Premium Package', shortDescription: '40 keywords, 30 pages, schema & outreach strategy', description: 'Businesses pursuing more aggressive organic Standard.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Everything in Standard', 'Up to 40 tracked keywords', 'Up to 30 priority pages', 'Up to 4 SEO content pieces or major optimizations per month', 'Advanced competitor research', 'Advanced content-gap analysis', 'Technical SEO monitoring', 'Schema strategy', 'Multi-service or multi-location SEO strategy', 'Content-cluster planning', 'Link opportunity research and outreach strategy', 'Conversion optimization recommendations', 'Priority implementation support', 'Monthly strategy call', 'Detailed executive reporting'] }
       }
     },
     sampleProject: {
@@ -1391,7 +1391,7 @@ const SERVICES_DATA = {
   },
   'paid-advertising': {
     title: 'Paid Advertising Management',
-    category: 'Marketing & Growth',
+    category: 'Marketing & Standard',
     icon: <FaAd />,
     intro: 'Paid advertising can quickly generate leads and increase brand visibility.',
     description: 'We create and manage targeted advertising campaigns designed to reach the right audience and maximize return on investment.',
@@ -1410,7 +1410,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$399/month', description: 'Smaller businesses testing paid acquisition. Recommended for lower-spend campaigns.', includes: ['1 advertising platform', 'Up to 1 active campaign', 'Up to 3 ad groups/ad sets', 'Initial campaign setup', 'Basic keyword or audience research', 'Up to 6 ad variations', 'Conversion tracking setup', 'Budget monitoring', 'Basic optimization', 'Negative keyword management where applicable', 'Monthly report', 'One monthly campaign review'] },
-      growth: { name: 'Growth Package', price: '$799/month', description: 'Everything in Starter, plus more campaigns and testing.', includes: ['Everything in Starter', 'Up to 2 active campaigns', 'Up to 8 ad groups/ad sets', 'Up to 12 active ad variations', 'Enhanced audience/keyword research', 'Retargeting campaign setup', 'Landing-page recommendations', 'Weekly optimization', 'Search-term analysis', 'Bid/budget adjustments', 'Basic creative testing', 'Conversion-performance analysis', 'Monthly strategy call'] },
+      Standard: { name: 'Standard Package', price: '$799/month', description: 'Everything in Starter, plus more campaigns and testing.', includes: ['Everything in Starter', 'Up to 2 active campaigns', 'Up to 8 ad groups/ad sets', 'Up to 12 active ad variations', 'Enhanced audience/keyword research', 'Retargeting campaign setup', 'Landing-page recommendations', 'Weekly optimization', 'Search-term analysis', 'Bid/budget adjustments', 'Basic creative testing', 'Conversion-performance analysis', 'Monthly strategy call'] },
       premium: { name: 'Premium Package', price: '$1,499/month', description: 'For larger or more complex advertising programs.', includes: ['Multi-campaign management', 'Up to 2 advertising platforms', 'Advanced audience segmentation', 'Advanced retargeting', 'Creative testing', 'Conversion tracking', 'Funnel performance analysis', 'Weekly performance monitoring', 'Budget allocation recommendations', 'Advanced keyword/search-term management', 'Landing-page recommendations', 'Monthly strategy call', 'Executive reporting'] }
     },
     packageComparison: {
@@ -1454,12 +1454,12 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$399/month', packageName: 'Starter Package', shortDescription: '1 platform, 1 campaign, conversion tracking', description: 'Smaller businesses testing paid acquisition. Recommended for lower-spend campaigns.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['1 advertising platform', 'Up to 1 active campaign', 'Up to 3 ad groups/ad sets', 'Initial campaign setup', 'Basic keyword or audience research', 'Up to 6 ad variations', 'Conversion tracking setup', 'Budget monitoring', 'Basic optimization', 'Negative keyword management where applicable', 'Monthly report', 'One monthly campaign review'] },
-        standard: { price: '$799/month', packageName: 'Growth Package', shortDescription: 'Up to 2 campaigns, retargeting, weekly optimization', description: 'Everything in Starter, plus more campaigns and testing.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Everything in Starter', 'Up to 2 active campaigns', 'Up to 8 ad groups/ad sets', 'Up to 12 active ad variations', 'Enhanced audience/keyword research', 'Retargeting campaign setup', 'Landing-page recommendations', 'Weekly optimization', 'Search-term analysis', 'Bid/budget adjustments', 'Basic creative testing', 'Conversion-performance analysis', 'Monthly strategy call'] },
+        standard: { price: '$799/month', packageName: 'Standard Package', shortDescription: 'Up to 2 campaigns, retargeting, weekly optimization', description: 'Everything in Starter, plus more campaigns and testing.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Everything in Starter', 'Up to 2 active campaigns', 'Up to 8 ad groups/ad sets', 'Up to 12 active ad variations', 'Enhanced audience/keyword research', 'Retargeting campaign setup', 'Landing-page recommendations', 'Weekly optimization', 'Search-term analysis', 'Bid/budget adjustments', 'Basic creative testing', 'Conversion-performance analysis', 'Monthly strategy call'] },
         premium: { price: '$1,499/month', packageName: 'Premium Package', shortDescription: 'Multi-campaign management, up to 2 platforms', description: 'For larger or more complex advertising programs.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Multi-campaign management', 'Up to 2 advertising platforms', 'Advanced audience segmentation', 'Advanced retargeting', 'Creative testing', 'Conversion tracking', 'Funnel performance analysis', 'Weekly performance monitoring', 'Budget allocation recommendations', 'Advanced keyword/search-term management', 'Landing-page recommendations', 'Monthly strategy call', 'Executive reporting'] }
       }
     },
     sampleProject: {
-      projectName: "AdGrowth Campaign Management",
+      projectName: "AdStandard Campaign Management",
       businessType: "Contractor / local service business",
       projectSummary: "A paid advertising concept created to help a business reach more potential customers through targeted online ad campaigns.",
       projectGoal: "Help the business attract better traffic, generate more leads, and promote its services to people who are more likely to take action.",
@@ -1469,7 +1469,7 @@ const SERVICES_DATA = {
   },
   'email-marketing': {
     title: 'Email Marketing Campaigns',
-    category: 'Marketing & Growth',
+    category: 'Marketing & Standard',
     icon: <FaEnvelope />,
     intro: 'Email marketing remains one of the most effective ways for businesses to communicate directly with their audience.',
     description: 'A well-designed email campaign can help nurture customer relationships, promote services or products, and encourage repeat engagement.',
@@ -1488,7 +1488,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$249', description: 'Best for a single promotion or announcement.', includes: ['1 email campaign', 'Email layout/design', 'Basic copy editing', 'CTA setup', 'Basic segmentation', 'Links and tracking', 'Test send', 'Mobile review', 'One revision round', 'Campaign performance summary'] },
-      growth: { name: 'Growth Package', price: '$599', description: 'Growth Campaign.', includes: ['Up to 4 emails', 'Campaign strategy', 'Email layout/design', 'Subject-line development', 'Basic copywriting', 'Audience segmentation', 'CTA strategy', 'UTM/tracking setup', 'Scheduling', 'Basic automation', 'Performance report', 'Two revision rounds'] },
+      Standard: { name: 'Standard Package', price: '$599', description: 'Standard Campaign.', includes: ['Up to 4 emails', 'Campaign strategy', 'Email layout/design', 'Subject-line development', 'Basic copywriting', 'Audience segmentation', 'CTA strategy', 'UTM/tracking setup', 'Scheduling', 'Basic automation', 'Performance report', 'Two revision rounds'] },
       premium: { name: 'Premium Package', price: '$1,199', description: 'Premium Campaign.', includes: ['Up to 8 emails', 'Full campaign strategy', 'Copywriting', 'Design/layout', 'Segmentation strategy', 'Automated email flow', 'Lead tagging', 'Basic A/B testing', 'Conversion tracking', 'Performance analysis', 'Optimization recommendations', 'Two revision rounds'] }
     },
     packageComparison: {
@@ -1529,12 +1529,12 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$249', packageName: 'Starter Package', shortDescription: '1 email campaign, layout/design, 1 revision', description: 'Best for a single promotion or announcement.', deliveryLabel: 'Shown during service selection', revisions: 'One revision round', includes: ['1 email campaign', 'Email layout/design', 'Basic copy editing', 'CTA setup', 'Basic segmentation', 'Links and tracking', 'Test send', 'Mobile review', 'One revision round', 'Campaign performance summary'] },
-        standard: { price: '$599', packageName: 'Growth Package', shortDescription: 'Up to 4 emails, campaign strategy, 2 revisions', description: 'Growth Campaign.', deliveryLabel: 'Shown during service selection', revisions: 'Two revision rounds', includes: ['Up to 4 emails', 'Campaign strategy', 'Email layout/design', 'Subject-line development', 'Basic copywriting', 'Audience segmentation', 'CTA strategy', 'UTM/tracking setup', 'Scheduling', 'Basic automation', 'Performance report', 'Two revision rounds'] },
+        standard: { price: '$599', packageName: 'Standard Package', shortDescription: 'Up to 4 emails, campaign strategy, 2 revisions', description: 'Standard Campaign.', deliveryLabel: 'Shown during service selection', revisions: 'Two revision rounds', includes: ['Up to 4 emails', 'Campaign strategy', 'Email layout/design', 'Subject-line development', 'Basic copywriting', 'Audience segmentation', 'CTA strategy', 'UTM/tracking setup', 'Scheduling', 'Basic automation', 'Performance report', 'Two revision rounds'] },
         premium: { price: '$1,199', packageName: 'Premium Package', shortDescription: 'Up to 8 emails, automated flow, A/B testing', description: 'Premium Campaign.', deliveryLabel: 'Shown during service selection', revisions: 'Two revision rounds', includes: ['Up to 8 emails', 'Full campaign strategy', 'Copywriting', 'Design/layout', 'Segmentation strategy', 'Automated email flow', 'Lead tagging', 'Basic A/B testing', 'Conversion tracking', 'Performance analysis', 'Optimization recommendations', 'Two revision rounds'] }
       }
     },
     sampleProject: {
-      projectName: "InboxGrowth Email Campaign",
+      projectName: "InboxStandard Email Campaign",
       businessType: "Online store",
       projectSummary: "An email marketing concept designed to help an online store welcome new subscribers, promote offers, recover missed sales, and encourage repeat purchases.",
       servicesIncluded: ["Welcome sequence", "Promotional emails", "Abandoned cart email", "Newsletter design", "Customer segmentation", "Reporting"],
@@ -1543,9 +1543,9 @@ const SERVICES_DATA = {
   },
   'lead-generation': {
     title: 'Lead Generation Services',
-    category: 'Marketing & Growth',
+    category: 'Marketing & Standard',
     icon: <FaRegBuilding />,
-    intro: 'Consistent lead generation is essential for business growth.',
+    intro: 'Consistent lead generation is essential for business Standard.',
     description: 'Without a steady flow of potential customers, even the best products or services struggle to reach their full potential.',
     longDescription: 'Scale Link Alliance provides targeted lead generation services designed to help businesses identify and connect with qualified prospects who are more likely to be interested in their offerings.',
     sellerInfo: { name: 'ScaleLink Alliance Team', level: 'Professional', rating: 4.7, reviews: 82, ordersInQueue: 6, verified: true },
@@ -1562,7 +1562,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$299/month', description: 'Starter Lead Generation.', includes: ['Ideal customer profile definition', 'Basic target-market research', 'Prospecting criteria', 'Up to 150 prospect records per month', 'Basic lead-list organization', 'Contact-data cleanup', 'One outreach sequence framework', 'Lead tracking sheet or basic CRM structure', 'Monthly results summary'] },
-      growth: { name: 'Growth Package', price: '$699/month', description: 'Growth Lead Generation.', includes: ['Everything in Starter', 'Up to 500 prospect records per month', 'Multiple target segments', 'Enhanced prospect research', 'Up to 2 outreach sequences', 'Basic personalization framework', 'CRM import assistance', 'Lead tagging', 'Follow-up workflow', 'Monthly performance analysis', 'Strategy adjustments'] },
+      Standard: { name: 'Standard Package', price: '$699/month', description: 'Standard Lead Generation.', includes: ['Everything in Starter', 'Up to 500 prospect records per month', 'Multiple target segments', 'Enhanced prospect research', 'Up to 2 outreach sequences', 'Basic personalization framework', 'CRM import assistance', 'Lead tagging', 'Follow-up workflow', 'Monthly performance analysis', 'Strategy adjustments'] },
       premium: { name: 'Premium Package', price: '$1,499/month', description: 'Premium Lead Generation.', includes: ['Up to 1,000 prospect records per month', 'Multiple customer profiles', 'Advanced account research', 'Multi-step outreach strategy', 'CRM pipeline setup', 'Lead qualification framework', 'Follow-up automation', 'Reporting dashboard', 'Ongoing campaign refinement', 'Monthly strategy session'] }
     },
     packageComparison: {
@@ -1600,7 +1600,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$299/month', packageName: 'Starter Package', shortDescription: 'Up to 150 prospect records per month', description: 'Starter Lead Generation.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Ideal customer profile definition', 'Basic target-market research', 'Prospecting criteria', 'Up to 150 prospect records per month', 'Basic lead-list organization', 'Contact-data cleanup', 'One outreach sequence framework', 'Lead tracking sheet or basic CRM structure', 'Monthly results summary'] },
-        standard: { price: '$699/month', packageName: 'Growth Package', shortDescription: 'Up to 500 prospect records per month', description: 'Growth Lead Generation.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Everything in Starter', 'Up to 500 prospect records per month', 'Multiple target segments', 'Enhanced prospect research', 'Up to 2 outreach sequences', 'Basic personalization framework', 'CRM import assistance', 'Lead tagging', 'Follow-up workflow', 'Monthly performance analysis', 'Strategy adjustments'] },
+        standard: { price: '$699/month', packageName: 'Standard Package', shortDescription: 'Up to 500 prospect records per month', description: 'Standard Lead Generation.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Everything in Starter', 'Up to 500 prospect records per month', 'Multiple target segments', 'Enhanced prospect research', 'Up to 2 outreach sequences', 'Basic personalization framework', 'CRM import assistance', 'Lead tagging', 'Follow-up workflow', 'Monthly performance analysis', 'Strategy adjustments'] },
         premium: { price: '$1,499/month', packageName: 'Premium Package', shortDescription: 'Up to 1,000 prospect records per month', description: 'Premium Lead Generation.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 1,000 prospect records per month', 'Multiple customer profiles', 'Advanced account research', 'Multi-step outreach strategy', 'CRM pipeline setup', 'Lead qualification framework', 'Follow-up automation', 'Reporting dashboard', 'Ongoing campaign refinement', 'Monthly strategy session'] }
       }
     },
@@ -1614,7 +1614,7 @@ const SERVICES_DATA = {
   },
   'reputation-review-management': {
     title: 'Reputation & Review Management',
-    category: 'Marketing & Growth',
+    category: 'Marketing & Standard',
     icon: <FaStar />,
     intro: 'Your online reputation is one of the most important factors in building trust with potential customers.',
     description: 'Positive reviews and a strong reputation help businesses stand out, attract new customers, and build credibility in their industry.',
@@ -1632,7 +1632,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$199', description: 'Ideal for businesses starting to collect reviews.', includes: ['Review collection system setup', 'Review monitoring', 'Basic response templates', 'Monthly review summary report'] },
-      growth: { name: 'Standard Package', price: '$499', description: 'Ideal for businesses actively managing reviews.', includes: ['Advanced review collection', 'Multi-platform monitoring', 'Custom response management', 'Quarterly review analysis', 'Reputation improvement recommendations'] },
+      Standard: { name: 'Standard Package', price: '$499', description: 'Ideal for businesses actively managing reviews.', includes: ['Advanced review collection', 'Multi-platform monitoring', 'Custom response management', 'Quarterly review analysis', 'Reputation improvement recommendations'] },
       premium: { name: 'Premium Package', price: '$999', description: 'Ideal for businesses prioritizing reputation management.', includes: ['Full review management system', 'Automated review requests', 'Crisis response support', 'Monthly detailed reporting', 'Strategic reputation standard plan'] }
     },
     packageComparison: {
@@ -1681,7 +1681,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$499', description: 'Starter Automation — businesses replacing basic manual follow-up.', includes: ['1 CRM pipeline', 'Basic CRM configuration', 'Up to 2 forms', 'Up to 3 automated workflows', 'Contact tagging', 'Basic lead notifications', '1 third-party integration', 'Testing', 'Basic documentation', 'One training session'] },
-      growth: { name: 'Growth Package', price: '$1,299', description: 'Growth Automation.', includes: ['Up to 2 CRM pipelines', 'Up to 5 automated workflows', 'Up to 3 integrations', 'Lead routing', 'Email follow-up automation', 'Task automation', 'Contact segmentation', 'Pipeline stages', 'Basic dashboard', 'Testing and QA', 'Documentation', 'Team training'] },
+      Standard: { name: 'Standard Package', price: '$1,299', description: 'Standard Automation.', includes: ['Up to 2 CRM pipelines', 'Up to 5 automated workflows', 'Up to 3 integrations', 'Lead routing', 'Email follow-up automation', 'Task automation', 'Contact segmentation', 'Pipeline stages', 'Basic dashboard', 'Testing and QA', 'Documentation', 'Team training'] },
       premium: { name: 'Premium Package', price: '$2,999', description: 'Premium Automation.', includes: ['Up to 4 pipelines', 'Up to 12 automated workflows', 'Up to 6 integrations', 'Advanced lead routing', 'Multi-step customer journeys', 'Sales automation', 'Marketing automation', 'Customer tagging/scoring rules', 'Reporting dashboard', 'Advanced workflow testing', 'Documentation', 'Up to 2 hours of team training', 'Post-launch optimization review'] }
     },
     packageComparison: {
@@ -1724,7 +1724,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$499', packageName: 'Starter Package', shortDescription: '1 CRM pipeline, basic configuration, 1 integration', description: 'Starter Automation — businesses replacing basic manual follow-up.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['1 CRM pipeline', 'Basic CRM configuration', 'Up to 2 forms', 'Up to 3 automated workflows', 'Contact tagging', 'Basic lead notifications', '1 third-party integration', 'Testing', 'Basic documentation', 'One training session'] },
-        standard: { price: '$1,299', packageName: 'Growth Package', shortDescription: 'Up to 2 pipelines, up to 5 workflows, lead routing', description: 'Growth Automation.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Up to 2 CRM pipelines', 'Up to 5 automated workflows', 'Up to 3 integrations', 'Lead routing', 'Email follow-up automation', 'Task automation', 'Contact segmentation', 'Pipeline stages', 'Basic dashboard', 'Testing and QA', 'Documentation', 'Team training'] },
+        standard: { price: '$1,299', packageName: 'Standard Package', shortDescription: 'Up to 2 pipelines, up to 5 workflows, lead routing', description: 'Standard Automation.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Up to 2 CRM pipelines', 'Up to 5 automated workflows', 'Up to 3 integrations', 'Lead routing', 'Email follow-up automation', 'Task automation', 'Contact segmentation', 'Pipeline stages', 'Basic dashboard', 'Testing and QA', 'Documentation', 'Team training'] },
         premium: { price: '$2,999', packageName: 'Premium Package', shortDescription: 'Up to 4 pipelines, up to 12 workflows, full automation', description: 'Premium Automation.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Up to 4 pipelines', 'Up to 12 automated workflows', 'Up to 6 integrations', 'Advanced lead routing', 'Multi-step customer journeys', 'Sales automation', 'Marketing automation', 'Customer tagging/scoring rules', 'Reporting dashboard', 'Advanced workflow testing', 'Documentation', 'Up to 2 hours of team training', 'Post-launch optimization review'] }
       }
     },
@@ -1773,7 +1773,7 @@ const SERVICES_DATA = {
     category: 'Automation & AI',
     icon: <FaSyncAlt />,
     intro: 'Business process automation helps companies streamline operations, reduce manual work, and improve efficiency.',
-    description: 'Automating repetitive tasks frees up your team to focus on higher-value activities that drive growth.',
+    description: 'Automating repetitive tasks frees up your team to focus on higher-value activities that drive Standard.',
     longDescription: 'Scale Link Alliance provides business process automation services that help companies identify repetitive tasks, design automated workflows, and implement systems that save time and reduce errors.',
     sellerInfo: { name: 'ScaleLink Alliance Team', level: 'Professional', rating: 4.7, reviews: 38, ordersInQueue: 3, verified: true },
     whatItHelpsAchieve: ['reduce manual work', 'improve efficiency', 'eliminate errors', 'free up team time', 'scale operations without hiring'],
@@ -1788,7 +1788,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$299', description: 'Ideal for automating a single business process.', includes: ['1 automated workflow', 'Process mapping', 'Automation setup', 'Testing and documentation'] },
-      growth: { name: 'Standard Package', price: '$999', description: 'Ideal for automating multiple business processes.', includes: ['3 automated workflows', 'Process mapping and optimization', 'Integration setup', 'Testing and documentation', 'Training support'] },
+      Standard: { name: 'Standard Package', price: '$999', description: 'Ideal for automating multiple business processes.', includes: ['3 automated workflows', 'Process mapping and optimization', 'Integration setup', 'Testing and documentation', 'Training support'] },
       premium: { name: 'Premium Package', price: '$2,499', description: 'Ideal for full business process automation.', includes: ['5+ automated workflows', 'Full process optimization', 'Multi-system integration', 'Comprehensive documentation', 'Team training and ongoing support'] }
     },
     packageComparison: {
@@ -1831,13 +1831,13 @@ const SERVICES_DATA = {
     complementaryServices: [
       { name: 'CRM & Marketing Automation', reason: 'data collection and management' },
       { name: 'Lead Generation Services', reason: 'track prospect performance' },
-      { name: 'SEO & Search Marketing', reason: 'measure search traffic growth' },
+      { name: 'SEO & Search Marketing', reason: 'measure search traffic Standard' },
       { name: 'Paid Advertising Management', reason: 'analyze ad campaign performance' },
       { name: 'Website Development', reason: 'integrate analytics tools' }
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$249', description: 'Starter Analysis.', includes: ['Up to 1 primary data source', 'Data cleanup for the agreed dataset', 'Up to 8 key metrics', 'One basic dashboard/report', 'Key observations', 'One revision round'] },
-      growth: { name: 'Growth Package', price: '$699/month', description: 'Growth Analytics.', includes: ['Up to 3 regular data sources', 'Monthly dashboard updates', 'KPI tracking', 'Trend analysis', 'Monthly performance report', 'Data-quality review', 'Recommendations', 'One monthly review meeting'] },
+      Standard: { name: 'Standard Package', price: '$699/month', description: 'Standard Analytics.', includes: ['Up to 3 regular data sources', 'Monthly dashboard updates', 'KPI tracking', 'Trend analysis', 'Monthly performance report', 'Data-quality review', 'Recommendations', 'One monthly review meeting'] },
       premium: { name: 'Premium Package', price: '$1,499/month', description: 'Premium Analytics.', includes: ['Up to 5 regular data sources', 'Advanced dashboards', 'Department/channel segmentation', 'KPI framework', 'Trend analysis', 'Conversion/performance analysis', 'Monthly executive report', 'Regular dashboard refreshes', 'Monthly strategy meeting', 'Improvement recommendations'] }
     },
     packageComparison: {
@@ -1869,7 +1869,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$249', packageName: 'Starter Package', shortDescription: '1 data source, 1 basic dashboard/report', description: 'Starter Analysis.', deliveryLabel: 'Shown during service selection', revisions: 'One revision round', includes: ['Up to 1 primary data source', 'Data cleanup for the agreed dataset', 'Up to 8 key metrics', 'One basic dashboard/report', 'Key observations', 'One revision round'] },
-        standard: { price: '$699/month', packageName: 'Growth Package', shortDescription: 'Up to 3 data sources, monthly dashboard updates', description: 'Growth Analytics.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 3 regular data sources', 'Monthly dashboard updates', 'KPI tracking', 'Trend analysis', 'Monthly performance report', 'Data-quality review', 'Recommendations', 'One monthly review meeting'] },
+        standard: { price: '$699/month', packageName: 'Standard Package', shortDescription: 'Up to 3 data sources, monthly dashboard updates', description: 'Standard Analytics.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 3 regular data sources', 'Monthly dashboard updates', 'KPI tracking', 'Trend analysis', 'Monthly performance report', 'Data-quality review', 'Recommendations', 'One monthly review meeting'] },
         premium: { price: '$1,499/month', packageName: 'Premium Package', shortDescription: 'Up to 5 data sources, advanced dashboards', description: 'Premium Analytics.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 5 regular data sources', 'Advanced dashboards', 'Department/channel segmentation', 'KPI framework', 'Trend analysis', 'Conversion/performance analysis', 'Monthly executive report', 'Regular dashboard refreshes', 'Monthly strategy meeting', 'Improvement recommendations'] }
       }
     },
@@ -1877,22 +1877,22 @@ const SERVICES_DATA = {
       projectName: "InsightTrack Business Reporting Dashboard",
       businessType: "Growing small business",
       projectSummary: "A data analytics and reporting concept designed to help a business understand performance across marketing, website traffic, leads, and customer activity.",
-      projectGoal: "Give the business clearer insight into what is working, what needs improvement, and where growth opportunities may exist.",
+      projectGoal: "Give the business clearer insight into what is working, what needs improvement, and where Standard opportunities may exist.",
       servicesIncluded: ["Performance dashboard setup", "Website traffic reports", "Lead tracking", "Campaign reporting", "KPI summaries", "Monthly insights", "Visual charts", "Recommendation notes"],
-      portfolioCardText: "A reporting dashboard concept built to help businesses understand their numbers, track performance, and make smarter growth decisions."
+      portfolioCardText: "A reporting dashboard concept built to help businesses understand their numbers, track performance, and make smarter Standard decisions."
     }
   },
-  'business-consulting-growth-strategy': {
-    title: 'Business Consulting & Growth Strategy',
+  'business-consulting-Standard-strategy': {
+    title: 'Business Consulting & Standard Strategy',
     category: 'Operations & Support',
     icon: <FaBriefcase />,
-    intro: 'Strategic guidance helps businesses identify opportunities, overcome challenges, and build a clear path to growth.',
+    intro: 'Strategic guidance helps businesses identify opportunities, overcome challenges, and build a clear path to Standard.',
     description: 'Our consulting services provide actionable insights and strategic recommendations to help you achieve your business goals.',
-    longDescription: 'Scale Link Alliance provides business consulting and growth strategy services that help companies identify opportunities, develop actionable plans, and execute strategies that drive measurable results.',
+    longDescription: 'Scale Link Alliance provides business consulting and Standard strategy services that help companies identify opportunities, develop actionable plans, and execute strategies that drive measurable results.',
     sellerInfo: { name: 'ScaleLink Alliance Team', level: 'Professional', rating: 4.9, reviews: 56, ordersInQueue: 3, verified: true },
-    whatItHelpsAchieve: ['identify growth opportunities', 'develop strategic plans', 'overcome business challenges', 'improve decision-making', 'achieve business goals'],
+    whatItHelpsAchieve: ['identify Standard opportunities', 'develop strategic plans', 'overcome business challenges', 'improve decision-making', 'achieve business goals'],
     howMeasured: ['strategy sessions', 'action plans developed', 'recommendations provided', 'implementation support'],
-    servicesInclude: ['Business assessment', 'Growth strategy development', 'Action plan creation', 'Implementation guidance', 'Performance tracking'],
+    servicesInclude: ['Business assessment', 'Standard strategy development', 'Action plan creation', 'Implementation guidance', 'Performance tracking'],
     tools: ['Strategic frameworks', 'Business modeling', 'Market analysis', 'Competitive analysis', 'Financial modeling'],
     complementaryServices: [
       { name: 'Data Analytics', reason: 'data-driven decisions' },
@@ -1901,9 +1901,9 @@ const SERVICES_DATA = {
       { name: 'Process Documentation', reason: 'systemize operations' }
     ],
     packages: {
-      starter: { name: 'Starter Package', price: '$499', description: 'Ideal for businesses needing a standard plan.', includes: ['1 strategy session (60 min)', 'Business assessment', 'Growth recommendations', 'Action plan document'] },
-      growth: { name: 'Standard Package', price: '$1,499', description: 'Ideal for businesses needing ongoing strategy support.', includes: ['3 strategy sessions (60 min each)', 'Growth strategy development', 'Implementation roadmap', 'Monthly progress reviews', 'Strategy adjustments'] },
-      premium: { name: 'Premium Package', price: '$4,999', description: 'Ideal for businesses needing comprehensive strategic guidance.', includes: ['6 strategy sessions (90 min each)', 'Full business assessment', 'Detailed growth roadmap', 'Quarterly strategy reviews', 'Team support and implementation guidance', 'Priority access for consulting support'] }
+      starter: { name: 'Starter Package', price: '$499', description: 'Ideal for businesses needing a standard plan.', includes: ['1 strategy session (60 min)', 'Business assessment', 'Standard recommendations', 'Action plan document'] },
+      Standard: { name: 'Standard Package', price: '$1,499', description: 'Ideal for businesses needing ongoing strategy support.', includes: ['3 strategy sessions (60 min each)', 'Standard strategy development', 'Implementation roadmap', 'Monthly progress reviews', 'Strategy adjustments'] },
+      premium: { name: 'Premium Package', price: '$4,999', description: 'Ideal for businesses needing comprehensive strategic guidance.', includes: ['6 strategy sessions (90 min each)', 'Full business assessment', 'Detailed Standard roadmap', 'Quarterly strategy reviews', 'Team support and implementation guidance', 'Priority access for consulting support'] }
     },
     packageComparison: {
       tiers: ['basic', 'standard', 'premium'],
@@ -1917,28 +1917,28 @@ const SERVICES_DATA = {
         { label: 'Team support and implementation', values: { basic: false, standard: false, premium: true } }
       ],
       details: {
-        basic: { price: '$499', packageName: 'Starter Package', shortDescription: '1 strategy session, business assessment, action plan', description: 'Ideal for businesses needing a standard plan.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['1 strategy session (60 min)', 'Business assessment', 'Growth recommendations', 'Action plan document'] },
-        standard: { price: '$1,499', packageName: 'Standard Package', shortDescription: '3 strategy sessions, implementation roadmap', description: 'Ideal for businesses needing ongoing strategy support.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['3 strategy sessions (60 min each)', 'Growth strategy development', 'Implementation roadmap', 'Monthly progress reviews', 'Strategy adjustments'] },
-        premium: { price: '$4,999', packageName: 'Premium Package', shortDescription: '6 strategy sessions, full business assessment, quarterly reviews', description: 'Ideal for businesses needing comprehensive strategic guidance.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['6 strategy sessions (90 min each)', 'Full business assessment', 'Detailed growth roadmap', 'Quarterly strategy reviews', 'Team support and implementation guidance', 'Priority access for consulting support'] }
+        basic: { price: '$499', packageName: 'Starter Package', shortDescription: '1 strategy session, business assessment, action plan', description: 'Ideal for businesses needing a standard plan.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['1 strategy session (60 min)', 'Business assessment', 'Standard recommendations', 'Action plan document'] },
+        standard: { price: '$1,499', packageName: 'Standard Package', shortDescription: '3 strategy sessions, implementation roadmap', description: 'Ideal for businesses needing ongoing strategy support.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['3 strategy sessions (60 min each)', 'Standard strategy development', 'Implementation roadmap', 'Monthly progress reviews', 'Strategy adjustments'] },
+        premium: { price: '$4,999', packageName: 'Premium Package', shortDescription: '6 strategy sessions, full business assessment, quarterly reviews', description: 'Ideal for businesses needing comprehensive strategic guidance.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['6 strategy sessions (90 min each)', 'Full business assessment', 'Detailed Standard roadmap', 'Quarterly strategy reviews', 'Team support and implementation guidance', 'Priority access for consulting support'] }
       }
     },
     sampleProject: {
-      projectName: "GrowthMap Strategic Plan",
+      projectName: "StandardMap Strategic Plan",
       businessType: "Service-based business",
-      projectSummary: "A business consulting concept designed to help a company identify growth opportunities, develop a strategic plan, and achieve measurable results.",
-      servicesIncluded: ["Business assessment", "Growth strategy", "Action plan", "Implementation roadmap", "Performance metrics", "Quarterly reviews"],
-      portfolioCardText: "A business consulting concept built to help companies develop clear strategies, overcome challenges, and achieve sustainable growth."
+      projectSummary: "A business consulting concept designed to help a company identify Standard opportunities, develop a strategic plan, and achieve measurable results.",
+      servicesIncluded: ["Business assessment", "Standard strategy", "Action plan", "Implementation roadmap", "Performance metrics", "Quarterly reviews"],
+      portfolioCardText: "A business consulting concept built to help companies develop clear strategies, overcome challenges, and achieve sustainable Standard."
     }
   },
   'virtual-assistant': {
     title: 'Virtual Assistant Services',
     category: 'Operations & Support',
     icon: <FaHeadset />,
-    intro: 'Administrative and operational tasks can take valuable time away from strategic work and business growth.',
+    intro: 'Administrative and operational tasks can take valuable time away from strategic work and business Standard.',
     description: 'Virtual assistants help businesses manage routine tasks efficiently, allowing business owners and teams to focus on higher-priority responsibilities.',
     longDescription: 'Scale Link Alliance provides professional virtual assistant services that support day-to-day business operations, administrative tasks, and organizational workflows.',
     sellerInfo: { name: 'ScaleLink Alliance Team', level: 'Professional', rating: 4.8, reviews: 178, ordersInQueue: 8, verified: true },
-    whatItHelpsAchieve: ['reduce administrative workload', 'improve task organization and efficiency', 'support daily operational activities', 'manage communication and scheduling', 'free up time for business owners to focus on growth'],
+    whatItHelpsAchieve: ['reduce administrative workload', 'improve task organization and efficiency', 'support daily operational activities', 'manage communication and scheduling', 'free up time for business owners to focus on Standard'],
     howMeasured: ['number of hours provided per month', 'scope of administrative tasks', 'level of coordination required', 'complexity of support activities'],
     servicesInclude: ['Email management', 'Calendar scheduling', 'Data entry', 'Administrative coordination', 'Customer support assistance'],
     tools: ['Google Workspace', 'Microsoft Office', 'Slack', 'Trello', 'Asana'],
@@ -1951,7 +1951,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter VA', price: '$199/month', description: 'Up to 10 hours per month.', includes: ['Up to 10 hours per month', 'Basic administrative tasks', 'Calendar support', 'Data organization', 'Basic research', 'Document formatting', 'Routine email assistance'] },
-      growth: { name: 'Growth VA', price: '$499/month', description: 'Up to 25 hours per month.', includes: ['Up to 25 hours per month', 'Everything in Starter', 'CRM updates', 'Customer follow-up support', 'Content scheduling', 'Reporting assistance', 'Process support', 'Recurring administrative workflows'] },
+      Standard: { name: 'Standard VA', price: '$499/month', description: 'Up to 25 hours per month.', includes: ['Up to 25 hours per month', 'Everything in Starter', 'CRM updates', 'Customer follow-up support', 'Content scheduling', 'Reporting assistance', 'Process support', 'Recurring administrative workflows'] },
       premium: { name: 'Premium VA', price: '$899/month', description: 'Up to 50 hours per month.', includes: ['Up to 50 hours per month', 'Advanced administrative support', 'CRM management', 'Customer-service support', 'Research', 'Reporting', 'Content administration', 'Project coordination', 'Recurring operations support'] }
     },
     packageComparison: {
@@ -1983,7 +1983,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$199/month', packageName: 'Starter VA', shortDescription: 'Up to 10 hours per month, basic admin support', description: 'Up to 10 hours per month.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 10 hours per month', 'Basic administrative tasks', 'Calendar support', 'Data organization', 'Basic research', 'Document formatting', 'Routine email assistance'] },
-        standard: { price: '$499/month', packageName: 'Growth VA', shortDescription: 'Up to 25 hours per month, CRM updates', description: 'Up to 25 hours per month.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 25 hours per month', 'Everything in Starter', 'CRM updates', 'Customer follow-up support', 'Content scheduling', 'Reporting assistance', 'Process support', 'Recurring administrative workflows'] },
+        standard: { price: '$499/month', packageName: 'Standard VA', shortDescription: 'Up to 25 hours per month, CRM updates', description: 'Up to 25 hours per month.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 25 hours per month', 'Everything in Starter', 'CRM updates', 'Customer follow-up support', 'Content scheduling', 'Reporting assistance', 'Process support', 'Recurring administrative workflows'] },
         premium: { price: '$899/month', packageName: 'Premium VA', shortDescription: 'Up to 50 hours per month, advanced admin support', description: 'Up to 50 hours per month.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 50 hours per month', 'Advanced administrative support', 'CRM management', 'Customer-service support', 'Research', 'Reporting', 'Content administration', 'Project coordination', 'Recurring operations support'] }
       }
     },
@@ -2016,7 +2016,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter PM Support', price: '$499/month', description: 'Up to 10 hours per month.', includes: ['Up to 10 hours per month', 'Project tracking', 'Task organization', 'Deadline tracking', 'Basic status reports', 'Team follow-up', 'One weekly coordination touchpoint'] },
-      growth: { name: 'Growth PM Support', price: '$1,199/month', description: 'Up to 25 hours per month.', includes: ['Up to 25 hours per month', 'Project planning', 'Task management', 'Team coordination', 'Risk/issue tracking', 'Weekly reporting', 'Meeting coordination', 'Documentation', 'Stakeholder updates'] },
+      Standard: { name: 'Standard PM Support', price: '$1,199/month', description: 'Up to 25 hours per month.', includes: ['Up to 25 hours per month', 'Project planning', 'Task management', 'Team coordination', 'Risk/issue tracking', 'Weekly reporting', 'Meeting coordination', 'Documentation', 'Stakeholder updates'] },
       premium: { name: 'Premium Fractional PM', price: '$2,499/month', description: 'Up to 50 hours per month.', includes: ['Up to 50 hours per month', 'Multi-workstream coordination', 'Project planning', 'Schedule management', 'Risk management', 'Stakeholder management', 'Team coordination', 'Weekly reporting', 'Project documentation', 'Leadership updates', 'Continuous project oversight'] }
     },
     packageComparison: {
@@ -2049,7 +2049,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$499/month', packageName: 'Starter PM Support', shortDescription: 'Up to 10 hours per month, project tracking', description: 'Up to 10 hours per month.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 10 hours per month', 'Project tracking', 'Task organization', 'Deadline tracking', 'Basic status reports', 'Team follow-up', 'One weekly coordination touchpoint'] },
-        standard: { price: '$1,199/month', packageName: 'Growth PM Support', shortDescription: 'Up to 25 hours per month, project planning', description: 'Up to 25 hours per month.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 25 hours per month', 'Project planning', 'Task management', 'Team coordination', 'Risk/issue tracking', 'Weekly reporting', 'Meeting coordination', 'Documentation', 'Stakeholder updates'] },
+        standard: { price: '$1,199/month', packageName: 'Standard PM Support', shortDescription: 'Up to 25 hours per month, project planning', description: 'Up to 25 hours per month.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 25 hours per month', 'Project planning', 'Task management', 'Team coordination', 'Risk/issue tracking', 'Weekly reporting', 'Meeting coordination', 'Documentation', 'Stakeholder updates'] },
         premium: { price: '$2,499/month', packageName: 'Premium Fractional PM', shortDescription: 'Up to 50 hours per month, multi-workstream coordination', description: 'Up to 50 hours per month.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 50 hours per month', 'Multi-workstream coordination', 'Project planning', 'Schedule management', 'Risk management', 'Stakeholder management', 'Team coordination', 'Weekly reporting', 'Project documentation', 'Leadership updates', 'Continuous project oversight'] }
       }
     },
@@ -2070,7 +2070,7 @@ const SERVICES_DATA = {
     description: 'When workflows are undocumented, tasks become inconsistent, training takes longer, and operational mistakes are more likely.',
     longDescription: 'Scale Link Alliance provides Process Documentation and Standard Operating Procedure (SOP) development services that help businesses organize their workflows, create structured procedures, and ensure tasks can be performed consistently by teams or future hires.',
     sellerInfo: { name: 'ScaleLink Alliance Team', level: 'Professional', rating: 4.8, reviews: 45, ordersInQueue: 2, verified: true },
-    whatItHelpsAchieve: ['standardize workflows and procedures', 'improve team efficiency', 'simplify employee training', 'reduce operational errors', 'create systems that support business growth'],
+    whatItHelpsAchieve: ['standardize workflows and procedures', 'improve team efficiency', 'simplify employee training', 'reduce operational errors', 'create systems that support business Standard'],
     howMeasured: ['number of workflows documented', 'complexity of business processes', 'depth of documentation required', 'inclusion of workflow diagrams or guides'],
     servicesInclude: ['Workflow mapping', 'SOP documentation', 'Process improvement recommendations', 'Operational guidelines', 'Process diagrams'],
     tools: ['Notion', 'Process Street', 'LucidChart', 'Google Docs', 'Trainual'],
@@ -2083,7 +2083,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$399', description: 'Documenting a single workflow.', includes: ['Up to 3 SOPs', 'Up to approximately 15 total finished pages', 'Process review', 'Step-by-step documentation', 'Basic formatting', 'One revision round'] },
-      growth: { name: 'Growth Package', price: '$999', description: 'Organizing multiple operational procedures.', includes: ['Up to 8 SOPs', 'Up to approximately 40 total finished pages', 'Process interviews', 'Workflow documentation', 'Roles/responsibilities', 'Templates/checklists where applicable', 'Standardized formatting', 'Two revision rounds'] },
+      Standard: { name: 'Standard Package', price: '$999', description: 'Organizing multiple operational procedures.', includes: ['Up to 8 SOPs', 'Up to approximately 40 total finished pages', 'Process interviews', 'Workflow documentation', 'Roles/responsibilities', 'Templates/checklists where applicable', 'Standardized formatting', 'Two revision rounds'] },
       premium: { name: 'Premium Package', price: '$2,499', description: 'Building a full operational framework.', includes: ['Up to 20 SOPs', 'Up to approximately 100 total finished pages', 'Stakeholder interviews', 'Process mapping', 'Roles and responsibility documentation', 'Operational checklists', 'Templates', 'Documentation structure', 'Implementation recommendations', 'Up to 3 revision rounds'] }
     },
     packageComparison: {
@@ -2116,14 +2116,14 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$399', packageName: 'Starter Package', shortDescription: 'Up to 3 SOPs, approx. 15 finished pages', description: 'Documenting a single workflow.', deliveryLabel: 'Shown during service selection', revisions: 'One revision round', includes: ['Up to 3 SOPs', 'Up to approximately 15 total finished pages', 'Process review', 'Step-by-step documentation', 'Basic formatting', 'One revision round'] },
-        standard: { price: '$999', packageName: 'Growth Package', shortDescription: 'Up to 8 SOPs, approx. 40 finished pages', description: 'Organizing multiple operational procedures.', deliveryLabel: 'Shown during service selection', revisions: 'Two revision rounds', includes: ['Up to 8 SOPs', 'Up to approximately 40 total finished pages', 'Process interviews', 'Workflow documentation', 'Roles/responsibilities', 'Templates/checklists where applicable', 'Standardized formatting', 'Two revision rounds'] },
+        standard: { price: '$999', packageName: 'Standard Package', shortDescription: 'Up to 8 SOPs, approx. 40 finished pages', description: 'Organizing multiple operational procedures.', deliveryLabel: 'Shown during service selection', revisions: 'Two revision rounds', includes: ['Up to 8 SOPs', 'Up to approximately 40 total finished pages', 'Process interviews', 'Workflow documentation', 'Roles/responsibilities', 'Templates/checklists where applicable', 'Standardized formatting', 'Two revision rounds'] },
         premium: { price: '$2,499', packageName: 'Premium Package', shortDescription: 'Up to 20 SOPs, approx. 100 finished pages', description: 'Building a full operational framework.', deliveryLabel: 'Shown during service selection', revisions: 'Up to 3 revision rounds', includes: ['Up to 20 SOPs', 'Up to approximately 100 total finished pages', 'Stakeholder interviews', 'Process mapping', 'Roles and responsibility documentation', 'Operational checklists', 'Templates', 'Documentation structure', 'Implementation recommendations', 'Up to 3 revision rounds'] }
       }
     },
     sampleProject: {
       projectName: "SOPBuilder Documentation System",
       businessType: "Growing small business",
-      projectSummary: "A process documentation concept designed to help a business organize its operations, create standard procedures, and build systems that support growth.",
+      projectSummary: "A process documentation concept designed to help a business organize its operations, create standard procedures, and build systems that support Standard.",
       servicesIncluded: ["Workflow mapping", "SOP documentation", "Process diagrams", "Training materials", "Operations manual", "Process improvement recommendations"],
       portfolioCardText: "A process documentation concept built to help businesses standardize operations, improve efficiency, and scale with confidence."
     }
@@ -2149,7 +2149,7 @@ const SERVICES_DATA = {
     ],
     packages: {
       starter: { name: 'Starter Package', price: '$99', description: 'Small administrative data tasks.', includes: ['Up to 500 straightforward records', 'Data entry', 'Basic formatting', 'Basic duplicate review', 'Basic quality check', 'One agreed data source/output format'] },
-      growth: { name: 'Growth Package', price: '$299', description: 'Businesses managing larger datasets.', includes: ['Up to 2,000 straightforward records', 'Data entry', 'Data cleanup', 'Formatting', 'Duplicate detection', 'Categorization', 'Quality review', 'Up to 2 output formats'] },
+      Standard: { name: 'Standard Package', price: '$299', description: 'Businesses managing larger datasets.', includes: ['Up to 2,000 straightforward records', 'Data entry', 'Data cleanup', 'Formatting', 'Duplicate detection', 'Categorization', 'Quality review', 'Up to 2 output formats'] },
       premium: { name: 'Premium Package', price: '$699/month', description: 'Recurring monthly data processing.', includes: ['Up to 5,000 straightforward records per month', 'Recurring processing', 'Data cleanup', 'Categorization', 'Formatting', 'Quality-control checks', 'Regular status reporting'] }
     },
     packageComparison: {
@@ -2175,7 +2175,7 @@ const SERVICES_DATA = {
       ],
       details: {
         basic: { price: '$99', packageName: 'Starter Package', shortDescription: 'Up to 500 records, basic formatting', description: 'Small administrative data tasks.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Up to 500 straightforward records', 'Data entry', 'Basic formatting', 'Basic duplicate review', 'Basic quality check', 'One agreed data source/output format'] },
-        standard: { price: '$299', packageName: 'Growth Package', shortDescription: 'Up to 2,000 records, cleanup and categorization', description: 'Businesses managing larger datasets.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Up to 2,000 straightforward records', 'Data entry', 'Data cleanup', 'Formatting', 'Duplicate detection', 'Categorization', 'Quality review', 'Up to 2 output formats'] },
+        standard: { price: '$299', packageName: 'Standard Package', shortDescription: 'Up to 2,000 records, cleanup and categorization', description: 'Businesses managing larger datasets.', deliveryLabel: 'Shown during service selection', revisions: null, includes: ['Up to 2,000 straightforward records', 'Data entry', 'Data cleanup', 'Formatting', 'Duplicate detection', 'Categorization', 'Quality review', 'Up to 2 output formats'] },
         premium: { price: '$699/month', packageName: 'Premium Package', shortDescription: 'Up to 5,000 records/month, recurring processing', description: 'Recurring monthly data processing.', deliveryLabel: 'Shown during service selection', revisions: 'Ongoing monthly', includes: ['Up to 5,000 straightforward records per month', 'Recurring processing', 'Data cleanup', 'Categorization', 'Formatting', 'Quality-control checks', 'Regular status reporting'] }
       }
     },
@@ -2270,7 +2270,7 @@ const getServiceSlug = (serviceName) => {
     'Online Booking Systems': 'online-booking-systems',
     'Reputation & Review Management': 'reputation-review-management',
     'Business Process Automation': 'business-process-automation',
-    'Business Consulting & Growth Strategy': 'business-consulting-growth-strategy'
+    'Business Consulting & Standard Strategy': 'business-consulting-Standard-strategy'
   };
   return slugMap[serviceName] || serviceName.toLowerCase().replace(/[&\s]/g, '-').replace(/--+/g, '-');
 };
@@ -2289,7 +2289,7 @@ const ADDON_MATCH_KEYWORDS = {
   'ecommerce-development': ['inventory automation', 'product description copywriting'],
   'crm-automation': ['crm setup', 'lead scoring', 'pipeline tracking', 'analytics dashboards', 'marketing automation workflows'],
   'api-integration': ['api integration', 'crm integration', 'system integrations'],
-  'email-marketing': ['email list growth', 'newsletter design', 'automated email sequences'],
+  'email-marketing': ['email list Standard', 'newsletter design', 'automated email sequences'],
   'lead-generation': ['outreach templates', 'follow-up sequences', 'lead enrichment'],
   'data-analytics': ['automated reporting dashboards', 'campaign performance tracking', 'customer behavior analysis'],
   'social-media-management': ['social media advertising', 'short-form video content', 'content calendar planning', 'influencer outreach'],
@@ -2769,7 +2769,7 @@ const ServiceDetailPage = () => {
                             {(() => {
                               const comparisonTier = {
                                 starter: 'basic',
-                                growth: 'standard',
+                                Standard: 'standard',
                                 standard: 'standard',
                                 basic: 'basic',
                                 premium: 'premium'
