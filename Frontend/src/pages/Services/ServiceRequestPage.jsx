@@ -1311,7 +1311,7 @@ const RequestServicePage = () => {
 
   const fetchLiveCatalog = useCallback(async () => {
     try {
-      const res = await fetch('/api/cms/services');
+      const res = await fetch(`/api/cms/services?_t=${Date.now()}`, { cache: 'no-store', headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' } });
       if (res.ok) {
         const data = await res.json();
         const list = Array.isArray(data) ? data : (Array.isArray(data?.services) ? data.services : []);

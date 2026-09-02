@@ -6,7 +6,8 @@ import {
   FaPlus, FaEdit, FaTrash, FaStar, FaEye, FaSearch, FaCogs,
   FaCheck, FaTimes, FaImage, FaLayerGroup, FaTags, FaDollarSign,
   FaFileAlt, FaTools, FaLink, FaExternalLinkAlt, FaCloudUploadAlt,
-  FaShieldAlt, FaChartLine, FaRobot, FaArrowRight, FaUndo, FaSave
+  FaShieldAlt, FaChartLine, FaRobot, FaArrowRight, FaUndo, FaSave,
+  FaGripVertical, FaChevronUp, FaChevronDown
 } from 'react-icons/fa';
 import { AVAILABLE_SERVICE_ICONS, getServiceIcon } from '../../utils/serviceIcons';
 import { broadcastServiceUpdate } from '../../utils/serviceSync';
@@ -71,6 +72,204 @@ const INITIAL_SERVICE_STATE = {
   seoKeywords: '',
   sortOrder: 0,
   status: 'published'
+};
+
+/**
+ * PackageIncludesSection
+ * Reusable drag-and-drop & accessible list manager for package included items.
+ */
+const PackageIncludesSection = ({
+  pkgKey,
+  tierName,
+  accentColor = 'blue',
+  items = [],
+  onAdd,
+  onRemove,
+  onReorder,
+  onMove,
+  inputValue,
+  setInputValue
+}) => {
+  const [draggedIndex, setDraggedIndex] = useState(null);
+  const [dragOverState, setDragOverState] = useState(null); // { index, position: 'before' | 'after' }
+
+  const colorMap = {
+    blue: {
+      btn: 'bg-blue-600 hover:bg-blue-500 text-white',
+      borderLine: 'border-blue-500',
+      activeDrag: 'border-blue-500/80 bg-blue-950/30'
+    },
+    emerald: {
+      btn: 'bg-emerald-600 hover:bg-emerald-500 text-white',
+      borderLine: 'border-emerald-500',
+      activeDrag: 'border-emerald-500/80 bg-emerald-950/30'
+    },
+    purple: {
+      btn: 'bg-purple-600 hover:bg-purple-500 text-white',
+      borderLine: 'border-purple-500',
+      activeDrag: 'border-purple-500/80 bg-purple-950/30'
+    }
+  };
+  const theme = colorMap[accentColor] || colorMap.blue;
+
+  const handleDragStart = (e, idx) => {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', JSON.stringify({ pkgKey, index: idx }));
+    setDraggedIndex(idx);
+  };
+
+  const handleDragOver = (e, idx) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    const rect = e.currentTarget.getBoundingClientRect();
+    const midY = rect.top + rect.height / 2;
+    const position = e.clientY < midY ? 'before' : 'after';
+    setDragOverState({ index: idx, position });
+  };
+
+  const handleDragLeave = (e) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setDragOverState(null);
+    }
+  };
+
+  const handleDrop = (e, idx) => {
+    e.preventDefault();
+    try {
+      const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+      if (data.pkgKey === pkgKey && typeof data.index === 'number') {
+        const position = dragOverState?.position || 'before';
+        onReorder(pkgKey, data.index, idx, position);
+      }
+    } catch (err) {
+      console.warn('Drag drop parse error:', err);
+    } finally {
+      setDraggedIndex(null);
+      setDragOverState(null);
+    }
+  };
+
+  const handleDragEnd = () => {
+    setDraggedIndex(null);
+    setDragOverState(null);
+  };
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-1.5">
+        <label className="block text-[11px] text-slate-400 uppercase font-semibold">
+          Included Items <span className="text-[10px] text-slate-500 font-normal">({items.length})</span>
+        </label>
+        {items.length > 1 && (
+          <span className="text-[10px] text-slate-500 flex items-center gap-1">
+            <FaGripVertical size={10} className="text-slate-500" />
+            Drag or use arrows to reorder
+          </span>
+        )}
+      </div>
+
+      <div className="space-y-1.5 mb-2 max-h-44 overflow-y-auto pr-1">
+        {items.length === 0 ? (
+          <p className="text-[11px] text-slate-500 italic p-2.5 text-center border border-dashed border-slate-800 rounded-lg">
+            No included items yet. Add items below.
+          </p>
+        ) : (
+          items.map((item, idx) => {
+            const isBeingDragged = draggedIndex === idx;
+            const isOverThis = dragOverState?.index === idx;
+            const isBefore = isOverThis && dragOverState?.position === 'before';
+            const isAfter = isOverThis && dragOverState?.position === 'after';
+
+            return (
+              <div
+                key={`${idx}-${item}`}
+                draggable
+                onDragStart={(e) => handleDragStart(e, idx)}
+                onDragOver={(e) => handleDragOver(e, idx)}
+                onDragLeave={handleDragLeave}
+                onDrop={(e) => handleDrop(e, idx)}
+                onDragEnd={handleDragEnd}
+                className={`group flex items-center justify-between gap-1.5 p-1.5 rounded-lg bg-slate-900 border text-xs text-slate-300 transition-all duration-150 relative ${
+                  isBeingDragged
+                    ? `${theme.activeDrag} opacity-30 scale-[0.98] border-dashed`
+                    : 'border-slate-800/80 hover:border-slate-700 hover:bg-slate-900/90'
+                } ${isBefore ? `border-t-2 ${theme.borderLine}` : ''} ${isAfter ? `border-b-2 ${theme.borderLine}` : ''}`}
+              >
+                {/* Drag Handle */}
+                <div
+                  className="cursor-grab active:cursor-grabbing p-1 text-slate-500 hover:text-slate-200 transition-colors shrink-0"
+                  title="Click and drag to reorder"
+                >
+                  <FaGripVertical size={12} />
+                </div>
+
+                {/* Arrow Reorder Buttons */}
+                <div className="flex flex-col shrink-0 -space-y-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button
+                    type="button"
+                    disabled={idx === 0}
+                    onClick={(e) => { e.stopPropagation(); onMove(pkgKey, idx, 'up'); }}
+                    className="p-0.5 text-slate-500 hover:text-slate-200 disabled:opacity-20 disabled:hover:text-slate-500 cursor-pointer disabled:cursor-not-allowed"
+                    title="Move up"
+                  >
+                    <FaChevronUp size={8} />
+                  </button>
+                  <button
+                    type="button"
+                    disabled={idx === items.length - 1}
+                    onClick={(e) => { e.stopPropagation(); onMove(pkgKey, idx, 'down'); }}
+                    className="p-0.5 text-slate-500 hover:text-slate-200 disabled:opacity-20 disabled:hover:text-slate-500 cursor-pointer disabled:cursor-not-allowed"
+                    title="Move down"
+                  >
+                    <FaChevronDown size={8} />
+                  </button>
+                </div>
+
+                {/* Item Label */}
+                <span className="truncate flex-grow select-none text-[11px] sm:text-xs text-slate-200" title={item}>
+                  {item}
+                </span>
+
+                {/* Remove Button */}
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); onRemove(pkgKey, idx); }}
+                  className="text-rose-400 hover:text-rose-300 hover:bg-rose-950/40 p-1 rounded shrink-0 cursor-pointer transition-colors"
+                  title="Remove item"
+                >
+                  <FaTimes size={11} />
+                </button>
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* Add New Item Input */}
+      <div className="flex gap-2">
+        <input
+          type="text"
+          placeholder="Add item..."
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              onAdd(pkgKey, inputValue, setInputValue);
+            }
+          }}
+          className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-slate-500"
+        />
+        <button
+          type="button"
+          onClick={() => onAdd(pkgKey, inputValue, setInputValue)}
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium shrink-0 cursor-pointer transition-colors ${theme.btn}`}
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  );
 };
 
 const AdminServices = () => {
@@ -433,6 +632,60 @@ const AdminServices = () => {
           [pkgKey]: {
             ...currentPkg,
             includes: (currentPkg.includes || []).filter((_, idx) => idx !== index)
+          }
+        }
+      };
+    });
+  };
+
+  const reorderPackageInclude = (pkgKey, fromIndex, toIndex, position = 'before') => {
+    if (fromIndex === toIndex && (position === 'before' || position === 'after')) return;
+    setFormData(prev => {
+      const currentPkg = prev.packages?.[pkgKey] || {};
+      const currentIncludes = [...(currentPkg.includes || [])];
+      if (fromIndex < 0 || fromIndex >= currentIncludes.length) return prev;
+
+      const [movedItem] = currentIncludes.splice(fromIndex, 1);
+      let targetIndex = toIndex;
+      if (fromIndex < toIndex) {
+        targetIndex = position === 'after' ? toIndex : toIndex - 1;
+      } else {
+        targetIndex = position === 'after' ? toIndex + 1 : toIndex;
+      }
+      targetIndex = Math.max(0, Math.min(currentIncludes.length, targetIndex));
+      currentIncludes.splice(targetIndex, 0, movedItem);
+
+      return {
+        ...prev,
+        packages: {
+          ...prev.packages,
+          [pkgKey]: {
+            ...currentPkg,
+            includes: currentIncludes
+          }
+        }
+      };
+    });
+  };
+
+  const movePackageInclude = (pkgKey, index, direction) => {
+    setFormData(prev => {
+      const currentPkg = prev.packages?.[pkgKey] || {};
+      const currentIncludes = [...(currentPkg.includes || [])];
+      const targetIndex = direction === 'up' ? index - 1 : index + 1;
+      if (targetIndex < 0 || targetIndex >= currentIncludes.length) return prev;
+
+      const temp = currentIncludes[index];
+      currentIncludes[index] = currentIncludes[targetIndex];
+      currentIncludes[targetIndex] = temp;
+
+      return {
+        ...prev,
+        packages: {
+          ...prev.packages,
+          [pkgKey]: {
+            ...currentPkg,
+            includes: currentIncludes
           }
         }
       };
@@ -1005,32 +1258,18 @@ const AdminServices = () => {
                         />
                       </div>
 
-                      <div>
-                        <label className="block text-[11px] text-slate-400 uppercase font-semibold mb-1">Included Items</label>
-                        <div className="space-y-1.5 mb-2 max-h-36 overflow-y-auto pr-1">
-                          {(formData.packages?.starter?.includes || []).map((item, idx) => (
-                            <div key={idx} className="flex items-center justify-between gap-2 p-1.5 rounded bg-slate-900 text-xs text-slate-300">
-                              <span className="truncate">{item}</span>
-                              <button type="button" onClick={() => removePackageInclude('starter', idx)} className="text-rose-400 hover:text-rose-300 shrink-0 cursor-pointer">
-                                <FaTimes size={12} />
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="flex gap-2">
-                          <input
-                            type="text"
-                            placeholder="Add item..."
-                            value={newStarterInclude}
-                            onChange={(e) => setNewStarterInclude(e.target.value)}
-                            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addPackageInclude('starter', newStarterInclude, setNewStarterInclude); } }}
-                            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white"
-                          />
-                          <button type="button" onClick={() => addPackageInclude('starter', newStarterInclude, setNewStarterInclude)} className="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs shrink-0 cursor-pointer">
-                            Add
-                          </button>
-                        </div>
-                      </div>
+                      <PackageIncludesSection
+                        pkgKey="starter"
+                        tierName="Starter"
+                        accentColor="blue"
+                        items={formData.packages?.starter?.includes || []}
+                        onAdd={addPackageInclude}
+                        onRemove={removePackageInclude}
+                        onReorder={reorderPackageInclude}
+                        onMove={movePackageInclude}
+                        inputValue={newStarterInclude}
+                        setInputValue={setNewStarterInclude}
+                      />
                     </div>
 
                     {/* Growth */}
@@ -1089,32 +1328,18 @@ const AdminServices = () => {
                         />
                       </div>
 
-                      <div>
-                        <label className="block text-[11px] text-slate-400 uppercase font-semibold mb-1">Included Items</label>
-                        <div className="space-y-1.5 mb-2 max-h-36 overflow-y-auto pr-1">
-                          {(formData.packages?.growth?.includes || []).map((item, idx) => (
-                            <div key={idx} className="flex items-center justify-between gap-2 p-1.5 rounded bg-slate-900 text-xs text-slate-300">
-                              <span className="truncate">{item}</span>
-                              <button type="button" onClick={() => removePackageInclude('growth', idx)} className="text-rose-400 hover:text-rose-300 shrink-0 cursor-pointer">
-                                <FaTimes size={12} />
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="flex gap-2">
-                          <input
-                            type="text"
-                            placeholder="Add item..."
-                            value={newGrowthInclude}
-                            onChange={(e) => setNewGrowthInclude(e.target.value)}
-                            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addPackageInclude('growth', newGrowthInclude, setNewGrowthInclude); } }}
-                            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white"
-                          />
-                          <button type="button" onClick={() => addPackageInclude('growth', newGrowthInclude, setNewGrowthInclude)} className="px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs shrink-0 cursor-pointer">
-                            Add
-                          </button>
-                        </div>
-                      </div>
+                      <PackageIncludesSection
+                        pkgKey="growth"
+                        tierName="Standard"
+                        accentColor="emerald"
+                        items={formData.packages?.growth?.includes || []}
+                        onAdd={addPackageInclude}
+                        onRemove={removePackageInclude}
+                        onReorder={reorderPackageInclude}
+                        onMove={movePackageInclude}
+                        inputValue={newGrowthInclude}
+                        setInputValue={setNewGrowthInclude}
+                      />
                     </div>
 
                     {/* Premium */}
@@ -1173,32 +1398,18 @@ const AdminServices = () => {
                         />
                       </div>
 
-                      <div>
-                        <label className="block text-[11px] text-slate-400 uppercase font-semibold mb-1">Included Items</label>
-                        <div className="space-y-1.5 mb-2 max-h-36 overflow-y-auto pr-1">
-                          {(formData.packages?.premium?.includes || []).map((item, idx) => (
-                            <div key={idx} className="flex items-center justify-between gap-2 p-1.5 rounded bg-slate-900 text-xs text-slate-300">
-                              <span className="truncate">{item}</span>
-                              <button type="button" onClick={() => removePackageInclude('premium', idx)} className="text-rose-400 hover:text-rose-300 shrink-0 cursor-pointer">
-                                <FaTimes size={12} />
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="flex gap-2">
-                          <input
-                            type="text"
-                            placeholder="Add item..."
-                            value={newPremiumInclude}
-                            onChange={(e) => setNewPremiumInclude(e.target.value)}
-                            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addPackageInclude('premium', newPremiumInclude, setNewPremiumInclude); } }}
-                            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white"
-                          />
-                          <button type="button" onClick={() => addPackageInclude('premium', newPremiumInclude, setNewPremiumInclude)} className="px-3 py-1.5 rounded-lg bg-purple-600 text-white text-xs shrink-0 cursor-pointer">
-                            Add
-                          </button>
-                        </div>
-                      </div>
+                      <PackageIncludesSection
+                        pkgKey="premium"
+                        tierName="Premium"
+                        accentColor="purple"
+                        items={formData.packages?.premium?.includes || []}
+                        onAdd={addPackageInclude}
+                        onRemove={removePackageInclude}
+                        onReorder={reorderPackageInclude}
+                        onMove={movePackageInclude}
+                        inputValue={newPremiumInclude}
+                        setInputValue={setNewPremiumInclude}
+                      />
                     </div>
                   </div>
                 </div>

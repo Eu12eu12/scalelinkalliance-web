@@ -2572,7 +2572,7 @@ const ServiceDetailPage = () => {
     let isMounted = true;
     const fetchBackendService = async () => {
       try {
-        const res = await fetch(`/api/cms/services/${serviceSlug}`);
+        const res = await fetch(`/api/cms/services/${serviceSlug}?_t=${Date.now()}`, { cache: 'no-store', headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' } });
         if (res.ok) {
           const data = await res.json();
           const svc = (data && data.id) ? data : (data?.service || null);
