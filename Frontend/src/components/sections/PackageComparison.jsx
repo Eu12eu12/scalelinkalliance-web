@@ -912,6 +912,15 @@ export const getPackageFeatures = (serviceSlug, tier, packageData = null) => {
   const tierIndex = tierOrder.indexOf(tier);
   if (tierIndex === -1) return [];
 
+  // Prefer the exact per-tier "includes" list authored for this package
+  // (matches the pricing document's own tier-by-tier bullets verbatim).
+  // This is what actually changes when the user switches Basic/Standard/
+  // Premium, so it must win over the cascading catalog below.
+  const tierDetailIncludes = packageData?.details?.[tier]?.includes;
+  if (tierDetailIncludes && tierDetailIncludes.length > 0) {
+    return tierDetailIncludes;
+  }
+
   const serviceFeatures = SERVICE_FEATURES[serviceSlug];
 
   if (serviceFeatures) {
@@ -940,32 +949,37 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
   const [includesOpen, setIncludesOpen] = useState(true);
   const activeDetail = packageData.details[activeTab];
 
+  // Switching tiers always reveals "What's Included" immediately, even if the
+  // panel had previously been collapsed on another tier.
   const handleTabChange = (tier) => {
     setActiveTab(tier);
+    setIncludesOpen(true);
     if (onTabChange) onTabChange(tier);
   };
 
   const tiers = ['basic', 'standard', 'premium'];
-  const tierFeatures = Object.fromEntries(
-    tiers.map((tier) => [tier, getPackageFeatures(serviceSlug, tier, packageData)])
-  );
 
-  // Build the comparison table from the exact same feature lists shown in
-  // the active package detail panel. This keeps both views in sync.
-  const allFeatures = [...new Set(
-    tiers.flatMap((tier) => tierFeatures[tier] || [])
-  )];
-
-  const comparisonRows = (Array.isArray(packageData?.rows) && packageData.rows.length > 0)
+  // The checkmark matrix uses the hand-authored, already-cascading `rows`
+  // for this service (e.g. a Basic feature stays checked at Standard and
+  // Premium even though those tiers' own "includes" lists don't repeat it
+  // verbatim). Only fall back to deriving rows from the raw tier lists for
+  // a service that has no authored rows at all.
+  const comparisonRows = (packageData.rows && packageData.rows.length > 0)
     ? packageData.rows
-    : allFeatures.map((label) => ({
-        label,
-        values: {
-          basic: tierFeatures.basic.includes(label),
-          standard: tierFeatures.standard.includes(label),
-          premium: tierFeatures.premium.includes(label)
-        }
-      }));
+    : (() => {
+        const tierFeatures = Object.fromEntries(
+          tiers.map((tier) => [tier, getPackageFeatures(serviceSlug, tier, packageData)])
+        );
+        const allFeatures = [...new Set(tiers.flatMap((tier) => tierFeatures[tier] || []))];
+        return allFeatures.map((label) => ({
+          label,
+          values: {
+            basic: tierFeatures.basic.includes(label),
+            standard: tierFeatures.standard.includes(label),
+            premium: tierFeatures.premium.includes(label)
+          }
+        }));
+      })();
 
   return (
     <div className="bg-white rounded-2xl shadow-sm overflow-hidden">

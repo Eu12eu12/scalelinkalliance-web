@@ -124,149 +124,150 @@ const SLUG_TO_SERVICE_NAME = {
   'custom-quote': 'Request Custom Quote'
 };
 
-// ─── ALL SERVICES WITH PACKAGES (from ServiceDetailPage) ────────────────────
+// ─── ALL SERVICES WITH PACKAGES — prices & contents amended to match
+// "ScaleLink Alliance Pricing" (Services_Pricing_and_benefits.docx) exactly ──
 const SERVICES_WITH_PACKAGES = {
   // ─── CREATIVE & CONTENT ────────────────────────────────────────────────────
   'Graphic Design': {
     packages: {
-      starter: { name: 'Starter Package', price: 4900, description: 'Ideal for a single marketing asset or quick design need.', includes: ['1 marketing asset', 'basic custom design', '1 revision round', 'final web-ready file'] },
-      growth: { name: 'Standard Package', price: 19900, description: 'Ideal for businesses needing a coordinated set of marketing assets.', includes: ['up to 5 coordinated assets', 'consistent visual direction', 'basic image sourcing', '2 revision rounds'] },
-      premium: { name: 'Premium Package', price: 49900, description: 'Ideal for businesses running full marketing campaigns.', includes: ['up to 12 coordinated marketing assets', 'creative direction & brand-consistent system', 'multiple campaign formats', 'up to 3 revision rounds', 'print-ready files when required'] }
+      starter: { name: 'Starter Package', price: 4900, description: 'Best for a single marketing asset — e.g. flyer, promotional graphic, social graphic, or simple banner.', includes: ['1 marketing asset', '1 finished size/format', 'Basic custom design', 'Client-provided brand assets', '1 revision round', 'Final web-ready file'] },
+      growth: { name: 'Standard Package', price: 19900, description: 'Standard Design Package — a coordinated set of marketing assets.', includes: ['Up to 5 coordinated assets', 'Consistent visual direction', 'Up to 2 sizes per core design where required', 'Basic image sourcing', '2 revision rounds', 'Web-ready final files'] },
+      premium: { name: 'Premium Package', price: 49900, description: 'Premium Design Package — for businesses running full marketing campaigns.', includes: ['Up to 12 coordinated marketing assets', 'Creative direction', 'Brand-consistent design system', 'Multiple campaign formats', 'Up to 3 revision rounds', 'Organized final files', 'Print-ready files when required'] }
     }
   },
   'Video Editing & Motion Graphics': {
     packages: {
-      starter: { name: 'Starter Package', price: 9900, description: 'Ideal for a single short video up to 60 seconds.', includes: ['1 video up to 60 seconds', 'basic cuts and transitions', 'text/captions', 'basic audio balancing', '1 revision round'] },
-      growth: { name: 'Standard Package', price: 29900, description: 'Ideal for a single longer video with professional polish.', includes: ['1 video up to 5 minutes', 'professional editing with B-roll placement', 'titles, text graphics & basic motion graphics', 'audio cleanup and color correction', 'up to 2 aspect ratios', '2 revision rounds'] },
-      premium: { name: 'Premium Package', price: 69900, description: 'Ideal for a long-form video or a small batch of short-form videos.', includes: ['1 long-form video up to 12 minutes, or up to 5 short-form videos', 'advanced editing & motion graphics', 'audio enhancement and color correction', 'branded graphics and captions', 'multiple export formats', 'up to 3 revision rounds'] }
+      starter: { name: 'Starter Package', price: 9900, description: 'Best for a single short video up to 60 seconds.', includes: ['1 video up to 60 seconds', 'Basic cuts', 'Basic transitions', 'Text/captions', 'Basic audio balancing', 'Client-provided footage', '1 aspect ratio', '1 revision round', 'Final exported video'] },
+      growth: { name: 'Standard Package', price: 29900, description: 'A single longer video with professional polish.', includes: ['1 video up to 5 minutes', 'Professional editing', 'B-roll placement', 'Titles/text graphics', 'Basic motion graphics', 'Audio cleanup', 'Color correction', 'Captions', 'Up to 2 aspect ratios', '2 revision rounds'] },
+      premium: { name: 'Premium Package', price: 69900, description: 'A long-form video or a small batch of short-form videos.', includes: ['1 long-form video up to 12 minutes OR up to 5 short-form videos from supplied footage', 'Advanced editing', 'Motion graphics', 'B-roll', 'Audio enhancement', 'Color correction', 'Captions', 'Branded graphics', 'Multiple export formats', 'Up to 3 revision rounds'] }
     }
   },
   'Copywriting & Content Creation': {
     packages: {
-      starter: { name: 'Starter Package', price: 100, description: 'Ideal for small content needs or single-page messaging.', includes: ['1 content piece up to 800 words', 'basic keyword research (if needed)', 'formatting for web readability', '1 revision round'] },
-      growth: { name: 'Standard Package', price: 29900, description: 'Ideal for businesses needing multiple content pieces with keyword awareness.', includes: ['up to 2,500 total words across up to 3 pieces', 'keyword consideration & headline development', 'CTA development', 'basic competitor/content review', '2 revision rounds'] },
-      premium: { name: 'Premium Package', price: 69900, description: 'Ideal for businesses running content marketing campaigns.', includes: ['up to 6,000 total words across up to 6 pieces', 'content strategy & SEO-oriented structure', 'conversion-focused CTA development', 'brand voice consistency', 'up to 3 revision rounds'] }
+      starter: { name: 'Starter Package', price: 9900, description: 'Small content needs or single-page messaging.', includes: ['Blog/article up to 800 words, OR short sales page, OR email copy package, OR small website-page rewrite', 'Topic research', 'Brand-tone alignment', 'Basic SEO considerations where applicable', '1 revision round'] },
+      growth: { name: 'Standard Package', price: 29900, description: 'Businesses needing multiple content pieces with keyword awareness.', includes: ['Up to 2,500 total words', 'Up to 3 content pieces/pages', 'Keyword consideration', 'CTA development', 'Headline development', 'Basic competitor/content review', '2 revision rounds'] },
+      premium: { name: 'Premium Package', price: 69900, description: 'Businesses running content marketing campaigns.', includes: ['Up to 6,000 total words', 'Up to 6 pages/content pieces', 'Content strategy', 'SEO-oriented structure where applicable', 'Conversion-focused CTA development', 'Brand voice consistency', 'Content formatting recommendations', 'Up to 3 revision rounds'] }
     }
   },
   'Brand Identity & Logo Design': {
     packages: {
-      starter: { name: 'Starter Package', price: 100, description: 'Ideal for small businesses launching a brand or refreshing their logo.', includes: ['1 custom logo concept', 'basic color palette selection', '1 revision round', 'logo files delivered in PNG and SVG formats'] },
-      growth: { name: 'Standard Package', price: 59900, description: 'Ideal for businesses that want a more developed brand identity.', includes: ['brand discovery + 3 initial logo concepts', 'primary logo, secondary variation & icon/mark', 'color palette & typography system', 'social profile assets & basic brand guidelines', '3 revision rounds'] },
-      premium: { name: 'Premium Package', price: 129900, description: 'Ideal for companies building a full professional brand identity.', includes: ['brand strategy session & competitive visual review', '3 refined creative directions', 'primary + secondary logos, brand mark, color & typography systems', 'basic business card/letterhead templates', 'comprehensive brand guideline document', 'up to 3 revision rounds'] }
+      starter: { name: 'Starter Package', price: 24900, description: 'Starter Identity — small businesses launching a brand or refreshing their logo.', includes: ['Brand discovery questionnaire', '2 initial logo concepts', '2 revision rounds', 'Primary logo', 'Basic color palette', 'Basic typography recommendations', 'PNG, JPG and transparent logo files'] },
+      growth: { name: 'Standard Package', price: 59900, description: 'Standard Identity — businesses that want a more developed brand identity.', includes: ['Brand discovery', '3 initial logo concepts', 'Primary logo', 'Secondary logo variation', 'Icon/mark', 'Color palette', 'Typography system', 'Social profile assets', 'Basic brand guidelines', '3 revision rounds', 'Organized final files'] },
+      premium: { name: 'Premium Package', price: 129900, description: 'Premium Brand Identity — companies building a full professional brand identity.', includes: ['Brand strategy session', 'Competitive visual review', '3 refined creative directions', 'Primary and secondary logos', 'Brand mark', 'Color system', 'Typography system', 'Brand imagery direction', 'Social assets', 'Basic business-card/letterhead templates', 'Comprehensive brand guideline document', 'Up to 3 revision rounds', 'Complete final-file package'] }
     }
   },
   'Photography & Visual Assets': {
     packages: {
-      starter: { name: 'Starter Package', price: 19900, description: 'Ideal for small businesses needing essential visual content.', includes: ['10 professionally edited photos', '1 location or subject focus', 'basic color correction and editing', 'digital image delivery (web-ready format)'] },
-      growth: { name: 'Standard Package', price: 49900, description: 'Ideal for businesses creating marketing content.', includes: ['25 professionally edited photos', 'multiple subjects or scenes', 'color correction and retouching', 'web and high-resolution formats'] },
-      premium: { name: 'Premium Package', price: 99900, description: 'Ideal for brand campaigns and full marketing visuals.', includes: ['50 professionally edited photos', 'multi-scene photography session', 'advanced retouching and editing', 'full-resolution and web-ready images', 'image selection consultation'] }
+      starter: { name: 'Starter Package', price: 24900, description: 'Small businesses needing essential visual content.', includes: ['Up to 1 hour on location', 'Up to 10 edited final photographs', 'Basic color correction', 'Web-resolution files', 'One local location'] },
+      growth: { name: 'Standard Package', price: 59900, description: 'Businesses creating marketing content.', includes: ['Up to 2.5 hours', 'Up to 30 edited photographs', 'Product/team/location combinations', 'Enhanced retouching', 'Web and high-resolution files', 'Basic shot planning'] },
+      premium: { name: 'Premium Package', price: 129900, description: 'Brand campaigns and full marketing visuals.', includes: ['Up to half-day shoot', 'Up to 60 edited photographs', 'Pre-shoot planning', 'Multiple setups', 'Advanced retouching', 'Web and high-resolution files', 'Organized image library'] }
     }
   },
 
   // ─── TECH & DEVELOPMENT ─────────────────────────────────────────────────────
   'Website Development': {
     packages: {
-      starter: { name: 'Starter Package', price: 79900, description: 'Ideal for new businesses needing a professional online presence.', includes: ['up to 5 core website pages', 'custom homepage design', 'mobile & tablet responsive design', 'contact form + click-to-call', 'basic on-page SEO & Google Analytics setup', '2 revision rounds'] },
-      growth: { name: 'Standard Package', price: 179900, description: 'Ideal for businesses that want their website to actively support lead generation.', includes: ['up to 10 pages with more custom layouts', 'blog or resource section', 'up to 2 lead-generation forms + thank-you page', 'CRM or email platform connection', 'enhanced on-page SEO & sitemap setup', '3 revision rounds + CMS training'] },
-      premium: { name: 'Premium Package', price: 399900, description: 'Ideal for growing businesses requiring a larger, conversion-focused presence.', includes: ['up to 20 pages with custom UX/UI direction', 'conversion-focused page architecture', 'up to 5 lead-generation forms', 'advanced CRM/form integrations & marketing automation connection', 'enhanced technical SEO & staging environment', 'team training + post-launch review'] }
+      starter: { name: 'Starter Package', price: 79900, description: 'New businesses, local businesses, consultants, and companies needing a professional online presence.', includes: ['Up to 5 core website pages', 'Custom homepage design', 'Mobile and tablet responsive design', 'Contact form', 'Click-to-call and email functionality', 'Social media links', 'Basic on-page SEO setup', 'Page titles and meta descriptions', 'Basic image optimization', 'Google Analytics setup', 'Google Search Console setup', 'SSL configuration assistance', 'Basic speed optimization', 'One primary conversion CTA', 'Two revision rounds', 'Basic launch support'] },
+      growth: { name: 'Standard Package', price: 179900, description: 'Established businesses that want their website to actively support lead generation and marketing.', includes: ['Everything in Starter', 'Up to 10 pages', 'More customized page layouts', 'Blog or resource section', 'Up to 2 lead-generation forms', 'Thank-you page', 'CRM or email platform connection', 'Basic conversion tracking', 'Enhanced on-page SEO', 'Internal linking setup', 'XML sitemap configuration', 'Robots.txt configuration', 'Basic schema implementation where appropriate', 'Website analytics configuration', 'Basic lead funnel structure', 'Three revision rounds', 'CMS training session'] },
+      premium: { name: 'Premium Package', price: 399900, description: 'Growing businesses requiring a larger, conversion-focused digital presence.', includes: ['Everything in Growth', 'Up to 20 pages', 'Custom UX/UI direction', 'Advanced page layouts', 'Conversion-focused page architecture', 'Multiple service or location pages', 'Up to 5 lead-generation forms', 'Advanced CRM/form integrations', 'Marketing automation connection', 'Advanced analytics and conversion tracking', 'Enhanced technical SEO setup', 'Custom website components', 'Resource/download functionality', 'Basic booking or scheduling integration', 'Advanced site navigation', 'Staging environment', 'Three revision rounds per major design phase', 'Team training', 'Post-launch review'] }
     }
   },
   'Landing Pages & Sales Funnels': {
     packages: {
-      starter: { name: 'Starter Package', price: 49900, description: 'Ideal for businesses launching a simple marketing campaign.', includes: ['1 landing page design', 'lead capture form integration', 'mobile-responsive layout', 'basic analytics setup', 'call-to-action optimization'] },
-      growth: { name: 'Standard Package', price: 129900, description: 'Ideal for businesses running structured marketing campaigns.', includes: ['3-page sales funnel', 'landing page + follow-up pages', 'lead capture forms', 'conversion-focused design', 'analytics integration'] },
-      premium: { name: 'Premium Package', price: 249900, description: 'Ideal for businesses running full digital marketing funnels.', includes: ['complete sales funnel (5 pages)', 'multiple landing pages', 'advanced form integrations', 'email marketing integration', 'conversion optimization setup'] }
+      starter: { name: 'Starter Package', price: 39900, description: 'Best for a single offer, campaign, lead magnet, consultation, or advertisement.', includes: ['1 custom landing page', 'Mobile responsive design', 'Lead capture form', 'Thank-you page', 'One primary CTA', 'Basic conversion tracking', 'Email/CRM form connection', 'Basic copy formatting', 'Two revision rounds'] },
+      growth: { name: 'Standard Package', price: 89900, description: 'Businesses running campaigns that need more than a single page.', includes: ['Up to 3 funnel pages', 'Landing page', 'Thank-you/confirmation page', 'Secondary conversion page', 'Lead form integration', 'CRM/email integration', 'Conversion tracking', 'Basic automation setup', 'Mobile optimization', 'A/B testing-ready structure', 'Up to 2 audience paths', 'Three revision rounds'] },
+      premium: { name: 'Premium Package', price: 199900, description: 'Businesses building a complete customer-acquisition funnel.', includes: ['Up to 6 funnel pages', 'Custom conversion-focused design', 'Lead capture system', 'Booking or checkout integration', 'CRM integration', 'Up to 5 automated follow-up emails', 'Conversion tracking', 'Analytics setup', 'Basic funnel automation', 'Lead tagging/segmentation', 'Thank-you and next-step flows', 'A/B test configuration for one key page', 'Three revision rounds', 'Funnel walkthrough'] }
     }
   },
   'E-Commerce Development': {
     packages: {
-      starter: { name: 'Starter Package', price: 119900, description: 'Ideal for new or smaller online stores.', includes: ['store setup with up to 10 products', 'up to 5 informational pages', 'one payment gateway + basic shipping/tax setup', 'order notification setup & basic SEO', 'store management training'] },
-      growth: { name: 'Standard Package', price: 299900, description: 'Ideal for established businesses expanding online sales.', includes: ['store setup with up to 50 products', 'advanced product variations & coupon/discount functionality', 'email marketing integration', 'customer account & review functionality', 'up to 2 payment gateways'] },
-      premium: { name: 'Premium Package', price: 599900, description: 'Ideal for businesses requiring a more advanced commerce environment.', includes: ['store setup with up to 150 initial products', 'custom storefront components & enhanced checkout', 'CRM integration & advanced email automation', 'subscription functionality where supported', 'data migration assistance & team training'] }
+      starter: { name: 'Starter Package', price: 119900, description: 'Best for new or smaller online stores.', includes: ['Store setup', 'Up to 10 products', 'Up to 5 informational pages', 'Mobile responsive design', 'Product category setup', 'Shopping cart', 'Checkout configuration', 'One payment gateway', 'Basic shipping configuration', 'Basic tax settings', 'Order notification setup', 'Google Analytics', 'Basic SEO setup', 'Two revision rounds', 'Store management training'] },
+      growth: { name: 'Standard Package', price: 299900, description: 'Established businesses expanding online sales.', includes: ['Everything in Starter', 'Up to 50 products', 'Advanced product variations', 'Coupon/discount functionality', 'Abandoned-cart setup where supported', 'Email marketing integration', 'Enhanced analytics', 'Enhanced product SEO', 'Customer account functionality', 'Review functionality', 'Up to 2 payment gateways', 'Advanced shipping rules', 'Basic product-data import', 'Three revision rounds'] },
+      premium: { name: 'Premium Package', price: 599900, description: 'Businesses requiring a more advanced commerce environment.', includes: ['Everything in Growth', 'Up to 150 initial products', 'Advanced product/category structure', 'Custom storefront components', 'Enhanced checkout configuration', 'Advanced conversion tracking', 'CRM integration', 'Advanced email automation', 'Subscription functionality where platform-supported', 'Multi-location or advanced inventory configuration where supported', 'Advanced shipping logic', 'Data migration assistance', 'Custom reporting configuration', 'Team training'] }
     }
   },
   'Web Applications & SaaS Development': {
     packages: {
-      starter: { name: 'Starter MVP', price: 499900, description: 'Ideal for validating a focused software concept.', includes: ['requirements workshop & basic product architecture', 'user authentication, 1 primary user role', 'up to 5 core application screens', 'database setup & basic admin functionality', '1 third-party integration', 'testing & deployment assistance'] },
-      growth: { name: 'Growth Application', price: 1199900, description: 'Ideal for businesses building more advanced digital systems.', includes: ['up to 15 core screens, up to 2 user roles', 'advanced database structure & admin dashboard', 'up to 3 integrations', 'notification & user-account management functionality', 'QA testing, deployment, documentation & team handoff'] },
-      premium: { name: 'Premium SaaS / Custom Platform', price: 2499900, description: 'Ideal for businesses launching a SaaS platform or full digital product.', includes: ['complex product architecture, multiple user roles', 'subscription/billing systems & custom dashboards', 'API integrations & automated workflows', 'role-based permissions & reporting', 'staging/production environments, advanced QA & post-launch support'] }
+      starter: { name: 'Starter MVP', price: 499900, description: 'Best for validating a focused software concept.', includes: ['Requirements workshop', 'Basic product architecture', 'User authentication', '1 primary user role', 'Up to 5 core application screens', 'Database setup', 'Basic admin functionality', '1 third-party integration', 'Responsive interface', 'Testing', 'Deployment assistance', 'Basic technical documentation'] },
+      growth: { name: 'Standard Application', price: 1199900, description: 'Businesses building more advanced digital systems.', includes: ['Product planning', 'Up to 15 core screens', 'Up to 2 user roles', 'Advanced database structure', 'Admin dashboard', 'Up to 3 integrations', 'Notification functionality', 'User-account management', 'Responsive application', 'QA testing', 'Deployment', 'Documentation', 'Team handoff'] },
+      premium: { name: 'Premium SaaS / Custom Platform', price: 2499900, description: 'Best for larger custom software platforms — final pricing established after technical discovery.', includes: ['Complex product architecture', 'Multiple user roles', 'Subscription/billing systems', 'Custom dashboards', 'Advanced database architecture', 'API integrations', 'Automated workflows', 'Role-based permissions', 'Reporting', 'Notifications', 'Staging/production environments', 'Advanced QA', 'Deployment', 'Technical documentation', 'Post-launch support'] }
     }
   },
   'API Integration & Automation': {
     packages: {
-      starter: { name: 'Starter Package', price: 100, description: 'Ideal for businesses connecting two systems for the first time.', includes: ['1 system integration', 'basic data synchronization', 'simple workflow automation', 'testing and configuration'] },
-      growth: { name: 'Standard Package', price: 129900, description: 'Ideal for businesses connecting multiple tools.', includes: ['integration of up to 2 systems, up to 6 endpoints/actions', 'advanced data mapping & workflow logic', 'error logging & testing environment', 'documentation & deployment assistance'] },
-      premium: { name: 'Premium Package', price: 349900, description: 'Ideal for businesses implementing full automation systems.', includes: ['up to 3 interconnected systems, up to 15 endpoints/actions', 'complex workflow logic & data transformations', 'authentication/security configuration', 'error handling, testing & deployment support', 'technical documentation & post-launch review'] }
+      starter: { name: 'Starter Package', price: 49900, description: 'Starter Integration.', includes: ['1 straightforward system integration', 'Up to 2 API endpoints/actions', 'Authentication configuration', 'Basic data mapping', 'Testing', 'Basic error handling', 'Documentation'] },
+      growth: { name: 'Standard Package', price: 129900, description: 'Growth Integration.', includes: ['Integration of up to 2 systems', 'Up to 6 endpoints/actions', 'Advanced data mapping', 'Workflow logic', 'Error logging', 'Testing environment', 'Documentation', 'Deployment assistance'] },
+      premium: { name: 'Premium Package', price: 349900, description: 'Premium Integration.', includes: ['Up to 3 interconnected systems', 'Up to 15 endpoints/actions', 'Complex workflow logic', 'Data transformations', 'Authentication/security configuration', 'Error handling and logging', 'Testing', 'Deployment support', 'Technical documentation', 'Post-launch review'] }
     }
   },
   'Website Maintenance & Updates': {
     packages: {
-      starter: { name: 'Starter Care', price: 14900, description: 'Ideal for small websites needing occasional updates.', includes: ['up to 2 hours of website work per month', 'core/plugin updates & basic backup monitoring', 'basic uptime checks & minor content edits', 'monthly maintenance summary'] },
-      growth: { name: 'Growth Care', price: 34900, description: 'Ideal for businesses regularly updating their website.', includes: ['up to 5 support hours per month', 'backup & uptime monitoring', 'content changes & minor design adjustments', 'form/function testing & priority support', 'monthly maintenance report'] },
-      premium: { name: 'Premium Care', price: 79900, description: 'Ideal for businesses that rely heavily on their website.', includes: ['up to 10 support hours per month', 'priority issue handling & regular site health review', 'conversion-form testing & analytics review', 'minor page creation & minor development work', 'monthly strategy recommendations'] }
+      starter: { name: 'Starter Care', price: 14900, description: 'Up to 2 hours of website work per month.', includes: ['Up to 2 hours of website work per month', 'Core/plugin updates where applicable', 'Basic backup monitoring', 'Basic uptime checks', 'Minor content edits', 'Basic technical health review', 'Monthly maintenance summary'] },
+      growth: { name: 'Standard Care', price: 34900, description: 'Up to 5 support hours per month.', includes: ['Up to 5 support hours per month', 'Updates', 'Backup monitoring', 'Uptime monitoring', 'Content changes', 'Minor design adjustments', 'Basic speed review', 'Form/function testing', 'Priority support', 'Monthly maintenance report'] },
+      premium: { name: 'Premium Care', price: 79900, description: 'Up to 10 support hours per month.', includes: ['Up to 10 support hours per month', 'Everything in Growth', 'Priority issue handling', 'Regular site health review', 'Conversion-form testing', 'Analytics review', 'Minor page creation', 'Minor development work', 'Monthly strategy recommendations'] }
     }
   },
 
   // ─── MARKETING & GROWTH ────────────────────────────────────────────────────
   'SEO & Search Marketing': {
     packages: {
-      starter: { name: 'Starter Package', price: 49900, description: 'Ideal for small businesses beginning their SEO strategy.', includes: ['initial SEO audit & keyword research (up to 10 keywords)', 'optimization of up to 5 priority pages', 'meta titles, headings & internal-link improvements', 'GSC/GA & XML sitemap review', 'monthly ranking review & report'] },
-      growth: { name: 'Standard Package', price: 99900, description: 'Ideal for businesses actively working to improve search rankings.', includes: ['up to 20 tracked keywords, optimization across up to 15 pages', 'competitor SEO review & content-gap analysis', '2 SEO content pieces/optimizations per month', 'local SEO optimization where applicable', 'monthly strategy review'] },
-      premium: { name: 'Premium Package', price: 199900, description: 'Ideal for businesses seeking aggressive search growth.', includes: ['up to 40 tracked keywords, up to 30 priority pages', 'up to 4 SEO content pieces/optimizations per month', 'advanced competitor research & schema strategy', 'link opportunity research & outreach strategy', 'monthly strategy call & executive reporting'] }
+      starter: { name: 'Starter Package', price: 49900, description: 'Small businesses beginning to build organic search visibility.', includes: ['Initial SEO audit', 'Keyword research for up to 10 target keywords', 'Optimization of up to 5 priority pages', 'Page title optimization', 'Meta description optimization', 'Heading structure review', 'Internal-link improvements', 'Google Search Console review', 'Google Analytics review', 'XML sitemap review', 'Basic technical SEO checks', 'One existing page/content optimization per month', 'Monthly ranking review', 'Monthly performance report', 'Monthly recommendations'] },
+      growth: { name: 'Standard Package', price: 99900, description: 'Most Popular — everything in Starter, plus expanded keyword tracking and content.', includes: ['Everything in Starter', 'Up to 20 tracked target keywords', 'Optimization across up to 15 priority pages', 'Competitor SEO review', 'Two SEO-focused content pieces or substantial content optimizations per month', 'Enhanced internal-link strategy', 'Technical issue monitoring', 'Search intent analysis', 'Content-gap analysis', 'Local SEO optimization when applicable', 'Google Business Profile recommendations when applicable', 'Basic structured-data recommendations', 'Conversion-page SEO review', 'Monthly strategy review'] },
+      premium: { name: 'Premium Package', price: 199900, description: 'Businesses pursuing more aggressive organic growth.', includes: ['Everything in Growth', 'Up to 40 tracked keywords', 'Up to 30 priority pages', 'Up to 4 SEO content pieces or major optimizations per month', 'Advanced competitor research', 'Advanced content-gap analysis', 'Technical SEO monitoring', 'Schema strategy', 'Multi-service or multi-location SEO strategy', 'Content-cluster planning', 'Link opportunity research and outreach strategy', 'Conversion optimization recommendations', 'Priority implementation support', 'Monthly strategy call', 'Detailed executive reporting'] }
     }
   },
   'Paid Advertising Management': {
     packages: {
-      starter: { name: 'Starter Package', price: 39900, description: 'Ideal for smaller businesses testing paid acquisition.', includes: ['1 advertising platform, up to 1 active campaign', 'up to 3 ad groups/sets, up to 6 ad variations', 'conversion tracking setup & budget monitoring', 'monthly report & one campaign review'] },
-      growth: { name: 'Standard Package', price: 79900, description: 'Ideal for businesses running multiple campaigns.', includes: ['up to 2 active campaigns, up to 8 ad groups/sets', 'up to 12 active ad variations', 'retargeting campaign setup & landing-page recommendations', 'weekly optimization & monthly strategy call'] },
-      premium: { name: 'Premium Package', price: 149900, description: 'Ideal for larger or more complex advertising programs.', includes: ['multi-campaign management, up to 2 platforms', 'advanced audience segmentation & retargeting', 'creative testing & funnel performance analysis', 'weekly performance monitoring', 'monthly strategy call & executive reporting'] }
+      starter: { name: 'Starter Package', price: 39900, description: 'Smaller businesses testing paid acquisition. Recommended for lower-spend campaigns.', includes: ['1 advertising platform', 'Up to 1 active campaign', 'Up to 3 ad groups/ad sets', 'Initial campaign setup', 'Basic keyword or audience research', 'Up to 6 ad variations', 'Conversion tracking setup', 'Budget monitoring', 'Basic optimization', 'Negative keyword management where applicable', 'Monthly report', 'One monthly campaign review'] },
+      growth: { name: 'Standard Package', price: 79900, description: 'Everything in Starter, plus more campaigns and testing.', includes: ['Everything in Starter', 'Up to 2 active campaigns', 'Up to 8 ad groups/ad sets', 'Up to 12 active ad variations', 'Enhanced audience/keyword research', 'Retargeting campaign setup', 'Landing-page recommendations', 'Weekly optimization', 'Search-term analysis', 'Bid/budget adjustments', 'Basic creative testing', 'Conversion-performance analysis', 'Monthly strategy call'] },
+      premium: { name: 'Premium Package', price: 149900, description: 'For larger or more complex advertising programs.', includes: ['Multi-campaign management', 'Up to 2 advertising platforms', 'Advanced audience segmentation', 'Advanced retargeting', 'Creative testing', 'Conversion tracking', 'Funnel performance analysis', 'Weekly performance monitoring', 'Budget allocation recommendations', 'Advanced keyword/search-term management', 'Landing-page recommendations', 'Monthly strategy call', 'Executive reporting'] }
     }
   },
   'Email Marketing Campaigns': {
     packages: {
-      starter: { name: 'Starter Package', price: 100, description: 'Ideal for businesses launching a simple email campaign.', includes: ['1 email campaign', 'email template design', 'content formatting', 'mailing list integration', 'campaign scheduling'] },
-      growth: { name: 'Standard Package', price: 59900, description: 'Ideal for businesses running regular email communication.', includes: ['up to 4 emails with campaign strategy', 'subject-line development & basic copywriting', 'audience segmentation & UTM/tracking setup', 'basic automation & performance report', '2 revision rounds'] },
-      premium: { name: 'Premium Package', price: 119900, description: 'Ideal for businesses running structured email marketing programs.', includes: ['up to 8 emails with full campaign strategy', 'copywriting, design & segmentation strategy', 'automated email flow & lead tagging', 'basic A/B testing & conversion tracking', 'performance analysis & optimization recommendations'] }
+      starter: { name: 'Starter Package', price: 24900, description: 'Best for a single promotion or announcement.', includes: ['1 email campaign', 'Email layout/design', 'Basic copy editing', 'CTA setup', 'Basic segmentation', 'Links and tracking', 'Test send', 'Mobile review', 'One revision round', 'Campaign performance summary'] },
+      growth: { name: 'Standard Package', price: 59900, description: 'Standard Campaign.', includes: ['Up to 4 emails', 'Campaign strategy', 'Email layout/design', 'Subject-line development', 'Basic copywriting', 'Audience segmentation', 'CTA strategy', 'UTM/tracking setup', 'Scheduling', 'Basic automation', 'Performance report', 'Two revision rounds'] },
+      premium: { name: 'Premium Package', price: 119900, description: 'Premium Campaign.', includes: ['Up to 8 emails', 'Full campaign strategy', 'Copywriting', 'Design/layout', 'Segmentation strategy', 'Automated email flow', 'Lead tagging', 'Basic A/B testing', 'Conversion tracking', 'Performance analysis', 'Optimization recommendations', 'Two revision rounds'] }
     }
   },
   'Lead Generation Services': {
     packages: {
-      starter: { name: 'Starter Package', price: 29900, description: 'Ideal for businesses building their initial lead pipeline.', includes: ['ideal customer profile definition & basic market research', 'up to 150 prospect records per month', 'basic lead-list organization & contact-data cleanup', 'one outreach sequence framework', 'monthly results summary'] },
-      growth: { name: 'Standard Package', price: 69900, description: 'Ideal for businesses scaling their sales efforts.', includes: ['up to 500 prospect records per month', 'multiple target segments & enhanced prospect research', 'up to 2 outreach sequences & basic personalization framework', 'CRM import assistance & lead tagging', 'monthly performance analysis'] },
-      premium: { name: 'Premium Package', price: 149900, description: 'Ideal for businesses needing ongoing lead flow.', includes: ['up to 1,000 prospect records per month', 'multiple customer profiles & advanced account research', 'multi-step outreach strategy & CRM pipeline setup', 'lead qualification framework & follow-up automation', 'monthly strategy session'] }
+      starter: { name: 'Starter Package', price: 29900, description: 'Starter Lead Generation.', includes: ['Ideal customer profile definition', 'Basic target-market research', 'Prospecting criteria', 'Up to 150 prospect records per month', 'Basic lead-list organization', 'Contact-data cleanup', 'One outreach sequence framework', 'Lead tracking sheet or basic CRM structure', 'Monthly results summary'] },
+      growth: { name: 'Standard Package', price: 69900, description: 'Standard Lead Generation.', includes: ['Everything in Starter', 'Up to 500 prospect records per month', 'Multiple target segments', 'Enhanced prospect research', 'Up to 2 outreach sequences', 'Basic personalization framework', 'CRM import assistance', 'Lead tagging', 'Follow-up workflow', 'Monthly performance analysis', 'Strategy adjustments'] },
+      premium: { name: 'Premium Package', price: 149900, description: 'Premium Lead Generation.', includes: ['Up to 1,000 prospect records per month', 'Multiple customer profiles', 'Advanced account research', 'Multi-step outreach strategy', 'CRM pipeline setup', 'Lead qualification framework', 'Follow-up automation', 'Reporting dashboard', 'Ongoing campaign refinement', 'Monthly strategy session'] }
     }
   },
   'CRM & Marketing Automation': {
     packages: {
-      starter: { name: 'Starter Package', price: 49900, description: 'Ideal for businesses implementing their first CRM.', includes: ['1 CRM pipeline, basic CRM configuration', 'up to 2 forms, up to 3 automated workflows', 'contact tagging & basic lead notifications', '1 third-party integration', 'one training session'] },
-      growth: { name: 'Standard Package', price: 129900, description: 'Ideal for businesses scaling their automation.', includes: ['up to 2 CRM pipelines, up to 5 automated workflows', 'up to 3 integrations, lead routing', 'email follow-up & task automation', 'contact segmentation & pipeline stages', 'testing, documentation & team training'] },
-      premium: { name: 'Premium Package', price: 299900, description: 'Ideal for comprehensive marketing automation.', includes: ['up to 4 pipelines, up to 12 automated workflows', 'up to 6 integrations, advanced lead routing', 'multi-step customer journeys, sales & marketing automation', 'customer tagging/scoring rules & reporting dashboard', 'up to 2 hours team training + post-launch review'] }
+      starter: { name: 'Starter Package', price: 49900, description: 'Starter Automation — businesses replacing basic manual follow-up.', includes: ['1 CRM pipeline', 'Basic CRM configuration', 'Up to 2 forms', 'Up to 3 automated workflows', 'Contact tagging', 'Basic lead notifications', '1 third-party integration', 'Testing', 'Basic documentation', 'One training session'] },
+      growth: { name: 'Standard Package', price: 129900, description: 'Standard Automation.', includes: ['Up to 2 CRM pipelines', 'Up to 5 automated workflows', 'Up to 3 integrations', 'Lead routing', 'Email follow-up automation', 'Task automation', 'Contact segmentation', 'Pipeline stages', 'Basic dashboard', 'Testing and QA', 'Documentation', 'Team training'] },
+      premium: { name: 'Premium Package', price: 299900, description: 'Premium Automation.', includes: ['Up to 4 pipelines', 'Up to 12 automated workflows', 'Up to 6 integrations', 'Advanced lead routing', 'Multi-step customer journeys', 'Sales automation', 'Marketing automation', 'Customer tagging/scoring rules', 'Reporting dashboard', 'Advanced workflow testing', 'Documentation', 'Up to 2 hours of team training', 'Post-launch optimization review'] }
     }
   },
   // ─── OPERATIONS & SUPPORT ──────────────────────────────────────────────────
   'Virtual Assistant Services': {
     packages: {
-      starter: { name: 'Starter Package', price: 19900, description: 'Ideal for businesses needing light administrative support.', includes: ['up to 10 hours of virtual assistant support per month', 'basic administrative tasks & calendar support', 'data organization & basic research', 'document formatting & routine email assistance'] },
-      growth: { name: 'Standard Package', price: 49900, description: 'Ideal for businesses needing regular operational assistance.', includes: ['up to 25 hours of virtual assistant support per month', 'everything in Starter, plus CRM updates', 'customer follow-up support & content scheduling', 'reporting assistance & recurring admin workflows'] },
-      premium: { name: 'Premium Package', price: 89900, description: 'Ideal for businesses requiring consistent operational support.', includes: ['up to 50 hours of virtual assistant support per month', 'advanced administrative support & CRM management', 'customer-service support & research', 'reporting, content administration & project coordination'] }
+      starter: { name: 'Starter VA', price: 19900, description: 'Up to 10 hours per month.', includes: ['Up to 10 hours per month', 'Basic administrative tasks', 'Calendar support', 'Data organization', 'Basic research', 'Document formatting', 'Routine email assistance'] },
+      growth: { name: 'Standard VA', price: 49900, description: 'Up to 25 hours per month.', includes: ['Up to 25 hours per month', 'Everything in Starter', 'CRM updates', 'Customer follow-up support', 'Content scheduling', 'Reporting assistance', 'Process support', 'Recurring administrative workflows'] },
+      premium: { name: 'Premium VA', price: 89900, description: 'Up to 50 hours per month.', includes: ['Up to 50 hours per month', 'Advanced administrative support', 'CRM management', 'Customer-service support', 'Research', 'Reporting', 'Content administration', 'Project coordination', 'Recurring operations support'] }
     }
   },
   'Data Analytics & Reporting': {
     packages: {
-      starter: { name: 'Starter Package', price: 24900, description: 'Ideal for businesses needing basic performance insights.', includes: ['up to 1 primary data source', 'data cleanup for the agreed dataset', 'up to 8 key metrics', 'one basic dashboard/report & key observations'] },
-      growth: { name: 'Standard Package', price: 69900, description: 'Ideal for businesses tracking multiple performance areas.', includes: ['up to 3 regular data sources', 'monthly dashboard updates & KPI tracking', 'trend analysis & data-quality review', 'one monthly review meeting'] },
-      premium: { name: 'Premium Package', price: 149900, description: 'Ideal for businesses seeking ongoing performance monitoring.', includes: ['up to 5 regular data sources', 'advanced dashboards & department/channel segmentation', 'KPI framework, trend & conversion analysis', 'monthly executive report & strategy meeting'] }
+      starter: { name: 'Starter Package', price: 24900, description: 'Starter Analysis.', includes: ['Up to 1 primary data source', 'Data cleanup for the agreed dataset', 'Up to 8 key metrics', 'One basic dashboard/report', 'Key observations', 'One revision round'] },
+      growth: { name: 'Standard Package', price: 69900, description: 'Standard Analytics.', includes: ['Up to 3 regular data sources', 'Monthly dashboard updates', 'KPI tracking', 'Trend analysis', 'Monthly performance report', 'Data-quality review', 'Recommendations', 'One monthly review meeting'] },
+      premium: { name: 'Premium Package', price: 149900, description: 'Premium Analytics.', includes: ['Up to 5 regular data sources', 'Advanced dashboards', 'Department/channel segmentation', 'KPI framework', 'Trend analysis', 'Conversion/performance analysis', 'Monthly executive report', 'Regular dashboard refreshes', 'Monthly strategy meeting', 'Improvement recommendations'] }
     }
   },
   'Data Entry & Processing': {
     packages: {
-      starter: { name: 'Starter Package', price: 9900, description: 'Ideal for small administrative data tasks.', includes: ['up to 500 straightforward records', 'data entry & basic formatting', 'basic duplicate review & quality check', 'one agreed data source/output format'] },
-      growth: { name: 'Standard Package', price: 29900, description: 'Ideal for businesses managing larger datasets.', includes: ['up to 2,000 straightforward records', 'data entry, cleanup & formatting', 'duplicate detection & categorization', 'quality review, up to 2 output formats'] },
-      premium: { name: 'Premium Package', price: 69900, description: 'Ideal for businesses needing ongoing data processing.', includes: ['up to 5,000 records per month, recurring processing', 'data cleanup & categorization', 'formatting & quality-control checks', 'regular status reporting'] }
+      starter: { name: 'Starter Package', price: 9900, description: 'Small administrative data tasks.', includes: ['Up to 500 straightforward records', 'Data entry', 'Basic formatting', 'Basic duplicate review', 'Basic quality check', 'One agreed data source/output format'] },
+      growth: { name: 'Standard Package', price: 29900, description: 'Businesses managing larger datasets.', includes: ['Up to 2,000 straightforward records', 'Data entry', 'Data cleanup', 'Formatting', 'Duplicate detection', 'Categorization', 'Quality review', 'Up to 2 output formats'] },
+      premium: { name: 'Premium Package', price: 69900, description: 'Recurring monthly data processing.', includes: ['Up to 5,000 straightforward records per month', 'Recurring processing', 'Data cleanup', 'Categorization', 'Formatting', 'Quality-control checks', 'Regular status reporting'] }
     }
   },
 
-  // ─── WEBSITES & DEVELOPMENT ────────────────────────────────────────────────
+  // ─── WEBSITES & DEVELOPMENT (not in the ScaleLink pricing document — unchanged) ──
   'Online Booking Systems': {
     packages: {
       starter: { name: 'Starter Package', price: 39900, description: 'Ideal for businesses needing a simple booking system.', includes: ['online booking system setup', 'calendar integration', 'email notifications', 'mobile-friendly booking form', 'basic customization'] },
@@ -278,9 +279,9 @@ const SERVICES_WITH_PACKAGES = {
   // ─── MARKETING & GROWTH ─────────────────────────────────────────────────────
   'Social Media Management': {
     packages: {
-      starter: { name: 'Starter Package', price: 29900, description: 'Ideal for small businesses maintaining a basic social media presence.', includes: ['8 social media posts per month', 'content scheduling', 'basic caption writing', 'engagement monitoring', 'performance overview'] },
-      growth: { name: 'Standard Package', price: 59900, description: 'Ideal for businesses expanding their social media activity.', includes: ['15 social media posts per month', 'graphic content creation', 'caption writing and hashtags', 'audience engagement monitoring', 'monthly performance report'] },
-      premium: { name: 'Premium Package', price: 149900, description: 'Ideal for businesses using social media as a primary marketing channel.', includes: ['30 social media posts per month', 'custom graphics and visuals', 'caption writing and strategy', 'engagement management', 'detailed performance reporting'] }
+      starter: { name: 'Starter Package', price: 34900, description: 'Businesses that need a consistent presence.', includes: ['1 social platform', 'Up to 8 feed posts per month', 'Caption writing', 'Basic graphic creation', 'Hashtag/topic research where relevant', 'Content scheduling', 'Monthly content calendar', 'Basic monthly report', 'One revision round on the monthly content batch'] },
+      growth: { name: 'Standard Package', price: 69900, description: 'Standard tier social media management.', includes: ['Up to 2 platforms', 'Up to 16 feed posts per month', 'Up to 4 short-form videos/reels using provided or existing footage', 'Caption writing', 'Graphic design', 'Monthly content calendar', 'Scheduling', 'Basic community-response support', 'Monthly analytics', 'Monthly strategy review'] },
+      premium: { name: 'Premium Package', price: 149900, description: 'Premium tier social media management.', includes: ['Up to 3 platforms', 'Up to 24 feed posts per month', 'Up to 8 short-form videos', 'Content calendar', 'Graphic design', 'Caption/copy development', 'Scheduling', 'Basic weekday community management', 'Social listening', 'Monthly campaign planning', 'Performance reporting', 'Monthly strategy call', 'Ongoing optimization'] }
     }
   },
   'Reputation & Review Management': {
@@ -310,16 +311,16 @@ const SERVICES_WITH_PACKAGES = {
   },
   'Project Management Support': {
     packages: {
-      starter: { name: 'Starter Package', price: 100, description: 'Ideal for managing a small project or short-term initiative.', includes: ['management of 1 project', 'project planning and timeline development', 'task coordination', 'progress tracking and status updates'] },
-      growth: { name: 'Standard Package', price: 149900, description: 'Ideal for businesses managing multiple tasks within a project.', includes: ['management of up to 3 project phases or workstreams', 'project planning and scheduling', 'task and milestone tracking', 'team coordination and communication'] },
-      premium: { name: 'Premium Package', price: 349900, description: 'Ideal for businesses requiring full project oversight.', includes: ['comprehensive project management support', 'project planning and scheduling', 'team coordination across departments', 'progress tracking and milestone reporting', 'project performance review'] }
+      starter: { name: 'Starter PM Support', price: 49900, description: 'Up to 10 hours per month.', includes: ['Up to 10 hours per month', 'Project tracking', 'Task organization', 'Deadline tracking', 'Basic status reports', 'Team follow-up', 'One weekly coordination touchpoint'] },
+      growth: { name: 'Standard PM Support', price: 119900, description: 'Up to 25 hours per month.', includes: ['Up to 25 hours per month', 'Project planning', 'Task management', 'Team coordination', 'Risk/issue tracking', 'Weekly reporting', 'Meeting coordination', 'Documentation', 'Stakeholder updates'] },
+      premium: { name: 'Premium Fractional PM', price: 249900, description: 'Up to 50 hours per month.', includes: ['Up to 50 hours per month', 'Multi-workstream coordination', 'Project planning', 'Schedule management', 'Risk management', 'Stakeholder management', 'Team coordination', 'Weekly reporting', 'Project documentation', 'Leadership updates', 'Continuous project oversight'] }
     }
   },
   'Process Documentation & SOP Development': {
     packages: {
-      starter: { name: 'Starter Package', price: 40000, description: 'Ideal for businesses documenting a single workflow.', includes: ['1 documented business process', 'step-by-step SOP document', 'workflow outline or process map', 'basic formatting for easy reference'] },
-      growth: { name: 'Standard Package', price: 120000, description: 'Ideal for businesses organizing multiple operational procedures.', includes: ['3 documented workflows', 'structured SOP documents', 'workflow diagrams or visual process maps', 'process improvement recommendations'] },
-      premium: { name: 'Premium Package', price: 350000, description: 'Ideal for businesses building a full operational framework.', includes: ['6+ documented workflows', 'complete SOP manual or operations guide', 'workflow diagrams and structured documentation', 'recommendations for process optimization'] }
+      starter: { name: 'Starter Package', price: 39900, description: 'Documenting a single workflow.', includes: ['Up to 3 SOPs', 'Up to approximately 15 total finished pages', 'Process review', 'Step-by-step documentation', 'Basic formatting', 'One revision round'] },
+      growth: { name: 'Standard Package', price: 99900, description: 'Organizing multiple operational procedures.', includes: ['Up to 8 SOPs', 'Up to approximately 40 total finished pages', 'Process interviews', 'Workflow documentation', 'Roles/responsibilities', 'Templates/checklists where applicable', 'Standardized formatting', 'Two revision rounds'] },
+      premium: { name: 'Premium Package', price: 249900, description: 'Building a full operational framework.', includes: ['Up to 20 SOPs', 'Up to approximately 100 total finished pages', 'Stakeholder interviews', 'Process mapping', 'Roles and responsibility documentation', 'Operational checklists', 'Templates', 'Documentation structure', 'Implementation recommendations', 'Up to 3 revision rounds'] }
     }
   },
 
@@ -362,9 +363,439 @@ const SERVICES_WITH_PACKAGES = {
   }
 };
 
+// ─── MASTER DYNAMIC SERVICE QUESTIONS ─────────────────────────────────────────
+// These definitions mirror the ScaleLink Alliance Master Dynamic Service
+// Intake Form. Questions are rendered ONLY for services the customer selected.
+// Common business/project information stays in formData and is never repeated.
+const SERVICE_QUESTION_DEFINITIONS = {
+  'Website Development': {
+    title: 'Website Development Requirements',
+    description: 'Tell us what the website needs to accomplish so our team can scope it correctly.',
+    fields: [
+      { id: 'WEB_01', label: 'Is this a new website or an existing website?', type: 'radio', required: true, options: ['New website', 'Redesign existing website', 'Improve/fix existing website', 'Add functionality to existing website'] },
+      { id: 'WEB_02', label: 'Existing website URL', type: 'url', showWhen: { field: 'WEB_01', values: ['Redesign existing website', 'Improve/fix existing website', 'Add functionality to existing website'] }, hideWhenFormField: 'clientWebsite', helper: 'This is only shown when your common website URL is empty.' },
+      { id: 'WEB_03', label: 'What is the primary purpose of your website?', type: 'checkbox', required: true, options: ['Generate leads', 'Sell services', 'Provide business information', 'Accept bookings', 'Showcase portfolio/work', 'Membership/community', 'Other'] },
+      { id: 'WEB_04', label: 'Approximately how many pages do you need?', type: 'radio', required: true, options: ['1–5', '6–10', '11–20', '20+', 'Not sure'] },
+      { id: 'WEB_05', label: 'Which pages do you need?', type: 'checkbox', options: ['Home', 'About', 'Services', 'Individual Service Pages', 'Contact', 'Portfolio', 'Blog/Resources', 'FAQ', 'Pricing', 'Other'] },
+      { id: 'WEB_06', label: 'What functionality do you need?', type: 'checkbox', options: ['Contact forms', 'Appointment booking', 'Live chat', 'Customer login/portal', 'Payment processing', 'CRM integration', 'Email marketing integration', 'Social media integration', 'API integration', 'Analytics/tracking', 'Other'] },
+      { id: 'WEB_07', label: 'Do you already own a domain?', type: 'radio', options: ['Yes', 'No', 'Not sure'] },
+      { id: 'WEB_08', label: 'Do you already have hosting?', type: 'radio', options: ['Yes', 'No', 'Not sure'] },
+      { id: 'WEB_09', label: 'Do you already have website content?', type: 'radio', options: ['Everything is ready', 'Some content is ready', 'No — I need copywriting', 'Not sure'] },
+      { id: 'WEB_10', label: 'Provide 2–3 websites you like.', type: 'textarea', helper: 'Optional URLs' },
+      { id: 'WEB_11', label: 'Are there competitor websites we should review?', type: 'textarea', helper: 'Optional URLs' },
+    ]
+  },
+  'E-Commerce Development': {
+    title: 'Ecommerce Development Requirements',
+    description: 'Help us understand your store, products, platform and selling requirements.',
+    fields: [
+      { id: 'ECOM_01', label: 'What type of ecommerce project is this?', type: 'radio', required: true, options: ['New store', 'Redesign existing store', 'Fix/improve existing store', 'Platform migration'] },
+      { id: 'ECOM_02', label: 'What do you sell?', type: 'textarea', required: true },
+      { id: 'ECOM_03', label: 'Product type', type: 'checkbox', required: true, options: ['Physical products', 'Digital products', 'Subscriptions', 'Services', 'Combination'] },
+      { id: 'ECOM_04', label: 'Approximately how many products?', type: 'radio', required: true, options: ['1–20', '21–50', '51–100', '101–500', '500+'] },
+      { id: 'ECOM_05', label: 'Do you have product descriptions and images?', type: 'radio', options: ['Yes', 'Partially', 'No'] },
+      { id: 'ECOM_06', label: 'Preferred/current platform', type: 'checkbox', options: ['Shopify', 'WooCommerce', 'Other', 'Need recommendation'] },
+      { id: 'ECOM_07', label: 'Which payment methods/processors are required?', type: 'checkbox', options: ['Credit/debit cards', 'PayPal', 'Stripe', 'Paystack', 'Flutterwave', 'Bank transfer', 'Other', 'Need recommendation'] },
+      { id: 'ECOM_08', label: 'Where will you sell?', type: 'checkbox', required: true, options: ['Locally', 'Nationwide', 'Internationally'] },
+      { id: 'ECOM_09', label: 'Do you require shipping integration?', type: 'radio', options: ['Yes', 'No', 'Not sure'] },
+      { id: 'ECOM_10', label: 'Which shipping/carrier services do you use?', type: 'text', showWhen: { field: 'ECOM_09', values: ['Yes'] } },
+      { id: 'ECOM_11', label: 'Required ecommerce functionality', type: 'checkbox', options: ['Inventory management', 'Customer accounts', 'Coupons/discounts', 'Product reviews', 'Wishlist', 'Abandoned-cart recovery', 'Subscription billing', 'Multi-currency', 'Multiple languages', 'Tax calculation', 'CRM integration', 'Analytics'] },
+      { id: 'ECOM_12', label: 'Approximately how many orders do you process monthly?', type: 'text', showWhen: { field: 'ECOM_01', values: ['Redesign existing store', 'Fix/improve existing store', 'Platform migration'] } },
+      { id: 'ECOM_13', label: 'What is your average order value?', type: 'text', showWhen: { field: 'ECOM_01', values: ['Redesign existing store', 'Fix/improve existing store', 'Platform migration'] } },
+      { id: 'ECOM_14', label: 'What is the biggest problem with your existing store?', type: 'textarea', showWhen: { field: 'ECOM_01', values: ['Redesign existing store', 'Fix/improve existing store', 'Platform migration'] } },
+    ]
+  },
+  'Landing Pages & Sales Funnels': {
+    title: 'Landing Page & Sales Funnel Requirements',
+    description: 'Tell us about the offer, conversion goal and traffic source for the page or funnel.',
+    fields: [
+      { id: 'LAND_01', label: 'What is the primary objective?', type: 'radio', required: true, options: ['Generate leads', 'Sell product', 'Sell service', 'Book calls/appointments', 'Webinar/event registration', 'Email signup', 'Download/free resource', 'Other'] },
+      { id: 'LAND_02', label: 'What offer will this page promote?', type: 'textarea', required: true },
+      { id: 'LAND_03', label: 'What action should visitors take?', type: 'radio', required: true, options: ['Buy', 'Submit form', 'Book call', 'Call business', 'Download', 'Register', 'Other'] },
+      { id: 'LAND_04', label: 'Do you already have the page copy?', type: 'radio', options: ['Yes', 'Partially', 'Need ScaleLink to create it'] },
+      { id: 'LAND_05', label: 'Do you have images/videos/graphics?', type: 'radio', options: ['Yes', 'Partially', 'Need ScaleLink to create/source them'] },
+      { id: 'LAND_06', label: 'Where will visitors come from?', type: 'checkbox', options: ['Google Ads', 'Social media advertising', 'LinkedIn', 'YouTube', 'SEO', 'Email', 'Organic social media', 'Other', 'Not sure'] },
+      { id: 'LAND_07', label: 'Does the page require a form?', type: 'radio', options: ['Yes', 'No'] },
+      { id: 'LAND_08', label: 'What information should the form collect?', type: 'textarea', showWhen: { field: 'LAND_07', values: ['Yes'] } },
+      { id: 'LAND_09', label: 'Where should generated leads be sent?', type: 'checkbox', showWhen: { field: 'LAND_07', values: ['Yes'] }, options: ['Email', 'CRM', 'Email marketing platform', 'Spreadsheet', 'Other'] },
+      { id: 'LAND_10', label: 'Is payment/checkout integration required?', type: 'radio', options: ['Yes', 'No'] },
+      { id: 'LAND_11', label: 'Is conversion tracking required?', type: 'checkbox', options: ['Google Analytics', 'Google Ads', 'Meta Pixel', 'LinkedIn Insight Tag', 'Other', 'Need recommendation'] },
+    ]
+  },
+  'SEO & Search Marketing': {
+    title: 'SEO & Search Marketing Requirements',
+    description: 'Tell us what you want to rank for and where you want to grow.',
+    fields: [
+      { id: 'SEO_01', label: 'What is your main SEO objective?', type: 'checkbox', required: true, options: ['Generate leads', 'Increase sales', 'Increase organic traffic', 'Rank for keywords', 'Improve local visibility', 'Improve national visibility', 'Improve ecommerce visibility', 'Recover rankings', 'Not sure'] },
+      { id: 'SEO_02', label: 'What type of SEO do you need?', type: 'radio', options: ['Local', 'National', 'Ecommerce', 'International', 'Technical', 'Not sure'] },
+      { id: 'SEO_03', label: 'Which products/services are most important to rank?', type: 'textarea', required: true },
+      { id: 'SEO_04', label: 'Which locations should we target?', type: 'textarea', required: true },
+      { id: 'SEO_05', label: 'Who are your main search competitors?', type: 'textarea', helper: 'URLs/names' },
+      { id: 'SEO_06', label: 'Are there specific keywords you want to rank for?', type: 'textarea', helper: 'Optional' },
+      { id: 'SEO_07', label: 'Are you currently doing SEO?', type: 'radio', options: ['Yes', 'No', 'Not sure'] },
+      { id: 'SEO_08', label: 'Have you previously hired an SEO provider?', type: 'radio', options: ['Yes', 'No'] },
+      { id: 'SEO_09', label: 'Which accounts do you currently have?', type: 'checkbox', options: ['Google Analytics', 'Google Search Console', 'Google Business Profile', 'Google Ads', 'None / Not sure'] },
+      { id: 'SEO_10', label: 'Do you need:', type: 'radio', options: ['One-time SEO audit/setup', 'Ongoing monthly SEO', 'Not sure'] },
+    ]
+  },
+  'Lead Generation Services': {
+    title: 'Lead Generation Requirements',
+    description: 'Tell us who you want to reach and what makes a lead valuable to your business.',
+    fields: [
+      { id: 'LEAD_01', label: 'What product/service do you want leads for?', type: 'textarea', required: true },
+      { id: 'LEAD_02', label: 'Are you targeting?', type: 'radio', required: true, options: ['B2B', 'B2C', 'Both'] },
+      { id: 'LEAD_03', label: 'Target industry/company type', type: 'text', showWhen: { field: 'LEAD_02', values: ['B2B', 'Both'] } },
+      { id: 'LEAD_04', label: 'Target decision-maker/job title', type: 'text', showWhen: { field: 'LEAD_02', values: ['B2B', 'Both'] } },
+      { id: 'LEAD_05', label: 'Describe your ideal consumer.', type: 'textarea', showWhen: { field: 'LEAD_02', values: ['B2C', 'Both'] } },
+      { id: 'LEAD_06', label: 'Which geographic areas should we target?', type: 'textarea', required: true },
+      { id: 'LEAD_07', label: 'What qualifies someone as a good lead?', type: 'textarea', required: true },
+      { id: 'LEAD_08', label: 'Average customer value', type: 'radio', options: ['Under $100', '$100–$500', '$500–$1,000', '$1,000–$5,000', '$5,000+', 'Not sure'] },
+      { id: 'LEAD_09', label: 'Approximately how many qualified leads would you like monthly?', type: 'text' },
+      { id: 'LEAD_10', label: 'How do you currently generate leads?', type: 'checkbox', options: ['SEO', 'Paid advertising', 'Social media', 'Referrals', 'Email', 'Cold outreach', 'Networking', 'None', 'Other'] },
+      { id: 'LEAD_11', label: 'What happens after you receive a lead?', type: 'checkbox', options: ['Phone follow-up', 'Sales representative', 'Email sequence', 'Appointment booking', 'CRM automation', 'Other'] },
+      { id: 'LEAD_12', label: 'How quickly can your team respond?', type: 'radio', options: ['Immediately', 'Within 1 hour', 'Same day', '1–2 days', 'Longer'] },
+    ]
+  },
+  'Paid Advertising Management': {
+    title: 'Paid Advertising Requirements',
+    description: 'Tell us what you want to advertise, where and what outcome matters most.',
+    fields: [
+      { id: 'ADS_01', label: 'Primary campaign objective', type: 'checkbox', required: true, options: ['Leads', 'Sales', 'Website traffic', 'Product/service promotion', 'Brand awareness', 'Appointments', 'Other'] },
+      { id: 'ADS_02', label: 'What product/service will be advertised?', type: 'textarea', required: true },
+      { id: 'ADS_03', label: 'Which platforms?', type: 'checkbox', options: ['Google Ads', 'Microsoft Ads', 'Facebook/Instagram', 'LinkedIn', 'YouTube', 'Need recommendation'] },
+      { id: 'ADS_04', label: 'Have you advertised previously?', type: 'radio', options: ['Yes', 'No'] },
+      { id: 'ADS_05', label: 'Which platforms and what results did you achieve?', type: 'textarea', showWhen: { field: 'ADS_04', values: ['Yes'] } },
+      { id: 'ADS_06', label: 'Do you already have advertising accounts?', type: 'radio', options: ['Yes', 'No'] },
+      { id: 'ADS_07', label: 'Do you have a landing page?', type: 'radio', options: ['Yes', 'No', 'Need ScaleLink to build one'] },
+      { id: 'ADS_08', label: 'Do you have advertising creatives/copy?', type: 'radio', options: ['Yes', 'Partially', 'Need ScaleLink to create them'] },
+      { id: 'ADS_09', label: 'Is conversion tracking installed?', type: 'radio', options: ['Yes', 'No', 'Not sure'] },
+    ]
+  },
+  'Email Marketing Campaigns': {
+    title: 'Email Marketing Requirements',
+    description: 'Tell us about your list, platform and the outcome you want from email marketing.',
+    fields: [
+      { id: 'EMAIL_01', label: 'Primary email objective', type: 'checkbox', required: true, options: ['Generate sales', 'Nurture leads', 'Welcome subscribers', 'Promote products/services', 'Recover abandoned carts', 'Retain customers', 'Newsletter', 'Other'] },
+      { id: 'EMAIL_02', label: 'Do you have an existing email list?', type: 'radio', required: true, options: ['Yes', 'No'] },
+      { id: 'EMAIL_03', label: 'Approximately how many contacts?', type: 'text', showWhen: { field: 'EMAIL_02', values: ['Yes'] } },
+      { id: 'EMAIL_04', label: 'How was the list collected?', type: 'textarea', showWhen: { field: 'EMAIL_02', values: ['Yes'] } },
+      { id: 'EMAIL_05', label: 'Current email platform', type: 'checkbox', options: ['Systeme.io', 'Mailchimp', 'Brevo', 'Klaviyo', 'HubSpot', 'ActiveCampaign', 'Other', 'None'] },
+      { id: 'EMAIL_06', label: 'What do you need?', type: 'checkbox', options: ['Strategy', 'Copywriting', 'Templates/design', 'Automation', 'Newsletters', 'Segmentation', 'Lead magnet funnel', 'Reporting', 'Full management'] },
+      { id: 'EMAIL_07', label: 'Desired sending frequency', type: 'text' },
+      { id: 'EMAIL_08', label: 'Do you have existing email content?', type: 'radio', options: ['Yes', 'Partially', 'No'] },
+      { id: 'EMAIL_09', label: 'What action should recipients take?', type: 'textarea', required: true },
+    ]
+  },
+  'Copywriting & Content Creation': {
+    title: 'Copywriting & Content Creation Requirements',
+    description: 'Tell us what content you need, who it is for and what action it should drive.',
+    fields: [
+      { id: 'CONTENT_01', label: 'What content do you need?', type: 'checkbox', required: true, options: ['Website copy', 'Blog/article', 'SEO article', 'Landing-page copy', 'Product descriptions', 'Emails', 'Social media', 'Advertising copy', 'Sales copy', 'Video scripts', 'Other'] },
+      { id: 'CONTENT_02', label: 'Primary purpose', type: 'checkbox', options: ['Educate', 'Leads', 'Sales', 'SEO', 'Authority', 'Engagement'] },
+      { id: 'CONTENT_03', label: 'What subject/product/service should the content cover?', type: 'textarea', required: true },
+      { id: 'CONTENT_04', label: 'How many pieces/pages?', type: 'text', required: true },
+      { id: 'CONTENT_05', label: 'Preferred tone', type: 'checkbox', options: ['Professional', 'Conversational', 'Educational', 'Persuasive', 'Technical', 'Friendly', 'Premium', 'Not sure'] },
+      { id: 'CONTENT_06', label: 'Are there required keywords?', type: 'radio', options: ['Yes', 'No', 'Need keyword research'] },
+      { id: 'CONTENT_07', label: 'What CTA should the content encourage?', type: 'textarea' },
+    ]
+  },
+  'CRM & Marketing Automation': {
+    title: 'CRM & Marketing Automation Requirements',
+    description: 'Help us understand the workflow, systems and repetitive work you want to improve.',
+    fields: [
+      { id: 'CRM_01', label: 'What process would you like to automate?', type: 'textarea', required: true },
+      { id: 'CRM_02', label: 'Do you currently use a CRM?', type: 'radio', required: true, options: ['Yes', 'No'] },
+      { id: 'CRM_03', label: 'Which CRM?', type: 'text', showWhen: { field: 'CRM_02', values: ['Yes'] } },
+      { id: 'CRM_04', label: 'What should the CRM manage?', type: 'checkbox', options: ['Leads', 'Customers', 'Sales pipeline', 'Follow-ups', 'Appointments', 'Email', 'Customer support', 'Tasks'] },
+      { id: 'CRM_05', label: 'What should be automated?', type: 'checkbox', options: ['Lead capture', 'Lead assignment', 'Email follow-up', 'SMS', 'Appointment reminders', 'Pipeline updates', 'Customer onboarding', 'Notifications', 'Reporting'] },
+      { id: 'CRM_06', label: 'Which other systems need integration?', type: 'textarea' },
+      { id: 'CRM_07', label: 'How many team members will use the system?', type: 'text' },
+      { id: 'CRM_08', label: 'Is data migration required?', type: 'radio', options: ['Yes', 'No', 'Not sure'] },
+      { id: 'CRM_09', label: 'Describe your current workflow.', type: 'textarea' },
+      { id: 'CRM_10', label: 'What currently takes too much time or causes problems?', type: 'textarea', required: true },
+    ]
+  },
+  'Data Analytics & Reporting': {
+    title: 'Data Analysis & Analytics Requirements',
+    description: 'Tell us what you want to understand from your data and what decisions it should support.',
+    fields: [
+      { id: 'DATA_01', label: 'What would you like to understand from your data?', type: 'textarea', required: true },
+      { id: 'DATA_02', label: 'What type of data?', type: 'checkbox', options: ['Sales', 'Marketing', 'Website', 'Customer', 'Financial', 'Operational', 'Inventory', 'Research', 'Other'] },
+      { id: 'DATA_03', label: 'Where is the data stored?', type: 'checkbox', options: ['Excel', 'Google Sheets', 'CRM', 'Database', 'Ecommerce platform', 'Analytics platform', 'Multiple systems'] },
+      { id: 'DATA_04', label: 'What do you need?', type: 'checkbox', options: ['Cleaning', 'Analysis', 'Dashboard', 'Visualization', 'KPI reporting', 'Marketing analytics', 'Sales analysis', 'Customer analysis', 'Automated reporting'] },
+      { id: 'DATA_05', label: 'Which KPIs are important?', type: 'textarea' },
+      { id: 'DATA_06', label: 'How frequently do you need reporting?', type: 'radio', options: ['One-time', 'Weekly', 'Monthly', 'Real-time'] },
+      { id: 'DATA_07', label: 'What business decision should this analysis help you make?', type: 'textarea', required: true },
+    ]
+  },
+  'Graphic Design': {
+    title: 'Graphic Design Requirements',
+    description: 'Tell us what needs to be designed, where it will be used and what assets you already have.',
+    fields: [
+      { id: 'GRAPHIC_01', label: 'What do you need designed?', type: 'checkbox', required: true, options: ['Social graphics', 'Advertisement/banner', 'Flyer', 'Brochure', 'Business card', 'Presentation', 'Infographic', 'Packaging', 'YouTube thumbnail', 'Website graphics', 'Other'] },
+      { id: 'GRAPHIC_02', label: 'How many designs?', type: 'text', required: true },
+      { id: 'GRAPHIC_03', label: 'Where will they be used?', type: 'textarea', required: true },
+      { id: 'GRAPHIC_04', label: 'Required dimensions, if known', type: 'text' },
+      { id: 'GRAPHIC_05', label: 'Do you have text/copy ready?', type: 'radio', options: ['Yes', 'No'] },
+      { id: 'GRAPHIC_06', label: 'Do you have images/assets?', type: 'radio', options: ['Yes', 'No'] },
+      { id: 'GRAPHIC_07', label: 'Describe the desired style.', type: 'textarea' },
+      { id: 'GRAPHIC_08', label: 'Required file formats', type: 'checkbox', options: ['JPG', 'PNG', 'PDF', 'SVG', 'Editable/source files', 'Not sure'] },
+    ]
+  },
+  'Brand Identity & Logo Design': {
+    title: 'Brand Identity & Logo Design Requirements',
+    description: 'Tell us what your brand should communicate and what visual direction you prefer.',
+    fields: [
+      { id: 'BRAND_01', label: 'Brand/business name', type: 'text', required: true, helper: 'If this matches the company name above, you can enter it again here only when needed for the brand project.' },
+      { id: 'BRAND_02', label: 'Tagline, if applicable', type: 'text' },
+      { id: 'BRAND_03', label: 'Is this?', type: 'radio', required: true, options: ['New brand', 'Rebrand', 'Logo redesign'] },
+      { id: 'BRAND_04', label: 'What do you need?', type: 'checkbox', options: ['Logo', 'Logo variations', 'Color palette', 'Typography', 'Brand guidelines', 'Social branding', 'Business stationery', 'Complete identity'] },
+      { id: 'BRAND_05', label: 'What should your brand communicate?', type: 'checkbox', options: ['Professional', 'Modern', 'Innovative', 'Premium', 'Friendly', 'Bold', 'Minimal', 'Traditional'] },
+      { id: 'BRAND_06', label: 'Are there brands whose identity you like?', type: 'textarea' },
+      { id: 'BRAND_07', label: 'Are there symbols/concepts you want included?', type: 'textarea' },
+      { id: 'BRAND_08', label: "Anything you DON'T want included?", type: 'textarea' },
+    ]
+  },
+  // The master form names this service "Color Palette & Visual Style Development".
+  // It is not a separately priced service in the current package map, so it is
+  // supported as a requirements definition without inventing package pricing.
+  'Color Palette & Visual Style Development': {
+    title: 'Color Palette & Visual Style Requirements',
+    description: 'Tell us how the visual system should feel and where it will be used.',
+    fields: [
+      { id: 'COLOR_01', label: 'What will the colors be used for?', type: 'checkbox', required: true, options: ['Website', 'Brand', 'Application', 'Product', 'Marketing materials'] },
+      { id: 'COLOR_02', label: 'Do you currently have brand colors?', type: 'radio', options: ['Yes', 'No'] },
+      { id: 'COLOR_03', label: 'What should the colors communicate?', type: 'checkbox', options: ['Trust', 'Luxury', 'Energy', 'Innovation', 'Calm', 'Professionalism', 'Friendly', 'Bold'] },
+      { id: 'COLOR_04', label: 'Colors you prefer', type: 'text' },
+      { id: 'COLOR_05', label: 'Colors to avoid', type: 'text' },
+      { id: 'COLOR_06', label: 'Do you require accessibility/contrast considerations?', type: 'radio', options: ['Yes', 'No', 'Not sure'] },
+    ]
+  },
+  'Video Editing & Motion Graphics': {
+    title: 'Video Editing & Motion Graphics Requirements',
+    description: 'Tell us about the footage, output and editing style you need.',
+    fields: [
+      { id: 'VIDEO_01', label: 'Video type', type: 'checkbox', required: true, options: ['YouTube', 'Social media', 'Advertisement', 'Corporate', 'Product', 'Educational', 'Short/Reel/TikTok', 'Other'] },
+      { id: 'VIDEO_02', label: 'Number of videos', type: 'text', required: true },
+      { id: 'VIDEO_03', label: 'Approximate raw footage length', type: 'text' },
+      { id: 'VIDEO_04', label: 'Desired finished length', type: 'text' },
+      { id: 'VIDEO_05', label: 'Where will videos be published?', type: 'textarea', required: true },
+      { id: 'VIDEO_06', label: 'Required editing', type: 'checkbox', options: ['Cuts', 'Transitions', 'Captions', 'Sound design', 'Music', 'Color correction', 'Motion graphics', 'Animated text', 'Logo animation', 'B-roll', 'Stock footage'] },
+      { id: 'VIDEO_07', label: 'Do you have footage?', type: 'radio', options: ['Yes', 'No', 'Partially'] },
+      { id: 'VIDEO_08', label: 'Do you have script/voiceover?', type: 'radio', options: ['Yes', 'No'] },
+      { id: 'VIDEO_09', label: 'Output', type: 'radio', options: ['1080p', '4K', 'Not sure'] },
+    ]
+  },
+  'Photography & Visual Assets': {
+    title: 'Photo Editing & Retouching Requirements',
+    description: 'These questions follow the master intake form for photo editing/retouching. Your current package catalog calls the corresponding service "Photography & Visual Assets".',
+    fields: [
+      { id: 'PHOTO_01', label: 'Photography type', type: 'checkbox', required: true, options: ['Product', 'Portrait', 'Corporate', 'Real estate', 'Ecommerce', 'Event', 'Social media', 'Other'] },
+      { id: 'PHOTO_02', label: 'Number of photographs', type: 'text', required: true },
+      { id: 'PHOTO_03', label: 'Required editing', type: 'checkbox', options: ['Color correction', 'Exposure', 'Retouching', 'Background removal', 'Background replacement', 'Object removal', 'Cropping/resizing', 'Product enhancement', 'Restoration'] },
+      { id: 'PHOTO_04', label: 'Where will images be used?', type: 'textarea' },
+      { id: 'PHOTO_05', label: 'Required dimensions/resolution', type: 'text' },
+      { id: 'PHOTO_06', label: 'Required format', type: 'text' },
+    ]
+  },
+  'Virtual Assistant Services': {
+    title: 'Virtual Assistant Requirements',
+    description: 'Tell us what support you need, how much time it will require and which tools are involved.',
+    fields: [
+      { id: 'VA_01', label: 'What assistance is required?', type: 'checkbox', required: true, options: ['Administrative', 'Email management', 'Calendar', 'Customer service', 'Research', 'Data entry', 'CRM', 'Social media', 'Ecommerce', 'Lead management', 'Other'] },
+      { id: 'VA_02', label: 'Describe the tasks.', type: 'textarea', required: true },
+      { id: 'VA_03', label: 'Required hours', type: 'radio', options: ['Under 10/week', '10–20', '20–30', '30–40', 'Not sure'] },
+      { id: 'VA_04', label: 'Duration', type: 'radio', options: ['One-time', 'Short-term', 'Ongoing'] },
+      { id: 'VA_05', label: 'Required working hours/time zone', type: 'text' },
+      { id: 'VA_06', label: 'Which tools/software will be used?', type: 'text' },
+      { id: 'VA_07', label: 'Is customer communication required?', type: 'radio', options: ['Yes', 'No'] },
+      { id: 'VA_08', label: 'What skills/experience are essential?', type: 'textarea' },
+    ]
+  },
+  'Data Entry & Processing': {
+    title: 'Data Entry & Processing Requirements',
+    description: 'Tell us about the source data, destination, volume and processing requirements.',
+    fields: [
+      { id: 'ENTRY_01', label: 'Describe the data-entry work required.', type: 'textarea', required: true },
+      { id: 'ENTRY_02', label: 'Source format', type: 'checkbox', options: ['PDF', 'Spreadsheet', 'Scanned documents', 'Website', 'CRM', 'Database', 'Images', 'Other'] },
+      { id: 'ENTRY_03', label: 'Destination', type: 'checkbox', options: ['Excel', 'Google Sheets', 'CRM', 'Database', 'Website/CMS', 'Other'] },
+      { id: 'ENTRY_04', label: 'Approximately how many records/items?', type: 'text', required: true },
+      { id: 'ENTRY_05', label: 'What information needs to be captured?', type: 'textarea', required: true },
+      { id: 'ENTRY_06', label: 'Additional processing required', type: 'checkbox', options: ['Cleaning', 'Formatting', 'Categorization', 'Deduplication', 'Validation', 'Research', 'Conversion'] },
+      { id: 'ENTRY_07', label: 'Do you have a required template?', type: 'radio', options: ['Yes', 'No'] },
+      { id: 'ENTRY_08', label: 'Are there specific accuracy requirements?', type: 'textarea' },
+    ]
+  },
+
+  // ─── ADDITIONAL PURCHASEABLE SERVICES ─────────────────────────────────────
+  // These services exist in the site's service catalog but are not separately
+  // defined in the supplied Master Dynamic Service Intake Form. The questions
+  // below are service-specific intake extensions derived from the service names,
+  // package scope and existing service catalog so every purchasable service has
+  // a real requirements form instead of a generic fallback.
+  'Web Applications & SaaS Development': {
+    title: 'Web Applications & SaaS Development Requirements',
+    description: 'Tell us about the application, users, workflows, data and integrations you need.',
+    fields: [
+      { id: 'APP_01', label: 'What is the application supposed to do?', type: 'textarea', required: true },
+      { id: 'APP_02', label: 'Who will use the application?', type: 'checkbox', required: true, options: ['Customers', 'Employees', 'Administrators', 'Partners/vendors', 'Public users', 'Other'] },
+      { id: 'APP_03', label: 'What user roles/permissions are required?', type: 'textarea' },
+      { id: 'APP_04', label: 'Which core screens or features are needed?', type: 'textarea', required: true },
+      { id: 'APP_05', label: 'Do you need user accounts/authentication?', type: 'radio', options: ['Yes', 'No', 'Not sure'] },
+      { id: 'APP_06', label: 'What data should the system store?', type: 'textarea' },
+      { id: 'APP_07', label: 'Which integrations are required?', type: 'textarea' },
+      { id: 'APP_08', label: 'Do you need subscriptions or online payments?', type: 'radio', options: ['Yes', 'No', 'Not sure'] },
+      { id: 'APP_09', label: 'Do you have an existing product, prototype or technical specification?', type: 'radio', options: ['Yes', 'Partially', 'No'] },
+      { id: 'APP_10', label: 'Preferred technology or platform, if any', type: 'text' },
+    ]
+  },
+  'Website Maintenance & Updates': {
+    title: 'Website Maintenance & Updates Requirements',
+    description: 'Tell us about the website, recurring work and issues you need us to manage.',
+    fields: [
+      { id: 'MAINT_01', label: 'What website needs maintenance?', type: 'url', required: true },
+      { id: 'MAINT_02', label: 'What type of maintenance do you need?', type: 'checkbox', required: true, options: ['Content updates', 'Bug fixes', 'Security updates', 'Performance optimization', 'Backups', 'Plugin/theme updates', 'Design changes', 'Technical support', 'Other'] },
+      { id: 'MAINT_03', label: 'What platform/CMS is the website using?', type: 'text' },
+      { id: 'MAINT_04', label: 'What problems are you currently experiencing?', type: 'textarea', required: true },
+      { id: 'MAINT_05', label: 'How often do you need support?', type: 'radio', options: ['One-time', 'Weekly', 'Monthly', 'Ongoing as needed'] },
+      { id: 'MAINT_06', label: 'Do you have access to the website, hosting and domain?', type: 'radio', options: ['Yes', 'Some access', 'No', 'Not sure'] },
+    ]
+  },
+  'Online Booking Systems': {
+    title: 'Online Booking Systems Requirements',
+    description: 'Tell us how customers should book, pay and receive confirmations.',
+    fields: [
+      { id: 'BOOK_01', label: 'What are customers booking?', type: 'textarea', required: true },
+      { id: 'BOOK_02', label: 'How many services/bookable options do you have?', type: 'text', required: true },
+      { id: 'BOOK_03', label: 'Who needs access to manage bookings?', type: 'checkbox', options: ['One administrator', 'Multiple staff', 'Multiple locations', 'Other'] },
+      { id: 'BOOK_04', label: 'What scheduling rules are required?', type: 'textarea', required: true },
+      { id: 'BOOK_05', label: 'Do you need automated reminders?', type: 'checkbox', options: ['Email', 'SMS', 'WhatsApp', 'None', 'Not sure'] },
+      { id: 'BOOK_06', label: 'Is payment required during booking?', type: 'radio', options: ['Yes', 'No', 'Deposit only', 'Not sure'] },
+      { id: 'BOOK_07', label: 'Which calendar/payment/CRM systems should connect?', type: 'textarea' },
+    ]
+  },
+  'Social Media Management': {
+    title: 'Social Media Management Requirements',
+    description: 'Tell us about your platforms, audience, content and publishing goals.',
+    fields: [
+      { id: 'SOCIAL_01', label: 'Which platforms should we manage?', type: 'checkbox', required: true, options: ['Facebook', 'Instagram', 'LinkedIn', 'TikTok', 'X/Twitter', 'YouTube', 'Other'] },
+      { id: 'SOCIAL_02', label: 'What are your main social media goals?', type: 'checkbox', required: true, options: ['Brand awareness', 'Lead generation', 'Sales', 'Engagement', 'Community growth', 'Traffic', 'Customer support', 'Other'] },
+      { id: 'SOCIAL_03', label: 'How often would you like to publish?', type: 'text', required: true },
+      { id: 'SOCIAL_04', label: 'What content types are needed?', type: 'checkbox', options: ['Feed posts', 'Short-form video/reels', 'Stories', 'Carousels', 'Graphics', 'Educational content', 'Promotional content', 'Other'] },
+      { id: 'SOCIAL_05', label: 'Do you already have brand/content assets?', type: 'radio', options: ['Yes', 'Partially', 'No'] },
+      { id: 'SOCIAL_06', label: 'Who should we target?', type: 'textarea' },
+      { id: 'SOCIAL_07', label: 'Do you need community management?', type: 'radio', options: ['Yes', 'No', 'Not sure'] },
+    ]
+  },
+  'Reputation & Review Management': {
+    title: 'Reputation & Review Management Requirements',
+    description: 'Tell us where your reviews live and how you want your reputation managed.',
+    fields: [
+      { id: 'REP_01', label: 'Which review platforms matter most?', type: 'checkbox', required: true, options: ['Google Business Profile', 'Facebook', 'Yelp', 'Tripadvisor', 'Trustpilot', 'Industry-specific platform', 'Other'] },
+      { id: 'REP_02', label: 'What is your main reputation goal?', type: 'checkbox', required: true, options: ['Get more reviews', 'Improve review rating', 'Respond to reviews', 'Monitor reviews', 'Handle negative reviews', 'Build reputation strategy'] },
+      { id: 'REP_03', label: 'What is your current approximate rating/review volume?', type: 'text' },
+      { id: 'REP_04', label: 'Do you already request reviews from customers?', type: 'radio', options: ['Yes', 'No', 'Not sure'] },
+      { id: 'REP_05', label: 'How should review requests be sent?', type: 'checkbox', options: ['Email', 'SMS', 'WhatsApp', 'In-person/QR', 'Not sure'] },
+      { id: 'REP_06', label: 'Are there current reputation issues we should know about?', type: 'textarea' },
+    ]
+  },
+  'API Integration & Automation': {
+    title: 'API Integration & Automation Requirements',
+    description: 'Tell us which systems need to connect and what data or workflows should move between them.',
+    fields: [
+      { id: 'API_01', label: 'Which systems need to be connected?', type: 'textarea', required: true },
+      { id: 'API_02', label: 'What should happen automatically after the integration?', type: 'textarea', required: true },
+      { id: 'API_03', label: 'Which data should be transferred or synchronized?', type: 'textarea', required: true },
+      { id: 'API_04', label: 'Do you have API documentation/credentials available?', type: 'radio', options: ['Yes', 'Partially', 'No', 'Not sure'] },
+      { id: 'API_05', label: 'How often should data sync occur?', type: 'radio', options: ['Real-time', 'Every few minutes', 'Hourly', 'Daily', 'On demand', 'Not sure'] },
+      { id: 'API_06', label: 'What authentication/security requirements exist?', type: 'textarea' },
+      { id: 'API_07', label: 'What should happen when an integration fails?', type: 'textarea' },
+    ]
+  },
+  'AI Automation': {
+    title: 'AI Automation Requirements',
+    description: 'Describe the business process you want AI to improve or automate.',
+    fields: [
+      { id: 'AI_01', label: 'What business process should AI improve or automate?', type: 'textarea', required: true },
+      { id: 'AI_02', label: 'What currently takes too much time or manual effort?', type: 'textarea', required: true },
+      { id: 'AI_03', label: 'What would you like the AI system to do?', type: 'checkbox', required: true, options: ['Generate content', 'Answer customer questions', 'Qualify leads', 'Summarize information', 'Analyze data', 'Classify information', 'Automate workflows', 'Make recommendations', 'Other'] },
+      { id: 'AI_04', label: 'Which tools/systems should AI work with?', type: 'textarea' },
+      { id: 'AI_05', label: 'What data or knowledge should the AI use?', type: 'textarea' },
+      { id: 'AI_06', label: 'What should success look like?', type: 'textarea', required: true },
+      { id: 'AI_07', label: 'Are there privacy, security or compliance requirements?', type: 'textarea' },
+    ]
+  },
+  'Business Process Automation': {
+    title: 'Business Process Automation Requirements',
+    description: 'Show us the process you want streamlined and the systems involved.',
+    fields: [
+      { id: 'BPA_01', label: 'Which business process should be automated?', type: 'textarea', required: true },
+      { id: 'BPA_02', label: 'Describe the current process step by step.', type: 'textarea', required: true },
+      { id: 'BPA_03', label: 'What triggers the process?', type: 'text', required: true },
+      { id: 'BPA_04', label: 'What should happen automatically?', type: 'textarea', required: true },
+      { id: 'BPA_05', label: 'Which tools/systems are involved?', type: 'textarea' },
+      { id: 'BPA_06', label: 'What are the biggest bottlenecks or errors today?', type: 'textarea' },
+      { id: 'BPA_07', label: 'Who should receive notifications or tasks?', type: 'text' },
+    ]
+  },
+  'Business Consulting & Growth Strategy': {
+    title: 'Business Consulting & Growth Strategy Requirements',
+    description: 'Tell us where the business is today, where you want it to go and what is holding it back.',
+    fields: [
+      { id: 'CONSULT_01', label: 'What is the main business challenge you want help solving?', type: 'textarea', required: true },
+      { id: 'CONSULT_02', label: 'What growth outcome are you targeting?', type: 'textarea', required: true },
+      { id: 'CONSULT_03', label: 'What products/services drive the business today?', type: 'textarea' },
+      { id: 'CONSULT_04', label: 'What are your current acquisition/sales channels?', type: 'checkbox', options: ['Referrals', 'Website', 'SEO', 'Paid ads', 'Social media', 'Email', 'Sales team', 'Partnerships', 'Other'] },
+      { id: 'CONSULT_05', label: 'What have you already tried?', type: 'textarea' },
+      { id: 'CONSULT_06', label: 'Which areas need the most attention?', type: 'checkbox', options: ['Marketing', 'Sales', 'Operations', 'Customer experience', 'Pricing', 'Positioning', 'Technology', 'Team/processes', 'Other'] },
+      { id: 'CONSULT_07', label: 'What decisions or deliverables do you want from the engagement?', type: 'textarea' },
+    ]
+  },
+  'Project Management Support': {
+    title: 'Project Management Support Requirements',
+    description: 'Tell us about the project, team, deadlines and coordination support you need.',
+    fields: [
+      { id: 'PM_01', label: 'What project needs management support?', type: 'textarea', required: true },
+      { id: 'PM_02', label: 'What stage is the project currently in?', type: 'radio', options: ['Planning', 'In progress', 'Delayed', 'Launching', 'Ongoing operations'] },
+      { id: 'PM_03', label: 'How many people/teams are involved?', type: 'text', required: true },
+      { id: 'PM_04', label: 'What needs to be coordinated?', type: 'checkbox', options: ['Tasks', 'Deadlines', 'Team members', 'Vendors', 'Meetings', 'Stakeholders', 'Risks/issues', 'Documentation', 'Other'] },
+      { id: 'PM_05', label: 'What tools do you currently use for project management?', type: 'text' },
+      { id: 'PM_06', label: 'What are the most urgent project risks or blockers?', type: 'textarea' },
+      { id: 'PM_07', label: 'What reporting/update cadence do you need?', type: 'radio', options: ['Weekly', 'Twice weekly', 'Monthly', 'As needed', 'Not sure'] },
+    ]
+  },
+  'Process Documentation & SOP Development': {
+    title: 'Process Documentation & SOP Requirements',
+    description: 'Tell us which processes need to be documented and who will use the SOPs.',
+    fields: [
+      { id: 'SOP_01', label: 'Which process(es) need documentation?', type: 'textarea', required: true },
+      { id: 'SOP_02', label: 'Approximately how many SOPs are needed?', type: 'text', required: true },
+      { id: 'SOP_03', label: 'Who will use the documentation?', type: 'checkbox', options: ['Employees', 'Managers', 'Contractors', 'Customers', 'Vendors', 'Other'] },
+      { id: 'SOP_04', label: 'Do existing process notes/materials exist?', type: 'radio', options: ['Yes', 'Partially', 'No'] },
+      { id: 'SOP_05', label: 'What should the documentation include?', type: 'checkbox', options: ['Step-by-step instructions', 'Process maps', 'Roles/responsibilities', 'Checklists', 'Templates', 'Screenshots', 'Quality standards', 'Other'] },
+      { id: 'SOP_06', label: 'What problems should the SOPs solve?', type: 'textarea' },
+      { id: 'SOP_07', label: 'Preferred format/platform', type: 'text' },
+    ]
+  },
+  'Request Custom Quote': {
+    title: 'Custom Project Requirements',
+    description: 'Give us enough information to understand the custom solution you need and prepare an accurate quote.',
+    fields: [
+      { id: 'CUSTOM_01', label: 'What do you need us to build, create or manage?', type: 'textarea', required: true },
+      { id: 'CUSTOM_02', label: 'What problem should the project solve?', type: 'textarea', required: true },
+      { id: 'CUSTOM_03', label: 'What are the main deliverables you expect?', type: 'textarea', required: true },
+      { id: 'CUSTOM_04', label: 'Are there specific technologies, tools or platforms involved?', type: 'textarea' },
+      { id: 'CUSTOM_05', label: 'Are there examples or references we should review?', type: 'textarea' },
+      { id: 'CUSTOM_06', label: 'Anything else that would help us scope the project?', type: 'textarea' },
+    ]
+  },
+
+};
+
 // ─── SERVICE CATEGORIES (5 categories including Custom Quotes) ─────────────
 const SERVICE_CATEGORIES = {
-  // ─── CATEGORY 1: WEBSITES & DEVELOPMENT ────────────────────────────────────
+
+// ─── CATEGORY 1: WEBSITES & DEVELOPMENT ────────────────────────────────────
   'websites-development': {
     label: 'Websites & Development',
     services: [
@@ -944,6 +1375,10 @@ const RequestServicePage = () => {
     aiTimeSpent: '',
     aiSuccessLooksLike: '',
   });
+  
+  // Answers are keyed by service, then FIELD_ID. This keeps multi-service
+  // requests isolated and makes every master-form field traceable.
+  const [serviceAnswers, setServiceAnswers] = useState({});
 
   const fullPhone = formData.phoneNumber ? `${formData.phoneDialCode} ${formData.phoneNumber}` : '';
 
@@ -1189,6 +1624,226 @@ const RequestServicePage = () => {
 
   useEffect(() => () => uploadedFiles.forEach(f => { if (f.preview) URL.revokeObjectURL(f.preview); }), []);
 
+  // Remove stale service answers when a service is removed from the order.
+  useEffect(() => {
+    setServiceAnswers(prev => {
+      const allowed = new Set(Object.keys(selectedServices));
+      const next = Object.fromEntries(
+        Object.entries(prev).filter(([service]) => allowed.has(service))
+      );
+      return Object.keys(next).length === Object.keys(prev).length ? prev : next;
+    });
+  }, [selectedServices]);
+
+
+  const updateServiceAnswer = (service, fieldId, value) => {
+    setServiceAnswers(prev => ({
+      ...prev,
+      [service]: {
+        ...(prev[service] || {}),
+        [fieldId]: value
+      }
+    }));
+  };
+
+  const getServiceAnswer = (service, fieldId) => serviceAnswers[service]?.[fieldId];
+
+  const isServiceFieldVisible = (service, field) => {
+    if (field.hideWhenFormField && formData[field.hideWhenFormField]) return false;
+    if (!field.showWhen) return true;
+    const answer = getServiceAnswer(service, field.showWhen.field);
+    const values = Array.isArray(answer) ? answer : [answer];
+    return values.some(value => field.showWhen.values.includes(value));
+  };
+
+  const hasMeaningfulAnswer = value => Array.isArray(value)
+    ? value.length > 0
+    : typeof value === 'string'
+      ? value.trim().length > 0
+      : Boolean(value);
+
+  const areServiceRequirementsComplete = useCallback(() => {
+    for (const service of Object.keys(selectedServices)) {
+      const definition = SERVICE_QUESTION_DEFINITIONS[service];
+      if (!definition) {
+        if (!hasMeaningfulAnswer(getServiceAnswer(service, 'SERVICE_REQUIREMENT_01'))) return false;
+        continue;
+      }
+      for (const field of definition.fields) {
+        if (!field.required || !isServiceFieldVisible(service, field)) continue;
+        if (!hasMeaningfulAnswer(getServiceAnswer(service, field.id))) return false;
+      }
+    }
+    return true;
+  }, [selectedServices, serviceAnswers, formData]);
+
+  const renderServiceQuestion = (service, field) => {
+    if (!isServiceFieldVisible(service, field)) return null;
+
+    const value = getServiceAnswer(service, field.id);
+    const inputClass = 'w-full px-4 py-3 border border-gray-200 rounded-xl bg-white text-sm text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all';
+    const optionGrid = field.options?.length > 6 ? 'grid grid-cols-1 sm:grid-cols-2 gap-2' : 'grid grid-cols-1 sm:grid-cols-2 gap-2';
+
+    if (field.type === 'radio') {
+      return (
+        <div className={optionGrid}>
+          {field.options.map(option => (
+            <label key={option} className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
+              value === option ? 'border-blue-500 bg-blue-50 ring-1 ring-blue-200' : 'border-gray-200 bg-white hover:border-blue-300'
+            }`}>
+              <input
+                type="radio"
+                name={`${service}-${field.id}`}
+                checked={value === option}
+                onChange={() => updateServiceAnswer(service, field.id, option)}
+                className="mt-0.5 w-4 h-4 text-blue-600 shrink-0"
+              />
+              <span className="text-sm text-gray-700 leading-snug">{option}</span>
+            </label>
+          ))}
+        </div>
+      );
+    }
+
+    if (field.type === 'checkbox') {
+      const checkedValues = Array.isArray(value) ? value : [];
+      return (
+        <div className={optionGrid}>
+          {field.options.map(option => {
+            const checked = checkedValues.includes(option);
+            return (
+              <label key={option} className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
+                checked ? 'border-blue-500 bg-blue-50 ring-1 ring-blue-200' : 'border-gray-200 bg-white hover:border-blue-300'
+              }`}>
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => {
+                    const next = checked
+                      ? checkedValues.filter(item => item !== option)
+                      : [...checkedValues, option];
+                    updateServiceAnswer(service, field.id, next);
+                  }}
+                  className="mt-0.5 w-4 h-4 text-blue-600 rounded shrink-0"
+                />
+                <span className="text-sm text-gray-700 leading-snug">{option}</span>
+              </label>
+            );
+          })}
+        </div>
+      );
+    }
+
+    if (field.type === 'textarea') {
+      return (
+        <textarea
+          rows={3}
+          value={value || ''}
+          onChange={e => updateServiceAnswer(service, field.id, e.target.value)}
+          className={inputClass}
+          placeholder={field.helper || 'Enter your answer...'}
+        />
+      );
+    }
+
+    return (
+      <input
+        type={field.type === 'url' ? 'url' : 'text'}
+        value={value || ''}
+        onChange={e => updateServiceAnswer(service, field.id, e.target.value)}
+        className={inputClass}
+        placeholder={field.helper || 'Enter your answer...'}
+      />
+    );
+  };
+
+  const renderDynamicServiceQuestions = () => {
+    const selected = Object.keys(selectedServices);
+    const supported = selected.filter(service => SERVICE_QUESTION_DEFINITIONS[service]);
+    const unsupported = selected.filter(service => !SERVICE_QUESTION_DEFINITIONS[service]);
+
+    if (!selected.length) return null;
+
+    return (
+      <section className="mt-8 sm:mt-10">
+        <div className="rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-slate-50 p-4 sm:p-6 md:p-8">
+          <div className="mb-6">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-[11px] sm:text-xs font-bold uppercase tracking-wide">
+              Service requirements
+            </span>
+            <h2 className="mt-3 text-xl sm:text-2xl font-extrabold text-gray-900">Tell us what you need for each service</h2>
+            <p className="mt-2 text-sm sm:text-base text-gray-600 max-w-3xl">
+              Only the questions for the services you selected are shown. Common business, website and project information is collected once and is not repeated.
+            </p>
+          </div>
+
+          <div className="space-y-6 sm:space-y-8">
+            {supported.map(service => {
+              const definition = SERVICE_QUESTION_DEFINITIONS[service];
+              return (
+                <motion.div
+                  key={service}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden"
+                >
+                  <div className="px-4 py-4 sm:px-6 sm:py-5 border-b border-gray-100 bg-white">
+                    <h3 className="text-base sm:text-lg font-bold text-gray-900 break-words">{definition.title}</h3>
+                    <p className="mt-1 text-xs sm:text-sm text-gray-500">{definition.description}</p>
+                  </div>
+
+                  <div className="p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
+                    {definition.fields.map(field => {
+                      if (!isServiceFieldVisible(service, field)) return null;
+                      return (
+                        <div
+                          key={field.id}
+                          className={`min-w-0 ${field.type === 'checkbox' || field.type === 'radio' || field.type === 'textarea' ? 'lg:col-span-2' : ''}`}
+                        >
+                          <label className="block text-sm font-semibold text-gray-800 mb-2">
+                            {field.label} {field.required && <span className="text-red-500">*</span>}
+                          </label>
+                          {renderServiceQuestion(service, field)}
+                          {field.helper && field.type !== 'textarea' && (
+                            <p className="mt-1.5 text-[11px] sm:text-xs text-gray-500">{field.helper}</p>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              );
+            })}
+
+            {unsupported.length > 0 && (
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+                <p className="text-sm font-semibold text-amber-900">Additional service requirements</p>
+                <p className="mt-1 text-xs sm:text-sm text-amber-800">
+                  A service was selected that is not yet mapped in this page's catalog. You can still provide its requirements below so the request is never submitted without service context.
+                </p>
+                <div className="mt-4 grid grid-cols-1 gap-4">
+                  {unsupported.map(service => (
+                    <div key={service}>
+                      <label className="block text-sm font-semibold text-gray-800 mb-2">What do you need from {service}? <span className="text-red-500">*</span></label>
+                      <textarea
+                        rows={4}
+                        required
+                        value={getServiceAnswer(service, 'SERVICE_REQUIREMENT_01') || ''}
+                        onChange={e => updateServiceAnswer(service, 'SERVICE_REQUIREMENT_01', e.target.value)}
+                        className={inputClass}
+                        placeholder={`Describe what you need from ${service}...`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    );
+  };
+
   const uploadFiles = async () => {
     if (!uploadedFiles.length) return [];
     const fd = new FormData();
@@ -1240,6 +1895,7 @@ const RequestServicePage = () => {
       file_count: uploadedFiles.length.toString(),
       total_file_size: formatFileSize(totalSizeRaw),
       uploaded_files: fileListFormatted,
+      service_requirements: JSON.stringify(serviceAnswers, null, 2),
       request_date: new Date().toLocaleString(),
       // AI-specific fields
       ai_features: customQuoteAnswers.aiFeatures.join(', ') || 'Not specified',
@@ -1273,7 +1929,7 @@ const RequestServicePage = () => {
           files: fileUrls,
           paymentStatus: totalAmount > 0 ? (isPaid ? 'paid' : 'unpaid') : 'quote_requested',
           checkoutSessionId,
-          projectScope: { customQuoteAnswers }
+          projectScope: { customQuoteAnswers, serviceAnswers }
         })
       });
       if (!res.ok) {
@@ -1286,7 +1942,7 @@ const RequestServicePage = () => {
     }
   };
 
-  // ── Step 2 → Stripe Checkout (or bypass for $0 custom quote) ──
+  // ── Step 2 → Stripe Checkout; $0 custom quote requests skip payment ──
   const legalAgreed = formData.agreedToPrivacy && formData.agreedToTerms;
   const canProceedFromReview = legalAgreed && agreedToEscrow && !isSubmitting && !isLoadingRates;
 
@@ -1338,7 +1994,8 @@ const RequestServicePage = () => {
 
   // ── Step 3 final submission (post-payment) ──
   const isStep3Complete = !!(formData.firstName?.trim() && formData.lastName?.trim() && formData.email?.trim() &&
-    formData.phoneNumber?.trim() && formData.company?.trim() && formData.projectDescription?.trim()
+    formData.phoneNumber?.trim() && formData.company?.trim() && formData.projectDescription?.trim() &&
+    areServiceRequirementsComplete()
   );
 
   const handleFinalSubmit = async () => {
@@ -1749,7 +2406,7 @@ const categoryIcons = {
                   </button>
                   <div className="flex items-center justify-center gap-2 text-[10px] sm:text-xs text-gray-600 bg-white bg-opacity-50 p-2 sm:p-3 rounded-lg">
                     <FaLock className="text-green-600 shrink-0" />
-                    <span>Secured by <strong>Stripe</strong>. We never store your card information.</span>
+                    <span><>Secured by <strong>Stripe</strong>. We never store your card information.</></span>
                   </div>
                   <div className="mt-3 sm:mt-4 text-center">
                     <button type="button" onClick={prevStep} className="text-gray-500 hover:text-gray-700 text-xs sm:text-sm flex items-center justify-center gap-1 mx-auto"><FaArrowLeft className="text-xs" /> Back to services</button>
@@ -1844,6 +2501,8 @@ const categoryIcons = {
                     <span className="text-[10px] sm:text-xs text-gray-500 font-medium">{(formData.projectDescription || '').length}/1000 characters</span>
                   </div>
                 </div>
+
+                {renderDynamicServiceQuestions()}
 
                 {/* ─── AI-SPECIFIC QUESTIONS ─── */}
                 {selectedServices['AI Automation'] === 'custom' && (
