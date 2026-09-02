@@ -305,6 +305,8 @@ const AdminServices = () => {
   const [newCompServiceName, setNewCompServiceName] = useState('');
   const [newCompServiceReason, setNewCompServiceReason] = useState('');
   const [newComparisonRowLabel, setNewComparisonRowLabel] = useState('');
+  const [draggedComparisonIndex, setDraggedComparisonIndex] = useState(null);
+  const [comparisonDragOverState, setComparisonDragOverState] = useState(null);
 
   // Package item adders
   const [newStarterInclude, setNewStarterInclude] = useState('');
@@ -746,6 +748,96 @@ const AdminServices = () => {
         }
       };
     });
+  };
+
+  const reorderComparisonRow = (fromIndex, toIndex, position = 'before') => {
+    if (fromIndex === toIndex && (position === 'before' || position === 'after')) return;
+    setFormData(prev => {
+      const existingComp = prev.packageComparison || { tiers: ['basic', 'standard', 'premium'], rows: [], details: {} };
+      const currentRows = [...(existingComp.rows || [])];
+      if (fromIndex < 0 || fromIndex >= currentRows.length) return prev;
+
+      const [movedRow] = currentRows.splice(fromIndex, 1);
+      let targetIndex = toIndex;
+      if (fromIndex < toIndex) {
+        targetIndex = position === 'after' ? toIndex : toIndex - 1;
+      } else {
+        targetIndex = position === 'after' ? toIndex + 1 : toIndex;
+      }
+      targetIndex = Math.max(0, Math.min(currentRows.length, targetIndex));
+      currentRows.splice(targetIndex, 0, movedRow);
+
+      return {
+        ...prev,
+        packageComparison: {
+          ...existingComp,
+          rows: currentRows
+        }
+      };
+    });
+  };
+
+  const moveComparisonRow = (index, direction) => {
+    setFormData(prev => {
+      const existingComp = prev.packageComparison || { tiers: ['basic', 'standard', 'premium'], rows: [], details: {} };
+      const currentRows = [...(existingComp.rows || [])];
+      const targetIndex = direction === 'up' ? index - 1 : index + 1;
+      if (targetIndex < 0 || targetIndex >= currentRows.length) return prev;
+
+      const temp = currentRows[index];
+      currentRows[index] = currentRows[targetIndex];
+      currentRows[targetIndex] = temp;
+
+      return {
+        ...prev,
+        packageComparison: {
+          ...existingComp,
+          rows: currentRows
+        }
+      };
+    });
+  };
+
+  const handleComparisonDragStart = (e, idx) => {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', JSON.stringify({ type: 'COMPARISON_ROW', index: idx }));
+    setDraggedComparisonIndex(idx);
+  };
+
+  const handleComparisonDragOver = (e, idx) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    const rect = e.currentTarget.getBoundingClientRect();
+    const midY = rect.top + rect.height / 2;
+    const position = e.clientY < midY ? 'before' : 'after';
+    setComparisonDragOverState({ index: idx, position });
+  };
+
+  const handleComparisonDragLeave = (e) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setComparisonDragOverState(null);
+    }
+  };
+
+  const handleComparisonDrop = (e, idx) => {
+    e.preventDefault();
+    try {
+      const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+      if (data.type === 'COMPARISON_ROW' && typeof data.index === 'number') {
+        const position = comparisonDragOverState?.position || 'before';
+        reorderComparisonRow(data.index, idx, position);
+      }
+    } catch (err) {
+      console.warn('Comparison drag drop parse error:', err);
+    } finally {
+      setDraggedComparisonIndex(null);
+      setComparisonDragOverState(null);
+    }
+  };
+
+  const handleComparisonDragEnd = () => {
+    setDraggedComparisonIndex(null);
+    setComparisonDragOverState(null);
   };
 
   const addCompService = () => {
@@ -1417,7 +1509,19 @@ const AdminServices = () => {
 
               {/* TAB 3: COMPARISON */}
               {activeTab === 'comparison' && (
-                <div className="space-y-5">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between px-1">
+                    <p className="text-xs text-slate-400">
+                      Configure deliverables and tier availability in the public comparison matrix.
+                    </p>
+                    {(formData.packageComparison?.rows || []).length > 1 && (
+                      <span className="text-[11px] text-slate-500 flex items-center gap-1">
+                        <FaGripVertical size={10} className="text-slate-500" />
+                        Drag or use arrows to reorder rows
+                      </span>
+                    )}
+                  </div>
+
                   <div className="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden">
                     <table className="w-full text-left text-xs sm:text-sm text-slate-300">
                       <thead className="bg-slate-900 text-slate-400 uppercase text-[11px] border-b border-slate-800">
@@ -1430,44 +1534,111 @@ const AdminServices = () => {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-800">
-                        {(formData.packageComparison?.rows || []).map((row, rIdx) => (
-                          <tr key={rIdx} className="hover:bg-slate-900/50">
-                            <td className="py-3 px-4 font-medium text-white">{row.label}</td>
-                            <td className="py-3 px-3 text-center">
-                              <input
-                                type="checkbox"
-                                checked={!!row.values?.basic}
-                                onChange={() => toggleComparisonValue(rIdx, 'basic')}
-                                className="w-4 h-4 rounded text-blue-600 bg-slate-900 border-slate-700"
-                              />
-                            </td>
-                            <td className="py-3 px-3 text-center">
-                              <input
-                                type="checkbox"
-                                checked={!!row.values?.standard}
-                                onChange={() => toggleComparisonValue(rIdx, 'standard')}
-                                className="w-4 h-4 rounded text-emerald-600 bg-slate-900 border-slate-700"
-                              />
-                            </td>
-                            <td className="py-3 px-3 text-center">
-                              <input
-                                type="checkbox"
-                                checked={!!row.values?.premium}
-                                onChange={() => toggleComparisonValue(rIdx, 'premium')}
-                                className="w-4 h-4 rounded text-purple-600 bg-slate-900 border-slate-700"
-                              />
-                            </td>
-                            <td className="py-3 px-3 text-right">
-                              <button
-                                type="button"
-                                onClick={() => removeComparisonRow(rIdx)}
-                                className="text-rose-400 hover:text-rose-300 cursor-pointer"
-                              >
-                                <FaTrash size={12} />
-                              </button>
+                        {(formData.packageComparison?.rows || []).length === 0 ? (
+                          <tr>
+                            <td colSpan={5} className="py-8 text-center text-xs text-slate-500 italic">
+                              No deliverables defined yet. Add deliverables below.
                             </td>
                           </tr>
-                        ))}
+                        ) : (
+                          (formData.packageComparison?.rows || []).map((row, rIdx) => {
+                            const isBeingDragged = draggedComparisonIndex === rIdx;
+                            const isOverThis = comparisonDragOverState?.index === rIdx;
+                            const isBefore = isOverThis && comparisonDragOverState?.position === 'before';
+                            const isAfter = isOverThis && comparisonDragOverState?.position === 'after';
+
+                            return (
+                              <tr
+                                key={`${rIdx}-${row.label}`}
+                                draggable
+                                onDragStart={(e) => handleComparisonDragStart(e, rIdx)}
+                                onDragOver={(e) => handleComparisonDragOver(e, rIdx)}
+                                onDragLeave={handleComparisonDragLeave}
+                                onDrop={(e) => handleComparisonDrop(e, rIdx)}
+                                onDragEnd={handleComparisonDragEnd}
+                                className={`group transition-all duration-150 relative ${
+                                  isBeingDragged
+                                    ? 'opacity-30 bg-blue-950/40'
+                                    : 'hover:bg-slate-900/60'
+                                } ${isBefore ? 'shadow-[inset_0_2px_0_0_#3b82f6] bg-blue-500/10' : ''} ${
+                                  isAfter ? 'shadow-[inset_0_-2px_0_0_#3b82f6] bg-blue-500/10' : ''
+                                }`}
+                              >
+                                <td className="py-3 px-4 font-medium text-white">
+                                  <div className="flex items-center gap-2">
+                                    {/* Drag Handle */}
+                                    <div
+                                      className="cursor-grab active:cursor-grabbing p-1 text-slate-500 hover:text-slate-200 transition-colors shrink-0"
+                                      title="Click and drag to reorder row"
+                                    >
+                                      <FaGripVertical size={12} />
+                                    </div>
+
+                                    {/* Arrow Reorder Buttons */}
+                                    <div className="flex flex-col shrink-0 -space-y-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                      <button
+                                        type="button"
+                                        disabled={rIdx === 0}
+                                        onClick={(e) => { e.stopPropagation(); moveComparisonRow(rIdx, 'up'); }}
+                                        className="p-0.5 text-slate-500 hover:text-slate-200 disabled:opacity-20 disabled:hover:text-slate-500 cursor-pointer disabled:cursor-not-allowed"
+                                        title="Move up"
+                                      >
+                                        <FaChevronUp size={8} />
+                                      </button>
+                                      <button
+                                        type="button"
+                                        disabled={rIdx === (formData.packageComparison?.rows?.length || 0) - 1}
+                                        onClick={(e) => { e.stopPropagation(); moveComparisonRow(rIdx, 'down'); }}
+                                        className="p-0.5 text-slate-500 hover:text-slate-200 disabled:opacity-20 disabled:hover:text-slate-500 cursor-pointer disabled:cursor-not-allowed"
+                                        title="Move down"
+                                      >
+                                        <FaChevronDown size={8} />
+                                      </button>
+                                    </div>
+
+                                    <span className="truncate flex-grow select-none text-xs sm:text-sm" title={row.label}>
+                                      {row.label}
+                                    </span>
+                                  </div>
+                                </td>
+                                <td className="py-3 px-3 text-center">
+                                  <input
+                                    type="checkbox"
+                                    checked={!!row.values?.basic}
+                                    onChange={() => toggleComparisonValue(rIdx, 'basic')}
+                                    className="w-4 h-4 rounded text-blue-600 bg-slate-900 border-slate-700 cursor-pointer"
+                                  />
+                                </td>
+                                <td className="py-3 px-3 text-center">
+                                  <input
+                                    type="checkbox"
+                                    checked={!!row.values?.standard}
+                                    onChange={() => toggleComparisonValue(rIdx, 'standard')}
+                                    className="w-4 h-4 rounded text-emerald-600 bg-slate-900 border-slate-700 cursor-pointer"
+                                  />
+                                </td>
+                                <td className="py-3 px-3 text-center">
+                                  <input
+                                    type="checkbox"
+                                    checked={!!row.values?.premium}
+                                    onChange={() => toggleComparisonValue(rIdx, 'premium')}
+                                    className="w-4 h-4 rounded text-purple-600 bg-slate-900 border-slate-700 cursor-pointer"
+                                  />
+                                </td>
+                                <td className="py-3 px-3 text-right">
+                                  <button
+                                    type="button"
+                                    onClick={() => removeComparisonRow(rIdx)}
+                                    className="text-rose-400 hover:text-rose-300 hover:bg-rose-950/40 p-1.5 rounded cursor-pointer transition-colors"
+                                    title="Remove deliverable"
+                                  >
+                                    <FaTrash size={12} />
+                                  </button>
+                                </td>
+                              </tr>
+                            );
+                          })
+                        )}
                       </tbody>
                     </table>
                   </div>
