@@ -2662,11 +2662,16 @@ const ServiceDetailPage = () => {
   }
 
   const baseImages = getServiceImages(serviceSlug);
+  const rawGallery = (Array.isArray(backendService?.galleryImages) && backendService.galleryImages.length > 0)
+    ? backendService.galleryImages
+    : baseImages.gallery;
+
+  const localGallery = (rawGallery || []).filter(img => typeof img === 'string' && img.startsWith('/images/'));
+  const cleanedGallery = localGallery.length > 0 ? Array.from(new Set(localGallery)) : Array.from(new Set(rawGallery || []));
+
   const images = {
     main: backendService?.mainImage || baseImages.main,
-    gallery: (Array.isArray(backendService?.galleryImages) && backendService.galleryImages.length > 0)
-      ? backendService.galleryImages
-      : baseImages.gallery
+    gallery: cleanedGallery
   };
   const hasPackageComparison = Boolean(
     !isCustomQuote &&
