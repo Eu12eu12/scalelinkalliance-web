@@ -945,9 +945,21 @@ export const getPackageFeatures = (serviceSlug, tier, packageData = null) => {
 
 const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
   const tierLabels = { basic: 'Basic', standard: 'Standard', premium: 'Premium' };
-  const [activeTab, setActiveTab] = useState(packageData.tiers[0]);
+  const tiers = Array.isArray(packageData?.tiers) && packageData.tiers.length > 0
+    ? packageData.tiers
+    : ['basic', 'standard', 'premium'];
+  const [activeTab, setActiveTab] = useState(tiers[0] || 'basic');
   const [includesOpen, setIncludesOpen] = useState(true);
-  const activeDetail = packageData.details[activeTab];
+
+  const details = packageData?.details || {};
+  const activeDetail = details[activeTab] || {
+    price: 'Custom Quote',
+    packageName: tierLabels[activeTab] || activeTab,
+    shortDescription: '',
+    deliveryLabel: 'Shown during service selection',
+    revisions: null,
+    includes: []
+  };
 
   // Switching tiers always reveals "What's Included" immediately, even if the
   // panel had previously been collapsed on another tier.
@@ -957,14 +969,12 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
     if (onTabChange) onTabChange(tier);
   };
 
-  const tiers = ['basic', 'standard', 'premium'];
-
   // The checkmark matrix uses the hand-authored, already-cascading `rows`
   // for this service (e.g. a Basic feature stays checked at Standard and
   // Premium even though those tiers' own "includes" lists don't repeat it
   // verbatim). Only fall back to deriving rows from the raw tier lists for
   // a service that has no authored rows at all.
-  const comparisonRows = (packageData.rows && packageData.rows.length > 0)
+  const comparisonRows = (packageData?.rows && packageData.rows.length > 0)
     ? packageData.rows
     : (() => {
         const tierFeatures = Object.fromEntries(
@@ -974,9 +984,9 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
         return allFeatures.map((label) => ({
           label,
           values: {
-            basic: tierFeatures.basic.includes(label),
-            standard: tierFeatures.standard.includes(label),
-            premium: tierFeatures.premium.includes(label)
+            basic: tierFeatures.basic?.includes(label) || false,
+            standard: tierFeatures.standard?.includes(label) || false,
+            premium: tierFeatures.premium?.includes(label) || false
           }
         }));
       })();
@@ -988,8 +998,11 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
           <thead>
             <tr className="bg-gray-50 border-b border-gray-200">
               <th className="text-left p-4 text-sm font-semibold text-gray-700 w-1/4 whitespace-normal break-words"></th>
-              {packageData.tiers.map((tier) => {
-                const d = packageData.details[tier];
+              {tiers.map((tier) => {
+                const d = details[tier] || {
+                  packageName: tierLabels[tier] || tier,
+                  shortDescription: ''
+                };
                 return (
                   <th 
                     key={tier}
@@ -999,14 +1012,16 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
                     onClick={() => handleTabChange(tier)}
                   >
                     <div className="text-sm font-bold text-gray-900 uppercase tracking-wide">
-                      {tierLabels[tier]}
+                      {tierLabels[tier] || tier}
                     </div>
                     <div className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mt-0.5">
-                      {d.packageName}
+                      {d.packageName || tierLabels[tier] || tier}
                     </div>
-                    <div className="text-xs text-gray-500 leading-relaxed normal-case font-normal mt-1">
-                      {d.shortDescription}
-                    </div>
+                    {d.shortDescription && (
+                      <div className="text-xs text-gray-500 leading-relaxed normal-case font-normal mt-1">
+                        {d.shortDescription}
+                      </div>
+                    )}
                   </th>
                 );
               })}
@@ -1021,10 +1036,10 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
                 <td className="p-3 text-sm text-gray-700 border-b border-gray-100 whitespace-normal break-words">
                   {row.label}
                 </td>
-                {packageData.tiers.map((tier) => (
+                {tiers.map((tier) => (
                   <td key={tier} className="p-3 border-b border-gray-100 whitespace-normal break-words">
                     <FaCheck
-                      className={row.values[tier] ? 'text-green-600' : 'text-gray-300'}
+                      className={row?.values?.[tier] ? 'text-green-600' : 'text-gray-300'}
                       size={16}
                     />
                   </td>
@@ -1039,7 +1054,7 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
       <div className="p-6 border-t border-gray-200 bg-gray-50/30">
         <div className="flex items-center justify-between mb-4">
           <div className="flex gap-2">
-            {packageData.tiers.map((tier) => (
+            {tiers.map((tier) => (
               <button
                 key={tier}
                 onClick={() => handleTabChange(tier)}
@@ -1049,22 +1064,22 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
                     : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
                 }`}
               >
-                {tierLabels[tier]}
+                {tierLabels[tier] || tier}
               </button>
             ))}
           </div>
-          <span className="text-lg font-bold text-gray-900">{activeDetail.price}</span>
+          <span className="text-lg font-bold text-gray-900">{activeDetail?.price || ''}</span>
         </div>
 
         <p className="text-sm text-gray-700 mb-3 leading-relaxed">
-          <span className="font-semibold">{activeDetail.packageName}</span>{' '}
-          {activeDetail.shortDescription}
+          <span className="font-semibold">{activeDetail?.packageName || ''}</span>{' '}
+          {activeDetail?.shortDescription || ''}
         </p>
 
         <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
           <span className="flex items-center gap-1.5">
             <FaClock size={13} />
-            {activeDetail.deliveryLabel}
+            {activeDetail?.deliveryLabel || ''}
           </span>
           {activeDetail.revisions && (
             <span className="flex items-center gap-1.5">
