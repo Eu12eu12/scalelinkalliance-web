@@ -375,12 +375,7 @@ const HomePage = () => {
                     <span className="text-gray-700">Expand your network</span>
                   </li>
                 </ul>
-                <Link
-                  to="/membership"
-                  className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Join the Network
-                </Link>
+               
               </motion.div>
 
               <motion.div
@@ -400,8 +395,7 @@ const HomePage = () => {
                   <h2 className="text-2xl font-bold text-gray-900">Get Work Done Without Hiring</h2>
                 </div>
                 <p className="text-gray-700 mb-6">
-                  Access expert support across design, marketing, development, and operations—on demand.
-                </p>
+                     Access web development, marketing, design, automation, and operational expertise without adding full-time employees.                </p>
                 <ul className="space-y-2 mb-6">
                   <li className="flex items-center">
                     <FaCheckCircle className="text-green-500 mr-2" />
@@ -416,12 +410,7 @@ const HomePage = () => {
                     <span className="text-gray-700">Done-for-you execution</span>
                   </li>
                 </ul>
-                <Link
-                  to="/services"
-                  className="inline-block px-6 py-3 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors"
-                >
-                  Hire Services
-                </Link>
+               
               </motion.div>
             </div>
           </div>
@@ -435,7 +424,7 @@ const HomePage = () => {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
-                  Everything Your Business Needs to Grow
+                  Build, Market, Automate, Design
                 </h2>
                 <p className="text-gray-500 mt-1">Explore what other businesses are using to grow</p>
               </div>
@@ -956,13 +945,7 @@ const HomePage = () => {
       <section className="py-8 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <Link
-              to="/services"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-800 hover:scale-[1.02] transition-all"
-            >
-              Hire Services Now
-              <FaArrowRight className="text-sm" />
-            </Link>
+            
           </div>
         </div>
       </section>
@@ -997,12 +980,7 @@ const HomePage = () => {
               Whether you need more opportunities or expert execution, ScaleLink Alliance gives you the system to scale.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/membership"
-                className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-xl"
-              >
-                Join the Network
-              </Link>
+              
               <Link
                 to="/services"
                 className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-colors"

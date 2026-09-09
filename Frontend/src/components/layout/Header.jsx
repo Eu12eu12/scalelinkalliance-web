@@ -43,7 +43,7 @@ const scaleExistingServices = [
 
 const servicesDropdownCategories = [
   {
-    category: 'Websites & Development',
+    category: 'Build',
     icon: <FaCode />,
     color: 'text-blue-600',
     bg: 'bg-blue-50',
@@ -56,7 +56,7 @@ const servicesDropdownCategories = [
     ]
   },
   {
-    category: 'Marketing & Growth',
+    category: 'SEO',
     icon: <FaChartBar />,
     color: 'text-green-600',
     bg: 'bg-green-50',
@@ -69,7 +69,7 @@ const servicesDropdownCategories = [
     ]
   },
   {
-    category: 'Automation & Technology',
+    category: 'Automate',
     icon: <FaRobot />,
     color: 'text-orange-600',
     bg: 'bg-orange-50',
@@ -81,7 +81,7 @@ const servicesDropdownCategories = [
     ]
   },
   {
-    category: 'Creative & Support',
+    category: 'Support',
     icon: <FaPaintBrush />,
     color: 'text-purple-600',
     bg: 'bg-purple-50',
