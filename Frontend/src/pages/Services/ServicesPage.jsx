@@ -609,10 +609,10 @@ const ServicesPage = () => {
 
     const categories = [
     { id: 'all', name: 'All Services' },
-    { id: 'websites-development', name: 'Websites & Development' },
-    { id: 'marketing-growth', name: 'Marketing & Growth' },
-    { id: 'automation-technology', name: 'Automation & Technology' },
-    { id: 'creative-support', name: 'Creative & Support' }
+    { id: 'websites-development', name: 'Build' },
+    { id: 'marketing-growth', name: 'SEO' },
+    { id: 'automation-technology', name: 'Automate' },
+    { id: 'creative-support', name: 'Support' }
   ];
 
   const customQuoteCard = {

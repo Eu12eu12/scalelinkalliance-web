@@ -24,7 +24,7 @@ export const SERVICE_FEATURES = {
       'Two revision rounds',
       'Basic launch support'
     ],
-    standard: [
+    growth: [
       'Everything in Starter',
       'Up to 10 pages',
       'More customized page layouts',
@@ -77,7 +77,7 @@ export const SERVICE_FEATURES = {
       'Basic copy formatting',
       'Two revision rounds'
     ],
-    standard: [
+    growth: [
       'Up to 3 funnel pages',
       'Landing page',
       'Thank-you/confirmation page',
@@ -126,7 +126,7 @@ export const SERVICE_FEATURES = {
       'Two revision rounds',
       'Store management training'
     ],
-    standard: [
+    growth: [
       'Everything in Starter',
       'Up to 50 products',
       'Advanced product variations',
@@ -177,7 +177,7 @@ export const SERVICE_FEATURES = {
       'Monthly performance report',
       'Monthly recommendations'
     ],
-    standard: [
+    growth: [
       'Everything in Starter',
       'Up to 20 tracked target keywords',
       'Optimization across up to 15 priority pages',
@@ -226,7 +226,7 @@ export const SERVICE_FEATURES = {
       'Monthly report',
       'One monthly campaign review'
     ],
-    standard: [
+    growth: [
       'Everything in Starter',
       'Up to 2 active campaigns',
       'Up to 8 ad groups/ad sets',
@@ -269,7 +269,7 @@ export const SERVICE_FEATURES = {
       'Lead tracking sheet or basic CRM structure',
       'Monthly results summary'
     ],
-    standard: [
+    growth: [
       'Everything in Starter',
       'Up to 500 prospect records per month',
       'Multiple target segments',
@@ -308,7 +308,7 @@ export const SERVICE_FEATURES = {
       'Basic documentation',
       'One training session'
     ],
-    standard: [
+    growth: [
       'Up to 2 CRM pipelines',
       'Up to 5 automated workflows',
       'Up to 3 integrations',
@@ -351,7 +351,7 @@ export const SERVICE_FEATURES = {
       'One revision round',
       'Campaign performance summary'
     ],
-    standard: [
+    growth: [
       'Up to 4 emails',
       'Campaign strategy',
       'Email layout/design',
@@ -392,7 +392,7 @@ export const SERVICE_FEATURES = {
       'Basic monthly report',
       'One revision round on the monthly content batch'
     ],
-    standard: [
+    growth: [
       'Up to 2 platforms',
       'Up to 16 feed posts per month',
       'Up to 4 short-form videos/reels using provided or existing footage',
@@ -429,7 +429,7 @@ export const SERVICE_FEATURES = {
       '1 revision round',
       'Final web-ready file'
     ],
-    standard: [
+    growth: [
       'Up to 5 coordinated assets',
       'Consistent visual direction',
       'Up to 2 sizes per core design where required',
@@ -457,7 +457,7 @@ export const SERVICE_FEATURES = {
       'Basic typography recommendations',
       'PNG, JPG and transparent logo files'
     ],
-    standard: [
+    growth: [
       'Brand discovery',
       '3 initial logo concepts',
       'Primary logo',
@@ -494,7 +494,7 @@ export const SERVICE_FEATURES = {
       'Web-resolution files',
       'One local location'
     ],
-    standard: [
+    growth: [
       'Up to 2.5 hours',
       'Up to 30 edited photographs',
       'Product/team/location combinations',
@@ -524,7 +524,7 @@ export const SERVICE_FEATURES = {
       '1 revision round',
       'Final exported video'
     ],
-    standard: [
+    growth: [
       '1 video up to 5 minutes',
       'Professional editing',
       'B-roll placement',
@@ -557,7 +557,7 @@ export const SERVICE_FEATURES = {
       'Basic SEO considerations where applicable',
       '1 revision round'
     ],
-    standard: [
+    growth: [
       'Up to 2,500 total words',
       'Up to 3 content pieces/pages',
       'Keyword consideration',
@@ -587,7 +587,7 @@ export const SERVICE_FEATURES = {
       'Basic error handling',
       'Documentation'
     ],
-    standard: [
+    growth: [
       'Integration of up to 2 systems',
       'Up to 6 endpoints/actions',
       'Advanced data mapping',
@@ -625,7 +625,7 @@ export const SERVICE_FEATURES = {
       'Deployment assistance',
       'Basic technical documentation'
     ],
-    standard: [
+    growth: [
       'Product planning',
       'Up to 15 core screens',
       'Up to 2 user roles',
@@ -668,7 +668,7 @@ export const SERVICE_FEATURES = {
       'Basic technical health review',
       'Monthly maintenance summary'
     ],
-    standard: [
+    growth: [
       'Up to 5 support hours per month',
       'Updates',
       'Backup monitoring',
@@ -702,7 +702,7 @@ export const SERVICE_FEATURES = {
       'Document formatting',
       'Routine email assistance'
     ],
-    standard: [
+    growth: [
       'Up to 25 hours per month',
       'Everything in Starter',
       'CRM updates',
@@ -733,7 +733,7 @@ export const SERVICE_FEATURES = {
       'Key observations',
       'One revision round'
     ],
-    standard: [
+    growth: [
       'Up to 3 regular data sources',
       'Monthly dashboard updates',
       'KPI tracking',
@@ -765,14 +765,14 @@ export const SERVICE_FEATURES = {
       'Basic formatting',
       'One revision round'
     ],
-    standard: [
+    growth: [
       'Up to 8 SOPs',
       'Up to approximately 40 total finished pages',
       'Process interviews',
       'Workflow documentation',
       'Roles/responsibilities',
       'Templates/checklists where applicable',
-      'Standardized formatting',
+      'Growthized formatting',
       'Two revision rounds'
     ],
     premium: [
@@ -798,7 +798,7 @@ export const SERVICE_FEATURES = {
       'Team follow-up',
       'One weekly coordination touchpoint'
     ],
-    standard: [
+    growth: [
       'Up to 25 hours per month',
       'Project planning',
       'Task management',
@@ -832,7 +832,7 @@ export const SERVICE_FEATURES = {
       'Basic quality check',
       'One agreed data source/output format'
     ],
-    standard: [
+    growth: [
       'Up to 2,000 straightforward records',
       'Data entry',
       'Data cleanup',
@@ -862,7 +862,7 @@ export const SERVICE_FEATURES = {
       'Basic documentation',
       'Training session'
     ],
-    standard: [
+    growth: [
       'Up to 2 AI automations',
       'Advanced AI model configuration',
       'Up to 8 automation workflows',
@@ -908,13 +908,13 @@ const FEATURE_LABELS = {
 // fall back to that service's packageComparison rows so every service still gets
 // the same long-form package list used by the comparison table.
 export const getPackageFeatures = (serviceSlug, tier, packageData = null) => {
-  const tierOrder = ['basic', 'standard', 'premium'];
+  const tierOrder = ['basic', 'growth', 'premium'];
   const tierIndex = tierOrder.indexOf(tier);
   if (tierIndex === -1) return [];
 
   // Prefer the exact per-tier "includes" list authored for this package
   // (matches the pricing document's own tier-by-tier bullets verbatim).
-  // This is what actually changes when the user switches Basic/Standard/
+  // This is what actually changes when the user switches Basic/Growth/
   // Premium, so it must win over the cascading catalog below.
   const tierDetailIncludes = packageData?.details?.[tier]?.includes;
   if (tierDetailIncludes && tierDetailIncludes.length > 0) {
@@ -944,10 +944,10 @@ export const getPackageFeatures = (serviceSlug, tier, packageData = null) => {
 };
 
 const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
-  const tierLabels = { basic: 'Basic', standard: 'Standard', premium: 'Premium' };
+  const tierLabels = { basic: 'Basic', growth: 'Growth', premium: 'Premium' };
   const tiers = Array.isArray(packageData?.tiers) && packageData.tiers.length > 0
     ? packageData.tiers
-    : ['basic', 'standard', 'premium'];
+    : ['basic', 'growth', 'premium'];
   const [activeTab, setActiveTab] = useState(tiers[0] || 'basic');
   const [includesOpen, setIncludesOpen] = useState(true);
 
@@ -970,7 +970,7 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
   };
 
   // The checkmark matrix uses the hand-authored, already-cascading `rows`
-  // for this service (e.g. a Basic feature stays checked at Standard and
+  // for this service (e.g. a Basic feature stays checked at Growth and
   // Premium even though those tiers' own "includes" lists don't repeat it
   // verbatim). Only fall back to deriving rows from the raw tier lists for
   // a service that has no authored rows at all.
@@ -985,7 +985,7 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
           label,
           values: {
             basic: tierFeatures.basic?.includes(label) || false,
-            standard: tierFeatures.standard?.includes(label) || false,
+            growth: tierFeatures.growth?.includes(label) || false,
             premium: tierFeatures.premium?.includes(label) || false
           }
         }));
