@@ -228,9 +228,9 @@ const migrate = async () => {
 
     // 9. Sync & Migrate Services Table
     try {
-      console.log('?? Ensuring Services table is created and synced...');
+      console.log('📦 Ensuring Services table is created and synced...');
       await db.Service.sync();
-      console.log('? Services table synced successfully.');
+      console.log('✅ Services table synced successfully.');
 
       // Check if services need full comparison matrix synchronization
       const sampleSvc = await db.Service.findOne({ where: { slug: "graphic-design" } });
@@ -238,16 +238,85 @@ const migrate = async () => {
       
       // If table is empty or has old short 7-row matrix, run idempotent seeder
       if (!sampleSvc || currentRows < 15) {
-        console.log('?? Updating comparison matrices in database (found ' + currentRows + ' rows, upgrading to full 19+ rows)...');
+        console.log('🔄 Updating comparison matrices in database (found ' + currentRows + ' rows, upgrading to full 19+ rows)...');
         const seedServices = require('./seed-services.cjs');
         if (typeof seedServices === 'function') {
           await seedServices();
         }
       } else {
-        console.log('? Services table already has full ' + currentRows + ' comparison matrix rows.');
+        console.log('✅ Services table already has full ' + currentRows + ' comparison matrix rows.');
+      }
+
+      // Automatic retroactive migration: Ensure all existing services in production MySQL use unified tiers (Starter, Growth, Premium)
+      console.log('🩹 Checking for legacy package tiers (Basic/Standard) in Services table...');
+      const allServices = await db.Service.findAll();
+      let migratedTiersCount = 0;
+
+      for (const svc of allServices) {
+        let modified = false;
+        const pkgs = svc.packages || {};
+        if (pkgs.growth && (pkgs.growth.name === 'Standard Package' || !pkgs.growth.name)) {
+          pkgs.growth.name = 'Growth Package';
+          modified = true;
+        }
+        if (pkgs.starter && (pkgs.starter.name === 'Basic Package' || !pkgs.starter.name)) {
+          pkgs.starter.name = 'Starter Package';
+          modified = true;
+        }
+
+        const comp = svc.packageComparison || {};
+        if (comp.tiers && (comp.tiers.includes('basic') || comp.tiers.includes('standard'))) {
+          comp.tiers = comp.tiers.map(t => t === 'basic' ? 'starter' : (t === 'standard' ? 'growth' : t));
+          modified = true;
+        }
+        if (comp.details) {
+          const newDetails = {};
+          for (const [dk, dv] of Object.entries(comp.details)) {
+            const targetKey = dk === 'basic' ? 'starter' : (dk === 'standard' ? 'growth' : dk);
+            if (dk !== targetKey) modified = true;
+            if (targetKey === 'growth' && dv.packageName === 'Standard Package') {
+              dv.packageName = 'Growth Package';
+              modified = true;
+            }
+            if (targetKey === 'starter' && dv.packageName === 'Basic Package') {
+              dv.packageName = 'Starter Package';
+              modified = true;
+            }
+            newDetails[targetKey] = dv;
+          }
+          if (modified) comp.details = newDetails;
+        }
+        if (comp.rows) {
+          for (const row of comp.rows) {
+            if (row.values && (row.values.basic !== undefined || row.values.standard !== undefined)) {
+              if (row.values.basic !== undefined) {
+                row.values.starter = row.values.basic;
+                delete row.values.basic;
+              }
+              if (row.values.standard !== undefined) {
+                row.values.growth = row.values.standard;
+                delete row.values.standard;
+              }
+              modified = true;
+            }
+          }
+        }
+
+        if (modified) {
+          svc.packages = pkgs;
+          svc.packageComparison = comp;
+          await svc.save();
+          migratedTiersCount++;
+        }
+      }
+
+      if (migratedTiersCount > 0) {
+        console.log(`✅ Automatically migrated ${migratedTiersCount} services to unified Starter/Growth/Premium tiers.`);
+      } else {
+        console.log('✅ All services already use unified Starter/Growth/Premium tiers.');
       }
     } catch (serviceSyncErr) {
-      console.warn('?? Services table sync error:', serviceSyncErr.message);
+      console.warn('⚠️ Services table sync error:', serviceSyncErr.message);
     }
 
     // 8. Backfill Retroactive Notification Types for Website Reviews

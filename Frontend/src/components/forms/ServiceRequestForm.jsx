@@ -69,8 +69,10 @@ const SERVICE_CATEGORIES = {
 
 // Package options
 const PACKAGES = {
-  basic: { id: 'basic', name: 'Basic', label: 'For simple needs and smaller projects.' },
-  standard: { id: 'standard', name: 'Standard', label: 'For growing businesses that need a more complete setup.' },
+  starter: { id: 'starter', name: 'Starter', label: 'For simple needs and smaller projects.' },
+  growth: { id: 'growth', name: 'Growth', label: 'For growing businesses that need a more complete setup.' },
+  basic: { id: 'starter', name: 'Starter', label: 'For simple needs and smaller projects.' },
+  standard: { id: 'growth', name: 'Growth', label: 'For growing businesses that need a more complete setup.' },
   premium: { id: 'premium', name: 'Premium', label: 'For businesses that need advanced features, integrations, or stronger support.' },
   custom: { id: 'custom', name: 'Custom Quote', label: 'For larger, detailed, or multi-service projects.' }
 };

@@ -126,7 +126,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -134,7 +134,7 @@ const SEED_DATA = {
         {
           "label": "1 marketing asset",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -142,7 +142,7 @@ const SEED_DATA = {
         {
           "label": "1 finished size/format",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -150,7 +150,7 @@ const SEED_DATA = {
         {
           "label": "Basic custom design",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -158,7 +158,7 @@ const SEED_DATA = {
         {
           "label": "Client-provided brand assets",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -166,7 +166,7 @@ const SEED_DATA = {
         {
           "label": "1 revision round",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -174,7 +174,7 @@ const SEED_DATA = {
         {
           "label": "Final web-ready file",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -182,7 +182,7 @@ const SEED_DATA = {
         {
           "label": "Up to 5 coordinated assets",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -190,7 +190,7 @@ const SEED_DATA = {
         {
           "label": "Consistent visual direction",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -198,7 +198,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 sizes per core design where required",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -206,7 +206,7 @@ const SEED_DATA = {
         {
           "label": "Basic image sourcing",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -214,7 +214,7 @@ const SEED_DATA = {
         {
           "label": "2 revision rounds",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -222,7 +222,7 @@ const SEED_DATA = {
         {
           "label": "Web-ready final files",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -230,7 +230,7 @@ const SEED_DATA = {
         {
           "label": "Up to 12 coordinated marketing assets",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -238,7 +238,7 @@ const SEED_DATA = {
         {
           "label": "Creative direction",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -246,7 +246,7 @@ const SEED_DATA = {
         {
           "label": "Brand-consistent design system",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -254,7 +254,7 @@ const SEED_DATA = {
         {
           "label": "Multiple campaign formats",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -262,7 +262,7 @@ const SEED_DATA = {
         {
           "label": "Up to 3 revision rounds",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -270,7 +270,7 @@ const SEED_DATA = {
         {
           "label": "Organized final files",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -278,14 +278,14 @@ const SEED_DATA = {
         {
           "label": "Print-ready files when required",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$35",
           "packageName": "Starter Package",
           "shortDescription": "1 design asset, 1 revision, web-ready files",
@@ -483,7 +483,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -491,7 +491,7 @@ const SEED_DATA = {
         {
           "label": "1 video up to 60 seconds",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -499,7 +499,7 @@ const SEED_DATA = {
         {
           "label": "Basic cuts",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -507,7 +507,7 @@ const SEED_DATA = {
         {
           "label": "Basic transitions",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -515,7 +515,7 @@ const SEED_DATA = {
         {
           "label": "Text/captions",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -523,7 +523,7 @@ const SEED_DATA = {
         {
           "label": "Basic audio balancing",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -531,7 +531,7 @@ const SEED_DATA = {
         {
           "label": "Client-provided footage",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -539,7 +539,7 @@ const SEED_DATA = {
         {
           "label": "1 aspect ratio",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -547,7 +547,7 @@ const SEED_DATA = {
         {
           "label": "1 revision round",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -555,7 +555,7 @@ const SEED_DATA = {
         {
           "label": "Final exported video",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -563,7 +563,7 @@ const SEED_DATA = {
         {
           "label": "1 video up to 5 minutes",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -571,7 +571,7 @@ const SEED_DATA = {
         {
           "label": "Professional editing",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -579,7 +579,7 @@ const SEED_DATA = {
         {
           "label": "B-roll placement",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -587,7 +587,7 @@ const SEED_DATA = {
         {
           "label": "Titles/text graphics",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -595,7 +595,7 @@ const SEED_DATA = {
         {
           "label": "Basic motion graphics",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -603,7 +603,7 @@ const SEED_DATA = {
         {
           "label": "Audio cleanup",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -611,7 +611,7 @@ const SEED_DATA = {
         {
           "label": "Color correction",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -619,7 +619,7 @@ const SEED_DATA = {
         {
           "label": "Captions",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -627,7 +627,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 aspect ratios",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -635,7 +635,7 @@ const SEED_DATA = {
         {
           "label": "2 revision rounds",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -643,7 +643,7 @@ const SEED_DATA = {
         {
           "label": "1 long-form video up to 12 minutes OR Up to 5 short-form videos from supplied footage",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -651,7 +651,7 @@ const SEED_DATA = {
         {
           "label": "Advanced editing",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -659,7 +659,7 @@ const SEED_DATA = {
         {
           "label": "Motion graphics",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -667,7 +667,7 @@ const SEED_DATA = {
         {
           "label": "B-roll",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -675,7 +675,7 @@ const SEED_DATA = {
         {
           "label": "Audio enhancement",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -683,7 +683,7 @@ const SEED_DATA = {
         {
           "label": "Branded graphics",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -691,7 +691,7 @@ const SEED_DATA = {
         {
           "label": "Multiple export formats",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -699,14 +699,14 @@ const SEED_DATA = {
         {
           "label": "Up to 3 revision rounds",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$75",
           "packageName": "Starter Package",
           "shortDescription": "1 video up to 60 seconds, basic cuts, music",
@@ -905,7 +905,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -913,7 +913,7 @@ const SEED_DATA = {
         {
           "label": "Blog/article up to 800 words OR Short sales page OR Email copy package OR Small website-page rewrite",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -921,7 +921,7 @@ const SEED_DATA = {
         {
           "label": "Topic research",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -929,7 +929,7 @@ const SEED_DATA = {
         {
           "label": "Brand-tone alignment",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -937,7 +937,7 @@ const SEED_DATA = {
         {
           "label": "Basic SEO considerations where applicable",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -945,7 +945,7 @@ const SEED_DATA = {
         {
           "label": "1 revision round",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -953,7 +953,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2,500 total words",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -961,7 +961,7 @@ const SEED_DATA = {
         {
           "label": "Up to 3 content pieces/pages",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -969,7 +969,7 @@ const SEED_DATA = {
         {
           "label": "Keyword consideration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -977,7 +977,7 @@ const SEED_DATA = {
         {
           "label": "CTA development",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -985,7 +985,7 @@ const SEED_DATA = {
         {
           "label": "Headline development",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -993,7 +993,7 @@ const SEED_DATA = {
         {
           "label": "Basic competitor/content review",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1001,7 +1001,7 @@ const SEED_DATA = {
         {
           "label": "2 revision rounds",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1009,7 +1009,7 @@ const SEED_DATA = {
         {
           "label": "Up to 6,000 total words",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1017,7 +1017,7 @@ const SEED_DATA = {
         {
           "label": "Up to 6 pages/content pieces",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1025,7 +1025,7 @@ const SEED_DATA = {
         {
           "label": "Content strategy",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1033,7 +1033,7 @@ const SEED_DATA = {
         {
           "label": "SEO-oriented structure where applicable",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1041,7 +1041,7 @@ const SEED_DATA = {
         {
           "label": "Conversion-focused CTA development",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1049,7 +1049,7 @@ const SEED_DATA = {
         {
           "label": "Brand voice consistency",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1057,7 +1057,7 @@ const SEED_DATA = {
         {
           "label": "Content formatting recommendations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1065,14 +1065,14 @@ const SEED_DATA = {
         {
           "label": "Up to 3 revision rounds",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$1",
           "packageName": "Starter Package",
           "shortDescription": "1 content piece up to 800 words, 1 revision",
@@ -1262,7 +1262,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -1270,7 +1270,7 @@ const SEED_DATA = {
         {
           "label": "Brand discovery questionnaire",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -1278,7 +1278,7 @@ const SEED_DATA = {
         {
           "label": "2 initial logo concepts",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -1286,7 +1286,7 @@ const SEED_DATA = {
         {
           "label": "2 revision rounds",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -1294,7 +1294,7 @@ const SEED_DATA = {
         {
           "label": "Primary logo",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -1302,7 +1302,7 @@ const SEED_DATA = {
         {
           "label": "Basic color palette",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -1310,7 +1310,7 @@ const SEED_DATA = {
         {
           "label": "Basic typography recommendations",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -1318,7 +1318,7 @@ const SEED_DATA = {
         {
           "label": "PNG, JPG and transparent logo files",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -1326,7 +1326,7 @@ const SEED_DATA = {
         {
           "label": "Brand discovery",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1334,7 +1334,7 @@ const SEED_DATA = {
         {
           "label": "3 initial logo concepts",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1342,7 +1342,7 @@ const SEED_DATA = {
         {
           "label": "Secondary logo variation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1350,7 +1350,7 @@ const SEED_DATA = {
         {
           "label": "Icon/mark",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1358,7 +1358,7 @@ const SEED_DATA = {
         {
           "label": "Color palette",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1366,7 +1366,7 @@ const SEED_DATA = {
         {
           "label": "Typography system",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1374,7 +1374,7 @@ const SEED_DATA = {
         {
           "label": "Social profile assets",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1382,7 +1382,7 @@ const SEED_DATA = {
         {
           "label": "Basic brand guidelines",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1390,7 +1390,7 @@ const SEED_DATA = {
         {
           "label": "3 revision rounds",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1398,7 +1398,7 @@ const SEED_DATA = {
         {
           "label": "Organized final files",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1406,7 +1406,7 @@ const SEED_DATA = {
         {
           "label": "Brand strategy session",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1414,7 +1414,7 @@ const SEED_DATA = {
         {
           "label": "Competitive visual review",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1422,7 +1422,7 @@ const SEED_DATA = {
         {
           "label": "3 refined creative directions",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1430,7 +1430,7 @@ const SEED_DATA = {
         {
           "label": "Primary and secondary logos",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1438,7 +1438,7 @@ const SEED_DATA = {
         {
           "label": "Brand mark",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1446,7 +1446,7 @@ const SEED_DATA = {
         {
           "label": "Color system",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1454,7 +1454,7 @@ const SEED_DATA = {
         {
           "label": "Brand imagery direction",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1462,7 +1462,7 @@ const SEED_DATA = {
         {
           "label": "Social assets",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1470,7 +1470,7 @@ const SEED_DATA = {
         {
           "label": "Basic business-card/letterhead templates",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1478,7 +1478,7 @@ const SEED_DATA = {
         {
           "label": "Comprehensive brand guideline document",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1486,7 +1486,7 @@ const SEED_DATA = {
         {
           "label": "Up to 3 revision rounds",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1494,14 +1494,14 @@ const SEED_DATA = {
         {
           "label": "Complete final-file package",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$1",
           "packageName": "Starter Package",
           "shortDescription": "1 logo concept, basic palette, 1 revision",
@@ -1690,7 +1690,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -1698,7 +1698,7 @@ const SEED_DATA = {
         {
           "label": "Up to 1 hour on location",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -1706,7 +1706,7 @@ const SEED_DATA = {
         {
           "label": "Up to 10 edited final photographs",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -1714,7 +1714,7 @@ const SEED_DATA = {
         {
           "label": "Basic color correction",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -1722,7 +1722,7 @@ const SEED_DATA = {
         {
           "label": "Web-resolution files",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -1730,7 +1730,7 @@ const SEED_DATA = {
         {
           "label": "One local location",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -1738,7 +1738,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2.5 hours",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1746,7 +1746,7 @@ const SEED_DATA = {
         {
           "label": "Up to 30 edited photographs",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1754,7 +1754,7 @@ const SEED_DATA = {
         {
           "label": "Product/team/location combinations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1762,7 +1762,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced retouching",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1770,7 +1770,7 @@ const SEED_DATA = {
         {
           "label": "Web and high-resolution files",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1778,7 +1778,7 @@ const SEED_DATA = {
         {
           "label": "Basic shot planning",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -1786,7 +1786,7 @@ const SEED_DATA = {
         {
           "label": "Up to half-day shoot",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1794,7 +1794,7 @@ const SEED_DATA = {
         {
           "label": "Up to 60 edited photographs",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1802,7 +1802,7 @@ const SEED_DATA = {
         {
           "label": "Pre-shoot planning",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1810,7 +1810,7 @@ const SEED_DATA = {
         {
           "label": "Multiple setups",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1818,7 +1818,7 @@ const SEED_DATA = {
         {
           "label": "Advanced retouching",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -1826,14 +1826,14 @@ const SEED_DATA = {
         {
           "label": "Organized image library",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$199",
           "packageName": "Starter Package",
           "shortDescription": "10 edited photos, 1 location, basic editing",
@@ -2029,7 +2029,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -2037,7 +2037,7 @@ const SEED_DATA = {
         {
           "label": "Up to 5 core website pages",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2045,7 +2045,7 @@ const SEED_DATA = {
         {
           "label": "Custom homepage design",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2053,7 +2053,7 @@ const SEED_DATA = {
         {
           "label": "Mobile and tablet responsive design",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2061,7 +2061,7 @@ const SEED_DATA = {
         {
           "label": "Contact form",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2069,7 +2069,7 @@ const SEED_DATA = {
         {
           "label": "Click-to-call and email functionality",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2077,7 +2077,7 @@ const SEED_DATA = {
         {
           "label": "Social media links",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2085,7 +2085,7 @@ const SEED_DATA = {
         {
           "label": "Basic on-page SEO setup",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2093,7 +2093,7 @@ const SEED_DATA = {
         {
           "label": "Page titles and meta descriptions",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2101,7 +2101,7 @@ const SEED_DATA = {
         {
           "label": "Basic image optimization",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2109,7 +2109,7 @@ const SEED_DATA = {
         {
           "label": "Google Analytics setup",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2117,7 +2117,7 @@ const SEED_DATA = {
         {
           "label": "Google Search Console setup",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2125,7 +2125,7 @@ const SEED_DATA = {
         {
           "label": "SSL configuration assistance",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2133,7 +2133,7 @@ const SEED_DATA = {
         {
           "label": "Basic speed optimization",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2141,7 +2141,7 @@ const SEED_DATA = {
         {
           "label": "One primary conversion CTA",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2149,7 +2149,7 @@ const SEED_DATA = {
         {
           "label": "Two revision rounds",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2157,7 +2157,7 @@ const SEED_DATA = {
         {
           "label": "Basic launch support",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2165,7 +2165,7 @@ const SEED_DATA = {
         {
           "label": "Up to 10 pages",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2173,7 +2173,7 @@ const SEED_DATA = {
         {
           "label": "More customized page layouts",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2181,7 +2181,7 @@ const SEED_DATA = {
         {
           "label": "Blog or resource section",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2189,7 +2189,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 lead-generation forms",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2197,7 +2197,7 @@ const SEED_DATA = {
         {
           "label": "Thank-you page",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2205,7 +2205,7 @@ const SEED_DATA = {
         {
           "label": "CRM or email platform connection",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2213,7 +2213,7 @@ const SEED_DATA = {
         {
           "label": "Basic conversion tracking",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2221,7 +2221,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced on-page SEO",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2229,7 +2229,7 @@ const SEED_DATA = {
         {
           "label": "Internal linking setup",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2237,7 +2237,7 @@ const SEED_DATA = {
         {
           "label": "XML sitemap configuration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2245,7 +2245,7 @@ const SEED_DATA = {
         {
           "label": "Robots.txt configuration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2253,7 +2253,7 @@ const SEED_DATA = {
         {
           "label": "Basic schema implementation where appropriate",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2261,7 +2261,7 @@ const SEED_DATA = {
         {
           "label": "Website analytics configuration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2269,7 +2269,7 @@ const SEED_DATA = {
         {
           "label": "Basic lead funnel structure",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2277,7 +2277,7 @@ const SEED_DATA = {
         {
           "label": "Three revision rounds",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2285,7 +2285,7 @@ const SEED_DATA = {
         {
           "label": "CMS training session",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2293,7 +2293,7 @@ const SEED_DATA = {
         {
           "label": "Up to 20 pages",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2301,7 +2301,7 @@ const SEED_DATA = {
         {
           "label": "Custom UX/UI direction",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2309,7 +2309,7 @@ const SEED_DATA = {
         {
           "label": "Advanced page layouts",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2317,7 +2317,7 @@ const SEED_DATA = {
         {
           "label": "Conversion-focused page architecture",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2325,7 +2325,7 @@ const SEED_DATA = {
         {
           "label": "Multiple service or location pages",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2333,7 +2333,7 @@ const SEED_DATA = {
         {
           "label": "Up to 5 lead-generation forms",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2341,7 +2341,7 @@ const SEED_DATA = {
         {
           "label": "Advanced CRM/form integrations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2349,7 +2349,7 @@ const SEED_DATA = {
         {
           "label": "Marketing automation connection",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2357,7 +2357,7 @@ const SEED_DATA = {
         {
           "label": "Advanced analytics and conversion tracking",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2365,7 +2365,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced technical SEO setup",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2373,7 +2373,7 @@ const SEED_DATA = {
         {
           "label": "Custom website components",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2381,7 +2381,7 @@ const SEED_DATA = {
         {
           "label": "Resource/download functionality",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2389,7 +2389,7 @@ const SEED_DATA = {
         {
           "label": "Basic booking or scheduling integration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2397,7 +2397,7 @@ const SEED_DATA = {
         {
           "label": "Advanced site navigation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2405,7 +2405,7 @@ const SEED_DATA = {
         {
           "label": "Staging environment",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2413,7 +2413,7 @@ const SEED_DATA = {
         {
           "label": "Three revision rounds per major design phase",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2421,7 +2421,7 @@ const SEED_DATA = {
         {
           "label": "Team training",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2429,14 +2429,14 @@ const SEED_DATA = {
         {
           "label": "Post-launch review",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$699",
           "packageName": "Starter Package",
           "shortDescription": "Up to 3 pages, responsive design, contact form",
@@ -2637,7 +2637,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -2645,7 +2645,7 @@ const SEED_DATA = {
         {
           "label": "1 custom landing page",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2653,7 +2653,7 @@ const SEED_DATA = {
         {
           "label": "Mobile responsive design",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2661,7 +2661,7 @@ const SEED_DATA = {
         {
           "label": "Lead capture form",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2669,7 +2669,7 @@ const SEED_DATA = {
         {
           "label": "Thank-you page",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2677,7 +2677,7 @@ const SEED_DATA = {
         {
           "label": "One primary CTA",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2685,7 +2685,7 @@ const SEED_DATA = {
         {
           "label": "Basic conversion tracking",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2693,7 +2693,7 @@ const SEED_DATA = {
         {
           "label": "Email/CRM form connection",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2701,7 +2701,7 @@ const SEED_DATA = {
         {
           "label": "Basic copy formatting",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2709,7 +2709,7 @@ const SEED_DATA = {
         {
           "label": "Two revision rounds",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -2717,7 +2717,7 @@ const SEED_DATA = {
         {
           "label": "Up to 3 funnel pages",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2725,7 +2725,7 @@ const SEED_DATA = {
         {
           "label": "Landing page",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2733,7 +2733,7 @@ const SEED_DATA = {
         {
           "label": "Thank-you/confirmation page",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2741,7 +2741,7 @@ const SEED_DATA = {
         {
           "label": "Secondary conversion page",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2749,7 +2749,7 @@ const SEED_DATA = {
         {
           "label": "Lead form integration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2757,7 +2757,7 @@ const SEED_DATA = {
         {
           "label": "CRM/email integration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2765,7 +2765,7 @@ const SEED_DATA = {
         {
           "label": "Conversion tracking",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2773,7 +2773,7 @@ const SEED_DATA = {
         {
           "label": "Basic automation setup",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2781,7 +2781,7 @@ const SEED_DATA = {
         {
           "label": "Mobile optimization",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2789,7 +2789,7 @@ const SEED_DATA = {
         {
           "label": "A/B testing-ready structure",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2797,7 +2797,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 audience paths",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2805,7 +2805,7 @@ const SEED_DATA = {
         {
           "label": "Three revision rounds",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -2813,7 +2813,7 @@ const SEED_DATA = {
         {
           "label": "Up to 6 funnel pages",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2821,7 +2821,7 @@ const SEED_DATA = {
         {
           "label": "Custom conversion-focused design",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2829,7 +2829,7 @@ const SEED_DATA = {
         {
           "label": "Lead capture system",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2837,7 +2837,7 @@ const SEED_DATA = {
         {
           "label": "Booking or checkout integration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2845,7 +2845,7 @@ const SEED_DATA = {
         {
           "label": "CRM integration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2853,7 +2853,7 @@ const SEED_DATA = {
         {
           "label": "Up to 5 automated follow-up emails",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2861,7 +2861,7 @@ const SEED_DATA = {
         {
           "label": "Analytics setup",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2869,7 +2869,7 @@ const SEED_DATA = {
         {
           "label": "Basic funnel automation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2877,7 +2877,7 @@ const SEED_DATA = {
         {
           "label": "Lead tagging/segmentation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2885,7 +2885,7 @@ const SEED_DATA = {
         {
           "label": "Thank-you and next-step flows",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2893,7 +2893,7 @@ const SEED_DATA = {
         {
           "label": "A/B test configuration for one key page",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -2901,14 +2901,14 @@ const SEED_DATA = {
         {
           "label": "Funnel walkthrough",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$499",
           "packageName": "Starter Package",
           "shortDescription": "1 landing page, lead capture form, mobile-responsive",
@@ -3112,7 +3112,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -3120,7 +3120,7 @@ const SEED_DATA = {
         {
           "label": "Store setup",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3128,7 +3128,7 @@ const SEED_DATA = {
         {
           "label": "Up to 10 products",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3136,7 +3136,7 @@ const SEED_DATA = {
         {
           "label": "Up to 5 informational pages",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3144,7 +3144,7 @@ const SEED_DATA = {
         {
           "label": "Mobile responsive design",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3152,7 +3152,7 @@ const SEED_DATA = {
         {
           "label": "Product category setup",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3160,7 +3160,7 @@ const SEED_DATA = {
         {
           "label": "Shopping cart",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3168,7 +3168,7 @@ const SEED_DATA = {
         {
           "label": "Checkout configuration",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3176,7 +3176,7 @@ const SEED_DATA = {
         {
           "label": "One payment gateway",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3184,7 +3184,7 @@ const SEED_DATA = {
         {
           "label": "Basic shipping configuration",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3192,7 +3192,7 @@ const SEED_DATA = {
         {
           "label": "Basic tax settings",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3200,7 +3200,7 @@ const SEED_DATA = {
         {
           "label": "Order notification setup",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3208,7 +3208,7 @@ const SEED_DATA = {
         {
           "label": "Google Analytics",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3216,7 +3216,7 @@ const SEED_DATA = {
         {
           "label": "Basic SEO setup",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3224,7 +3224,7 @@ const SEED_DATA = {
         {
           "label": "Two revision rounds",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3232,7 +3232,7 @@ const SEED_DATA = {
         {
           "label": "Store management training",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3240,7 +3240,7 @@ const SEED_DATA = {
         {
           "label": "Up to 50 products",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3248,7 +3248,7 @@ const SEED_DATA = {
         {
           "label": "Advanced product variations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3256,7 +3256,7 @@ const SEED_DATA = {
         {
           "label": "Coupon/discount functionality",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3264,7 +3264,7 @@ const SEED_DATA = {
         {
           "label": "Abandoned-cart setup where supported",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3272,7 +3272,7 @@ const SEED_DATA = {
         {
           "label": "Email marketing integration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3280,7 +3280,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced analytics",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3288,7 +3288,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced product SEO",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3296,7 +3296,7 @@ const SEED_DATA = {
         {
           "label": "Customer account functionality",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3304,7 +3304,7 @@ const SEED_DATA = {
         {
           "label": "Review functionality",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3312,7 +3312,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 payment gateways",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3320,7 +3320,7 @@ const SEED_DATA = {
         {
           "label": "Advanced shipping rules",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3328,7 +3328,7 @@ const SEED_DATA = {
         {
           "label": "Basic product-data import",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3336,7 +3336,7 @@ const SEED_DATA = {
         {
           "label": "Three revision rounds",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3344,7 +3344,7 @@ const SEED_DATA = {
         {
           "label": "Up to 150 initial products",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3352,7 +3352,7 @@ const SEED_DATA = {
         {
           "label": "Advanced product/category structure",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3360,7 +3360,7 @@ const SEED_DATA = {
         {
           "label": "Custom storefront components",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3368,7 +3368,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced checkout configuration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3376,7 +3376,7 @@ const SEED_DATA = {
         {
           "label": "Advanced conversion tracking",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3384,7 +3384,7 @@ const SEED_DATA = {
         {
           "label": "CRM integration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3392,7 +3392,7 @@ const SEED_DATA = {
         {
           "label": "Advanced email automation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3400,7 +3400,7 @@ const SEED_DATA = {
         {
           "label": "Subscription functionality where platform-supported",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3408,7 +3408,7 @@ const SEED_DATA = {
         {
           "label": "Multi-location or advanced inventory configuration where supported",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3416,7 +3416,7 @@ const SEED_DATA = {
         {
           "label": "Advanced shipping logic",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3424,7 +3424,7 @@ const SEED_DATA = {
         {
           "label": "Data migration assistance",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3432,7 +3432,7 @@ const SEED_DATA = {
         {
           "label": "Custom reporting configuration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3440,14 +3440,14 @@ const SEED_DATA = {
         {
           "label": "Team training",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$999",
           "packageName": "Starter Package",
           "shortDescription": "Store setup with up to 10 products",
@@ -3532,7 +3532,7 @@ const SEED_DATA = {
     "iconName": "FaGlobe",
     "startingPrice": "$4,999",
     "intro": "Custom web applications and Software-as-a-Service (SaaS) platforms allow businesses to streamline operations, automate workflows, and create digital tools that support growth.",
-    "description": "Unlike growth websites, web applications provide interactive functionality such as dashboards, user accounts, data management systems, and automation tools.",
+    "description": "Unlike standard websites, web applications provide interactive functionality such as dashboards, user accounts, data management systems, and automation tools.",
     "longDescription": "Scale Link Alliance develops scalable web applications and SaaS solutions tailored to the specific operational needs of businesses, helping organizations improve efficiency and deliver digital services to their customers.",
     "features": [
       "Custom web application development",
@@ -3641,7 +3641,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -3649,7 +3649,7 @@ const SEED_DATA = {
         {
           "label": "Requirements workshop",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3657,7 +3657,7 @@ const SEED_DATA = {
         {
           "label": "Basic product architecture",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3665,7 +3665,7 @@ const SEED_DATA = {
         {
           "label": "User authentication",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3673,7 +3673,7 @@ const SEED_DATA = {
         {
           "label": "1 primary user role",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3681,7 +3681,7 @@ const SEED_DATA = {
         {
           "label": "Up to 5 core application screens",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3689,7 +3689,7 @@ const SEED_DATA = {
         {
           "label": "Database setup",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3697,7 +3697,7 @@ const SEED_DATA = {
         {
           "label": "Basic admin functionality",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3705,7 +3705,7 @@ const SEED_DATA = {
         {
           "label": "1 third-party integration",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3713,7 +3713,7 @@ const SEED_DATA = {
         {
           "label": "Responsive interface",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3721,7 +3721,7 @@ const SEED_DATA = {
         {
           "label": "Testing",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3729,7 +3729,7 @@ const SEED_DATA = {
         {
           "label": "Deployment assistance",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3737,7 +3737,7 @@ const SEED_DATA = {
         {
           "label": "Basic technical documentation",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -3745,7 +3745,7 @@ const SEED_DATA = {
         {
           "label": "Product planning",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3753,7 +3753,7 @@ const SEED_DATA = {
         {
           "label": "Up to 15 core screens",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3761,7 +3761,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 user roles",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3769,7 +3769,7 @@ const SEED_DATA = {
         {
           "label": "Advanced database structure",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3777,7 +3777,7 @@ const SEED_DATA = {
         {
           "label": "Admin dashboard",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3785,7 +3785,7 @@ const SEED_DATA = {
         {
           "label": "Up to 3 integrations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3793,7 +3793,7 @@ const SEED_DATA = {
         {
           "label": "Notification functionality",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3801,7 +3801,7 @@ const SEED_DATA = {
         {
           "label": "User-account management",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3809,7 +3809,7 @@ const SEED_DATA = {
         {
           "label": "Responsive application",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3817,7 +3817,7 @@ const SEED_DATA = {
         {
           "label": "QA testing",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3825,7 +3825,7 @@ const SEED_DATA = {
         {
           "label": "Deployment",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3833,7 +3833,7 @@ const SEED_DATA = {
         {
           "label": "Documentation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3841,7 +3841,7 @@ const SEED_DATA = {
         {
           "label": "Team handoff",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -3849,7 +3849,7 @@ const SEED_DATA = {
         {
           "label": "Complex product architecture",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3857,7 +3857,7 @@ const SEED_DATA = {
         {
           "label": "Multiple user roles",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3865,7 +3865,7 @@ const SEED_DATA = {
         {
           "label": "Subscription/billing systems",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3873,7 +3873,7 @@ const SEED_DATA = {
         {
           "label": "Custom dashboards",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3881,7 +3881,7 @@ const SEED_DATA = {
         {
           "label": "Advanced database architecture",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3889,7 +3889,7 @@ const SEED_DATA = {
         {
           "label": "API integrations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3897,7 +3897,7 @@ const SEED_DATA = {
         {
           "label": "Automated workflows",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3905,7 +3905,7 @@ const SEED_DATA = {
         {
           "label": "Role-based permissions",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3913,7 +3913,7 @@ const SEED_DATA = {
         {
           "label": "Reporting",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3921,7 +3921,7 @@ const SEED_DATA = {
         {
           "label": "Notifications",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3929,7 +3929,7 @@ const SEED_DATA = {
         {
           "label": "Staging/production environments",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3937,7 +3937,7 @@ const SEED_DATA = {
         {
           "label": "Advanced QA",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3945,7 +3945,7 @@ const SEED_DATA = {
         {
           "label": "Technical documentation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -3953,14 +3953,14 @@ const SEED_DATA = {
         {
           "label": "Post-launch support",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$4,999",
           "packageName": "Starter Package",
           "shortDescription": "1 custom feature/module, database setup",
@@ -4152,7 +4152,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -4160,7 +4160,7 @@ const SEED_DATA = {
         {
           "label": "1 straightforward system integration",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4168,7 +4168,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 API endpoints/actions",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4176,7 +4176,7 @@ const SEED_DATA = {
         {
           "label": "Authentication configuration",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4184,7 +4184,7 @@ const SEED_DATA = {
         {
           "label": "Basic data mapping",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4192,7 +4192,7 @@ const SEED_DATA = {
         {
           "label": "Testing",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4200,7 +4200,7 @@ const SEED_DATA = {
         {
           "label": "Basic error handling",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4208,7 +4208,7 @@ const SEED_DATA = {
         {
           "label": "Documentation",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4216,7 +4216,7 @@ const SEED_DATA = {
         {
           "label": "Integration of up to 2 systems",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4224,7 +4224,7 @@ const SEED_DATA = {
         {
           "label": "Up to 6 endpoints/actions",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4232,7 +4232,7 @@ const SEED_DATA = {
         {
           "label": "Advanced data mapping",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4240,7 +4240,7 @@ const SEED_DATA = {
         {
           "label": "Workflow logic",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4248,7 +4248,7 @@ const SEED_DATA = {
         {
           "label": "Error logging",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4256,7 +4256,7 @@ const SEED_DATA = {
         {
           "label": "Testing environment",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4264,7 +4264,7 @@ const SEED_DATA = {
         {
           "label": "Deployment assistance",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4272,7 +4272,7 @@ const SEED_DATA = {
         {
           "label": "Up to 3 interconnected systems",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4280,7 +4280,7 @@ const SEED_DATA = {
         {
           "label": "Up to 15 endpoints/actions",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4288,7 +4288,7 @@ const SEED_DATA = {
         {
           "label": "Complex workflow logic",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4296,7 +4296,7 @@ const SEED_DATA = {
         {
           "label": "Data transformations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4304,7 +4304,7 @@ const SEED_DATA = {
         {
           "label": "Authentication/security configuration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4312,7 +4312,7 @@ const SEED_DATA = {
         {
           "label": "Error handling and logging",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4320,7 +4320,7 @@ const SEED_DATA = {
         {
           "label": "Deployment support",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4328,7 +4328,7 @@ const SEED_DATA = {
         {
           "label": "Technical documentation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4336,14 +4336,14 @@ const SEED_DATA = {
         {
           "label": "Post-launch review",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$1",
           "packageName": "Starter Package",
           "shortDescription": "1 system integration, basic synchronization",
@@ -4531,7 +4531,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -4539,7 +4539,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 hours of website work per month",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4547,7 +4547,7 @@ const SEED_DATA = {
         {
           "label": "Core/plugin updates where applicable",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4555,7 +4555,7 @@ const SEED_DATA = {
         {
           "label": "Basic backup monitoring",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4563,7 +4563,7 @@ const SEED_DATA = {
         {
           "label": "Basic uptime checks",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4571,7 +4571,7 @@ const SEED_DATA = {
         {
           "label": "Minor content edits",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4579,7 +4579,7 @@ const SEED_DATA = {
         {
           "label": "Basic technical health review",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4587,7 +4587,7 @@ const SEED_DATA = {
         {
           "label": "Monthly maintenance summary",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4595,7 +4595,7 @@ const SEED_DATA = {
         {
           "label": "Up to 5 support hours per month",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4603,7 +4603,7 @@ const SEED_DATA = {
         {
           "label": "Updates",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4611,7 +4611,7 @@ const SEED_DATA = {
         {
           "label": "Backup monitoring",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4619,7 +4619,7 @@ const SEED_DATA = {
         {
           "label": "Uptime monitoring",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4627,7 +4627,7 @@ const SEED_DATA = {
         {
           "label": "Content changes",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4635,7 +4635,7 @@ const SEED_DATA = {
         {
           "label": "Minor design adjustments",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4643,7 +4643,7 @@ const SEED_DATA = {
         {
           "label": "Basic speed review",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4651,7 +4651,7 @@ const SEED_DATA = {
         {
           "label": "Form/function testing",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4659,7 +4659,7 @@ const SEED_DATA = {
         {
           "label": "Priority support",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4667,7 +4667,7 @@ const SEED_DATA = {
         {
           "label": "Monthly maintenance report",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4675,7 +4675,7 @@ const SEED_DATA = {
         {
           "label": "Up to 10 support hours per month",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4683,7 +4683,7 @@ const SEED_DATA = {
         {
           "label": "Priority issue handling",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4691,7 +4691,7 @@ const SEED_DATA = {
         {
           "label": "Regular site health review",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4699,7 +4699,7 @@ const SEED_DATA = {
         {
           "label": "Conversion-form testing",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4707,7 +4707,7 @@ const SEED_DATA = {
         {
           "label": "Analytics review",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4715,7 +4715,7 @@ const SEED_DATA = {
         {
           "label": "Minor page creation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4723,7 +4723,7 @@ const SEED_DATA = {
         {
           "label": "Minor development work",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4731,14 +4731,14 @@ const SEED_DATA = {
         {
           "label": "Monthly strategy recommendations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$149/month",
           "packageName": "Starter Package",
           "shortDescription": "Up to 2 hours maintenance, security monitoring",
@@ -4927,7 +4927,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -4935,7 +4935,7 @@ const SEED_DATA = {
         {
           "label": "Calendar integration",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4943,7 +4943,7 @@ const SEED_DATA = {
         {
           "label": "Email notifications",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4951,7 +4951,7 @@ const SEED_DATA = {
         {
           "label": "Mobile-friendly booking form",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -4959,7 +4959,7 @@ const SEED_DATA = {
         {
           "label": "Automated reminders",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4967,7 +4967,7 @@ const SEED_DATA = {
         {
           "label": "Payment integration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -4975,7 +4975,7 @@ const SEED_DATA = {
         {
           "label": "Multi-location support",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -4983,14 +4983,14 @@ const SEED_DATA = {
         {
           "label": "CRM integration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$399",
           "packageName": "Starter Package",
           "shortDescription": "Simple booking system setup",
@@ -5188,7 +5188,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -5196,7 +5196,7 @@ const SEED_DATA = {
         {
           "label": "1 social platform",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5204,7 +5204,7 @@ const SEED_DATA = {
         {
           "label": "Up to 8 feed posts per month",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5212,7 +5212,7 @@ const SEED_DATA = {
         {
           "label": "Caption writing",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5220,7 +5220,7 @@ const SEED_DATA = {
         {
           "label": "Basic graphic creation",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5228,7 +5228,7 @@ const SEED_DATA = {
         {
           "label": "Hashtag/topic research where relevant",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5236,7 +5236,7 @@ const SEED_DATA = {
         {
           "label": "Content scheduling",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5244,7 +5244,7 @@ const SEED_DATA = {
         {
           "label": "Monthly content calendar",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5252,7 +5252,7 @@ const SEED_DATA = {
         {
           "label": "Basic monthly report",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5260,7 +5260,7 @@ const SEED_DATA = {
         {
           "label": "One revision round on the monthly content batch",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5268,7 +5268,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 platforms",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5276,7 +5276,7 @@ const SEED_DATA = {
         {
           "label": "Up to 16 feed posts per month",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5284,7 +5284,7 @@ const SEED_DATA = {
         {
           "label": "Up to 4 short-form videos/reels using provided or existing footage",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5292,7 +5292,7 @@ const SEED_DATA = {
         {
           "label": "Graphic design",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5300,7 +5300,7 @@ const SEED_DATA = {
         {
           "label": "Scheduling",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5308,7 +5308,7 @@ const SEED_DATA = {
         {
           "label": "Basic community-response support",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5316,7 +5316,7 @@ const SEED_DATA = {
         {
           "label": "Monthly analytics",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5324,7 +5324,7 @@ const SEED_DATA = {
         {
           "label": "Monthly strategy review",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5332,7 +5332,7 @@ const SEED_DATA = {
         {
           "label": "Up to 3 platforms",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5340,7 +5340,7 @@ const SEED_DATA = {
         {
           "label": "Up to 24 feed posts per month",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5348,7 +5348,7 @@ const SEED_DATA = {
         {
           "label": "Up to 8 short-form videos",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5356,7 +5356,7 @@ const SEED_DATA = {
         {
           "label": "Content calendar",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5364,7 +5364,7 @@ const SEED_DATA = {
         {
           "label": "Caption/copy development",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5372,7 +5372,7 @@ const SEED_DATA = {
         {
           "label": "Basic weekday community management",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5380,7 +5380,7 @@ const SEED_DATA = {
         {
           "label": "Social listening",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5388,7 +5388,7 @@ const SEED_DATA = {
         {
           "label": "Monthly campaign planning",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5396,7 +5396,7 @@ const SEED_DATA = {
         {
           "label": "Performance reporting",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5404,7 +5404,7 @@ const SEED_DATA = {
         {
           "label": "Monthly strategy call",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5412,14 +5412,14 @@ const SEED_DATA = {
         {
           "label": "Ongoing optimization",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$299/month",
           "packageName": "Starter Package",
           "shortDescription": "8 posts/month, content scheduling",
@@ -5616,7 +5616,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -5624,7 +5624,7 @@ const SEED_DATA = {
         {
           "label": "Initial SEO audit",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5632,7 +5632,7 @@ const SEED_DATA = {
         {
           "label": "Keyword research for up to 10 target keywords",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5640,7 +5640,7 @@ const SEED_DATA = {
         {
           "label": "Optimization of up to 5 priority pages",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5648,7 +5648,7 @@ const SEED_DATA = {
         {
           "label": "Page title optimization",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5656,7 +5656,7 @@ const SEED_DATA = {
         {
           "label": "Meta description optimization",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5664,7 +5664,7 @@ const SEED_DATA = {
         {
           "label": "Heading structure review",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5672,7 +5672,7 @@ const SEED_DATA = {
         {
           "label": "Internal-link improvements",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5680,7 +5680,7 @@ const SEED_DATA = {
         {
           "label": "Google Search Console review",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5688,7 +5688,7 @@ const SEED_DATA = {
         {
           "label": "Google Analytics review",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5696,7 +5696,7 @@ const SEED_DATA = {
         {
           "label": "XML sitemap review",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5704,7 +5704,7 @@ const SEED_DATA = {
         {
           "label": "Basic technical SEO checks",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5712,7 +5712,7 @@ const SEED_DATA = {
         {
           "label": "One existing page/content optimization per month",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5720,7 +5720,7 @@ const SEED_DATA = {
         {
           "label": "Monthly ranking review",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5728,7 +5728,7 @@ const SEED_DATA = {
         {
           "label": "Monthly performance report",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5736,7 +5736,7 @@ const SEED_DATA = {
         {
           "label": "Monthly recommendations",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -5744,7 +5744,7 @@ const SEED_DATA = {
         {
           "label": "Up to 20 tracked target keywords",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5752,7 +5752,7 @@ const SEED_DATA = {
         {
           "label": "Optimization across up to 15 priority pages",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5760,7 +5760,7 @@ const SEED_DATA = {
         {
           "label": "Competitor SEO review",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5768,7 +5768,7 @@ const SEED_DATA = {
         {
           "label": "Two SEO-focused content pieces or substantial content optimizations per month",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5776,7 +5776,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced internal-link strategy",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5784,7 +5784,7 @@ const SEED_DATA = {
         {
           "label": "Technical issue monitoring",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5792,7 +5792,7 @@ const SEED_DATA = {
         {
           "label": "Search intent analysis",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5800,7 +5800,7 @@ const SEED_DATA = {
         {
           "label": "Content-gap analysis",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5808,7 +5808,7 @@ const SEED_DATA = {
         {
           "label": "Local SEO optimization when applicable",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5816,7 +5816,7 @@ const SEED_DATA = {
         {
           "label": "Google Business Profile recommendations when applicable",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5824,7 +5824,7 @@ const SEED_DATA = {
         {
           "label": "Basic structured-data recommendations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5832,7 +5832,7 @@ const SEED_DATA = {
         {
           "label": "Conversion-page SEO review",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5840,7 +5840,7 @@ const SEED_DATA = {
         {
           "label": "Monthly strategy review",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -5848,7 +5848,7 @@ const SEED_DATA = {
         {
           "label": "Up to 40 tracked keywords",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5856,7 +5856,7 @@ const SEED_DATA = {
         {
           "label": "Up to 30 priority pages",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5864,7 +5864,7 @@ const SEED_DATA = {
         {
           "label": "Up to 4 SEO content pieces or major optimizations per month",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5872,7 +5872,7 @@ const SEED_DATA = {
         {
           "label": "Advanced competitor research",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5880,7 +5880,7 @@ const SEED_DATA = {
         {
           "label": "Advanced content-gap analysis",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5888,7 +5888,7 @@ const SEED_DATA = {
         {
           "label": "Technical SEO monitoring",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5896,7 +5896,7 @@ const SEED_DATA = {
         {
           "label": "Schema strategy",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5904,7 +5904,7 @@ const SEED_DATA = {
         {
           "label": "Multi-service or multi-location SEO strategy",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5912,7 +5912,7 @@ const SEED_DATA = {
         {
           "label": "Content-cluster planning",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5920,7 +5920,7 @@ const SEED_DATA = {
         {
           "label": "Link opportunity research and outreach strategy",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5928,7 +5928,7 @@ const SEED_DATA = {
         {
           "label": "Conversion optimization recommendations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5936,7 +5936,7 @@ const SEED_DATA = {
         {
           "label": "Priority implementation support",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5944,7 +5944,7 @@ const SEED_DATA = {
         {
           "label": "Monthly strategy call",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -5952,14 +5952,14 @@ const SEED_DATA = {
         {
           "label": "Detailed executive reporting",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$399/month",
           "packageName": "Starter Package",
           "shortDescription": "SEO audit, optimization of 5 pages",
@@ -6152,7 +6152,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -6160,7 +6160,7 @@ const SEED_DATA = {
         {
           "label": "1 advertising platform",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6168,7 +6168,7 @@ const SEED_DATA = {
         {
           "label": "Up to 1 active campaign",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6176,7 +6176,7 @@ const SEED_DATA = {
         {
           "label": "Up to 3 ad groups/ad sets",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6184,7 +6184,7 @@ const SEED_DATA = {
         {
           "label": "Initial campaign setup",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6192,7 +6192,7 @@ const SEED_DATA = {
         {
           "label": "Basic keyword or audience research",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6200,7 +6200,7 @@ const SEED_DATA = {
         {
           "label": "Up to 6 ad variations",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6208,7 +6208,7 @@ const SEED_DATA = {
         {
           "label": "Conversion tracking setup",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6216,7 +6216,7 @@ const SEED_DATA = {
         {
           "label": "Budget monitoring",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6224,7 +6224,7 @@ const SEED_DATA = {
         {
           "label": "Basic optimization",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6232,7 +6232,7 @@ const SEED_DATA = {
         {
           "label": "Negative keyword management where applicable",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6240,7 +6240,7 @@ const SEED_DATA = {
         {
           "label": "Monthly report",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6248,7 +6248,7 @@ const SEED_DATA = {
         {
           "label": "One monthly campaign review",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6256,7 +6256,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 active campaigns",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6264,7 +6264,7 @@ const SEED_DATA = {
         {
           "label": "Up to 8 ad groups/ad sets",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6272,7 +6272,7 @@ const SEED_DATA = {
         {
           "label": "Up to 12 active ad variations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6280,7 +6280,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced audience/keyword research",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6288,7 +6288,7 @@ const SEED_DATA = {
         {
           "label": "Retargeting campaign setup",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6296,7 +6296,7 @@ const SEED_DATA = {
         {
           "label": "Landing-page recommendations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6304,7 +6304,7 @@ const SEED_DATA = {
         {
           "label": "Weekly optimization",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6312,7 +6312,7 @@ const SEED_DATA = {
         {
           "label": "Search-term analysis",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6320,7 +6320,7 @@ const SEED_DATA = {
         {
           "label": "Bid/budget adjustments",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6328,7 +6328,7 @@ const SEED_DATA = {
         {
           "label": "Basic creative testing",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6336,7 +6336,7 @@ const SEED_DATA = {
         {
           "label": "Conversion-performance analysis",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6344,7 +6344,7 @@ const SEED_DATA = {
         {
           "label": "Monthly strategy call",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6352,7 +6352,7 @@ const SEED_DATA = {
         {
           "label": "Multi-campaign management",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6360,7 +6360,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 advertising platforms",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6368,7 +6368,7 @@ const SEED_DATA = {
         {
           "label": "Advanced audience segmentation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6376,7 +6376,7 @@ const SEED_DATA = {
         {
           "label": "Advanced retargeting",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6384,7 +6384,7 @@ const SEED_DATA = {
         {
           "label": "Creative testing",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6392,7 +6392,7 @@ const SEED_DATA = {
         {
           "label": "Conversion tracking",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6400,7 +6400,7 @@ const SEED_DATA = {
         {
           "label": "Funnel performance analysis",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6408,7 +6408,7 @@ const SEED_DATA = {
         {
           "label": "Weekly performance monitoring",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6416,7 +6416,7 @@ const SEED_DATA = {
         {
           "label": "Budget allocation recommendations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6424,7 +6424,7 @@ const SEED_DATA = {
         {
           "label": "Advanced keyword/search-term management",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6432,14 +6432,14 @@ const SEED_DATA = {
         {
           "label": "Executive reporting",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$399/month",
           "packageName": "Starter Package",
           "shortDescription": "1 ad campaign, audience targeting",
@@ -6639,7 +6639,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -6647,7 +6647,7 @@ const SEED_DATA = {
         {
           "label": "1 email campaign",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6655,7 +6655,7 @@ const SEED_DATA = {
         {
           "label": "Email layout/design",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6663,7 +6663,7 @@ const SEED_DATA = {
         {
           "label": "Basic copy editing",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6671,7 +6671,7 @@ const SEED_DATA = {
         {
           "label": "CTA setup",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6679,7 +6679,7 @@ const SEED_DATA = {
         {
           "label": "Basic segmentation",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6687,7 +6687,7 @@ const SEED_DATA = {
         {
           "label": "Links and tracking",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6695,7 +6695,7 @@ const SEED_DATA = {
         {
           "label": "Test send",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6703,7 +6703,7 @@ const SEED_DATA = {
         {
           "label": "Mobile review",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6711,7 +6711,7 @@ const SEED_DATA = {
         {
           "label": "One revision round",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6719,7 +6719,7 @@ const SEED_DATA = {
         {
           "label": "Campaign performance summary",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -6727,7 +6727,7 @@ const SEED_DATA = {
         {
           "label": "Up to 4 emails",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6735,7 +6735,7 @@ const SEED_DATA = {
         {
           "label": "Campaign strategy",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6743,7 +6743,7 @@ const SEED_DATA = {
         {
           "label": "Subject-line development",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6751,7 +6751,7 @@ const SEED_DATA = {
         {
           "label": "Basic copywriting",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6759,7 +6759,7 @@ const SEED_DATA = {
         {
           "label": "Audience segmentation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6767,7 +6767,7 @@ const SEED_DATA = {
         {
           "label": "CTA strategy",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6775,7 +6775,7 @@ const SEED_DATA = {
         {
           "label": "UTM/tracking setup",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6783,7 +6783,7 @@ const SEED_DATA = {
         {
           "label": "Scheduling",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6791,7 +6791,7 @@ const SEED_DATA = {
         {
           "label": "Basic automation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6799,7 +6799,7 @@ const SEED_DATA = {
         {
           "label": "Performance report",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6807,7 +6807,7 @@ const SEED_DATA = {
         {
           "label": "Two revision rounds",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -6815,7 +6815,7 @@ const SEED_DATA = {
         {
           "label": "Up to 8 emails",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6823,7 +6823,7 @@ const SEED_DATA = {
         {
           "label": "Full campaign strategy",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6831,7 +6831,7 @@ const SEED_DATA = {
         {
           "label": "Copywriting",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6839,7 +6839,7 @@ const SEED_DATA = {
         {
           "label": "Design/layout",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6847,7 +6847,7 @@ const SEED_DATA = {
         {
           "label": "Segmentation strategy",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6855,7 +6855,7 @@ const SEED_DATA = {
         {
           "label": "Automated email flow",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6863,7 +6863,7 @@ const SEED_DATA = {
         {
           "label": "Lead tagging",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6871,7 +6871,7 @@ const SEED_DATA = {
         {
           "label": "Basic A/B testing",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6879,7 +6879,7 @@ const SEED_DATA = {
         {
           "label": "Conversion tracking",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6887,7 +6887,7 @@ const SEED_DATA = {
         {
           "label": "Performance analysis",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -6895,14 +6895,14 @@ const SEED_DATA = {
         {
           "label": "Optimization recommendations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$1",
           "packageName": "Starter Package",
           "shortDescription": "1 email campaign, template design",
@@ -7093,7 +7093,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -7101,7 +7101,7 @@ const SEED_DATA = {
         {
           "label": "Ideal customer profile definition",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7109,7 +7109,7 @@ const SEED_DATA = {
         {
           "label": "Basic target-market research",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7117,7 +7117,7 @@ const SEED_DATA = {
         {
           "label": "Prospecting criteria",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7125,7 +7125,7 @@ const SEED_DATA = {
         {
           "label": "Up to 150 prospect records per month",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7133,7 +7133,7 @@ const SEED_DATA = {
         {
           "label": "Basic lead-list organization",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7141,7 +7141,7 @@ const SEED_DATA = {
         {
           "label": "Contact-data cleanup",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7149,7 +7149,7 @@ const SEED_DATA = {
         {
           "label": "One outreach sequence framework",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7157,7 +7157,7 @@ const SEED_DATA = {
         {
           "label": "Lead tracking sheet or basic CRM structure",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7165,7 +7165,7 @@ const SEED_DATA = {
         {
           "label": "Monthly results summary",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7173,7 +7173,7 @@ const SEED_DATA = {
         {
           "label": "Up to 500 prospect records per month",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7181,7 +7181,7 @@ const SEED_DATA = {
         {
           "label": "Multiple target segments",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7189,7 +7189,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced prospect research",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7197,7 +7197,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 outreach sequences",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7205,7 +7205,7 @@ const SEED_DATA = {
         {
           "label": "Basic personalization framework",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7213,7 +7213,7 @@ const SEED_DATA = {
         {
           "label": "CRM import assistance",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7221,7 +7221,7 @@ const SEED_DATA = {
         {
           "label": "Lead tagging",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7229,7 +7229,7 @@ const SEED_DATA = {
         {
           "label": "Follow-up workflow",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7237,7 +7237,7 @@ const SEED_DATA = {
         {
           "label": "Monthly performance analysis",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7245,7 +7245,7 @@ const SEED_DATA = {
         {
           "label": "Strategy adjustments",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7253,7 +7253,7 @@ const SEED_DATA = {
         {
           "label": "Up to 1,000 prospect records per month",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7261,7 +7261,7 @@ const SEED_DATA = {
         {
           "label": "Multiple customer profiles",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7269,7 +7269,7 @@ const SEED_DATA = {
         {
           "label": "Advanced account research",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7277,7 +7277,7 @@ const SEED_DATA = {
         {
           "label": "Multi-step outreach strategy",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7285,7 +7285,7 @@ const SEED_DATA = {
         {
           "label": "CRM pipeline setup",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7293,7 +7293,7 @@ const SEED_DATA = {
         {
           "label": "Lead qualification framework",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7301,7 +7301,7 @@ const SEED_DATA = {
         {
           "label": "Follow-up automation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7309,7 +7309,7 @@ const SEED_DATA = {
         {
           "label": "Reporting dashboard",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7317,7 +7317,7 @@ const SEED_DATA = {
         {
           "label": "Ongoing campaign refinement",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7325,14 +7325,14 @@ const SEED_DATA = {
         {
           "label": "Monthly strategy session",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$199",
           "packageName": "Starter Package",
           "shortDescription": "25 targeted leads, basic qualification",
@@ -7514,13 +7514,13 @@ const SEED_DATA = {
           "Automated review requests",
           "Crisis response support",
           "Monthly detailed reporting",
-          "Strategic reputation growth plan"
+          "Strategic reputation standard plan"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -7528,7 +7528,7 @@ const SEED_DATA = {
         {
           "label": "Review collection system",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7536,7 +7536,7 @@ const SEED_DATA = {
         {
           "label": "Review monitoring",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7544,7 +7544,7 @@ const SEED_DATA = {
         {
           "label": "Monthly report",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7552,7 +7552,7 @@ const SEED_DATA = {
         {
           "label": "Multi-platform monitoring",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7560,7 +7560,7 @@ const SEED_DATA = {
         {
           "label": "Custom response management",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7568,7 +7568,7 @@ const SEED_DATA = {
         {
           "label": "Automated review requests",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7576,14 +7576,14 @@ const SEED_DATA = {
         {
           "label": "Crisis response support",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$199",
           "packageName": "Starter Package",
           "shortDescription": "Review collection setup, basic monitoring",
@@ -7624,7 +7624,7 @@ const SEED_DATA = {
             "Automated review requests",
             "Crisis response support",
             "Monthly detailed reporting",
-            "Strategic reputation growth plan"
+            "Strategic reputation standard plan"
           ]
         }
       }
@@ -7769,7 +7769,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -7777,7 +7777,7 @@ const SEED_DATA = {
         {
           "label": "1 CRM pipeline",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7785,7 +7785,7 @@ const SEED_DATA = {
         {
           "label": "Basic CRM configuration",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7793,7 +7793,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 forms",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7801,7 +7801,7 @@ const SEED_DATA = {
         {
           "label": "Up to 3 automated workflows",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7809,7 +7809,7 @@ const SEED_DATA = {
         {
           "label": "Contact tagging",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7817,7 +7817,7 @@ const SEED_DATA = {
         {
           "label": "Basic lead notifications",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7825,7 +7825,7 @@ const SEED_DATA = {
         {
           "label": "1 third-party integration",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7833,7 +7833,7 @@ const SEED_DATA = {
         {
           "label": "Testing",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7841,7 +7841,7 @@ const SEED_DATA = {
         {
           "label": "Basic documentation",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7849,7 +7849,7 @@ const SEED_DATA = {
         {
           "label": "One training session",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -7857,7 +7857,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 CRM pipelines",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7865,7 +7865,7 @@ const SEED_DATA = {
         {
           "label": "Up to 5 automated workflows",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7873,7 +7873,7 @@ const SEED_DATA = {
         {
           "label": "Up to 3 integrations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7881,7 +7881,7 @@ const SEED_DATA = {
         {
           "label": "Lead routing",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7889,7 +7889,7 @@ const SEED_DATA = {
         {
           "label": "Email follow-up automation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7897,7 +7897,7 @@ const SEED_DATA = {
         {
           "label": "Task automation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7905,7 +7905,7 @@ const SEED_DATA = {
         {
           "label": "Contact segmentation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7913,7 +7913,7 @@ const SEED_DATA = {
         {
           "label": "Pipeline stages",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7921,7 +7921,7 @@ const SEED_DATA = {
         {
           "label": "Basic dashboard",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7929,7 +7929,7 @@ const SEED_DATA = {
         {
           "label": "Testing and QA",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7937,7 +7937,7 @@ const SEED_DATA = {
         {
           "label": "Documentation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7945,7 +7945,7 @@ const SEED_DATA = {
         {
           "label": "Team training",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -7953,7 +7953,7 @@ const SEED_DATA = {
         {
           "label": "Up to 4 pipelines",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7961,7 +7961,7 @@ const SEED_DATA = {
         {
           "label": "Up to 12 automated workflows",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7969,7 +7969,7 @@ const SEED_DATA = {
         {
           "label": "Up to 6 integrations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7977,7 +7977,7 @@ const SEED_DATA = {
         {
           "label": "Advanced lead routing",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7985,7 +7985,7 @@ const SEED_DATA = {
         {
           "label": "Multi-step customer journeys",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -7993,7 +7993,7 @@ const SEED_DATA = {
         {
           "label": "Sales automation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8001,7 +8001,7 @@ const SEED_DATA = {
         {
           "label": "Marketing automation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8009,7 +8009,7 @@ const SEED_DATA = {
         {
           "label": "Customer tagging/scoring rules",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8017,7 +8017,7 @@ const SEED_DATA = {
         {
           "label": "Reporting dashboard",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8025,7 +8025,7 @@ const SEED_DATA = {
         {
           "label": "Advanced workflow testing",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8033,7 +8033,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 hours of team training",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8041,14 +8041,14 @@ const SEED_DATA = {
         {
           "label": "Post-launch optimization review",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$499",
           "packageName": "Starter Package",
           "shortDescription": "CRM setup, basic automation, lead capture forms",
@@ -8218,7 +8218,7 @@ const SEED_DATA = {
       "custom": {
         "name": "Custom Quote Only",
         "price": "Custom Quote",
-        "description": "AI automation does not use growth package pricing because every project depends on the tools, workflows, and goals involved.",
+        "description": "AI automation does not use standard package pricing because every project depends on the tools, workflows, and goals involved.",
         "includes": [
           "a discovery conversation about your current process",
           "a recommended automation approach based on your tools",
@@ -8373,7 +8373,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -8381,7 +8381,7 @@ const SEED_DATA = {
         {
           "label": "Automated workflows",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -8389,7 +8389,7 @@ const SEED_DATA = {
         {
           "label": "Process mapping",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -8397,7 +8397,7 @@ const SEED_DATA = {
         {
           "label": "Testing and documentation",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -8405,7 +8405,7 @@ const SEED_DATA = {
         {
           "label": "Integration setup",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -8413,7 +8413,7 @@ const SEED_DATA = {
         {
           "label": "Training support",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -8421,7 +8421,7 @@ const SEED_DATA = {
         {
           "label": "Multi-system integration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8429,14 +8429,14 @@ const SEED_DATA = {
         {
           "label": "Ongoing support",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$299",
           "packageName": "Starter Package",
           "shortDescription": "1 automated workflow, process mapping",
@@ -8619,7 +8619,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -8627,7 +8627,7 @@ const SEED_DATA = {
         {
           "label": "Up to 1 primary data source",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -8635,7 +8635,7 @@ const SEED_DATA = {
         {
           "label": "Data cleanup for the agreed dataset",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -8643,7 +8643,7 @@ const SEED_DATA = {
         {
           "label": "Up to 8 key metrics",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -8651,7 +8651,7 @@ const SEED_DATA = {
         {
           "label": "One basic dashboard/report",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -8659,7 +8659,7 @@ const SEED_DATA = {
         {
           "label": "Key observations",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -8667,7 +8667,7 @@ const SEED_DATA = {
         {
           "label": "One revision round",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -8675,7 +8675,7 @@ const SEED_DATA = {
         {
           "label": "Up to 3 regular data sources",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -8683,7 +8683,7 @@ const SEED_DATA = {
         {
           "label": "Monthly dashboard updates",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -8691,7 +8691,7 @@ const SEED_DATA = {
         {
           "label": "KPI tracking",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -8699,7 +8699,7 @@ const SEED_DATA = {
         {
           "label": "Trend analysis",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -8707,7 +8707,7 @@ const SEED_DATA = {
         {
           "label": "Monthly performance report",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -8715,7 +8715,7 @@ const SEED_DATA = {
         {
           "label": "Data-quality review",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -8723,7 +8723,7 @@ const SEED_DATA = {
         {
           "label": "Recommendations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -8731,7 +8731,7 @@ const SEED_DATA = {
         {
           "label": "One monthly review meeting",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -8739,7 +8739,7 @@ const SEED_DATA = {
         {
           "label": "Up to 5 regular data sources",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8747,7 +8747,7 @@ const SEED_DATA = {
         {
           "label": "Advanced dashboards",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8755,7 +8755,7 @@ const SEED_DATA = {
         {
           "label": "Department/channel segmentation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8763,7 +8763,7 @@ const SEED_DATA = {
         {
           "label": "KPI framework",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8771,7 +8771,7 @@ const SEED_DATA = {
         {
           "label": "Conversion/performance analysis",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8779,7 +8779,7 @@ const SEED_DATA = {
         {
           "label": "Monthly executive report",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8787,7 +8787,7 @@ const SEED_DATA = {
         {
           "label": "Regular dashboard refreshes",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8795,7 +8795,7 @@ const SEED_DATA = {
         {
           "label": "Monthly strategy meeting",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -8803,14 +8803,14 @@ const SEED_DATA = {
         {
           "label": "Improvement recommendations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$199",
           "packageName": "Starter Package",
           "shortDescription": "1 custom data report, basic analysis, visual charts",
@@ -8968,7 +8968,7 @@ const SEED_DATA = {
       "starter": {
         "name": "Starter Package",
         "price": "$499",
-        "description": "Ideal for businesses needing a growth plan.",
+        "description": "Ideal for businesses needing a standard plan.",
         "includes": [
           "1 strategy session (60 min)",
           "Business assessment",
@@ -9004,7 +9004,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -9012,7 +9012,7 @@ const SEED_DATA = {
         {
           "label": "Strategy sessions",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9020,7 +9020,7 @@ const SEED_DATA = {
         {
           "label": "Business assessment",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9028,7 +9028,7 @@ const SEED_DATA = {
         {
           "label": "Action plan document",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9036,7 +9036,7 @@ const SEED_DATA = {
         {
           "label": "Implementation roadmap",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9044,7 +9044,7 @@ const SEED_DATA = {
         {
           "label": "Monthly progress reviews",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9052,7 +9052,7 @@ const SEED_DATA = {
         {
           "label": "Quarterly strategy reviews",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9060,18 +9060,18 @@ const SEED_DATA = {
         {
           "label": "Team support and implementation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$499",
           "packageName": "Starter Package",
           "shortDescription": "1 strategy session, business assessment, action plan",
-          "description": "Ideal for businesses needing a growth plan.",
+          "description": "Ideal for businesses needing a standard plan.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
@@ -9202,7 +9202,7 @@ const SEED_DATA = {
       },
       {
         "name": "Process Documentation",
-        "reason": "workflow growthization"
+        "reason": "workflow standardization"
       },
       {
         "name": "Lead Generation",
@@ -9250,7 +9250,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -9258,7 +9258,7 @@ const SEED_DATA = {
         {
           "label": "Up to 10 hours per month",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9266,7 +9266,7 @@ const SEED_DATA = {
         {
           "label": "Basic administrative tasks",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9274,7 +9274,7 @@ const SEED_DATA = {
         {
           "label": "Calendar support",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9282,7 +9282,7 @@ const SEED_DATA = {
         {
           "label": "Data organization",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9290,7 +9290,7 @@ const SEED_DATA = {
         {
           "label": "Basic research",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9298,7 +9298,7 @@ const SEED_DATA = {
         {
           "label": "Document formatting",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9306,7 +9306,7 @@ const SEED_DATA = {
         {
           "label": "Routine email assistance",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9314,7 +9314,7 @@ const SEED_DATA = {
         {
           "label": "Up to 25 hours per month",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9322,7 +9322,7 @@ const SEED_DATA = {
         {
           "label": "CRM updates",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9330,7 +9330,7 @@ const SEED_DATA = {
         {
           "label": "Customer follow-up support",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9338,7 +9338,7 @@ const SEED_DATA = {
         {
           "label": "Content scheduling",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9346,7 +9346,7 @@ const SEED_DATA = {
         {
           "label": "Reporting assistance",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9354,7 +9354,7 @@ const SEED_DATA = {
         {
           "label": "Process support",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9362,7 +9362,7 @@ const SEED_DATA = {
         {
           "label": "Recurring administrative workflows",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9370,7 +9370,7 @@ const SEED_DATA = {
         {
           "label": "Up to 50 hours per month",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9378,7 +9378,7 @@ const SEED_DATA = {
         {
           "label": "Advanced administrative support",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9386,7 +9386,7 @@ const SEED_DATA = {
         {
           "label": "CRM management",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9394,7 +9394,7 @@ const SEED_DATA = {
         {
           "label": "Customer-service support",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9402,7 +9402,7 @@ const SEED_DATA = {
         {
           "label": "Research",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9410,7 +9410,7 @@ const SEED_DATA = {
         {
           "label": "Reporting",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9418,7 +9418,7 @@ const SEED_DATA = {
         {
           "label": "Content administration",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9426,7 +9426,7 @@ const SEED_DATA = {
         {
           "label": "Project coordination",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9434,14 +9434,14 @@ const SEED_DATA = {
         {
           "label": "Recurring operations support",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$149/month",
           "packageName": "Starter Package",
           "shortDescription": "Up to 5 hours support, email management, scheduling",
@@ -9632,7 +9632,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -9640,7 +9640,7 @@ const SEED_DATA = {
         {
           "label": "Up to 10 hours per month",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9648,7 +9648,7 @@ const SEED_DATA = {
         {
           "label": "Project tracking",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9656,7 +9656,7 @@ const SEED_DATA = {
         {
           "label": "Task organization",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9664,7 +9664,7 @@ const SEED_DATA = {
         {
           "label": "Deadline tracking",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9672,7 +9672,7 @@ const SEED_DATA = {
         {
           "label": "Basic status reports",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9680,7 +9680,7 @@ const SEED_DATA = {
         {
           "label": "Team follow-up",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9688,7 +9688,7 @@ const SEED_DATA = {
         {
           "label": "One weekly coordination touchpoint",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -9696,7 +9696,7 @@ const SEED_DATA = {
         {
           "label": "Up to 25 hours per month",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9704,7 +9704,7 @@ const SEED_DATA = {
         {
           "label": "Project planning",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9712,7 +9712,7 @@ const SEED_DATA = {
         {
           "label": "Task management",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9720,7 +9720,7 @@ const SEED_DATA = {
         {
           "label": "Team coordination",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9728,7 +9728,7 @@ const SEED_DATA = {
         {
           "label": "Risk/issue tracking",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9736,7 +9736,7 @@ const SEED_DATA = {
         {
           "label": "Weekly reporting",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9744,7 +9744,7 @@ const SEED_DATA = {
         {
           "label": "Meeting coordination",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9752,7 +9752,7 @@ const SEED_DATA = {
         {
           "label": "Documentation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9760,7 +9760,7 @@ const SEED_DATA = {
         {
           "label": "Stakeholder updates",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -9768,7 +9768,7 @@ const SEED_DATA = {
         {
           "label": "Up to 50 hours per month",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9776,7 +9776,7 @@ const SEED_DATA = {
         {
           "label": "Multi-workstream coordination",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9784,7 +9784,7 @@ const SEED_DATA = {
         {
           "label": "Schedule management",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9792,7 +9792,7 @@ const SEED_DATA = {
         {
           "label": "Risk management",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9800,7 +9800,7 @@ const SEED_DATA = {
         {
           "label": "Stakeholder management",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9808,7 +9808,7 @@ const SEED_DATA = {
         {
           "label": "Project documentation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9816,7 +9816,7 @@ const SEED_DATA = {
         {
           "label": "Leadership updates",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -9824,14 +9824,14 @@ const SEED_DATA = {
         {
           "label": "Continuous project oversight",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$1",
           "packageName": "Starter Package",
           "shortDescription": "Management of 1 project, timeline planning",
@@ -9922,7 +9922,7 @@ const SEED_DATA = {
     "startingPrice": "$400",
     "intro": "Clear processes are essential for businesses that want to operate efficiently and scale effectively.",
     "description": "When workflows are undocumented, tasks become inconsistent, training takes longer, and operational mistakes are more likely.",
-    "longDescription": "Scale Link Alliance provides Process Documentation and Growth Operating Procedure (SOP) development services that help businesses organize their workflows, create structured procedures, and ensure tasks can be performed consistently by teams or future hires.",
+    "longDescription": "Scale Link Alliance provides Process Documentation and Standard Operating Procedure (SOP) development services that help businesses organize their workflows, create structured procedures, and ensure tasks can be performed consistently by teams or future hires.",
     "features": [
       "Workflow mapping",
       "SOP documentation",
@@ -9931,7 +9931,7 @@ const SEED_DATA = {
       "Process diagrams"
     ],
     "whatItHelpsAchieve": [
-      "growthize workflows and procedures",
+      "standardize workflows and procedures",
       "improve team efficiency",
       "simplify employee training",
       "reduce operational errors",
@@ -10024,7 +10024,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -10032,7 +10032,7 @@ const SEED_DATA = {
         {
           "label": "Up to 3 SOPs",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -10040,7 +10040,7 @@ const SEED_DATA = {
         {
           "label": "Up to approximately 15 total finished pages",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -10048,7 +10048,7 @@ const SEED_DATA = {
         {
           "label": "Process review",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -10056,7 +10056,7 @@ const SEED_DATA = {
         {
           "label": "Step-by-step documentation",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -10064,7 +10064,7 @@ const SEED_DATA = {
         {
           "label": "Basic formatting",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -10072,7 +10072,7 @@ const SEED_DATA = {
         {
           "label": "One revision round",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -10080,7 +10080,7 @@ const SEED_DATA = {
         {
           "label": "Up to 8 SOPs",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -10088,7 +10088,7 @@ const SEED_DATA = {
         {
           "label": "Up to approximately 40 total finished pages",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -10096,7 +10096,7 @@ const SEED_DATA = {
         {
           "label": "Process interviews",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -10104,7 +10104,7 @@ const SEED_DATA = {
         {
           "label": "Workflow documentation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -10112,7 +10112,7 @@ const SEED_DATA = {
         {
           "label": "Roles/responsibilities",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -10120,15 +10120,15 @@ const SEED_DATA = {
         {
           "label": "Templates/checklists where applicable",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
         },
         {
-          "label": "Growthized formatting",
+          "label": "Standardized formatting",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -10136,7 +10136,7 @@ const SEED_DATA = {
         {
           "label": "Two revision rounds",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -10144,7 +10144,7 @@ const SEED_DATA = {
         {
           "label": "Up to 20 SOPs",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -10152,7 +10152,7 @@ const SEED_DATA = {
         {
           "label": "Up to approximately 100 total finished pages",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -10160,7 +10160,7 @@ const SEED_DATA = {
         {
           "label": "Stakeholder interviews",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -10168,7 +10168,7 @@ const SEED_DATA = {
         {
           "label": "Process mapping",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -10176,7 +10176,7 @@ const SEED_DATA = {
         {
           "label": "Roles and responsibility documentation",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -10184,7 +10184,7 @@ const SEED_DATA = {
         {
           "label": "Operational checklists",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -10192,7 +10192,7 @@ const SEED_DATA = {
         {
           "label": "Templates",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -10200,7 +10200,7 @@ const SEED_DATA = {
         {
           "label": "Documentation structure",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -10208,7 +10208,7 @@ const SEED_DATA = {
         {
           "label": "Implementation recommendations",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -10216,14 +10216,14 @@ const SEED_DATA = {
         {
           "label": "Up to 3 revision rounds",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$400",
           "packageName": "Starter Package",
           "shortDescription": "1 documented workflow, step-by-step SOP, process map",
@@ -10270,7 +10270,7 @@ const SEED_DATA = {
     "sampleProject": {
       "projectName": "SOPBuilder Documentation System",
       "businessType": "Growing small business",
-      "projectSummary": "A process documentation concept designed to help a business organize its operations, create growth procedures, and build systems that support growth.",
+      "projectSummary": "A process documentation concept designed to help a business organize its operations, create standard procedures, and build systems that support growth.",
       "servicesIncluded": [
         "Workflow mapping",
         "SOP documentation",
@@ -10279,7 +10279,7 @@ const SEED_DATA = {
         "Operations manual",
         "Process improvement recommendations"
       ],
-      "portfolioCardText": "A process documentation concept built to help businesses growthize operations, improve efficiency, and scale with confidence."
+      "portfolioCardText": "A process documentation concept built to help businesses standardize operations, improve efficiency, and scale with confidence."
     },
     "mainImage": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=500&fit=crop",
     "galleryImages": [
@@ -10366,7 +10366,7 @@ const SEED_DATA = {
       },
       {
         "name": "Process Documentation & SOP Development",
-        "reason": "growthize workflows"
+        "reason": "standardize workflows"
       },
       {
         "name": "Lead Generation Services",
@@ -10410,7 +10410,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "basic",
+        "starter",
         "growth",
         "premium"
       ],
@@ -10418,7 +10418,7 @@ const SEED_DATA = {
         {
           "label": "Up to 500 straightforward records",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -10426,7 +10426,7 @@ const SEED_DATA = {
         {
           "label": "Data entry",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -10434,7 +10434,7 @@ const SEED_DATA = {
         {
           "label": "Basic formatting",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -10442,7 +10442,7 @@ const SEED_DATA = {
         {
           "label": "Basic duplicate review",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -10450,7 +10450,7 @@ const SEED_DATA = {
         {
           "label": "Basic quality check",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -10458,7 +10458,7 @@ const SEED_DATA = {
         {
           "label": "One agreed data source/output format",
           "values": {
-            "basic": true,
+            "starter": true,
             "growth": true,
             "premium": true
           }
@@ -10466,7 +10466,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2,000 straightforward records",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -10474,7 +10474,7 @@ const SEED_DATA = {
         {
           "label": "Data cleanup",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -10482,7 +10482,7 @@ const SEED_DATA = {
         {
           "label": "Formatting",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -10490,7 +10490,7 @@ const SEED_DATA = {
         {
           "label": "Duplicate detection",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -10498,7 +10498,7 @@ const SEED_DATA = {
         {
           "label": "Categorization",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -10506,7 +10506,7 @@ const SEED_DATA = {
         {
           "label": "Quality review",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -10514,7 +10514,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 output formats",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": true,
             "premium": true
           }
@@ -10522,7 +10522,7 @@ const SEED_DATA = {
         {
           "label": "Up to 5,000 straightforward records per month",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -10530,7 +10530,7 @@ const SEED_DATA = {
         {
           "label": "Recurring processing",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -10538,7 +10538,7 @@ const SEED_DATA = {
         {
           "label": "Quality-control checks",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
@@ -10546,14 +10546,14 @@ const SEED_DATA = {
         {
           "label": "Regular status reporting",
           "values": {
-            "basic": false,
+            "starter": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "basic": {
+        "starter": {
           "price": "$99",
           "packageName": "Starter Package",
           "shortDescription": "Up to 200 records, spreadsheet entry, basic formatting",
@@ -10657,7 +10657,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Two revision rounds",
       "Basic launch support"
     ],
-    "growth": [
+    "standard": [
       "Everything in Starter",
       "Up to 10 pages",
       "More customized page layouts",
@@ -10710,7 +10710,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic copy formatting",
       "Two revision rounds"
     ],
-    "growth": [
+    "standard": [
       "Up to 3 funnel pages",
       "Landing page",
       "Thank-you/confirmation page",
@@ -10759,7 +10759,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Two revision rounds",
       "Store management training"
     ],
-    "growth": [
+    "standard": [
       "Everything in Starter",
       "Up to 50 products",
       "Advanced product variations",
@@ -10810,7 +10810,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Monthly performance report",
       "Monthly recommendations"
     ],
-    "growth": [
+    "standard": [
       "Everything in Starter",
       "Up to 20 tracked target keywords",
       "Optimization across up to 15 priority pages",
@@ -10859,7 +10859,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Monthly report",
       "One monthly campaign review"
     ],
-    "growth": [
+    "standard": [
       "Everything in Starter",
       "Up to 2 active campaigns",
       "Up to 8 ad groups/ad sets",
@@ -10902,7 +10902,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Lead tracking sheet or basic CRM structure",
       "Monthly results summary"
     ],
-    "growth": [
+    "standard": [
       "Everything in Starter",
       "Up to 500 prospect records per month",
       "Multiple target segments",
@@ -10941,7 +10941,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic documentation",
       "One training session"
     ],
-    "growth": [
+    "standard": [
       "Up to 2 CRM pipelines",
       "Up to 5 automated workflows",
       "Up to 3 integrations",
@@ -10984,7 +10984,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "One revision round",
       "Campaign performance summary"
     ],
-    "growth": [
+    "standard": [
       "Up to 4 emails",
       "Campaign strategy",
       "Email layout/design",
@@ -11025,7 +11025,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic monthly report",
       "One revision round on the monthly content batch"
     ],
-    "growth": [
+    "standard": [
       "Up to 2 platforms",
       "Up to 16 feed posts per month",
       "Up to 4 short-form videos/reels using provided or existing footage",
@@ -11062,7 +11062,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "1 revision round",
       "Final web-ready file"
     ],
-    "growth": [
+    "standard": [
       "Up to 5 coordinated assets",
       "Consistent visual direction",
       "Up to 2 sizes per core design where required",
@@ -11090,7 +11090,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic typography recommendations",
       "PNG, JPG and transparent logo files"
     ],
-    "growth": [
+    "standard": [
       "Brand discovery",
       "3 initial logo concepts",
       "Primary logo",
@@ -11127,7 +11127,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Web-resolution files",
       "One local location"
     ],
-    "growth": [
+    "standard": [
       "Up to 2.5 hours",
       "Up to 30 edited photographs",
       "Product/team/location combinations",
@@ -11157,7 +11157,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "1 revision round",
       "Final exported video"
     ],
-    "growth": [
+    "standard": [
       "1 video up to 5 minutes",
       "Professional editing",
       "B-roll placement",
@@ -11190,7 +11190,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic SEO considerations where applicable",
       "1 revision round"
     ],
-    "growth": [
+    "standard": [
       "Up to 2,500 total words",
       "Up to 3 content pieces/pages",
       "Keyword consideration",
@@ -11220,7 +11220,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic error handling",
       "Documentation"
     ],
-    "growth": [
+    "standard": [
       "Integration of up to 2 systems",
       "Up to 6 endpoints/actions",
       "Advanced data mapping",
@@ -11258,7 +11258,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Deployment assistance",
       "Basic technical documentation"
     ],
-    "growth": [
+    "standard": [
       "Product planning",
       "Up to 15 core screens",
       "Up to 2 user roles",
@@ -11301,7 +11301,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic technical health review",
       "Monthly maintenance summary"
     ],
-    "growth": [
+    "standard": [
       "Up to 5 support hours per month",
       "Updates",
       "Backup monitoring",
@@ -11335,7 +11335,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Document formatting",
       "Routine email assistance"
     ],
-    "growth": [
+    "standard": [
       "Up to 25 hours per month",
       "Everything in Starter",
       "CRM updates",
@@ -11366,7 +11366,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Key observations",
       "One revision round"
     ],
-    "growth": [
+    "standard": [
       "Up to 3 regular data sources",
       "Monthly dashboard updates",
       "KPI tracking",
@@ -11398,14 +11398,14 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic formatting",
       "One revision round"
     ],
-    "growth": [
+    "standard": [
       "Up to 8 SOPs",
       "Up to approximately 40 total finished pages",
       "Process interviews",
       "Workflow documentation",
       "Roles/responsibilities",
       "Templates/checklists where applicable",
-      "Growthized formatting",
+      "Standardized formatting",
       "Two revision rounds"
     ],
     "premium": [
@@ -11431,7 +11431,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Team follow-up",
       "One weekly coordination touchpoint"
     ],
-    "growth": [
+    "standard": [
       "Up to 25 hours per month",
       "Project planning",
       "Task management",
@@ -11465,7 +11465,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic quality check",
       "One agreed data source/output format"
     ],
-    "growth": [
+    "standard": [
       "Up to 2,000 straightforward records",
       "Data entry",
       "Data cleanup",
@@ -11495,7 +11495,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic documentation",
       "Training session"
     ],
-    "growth": [
+    "standard": [
       "Up to 2 AI automations",
       "Advanced AI model configuration",
       "Up to 8 automation workflows",

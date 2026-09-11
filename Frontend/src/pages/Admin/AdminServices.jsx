@@ -46,15 +46,15 @@ const INITIAL_SERVICE_STATE = {
   complementaryServices: [],
   packages: {
     starter: { name: 'Starter Package', price: '$35', description: '', includes: [] },
-    growth: { name: 'Standard Package', price: '$175', description: '', includes: [] },
+    growth: { name: 'Growth Package', price: '$175', description: '', includes: [] },
     premium: { name: 'Premium Package', price: '$499', description: '', includes: [] }
   },
   packageComparison: {
-    tiers: ['basic', 'standard', 'premium'],
+    tiers: ['starter', 'growth', 'premium'],
     rows: [],
     details: {
-      basic: { price: '$35', packageName: 'Starter Package', shortDescription: '', description: '', deliveryLabel: 'Shown during service selection', revisions: '1 revision round', includes: [] },
-      standard: { price: '$175', packageName: 'Standard Package', shortDescription: '', description: '', deliveryLabel: 'Shown during service selection', revisions: '2 revision rounds', includes: [] },
+      starter: { price: '$35', packageName: 'Starter Package', shortDescription: '', description: '', deliveryLabel: 'Shown during service selection', revisions: '1 revision round', includes: [] },
+      growth: { price: '$175', packageName: 'Growth Package', shortDescription: '', description: '', deliveryLabel: 'Shown during service selection', revisions: '2 revision rounds', includes: [] },
       premium: { price: '$499', packageName: 'Premium Package', shortDescription: '', description: '', deliveryLabel: 'Shown during service selection', revisions: 'Priority revisions', includes: [] }
     }
   },
@@ -419,24 +419,24 @@ const AdminServices = () => {
       // 2. Synchronize Tab 2 package tiers into Tab 3 packageComparison.details
       const existingDetails = formData.packageComparison?.details || {};
       const syncedComparison = {
-        ...(formData.packageComparison || { tiers: ['basic', 'standard', 'premium'], rows: [] }),
+        ...(formData.packageComparison || { tiers: ['starter', 'growth', 'premium'], rows: [] }),
         details: {
-          basic: {
-            ...existingDetails.basic,
+          starter: {
+            ...(existingDetails.starter || existingDetails.basic),
             price: formData.packages?.starter?.price || '$35',
             packageName: formData.packages?.starter?.name || 'Starter Package',
             shortDescription: formData.packages?.starter?.description || '',
-            deliveryLabel: existingDetails.basic?.deliveryLabel || 'Shown during service selection',
-            revisions: existingDetails.basic?.revisions || '1 revision round',
+            deliveryLabel: (existingDetails.starter || existingDetails.basic)?.deliveryLabel || 'Shown during service selection',
+            revisions: (existingDetails.starter || existingDetails.basic)?.revisions || '1 revision round',
             includes: formData.packages?.starter?.includes || []
           },
-          standard: {
-            ...existingDetails.standard,
+          growth: {
+            ...(existingDetails.growth || existingDetails.standard),
             price: formData.packages?.growth?.price || '$175',
-            packageName: formData.packages?.growth?.name || 'Standard Package',
+            packageName: formData.packages?.growth?.name || 'Growth Package',
             shortDescription: formData.packages?.growth?.description || '',
-            deliveryLabel: existingDetails.standard?.deliveryLabel || 'Shown during service selection',
-            revisions: existingDetails.standard?.revisions || '2 revision rounds',
+            deliveryLabel: (existingDetails.growth || existingDetails.standard)?.deliveryLabel || 'Shown during service selection',
+            revisions: (existingDetails.growth || existingDetails.standard)?.revisions || '2 revision rounds',
             includes: formData.packages?.growth?.includes || []
           },
           premium: {
@@ -698,10 +698,10 @@ const AdminServices = () => {
     if (!newComparisonRowLabel.trim()) return;
     const newRow = {
       label: newComparisonRowLabel.trim(),
-      values: { basic: true, standard: true, premium: true }
+      values: { starter: true, growth: true, premium: true }
     };
     setFormData(prev => {
-      const existingComp = prev.packageComparison || { tiers: ['basic', 'standard', 'premium'], rows: [], details: {} };
+      const existingComp = prev.packageComparison || { tiers: ['starter', 'growth', 'premium'], rows: [], details: {} };
       return {
         ...prev,
         packageComparison: {
@@ -715,7 +715,7 @@ const AdminServices = () => {
 
   const toggleComparisonValue = (rowIndex, tier) => {
     setFormData(prev => {
-      const existingComp = prev.packageComparison || { tiers: ['basic', 'standard', 'premium'], rows: [], details: {} };
+      const existingComp = prev.packageComparison || { tiers: ['starter', 'growth', 'premium'], rows: [], details: {} };
       const updatedRows = [...(existingComp.rows || [])];
       if (updatedRows[rowIndex]) {
         const currentVal = updatedRows[rowIndex].values?.[tier];
@@ -739,7 +739,7 @@ const AdminServices = () => {
 
   const removeComparisonRow = (index) => {
     setFormData(prev => {
-      const existingComp = prev.packageComparison || { tiers: ['basic', 'standard', 'premium'], rows: [], details: {} };
+      const existingComp = prev.packageComparison || { tiers: ['starter', 'growth', 'premium'], rows: [], details: {} };
       return {
         ...prev,
         packageComparison: {
@@ -753,7 +753,7 @@ const AdminServices = () => {
   const reorderComparisonRow = (fromIndex, toIndex, position = 'before') => {
     if (fromIndex === toIndex && (position === 'before' || position === 'after')) return;
     setFormData(prev => {
-      const existingComp = prev.packageComparison || { tiers: ['basic', 'standard', 'premium'], rows: [], details: {} };
+      const existingComp = prev.packageComparison || { tiers: ['starter', 'growth', 'premium'], rows: [], details: {} };
       const currentRows = [...(existingComp.rows || [])];
       if (fromIndex < 0 || fromIndex >= currentRows.length) return prev;
 
@@ -779,7 +779,7 @@ const AdminServices = () => {
 
   const moveComparisonRow = (index, direction) => {
     setFormData(prev => {
-      const existingComp = prev.packageComparison || { tiers: ['basic', 'standard', 'premium'], rows: [], details: {} };
+      const existingComp = prev.packageComparison || { tiers: ['starter', 'growth', 'premium'], rows: [], details: {} };
       const currentRows = [...(existingComp.rows || [])];
       const targetIndex = direction === 'up' ? index - 1 : index + 1;
       if (targetIndex < 0 || targetIndex >= currentRows.length) return prev;
@@ -1290,7 +1290,7 @@ const AdminServices = () => {
               {activeTab === 'packages' && (
                 <div className="space-y-6">
                   <p className="text-xs text-slate-400 bg-slate-950/60 p-3 rounded-xl border border-slate-800">
-                    Configure the 3 package tiers (Starter, Standard/Growth, Premium) displayed on the service detail page and sidebar checkout.
+                    Configure the 3 package tiers (Starter, Growth, Premium) displayed on the service detail page and sidebar checkout.
                   </p>
 
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -1367,7 +1367,7 @@ const AdminServices = () => {
                     {/* Growth */}
                     <div className="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
                       <div className="flex items-center justify-between">
-                        <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">Tier 2: Standard</h3>
+                        <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">Tier 2: Growth</h3>
                         <span className="text-xs px-2 py-0.5 rounded bg-emerald-900/40 text-emerald-300 font-mono">growth</span>
                       </div>
 
@@ -1422,7 +1422,7 @@ const AdminServices = () => {
 
                       <PackageIncludesSection
                         pkgKey="growth"
-                        tierName="Standard"
+                        tierName="Growth"
                         accentColor="emerald"
                         items={formData.packages?.growth?.includes || []}
                         onAdd={addPackageInclude}
@@ -1527,8 +1527,8 @@ const AdminServices = () => {
                       <thead className="bg-slate-900 text-slate-400 uppercase text-[11px] border-b border-slate-800">
                         <tr>
                           <th className="py-3 px-4">Feature / Deliverable</th>
-                          <th className="py-3 px-3 text-center">Basic / Starter</th>
-                          <th className="py-3 px-3 text-center">Standard / Growth</th>
+                          <th className="py-3 px-3 text-center">Starter</th>
+                          <th className="py-3 px-3 text-center">Growth</th>
                           <th className="py-3 px-3 text-center">Premium</th>
                           <th className="py-3 px-3 text-right">Remove</th>
                         </tr>
@@ -1604,16 +1604,16 @@ const AdminServices = () => {
                                 <td className="py-3 px-3 text-center">
                                   <input
                                     type="checkbox"
-                                    checked={!!row.values?.basic}
-                                    onChange={() => toggleComparisonValue(rIdx, 'basic')}
+                                    checked={!!(row.values?.starter ?? row.values?.basic)}
+                                    onChange={() => toggleComparisonValue(rIdx, 'starter')}
                                     className="w-4 h-4 rounded text-blue-600 bg-slate-900 border-slate-700 cursor-pointer"
                                   />
                                 </td>
                                 <td className="py-3 px-3 text-center">
                                   <input
                                     type="checkbox"
-                                    checked={!!row.values?.standard}
-                                    onChange={() => toggleComparisonValue(rIdx, 'standard')}
+                                    checked={!!(row.values?.growth ?? row.values?.standard)}
+                                    onChange={() => toggleComparisonValue(rIdx, 'growth')}
                                     className="w-4 h-4 rounded text-emerald-600 bg-slate-900 border-slate-700 cursor-pointer"
                                   />
                                 </td>
