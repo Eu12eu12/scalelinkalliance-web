@@ -12,7 +12,6 @@ import {
   FaGlobe, FaMapMarkerAlt, FaFileAlt, FaLock, FaRobot
 } from 'react-icons/fa';
 import { 
-  SERVICES_WITH_PACKAGES, 
   SERVICE_CATEGORIES, 
   CURRENCIES, 
   COUNTRIES,

@@ -15,12 +15,13 @@ import {
 const ServicesPage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [apiServices, setApiServices] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
     const fetchApiServices = async () => {
       try {
-        const res = await fetch('/api/cms/services?catalogOnly=true');
+        const res = await fetch(`/api/cms/services?catalogOnly=true&_t=${Date.now()}`, { cache: 'no-store' });
         if (res.ok) {
           const data = await res.json();
           const list = Array.isArray(data) ? data : (Array.isArray(data?.services) ? data.services : []);
@@ -29,7 +30,9 @@ const ServicesPage = () => {
           }
         }
       } catch (err) {
-        console.warn('Using local fallback for services catalog:', err);
+        console.warn('Error fetching services catalog:', err);
+      } finally {
+        if (isMounted) setLoading(false);
       }
     };
 
@@ -60,554 +63,7 @@ const ServicesPage = () => {
   }, []);
 
 
-  // All services from the documentation
-  const services = [
-    // Creative & Content Services (5)
-    {
-      id: 1,
-      slug: 'graphic-design',
-      name: 'Graphic Design',
-      category: 'creative-support',
-      icon: <FaPaintBrush />,
-      description: 'Strong visual design helps businesses communicate clearly, attract attention, and create a professional brand presence.',
-      startingPrice: '$35',
-      features: [
-        'Social media graphics',
-        'Marketing flyers and posters',
-        'Business cards and stationery',
-        'Presentation and report visuals',
-        'Advertising graphics and banners'
-      ],
-      whatItHelps: [
-        'create professional marketing materials',
-        'strengthen brand recognition',
-        'improve the visual impact of marketing campaigns',
-        'communicate ideas clearly through visuals',
-        'build a consistent brand image across platforms'
-      ],
-      packages: {
-        starter: { price: '$35', includes: '1 graphic design asset, 1 revision, web-ready files' },
-        growth: { price: '$175', includes: 'up to 5 graphic design assets, 2 revision rounds' },
-        premium: { price: '$499', includes: 'up to 10 graphic design assets, priority revisions' }
-      }
-    },
-    {
-      id: 2,
-      slug: 'video-editing',
-      name: 'Video Editing & Motion Graphics',
-      category: 'creative-support',
-      icon: <FaVideo />,
-      description: 'Video content is one of the most powerful ways to capture attention and engage audiences. Transform raw footage into polished visual stories.',
-      startingPrice: '$75',
-      features: [
-        'Promotional videos',
-        'Social media video edits',
-        'Motion graphics and animations',
-        'Video branding elements',
-        'Short-form marketing videos'
-      ],
-      whatItHelps: [
-        'social media marketing',
-        'promotional videos',
-        'product demonstrations',
-        'business presentations',
-        'online advertising',
-        'website video content'
-      ],
-      packages: {
-        starter: { price: '$75', includes: '1 video up to 60 seconds, basic cuts, music, simple motion graphics' },
-        growth: { price: '$225', includes: '3 videos up to 90 seconds each, branded intro/outro, motion graphics' },
-        premium: { price: '$599', includes: '5 videos up to 2 minutes each, advanced motion graphics, color grading' }
-      }
-    },
-    {
-      id: 3,
-      slug: 'copywriting',
-      name: 'Copywriting & Content Creation',
-      category: 'marketing-growth',
-      icon: <FaPenNib />,
-      description: 'Clear and persuasive content is essential for turning visitors into customers. Our copywriting services help you communicate your value.',
-      startingPrice: '$75',
-      features: [
-        'Website content',
-        'Marketing copy',
-        'Blog articles',
-        'Social media captions',
-        'Email marketing content'
-      ],
-      whatItHelps: [
-        'website pages',
-        'blog articles',
-        'marketing campaigns',
-        'email newsletters',
-        'social media captions',
-        'product descriptions',
-        'advertising copy'
-      ],
-      packages: {
-        starter: { price: '$75', includes: '1 content piece up to 800 words, basic keyword research, 1 revision' },
-        growth: { price: '$225', includes: '3 content pieces up to 1,000 words each, SEO-friendly formatting, 2 revisions' },
-        premium: { price: '$599', includes: '6 content pieces up to 1,200 words each, SEO optimization, brand voice alignment' }
-      }
-    },
-    {
-      id: 4,
-      slug: 'brand-identity',
-      name: 'Brand Identity & Logo Design',
-      category: 'creative-support',
-      icon: <FaPalette />,
-      description: 'Your brand identity is the visual foundation of your business. A well-designed logo and consistent brand system help customers recognize your company.',
-      startingPrice: '$199',
-      features: [
-        'Custom logo design',
-        'Brand color palette',
-        'Typography selection',
-        'Brand style guide',
-        'Visual brand assets'
-      ],
-      whatItHelps: [
-        'establish a recognizable brand',
-        'maintain visual consistency across platforms',
-        'improve marketing effectiveness',
-        'create a professional first impression',
-        'strengthen customer trust and credibility'
-      ],
-      packages: {
-        starter: { price: '$199', includes: '1 custom logo concept, basic color palette, 1 revision, PNG + SVG files' },
-        growth: { price: '$499', includes: '3 logo concepts, color palette, typography, 2 revisions, multiple formats' },
-        premium: { price: '$999', includes: '3-4 logo concepts, complete brand style guide, unlimited revisions' }
-      }
-    },
-    {
-      id: 5,
-      slug: 'photography',
-      name: 'Photography & Visual Assets',
-      category: 'creative-support',
-      icon: <FaCamera />,
-      description: 'High-quality visual imagery plays a critical role in how businesses present themselves to customers. Professional photos strengthen brand credibility.',
-      startingPrice: '$199',
-      features: [
-        'Business and team photography',
-        'Product photography',
-        'Website imagery',
-        'Marketing visuals',
-        'Promotional image assets'
-      ],
-      whatItHelps: [
-        'present a professional brand image',
-        'showcase products and services visually',
-        'improve website and social media engagement',
-        'strengthen marketing campaigns',
-        'build a recognizable visual identity'
-      ],
-      packages: {
-        starter: { price: '$199', includes: '10 professionally edited photos, 1 location, basic editing, web-ready files' },
-        growth: { price: '$499', includes: '25 professionally edited photos, multiple scenes, retouching, high-res formats' },
-        premium: { price: '$999', includes: '50 professionally edited photos, multi-scene session, advanced retouching' }
-      },
-    },
-
-    // Tech & Development Services (6)
-    {
-      id: 6,
-      slug: 'website-development',
-      name: 'Website Development',
-      category: 'websites-development',
-      icon: <FaCode />,
-      description: 'Your website is often the first place potential customers learn about your business. A well-designed website builds credibility and communicates your value.',
-      startingPrice: '$699',
-      features: [
-        'Custom website design',
-        'Mobile-friendly layout',
-        'Basic SEO setup',
-        'Contact and lead capture forms',
-        'Website launch support'
-      ],
-      whatItHelps: [
-        'establish an online presence',
-        'showcase services and products',
-        'capture leads and inquiries',
-        'support marketing campaigns',
-        'provide information to customers'
-      ],
-      packages: {
-        starter: { price: '$699', includes: 'up to 3 website pages, responsive design, contact form, basic SEO' },
-        growth: { price: '$1,499', includes: 'up to 7 website pages, advanced layout, marketing tool integration' },
-        premium: { price: '$3,499', includes: 'up to 12 website pages, blog setup, advanced forms, SEO-ready' }
-      }
-    },
-    {
-      id: 7,
-      slug: 'landing-pages',
-      name: 'Landing Pages & Sales Funnels',
-      category: 'websites-development',
-      icon: <FaRocket />,
-      description: 'Landing pages and sales funnels are designed to turn visitors into leads and customers. They focus on a single goal: encouraging visitors to take action.',
-      startingPrice: '$499',
-      features: [
-        'Conversion-focused landing page design',
-        'Lead capture forms',
-        'Marketing funnel integration',
-        'Analytics setup',
-        'Call-to-action optimization'
-      ],
-      whatItHelps: [
-        'generate leads',
-        'promote products or services',
-        'run marketing campaigns',
-        'capture email subscribers',
-        'guide visitors through a sales process'
-      ],
-      packages: {
-        starter: { price: '$499', includes: '1 landing page, lead capture form, mobile-responsive, analytics' },
-        growth: { price: '$1,299', includes: '3-page sales funnel, conversion-focused design, email integration' },
-        premium: { price: '$2,499', includes: 'complete 5-page funnel, advanced integrations, conversion optimization' }
-      }
-    },
-    {
-      id: 8,
-      slug: 'ecommerce-development',
-      name: 'E-Commerce Development',
-      category: 'websites-development',
-      icon: <FaShoppingCart />,
-      description: 'E-commerce platforms allow businesses to sell products online, reach a broader audience, and manage transactions efficiently.',
-      startingPrice: '$999',
-      features: [
-        'Online store setup',
-        'Product page design',
-        'Payment gateway integration',
-        'Shopping cart configuration',
-        'Order management tools'
-      ],
-      whatItHelps: [
-        'sell products online',
-        'manage inventory and orders',
-        'accept secure payments',
-        'expand to new markets',
-        'automate order processing'
-      ],
-      packages: {
-        starter: { price: '$999', includes: 'store setup with up to 10 products, payment gateway, shipping setup' },
-        growth: { price: '$2,499', includes: 'store with up to 50 products, categories, customer accounts' },
-        premium: { price: '$4,999', includes: 'store with up to 100 products, advanced design, product filtering' }
-      }
-    },
-    {
-      id: 9,
-      slug: 'web-applications',
-      name: 'Web Applications & SaaS Development',
-      category: 'websites-development',
-      icon: <FaGlobe />,
-      description: 'Custom web applications and SaaS platforms allow businesses to streamline operations, automate workflows, and create digital tools that support growth.',
-      startingPrice: '$4,999',
-      features: [
-        'Custom web application development',
-        'SaaS platform development',
-        'System integrations',
-        'Workflow automation tools',
-        'Database integration'
-      ],
-      whatItHelps: [
-        'internal business management systems',
-        'client portals and dashboards',
-        'workflow automation tools',
-        'subscription-based software platforms',
-        'online booking and scheduling systems',
-        'data management platforms'
-      ],
-      packages: {
-        starter: { price: '$4,999', includes: '1 custom feature/module, database setup, user login system' },
-        growth: { price: '$14,999', includes: 'multi-feature application (up to 3 modules), user accounts, workflow automation' },
-        premium: { price: '$29,999', includes: 'complete SaaS structure, multiple user roles, API integrations' }
-      }
-    },
-    {
-      id: 10,
-      slug: 'api-integration',
-      name: 'API Integration & Automation',
-      category: 'automation-technology',
-      icon: <FaCloudUploadAlt />,
-      description: 'Modern businesses rely on multiple digital tools. API integrations connect your systems and automate repetitive workflows.',
-      startingPrice: '$499',
-      features: [
-        'System integrations',
-        'Data synchronization',
-        'Workflow automation',
-        'API configuration',
-        'Integration troubleshooting'
-      ],
-      whatItHelps: [
-        'connect software platforms',
-        'reduce manual data entry',
-        'improve workflow efficiency',
-        'ensure accurate data synchronization',
-        'streamline operations'
-      ],
-      packages: {
-        starter: { price: '$499', includes: '1 system integration, basic data synchronization, simple workflow automation' },
-        growth: { price: '$1,499', includes: 'up to 3 system integrations, workflow automation, data synchronization' },
-        premium: { price: '$3,999', includes: 'multiple integrations, advanced workflow automation, API configuration' }
-      }
-    },
-    {
-      id: 11,
-      slug: 'website-maintenance',
-      name: 'Website Maintenance & Updates',
-      category: 'websites-development',
-      icon: <FaShieldAlt />,
-      description: 'A website requires regular updates, monitoring, and maintenance to remain secure, functional, and effective.',
-      startingPrice: '$149/month',
-      features: [
-        'Website updates and patches',
-        'Security monitoring',
-        'Performance checks',
-        'Content updates',
-        'Technical support'
-      ],
-      whatItHelps: [
-        'keep website secure and up to date',
-        'fix technical issues quickly',
-        'update website content when needed',
-        'maintain website performance',
-        'ensure site supports marketing efforts'
-      ],
-      packages: {
-        starter: { price: '$149/month', includes: 'up to 2 hours maintenance, security monitoring, minor updates' },
-        growth: { price: '$349/month', includes: 'up to 5 hours maintenance, content updates, performance optimization' },
-        premium: { price: '$899/month', includes: 'up to 10 hours maintenance, priority support, advanced security' }
-      },
-    },
-
-    // Marketing & Growth Services (6)
-    {
-      id: 13,
-      slug: 'seo-marketing',
-      name: 'SEO & Search Marketing',
-      category: 'marketing-growth',
-      icon: <FaSearch />,
-      description: 'Search Engine Optimization helps your business appear when potential customers search online for services related to your industry.',
-      startingPrice: '$399/month',
-      features: [
-        'Keyword research',
-        'On-page SEO optimization',
-        'Technical SEO improvements',
-        'Content recommendations',
-        'Search performance tracking'
-      ],
-      whatItHelps: [
-        'increase website visibility',
-        'attract targeted organic traffic',
-        'improve search rankings',
-        'strengthen online authority',
-        'generate more inquiries'
-      ],
-      packages: {
-        starter: { price: '$399/month', includes: 'SEO audit, optimization of 5 pages, keyword research' },
-        growth: { price: '$899/month', includes: 'optimization of 15 pages, technical SEO, monthly report' },
-        premium: { price: '$1,999/month', includes: 'optimization of 30+ pages, backlink guidance, strategy' }
-      }
-    },
-    {
-      id: 14,
-      slug: 'paid-advertising',
-      name: 'Paid Advertising Management',
-      category: 'marketing-growth',
-      icon: <FaAd />,
-      description: 'Paid advertising can quickly generate leads and increase brand visibility. We create targeted campaigns designed to maximize ROI.',
-      startingPrice: '$399/month',
-      features: [
-        'Google Ads management',
-        'Social media advertising',
-        'Audience targeting',
-        'Campaign performance optimization',
-        'Monthly reporting'
-      ],
-      whatItHelps: [
-        'reach new customers quickly',
-        'generate leads',
-        'increase brand visibility',
-        'target specific audiences',
-        'maximize marketing budget'
-      ],
-      packages: {
-        starter: { price: '$399/month', includes: '1 ad campaign, audience targeting, monthly report' },
-        growth: { price: '$899/month', includes: '3 campaigns, audience targeting, monthly report' },
-        premium: { price: '$1,999/month', includes: 'full ad management, 10 campaigns, audience targeting' }
-      }
-    },
-    {
-      id: 15,
-      slug: 'email-marketing',
-      name: 'Email Marketing Campaigns',
-      category: 'marketing-growth',
-      icon: <FaEnvelope />,
-      description: 'Email marketing remains one of the most effective ways for businesses to communicate directly with their audience.',
-      startingPrice: '$199',
-      features: [
-        'Email campaign design',
-        'Newsletter creation',
-        'Marketing automation setup',
-        'Customer engagement emails',
-        'Campaign performance tracking'
-      ],
-      whatItHelps: [
-        'maintain regular customer communication',
-        'promote products and announcements',
-        'nurture leads and prospects',
-        'increase customer engagement',
-        'encourage repeat business'
-      ],
-      packages: {
-        starter: { price: '$199', includes: '1 email campaign, template design, mailing list integration' },
-        growth: { price: '$499', includes: '3 email campaigns, audience segmentation, performance tracking' },
-        premium: { price: '$999', includes: '6 email campaigns, custom templates, strategy recommendations' }
-      }
-    },
-    {
-      id: 16,
-      slug: 'lead-generation',
-      name: 'Lead Generation Services',
-      category: 'marketing-growth',
-      icon: <FaRegBuilding />,
-      description: 'Consistent lead generation is essential for business growth. We help identify and connect you with qualified prospects.',
-      startingPrice: '$199',
-      features: [
-        'Target audience identification',
-        'Lead sourcing and research',
-        'Outreach strategies',
-        'Prospect qualification',
-        'Lead list delivery'
-      ],
-      whatItHelps: [
-        'identify potential customers',
-        'build consistent sales pipeline',
-        'expand outreach opportunities',
-        'connect with targeted prospects',
-        'support sales efforts'
-      ],
-      packages: {
-        starter: { price: '$199', includes: '25 targeted leads, basic qualification, contact information' },
-        growth: { price: '$599', includes: '100 leads, advanced qualification, enriched data' },
-        premium: { price: '$1,499', includes: '220 leads, monthly lead updates, full qualification' }
-      }
-    },
-    {
-      id: 17,
-      slug: 'crm-automation',
-      name: 'CRM & Marketing Automation',
-      category: 'automation-technology',
-      icon: <FaCogs />,
-      description: 'CRM systems, funnels, and automations that capture leads and improve conversion efficiency.',
-      startingPrice: '$499',
-      features: [
-        'CRM setup and customization',
-        'Sales funnel development',
-        'Email automation sequences',
-        'Lead tracking and scoring',
-        'Integration with existing tools'
-      ],
-      whatItHelps: [
-        'manage customer relationships',
-        'automate marketing workflows',
-        'track leads and conversions',
-        'improve sales efficiency',
-        'scale customer engagement'
-      ],
-      packages: {
-        starter: { price: '$499', includes: 'CRM setup, basic automation, lead capture forms' },
-        growth: { price: '$1,499', includes: 'full CRM customization, email automation, lead scoring' },
-        premium: { price: '$2,999', includes: 'complete marketing automation, multi-channel sequences, reporting' }
-      },
-    },
-
-    // Operations & Support Services (5)
-    {
-      id: 18,
-      slug: 'virtual-assistant',
-      name: 'Virtual Assistant Services',
-      category: 'creative-support',
-      icon: <FaHeadset />,
-      description: 'Administrative and operational tasks can take valuable time away from strategic work. Virtual assistants help manage routine tasks efficiently.',
-      startingPrice: '$149/month',
-      features: [
-        'Email and calendar management',
-        'Data entry',
-        'Administrative support',
-        'Task coordination',
-        'Customer support assistance'
-      ],
-      whatItHelps: [
-        'reduce administrative workload',
-        'improve task organization',
-        'support daily operations',
-        'manage communication',
-        'free up time for business owners'
-      ],
-      packages: {
-        starter: { price: '$149/month', includes: 'up to 5 hours support, email management, scheduling' },
-        growth: { price: '$399/month', includes: 'up to 15 hours support, administrative tasks, customer communication' },
-        premium: { price: '$999/month', includes: 'up to 40 hours support, full administrative management' }
-      }
-    },
-    {
-      id: 19,
-      slug: 'data-analytics',
-      name: 'Data Analytics & Reporting',
-      category: 'automation-technology',
-      icon: <FaChartLine />,
-      description: 'Data analytics helps businesses understand performance, identify trends, and make better strategic decisions.',
-      startingPrice: '$199/month',
-      features: [
-        'Data analysis',
-        'Business performance reports',
-        'Dashboard creation',
-        'Insight recommendations',
-        'KPI tracking'
-      ],
-      whatItHelps: [
-        'understand key performance metrics',
-        'identify trends in sales and marketing',
-        'make informed business decisions',
-        'track marketing performance',
-        'improve overall efficiency'
-      ],
-      packages: {
-        starter: { price: '$199/month', includes: '1 custom data report, basic analysis, visual charts' },
-        growth: { price: '$699/month', includes: '3 custom reports, dashboards, trend analysis, recommendations' },
-        premium: { price: '$1,999/month', includes: 'custom analytics dashboard, multiple reports, strategic insights' }
-      }
-    },
-    {
-      id: 22,
-      slug: 'data-entry',
-      name: 'Data Entry & Processing',
-      category: 'creative-support',
-      icon: <FaDatabase />,
-      description: 'Accurate and organized data is essential for efficient business operations. We help manage large volumes of information.',
-      startingPrice: '$99',
-      features: [
-        'Database management',
-        'Data cleansing and validation',
-        'Spreadsheet organization',
-        'Record keeping',
-        'Data migration'
-      ],
-      whatItHelps: [
-        'organize business information',
-        'maintain accurate records',
-        'reduce administrative workload',
-        'improve data accessibility',
-        'support operational processes'
-      ],
-      packages: {
-        starter: { price: '$99', includes: 'up to 200 records, spreadsheet entry, basic formatting' },
-        growth: { price: '$299', includes: 'up to 800 records, database management, data organization' },
-        premium: { price: '$799', includes: 'up to 2,000 records, data cleanup, verification, quality checks' }
-      },
-    }
-  ];
-
-    const categories = [
+      const categories = [
     { id: 'all', name: 'All Services' },
     { id: 'websites-development', name: 'Build' },
     { id: 'marketing-growth', name: 'SEO' },
@@ -665,7 +121,7 @@ const ServicesPage = () => {
         whatItHelps: Array.isArray(s.whatItHelpsAchieve) ? s.whatItHelpsAchieve : (Array.isArray(s.whatItHelps) ? s.whatItHelps : []),
         packages: s.packages || {}
       }))
-    : services;
+    : [];
 
   const filteredServices = [
     ...(activeCategory === 'all'
@@ -774,8 +230,27 @@ const ServicesPage = () => {
             </div>
 
             {/* Services Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredServices.map((service, index) => {
+            {loading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[1, 2, 3, 4, 5, 6].map(n => (
+                  <div key={n} className="bg-white rounded-xl shadow border border-gray-200 p-6 animate-pulse flex flex-col h-full space-y-4">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 rounded-lg bg-gray-200 shrink-0" />
+                      <div className="h-6 bg-gray-200 rounded w-3/4" />
+                    </div>
+                    <div className="h-4 bg-gray-200 rounded w-full" />
+                    <div className="h-4 bg-gray-200 rounded w-5/6" />
+                    <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
+                      <div className="h-4 bg-gray-200 rounded w-1/3" />
+                      <div className="h-6 bg-gray-200 rounded w-1/4" />
+                    </div>
+                    <div className="h-10 bg-gray-200 rounded-lg w-full" />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredServices.map((service, index) => {
                 const isCustomQuoteCard = service.slug === 'custom-quote' || service.slug === 'ai-custom-quote';
                 const isAICustomQuote = service.slug === 'ai-custom-quote';
                 
@@ -849,7 +324,8 @@ const ServicesPage = () => {
                   </motion.div>
                 );
               })}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </section>

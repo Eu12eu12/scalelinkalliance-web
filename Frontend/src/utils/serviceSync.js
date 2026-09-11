@@ -131,11 +131,12 @@ export const mergeServicesWithPackages = (apiServicesList, baseMap, slugToServic
   apiServicesList.forEach((service) => {
     if (!service) return;
 
+    const mappedName = (slugToServiceNameMap && service.slug) ? slugToServiceNameMap[service.slug] : null;
+
     // Find key in baseMap that matches this service
     const targetKey = Object.keys(updated).find((k) => {
       const kSlug = normalizeSlug(k);
       const sSlug = normalizeSlug(service.slug);
-      const mappedName = slugToServiceNameMap[service.slug];
       return (
         k.toLowerCase() === (service.title || '').toLowerCase() ||
         kSlug === sSlug ||
@@ -155,17 +156,22 @@ export const mergeServicesWithPackages = (apiServicesList, baseMap, slugToServic
         const parsedPriceCents = parsePriceToCents(pkgData.price !== undefined ? pkgData.price : oldPkg.price);
 
         newPackages[pkgKey] = {
-          name: pkgData.name || oldPkg.name || (pkgKey === 'starter' ? 'Starter Package' : pkgKey === 'growth' ? 'Standard Package' : 'Premium Package'),
+          name: pkgData.name || oldPkg.name || (pkgKey === 'starter' ? 'Starter Package' : pkgKey === 'growth' ? 'Growth Package' : 'Premium Package'),
           price: parsedPriceCents,
           description: pkgData.description || oldPkg.description || '',
           includes: Array.isArray(pkgData.includes) ? pkgData.includes : (oldPkg.includes || [])
         };
       });
 
-      updated[targetKey] = {
+      const serviceEntry = {
         ...existing,
         packages: newPackages
       };
+
+      updated[targetKey] = serviceEntry;
+      if (mappedName) updated[mappedName] = serviceEntry;
+      if (service.title) updated[service.title] = serviceEntry;
+      if (service.slug) updated[service.slug] = serviceEntry;
     }
   });
 

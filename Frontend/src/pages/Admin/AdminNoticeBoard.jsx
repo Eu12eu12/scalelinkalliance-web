@@ -94,6 +94,19 @@ const AdminNoticeBoard = () => {
 
   const { showToast, ToastContainer } = useToast();
   const token = localStorage.getItem('cms_token');
+  const [livePackages, setLivePackages] = useState({});
+
+  useEffect(() => {
+    fetch('/api/cms/services?_t=' + Date.now())
+      .then(res => res.json())
+      .then(data => {
+        const list = Array.isArray(data) ? data : (Array.isArray(data?.services) ? data.services : []);
+        if (list.length > 0) {
+          setLivePackages(mergeServicesWithPackages(list, {}));
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   // Helper for price formatting
   const formatPrice = (amount, currencyCode = 'usd') => {
@@ -114,7 +127,7 @@ const AdminNoticeBoard = () => {
 
   // Calculate total cost
   const totalCost = Object.entries(formData?.services || {}).reduce((acc, [service, pkg]) => {
-    const pkgData = SERVICES_WITH_PACKAGES[service]?.packages[pkg];
+    const pkgData = (livePackages[service] || SERVICES_WITH_PACKAGES[service])?.packages?.[pkg];
     return acc + (pkgData?.price || 0);
   }, 0);
 
@@ -1149,7 +1162,7 @@ const AdminNoticeBoard = () => {
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {cat.services.map(service => {
                               const isSelected = formData.services[service];
-                              const pkgData = SERVICES_WITH_PACKAGES[service];
+                              const pkgData = livePackages[service] || SERVICES_WITH_PACKAGES[service];
                               
                               return (
                                 <div 
