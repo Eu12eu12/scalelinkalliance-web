@@ -21,7 +21,7 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": true,
     "iconName": "FaPaintBrush",
-    "startingPrice": "$35",
+    "startingPrice": "$49",
     "intro": "Strong visual design helps businesses communicate clearly, attract attention, and create a professional brand presence.",
     "description": "Whether for marketing materials, social media content, or digital advertising, effective design plays an essential role in how businesses present themselves to their audience.",
     "longDescription": "Scale Link Alliance provides graphic design services that help businesses create visually compelling materials that support branding, marketing campaigns, and promotional efforts.",
@@ -92,24 +92,29 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$35",
+        "price": "$49",
         "description": "Ideal for small design requests or single marketing assets.",
         "includes": [
-          "1 graphic design asset",
-          "basic design layout",
-          "web-ready file format",
-          "1 revision round"
+          "1 marketing asset",
+          "1 finished size/format",
+          "Basic custom design",
+          "Client-provided brand assets",
+          "1 revision round",
+          "Final web-ready file",
+          "Examples: flyer, promotional graphic, social graphic, simple banner."
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$175",
+        "price": "$199",
         "description": "Ideal for businesses producing multiple marketing materials.",
         "includes": [
-          "up to 5 graphic design assets",
-          "design variations or layouts",
-          "web-ready file formats",
-          "2 revision rounds"
+          "Up to 5 coordinated assets",
+          "Consistent visual direction",
+          "Up to 2 sizes per core design where required",
+          "Basic image sourcing",
+          "2 revision rounds",
+          "Web-ready final files"
         ]
       },
       "premium": {
@@ -117,16 +122,19 @@ const SEED_DATA = {
         "price": "$499",
         "description": "Ideal for businesses running active marketing campaigns.",
         "includes": [
-          "up to 10 graphic design assets",
-          "consistent brand styling",
-          "multiple design formats",
-          "priority revisions and updates"
+          "Up to 12 coordinated marketing assets",
+          "Creative direction",
+          "Brand-consistent design system",
+          "Multiple campaign formats",
+          "Up to 3 revision rounds",
+          "Organized final files",
+          "Print-ready files when required"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -134,103 +142,111 @@ const SEED_DATA = {
         {
           "label": "1 marketing asset",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "1 finished size/format",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic custom design",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Client-provided brand assets",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "1 revision round",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Final web-ready file",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
+          }
+        },
+        {
+          "label": "Examples: flyer, promotional graphic, social graphic, simple banner.",
+          "values": {
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 5 coordinated assets",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Consistent visual direction",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 2 sizes per core design where required",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic image sourcing",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "2 revision rounds",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Web-ready final files",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 12 coordinated marketing assets",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -238,7 +254,7 @@ const SEED_DATA = {
         {
           "label": "Creative direction",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -246,7 +262,7 @@ const SEED_DATA = {
         {
           "label": "Brand-consistent design system",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -254,7 +270,7 @@ const SEED_DATA = {
         {
           "label": "Multiple campaign formats",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -262,7 +278,7 @@ const SEED_DATA = {
         {
           "label": "Up to 3 revision rounds",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -270,7 +286,7 @@ const SEED_DATA = {
         {
           "label": "Organized final files",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -278,53 +294,61 @@ const SEED_DATA = {
         {
           "label": "Print-ready files when required",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$35",
+        "basic": {
+          "price": "$49",
           "packageName": "Starter Package",
-          "shortDescription": "1 design asset, 1 revision, web-ready files",
+          "shortDescription": "Ideal for small design requests or single marketing assets.",
           "description": "Ideal for small design requests or single marketing assets.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "1 revision round",
           "includes": [
-            "1 graphic design asset",
-            "basic design layout",
-            "web-ready file format",
-            "1 revision round"
+            "1 marketing asset",
+            "1 finished size/format",
+            "Basic custom design",
+            "Client-provided brand assets",
+            "1 revision round",
+            "Final web-ready file",
+            "Examples: flyer, promotional graphic, social graphic, simple banner."
           ]
         },
         "growth": {
-          "price": "$175",
+          "price": "$199",
           "packageName": "Growth Package",
-          "shortDescription": "Up to 5 design assets, 2 revisions",
+          "shortDescription": "Ideal for businesses producing multiple marketing materials.",
           "description": "Ideal for businesses producing multiple marketing materials.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "2 revision rounds",
           "includes": [
-            "up to 5 graphic design assets",
-            "design variations or layouts",
-            "web-ready file formats",
-            "2 revision rounds"
+            "Up to 5 coordinated assets",
+            "Consistent visual direction",
+            "Up to 2 sizes per core design where required",
+            "Basic image sourcing",
+            "2 revision rounds",
+            "Web-ready final files"
           ]
         },
         "premium": {
           "price": "$499",
           "packageName": "Premium Package",
-          "shortDescription": "Up to 10 design assets, priority turnaround",
+          "shortDescription": "Ideal for businesses running active marketing campaigns.",
           "description": "Ideal for businesses running active marketing campaigns.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "Priority revisions",
           "includes": [
-            "up to 10 graphic design assets",
-            "consistent brand styling",
-            "multiple design formats",
-            "priority revisions and updates"
+            "Up to 12 coordinated marketing assets",
+            "Creative direction",
+            "Brand-consistent design system",
+            "Multiple campaign formats",
+            "Up to 3 revision rounds",
+            "Organized final files",
+            "Print-ready files when required"
           ]
         }
       }
@@ -345,21 +369,21 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/graphic-design/01.webp",
-            "/images/services/graphic-design/02.webp",
-            "/images/services/graphic-design/03.webp",
-            "/images/services/graphic-design/04.webp",
-            "/images/services/graphic-design/05.webp",
-            "/images/services/graphic-design/06.webp",
-            "/images/services/graphic-design/07.webp",
-            "/images/services/graphic-design/08.webp",
-            "/images/services/graphic-design/09.webp",
-            "/images/services/graphic-design/10.webp",
-            "/images/services/graphic-design/11.webp",
-            "/images/services/graphic-design/12.webp",
-            "/images/services/graphic-design/13.webp",
-            "/images/services/graphic-design/14.webp"
-      ],
+      "/images/services/graphic-design/01.webp",
+      "/images/services/graphic-design/02.webp",
+      "/images/services/graphic-design/03.webp",
+      "/images/services/graphic-design/04.webp",
+      "/images/services/graphic-design/05.webp",
+      "/images/services/graphic-design/06.webp",
+      "/images/services/graphic-design/07.webp",
+      "/images/services/graphic-design/08.webp",
+      "/images/services/graphic-design/09.webp",
+      "/images/services/graphic-design/10.webp",
+      "/images/services/graphic-design/11.webp",
+      "/images/services/graphic-design/12.webp",
+      "/images/services/graphic-design/13.webp",
+      "/images/services/graphic-design/14.webp"
+    ],
     "seoTitle": "Business Graphic Design Services | ScaleLink Alliance",
     "seoDescription": "Professional visual design for marketing graphics, social media, advertising creative and sales materials.",
     "seoKeywords": "graphic design services for businesses",
@@ -373,7 +397,7 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": true,
     "iconName": "FaVideo",
-    "startingPrice": "$75",
+    "startingPrice": "$99",
     "intro": "Video content is one of the most powerful ways to capture attention and engage audiences.",
     "description": "Our video editing and motion graphics services transform raw footage into polished visual stories that communicate your message and promote your business effectively.",
     "longDescription": "Scale Link Alliance provides professional video editing and motion graphics services that help businesses create engaging video content for marketing, social media, and brand promotion.",
@@ -444,46 +468,59 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$75",
+        "price": "$99",
         "description": "Ideal for small projects or social media videos.",
         "includes": [
-          "editing of 1 video up to 60 seconds",
-          "basic cuts and transitions",
-          "background music",
-          "simple motion graphics or text overlays",
-          "export optimized for social media"
+          "1 video up to 60 seconds",
+          "Basic cuts",
+          "Basic transitions",
+          "Text/captions",
+          "Basic audio balancing",
+          "Client-provided footage",
+          "1 aspect ratio",
+          "1 revision round",
+          "Final exported video"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$225",
+        "price": "$299",
         "description": "Ideal for businesses creating regular marketing content.",
         "includes": [
-          "editing of 3 videos up to 90 seconds each",
-          "branded intro/outro",
-          "motion graphics elements",
-          "text animations and transitions",
-          "color correction",
-          "export for social media and website use"
+          "1 video up to 5 minutes",
+          "Professional editing",
+          "B-roll placement",
+          "Titles/text graphics",
+          "Basic motion graphics",
+          "Audio cleanup",
+          "Color correction",
+          "Captions",
+          "Up to 2 aspect ratios",
+          "2 revision rounds"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$599",
+        "price": "$699",
         "description": "Ideal for promotional campaigns or professional brand videos.",
         "includes": [
-          "editing of 5 videos up to 2 minutes each",
-          "advanced motion graphics",
-          "animated titles and brand elements",
-          "color grading",
-          "sound optimization",
-          "multiple export formats for marketing platforms"
+          "1 long-form video up to 12 minutes",
+          "Up to 5 short-form videos from supplied footage",
+          "Advanced editing",
+          "Motion graphics",
+          "B-roll",
+          "Audio enhancement",
+          "Color correction",
+          "Captions",
+          "Branded graphics",
+          "Multiple export formats",
+          "Up to 3 revision rounds"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -491,127 +528,127 @@ const SEED_DATA = {
         {
           "label": "1 video up to 60 seconds",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic cuts",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic transitions",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Text/captions",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic audio balancing",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Client-provided footage",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "1 aspect ratio",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "1 revision round",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Final exported video",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "1 video up to 5 minutes",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Professional editing",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "B-roll placement",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Titles/text graphics",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic motion graphics",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Audio cleanup",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Color correction",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -619,7 +656,7 @@ const SEED_DATA = {
         {
           "label": "Captions",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -627,23 +664,31 @@ const SEED_DATA = {
         {
           "label": "Up to 2 aspect ratios",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "2 revision rounds",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
+            "premium": false
+          }
+        },
+        {
+          "label": "1 long-form video up to 12 minutes",
+          "values": {
+            "basic": false,
+            "growth": false,
             "premium": true
           }
         },
         {
-          "label": "1 long-form video up to 12 minutes OR Up to 5 short-form videos from supplied footage",
+          "label": "Up to 5 short-form videos from supplied footage",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -651,7 +696,7 @@ const SEED_DATA = {
         {
           "label": "Advanced editing",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -659,7 +704,7 @@ const SEED_DATA = {
         {
           "label": "Motion graphics",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -667,7 +712,7 @@ const SEED_DATA = {
         {
           "label": "B-roll",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -675,7 +720,7 @@ const SEED_DATA = {
         {
           "label": "Audio enhancement",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -683,7 +728,7 @@ const SEED_DATA = {
         {
           "label": "Branded graphics",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -691,7 +736,7 @@ const SEED_DATA = {
         {
           "label": "Multiple export formats",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -699,58 +744,71 @@ const SEED_DATA = {
         {
           "label": "Up to 3 revision rounds",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$75",
+        "basic": {
+          "price": "$99",
           "packageName": "Starter Package",
           "shortDescription": "1 video up to 60 seconds, basic cuts, music",
           "description": "Ideal for small projects or social media videos.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "editing of 1 video up to 60 seconds",
-            "basic cuts and transitions",
-            "background music",
-            "simple motion graphics or text overlays",
-            "export optimized for social media"
+            "1 video up to 60 seconds",
+            "Basic cuts",
+            "Basic transitions",
+            "Text/captions",
+            "Basic audio balancing",
+            "Client-provided footage",
+            "1 aspect ratio",
+            "1 revision round",
+            "Final exported video"
           ]
         },
         "growth": {
-          "price": "$225",
+          "price": "$299",
           "packageName": "Growth Package",
           "shortDescription": "3 videos up to 90 seconds each, branded intro/outro",
           "description": "Ideal for businesses creating regular marketing content.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "editing of 3 videos up to 90 seconds each",
-            "branded intro/outro",
-            "motion graphics elements",
-            "text animations and transitions",
-            "color correction",
-            "export for social media and website use"
+            "1 video up to 5 minutes",
+            "Professional editing",
+            "B-roll placement",
+            "Titles/text graphics",
+            "Basic motion graphics",
+            "Audio cleanup",
+            "Color correction",
+            "Captions",
+            "Up to 2 aspect ratios",
+            "2 revision rounds"
           ]
         },
         "premium": {
-          "price": "$599",
+          "price": "$699",
           "packageName": "Premium Package",
           "shortDescription": "5 videos up to 2 minutes each, advanced motion graphics",
           "description": "Ideal for promotional campaigns or professional brand videos.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "editing of 5 videos up to 2 minutes each",
-            "advanced motion graphics",
-            "animated titles and brand elements",
-            "color grading",
-            "sound optimization",
-            "multiple export formats for marketing platforms"
+            "1 long-form video up to 12 minutes",
+            "Up to 5 short-form videos from supplied footage",
+            "Advanced editing",
+            "Motion graphics",
+            "B-roll",
+            "Audio enhancement",
+            "Color correction",
+            "Captions",
+            "Branded graphics",
+            "Multiple export formats",
+            "Up to 3 revision rounds"
           ]
         }
       }
@@ -768,23 +826,35 @@ const SEED_DATA = {
         "Call-to-action screen",
         "Social media formatting"
       ],
-      "portfolioCardText": "A polished business video concept built to capture attention, explain value, and support brand growth."
+      "portfolioCardText": "A polished business video concept built to capture attention, explain value, and support brand growth ."
     },
     "mainImage": "https://images.unsplash.com/photo-1574717024453-3540565bb6f0?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/video-editing/01.webp",
-            "/images/services/video-editing/02.webp",
-            "/images/services/video-editing/03.webp",
-            "/images/services/video-editing/04.webp",
-            "/images/services/video-editing/05.webp",
-            "/images/services/video-editing/06.webp",
-            "/images/services/video-editing/07.webp",
-            "/images/services/video-editing/08.webp",
-            "/images/services/video-editing/09.webp",
-            "/images/services/video-editing/10.webp",
-            "/images/services/video-editing/11.webp",
-            "/images/services/video-editing/12.webp"
-      ],
+      "/images/services/video-editing/01.webp",
+      "/images/services/video-editing/02.webp",
+      "/images/services/video-editing/03.webp",
+      "/images/services/video-editing/04.webp",
+      "/images/services/video-editing/05.webp",
+      "/images/services/video-editing/06.webp",
+      "/images/services/video-editing/07.webp",
+      "/images/services/video-editing/08.webp",
+      "/images/services/video-editing/09.webp",
+      "/images/services/video-editing/10.webp",
+      "/images/services/video-editing/11.webp",
+      "/images/services/video-editing/12.webp",
+      "https://i.ibb.co/pvj6d94B/Clean-workstation.jpg",
+      "https://i.ibb.co/9HNNF9cq/communicating-a-professional-production-workflow.jpg",
+      "https://i.ibb.co/whbxMhNZ/Editing-with-a-client-on-a-video-call.jpg",
+      "https://i.ibb.co/zh59fMTd/Great-dual-monitor-editing-setup-with-visible-timeline-and-color-controls.jpg",
+      "https://i.ibb.co/XfNRjHGX/Modern-editing-studio.jpg",
+      "https://i.ibb.co/PvmKXW0P/Nice-office-showing-the-studio.jpg",
+      "https://i.ibb.co/rR3T47XT/person-editing-on-a-dual-monitor-setup.jpg",
+      "https://i.ibb.co/Df2knkJq/professional-color-gradingediting-suite.jpg",
+      "https://i.ibb.co/8Dv5F2dR/Real-editor-actively-working-on-a-timeline.jpg",
+      "https://i.ibb.co/99jm4zRL/Shows-an-editor-working-in-Premiere-Pro.jpg",
+      "https://i.ibb.co/YFPjg0wF/someone-actively-editing-video.jpg",
+      "https://i.ibb.co/LzY44XfM/wider-view-showing-the-complete-workstation.jpg"
+    ],
     "seoTitle": "Video Editing & Motion Graphics | ScaleLink Alliance",
     "seoDescription": "Professional video content built for your brand, from social clips to full promotional videos.",
     "seoKeywords": "business video editing services",
@@ -798,7 +868,7 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": true,
     "iconName": "FaPenNib",
-    "startingPrice": "$75",
+    "startingPrice": "$99",
     "intro": "Clear and persuasive content is essential for turning visitors into customers.",
     "description": "Our copywriting services help you communicate your value, tell your story, and encourage action through well-crafted messaging.",
     "longDescription": "Scale Link Alliance provides professional copywriting and content creation services that help businesses communicate clearly, build trust, and convert visitors into customers.",
@@ -870,146 +940,180 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$1",
+        "price": "$99",
         "description": "Ideal for small content needs or single-page messaging.",
         "includes": [
-          "1 content piece up to 800 words",
-          "basic keyword research (if needed)",
-          "formatting for web readability",
+          "Blog/article up to 800 words",
+          "Short sales page",
+          "Email copy package",
+          "Small website-page rewrite",
+          "Topic research",
+          "Brand-tone alignment",
+          "Basic SEO considerations where applicable",
           "1 revision round"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$225",
+        "price": "$299",
         "description": "Ideal for businesses producing regular content.",
         "includes": [
-          "3 content pieces up to 1,000 words each",
-          "content structure and messaging optimization",
-          "SEO-friendly formatting",
+          "Up to 2,500 total words",
+          "Up to 3 content pieces/pages",
+          "Keyword consideration",
+          "CTA development",
+          "Headline development",
+          "Basic competitor/content review",
           "2 revision rounds"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$599",
+        "price": "$699",
         "description": "Ideal for businesses running content marketing campaigns.",
         "includes": [
-          "6 content pieces up to 1,200 words each",
-          "deeper keyword research and SEO optimization",
-          "brand voice alignment",
-          "content strategy recommendations",
-          "2-3 revision rounds"
+          "Up to 6,000 total words",
+          "Up to 6 pages/content pieces",
+          "Content strategy",
+          "SEO-oriented structure where applicable",
+          "Conversion-focused CTA development",
+          "Brand voice consistency",
+          "Content formatting recommendations",
+          "Up to 3 revision rounds"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
       "rows": [
         {
-          "label": "Blog/article up to 800 words OR Short sales page OR Email copy package OR Small website-page rewrite",
+          "label": "Blog/article up to 800 words",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
+          }
+        },
+        {
+          "label": "Short sales page",
+          "values": {
+            "basic": true,
+            "growth": false,
+            "premium": false
+          }
+        },
+        {
+          "label": "Email copy package",
+          "values": {
+            "basic": true,
+            "growth": false,
+            "premium": false
+          }
+        },
+        {
+          "label": "Small website-page rewrite",
+          "values": {
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Topic research",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Brand-tone alignment",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic SEO considerations where applicable",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "1 revision round",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 2,500 total words",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 3 content pieces/pages",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Keyword consideration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "CTA development",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Headline development",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic competitor/content review",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "2 revision rounds",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 6,000 total words",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1017,7 +1121,7 @@ const SEED_DATA = {
         {
           "label": "Up to 6 pages/content pieces",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1025,7 +1129,7 @@ const SEED_DATA = {
         {
           "label": "Content strategy",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1033,7 +1137,7 @@ const SEED_DATA = {
         {
           "label": "SEO-oriented structure where applicable",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1041,7 +1145,7 @@ const SEED_DATA = {
         {
           "label": "Conversion-focused CTA development",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1049,7 +1153,7 @@ const SEED_DATA = {
         {
           "label": "Brand voice consistency",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1057,7 +1161,7 @@ const SEED_DATA = {
         {
           "label": "Content formatting recommendations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1065,54 +1169,64 @@ const SEED_DATA = {
         {
           "label": "Up to 3 revision rounds",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$1",
+        "basic": {
+          "price": "$99",
           "packageName": "Starter Package",
           "shortDescription": "1 content piece up to 800 words, 1 revision",
           "description": "Ideal for small content needs or single-page messaging.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "1 revision round",
           "includes": [
-            "1 content piece up to 800 words",
-            "basic keyword research (if needed)",
-            "formatting for web readability",
+            "Blog/article up to 800 words",
+            "Short sales page",
+            "Email copy package",
+            "Small website-page rewrite",
+            "Topic research",
+            "Brand-tone alignment",
+            "Basic SEO considerations where applicable",
             "1 revision round"
           ]
         },
         "growth": {
-          "price": "$225",
+          "price": "$299",
           "packageName": "Growth Package",
           "shortDescription": "3 content pieces up to 1,000 words each, SEO formatting",
           "description": "Ideal for businesses producing regular content.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "2 revision rounds",
           "includes": [
-            "3 content pieces up to 1,000 words each",
-            "content structure and messaging optimization",
-            "SEO-friendly formatting",
+            "Up to 2,500 total words",
+            "Up to 3 content pieces/pages",
+            "Keyword consideration",
+            "CTA development",
+            "Headline development",
+            "Basic competitor/content review",
             "2 revision rounds"
           ]
         },
         "premium": {
-          "price": "$599",
+          "price": "$699",
           "packageName": "Premium Package",
           "shortDescription": "6 content pieces up to 1,200 words each, SEO optimization",
           "description": "Ideal for businesses running content marketing campaigns.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "2-3 revision rounds",
           "includes": [
-            "6 content pieces up to 1,200 words each",
-            "deeper keyword research and SEO optimization",
-            "brand voice alignment",
-            "content strategy recommendations",
-            "2-3 revision rounds"
+            "Up to 6,000 total words",
+            "Up to 6 pages/content pieces",
+            "Content strategy",
+            "SEO-oriented structure where applicable",
+            "Conversion-focused CTA development",
+            "Brand voice consistency",
+            "Content formatting recommendations",
+            "Up to 3 revision rounds"
           ]
         }
       }
@@ -1133,15 +1247,23 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/copywriting/01.webp",
-            "/images/services/copywriting/02.webp",
-            "/images/services/copywriting/03.webp",
-            "/images/services/copywriting/04.webp",
-            "/images/services/copywriting/05.webp",
-            "/images/services/copywriting/06.webp",
-            "/images/services/copywriting/07.webp",
-            "/images/services/copywriting/08.webp"
-      ],
+      "/images/services/copywriting/01.webp",
+      "/images/services/copywriting/02.webp",
+      "/images/services/copywriting/03.webp",
+      "/images/services/copywriting/04.webp",
+      "/images/services/copywriting/05.webp",
+      "/images/services/copywriting/06.webp",
+      "/images/services/copywriting/07.webp",
+      "/images/services/copywriting/08.webp",
+      "https://i.ibb.co/6R4fRHSy/Camera-and-Fruit-and-Person.jpg",
+      "https://i.ibb.co/BJTYNGx/Computer-and-mic.jpg",
+      "https://i.ibb.co/1fBW2yz2/Deck-and-person.jpg",
+      "https://i.ibb.co/jkKsd5qh/Two-women-talk-show.jpg",
+      "https://i.ibb.co/dJ2kMKgG/video-editing-workstation.jpg",
+      "https://i.ibb.co/236FXqZR/Woman-with-cat-reading-article.jpg",
+      "https://i.ibb.co/YF2RF8zS/Woman-with-photo-Demonstration.jpg",
+      "https://i.ibb.co/VWRph4Dr/writer-workplace.jpg"
+    ],
     "seoTitle": "Copywriting & Content Creation | ScaleLink Alliance",
     "seoDescription": "Content designed to inform, persuade and convert — website copy, SEO content, sales copy and more.",
     "seoKeywords": "business copywriting services",
@@ -1155,7 +1277,7 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": true,
     "iconName": "FaPalette",
-    "startingPrice": "$199",
+    "startingPrice": "$249",
     "intro": "Your brand identity is the visual foundation of your business.",
     "description": "A well-designed logo and consistent brand system help customers recognize your company, build trust, and differentiate your business from competitors.",
     "longDescription": "Scale Link Alliance provides professional brand identity and logo design services that help businesses establish a strong visual presence across marketing materials, websites, and digital platforms.",
@@ -1225,44 +1347,60 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$1",
+        "price": "$249",
         "description": "Ideal for small businesses launching a brand or refreshing their logo.",
         "includes": [
-          "1 custom logo concept",
-          "basic color palette selection",
-          "1 revision round",
-          "logo files delivered in PNG and SVG formats"
+          "Brand discovery questionnaire",
+          "2 initial logo concepts",
+          "2 revision rounds",
+          "Primary logo",
+          "Basic color palette",
+          "Basic typography recommendations",
+          "PNG, JPG and transparent logo files"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$499",
+        "price": "$599",
         "description": "Ideal for businesses that want a more developed brand identity.",
         "includes": [
-          "3 logo design concepts",
-          "2 revision rounds",
-          "brand color palette",
-          "typography selection",
-          "logo files in multiple formats (PNG, SVG, PDF)"
+          "Brand discovery",
+          "3 initial logo concepts",
+          "Primary logo",
+          "Secondary logo variation",
+          "Icon/mark",
+          "Color palette",
+          "Typography system",
+          "Social profile assets",
+          "Basic brand guidelines",
+          "3 revision rounds",
+          "Organized final files"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$999",
+        "price": "$1,299",
         "description": "Ideal for companies building a full professional brand identity.",
         "includes": [
-          "3-4 logo concepts",
-          "multiple revision rounds",
-          "brand color palette and typography",
-          "brand style guide",
-          "logo usage guidelines",
-          "complete brand identity package"
+          "Brand strategy session",
+          "Competitive visual review",
+          "3 refined creative directions",
+          "Primary and secondary logos",
+          "Brand mark",
+          "Color system",
+          "Typography system",
+          "Brand imagery direction",
+          "Social assets",
+          "Basic business-card/letterhead templates",
+          "Comprehensive brand guideline document",
+          "Up to 3 revision rounds",
+          "Complete final-file package"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -1270,103 +1408,103 @@ const SEED_DATA = {
         {
           "label": "Brand discovery questionnaire",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "2 initial logo concepts",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "2 revision rounds",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Primary logo",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic color palette",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic typography recommendations",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "PNG, JPG and transparent logo files",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Brand discovery",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "3 initial logo concepts",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Secondary logo variation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Icon/mark",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Color palette",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Typography system",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -1374,39 +1512,39 @@ const SEED_DATA = {
         {
           "label": "Social profile assets",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic brand guidelines",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "3 revision rounds",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Organized final files",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Brand strategy session",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1414,7 +1552,7 @@ const SEED_DATA = {
         {
           "label": "Competitive visual review",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1422,7 +1560,7 @@ const SEED_DATA = {
         {
           "label": "3 refined creative directions",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1430,7 +1568,7 @@ const SEED_DATA = {
         {
           "label": "Primary and secondary logos",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1438,7 +1576,7 @@ const SEED_DATA = {
         {
           "label": "Brand mark",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1446,7 +1584,7 @@ const SEED_DATA = {
         {
           "label": "Color system",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1454,7 +1592,7 @@ const SEED_DATA = {
         {
           "label": "Brand imagery direction",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1462,7 +1600,7 @@ const SEED_DATA = {
         {
           "label": "Social assets",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1470,7 +1608,7 @@ const SEED_DATA = {
         {
           "label": "Basic business-card/letterhead templates",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1478,7 +1616,7 @@ const SEED_DATA = {
         {
           "label": "Comprehensive brand guideline document",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1486,7 +1624,7 @@ const SEED_DATA = {
         {
           "label": "Up to 3 revision rounds",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1494,56 +1632,72 @@ const SEED_DATA = {
         {
           "label": "Complete final-file package",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$1",
+        "basic": {
+          "price": "$249",
           "packageName": "Starter Package",
           "shortDescription": "1 logo concept, basic palette, 1 revision",
           "description": "Ideal for small businesses launching a brand or refreshing their logo.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "1 revision round",
           "includes": [
-            "1 custom logo concept",
-            "basic color palette selection",
-            "1 revision round",
-            "logo files delivered in PNG and SVG formats"
+            "Brand discovery questionnaire",
+            "2 initial logo concepts",
+            "2 revision rounds",
+            "Primary logo",
+            "Basic color palette",
+            "Basic typography recommendations",
+            "PNG, JPG and transparent logo files"
           ]
         },
         "growth": {
-          "price": "$499",
+          "price": "$599",
           "packageName": "Growth Package",
           "shortDescription": "3 logo concepts, color palette, typography",
           "description": "Ideal for businesses that want a more developed brand identity.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "2 revision rounds",
           "includes": [
-            "3 logo design concepts",
-            "2 revision rounds",
-            "brand color palette",
-            "typography selection",
-            "logo files in multiple formats (PNG, SVG, PDF)"
+            "Brand discovery",
+            "3 initial logo concepts",
+            "Primary logo",
+            "Secondary logo variation",
+            "Icon/mark",
+            "Color palette",
+            "Typography system",
+            "Social profile assets",
+            "Basic brand guidelines",
+            "3 revision rounds",
+            "Organized final files"
           ]
         },
         "premium": {
-          "price": "$999",
+          "price": "$1,299",
           "packageName": "Premium Package",
           "shortDescription": "3-4 logo concepts, complete brand style guide",
           "description": "Ideal for companies building a full professional brand identity.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "Multiple revision rounds",
           "includes": [
-            "3-4 logo concepts",
-            "multiple revision rounds",
-            "brand color palette and typography",
-            "brand style guide",
-            "logo usage guidelines",
-            "complete brand identity package"
+            "Brand strategy session",
+            "Competitive visual review",
+            "3 refined creative directions",
+            "Primary and secondary logos",
+            "Brand mark",
+            "Color system",
+            "Typography system",
+            "Brand imagery direction",
+            "Social assets",
+            "Basic business-card/letterhead templates",
+            "Comprehensive brand guideline document",
+            "Up to 3 revision rounds",
+            "Complete final-file package"
           ]
         }
       }
@@ -1564,15 +1718,23 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/brand-identity/01.webp",
-            "/images/services/brand-identity/02.webp",
-            "/images/services/brand-identity/03.webp",
-            "/images/services/brand-identity/04.webp",
-            "/images/services/brand-identity/05.webp",
-            "/images/services/brand-identity/06.webp",
-            "/images/services/brand-identity/07.webp",
-            "/images/services/brand-identity/08.webp"
-      ],
+      "/images/services/brand-identity/01.webp",
+      "/images/services/brand-identity/02.webp",
+      "/images/services/brand-identity/03.webp",
+      "/images/services/brand-identity/04.webp",
+      "/images/services/brand-identity/05.webp",
+      "/images/services/brand-identity/06.webp",
+      "/images/services/brand-identity/07.webp",
+      "/images/services/brand-identity/08.webp",
+      "https://i.ibb.co/tPxmm1Gw/Blue-Corporate-Identity-Kit.jpg",
+      "https://i.ibb.co/HQBMqnG/Brand-Guidelines-Book.jpg",
+      "https://i.ibb.co/4R6jjvcT/corporate-identity-template-for-your-business-includes-CD-Cover-Business-Card-folder-ruler-Envelope.jpg",
+      "https://i.ibb.co/ymyC3HPF/Landscape-Company-Branding.jpg",
+      "https://i.ibb.co/C5zmKCYY/Red-Branding-Stationery.jpg",
+      "https://i.ibb.co/4ZMJL2tP/Restaurant-Brand-Identity-Mockups.jpg",
+      "https://i.ibb.co/KjCyrMrY/Road-Company-Branding-Package.jpg",
+      "https://i.ibb.co/9m528j4j/Road-Company-Brand-Identity.jpg"
+    ],
     "seoTitle": "Brand Identity & Logo Design | ScaleLink Alliance",
     "seoDescription": "Build a brand customers recognize and remember with logo design, brand identity systems and guidelines.",
     "seoKeywords": "brand identity design services",
@@ -1586,7 +1748,7 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": true,
     "iconName": "FaCamera",
-    "startingPrice": "$199",
+    "startingPrice": "$249",
     "intro": "High-quality visual imagery plays a critical role in how businesses present themselves to customers.",
     "description": "Professional photography helps establish credibility, attract attention, and communicate the value of your products, services, and brand.",
     "longDescription": "Scale Link Alliance provides professional photography and visual asset services that give businesses professional images for use across websites, social media, marketing campaigns, and promotional materials.",
@@ -1655,42 +1817,47 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$199",
+        "price": "$249",
         "description": "Ideal for small businesses needing essential visual content.",
         "includes": [
-          "10 professionally edited photos",
-          "1 location or subject focus",
-          "basic color correction and editing",
-          "digital image delivery (web-ready format)"
+          "Up to 1 hour on location",
+          "Up to 10 edited final photographs",
+          "Basic color correction",
+          "Web-resolution files",
+          "One local location"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$499",
+        "price": "$599",
         "description": "Ideal for businesses creating marketing content.",
         "includes": [
-          "25 professionally edited photos",
-          "multiple subjects or scenes",
-          "color correction and retouching",
-          "web and high-resolution formats"
+          "Up to 2.5 hours",
+          "Up to 30 edited photographs",
+          "Product/team/location combinations",
+          "Enhanced retouching",
+          "Web and high-resolution files",
+          "Basic shot planning"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$999",
+        "price": "$1,299",
         "description": "Ideal for brand campaigns and full marketing visuals.",
         "includes": [
-          "50 professionally edited photos",
-          "multi-scene photography session",
-          "advanced retouching and editing",
-          "full-resolution and web-ready images",
-          "image selection consultation"
+          "Up to half-day shoot",
+          "Up to 60 edited photographs",
+          "Pre-shoot planning",
+          "Multiple setups",
+          "Advanced retouching",
+          "Web and high-resolution files",
+          "Organized image library"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -1698,79 +1865,79 @@ const SEED_DATA = {
         {
           "label": "Up to 1 hour on location",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 10 edited final photographs",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic color correction",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Web-resolution files",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "One local location",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 2.5 hours",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 30 edited photographs",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Product/team/location combinations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Enhanced retouching",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Web and high-resolution files",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -1778,15 +1945,15 @@ const SEED_DATA = {
         {
           "label": "Basic shot planning",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to half-day shoot",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1794,7 +1961,7 @@ const SEED_DATA = {
         {
           "label": "Up to 60 edited photographs",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1802,7 +1969,7 @@ const SEED_DATA = {
         {
           "label": "Pre-shoot planning",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1810,7 +1977,7 @@ const SEED_DATA = {
         {
           "label": "Multiple setups",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1818,7 +1985,7 @@ const SEED_DATA = {
         {
           "label": "Advanced retouching",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -1826,54 +1993,59 @@ const SEED_DATA = {
         {
           "label": "Organized image library",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$199",
+        "basic": {
+          "price": "$249",
           "packageName": "Starter Package",
           "shortDescription": "10 edited photos, 1 location, basic editing",
           "description": "Ideal for small businesses needing essential visual content.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "10 professionally edited photos",
-            "1 location or subject focus",
-            "basic color correction and editing",
-            "digital image delivery (web-ready format)"
+            "Up to 1 hour on location",
+            "Up to 10 edited final photographs",
+            "Basic color correction",
+            "Web-resolution files",
+            "One local location"
           ]
         },
         "growth": {
-          "price": "$499",
+          "price": "$599",
           "packageName": "Growth Package",
           "shortDescription": "25 edited photos, multiple scenes, retouching",
           "description": "Ideal for businesses creating marketing content.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "25 professionally edited photos",
-            "multiple subjects or scenes",
-            "color correction and retouching",
-            "web and high-resolution formats"
+            "Up to 2.5 hours",
+            "Up to 30 edited photographs",
+            "Product/team/location combinations",
+            "Enhanced retouching",
+            "Web and high-resolution files",
+            "Basic shot planning"
           ]
         },
         "premium": {
-          "price": "$999",
+          "price": "$1,299",
           "packageName": "Premium Package",
           "shortDescription": "50 edited photos, multi-scene session, advanced retouching",
           "description": "Ideal for brand campaigns and full marketing visuals.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "50 professionally edited photos",
-            "multi-scene photography session",
-            "advanced retouching and editing",
-            "full-resolution and web-ready images",
-            "image selection consultation"
+            "Up to half-day shoot",
+            "Up to 60 edited photographs",
+            "Pre-shoot planning",
+            "Multiple setups",
+            "Advanced retouching",
+            "Web and high-resolution files",
+            "Organized image library"
           ]
         }
       }
@@ -1895,18 +2067,29 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/photography/01.webp",
-            "/images/services/photography/02.webp",
-            "/images/services/photography/03.webp",
-            "/images/services/photography/04.webp",
-            "/images/services/photography/05.webp",
-            "/images/services/photography/06.webp",
-            "/images/services/photography/07.webp",
-            "/images/services/photography/08.webp",
-            "/images/services/photography/09.webp",
-            "/images/services/photography/10.webp",
-            "/images/services/photography/11.webp"
-      ],
+      "/images/services/photography/01.webp",
+      "/images/services/photography/02.webp",
+      "/images/services/photography/03.webp",
+      "/images/services/photography/04.webp",
+      "/images/services/photography/05.webp",
+      "/images/services/photography/06.webp",
+      "/images/services/photography/07.webp",
+      "/images/services/photography/08.webp",
+      "/images/services/photography/09.webp",
+      "/images/services/photography/10.webp",
+      "/images/services/photography/11.webp",
+      "https://i.ibb.co/5W74B7Sk/Artist-creating-content.jpg",
+      "https://i.ibb.co/XfthLFyC/brands-targeting-families-schools-or-community-organizations.jpg",
+      "https://i.ibb.co/s9ygNt4d/Camera-photographing-products.jpg",
+      "https://i.ibb.co/jPRtfrHV/Designer-at-workstation.jpg",
+      "https://i.ibb.co/CKKMNd5H/Food-photography-shoot.jpg",
+      "https://i.ibb.co/gbtzv57H/Great-business-portrait-with-a-professional-camera.jpg",
+      "https://i.ibb.co/JRTzTNzw/Jewelry-product-photography-setup.jpg",
+      "https://i.ibb.co/DHTX9mKT/Modern-lifestyle-photography.jpg",
+      "https://i.ibb.co/S7x6P81F/Photographer-with-medium-format-camera.jpg",
+      "https://i.ibb.co/mk5g5mB/Product-styling-session.jpg",
+      "https://i.ibb.co/YBgtm30J/real-behind-the-scenes-commercial-photoshoot.jpg"
+    ],
     "seoTitle": "Business Photography Services | ScaleLink Alliance",
     "seoDescription": "Visual assets that strengthen your brand — website imagery, product visuals and promotional photography.",
     "seoKeywords": "business photography services",
@@ -1920,7 +2103,7 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": true,
     "iconName": "FaCode",
-    "startingPrice": "$699",
+    "startingPrice": "$799",
     "intro": "Your website is often the first place potential customers learn about your business.",
     "description": "A well-designed website builds credibility, communicates your value clearly, and provides a platform where visitors can become customers.",
     "longDescription": "Scale Link Alliance develops modern, responsive websites designed to help businesses present their services professionally, capture leads, and support marketing efforts.",
@@ -1991,45 +2174,81 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$699",
+        "price": "$799",
         "description": "Ideal for small businesses launching their first website.",
         "includes": [
-          "up to 3 website pages",
-          "responsive mobile-friendly design",
-          "contact form setup",
-          "basic SEO page structure",
-          "website deployment and launch support"
+          "Up to 5 core website pages",
+          "Custom homepage design",
+          "Mobile and tablet responsive design",
+          "Contact form",
+          "Click-to-call and email functionality",
+          "Social media links",
+          "Basic on-page SEO setup",
+          "Page titles and meta descriptions",
+          "Basic image optimization",
+          "Google Analytics setup",
+          "Google Search Console setup",
+          "SSL configuration assistance",
+          "Basic speed optimization",
+          "One primary conversion CTA",
+          "Two revision rounds",
+          "Basic launch support"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$1,499",
+        "price": "$1,799",
         "description": "Ideal for businesses expanding their online presence.",
         "includes": [
-          "up to 7 website pages",
-          "responsive design",
-          "contact forms and lead capture",
-          "basic SEO optimization",
-          "integration of marketing tools"
+          "Everything in Starter Package",
+          "Up to 10 pages",
+          "More customized page layouts",
+          "Blog or resource section",
+          "Up to 2 lead-generation forms",
+          "Thank-you page",
+          "CRM or email platform connection",
+          "Basic conversion tracking",
+          "Enhanced on-page SEO",
+          "Internal linking setup",
+          "XML sitemap configuration",
+          "Robots.txt configuration",
+          "Basic schema implementation where appropriate",
+          "Website analytics configuration",
+          "Basic lead funnel structure",
+          "Three revision rounds",
+          "CMS training session"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$3,499",
+        "price": "$3,999",
         "description": "Ideal for businesses needing a full professional website.",
         "includes": [
-          "up to 12 website pages",
-          "responsive and modern layout",
-          "advanced forms and integrations",
-          "blog or content management setup",
-          "SEO-ready structure",
-          "launch and testing support"
+          "Everything in Growth Package",
+          "Up to 20 pages",
+          "Custom UX/UI direction",
+          "Advanced page layouts",
+          "Conversion-focused page architecture",
+          "Multiple service or location pages",
+          "Up to 5 lead-generation forms",
+          "Advanced CRM/form integrations",
+          "Marketing automation connection",
+          "Advanced analytics and conversion tracking",
+          "Enhanced technical SEO setup",
+          "Custom website components",
+          "Resource/download functionality",
+          "Basic booking or scheduling integration",
+          "Advanced site navigation",
+          "Staging environment",
+          "Three revision rounds per major design phase",
+          "Team training",
+          "Post-launch review"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -2037,7 +2256,7 @@ const SEED_DATA = {
         {
           "label": "Up to 5 core website pages",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2045,7 +2264,7 @@ const SEED_DATA = {
         {
           "label": "Custom homepage design",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2053,7 +2272,7 @@ const SEED_DATA = {
         {
           "label": "Mobile and tablet responsive design",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2061,7 +2280,7 @@ const SEED_DATA = {
         {
           "label": "Contact form",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2069,7 +2288,7 @@ const SEED_DATA = {
         {
           "label": "Click-to-call and email functionality",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2077,7 +2296,7 @@ const SEED_DATA = {
         {
           "label": "Social media links",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2085,7 +2304,7 @@ const SEED_DATA = {
         {
           "label": "Basic on-page SEO setup",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2093,7 +2312,7 @@ const SEED_DATA = {
         {
           "label": "Page titles and meta descriptions",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2101,7 +2320,7 @@ const SEED_DATA = {
         {
           "label": "Basic image optimization",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2109,7 +2328,7 @@ const SEED_DATA = {
         {
           "label": "Google Analytics setup",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2117,7 +2336,7 @@ const SEED_DATA = {
         {
           "label": "Google Search Console setup",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2125,7 +2344,7 @@ const SEED_DATA = {
         {
           "label": "SSL configuration assistance",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2133,7 +2352,7 @@ const SEED_DATA = {
         {
           "label": "Basic speed optimization",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2141,7 +2360,7 @@ const SEED_DATA = {
         {
           "label": "One primary conversion CTA",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2149,7 +2368,7 @@ const SEED_DATA = {
         {
           "label": "Two revision rounds",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2157,7 +2376,7 @@ const SEED_DATA = {
         {
           "label": "Basic launch support",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -2165,7 +2384,7 @@ const SEED_DATA = {
         {
           "label": "Up to 10 pages",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2173,7 +2392,7 @@ const SEED_DATA = {
         {
           "label": "More customized page layouts",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2181,7 +2400,7 @@ const SEED_DATA = {
         {
           "label": "Blog or resource section",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2189,7 +2408,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 lead-generation forms",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2197,7 +2416,7 @@ const SEED_DATA = {
         {
           "label": "Thank-you page",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2205,7 +2424,7 @@ const SEED_DATA = {
         {
           "label": "CRM or email platform connection",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2213,7 +2432,7 @@ const SEED_DATA = {
         {
           "label": "Basic conversion tracking",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2221,7 +2440,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced on-page SEO",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2229,7 +2448,7 @@ const SEED_DATA = {
         {
           "label": "Internal linking setup",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2237,7 +2456,7 @@ const SEED_DATA = {
         {
           "label": "XML sitemap configuration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2245,7 +2464,7 @@ const SEED_DATA = {
         {
           "label": "Robots.txt configuration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2253,7 +2472,7 @@ const SEED_DATA = {
         {
           "label": "Basic schema implementation where appropriate",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2261,7 +2480,7 @@ const SEED_DATA = {
         {
           "label": "Website analytics configuration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2269,7 +2488,7 @@ const SEED_DATA = {
         {
           "label": "Basic lead funnel structure",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2277,7 +2496,7 @@ const SEED_DATA = {
         {
           "label": "Three revision rounds",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2285,7 +2504,7 @@ const SEED_DATA = {
         {
           "label": "CMS training session",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2293,7 +2512,7 @@ const SEED_DATA = {
         {
           "label": "Up to 20 pages",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2301,7 +2520,7 @@ const SEED_DATA = {
         {
           "label": "Custom UX/UI direction",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2309,7 +2528,7 @@ const SEED_DATA = {
         {
           "label": "Advanced page layouts",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2317,7 +2536,7 @@ const SEED_DATA = {
         {
           "label": "Conversion-focused page architecture",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2325,7 +2544,7 @@ const SEED_DATA = {
         {
           "label": "Multiple service or location pages",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2333,7 +2552,7 @@ const SEED_DATA = {
         {
           "label": "Up to 5 lead-generation forms",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2341,7 +2560,7 @@ const SEED_DATA = {
         {
           "label": "Advanced CRM/form integrations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2349,7 +2568,7 @@ const SEED_DATA = {
         {
           "label": "Marketing automation connection",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2357,7 +2576,7 @@ const SEED_DATA = {
         {
           "label": "Advanced analytics and conversion tracking",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2365,7 +2584,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced technical SEO setup",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2373,7 +2592,7 @@ const SEED_DATA = {
         {
           "label": "Custom website components",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2381,7 +2600,7 @@ const SEED_DATA = {
         {
           "label": "Resource/download functionality",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2389,7 +2608,7 @@ const SEED_DATA = {
         {
           "label": "Basic booking or scheduling integration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2397,7 +2616,7 @@ const SEED_DATA = {
         {
           "label": "Advanced site navigation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2405,7 +2624,7 @@ const SEED_DATA = {
         {
           "label": "Staging environment",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2413,7 +2632,7 @@ const SEED_DATA = {
         {
           "label": "Three revision rounds per major design phase",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2421,7 +2640,7 @@ const SEED_DATA = {
         {
           "label": "Team training",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2429,57 +2648,139 @@ const SEED_DATA = {
         {
           "label": "Post-launch review",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$699",
+        "basic": {
+          "price": "$799",
           "packageName": "Starter Package",
           "shortDescription": "Up to 3 pages, responsive design, contact form",
           "description": "Ideal for small businesses launching their first website.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "up to 3 website pages",
-            "responsive mobile-friendly design",
-            "contact form setup",
-            "basic SEO page structure",
-            "website deployment and launch support"
+            "Up to 5 core website pages",
+            "Custom homepage design",
+            "Mobile and tablet responsive design",
+            "Contact form",
+            "Click-to-call and email functionality",
+            "Social media links",
+            "Basic on-page SEO setup",
+            "Page titles and meta descriptions",
+            "Basic image optimization",
+            "Google Analytics setup",
+            "Google Search Console setup",
+            "SSL configuration assistance",
+            "Basic speed optimization",
+            "One primary conversion CTA",
+            "Two revision rounds",
+            "Basic launch support"
           ]
         },
         "growth": {
-          "price": "$1,499",
+          "price": "$1,799",
           "packageName": "Growth Package",
           "shortDescription": "Up to 7 pages, advanced layout",
           "description": "Ideal for businesses expanding their online presence.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "up to 7 website pages",
-            "responsive design",
-            "contact forms and lead capture",
-            "basic SEO optimization",
-            "integration of marketing tools"
+            "Up to 5 core website pages",
+            "Custom homepage design",
+            "Mobile and tablet responsive design",
+            "Contact form",
+            "Click-to-call and email functionality",
+            "Social media links",
+            "Basic on-page SEO setup",
+            "Page titles and meta descriptions",
+            "Basic image optimization",
+            "Google Analytics setup",
+            "Google Search Console setup",
+            "SSL configuration assistance",
+            "Basic speed optimization",
+            "One primary conversion CTA",
+            "Two revision rounds",
+            "Basic launch support",
+            "Up to 10 pages",
+            "More customized page layouts",
+            "Blog or resource section",
+            "Up to 2 lead-generation forms",
+            "Thank-you page",
+            "CRM or email platform connection",
+            "Basic conversion tracking",
+            "Enhanced on-page SEO",
+            "Internal linking setup",
+            "XML sitemap configuration",
+            "Robots.txt configuration",
+            "Basic schema implementation where appropriate",
+            "Website analytics configuration",
+            "Basic lead funnel structure",
+            "Three revision rounds",
+            "CMS training session"
           ]
         },
         "premium": {
-          "price": "$3,499",
+          "price": "$3,999",
           "packageName": "Premium Package",
           "shortDescription": "10+ pages, custom functionality",
           "description": "Ideal for businesses needing a full professional website.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "up to 12 website pages",
-            "responsive and modern layout",
-            "advanced forms and integrations",
-            "blog or content management setup",
-            "SEO-ready structure",
-            "launch and testing support"
+            "Up to 5 core website pages",
+            "Custom homepage design",
+            "Mobile and tablet responsive design",
+            "Contact form",
+            "Click-to-call and email functionality",
+            "Social media links",
+            "Basic on-page SEO setup",
+            "Page titles and meta descriptions",
+            "Basic image optimization",
+            "Google Analytics setup",
+            "Google Search Console setup",
+            "SSL configuration assistance",
+            "Basic speed optimization",
+            "One primary conversion CTA",
+            "Two revision rounds",
+            "Basic launch support",
+            "Up to 10 pages",
+            "More customized page layouts",
+            "Blog or resource section",
+            "Up to 2 lead-generation forms",
+            "Thank-you page",
+            "CRM or email platform connection",
+            "Basic conversion tracking",
+            "Enhanced on-page SEO",
+            "Internal linking setup",
+            "XML sitemap configuration",
+            "Robots.txt configuration",
+            "Basic schema implementation where appropriate",
+            "Website analytics configuration",
+            "Basic lead funnel structure",
+            "Three revision rounds",
+            "CMS training session",
+            "Up to 20 pages",
+            "Custom UX/UI direction",
+            "Advanced page layouts",
+            "Conversion-focused page architecture",
+            "Multiple service or location pages",
+            "Up to 5 lead-generation forms",
+            "Advanced CRM/form integrations",
+            "Marketing automation connection",
+            "Advanced analytics and conversion tracking",
+            "Enhanced technical SEO setup",
+            "Custom website components",
+            "Resource/download functionality",
+            "Basic booking or scheduling integration",
+            "Advanced site navigation",
+            "Staging environment",
+            "Three revision rounds per major design phase",
+            "Team training",
+            "Post-launch review"
           ]
         }
       }
@@ -2500,22 +2801,37 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/website-development/01.webp",
-            "/images/services/website-development/02.webp",
-            "/images/services/website-development/03.webp",
-            "/images/services/website-development/04.webp",
-            "/images/services/website-development/05.webp",
-            "/images/services/website-development/06.webp",
-            "/images/services/website-development/07.webp",
-            "/images/services/website-development/08.webp",
-            "/images/services/website-development/09.webp",
-            "/images/services/website-development/10.webp",
-            "/images/services/website-development/11.webp",
-            "/images/services/website-development/12.webp",
-            "/images/services/website-development/13.webp",
-            "/images/services/website-development/14.webp",
-            "/images/services/website-development/15.webp"
-      ],
+      "/images/services/website-development/01.webp",
+      "/images/services/website-development/02.webp",
+      "/images/services/website-development/03.webp",
+      "/images/services/website-development/04.webp",
+      "/images/services/website-development/05.webp",
+      "/images/services/website-development/06.webp",
+      "/images/services/website-development/07.webp",
+      "/images/services/website-development/08.webp",
+      "/images/services/website-development/09.webp",
+      "/images/services/website-development/10.webp",
+      "/images/services/website-development/11.webp",
+      "/images/services/website-development/12.webp",
+      "/images/services/website-development/13.webp",
+      "/images/services/website-development/14.webp",
+      "/images/services/website-development/15.webp",
+      "https://i.ibb.co/21hzdC1B/Clean-Blue-Portfolio-Website.jpg",
+      "https://i.ibb.co/LX1wLZ70/e-Commerce-layout.jpg",
+      "https://i.ibb.co/tTfVYxdw/Hands-designing-mobile-wireframes-on-paper.jpg",
+      "https://i.ibb.co/7JK9r66P/Home-page-inspiration.jpg",
+      "https://i.ibb.co/PZmgzXPT/Human-resources.jpg",
+      "https://i.ibb.co/35kv86vQ/Modern-Vector-Business-Website.jpg",
+      "https://i.ibb.co/vxGwmYj1/Person-drawing-homepage.jpg",
+      "https://i.ibb.co/4gd7MC65/Responsive-Business-Website.jpg",
+      "https://i.ibb.co/wNS5HygD/Team-reviewing-a-wireframe-together.jpg",
+      "https://i.ibb.co/xqNsmY5s/The-designer-creating-a-website-wireframe-on-the-whiteboard.jpg",
+      "https://i.ibb.co/7N1Z6qh9/website-colors.jpg",
+      "https://i.ibb.co/TGb8tLq/website-design-on-desktop.jpg",
+      "https://i.ibb.co/RkTfwhzd/Website-development.jpg",
+      "https://i.ibb.co/V0n3tjj7/Web-developer.jpg",
+      "https://i.ibb.co/GQzV1fcT/Whiteboard-UI-planning.jpg"
+    ],
     "seoTitle": "Website Development Services for Businesses | ScaleLink Alliance",
     "seoDescription": "Build a professional, responsive and conversion-focused business website with ScaleLink Alliance website design and development services.",
     "seoKeywords": "website development services, business website development, custom website development, professional website design, small business website development, responsive web development",
@@ -2529,7 +2845,7 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": true,
     "iconName": "FaRocket",
-    "startingPrice": "$499",
+    "startingPrice": "$399",
     "intro": "Landing pages and sales funnels are designed to turn visitors into leads and customers.",
     "description": "Unlike general websites, landing pages focus on a single goal—encouraging visitors to take action such as signing up, requesting a quote, or making a purchase.",
     "longDescription": "Scale Link Alliance develops high-converting landing pages and sales funnels that guide visitors through a structured process designed to improve conversions and generate measurable results.",
@@ -2600,44 +2916,64 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$499",
+        "price": "$399",
         "description": "Ideal for businesses launching a simple marketing campaign.",
         "includes": [
-          "1 landing page design",
-          "lead capture form integration",
-          "mobile-responsive layout",
-          "basic analytics setup",
-          "call-to-action optimization"
+          "1 custom landing page",
+          "Mobile responsive design",
+          "Lead capture form",
+          "Thank-you page",
+          "One primary CTA",
+          "Basic conversion tracking",
+          "Email/CRM form connection",
+          "Basic copy formatting",
+          "Two revision rounds"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$1,299",
+        "price": "$899",
         "description": "Ideal for businesses running structured marketing campaigns.",
         "includes": [
-          "3-page sales funnel",
-          "landing page + follow-up pages",
-          "lead capture forms",
-          "conversion-focused design",
-          "analytics integration"
+          "Up to 3 funnel pages",
+          "Landing page",
+          "Thank-you/confirmation page",
+          "Secondary conversion page",
+          "Lead form integration",
+          "CRM/email integration",
+          "Conversion tracking",
+          "Basic automation setup",
+          "Mobile optimization",
+          "A/B testing-ready structure",
+          "Up to 2 audience paths",
+          "Three revision rounds"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$2,499",
+        "price": "$1,999",
         "description": "Ideal for businesses running full digital marketing funnels.",
         "includes": [
-          "complete sales funnel (5 pages)",
-          "multiple landing pages",
-          "advanced form integrations",
-          "email marketing integration",
-          "conversion optimization setup"
+          "Up to 6 funnel pages",
+          "Custom conversion-focused design",
+          "Lead capture system",
+          "Booking or checkout integration",
+          "CRM integration",
+          "Up to 5 automated follow-up emails",
+          "Conversion tracking",
+          "Analytics setup",
+          "Basic funnel automation",
+          "Lead tagging/segmentation",
+          "Thank-you and next-step flows",
+          "A/B test configuration for one key page",
+          "Three revision rounds",
+          "Funnel walkthrough"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -2645,127 +2981,127 @@ const SEED_DATA = {
         {
           "label": "1 custom landing page",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Mobile responsive design",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Lead capture form",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Thank-you page",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "One primary CTA",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic conversion tracking",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Email/CRM form connection",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic copy formatting",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Two revision rounds",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 3 funnel pages",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Landing page",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Thank-you/confirmation page",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Secondary conversion page",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Lead form integration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "CRM/email integration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Conversion tracking",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2773,39 +3109,39 @@ const SEED_DATA = {
         {
           "label": "Basic automation setup",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Mobile optimization",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "A/B testing-ready structure",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 2 audience paths",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Three revision rounds",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -2813,7 +3149,7 @@ const SEED_DATA = {
         {
           "label": "Up to 6 funnel pages",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2821,7 +3157,7 @@ const SEED_DATA = {
         {
           "label": "Custom conversion-focused design",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2829,7 +3165,7 @@ const SEED_DATA = {
         {
           "label": "Lead capture system",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2837,7 +3173,7 @@ const SEED_DATA = {
         {
           "label": "Booking or checkout integration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2845,7 +3181,7 @@ const SEED_DATA = {
         {
           "label": "CRM integration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2853,7 +3189,7 @@ const SEED_DATA = {
         {
           "label": "Up to 5 automated follow-up emails",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2861,7 +3197,7 @@ const SEED_DATA = {
         {
           "label": "Analytics setup",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2869,7 +3205,7 @@ const SEED_DATA = {
         {
           "label": "Basic funnel automation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2877,7 +3213,7 @@ const SEED_DATA = {
         {
           "label": "Lead tagging/segmentation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2885,7 +3221,7 @@ const SEED_DATA = {
         {
           "label": "Thank-you and next-step flows",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2893,7 +3229,7 @@ const SEED_DATA = {
         {
           "label": "A/B test configuration for one key page",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -2901,56 +3237,76 @@ const SEED_DATA = {
         {
           "label": "Funnel walkthrough",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$499",
+        "basic": {
+          "price": "$399",
           "packageName": "Starter Package",
           "shortDescription": "1 landing page, lead capture form, mobile-responsive",
           "description": "Ideal for businesses launching a simple marketing campaign.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "1 landing page design",
-            "lead capture form integration",
-            "mobile-responsive layout",
-            "basic analytics setup",
-            "call-to-action optimization"
+            "1 custom landing page",
+            "Mobile responsive design",
+            "Lead capture form",
+            "Thank-you page",
+            "One primary CTA",
+            "Basic conversion tracking",
+            "Email/CRM form connection",
+            "Basic copy formatting",
+            "Two revision rounds"
           ]
         },
         "growth": {
-          "price": "$1,299",
+          "price": "$899",
           "packageName": "Growth Package",
           "shortDescription": "3-page sales funnel, conversion-focused design",
           "description": "Ideal for businesses running structured marketing campaigns.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "3-page sales funnel",
-            "landing page + follow-up pages",
-            "lead capture forms",
-            "conversion-focused design",
-            "analytics integration"
+            "Up to 3 funnel pages",
+            "Landing page",
+            "Thank-you/confirmation page",
+            "Secondary conversion page",
+            "Lead form integration",
+            "CRM/email integration",
+            "Conversion tracking",
+            "Basic automation setup",
+            "Mobile optimization",
+            "A/B testing-ready structure",
+            "Up to 2 audience paths",
+            "Three revision rounds"
           ]
         },
         "premium": {
-          "price": "$2,499",
+          "price": "$1,999",
           "packageName": "Premium Package",
           "shortDescription": "Complete 5-page funnel, advanced integrations",
           "description": "Ideal for businesses running full digital marketing funnels.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "complete sales funnel (5 pages)",
-            "multiple landing pages",
-            "advanced form integrations",
-            "email marketing integration",
-            "conversion optimization setup"
+            "Up to 6 funnel pages",
+            "Custom conversion-focused design",
+            "Lead capture system",
+            "Booking or checkout integration",
+            "CRM integration",
+            "Up to 5 automated follow-up emails",
+            "Conversion tracking",
+            "Analytics setup",
+            "Basic funnel automation",
+            "Lead tagging/segmentation",
+            "Thank-you and next-step flows",
+            "A/B test configuration for one key page",
+            "Three revision rounds",
+            "Funnel walkthrough"
           ]
         }
       }
@@ -2972,25 +3328,43 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/landing-pages/01.webp",
-            "/images/services/landing-pages/02.webp",
-            "/images/services/landing-pages/03.webp",
-            "/images/services/landing-pages/04.webp",
-            "/images/services/landing-pages/05.webp",
-            "/images/services/landing-pages/06.webp",
-            "/images/services/landing-pages/07.webp",
-            "/images/services/landing-pages/08.webp",
-            "/images/services/landing-pages/09.webp",
-            "/images/services/landing-pages/10.webp",
-            "/images/services/landing-pages/11.webp",
-            "/images/services/landing-pages/12.webp",
-            "/images/services/landing-pages/13.webp",
-            "/images/services/landing-pages/14.webp",
-            "/images/services/landing-pages/15.webp",
-            "/images/services/landing-pages/16.webp",
-            "/images/services/landing-pages/17.webp",
-            "/images/services/landing-pages/18.webp"
-      ],
+      "/images/services/landing-pages/01.webp",
+      "/images/services/landing-pages/02.webp",
+      "/images/services/landing-pages/03.webp",
+      "/images/services/landing-pages/04.webp",
+      "/images/services/landing-pages/05.webp",
+      "/images/services/landing-pages/06.webp",
+      "/images/services/landing-pages/07.webp",
+      "/images/services/landing-pages/08.webp",
+      "/images/services/landing-pages/09.webp",
+      "/images/services/landing-pages/10.webp",
+      "/images/services/landing-pages/11.webp",
+      "/images/services/landing-pages/12.webp",
+      "/images/services/landing-pages/13.webp",
+      "/images/services/landing-pages/14.webp",
+      "/images/services/landing-pages/15.webp",
+      "/images/services/landing-pages/16.webp",
+      "/images/services/landing-pages/17.webp",
+      "/images/services/landing-pages/18.webp",
+      "https://i.ibb.co/G4cbBWZ4/Business-Analysts.jpg",
+      "https://i.ibb.co/Z6pLKMyK/Children-playing-instrument-and-singing-before-jury.jpg",
+      "https://i.ibb.co/ZzQ0GFGB/Contact-Us-Landing-Page.jpg",
+      "https://i.ibb.co/VY7d5S7L/Cyber-Monday-Sale-V7-05.jpg",
+      "https://i.ibb.co/fdmLDt7L/Cyber-Monday.jpg",
+      "https://i.ibb.co/nsPmfTJ5/Dark-Gradient-Landing-Page.jpg",
+      "https://i.ibb.co/q3NXPyRW/Ecommerce-Landing-Page.jpg",
+      "https://i.ibb.co/k2dHLbFg/Empower-Your-Business.jpg",
+      "https://i.ibb.co/6J76HTkp/FAQ-flat-vector-illustration.jpg",
+      "https://i.ibb.co/1GJYDHQ7/gradient-sales-landing-page.jpg",
+      "https://i.ibb.co/DH5QQny5/Grow-Your-Business.jpg",
+      "https://i.ibb.co/NdvqzPg6/Landing-Page-Login-Screen.jpg",
+      "https://i.ibb.co/zhbxr2GP/Metaverse.jpg",
+      "https://i.ibb.co/qYMPT9wK/Online-Banking-Landing-Page.jpg",
+      "https://i.ibb.co/CpqbZsgZ/Online-workout.jpg",
+      "https://i.ibb.co/nsgLPdSj/Tiny-people-making-coffee.jpg",
+      "https://i.ibb.co/NgwytsqD/Tiny-programmers-in-analysis-process-of-data.jpg",
+      "https://i.ibb.co/mVcC0WCs/Women-caring-about-new-idea.jpg"
+    ],
     "seoTitle": "Landing Page & Sales Funnel Development | ScaleLink Alliance",
     "seoDescription": "Convert more visitors into leads and customers with professionally designed landing pages and sales funnels built around your campaign goals.",
     "seoKeywords": "landing page design services",
@@ -3004,7 +3378,7 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": true,
     "iconName": "FaShoppingCart",
-    "startingPrice": "$999",
+    "startingPrice": "$1,199",
     "intro": "E-commerce platforms allow businesses to sell products and services online, reach a broader audience, and manage transactions efficiently.",
     "description": "A professionally developed online store ensures customers can browse products easily, complete purchases securely, and return for future orders.",
     "longDescription": "Scale Link Alliance provides comprehensive e-commerce development services that help businesses launch and manage online stores designed for growth, usability, and reliability.",
@@ -3074,45 +3448,72 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$999",
+        "price": "$1,199",
         "description": "Ideal for small businesses launching their first online store.",
         "includes": [
-          "store setup with up to 10 products",
-          "product page design",
-          "payment gateway integration",
-          "basic shipping setup",
-          "mobile-responsive layout"
+          "Store setup",
+          "Up to 10 products",
+          "Up to 5 informational pages",
+          "Mobile responsive design",
+          "Product category setup",
+          "Shopping cart",
+          "Checkout configuration",
+          "One payment gateway",
+          "Basic shipping configuration",
+          "Basic tax settings",
+          "Order notification setup",
+          "Google Analytics",
+          "Basic SEO setup",
+          "Two revision rounds",
+          "Store management training"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$2,499",
+        "price": "$2,999",
         "description": "Ideal for businesses expanding their product catalog.",
         "includes": [
-          "store setup with up to 50 products",
-          "product categories and navigation",
-          "payment and shipping integrations",
-          "customer account setup",
-          "basic SEO product structure"
+          "Everything in Starter Package",
+          "Up to 50 products",
+          "Advanced product variations",
+          "Coupon/discount functionality",
+          "Abandoned-cart setup where supported",
+          "Email marketing integration",
+          "Enhanced analytics",
+          "Enhanced product SEO",
+          "Customer account functionality",
+          "Review functionality",
+          "Up to 2 payment gateways",
+          "Advanced shipping rules",
+          "Basic product-data import",
+          "Three revision rounds"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$4,999",
+        "price": "$5,999",
         "description": "Ideal for businesses building a fully developed online store.",
         "includes": [
-          "store setup with up to 100 products",
-          "advanced store design",
-          "multiple payment gateways",
-          "shipping automation",
-          "product filtering and search features",
-          "performance optimization"
+          "Everything in Growth Package",
+          "Up to 150 initial products",
+          "Advanced product/category structure",
+          "Custom storefront components",
+          "Enhanced checkout configuration",
+          "Advanced conversion tracking",
+          "CRM integration",
+          "Advanced email automation",
+          "Subscription functionality where platform-supported",
+          "Multi-location or advanced inventory configuration where supported",
+          "Advanced shipping logic",
+          "Data migration assistance",
+          "Custom reporting configuration",
+          "Team training"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -3120,7 +3521,7 @@ const SEED_DATA = {
         {
           "label": "Store setup",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3128,7 +3529,7 @@ const SEED_DATA = {
         {
           "label": "Up to 10 products",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3136,7 +3537,7 @@ const SEED_DATA = {
         {
           "label": "Up to 5 informational pages",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3144,7 +3545,7 @@ const SEED_DATA = {
         {
           "label": "Mobile responsive design",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3152,7 +3553,7 @@ const SEED_DATA = {
         {
           "label": "Product category setup",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3160,7 +3561,7 @@ const SEED_DATA = {
         {
           "label": "Shopping cart",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3168,7 +3569,7 @@ const SEED_DATA = {
         {
           "label": "Checkout configuration",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3176,7 +3577,7 @@ const SEED_DATA = {
         {
           "label": "One payment gateway",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3184,7 +3585,7 @@ const SEED_DATA = {
         {
           "label": "Basic shipping configuration",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3192,7 +3593,7 @@ const SEED_DATA = {
         {
           "label": "Basic tax settings",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3200,7 +3601,7 @@ const SEED_DATA = {
         {
           "label": "Order notification setup",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3208,7 +3609,7 @@ const SEED_DATA = {
         {
           "label": "Google Analytics",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3216,7 +3617,7 @@ const SEED_DATA = {
         {
           "label": "Basic SEO setup",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3224,7 +3625,7 @@ const SEED_DATA = {
         {
           "label": "Two revision rounds",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3232,7 +3633,7 @@ const SEED_DATA = {
         {
           "label": "Store management training",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -3240,7 +3641,7 @@ const SEED_DATA = {
         {
           "label": "Up to 50 products",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -3248,7 +3649,7 @@ const SEED_DATA = {
         {
           "label": "Advanced product variations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -3256,7 +3657,7 @@ const SEED_DATA = {
         {
           "label": "Coupon/discount functionality",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -3264,7 +3665,7 @@ const SEED_DATA = {
         {
           "label": "Abandoned-cart setup where supported",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -3272,7 +3673,7 @@ const SEED_DATA = {
         {
           "label": "Email marketing integration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -3280,7 +3681,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced analytics",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -3288,7 +3689,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced product SEO",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -3296,7 +3697,7 @@ const SEED_DATA = {
         {
           "label": "Customer account functionality",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -3304,7 +3705,7 @@ const SEED_DATA = {
         {
           "label": "Review functionality",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -3312,7 +3713,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 payment gateways",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -3320,7 +3721,7 @@ const SEED_DATA = {
         {
           "label": "Advanced shipping rules",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -3328,7 +3729,7 @@ const SEED_DATA = {
         {
           "label": "Basic product-data import",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -3336,7 +3737,7 @@ const SEED_DATA = {
         {
           "label": "Three revision rounds",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -3344,7 +3745,7 @@ const SEED_DATA = {
         {
           "label": "Up to 150 initial products",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3352,7 +3753,7 @@ const SEED_DATA = {
         {
           "label": "Advanced product/category structure",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3360,7 +3761,7 @@ const SEED_DATA = {
         {
           "label": "Custom storefront components",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3368,7 +3769,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced checkout configuration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3376,7 +3777,7 @@ const SEED_DATA = {
         {
           "label": "Advanced conversion tracking",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3384,7 +3785,7 @@ const SEED_DATA = {
         {
           "label": "CRM integration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3392,7 +3793,7 @@ const SEED_DATA = {
         {
           "label": "Advanced email automation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3400,7 +3801,7 @@ const SEED_DATA = {
         {
           "label": "Subscription functionality where platform-supported",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3408,7 +3809,7 @@ const SEED_DATA = {
         {
           "label": "Multi-location or advanced inventory configuration where supported",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3416,7 +3817,7 @@ const SEED_DATA = {
         {
           "label": "Advanced shipping logic",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3424,7 +3825,7 @@ const SEED_DATA = {
         {
           "label": "Data migration assistance",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3432,7 +3833,7 @@ const SEED_DATA = {
         {
           "label": "Custom reporting configuration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3440,57 +3841,125 @@ const SEED_DATA = {
         {
           "label": "Team training",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$999",
+        "basic": {
+          "price": "$1,199",
           "packageName": "Starter Package",
           "shortDescription": "Store setup with up to 10 products",
           "description": "Ideal for small businesses launching their first online store.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "store setup with up to 10 products",
-            "product page design",
-            "payment gateway integration",
-            "basic shipping setup",
-            "mobile-responsive layout"
+            "Store setup",
+            "Up to 10 products",
+            "Up to 5 informational pages",
+            "Mobile responsive design",
+            "Product category setup",
+            "Shopping cart",
+            "Checkout configuration",
+            "One payment gateway",
+            "Basic shipping configuration",
+            "Basic tax settings",
+            "Order notification setup",
+            "Google Analytics",
+            "Basic SEO setup",
+            "Two revision rounds",
+            "Store management training"
           ]
         },
         "growth": {
-          "price": "$2,499",
+          "price": "$2,999",
           "packageName": "Growth Package",
           "shortDescription": "Store with up to 50 products, categories",
           "description": "Ideal for businesses expanding their product catalog.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "store setup with up to 50 products",
-            "product categories and navigation",
-            "payment and shipping integrations",
-            "customer account setup",
-            "basic SEO product structure"
+            "Store setup",
+            "Up to 10 products",
+            "Up to 5 informational pages",
+            "Mobile responsive design",
+            "Product category setup",
+            "Shopping cart",
+            "Checkout configuration",
+            "One payment gateway",
+            "Basic shipping configuration",
+            "Basic tax settings",
+            "Order notification setup",
+            "Google Analytics",
+            "Basic SEO setup",
+            "Two revision rounds",
+            "Store management training",
+            "Up to 50 products",
+            "Advanced product variations",
+            "Coupon/discount functionality",
+            "Abandoned-cart setup where supported",
+            "Email marketing integration",
+            "Enhanced analytics",
+            "Enhanced product SEO",
+            "Customer account functionality",
+            "Review functionality",
+            "Up to 2 payment gateways",
+            "Advanced shipping rules",
+            "Basic product-data import",
+            "Three revision rounds"
           ]
         },
         "premium": {
-          "price": "$4,999",
+          "price": "$5,999",
           "packageName": "Premium Package",
-          "shortDescription": "Store with up to 100 products, advanced design",
+          "shortDescription": "Store with up to 150 products, advanced design",
           "description": "Ideal for businesses building a fully developed online store.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "store setup with up to 100 products",
-            "advanced store design",
-            "multiple payment gateways",
-            "shipping automation",
-            "product filtering and search features",
-            "performance optimization"
+            "Store setup",
+            "Up to 10 products",
+            "Up to 5 informational pages",
+            "Mobile responsive design",
+            "Product category setup",
+            "Shopping cart",
+            "Checkout configuration",
+            "One payment gateway",
+            "Basic shipping configuration",
+            "Basic tax settings",
+            "Order notification setup",
+            "Google Analytics",
+            "Basic SEO setup",
+            "Two revision rounds",
+            "Store management training",
+            "Up to 50 products",
+            "Advanced product variations",
+            "Coupon/discount functionality",
+            "Abandoned-cart setup where supported",
+            "Email marketing integration",
+            "Enhanced analytics",
+            "Enhanced product SEO",
+            "Customer account functionality",
+            "Review functionality",
+            "Up to 2 payment gateways",
+            "Advanced shipping rules",
+            "Basic product-data import",
+            "Three revision rounds",
+            "Up to 150 initial products",
+            "Advanced product/category structure",
+            "Custom storefront components",
+            "Enhanced checkout configuration",
+            "Advanced conversion tracking",
+            "CRM integration",
+            "Advanced email automation",
+            "Subscription functionality where platform-supported",
+            "Multi-location or advanced inventory configuration where supported",
+            "Advanced shipping logic",
+            "Data migration assistance",
+            "Custom reporting configuration",
+            "Team training"
           ]
         }
       }
@@ -3511,12 +3980,17 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/ecommerce-development/01.webp",
-            "/images/services/ecommerce-development/02.webp",
-            "/images/services/ecommerce-development/03.webp",
-            "/images/services/ecommerce-development/04.webp",
-            "/images/services/ecommerce-development/05.webp"
-      ],
+      "/images/services/ecommerce-development/01.webp",
+      "/images/services/ecommerce-development/02.webp",
+      "/images/services/ecommerce-development/03.webp",
+      "/images/services/ecommerce-development/04.webp",
+      "/images/services/ecommerce-development/05.webp",
+      "https://i.ibb.co/v6VQrCJb/Customer-Shopping-Online.jpg",
+      "https://i.ibb.co/Zp00n1qM/Mobile-e-Commerce-App.jpg",
+      "https://i.ibb.co/JW30L4TT/Modern-e-Commerce-Purchase.jpg",
+      "https://i.ibb.co/B5cwfFPM/Online-Shopping-Workspace.jpg",
+      "https://i.ibb.co/jPRbV1Wq/Real-e-Commerce-Store-on-Laptop.jpg"
+    ],
     "seoTitle": "E-commerce Website Development | ScaleLink Alliance",
     "seoDescription": "Build an online store designed to sell, with product setup, checkout, payments and conversion optimization built in.",
     "seoKeywords": "ecommerce development services",
@@ -3531,8 +4005,8 @@ const SEED_DATA = {
     "showOnCatalogGrid": true,
     "iconName": "FaGlobe",
     "startingPrice": "$4,999",
-    "intro": "Custom web applications and Software-as-a-Service (SaaS) platforms allow businesses to streamline operations, automate workflows, and create digital tools that support growth.",
-    "description": "Unlike standard websites, web applications provide interactive functionality such as dashboards, user accounts, data management systems, and automation tools.",
+    "intro": "Custom web applications and Software-as-a-Service (SaaS) platforms allow businesses to streamline operations, automate workflows, and create digital tools that support growth .",
+    "description": "Unlike Growth websites, web applications provide interactive functionality such as dashboards, user accounts, data management systems, and automation tools.",
     "longDescription": "Scale Link Alliance develops scalable web applications and SaaS solutions tailored to the specific operational needs of businesses, helping organizations improve efficiency and deliver digital services to their customers.",
     "features": [
       "Custom web application development",
@@ -3606,42 +4080,66 @@ const SEED_DATA = {
         "price": "$4,999",
         "description": "Ideal for businesses needing a simple custom web tool or internal system.",
         "includes": [
-          "1 custom web application feature or module",
-          "basic user interface design",
-          "database setup",
-          "user login and access control",
-          "basic functionality testing"
+          "Requirements workshop",
+          "Basic product architecture",
+          "User authentication",
+          "1 primary user role",
+          "Up to 5 core application screens",
+          "Database setup",
+          "Basic admin functionality",
+          "1 third-party integration",
+          "Responsive interface",
+          "Testing",
+          "Deployment assistance",
+          "Basic technical documentation"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$14,999",
+        "price": "$11,999",
         "description": "Ideal for businesses building more advanced digital systems.",
         "includes": [
-          "multi-feature web application (up to 3 modules)",
-          "user account system",
-          "database integration",
-          "workflow automation features",
-          "responsive interface design"
+          "Product planning",
+          "Up to 15 core screens",
+          "Up to 2 user roles",
+          "Advanced database structure",
+          "Admin dashboard",
+          "Up to 3 integrations",
+          "Notification functionality",
+          "User-account management",
+          "Responsive application",
+          "QA testing",
+          "Deployment",
+          "Documentation",
+          "Team handoff"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$29,999",
+        "price": "$24,999",
         "description": "Ideal for businesses launching a SaaS platform or full digital product.",
         "includes": [
-          "complete SaaS application structure",
-          "multiple user roles and permissions",
-          "scalable database architecture",
-          "dashboard and reporting features",
-          "API integrations and automation",
-          "performance optimization and testing"
+          "Complex product architecture",
+          "Multiple user roles",
+          "Subscription/billing systems",
+          "Custom dashboards",
+          "Advanced database architecture",
+          "API integrations",
+          "Automated workflows",
+          "Role-based permissions",
+          "Reporting",
+          "Notifications",
+          "Staging/production environments",
+          "Advanced QA",
+          "Deployment",
+          "Technical documentation",
+          "Post-launch support"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -3649,183 +4147,183 @@ const SEED_DATA = {
         {
           "label": "Requirements workshop",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic product architecture",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "User authentication",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "1 primary user role",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 5 core application screens",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Database setup",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic admin functionality",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "1 third-party integration",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Responsive interface",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Testing",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Deployment assistance",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic technical documentation",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Product planning",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 15 core screens",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 2 user roles",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Advanced database structure",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Admin dashboard",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 3 integrations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Notification functionality",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "User-account management",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Responsive application",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "QA testing",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Deployment",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -3833,23 +4331,23 @@ const SEED_DATA = {
         {
           "label": "Documentation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Team handoff",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Complex product architecture",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3857,7 +4355,7 @@ const SEED_DATA = {
         {
           "label": "Multiple user roles",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3865,7 +4363,7 @@ const SEED_DATA = {
         {
           "label": "Subscription/billing systems",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3873,7 +4371,7 @@ const SEED_DATA = {
         {
           "label": "Custom dashboards",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3881,7 +4379,7 @@ const SEED_DATA = {
         {
           "label": "Advanced database architecture",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3889,7 +4387,7 @@ const SEED_DATA = {
         {
           "label": "API integrations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3897,7 +4395,7 @@ const SEED_DATA = {
         {
           "label": "Automated workflows",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3905,7 +4403,7 @@ const SEED_DATA = {
         {
           "label": "Role-based permissions",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3913,7 +4411,7 @@ const SEED_DATA = {
         {
           "label": "Reporting",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3921,7 +4419,7 @@ const SEED_DATA = {
         {
           "label": "Notifications",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3929,7 +4427,7 @@ const SEED_DATA = {
         {
           "label": "Staging/production environments",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3937,7 +4435,7 @@ const SEED_DATA = {
         {
           "label": "Advanced QA",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3945,7 +4443,7 @@ const SEED_DATA = {
         {
           "label": "Technical documentation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -3953,14 +4451,14 @@ const SEED_DATA = {
         {
           "label": "Post-launch support",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
+        "basic": {
           "price": "$4,999",
           "packageName": "Starter Package",
           "shortDescription": "1 custom feature/module, database setup",
@@ -3968,42 +4466,66 @@ const SEED_DATA = {
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "1 custom web application feature or module",
-            "basic user interface design",
-            "database setup",
-            "user login and access control",
-            "basic functionality testing"
+            "Requirements workshop",
+            "Basic product architecture",
+            "User authentication",
+            "1 primary user role",
+            "Up to 5 core application screens",
+            "Database setup",
+            "Basic admin functionality",
+            "1 third-party integration",
+            "Responsive interface",
+            "Testing",
+            "Deployment assistance",
+            "Basic technical documentation"
           ]
         },
         "growth": {
-          "price": "$14,999",
+          "price": "$11,999",
           "packageName": "Growth Package",
           "shortDescription": "Multi-feature application (up to 3 modules)",
           "description": "Ideal for businesses building more advanced digital systems.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "multi-feature web application (up to 3 modules)",
-            "user account system",
-            "database integration",
-            "workflow automation features",
-            "responsive interface design"
+            "Product planning",
+            "Up to 15 core screens",
+            "Up to 2 user roles",
+            "Advanced database structure",
+            "Admin dashboard",
+            "Up to 3 integrations",
+            "Notification functionality",
+            "User-account management",
+            "Responsive application",
+            "QA testing",
+            "Deployment",
+            "Documentation",
+            "Team handoff"
           ]
         },
         "premium": {
-          "price": "$29,999",
+          "price": "$24,999",
           "packageName": "Premium Package",
           "shortDescription": "Complete SaaS structure, multiple user roles",
           "description": "Ideal for businesses launching a SaaS platform or full digital product.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "complete SaaS application structure",
-            "multiple user roles and permissions",
-            "scalable database architecture",
-            "dashboard and reporting features",
-            "API integrations and automation",
-            "performance optimization and testing"
+            "Complex product architecture",
+            "Multiple user roles",
+            "Subscription/billing systems",
+            "Custom dashboards",
+            "Advanced database architecture",
+            "API integrations",
+            "Automated workflows",
+            "Role-based permissions",
+            "Reporting",
+            "Notifications",
+            "Staging/production environments",
+            "Advanced QA",
+            "Deployment",
+            "Technical documentation",
+            "Post-launch support"
           ]
         }
       }
@@ -4025,13 +4547,19 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/web-applications/01.webp",
-            "/images/services/web-applications/02.webp",
-            "/images/services/web-applications/03.webp",
-            "/images/services/web-applications/04.webp",
-            "/images/services/web-applications/05.webp",
-            "/images/services/web-applications/06.webp"
-      ],
+      "/images/services/web-applications/01.webp",
+      "/images/services/web-applications/02.webp",
+      "/images/services/web-applications/03.webp",
+      "/images/services/web-applications/04.webp",
+      "/images/services/web-applications/05.webp",
+      "/images/services/web-applications/06.webp",
+      "https://i.ibb.co/gM3R6Sgn/Cloud-computing-meeting.jpg",
+      "https://i.ibb.co/wFCTsCyM/Dashboard-UI-on-laptop.jpg",
+      "https://i.ibb.co/zTj9ysvP/Modern-analytics-dashboard-over-laptop.jpg",
+      "https://i.ibb.co/20wvqs6m/Modern-application-UI-windows.jpg",
+      "https://i.ibb.co/cSVBt5JF/Saa-S-concept-collage.jpg",
+      "https://i.ibb.co/kppWM1Y/Saa-S-product-being-developed-or-demonstrated.jpg"
+    ],
     "seoTitle": "Custom Web Application Development | ScaleLink Alliance",
     "seoDescription": "Build custom business web applications, client portals, dashboards and SaaS platforms with ScaleLink Alliance development services.",
     "seoKeywords": "custom web application development",
@@ -4117,42 +4645,54 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$1",
+        "price": "$499",
         "description": "Ideal for businesses connecting two systems for the first time.",
         "includes": [
-          "1 system integration",
-          "basic data synchronization",
-          "simple workflow automation",
-          "testing and configuration"
+          "1 straightforward system integration",
+          "Up to 2 API endpoints/actions",
+          "Authentication configuration",
+          "Basic data mapping",
+          "Testing",
+          "Basic error handling",
+          "Documentation"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$1,499",
+        "price": "$1,299",
         "description": "Ideal for businesses connecting multiple tools.",
         "includes": [
-          "up to 3 system integrations",
-          "workflow automation setup",
-          "data synchronization between platforms",
-          "automation testing and optimization"
+          "Integration of up to 2 systems",
+          "Up to 6 endpoints/actions",
+          "Advanced data mapping",
+          "Workflow logic",
+          "Error logging",
+          "Testing environment",
+          "Documentation",
+          "Deployment assistance"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$3,999",
+        "price": "$3,499",
         "description": "Ideal for businesses implementing full automation systems.",
         "includes": [
-          "multiple system integrations",
-          "advanced workflow automation",
-          "API configuration and data mapping",
-          "automation testing and optimization",
-          "documentation of automated workflows"
+          "Up to 3 interconnected systems",
+          "Up to 15 endpoints/actions",
+          "Complex workflow logic",
+          "Data transformations",
+          "Authentication/security configuration",
+          "Error handling and logging",
+          "Testing",
+          "Deployment support",
+          "Technical documentation",
+          "Post-launch review"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -4160,119 +4700,119 @@ const SEED_DATA = {
         {
           "label": "1 straightforward system integration",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 2 API endpoints/actions",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Authentication configuration",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic data mapping",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Testing",
           "values": {
-            "starter": true,
-            "growth": true,
+            "basic": true,
+            "growth": false,
             "premium": true
           }
         },
         {
           "label": "Basic error handling",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Documentation",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Integration of up to 2 systems",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 6 endpoints/actions",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Advanced data mapping",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Workflow logic",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Error logging",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Testing environment",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Deployment assistance",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 3 interconnected systems",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4280,7 +4820,7 @@ const SEED_DATA = {
         {
           "label": "Up to 15 endpoints/actions",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4288,7 +4828,7 @@ const SEED_DATA = {
         {
           "label": "Complex workflow logic",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4296,7 +4836,7 @@ const SEED_DATA = {
         {
           "label": "Data transformations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4304,7 +4844,7 @@ const SEED_DATA = {
         {
           "label": "Authentication/security configuration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4312,7 +4852,7 @@ const SEED_DATA = {
         {
           "label": "Error handling and logging",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4320,7 +4860,7 @@ const SEED_DATA = {
         {
           "label": "Deployment support",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4328,7 +4868,7 @@ const SEED_DATA = {
         {
           "label": "Technical documentation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4336,54 +4876,66 @@ const SEED_DATA = {
         {
           "label": "Post-launch review",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$1",
+        "basic": {
+          "price": "$499",
           "packageName": "Starter Package",
           "shortDescription": "1 system integration, basic synchronization",
           "description": "Ideal for businesses connecting two systems for the first time.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "1 system integration",
-            "basic data synchronization",
-            "simple workflow automation",
-            "testing and configuration"
+            "1 straightforward system integration",
+            "Up to 2 API endpoints/actions",
+            "Authentication configuration",
+            "Basic data mapping",
+            "Testing",
+            "Basic error handling",
+            "Documentation"
           ]
         },
         "growth": {
-          "price": "$1,499",
+          "price": "$1,299",
           "packageName": "Growth Package",
           "shortDescription": "Up to 3 system integrations, workflow automation",
           "description": "Ideal for businesses connecting multiple tools.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "up to 3 system integrations",
-            "workflow automation setup",
-            "data synchronization between platforms",
-            "automation testing and optimization"
+            "Integration of up to 2 systems",
+            "Up to 6 endpoints/actions",
+            "Advanced data mapping",
+            "Workflow logic",
+            "Error logging",
+            "Testing environment",
+            "Documentation",
+            "Deployment assistance"
           ]
         },
         "premium": {
-          "price": "$3,999",
+          "price": "$3,499",
           "packageName": "Premium Package",
           "shortDescription": "Multiple integrations, advanced automation",
           "description": "Ideal for businesses implementing full automation systems.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "multiple system integrations",
-            "advanced workflow automation",
-            "API configuration and data mapping",
-            "automation testing and optimization",
-            "documentation of automated workflows"
+            "Up to 3 interconnected systems",
+            "Up to 15 endpoints/actions",
+            "Complex workflow logic",
+            "Data transformations",
+            "Authentication/security configuration",
+            "Error handling and logging",
+            "Testing",
+            "Deployment support",
+            "Technical documentation",
+            "Post-launch review"
           ]
         }
       }
@@ -4402,14 +4954,20 @@ const SEED_DATA = {
       ],
       "portfolioCardText": "An integration concept built to connect business tools, reduce manual work, and improve daily operations."
     },
-    "mainImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
+    "mainImage": "/images/services/api-integration/01.webp",
     "galleryImages": [
-            "/images/services/api-integration/01.webp",
-            "/images/services/api-integration/03.webp",
-            "/images/services/api-integration/04.webp",
-            "/images/services/api-integration/05.webp",
-            "/images/services/api-integration/07.webp"
-      ],
+      "/images/services/api-integration/03.webp",
+      "/images/services/api-integration/04.webp",
+      "/images/services/api-integration/05.webp",
+      "/images/services/api-integration/07.webp",
+      "https://i.ibb.co/srV1bGd/API-Integration-on-Laptop.jpg",
+      "https://files.catbox.moe/2r9hsz.jpg",
+      "https://files.catbox.moe/3whuwm.jpg",
+      "https://i.ibb.co/WpskT9mB/Business-Workflow-Planning.jpg",
+      "https://i.ibb.co/TM9Lynf6/Cloud-Architecture.jpg",
+      "https://i.ibb.co/Fbh932jd/Hand-Drawn-Workflow-Diagram.jpg",
+      "https://files.catbox.moe/0fa7w2.jpg"
+    ],
     "seoTitle": "API Integration Services for Businesses | ScaleLink Alliance",
     "seoDescription": "Connect your websites, CRMs, payment systems, marketing tools and business software with custom API integration services from ScaleLink Alliance.",
     "seoKeywords": "API integration services, business API integration, CRM integration services, software integration, website API integration, custom API development, system integration",
@@ -4497,11 +5055,13 @@ const SEED_DATA = {
         "price": "$149/month",
         "description": "Ideal for small websites needing occasional updates.",
         "includes": [
-          "up to 2 hours of maintenance per month",
-          "basic security monitoring",
-          "minor content updates",
-          "plugin and system updates",
-          "website performance check"
+          "Up to 2 hours of website work per month",
+          "Core/plugin updates where applicable",
+          "Basic backup monitoring",
+          "Basic uptime checks",
+          "Minor content edits",
+          "Basic technical health review",
+          "Monthly maintenance summary"
         ]
       },
       "growth": {
@@ -4509,29 +5069,38 @@ const SEED_DATA = {
         "price": "$349/month",
         "description": "Ideal for businesses regularly updating their website.",
         "includes": [
-          "up to 5 hours of maintenance per month",
-          "security monitoring and updates",
-          "content updates and small design changes",
-          "plugin and system updates",
-          "website performance optimization"
+          "Up to 5 support hours per month",
+          "Updates",
+          "Backup monitoring",
+          "Uptime monitoring",
+          "Content changes",
+          "Minor design adjustments",
+          "Basic speed review",
+          "Form/function testing",
+          "Priority support",
+          "Monthly maintenance report"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$899/month",
+        "price": "$799/month",
         "description": "Ideal for businesses that rely heavily on their website.",
         "includes": [
-          "up to 10 hours of maintenance per month",
-          "advanced security monitoring",
-          "priority support for website issues",
-          "regular content updates",
-          "performance optimization and technical adjustments"
+          "Everything in Growth Package",
+          "Up to 10 support hours per month",
+          "Priority issue handling",
+          "Regular site health review",
+          "Conversion-form testing",
+          "Analytics review",
+          "Minor page creation",
+          "Minor development work",
+          "Monthly strategy recommendations"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -4539,63 +5108,63 @@ const SEED_DATA = {
         {
           "label": "Up to 2 hours of website work per month",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Core/plugin updates where applicable",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic backup monitoring",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic uptime checks",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Minor content edits",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic technical health review",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Monthly maintenance summary",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 5 support hours per month",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -4603,7 +5172,7 @@ const SEED_DATA = {
         {
           "label": "Updates",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -4611,7 +5180,7 @@ const SEED_DATA = {
         {
           "label": "Backup monitoring",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -4619,7 +5188,7 @@ const SEED_DATA = {
         {
           "label": "Uptime monitoring",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -4627,7 +5196,7 @@ const SEED_DATA = {
         {
           "label": "Content changes",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -4635,7 +5204,7 @@ const SEED_DATA = {
         {
           "label": "Minor design adjustments",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -4643,7 +5212,7 @@ const SEED_DATA = {
         {
           "label": "Basic speed review",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -4651,7 +5220,7 @@ const SEED_DATA = {
         {
           "label": "Form/function testing",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -4659,7 +5228,7 @@ const SEED_DATA = {
         {
           "label": "Priority support",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -4667,7 +5236,7 @@ const SEED_DATA = {
         {
           "label": "Monthly maintenance report",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -4675,7 +5244,7 @@ const SEED_DATA = {
         {
           "label": "Up to 10 support hours per month",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4683,7 +5252,7 @@ const SEED_DATA = {
         {
           "label": "Priority issue handling",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4691,7 +5260,7 @@ const SEED_DATA = {
         {
           "label": "Regular site health review",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4699,7 +5268,7 @@ const SEED_DATA = {
         {
           "label": "Conversion-form testing",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4707,7 +5276,7 @@ const SEED_DATA = {
         {
           "label": "Analytics review",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4715,7 +5284,7 @@ const SEED_DATA = {
         {
           "label": "Minor page creation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4723,7 +5292,7 @@ const SEED_DATA = {
         {
           "label": "Minor development work",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4731,14 +5300,14 @@ const SEED_DATA = {
         {
           "label": "Monthly strategy recommendations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
+        "basic": {
           "price": "$149/month",
           "packageName": "Starter Package",
           "shortDescription": "Up to 2 hours maintenance, security monitoring",
@@ -4746,11 +5315,13 @@ const SEED_DATA = {
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "up to 2 hours of maintenance per month",
-            "basic security monitoring",
-            "minor content updates",
-            "plugin and system updates",
-            "website performance check"
+            "Up to 2 hours of website work per month",
+            "Core/plugin updates where applicable",
+            "Basic backup monitoring",
+            "Basic uptime checks",
+            "Minor content edits",
+            "Basic technical health review",
+            "Monthly maintenance summary"
           ]
         },
         "growth": {
@@ -4761,26 +5332,44 @@ const SEED_DATA = {
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "up to 5 hours of maintenance per month",
-            "security monitoring and updates",
-            "content updates and small design changes",
-            "plugin and system updates",
-            "website performance optimization"
+            "Up to 5 support hours per month",
+            "Updates",
+            "Backup monitoring",
+            "Uptime monitoring",
+            "Content changes",
+            "Minor design adjustments",
+            "Basic speed review",
+            "Form/function testing",
+            "Priority support",
+            "Monthly maintenance report"
           ]
         },
         "premium": {
-          "price": "$899/month",
+          "price": "$799/month",
           "packageName": "Premium Package",
           "shortDescription": "Up to 10 hours maintenance, priority support",
           "description": "Ideal for businesses that rely heavily on their website.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "up to 10 hours of maintenance per month",
-            "advanced security monitoring",
-            "priority support for website issues",
-            "regular content updates",
-            "performance optimization and technical adjustments"
+            "Up to 5 support hours per month",
+            "Updates",
+            "Backup monitoring",
+            "Uptime monitoring",
+            "Content changes",
+            "Minor design adjustments",
+            "Basic speed review",
+            "Form/function testing",
+            "Priority support",
+            "Monthly maintenance report",
+            "Up to 10 support hours per month",
+            "Priority issue handling",
+            "Regular site health review",
+            "Conversion-form testing",
+            "Analytics review",
+            "Minor page creation",
+            "Minor development work",
+            "Monthly strategy recommendations"
           ]
         }
       }
@@ -4805,11 +5394,15 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d2?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/website-maintenance/01.webp",
-            "/images/services/website-maintenance/02.webp",
-            "/images/services/website-maintenance/03.webp",
-            "/images/services/website-maintenance/04.webp"
-      ],
+      "/images/services/website-maintenance/01.webp",
+      "/images/services/website-maintenance/02.webp",
+      "/images/services/website-maintenance/03.webp",
+      "/images/services/website-maintenance/04.webp",
+      "https://i.ibb.co/LXh5VzHH/Hands-typing-on-a-keyboard.jpg",
+      "https://i.ibb.co/HfWHjdtT/Person-holding-a-laptop.jpg",
+      "https://i.ibb.co/T5ZmV5L/Person-interacting-with-a-website-interface.jpg",
+      "https://i.ibb.co/DH11CV4V/Planned-maintenance.jpg"
+    ],
     "seoTitle": "Website Maintenance & Support | ScaleLink Alliance",
     "seoDescription": "Keep your business website secure, updated and working with ongoing maintenance and support.",
     "seoKeywords": "website maintenance services",
@@ -4927,7 +5520,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -4935,7 +5528,7 @@ const SEED_DATA = {
         {
           "label": "Calendar integration",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -4943,7 +5536,7 @@ const SEED_DATA = {
         {
           "label": "Email notifications",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -4951,7 +5544,7 @@ const SEED_DATA = {
         {
           "label": "Mobile-friendly booking form",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -4959,7 +5552,7 @@ const SEED_DATA = {
         {
           "label": "Automated reminders",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -4967,7 +5560,7 @@ const SEED_DATA = {
         {
           "label": "Payment integration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -4975,7 +5568,7 @@ const SEED_DATA = {
         {
           "label": "Multi-location support",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -4983,14 +5576,14 @@ const SEED_DATA = {
         {
           "label": "CRM integration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
+        "basic": {
           "price": "$399",
           "packageName": "Starter Package",
           "shortDescription": "Simple booking system setup",
@@ -5051,22 +5644,34 @@ const SEED_DATA = {
       ],
       "portfolioCardText": "An online booking concept built to streamline scheduling, reduce no-shows, and improve customer experience."
     },
-    "mainImage": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=500&fit=crop",
+    "mainImage": "/images/services/online-booking-systems/01.webp",
     "galleryImages": [
-            "/images/services/online-booking-systems/01.webp",
-            "/images/services/online-booking-systems/02.webp",
-            "/images/services/online-booking-systems/03.webp",
-            "/images/services/online-booking-systems/04.webp",
-            "/images/services/online-booking-systems/05.webp",
-            "/images/services/online-booking-systems/06.webp",
-            "/images/services/online-booking-systems/07.webp",
-            "/images/services/online-booking-systems/08.webp",
-            "/images/services/online-booking-systems/09.webp",
-            "/images/services/online-booking-systems/10.webp",
-            "/images/services/online-booking-systems/11.webp",
-            "/images/services/online-booking-systems/12.webp",
-            "/images/services/online-booking-systems/13.webp"
-      ],
+      "/images/services/online-booking-systems/02.webp",
+      "/images/services/online-booking-systems/03.webp",
+      "/images/services/online-booking-systems/04.webp",
+      "/images/services/online-booking-systems/05.webp",
+      "/images/services/online-booking-systems/06.webp",
+      "/images/services/online-booking-systems/07.webp",
+      "/images/services/online-booking-systems/08.webp",
+      "/images/services/online-booking-systems/09.webp",
+      "/images/services/online-booking-systems/10.webp",
+      "/images/services/online-booking-systems/11.webp",
+      "/images/services/online-booking-systems/12.webp",
+      "/images/services/online-booking-systems/13.webp",
+      "https://i.ibb.co/bMnLC28F/Booking-System-Team-Meeting.jpg",
+      "https://i.ibb.co/b59WGRd1/Calendar-Dashboard-on-Laptop.jpg",
+      "https://i.ibb.co/chYNzxv2/Calendar-Scheduling-Interface.jpg",
+      "https://i.ibb.co/fVh7x4S1/Doctor-Appointment-website.jpg",
+      "https://i.ibb.co/VcZn98HD/Laptop-with-Book-Online-website.jpg",
+      "https://i.ibb.co/5WsZDDyr/Mobile-Online-Booking-app.jpg",
+      "https://i.ibb.co/ccK5hbLm/Newsletter-Signup.jpg",
+      "https://i.ibb.co/sJtmnS9V/Person-using-a-Book-Appointment-website-on-a-laptop.jpg",
+      "https://i.ibb.co/KpqtgJDD/Person-using-Online-Booking-website-on-laptop.jpg",
+      "https://i.ibb.co/WvTH1DDH/Phone-scheduling-appointment.jpg",
+      "https://i.ibb.co/svTbHtcp/Tablet-with-Booking-interface.jpg",
+      "https://i.ibb.co/tM1wnBWY/Top-down-workspace-with-booking-on-phone.jpg",
+      "https://i.ibb.co/ks0w6cS2/Typing-booking-into-a-search-bar.jpg"
+    ],
     "seoTitle": "Online Booking Systems | ScaleLink Alliance",
     "seoDescription": "A professional booking system reduces administrative work, eliminates phone tag, and provides a seamless experience for your customers.",
     "seoKeywords": "",
@@ -5080,7 +5685,7 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": false,
     "iconName": "FaUsers",
-    "startingPrice": "$299/month",
+    "startingPrice": "$349/month",
     "intro": "Social media platforms have become one of the most effective ways for businesses to connect with customers, promote services, and build brand awareness.",
     "description": "Maintaining a consistent and professional social media presence requires planning, content creation, and regular engagement.",
     "longDescription": "Scale Link Alliance provides comprehensive social media management services that help businesses maintain an active online presence, share valuable content, and connect with their audience in a professional and strategic way.",
@@ -5151,26 +5756,35 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$299/month",
+        "price": "$349/month",
         "description": "Ideal for small businesses maintaining a basic social media presence.",
         "includes": [
-          "8 social media posts per month",
-          "content scheduling",
-          "basic caption writing",
-          "engagement monitoring",
-          "performance overview"
+          "1 social platform",
+          "Up to 8 feed posts per month",
+          "Caption writing",
+          "Basic graphic creation",
+          "Hashtag/topic research where relevant",
+          "Content scheduling",
+          "Monthly content calendar",
+          "Basic monthly report",
+          "One revision round on the monthly content batch"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$599/month",
+        "price": "$699/month",
         "description": "Ideal for businesses expanding their social media activity.",
         "includes": [
-          "15 social media posts per month",
-          "graphic content creation",
-          "caption writing and hashtags",
-          "audience engagement monitoring",
-          "monthly performance report"
+          "Up to 2 platforms",
+          "Up to 16 feed posts per month",
+          "Up to 4 short-form videos/reels using provided or existing footage",
+          "Caption writing",
+          "Graphic design",
+          "Monthly content calendar",
+          "Scheduling",
+          "Basic community-response support",
+          "Monthly analytics",
+          "Monthly strategy review"
         ]
       },
       "premium": {
@@ -5178,17 +5792,25 @@ const SEED_DATA = {
         "price": "$1,499/month",
         "description": "Ideal for businesses using social media as a primary marketing channel.",
         "includes": [
-          "30 social media posts per month",
-          "custom graphics and visuals",
-          "caption writing and strategy",
-          "engagement management",
-          "detailed performance reporting"
+          "Up to 3 platforms",
+          "Up to 24 feed posts per month",
+          "Up to 8 short-form videos",
+          "Content calendar",
+          "Graphic design",
+          "Caption/copy development",
+          "Scheduling",
+          "Basic weekday community management",
+          "Social listening",
+          "Monthly campaign planning",
+          "Performance reporting",
+          "Monthly strategy call",
+          "Ongoing optimization"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -5196,103 +5818,103 @@ const SEED_DATA = {
         {
           "label": "1 social platform",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 8 feed posts per month",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Caption writing",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic graphic creation",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Hashtag/topic research where relevant",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Content scheduling",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Monthly content calendar",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic monthly report",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "One revision round on the monthly content batch",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 2 platforms",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 16 feed posts per month",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 4 short-form videos/reels using provided or existing footage",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Graphic design",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5300,7 +5922,7 @@ const SEED_DATA = {
         {
           "label": "Scheduling",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5308,31 +5930,31 @@ const SEED_DATA = {
         {
           "label": "Basic community-response support",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Monthly analytics",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Monthly strategy review",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 3 platforms",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5340,7 +5962,7 @@ const SEED_DATA = {
         {
           "label": "Up to 24 feed posts per month",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5348,7 +5970,7 @@ const SEED_DATA = {
         {
           "label": "Up to 8 short-form videos",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5356,7 +5978,7 @@ const SEED_DATA = {
         {
           "label": "Content calendar",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5364,7 +5986,7 @@ const SEED_DATA = {
         {
           "label": "Caption/copy development",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5372,7 +5994,7 @@ const SEED_DATA = {
         {
           "label": "Basic weekday community management",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5380,7 +6002,7 @@ const SEED_DATA = {
         {
           "label": "Social listening",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5388,7 +6010,7 @@ const SEED_DATA = {
         {
           "label": "Monthly campaign planning",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5396,7 +6018,7 @@ const SEED_DATA = {
         {
           "label": "Performance reporting",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5404,7 +6026,7 @@ const SEED_DATA = {
         {
           "label": "Monthly strategy call",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5412,41 +6034,50 @@ const SEED_DATA = {
         {
           "label": "Ongoing optimization",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$299/month",
+        "basic": {
+          "price": "$349/month",
           "packageName": "Starter Package",
           "shortDescription": "8 posts/month, content scheduling",
           "description": "Ideal for small businesses maintaining a basic social media presence.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "8 social media posts per month",
-            "content scheduling",
-            "basic caption writing",
-            "engagement monitoring",
-            "performance overview"
+            "1 social platform",
+            "Up to 8 feed posts per month",
+            "Caption writing",
+            "Basic graphic creation",
+            "Hashtag/topic research where relevant",
+            "Content scheduling",
+            "Monthly content calendar",
+            "Basic monthly report",
+            "One revision round on the monthly content batch"
           ]
         },
         "growth": {
-          "price": "$599/month",
+          "price": "$699/month",
           "packageName": "Growth Package",
           "shortDescription": "15 posts/month, graphic content, monthly report",
           "description": "Ideal for businesses expanding their social media activity.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "15 social media posts per month",
-            "graphic content creation",
-            "caption writing and hashtags",
-            "audience engagement monitoring",
-            "monthly performance report"
+            "Up to 2 platforms",
+            "Up to 16 feed posts per month",
+            "Up to 4 short-form videos/reels using provided or existing footage",
+            "Caption writing",
+            "Graphic design",
+            "Monthly content calendar",
+            "Scheduling",
+            "Basic community-response support",
+            "Monthly analytics",
+            "Monthly strategy review"
           ]
         },
         "premium": {
@@ -5457,11 +6088,19 @@ const SEED_DATA = {
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "30 social media posts per month",
-            "custom graphics and visuals",
-            "caption writing and strategy",
-            "engagement management",
-            "detailed performance reporting"
+            "Up to 3 platforms",
+            "Up to 24 feed posts per month",
+            "Up to 8 short-form videos",
+            "Content calendar",
+            "Graphic design",
+            "Caption/copy development",
+            "Scheduling",
+            "Basic weekday community management",
+            "Social listening",
+            "Monthly campaign planning",
+            "Performance reporting",
+            "Monthly strategy call",
+            "Ongoing optimization"
           ]
         }
       }
@@ -5482,17 +6121,27 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/social-media-management/01.webp",
-            "/images/services/social-media-management/02.webp",
-            "/images/services/social-media-management/03.webp",
-            "/images/services/social-media-management/04.webp",
-            "/images/services/social-media-management/05.webp",
-            "/images/services/social-media-management/06.webp",
-            "/images/services/social-media-management/07.webp",
-            "/images/services/social-media-management/08.webp",
-            "/images/services/social-media-management/09.webp",
-            "/images/services/social-media-management/10.webp"
-      ],
+      "/images/services/social-media-management/01.webp",
+      "/images/services/social-media-management/02.webp",
+      "/images/services/social-media-management/03.webp",
+      "/images/services/social-media-management/04.webp",
+      "/images/services/social-media-management/05.webp",
+      "/images/services/social-media-management/06.webp",
+      "/images/services/social-media-management/07.webp",
+      "/images/services/social-media-management/08.webp",
+      "/images/services/social-media-management/09.webp",
+      "/images/services/social-media-management/10.webp",
+      "https://i.ibb.co/qL6xTSsC/A-lifestyle-creator-making-content-outdoors.jpg",
+      "https://i.ibb.co/nqrfXWpz/content-creation-product-photography-and-brand-promotion.png",
+      "https://i.ibb.co/kVC6CTff/content-production-setup-with-lighting-camera-people-collaborating-and-filming.jpg",
+      "https://i.ibb.co/Gfm03Fz8/creative-team-brainstorming-reviewing-a-project.jpg",
+      "https://i.ibb.co/HwxF9xh/natural-home-office-creator-setup.jpg",
+      "https://i.ibb.co/Kp55n8yT/podcasting-video-production-and-social-content-creation.jpg",
+      "https://i.ibb.co/S4yXm2M8/Podcast-video-setup.jpg",
+      "https://i.ibb.co/G4DvnZgp/professional-meeting-with-social-media-discussion.jpg",
+      "https://i.ibb.co/hRLYZHhf/someone-scheduling-posts-or-managing-campaigns.jpg",
+      "https://i.ibb.co/QvHsYkwh/Two-people-collaborating-over-a-laptop.jpg"
+    ],
     "seoTitle": "Social Media Management | ScaleLink Alliance",
     "seoDescription": "Maintaining a consistent and professional social media presence requires planning, content creation, and regular engagement.",
     "seoKeywords": "",
@@ -5506,7 +6155,7 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": true,
     "iconName": "FaSearch",
-    "startingPrice": "$399/month",
+    "startingPrice": "$499/month",
     "intro": "Search Engine Optimization helps your business appear when potential customers search online for services or products related to your industry.",
     "description": "Effective SEO improves your website visibility in search engines, attracts targeted traffic, and supports long-term growth.",
     "longDescription": "Scale Link Alliance provides professional SEO and search marketing services designed to strengthen your online presence, optimize your website structure, and improve search rankings so the right audience can find your business.",
@@ -5527,7 +6176,7 @@ const SEED_DATA = {
     "howMeasured": [
       "number of pages optimized",
       "keyword rankings",
-      "website traffic growth",
+      "website traffic Growth ",
       "search visibility improvements",
       "lead generation from organic traffic"
     ],
@@ -5578,45 +6227,73 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$399/month",
+        "price": "$499/month",
         "description": "Ideal for small businesses beginning their SEO strategy.",
         "includes": [
-          "SEO audit of website",
-          "keyword research",
-          "optimization of up to 5 website pages",
-          "meta titles and descriptions",
-          "basic search performance tracking"
+          "Initial SEO audit",
+          "Keyword research for up to 10 target keywords",
+          "Optimization of up to 5 priority pages",
+          "Page title optimization",
+          "Meta description optimization",
+          "Heading structure review",
+          "Internal-link improvements",
+          "Google Search Console review",
+          "Google Analytics review",
+          "XML sitemap review",
+          "Basic technical SEO checks",
+          "One existing page/content optimization per month",
+          "Monthly ranking review",
+          "Monthly performance report",
+          "Monthly recommendations"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$899/month",
+        "price": "$999/month",
         "description": "Ideal for businesses actively working to improve search rankings.",
         "includes": [
-          "keyword research and strategy",
-          "optimization of up to 15 website pages",
-          "content optimization recommendations",
-          "technical SEO improvements",
-          "monthly performance report"
+          "Everything in Starter Package",
+          "Up to 20 tracked target keywords",
+          "Optimization across up to 15 priority pages",
+          "Competitor SEO review",
+          "Two SEO-focused content pieces or substantial content optimizations per month",
+          "Enhanced internal-link strategy",
+          "Technical issue monitoring",
+          "Search intent analysis",
+          "Content-gap analysis",
+          "Local SEO optimization when applicable",
+          "Google Business Profile recommendations when applicable",
+          "Basic structured-data recommendations",
+          "Conversion-page SEO review",
+          "Monthly strategy review"
         ]
       },
       "premium": {
         "name": "Premium Package",
         "price": "$1,999/month",
-        "description": "Ideal for businesses seeking aggressive search growth.",
+        "description": "Ideal for businesses seeking aggressive search growth .",
         "includes": [
-          "advanced keyword strategy",
-          "optimization of 30+ website pages",
-          "content strategy and recommendations",
-          "technical SEO improvements",
-          "backlink development guidance",
-          "monthly performance reporting and insights"
+          "Everything in Growth Package",
+          "Up to 40 tracked keywords",
+          "Up to 30 priority pages",
+          "Up to 4 SEO content pieces or major optimizations per month",
+          "Advanced competitor research",
+          "Advanced content-gap analysis",
+          "Technical SEO monitoring",
+          "Schema strategy",
+          "Multi-service or multi-location SEO strategy",
+          "Content-cluster planning",
+          "Link opportunity research and outreach strategy",
+          "Conversion optimization recommendations",
+          "Priority implementation support",
+          "Monthly strategy call",
+          "Detailed executive reporting"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -5624,7 +6301,7 @@ const SEED_DATA = {
         {
           "label": "Initial SEO audit",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5632,7 +6309,7 @@ const SEED_DATA = {
         {
           "label": "Keyword research for up to 10 target keywords",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5640,7 +6317,7 @@ const SEED_DATA = {
         {
           "label": "Optimization of up to 5 priority pages",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5648,7 +6325,7 @@ const SEED_DATA = {
         {
           "label": "Page title optimization",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5656,7 +6333,7 @@ const SEED_DATA = {
         {
           "label": "Meta description optimization",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5664,7 +6341,7 @@ const SEED_DATA = {
         {
           "label": "Heading structure review",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5672,7 +6349,7 @@ const SEED_DATA = {
         {
           "label": "Internal-link improvements",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5680,7 +6357,7 @@ const SEED_DATA = {
         {
           "label": "Google Search Console review",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5688,7 +6365,7 @@ const SEED_DATA = {
         {
           "label": "Google Analytics review",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5696,7 +6373,7 @@ const SEED_DATA = {
         {
           "label": "XML sitemap review",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5704,7 +6381,7 @@ const SEED_DATA = {
         {
           "label": "Basic technical SEO checks",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5712,7 +6389,7 @@ const SEED_DATA = {
         {
           "label": "One existing page/content optimization per month",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5720,7 +6397,7 @@ const SEED_DATA = {
         {
           "label": "Monthly ranking review",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5728,7 +6405,7 @@ const SEED_DATA = {
         {
           "label": "Monthly performance report",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5736,7 +6413,7 @@ const SEED_DATA = {
         {
           "label": "Monthly recommendations",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -5744,7 +6421,7 @@ const SEED_DATA = {
         {
           "label": "Up to 20 tracked target keywords",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5752,7 +6429,7 @@ const SEED_DATA = {
         {
           "label": "Optimization across up to 15 priority pages",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5760,7 +6437,7 @@ const SEED_DATA = {
         {
           "label": "Competitor SEO review",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5768,7 +6445,7 @@ const SEED_DATA = {
         {
           "label": "Two SEO-focused content pieces or substantial content optimizations per month",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5776,7 +6453,7 @@ const SEED_DATA = {
         {
           "label": "Enhanced internal-link strategy",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5784,7 +6461,7 @@ const SEED_DATA = {
         {
           "label": "Technical issue monitoring",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5792,7 +6469,7 @@ const SEED_DATA = {
         {
           "label": "Search intent analysis",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5800,7 +6477,7 @@ const SEED_DATA = {
         {
           "label": "Content-gap analysis",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5808,7 +6485,7 @@ const SEED_DATA = {
         {
           "label": "Local SEO optimization when applicable",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5816,7 +6493,7 @@ const SEED_DATA = {
         {
           "label": "Google Business Profile recommendations when applicable",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5824,7 +6501,7 @@ const SEED_DATA = {
         {
           "label": "Basic structured-data recommendations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5832,7 +6509,7 @@ const SEED_DATA = {
         {
           "label": "Conversion-page SEO review",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5840,7 +6517,7 @@ const SEED_DATA = {
         {
           "label": "Monthly strategy review",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -5848,7 +6525,7 @@ const SEED_DATA = {
         {
           "label": "Up to 40 tracked keywords",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5856,7 +6533,7 @@ const SEED_DATA = {
         {
           "label": "Up to 30 priority pages",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5864,7 +6541,7 @@ const SEED_DATA = {
         {
           "label": "Up to 4 SEO content pieces or major optimizations per month",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5872,7 +6549,7 @@ const SEED_DATA = {
         {
           "label": "Advanced competitor research",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5880,7 +6557,7 @@ const SEED_DATA = {
         {
           "label": "Advanced content-gap analysis",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5888,7 +6565,7 @@ const SEED_DATA = {
         {
           "label": "Technical SEO monitoring",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5896,7 +6573,7 @@ const SEED_DATA = {
         {
           "label": "Schema strategy",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5904,7 +6581,7 @@ const SEED_DATA = {
         {
           "label": "Multi-service or multi-location SEO strategy",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5912,7 +6589,7 @@ const SEED_DATA = {
         {
           "label": "Content-cluster planning",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5920,7 +6597,7 @@ const SEED_DATA = {
         {
           "label": "Link opportunity research and outreach strategy",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5928,7 +6605,7 @@ const SEED_DATA = {
         {
           "label": "Conversion optimization recommendations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5936,7 +6613,7 @@ const SEED_DATA = {
         {
           "label": "Priority implementation support",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5944,7 +6621,7 @@ const SEED_DATA = {
         {
           "label": "Monthly strategy call",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -5952,57 +6629,126 @@ const SEED_DATA = {
         {
           "label": "Detailed executive reporting",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$399/month",
+        "basic": {
+          "price": "$499/month",
           "packageName": "Starter Package",
           "shortDescription": "SEO audit, optimization of 5 pages",
           "description": "Ideal for small businesses beginning their SEO strategy.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "SEO audit of website",
-            "keyword research",
-            "optimization of up to 5 website pages",
-            "meta titles and descriptions",
-            "basic search performance tracking"
+            "Initial SEO audit",
+            "Keyword research for up to 10 target keywords",
+            "Optimization of up to 5 priority pages",
+            "Page title optimization",
+            "Meta description optimization",
+            "Heading structure review",
+            "Internal-link improvements",
+            "Google Search Console review",
+            "Google Analytics review",
+            "XML sitemap review",
+            "Basic technical SEO checks",
+            "One existing page/content optimization per month",
+            "Monthly ranking review",
+            "Monthly performance report",
+            "Monthly recommendations"
           ]
         },
         "growth": {
-          "price": "$899/month",
+          "price": "$999/month",
           "packageName": "Growth Package",
           "shortDescription": "Optimization of 15 pages, technical SEO",
           "description": "Ideal for businesses actively working to improve search rankings.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "keyword research and strategy",
-            "optimization of up to 15 website pages",
-            "content optimization recommendations",
-            "technical SEO improvements",
-            "monthly performance report"
+            "Initial SEO audit",
+            "Keyword research for up to 10 target keywords",
+            "Optimization of up to 5 priority pages",
+            "Page title optimization",
+            "Meta description optimization",
+            "Heading structure review",
+            "Internal-link improvements",
+            "Google Search Console review",
+            "Google Analytics review",
+            "XML sitemap review",
+            "Basic technical SEO checks",
+            "One existing page/content optimization per month",
+            "Monthly ranking review",
+            "Monthly performance report",
+            "Monthly recommendations",
+            "Up to 20 tracked target keywords",
+            "Optimization across up to 15 priority pages",
+            "Competitor SEO review",
+            "Two SEO-focused content pieces or substantial content optimizations per month",
+            "Enhanced internal-link strategy",
+            "Technical issue monitoring",
+            "Search intent analysis",
+            "Content-gap analysis",
+            "Local SEO optimization when applicable",
+            "Google Business Profile recommendations when applicable",
+            "Basic structured-data recommendations",
+            "Conversion-page SEO review",
+            "Monthly strategy review"
           ]
         },
         "premium": {
           "price": "$1,999/month",
           "packageName": "Premium Package",
           "shortDescription": "Optimization of 30+ pages, backlink guidance",
-          "description": "Ideal for businesses seeking aggressive search growth.",
+          "description": "Ideal for businesses seeking aggressive search growth .",
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "advanced keyword strategy",
-            "optimization of 30+ website pages",
-            "content strategy and recommendations",
-            "technical SEO improvements",
-            "backlink development guidance",
-            "monthly performance reporting and insights"
+            "Initial SEO audit",
+            "Keyword research for up to 10 target keywords",
+            "Optimization of up to 5 priority pages",
+            "Page title optimization",
+            "Meta description optimization",
+            "Heading structure review",
+            "Internal-link improvements",
+            "Google Search Console review",
+            "Google Analytics review",
+            "XML sitemap review",
+            "Basic technical SEO checks",
+            "One existing page/content optimization per month",
+            "Monthly ranking review",
+            "Monthly performance report",
+            "Monthly recommendations",
+            "Up to 20 tracked target keywords",
+            "Optimization across up to 15 priority pages",
+            "Competitor SEO review",
+            "Two SEO-focused content pieces or substantial content optimizations per month",
+            "Enhanced internal-link strategy",
+            "Technical issue monitoring",
+            "Search intent analysis",
+            "Content-gap analysis",
+            "Local SEO optimization when applicable",
+            "Google Business Profile recommendations when applicable",
+            "Basic structured-data recommendations",
+            "Conversion-page SEO review",
+            "Monthly strategy review",
+            "Up to 40 tracked keywords",
+            "Up to 30 priority pages",
+            "Up to 4 SEO content pieces or major optimizations per month",
+            "Advanced competitor research",
+            "Advanced content-gap analysis",
+            "Technical SEO monitoring",
+            "Schema strategy",
+            "Multi-service or multi-location SEO strategy",
+            "Content-cluster planning",
+            "Link opportunity research and outreach strategy",
+            "Conversion optimization recommendations",
+            "Priority implementation support",
+            "Monthly strategy call",
+            "Detailed executive reporting"
           ]
         }
       }
@@ -6023,14 +6769,21 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1432889821006-8e42f3c6ddb9?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/seo-marketing/01.webp",
-            "/images/services/seo-marketing/02.webp",
-            "/images/services/seo-marketing/03.webp",
-            "/images/services/seo-marketing/04.webp",
-            "/images/services/seo-marketing/05.webp",
-            "/images/services/seo-marketing/06.webp",
-            "/images/services/seo-marketing/07.webp"
-      ],
+      "/images/services/seo-marketing/01.webp",
+      "/images/services/seo-marketing/02.webp",
+      "/images/services/seo-marketing/03.webp",
+      "/images/services/seo-marketing/04.webp",
+      "/images/services/seo-marketing/05.webp",
+      "/images/services/seo-marketing/06.webp",
+      "/images/services/seo-marketing/07.webp",
+      "https://i.ibb.co/jZw0rytN/Business-consultant-presenting-ideas-across-a-tablet-and-laptop.jpg",
+      "https://i.ibb.co/CpxDGpc6/Laptop-with-SEO-dashboard.jpg",
+      "https://i.ibb.co/S4C9LXSs/man-and-woman-discuss-seo.jpg",
+      "https://i.ibb.co/CprDG2Qz/people-discussing-a-project-with-laptops-tablets-and-documents.jpg",
+      "https://i.ibb.co/4wsyvqjF/SEO-search-bar-with-two-people-collaborating.jpg",
+      "https://i.ibb.co/wr7fgFmF/The-team-reviewing-charts-while-someone-works-on-the-laptop.jpg",
+      "https://i.ibb.co/Psbw84rD/Woman-clicking-a-search-button.jpg"
+    ],
     "seoTitle": "SEO Services for Businesses | ScaleLink Alliance",
     "seoDescription": "Increase search visibility and qualified website traffic with ScaleLink Alliance SEO services, including technical SEO, content, keywords and optimization.",
     "seoKeywords": "SEO services for businesses, small business SEO services, search engine optimization services, technical SEO services, on-page SEO, SEO consulting, organic search marketing",
@@ -6117,42 +6870,64 @@ const SEED_DATA = {
         "price": "$399/month",
         "description": "Ideal for businesses launching their first ad campaigns.",
         "includes": [
-          "1 ad campaign",
-          "audience targeting",
-          "ad creative guidance",
-          "monthly report",
-          "basic optimization"
+          "1 advertising platform",
+          "Up to 1 active campaign",
+          "Up to 3 ad groups/ad sets",
+          "Initial campaign setup",
+          "Basic keyword or audience research",
+          "Up to 6 ad variations",
+          "Conversion tracking setup",
+          "Budget monitoring",
+          "Basic optimization",
+          "Negative keyword management where applicable",
+          "Monthly report",
+          "One monthly campaign review"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$899/month",
+        "price": "$799/month",
         "description": "Ideal for businesses running multiple campaigns.",
         "includes": [
-          "3 campaigns",
-          "advanced targeting",
-          "A/B testing",
-          "bi-weekly reports",
-          "regular optimization"
+          "Everything in Starter Package",
+          "Up to 2 active campaigns",
+          "Up to 8 ad groups/ad sets",
+          "Up to 12 active ad variations",
+          "Enhanced audience/keyword research",
+          "Retargeting campaign setup",
+          "Landing-page recommendations",
+          "Weekly optimization",
+          "Search-term analysis",
+          "Bid/budget adjustments",
+          "Basic creative testing",
+          "Conversion-performance analysis",
+          "Monthly strategy call"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$1,999/month",
+        "price": "$1,499/month",
         "description": "Ideal for businesses requiring full ad management.",
         "includes": [
-          "full ad management",
-          "10 campaigns",
-          "multi-platform campaigns",
-          "custom audiences",
-          "weekly reports",
-          "dedicated specialist"
+          "Multi-campaign management",
+          "Up to 2 advertising platforms",
+          "Advanced audience segmentation",
+          "Advanced retargeting",
+          "Creative testing",
+          "Conversion tracking",
+          "Funnel performance analysis",
+          "Weekly performance monitoring",
+          "Budget allocation recommendations",
+          "Advanced keyword/search-term management",
+          "Landing-page recommendations",
+          "Monthly strategy call",
+          "Executive reporting"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -6160,143 +6935,143 @@ const SEED_DATA = {
         {
           "label": "1 advertising platform",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 1 active campaign",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 3 ad groups/ad sets",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Initial campaign setup",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic keyword or audience research",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 6 ad variations",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Conversion tracking setup",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Budget monitoring",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic optimization",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Negative keyword management where applicable",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Monthly report",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "One monthly campaign review",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 2 active campaigns",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 8 ad groups/ad sets",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 12 active ad variations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Enhanced audience/keyword research",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Retargeting campaign setup",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Landing-page recommendations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -6304,47 +7079,47 @@ const SEED_DATA = {
         {
           "label": "Weekly optimization",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Search-term analysis",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Bid/budget adjustments",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic creative testing",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Conversion-performance analysis",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Monthly strategy call",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -6352,7 +7127,7 @@ const SEED_DATA = {
         {
           "label": "Multi-campaign management",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6360,7 +7135,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 advertising platforms",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6368,7 +7143,7 @@ const SEED_DATA = {
         {
           "label": "Advanced audience segmentation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6376,7 +7151,7 @@ const SEED_DATA = {
         {
           "label": "Advanced retargeting",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6384,7 +7159,7 @@ const SEED_DATA = {
         {
           "label": "Creative testing",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6392,7 +7167,7 @@ const SEED_DATA = {
         {
           "label": "Conversion tracking",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6400,7 +7175,7 @@ const SEED_DATA = {
         {
           "label": "Funnel performance analysis",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6408,7 +7183,7 @@ const SEED_DATA = {
         {
           "label": "Weekly performance monitoring",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6416,7 +7191,7 @@ const SEED_DATA = {
         {
           "label": "Budget allocation recommendations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6424,7 +7199,7 @@ const SEED_DATA = {
         {
           "label": "Advanced keyword/search-term management",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6432,14 +7207,14 @@ const SEED_DATA = {
         {
           "label": "Executive reporting",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
+        "basic": {
           "price": "$399/month",
           "packageName": "Starter Package",
           "shortDescription": "1 ad campaign, audience targeting",
@@ -6447,42 +7222,75 @@ const SEED_DATA = {
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "1 ad campaign",
-            "audience targeting",
-            "ad creative guidance",
-            "monthly report",
-            "basic optimization"
+            "1 advertising platform",
+            "Up to 1 active campaign",
+            "Up to 3 ad groups/ad sets",
+            "Initial campaign setup",
+            "Basic keyword or audience research",
+            "Up to 6 ad variations",
+            "Conversion tracking setup",
+            "Budget monitoring",
+            "Basic optimization",
+            "Negative keyword management where applicable",
+            "Monthly report",
+            "One monthly campaign review"
           ]
         },
         "growth": {
-          "price": "$899/month",
+          "price": "$799/month",
           "packageName": "Growth Package",
           "shortDescription": "3 campaigns, audience targeting, monthly report",
           "description": "Ideal for businesses running multiple campaigns.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "3 campaigns",
-            "advanced targeting",
-            "A/B testing",
-            "bi-weekly reports",
-            "regular optimization"
+            "1 advertising platform",
+            "Up to 1 active campaign",
+            "Up to 3 ad groups/ad sets",
+            "Initial campaign setup",
+            "Basic keyword or audience research",
+            "Up to 6 ad variations",
+            "Conversion tracking setup",
+            "Budget monitoring",
+            "Basic optimization",
+            "Negative keyword management where applicable",
+            "Monthly report",
+            "One monthly campaign review",
+            "Up to 2 active campaigns",
+            "Up to 8 ad groups/ad sets",
+            "Up to 12 active ad variations",
+            "Enhanced audience/keyword research",
+            "Retargeting campaign setup",
+            "Landing-page recommendations",
+            "Weekly optimization",
+            "Search-term analysis",
+            "Bid/budget adjustments",
+            "Basic creative testing",
+            "Conversion-performance analysis",
+            "Monthly strategy call"
           ]
         },
         "premium": {
-          "price": "$1,999/month",
+          "price": "$1,499/month",
           "packageName": "Premium Package",
           "shortDescription": "Full ad management, 10 campaigns, audience targeting",
           "description": "Ideal for businesses requiring full ad management.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "full ad management",
-            "10 campaigns",
-            "multi-platform campaigns",
-            "custom audiences",
-            "weekly reports",
-            "dedicated specialist"
+            "Multi-campaign management",
+            "Up to 2 advertising platforms",
+            "Advanced audience segmentation",
+            "Advanced retargeting",
+            "Creative testing",
+            "Conversion tracking",
+            "Funnel performance analysis",
+            "Weekly performance monitoring",
+            "Budget allocation recommendations",
+            "Advanced keyword/search-term management",
+            "Landing-page recommendations",
+            "Monthly strategy call",
+            "Executive reporting"
           ]
         }
       }
@@ -6505,19 +7313,28 @@ const SEED_DATA = {
       ],
       "portfolioCardText": "A paid advertising concept built to help businesses attract targeted traffic, generate leads, and track campaign performance."
     },
-    "mainImage": "https://images.unsplash.com/photo-1432889821006-8e42f3c6ddb9?w=800&h=500&fit=crop",
+    "mainImage": "/images/services/paid-advertising/01.webp",
     "galleryImages": [
-            "/images/services/paid-advertising/01.webp",
-            "/images/services/paid-advertising/02.webp",
-            "/images/services/paid-advertising/03.webp",
-            "/images/services/paid-advertising/04.webp",
-            "/images/services/paid-advertising/05.webp",
-            "/images/services/paid-advertising/06.webp",
-            "/images/services/paid-advertising/07.webp",
-            "/images/services/paid-advertising/08.webp",
-            "/images/services/paid-advertising/09.webp",
-            "/images/services/paid-advertising/10.webp"
-      ],
+      "/images/services/paid-advertising/02.webp",
+      "/images/services/paid-advertising/03.webp",
+      "/images/services/paid-advertising/04.webp",
+      "/images/services/paid-advertising/05.webp",
+      "/images/services/paid-advertising/06.webp",
+      "/images/services/paid-advertising/07.webp",
+      "/images/services/paid-advertising/08.webp",
+      "/images/services/paid-advertising/09.webp",
+      "/images/services/paid-advertising/10.webp",
+      "https://i.ibb.co/dsVBK3st/Business-person-typing-with-ad-overlay.jpg",
+      "https://i.ibb.co/r2xZkRgj/digital-advertising-dashboard.jpg",
+      "https://i.ibb.co/CK3GHgdD/Excellent-marketing-dashboard.jpg",
+      "https://i.ibb.co/s9G2W86x/Executive-interacting-with-an-advertising-interface.jpg",
+      "https://i.ibb.co/TMkJ3H1V/Great-analytics-ads-dashboard-realistic-laptop.jpg",
+      "https://i.ibb.co/XrGjhmYg/Modern-paid-advertising-on-laptop.jpg",
+      "https://i.ibb.co/QWmdp2z/More-of-a-landing-page-illustration-than-portfolio-work.jpg",
+      "https://i.ibb.co/nstCbVW5/Nice-combination-of-ads-analytics-and-business-presentation.jpg",
+      "https://i.ibb.co/xcH7wfJ/Nice-real-world-laptop-with-digital-marketing-interface.jpg",
+      "https://i.ibb.co/1G0jPShs/Real-people-discussing-campaigns-with-dashboards-overlaid.jpg"
+    ],
     "seoTitle": "PPC & Paid Advertising Management | ScaleLink Alliance",
     "seoDescription": "Paid advertising designed to generate qualified opportunities through Google Ads, Microsoft Ads and conversion-focused campaigns.",
     "seoKeywords": "PPC management services",
@@ -6531,7 +7348,7 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": true,
     "iconName": "FaEnvelope",
-    "startingPrice": "$199",
+    "startingPrice": "$249",
     "intro": "Email marketing remains one of the most effective ways for businesses to communicate directly with their audience.",
     "description": "A well-designed email campaign can help nurture customer relationships, promote services or products, and encourage repeat engagement.",
     "longDescription": "Scale Link Alliance provides comprehensive email marketing campaign services that help businesses create professional email content, manage mailing lists, and deliver targeted messages that strengthen customer connections.",
@@ -6602,44 +7419,63 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$1",
+        "price": "$249",
         "description": "Ideal for businesses launching a simple email campaign.",
         "includes": [
           "1 email campaign",
-          "email template design",
-          "content formatting",
-          "mailing list integration",
-          "campaign scheduling"
+          "Email layout/design",
+          "Basic copy editing",
+          "CTA setup",
+          "Basic segmentation",
+          "Links and tracking",
+          "Test send",
+          "Mobile review",
+          "One revision round",
+          "Campaign performance summary"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$499",
+        "price": "$599",
         "description": "Ideal for businesses running regular email communication.",
         "includes": [
-          "3 email campaigns",
-          "email template customization",
-          "campaign scheduling and delivery",
-          "basic audience segmentation",
-          "performance tracking summary"
+          "Up to 4 emails",
+          "Campaign strategy",
+          "Email layout/design",
+          "Subject-line development",
+          "Basic copywriting",
+          "Audience segmentation",
+          "CTA strategy",
+          "UTM/tracking setup",
+          "Scheduling",
+          "Basic automation",
+          "Performance report",
+          "Two revision rounds"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$999",
+        "price": "$1,199",
         "description": "Ideal for businesses running structured email marketing programs.",
         "includes": [
-          "6 email campaigns",
-          "custom email templates",
-          "audience segmentation",
-          "performance analysis and reporting",
-          "campaign strategy recommendations"
+          "Up to 6 emails",
+          "Full campaign strategy",
+          "Copywriting",
+          "Design/layout",
+          "Segmentation strategy",
+          "Automated email flow",
+          "Lead tagging",
+          "Basic A/B testing",
+          "Conversion tracking",
+          "Performance analysis",
+          "Optimization recommendations",
+          "Two revision rounds"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -6647,167 +7483,167 @@ const SEED_DATA = {
         {
           "label": "1 email campaign",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Email layout/design",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic copy editing",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "CTA setup",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic segmentation",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Links and tracking",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Test send",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Mobile review",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "One revision round",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Campaign performance summary",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 4 emails",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Campaign strategy",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Subject-line development",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic copywriting",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Audience segmentation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "CTA strategy",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "UTM/tracking setup",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Scheduling",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic automation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Performance report",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Two revision rounds",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -6815,7 +7651,7 @@ const SEED_DATA = {
         {
           "label": "Up to 8 emails",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6823,7 +7659,7 @@ const SEED_DATA = {
         {
           "label": "Full campaign strategy",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6831,7 +7667,7 @@ const SEED_DATA = {
         {
           "label": "Copywriting",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6839,7 +7675,7 @@ const SEED_DATA = {
         {
           "label": "Design/layout",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6847,7 +7683,7 @@ const SEED_DATA = {
         {
           "label": "Segmentation strategy",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6855,7 +7691,7 @@ const SEED_DATA = {
         {
           "label": "Automated email flow",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6863,7 +7699,7 @@ const SEED_DATA = {
         {
           "label": "Lead tagging",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6871,7 +7707,7 @@ const SEED_DATA = {
         {
           "label": "Basic A/B testing",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6879,7 +7715,7 @@ const SEED_DATA = {
         {
           "label": "Conversion tracking",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6887,7 +7723,7 @@ const SEED_DATA = {
         {
           "label": "Performance analysis",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -6895,15 +7731,15 @@ const SEED_DATA = {
         {
           "label": "Optimization recommendations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$1",
+        "basic": {
+          "price": "$249",
           "packageName": "Starter Package",
           "shortDescription": "1 email campaign, template design",
           "description": "Ideal for businesses launching a simple email campaign.",
@@ -6911,40 +7747,59 @@ const SEED_DATA = {
           "revisions": null,
           "includes": [
             "1 email campaign",
-            "email template design",
-            "content formatting",
-            "mailing list integration",
-            "campaign scheduling"
+            "Email layout/design",
+            "Basic copy editing",
+            "CTA setup",
+            "Basic segmentation",
+            "Links and tracking",
+            "Test send",
+            "Mobile review",
+            "One revision round",
+            "Campaign performance summary"
           ]
         },
         "growth": {
-          "price": "$499",
+          "price": "$599",
           "packageName": "Growth Package",
           "shortDescription": "3 email campaigns, audience segmentation",
           "description": "Ideal for businesses running regular email communication.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "3 email campaigns",
-            "email template customization",
-            "campaign scheduling and delivery",
-            "basic audience segmentation",
-            "performance tracking summary"
+            "Up to 4 emails",
+            "Campaign strategy",
+            "Email layout/design",
+            "Subject-line development",
+            "Basic copywriting",
+            "Audience segmentation",
+            "CTA strategy",
+            "UTM/tracking setup",
+            "Scheduling",
+            "Basic automation",
+            "Performance report",
+            "Two revision rounds"
           ]
         },
         "premium": {
-          "price": "$999",
+          "price": "$1,199",
           "packageName": "Premium Package",
           "shortDescription": "6 email campaigns, custom templates",
           "description": "Ideal for businesses running structured email marketing programs.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "6 email campaigns",
-            "custom email templates",
-            "audience segmentation",
-            "performance analysis and reporting",
-            "campaign strategy recommendations"
+            "Up to 8 emails",
+            "Full campaign strategy",
+            "Copywriting",
+            "Design/layout",
+            "Segmentation strategy",
+            "Automated email flow",
+            "Lead tagging",
+            "Basic A/B testing",
+            "Conversion tracking",
+            "Performance analysis",
+            "Optimization recommendations",
+            "Two revision rounds"
           ]
         }
       }
@@ -6965,15 +7820,23 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1557838923-2985c318be48?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/email-marketing/01.webp",
-            "/images/services/email-marketing/02.webp",
-            "/images/services/email-marketing/03.webp",
-            "/images/services/email-marketing/04.webp",
-            "/images/services/email-marketing/05.webp",
-            "/images/services/email-marketing/06.webp",
-            "/images/services/email-marketing/07.webp",
-            "/images/services/email-marketing/08.webp"
-      ],
+      "/images/services/email-marketing/01.webp",
+      "/images/services/email-marketing/02.webp",
+      "/images/services/email-marketing/03.webp",
+      "/images/services/email-marketing/04.webp",
+      "/images/services/email-marketing/05.webp",
+      "/images/services/email-marketing/06.webp",
+      "/images/services/email-marketing/07.webp",
+      "/images/services/email-marketing/08.webp",
+      "https://i.ibb.co/1xhsg1X/Digital-Marketing-Concept-Startup-Project-Work.jpg",
+      "https://i.ibb.co/tMHz43tb/Digital-Marketing-on-Laptop.jpg",
+      "https://i.ibb.co/gbf3wkfQ/Email-Engagement.jpg",
+      "https://i.ibb.co/GfHJ1JWX/e-Mail-Marketing-Doodle.jpg",
+      "https://i.ibb.co/JjfyHJJB/Email-notifications-and-analytics-together.jpg",
+      "https://i.ibb.co/9Htx5DqQ/Inbox-management-visualization.jpg",
+      "https://i.ibb.co/JRwq6dBY/Shows-the-entire-email-marketing-funnel-product.png",
+      "https://i.ibb.co/5W2sVFjj/Person-managing-email-campaigns-on-a-laptop.jpg"
+    ],
     "seoTitle": "Email Marketing & Automation Services | ScaleLink Alliance",
     "seoDescription": "Turn leads into customers with strategic email campaigns, automation, segmentation and reporting from ScaleLink Alliance.",
     "seoKeywords": "email marketing services",
@@ -6987,8 +7850,8 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": true,
     "iconName": "FaRegBuilding",
-    "startingPrice": "$199",
-    "intro": "Consistent lead generation is essential for business growth.",
+    "startingPrice": "$299/month",
+    "intro": "Consistent lead generation is essential for business growth .",
     "description": "Without a steady flow of potential customers, even the best products or services struggle to reach their full potential.",
     "longDescription": "Scale Link Alliance provides targeted lead generation services designed to help businesses identify and connect with qualified prospects who are more likely to be interested in their offerings.",
     "features": [
@@ -7057,43 +7920,59 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$199",
+        "price": "$299/month",
         "description": "Ideal for businesses building their initial lead pipeline.",
         "includes": [
-          "25 targeted leads",
-          "basic qualification",
-          "contact information",
-          "CSV export"
+          "Ideal customer profile definition",
+          "Basic target-market research",
+          "Prospecting criteria",
+          "Up to 150 prospect records per month",
+          "Basic lead-list organization",
+          "Contact-data cleanup",
+          "One outreach sequence framework",
+          "Lead tracking sheet or basic CRM structure",
+          "Monthly results summary"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$599",
+        "price": "$699/month",
         "description": "Ideal for businesses scaling their sales efforts.",
         "includes": [
-          "100 leads",
-          "advanced qualification",
-          "enriched data",
-          "outreach templates",
-          "CRM integration support"
+          "Everything in Starter Package",
+          "Up to 500 prospect records per month",
+          "Multiple target segments",
+          "Enhanced prospect research",
+          "Up to 2 outreach sequences",
+          "Basic personalization framework",
+          "CRM import assistance",
+          "Lead tagging",
+          "Follow-up workflow",
+          "Monthly performance analysis",
+          "Strategy adjustments"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$1,499",
+        "price": "$1,499/month",
         "description": "Ideal for businesses needing ongoing lead flow.",
         "includes": [
-          "220 leads",
-          "monthly lead updates",
-          "full qualification",
-          "outreach support",
-          "strategy consultation"
+          "Up to 1,000 prospect records per month",
+          "Multiple customer profiles",
+          "Advanced account research",
+          "Multi-step outreach strategy",
+          "CRM pipeline setup",
+          "Lead qualification framework",
+          "Follow-up automation",
+          "Reporting dashboard",
+          "Ongoing campaign refinement",
+          "Monthly strategy session"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -7101,159 +7980,159 @@ const SEED_DATA = {
         {
           "label": "Ideal customer profile definition",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic target-market research",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Prospecting criteria",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 150 prospect records per month",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic lead-list organization",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Contact-data cleanup",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "One outreach sequence framework",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Lead tracking sheet or basic CRM structure",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Monthly results summary",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 500 prospect records per month",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Multiple target segments",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Enhanced prospect research",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 2 outreach sequences",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic personalization framework",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "CRM import assistance",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Lead tagging",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Follow-up workflow",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Monthly performance analysis",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Strategy adjustments",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 1,000 prospect records per month",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7261,7 +8140,7 @@ const SEED_DATA = {
         {
           "label": "Multiple customer profiles",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7269,7 +8148,7 @@ const SEED_DATA = {
         {
           "label": "Advanced account research",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7277,7 +8156,7 @@ const SEED_DATA = {
         {
           "label": "Multi-step outreach strategy",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7285,7 +8164,7 @@ const SEED_DATA = {
         {
           "label": "CRM pipeline setup",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7293,7 +8172,7 @@ const SEED_DATA = {
         {
           "label": "Lead qualification framework",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7301,7 +8180,7 @@ const SEED_DATA = {
         {
           "label": "Follow-up automation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7309,7 +8188,7 @@ const SEED_DATA = {
         {
           "label": "Reporting dashboard",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7317,7 +8196,7 @@ const SEED_DATA = {
         {
           "label": "Ongoing campaign refinement",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7325,55 +8204,79 @@ const SEED_DATA = {
         {
           "label": "Monthly strategy session",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$199",
+        "basic": {
+          "price": "$299/month",
           "packageName": "Starter Package",
           "shortDescription": "25 targeted leads, basic qualification",
           "description": "Ideal for businesses building their initial lead pipeline.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "25 targeted leads",
-            "basic qualification",
-            "contact information",
-            "CSV export"
+            "Ideal customer profile definition",
+            "Basic target-market research",
+            "Prospecting criteria",
+            "Up to 150 prospect records per month",
+            "Basic lead-list organization",
+            "Contact-data cleanup",
+            "One outreach sequence framework",
+            "Lead tracking sheet or basic CRM structure",
+            "Monthly results summary"
           ]
         },
         "growth": {
-          "price": "$599",
+          "price": "$699/month",
           "packageName": "Growth Package",
           "shortDescription": "100 leads, advanced qualification, enriched data",
           "description": "Ideal for businesses scaling their sales efforts.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "100 leads",
-            "advanced qualification",
-            "enriched data",
-            "outreach templates",
-            "CRM integration support"
+            "Ideal customer profile definition",
+            "Basic target-market research",
+            "Prospecting criteria",
+            "Up to 150 prospect records per month",
+            "Basic lead-list organization",
+            "Contact-data cleanup",
+            "One outreach sequence framework",
+            "Lead tracking sheet or basic CRM structure",
+            "Monthly results summary",
+            "Up to 500 prospect records per month",
+            "Multiple target segments",
+            "Enhanced prospect research",
+            "Up to 2 outreach sequences",
+            "Basic personalization framework",
+            "CRM import assistance",
+            "Lead tagging",
+            "Follow-up workflow",
+            "Monthly performance analysis",
+            "Strategy adjustments"
           ]
         },
         "premium": {
-          "price": "$1,499",
+          "price": "$1,499/month",
           "packageName": "Premium Package",
           "shortDescription": "220 leads, monthly lead updates, full qualification",
           "description": "Ideal for businesses needing ongoing lead flow.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "220 leads",
-            "monthly lead updates",
-            "full qualification",
-            "outreach support",
-            "strategy consultation"
+            "Up to 1,000 prospect records per month",
+            "Multiple customer profiles",
+            "Advanced account research",
+            "Multi-step outreach strategy",
+            "CRM pipeline setup",
+            "Lead qualification framework",
+            "Follow-up automation",
+            "Reporting dashboard",
+            "Ongoing campaign refinement",
+            "Monthly strategy session"
           ]
         }
       }
@@ -7394,16 +8297,25 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1552581234-26160f608093?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/lead-generation/01.webp",
-            "/images/services/lead-generation/02.webp",
-            "/images/services/lead-generation/03.webp",
-            "/images/services/lead-generation/04.webp",
-            "/images/services/lead-generation/05.webp",
-            "/images/services/lead-generation/06.webp",
-            "/images/services/lead-generation/07.webp",
-            "/images/services/lead-generation/08.webp",
-            "/images/services/lead-generation/09.webp"
-      ],
+      "/images/services/lead-generation/01.webp",
+      "/images/services/lead-generation/02.webp",
+      "/images/services/lead-generation/03.webp",
+      "/images/services/lead-generation/04.webp",
+      "/images/services/lead-generation/05.webp",
+      "/images/services/lead-generation/06.webp",
+      "/images/services/lead-generation/07.webp",
+      "/images/services/lead-generation/08.webp",
+      "/images/services/lead-generation/09.webp",
+      "https://i.ibb.co/dZFFMz4/Designer-using-drawing-tablet.jpg",
+      "https://i.ibb.co/7xgGgY6D/Developer-building-a-landing-page.jpg",
+      "https://i.ibb.co/kg5ztzXp/Digital-Marketing-Meeting.jpg",
+      "https://i.ibb.co/3yFwpyhL/Lead-Generation-Network.jpg",
+      "https://i.ibb.co/twrB98nG/Lead-Generation-on-Laptop.jpg",
+      "https://i.ibb.co/HDrwV1KS/lead-generation-outline-infographics.jpg",
+      "https://i.ibb.co/N6QtXKX5/Lead-generation-process-diagram.jpg",
+      "https://i.ibb.co/Kp94vjyP/Tablet-with-Lead-Generation.jpg",
+      "https://i.ibb.co/0pj76Vq9/Tablet-with-Lead-Generation-Network.jpg"
+    ],
     "seoTitle": "Lead Generation Services for Businesses | ScaleLink Alliance",
     "seoDescription": "Generate more qualified business opportunities through strategic lead generation campaigns, landing pages, search marketing and automated follow-up.",
     "seoKeywords": "lead generation services, B2B lead generation services, online lead generation, business lead generation, qualified leads, digital lead generation, customer acquisition services",
@@ -7514,13 +8426,13 @@ const SEED_DATA = {
           "Automated review requests",
           "Crisis response support",
           "Monthly detailed reporting",
-          "Strategic reputation standard plan"
+          "Strategic reputation Growth plan"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -7528,7 +8440,7 @@ const SEED_DATA = {
         {
           "label": "Review collection system",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -7536,7 +8448,7 @@ const SEED_DATA = {
         {
           "label": "Review monitoring",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -7544,7 +8456,7 @@ const SEED_DATA = {
         {
           "label": "Monthly report",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -7552,7 +8464,7 @@ const SEED_DATA = {
         {
           "label": "Multi-platform monitoring",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -7560,7 +8472,7 @@ const SEED_DATA = {
         {
           "label": "Custom response management",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -7568,7 +8480,7 @@ const SEED_DATA = {
         {
           "label": "Automated review requests",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7576,14 +8488,14 @@ const SEED_DATA = {
         {
           "label": "Crisis response support",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
+        "basic": {
           "price": "$199",
           "packageName": "Starter Package",
           "shortDescription": "Review collection setup, basic monitoring",
@@ -7624,7 +8536,7 @@ const SEED_DATA = {
             "Automated review requests",
             "Crisis response support",
             "Monthly detailed reporting",
-            "Strategic reputation standard plan"
+            "Strategic reputation Growth plan"
           ]
         }
       }
@@ -7642,10 +8554,8 @@ const SEED_DATA = {
       ],
       "portfolioCardText": "A reputation management concept built to help businesses build trust, attract customers, and strengthen their online presence."
     },
-    "mainImage": "https://images.unsplash.com/photo-1552581234-26160f608093?w=800&h=500&fit=crop",
-    "galleryImages": [
-            "https://images.unsplash.com/photo-1552581234-26160f608093?w=800&h=500&fit=crop"
-      ],
+    "mainImage": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=500&fit=crop",
+    "galleryImages": [],
     "seoTitle": "Reputation & Review Management | ScaleLink Alliance",
     "seoDescription": "Positive reviews and a strong reputation help businesses stand out, attract new customers, and build credibility in their industry.",
     "seoKeywords": "",
@@ -7734,23 +8644,35 @@ const SEED_DATA = {
         "price": "$499",
         "description": "Ideal for businesses implementing their first CRM.",
         "includes": [
-          "CRM setup",
-          "basic automation",
-          "lead capture forms",
-          "integration setup",
-          "documentation"
+          "1 CRM pipeline",
+          "Basic CRM configuration",
+          "Up to 2 forms",
+          "Up to 3 automated workflows",
+          "Contact tagging",
+          "Basic lead notifications",
+          "1 third-party integration",
+          "Testing",
+          "Basic documentation",
+          "One training session"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$1,499",
+        "price": "$1,299",
         "description": "Ideal for businesses scaling their automation.",
         "includes": [
-          "full CRM customization",
-          "email automation",
-          "lead scoring",
-          "pipeline management",
-          "analytics dashboard"
+          "Up to 2 CRM pipelines",
+          "Up to 5 automated workflows",
+          "Up to 3 integrations",
+          "Lead routing",
+          "Email follow-up automation",
+          "Task automation",
+          "Contact segmentation",
+          "Pipeline stages",
+          "Basic dashboard",
+          "Testing and QA",
+          "Documentation",
+          "Team training"
         ]
       },
       "premium": {
@@ -7758,18 +8680,25 @@ const SEED_DATA = {
         "price": "$2,999",
         "description": "Ideal for comprehensive marketing automation.",
         "includes": [
-          "complete marketing automation",
-          "multi-channel sequences",
-          "advanced lead scoring",
-          "custom reporting",
-          "strategy consultation",
-          "priority support"
+          "Up to 4 pipelines",
+          "Up to 12 automated workflows",
+          "Up to 6 integrations",
+          "Advanced lead routing",
+          "Multi-step customer journeys",
+          "Sales automation",
+          "Marketing automation",
+          "Customer tagging/scoring rules",
+          "Reporting dashboard",
+          "Advanced workflow testing",
+          "Documentation",
+          "Up to 2 hours of team training",
+          "Post-launch optimization review"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -7777,167 +8706,167 @@ const SEED_DATA = {
         {
           "label": "1 CRM pipeline",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic CRM configuration",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 2 forms",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 3 automated workflows",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Contact tagging",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic lead notifications",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "1 third-party integration",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Testing",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic documentation",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "One training session",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 2 CRM pipelines",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 5 automated workflows",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 3 integrations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Lead routing",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Email follow-up automation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Task automation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Contact segmentation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Pipeline stages",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic dashboard",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Testing and QA",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Documentation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -7945,15 +8874,15 @@ const SEED_DATA = {
         {
           "label": "Team training",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 4 pipelines",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7961,7 +8890,7 @@ const SEED_DATA = {
         {
           "label": "Up to 12 automated workflows",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7969,7 +8898,7 @@ const SEED_DATA = {
         {
           "label": "Up to 6 integrations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7977,7 +8906,7 @@ const SEED_DATA = {
         {
           "label": "Advanced lead routing",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7985,7 +8914,7 @@ const SEED_DATA = {
         {
           "label": "Multi-step customer journeys",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -7993,7 +8922,7 @@ const SEED_DATA = {
         {
           "label": "Sales automation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8001,7 +8930,7 @@ const SEED_DATA = {
         {
           "label": "Marketing automation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8009,7 +8938,7 @@ const SEED_DATA = {
         {
           "label": "Customer tagging/scoring rules",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8017,7 +8946,7 @@ const SEED_DATA = {
         {
           "label": "Reporting dashboard",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8025,7 +8954,7 @@ const SEED_DATA = {
         {
           "label": "Advanced workflow testing",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8033,7 +8962,7 @@ const SEED_DATA = {
         {
           "label": "Up to 2 hours of team training",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8041,14 +8970,14 @@ const SEED_DATA = {
         {
           "label": "Post-launch optimization review",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
+        "basic": {
           "price": "$499",
           "packageName": "Starter Package",
           "shortDescription": "CRM setup, basic automation, lead capture forms",
@@ -8056,26 +8985,38 @@ const SEED_DATA = {
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "CRM setup",
-            "basic automation",
-            "lead capture forms",
-            "integration setup",
-            "documentation"
+            "1 CRM pipeline",
+            "Basic CRM configuration",
+            "Up to 2 forms",
+            "Up to 3 automated workflows",
+            "Contact tagging",
+            "Basic lead notifications",
+            "1 third-party integration",
+            "Testing",
+            "Basic documentation",
+            "One training session"
           ]
         },
         "growth": {
-          "price": "$1,499",
+          "price": "$1,299",
           "packageName": "Growth Package",
           "shortDescription": "Full CRM customization, email automation, lead scoring",
           "description": "Ideal for businesses scaling their automation.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "full CRM customization",
-            "email automation",
-            "lead scoring",
-            "pipeline management",
-            "analytics dashboard"
+            "Up to 2 CRM pipelines",
+            "Up to 5 automated workflows",
+            "Up to 3 integrations",
+            "Lead routing",
+            "Email follow-up automation",
+            "Task automation",
+            "Contact segmentation",
+            "Pipeline stages",
+            "Basic dashboard",
+            "Testing and QA",
+            "Documentation",
+            "Team training"
           ]
         },
         "premium": {
@@ -8086,12 +9027,19 @@ const SEED_DATA = {
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "complete marketing automation",
-            "multi-channel sequences",
-            "advanced lead scoring",
-            "custom reporting",
-            "strategy consultation",
-            "priority support"
+            "Up to 4 pipelines",
+            "Up to 12 automated workflows",
+            "Up to 6 integrations",
+            "Advanced lead routing",
+            "Multi-step customer journeys",
+            "Sales automation",
+            "Marketing automation",
+            "Customer tagging/scoring rules",
+            "Reporting dashboard",
+            "Advanced workflow testing",
+            "Documentation",
+            "Up to 2 hours of team training",
+            "Post-launch optimization review"
           ]
         }
       }
@@ -8114,18 +9062,26 @@ const SEED_DATA = {
       ],
       "portfolioCardText": "A CRM and automation concept built to help businesses manage leads, automate follow-up, and improve customer communication."
     },
-    "mainImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
+    "mainImage": "/images/services/crm-automation/01.webp",
     "galleryImages": [
-            "/images/services/crm-automation/01.webp",
-            "/images/services/crm-automation/02.webp",
-            "/images/services/crm-automation/03.webp",
-            "/images/services/crm-automation/04.webp",
-            "/images/services/crm-automation/05.webp",
-            "/images/services/crm-automation/06.webp",
-            "/images/services/crm-automation/07.webp",
-            "/images/services/crm-automation/08.webp",
-            "/images/services/crm-automation/09.webp"
-      ],
+      "/images/services/crm-automation/02.webp",
+      "/images/services/crm-automation/03.webp",
+      "/images/services/crm-automation/04.webp",
+      "/images/services/crm-automation/05.webp",
+      "/images/services/crm-automation/06.webp",
+      "/images/services/crm-automation/07.webp",
+      "/images/services/crm-automation/08.webp",
+      "/images/services/crm-automation/09.webp",
+      "https://i.ibb.co/fG4xm2v9/CRM-dashboard-with-analytics-and-KPI-overlays.jpg",
+      "https://i.ibb.co/ZRmH9zxK/CRM-displayed-on-a-laptop-in-a-real-office.jpg",
+      "https://i.ibb.co/JjvDJ6kH/CRM-text-is-pushed-left-and-competes-with-all-the-hexagons.jpg",
+      "https://i.ibb.co/YFdJs1Xk/Marketing-automation.jpg",
+      "https://i.ibb.co/yFnMy2hN/Person-interacting-with-a-CRM-interface-on-a-laptop.jpg",
+      "https://i.ibb.co/CpVqxY6P/Tablet-displaying-dashboards-in-a-real-office.jpg",
+      "https://i.ibb.co/Pvc7x9cn/Team-collaboration-plus-CRM-overlay.jpg",
+      "https://i.ibb.co/S4dMN8cg/The-person-interacting-with-a-CRM-dashboard-on-a-laptop.jpg",
+      "https://i.ibb.co/bg6cGxZ1/We-implement-CRM-systems.jpg"
+    ],
     "seoTitle": "CRM & Marketing Automation Services | ScaleLink Alliance",
     "seoDescription": "Automate lead management, follow-up, customer communication and business workflows with CRM and marketing automation from ScaleLink Alliance.",
     "seoKeywords": "CRM automation services",
@@ -8218,7 +9174,7 @@ const SEED_DATA = {
       "custom": {
         "name": "Custom Quote Only",
         "price": "Custom Quote",
-        "description": "AI automation does not use standard package pricing because every project depends on the tools, workflows, and goals involved.",
+        "description": "AI automation does not use Growth package pricing because every project depends on the tools, workflows, and goals involved.",
         "includes": [
           "a discovery conversation about your current process",
           "a recommended automation approach based on your tools",
@@ -8227,7 +9183,184 @@ const SEED_DATA = {
         ]
       }
     },
-    "packageComparison": null,
+    "packageComparison": {
+      "tiers": [
+        "basic",
+        "growth",
+        "premium"
+      ],
+      "rows": [
+        {
+          "label": "1 straightforward AI automation",
+          "values": {
+            "basic": true,
+            "growth": true,
+            "premium": true
+          }
+        },
+        {
+          "label": "Basic AI model setup",
+          "values": {
+            "basic": true,
+            "growth": true,
+            "premium": true
+          }
+        },
+        {
+          "label": "Up to 3 automation workflows",
+          "values": {
+            "basic": true,
+            "growth": true,
+            "premium": true
+          }
+        },
+        {
+          "label": "1 system integration",
+          "values": {
+            "basic": true,
+            "growth": true,
+            "premium": true
+          }
+        },
+        {
+          "label": "Testing and validation",
+          "values": {
+            "basic": true,
+            "growth": true,
+            "premium": true
+          }
+        },
+        {
+          "label": "Basic documentation",
+          "values": {
+            "basic": true,
+            "growth": true,
+            "premium": true
+          }
+        },
+        {
+          "label": "Training session",
+          "values": {
+            "basic": true,
+            "growth": true,
+            "premium": true
+          }
+        },
+        {
+          "label": "Up to 2 AI automations",
+          "values": {
+            "basic": false,
+            "growth": true,
+            "premium": true
+          }
+        },
+        {
+          "label": "Advanced AI model configuration",
+          "values": {
+            "basic": false,
+            "growth": true,
+            "premium": true
+          }
+        },
+        {
+          "label": "Up to 8 automation workflows",
+          "values": {
+            "basic": false,
+            "growth": true,
+            "premium": true
+          }
+        },
+        {
+          "label": "Up to 3 system integrations",
+          "values": {
+            "basic": false,
+            "growth": true,
+            "premium": true
+          }
+        },
+        {
+          "label": "Data preprocessing",
+          "values": {
+            "basic": false,
+            "growth": true,
+            "premium": true
+          }
+        },
+        {
+          "label": "Documentation",
+          "values": {
+            "basic": false,
+            "growth": true,
+            "premium": true
+          }
+        },
+        {
+          "label": "Team training",
+          "values": {
+            "basic": false,
+            "growth": true,
+            "premium": true
+          }
+        },
+        {
+          "label": "Complex AI automation suite",
+          "values": {
+            "basic": false,
+            "growth": false,
+            "premium": true
+          }
+        },
+        {
+          "label": "Custom AI model development",
+          "values": {
+            "basic": false,
+            "growth": false,
+            "premium": true
+          }
+        },
+        {
+          "label": "Unlimited automation workflows",
+          "values": {
+            "basic": false,
+            "growth": false,
+            "premium": true
+          }
+        },
+        {
+          "label": "Up to 6 system integrations",
+          "values": {
+            "basic": false,
+            "growth": false,
+            "premium": true
+          }
+        },
+        {
+          "label": "Advanced data processing",
+          "values": {
+            "basic": false,
+            "growth": false,
+            "premium": true
+          }
+        },
+        {
+          "label": "Comprehensive documentation",
+          "values": {
+            "basic": false,
+            "growth": false,
+            "premium": true
+          }
+        },
+        {
+          "label": "Post-launch optimization",
+          "values": {
+            "basic": false,
+            "growth": false,
+            "premium": true
+          }
+        }
+      ],
+      "details": {}
+    },
     "sampleProject": {
       "projectName": "FollowUpAI Lead & Support Automation",
       "businessType": "Service-based business with multiple lead sources",
@@ -8245,18 +9378,29 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/ai-automation/01.webp",
-            "/images/services/ai-automation/02.webp",
-            "/images/services/ai-automation/03.webp",
-            "/images/services/ai-automation/04.webp",
-            "/images/services/ai-automation/05.webp",
-            "/images/services/ai-automation/06.webp",
-            "/images/services/ai-automation/07.webp",
-            "/images/services/ai-automation/08.webp",
-            "/images/services/ai-automation/09.webp",
-            "/images/services/ai-automation/10.webp",
-            "/images/services/ai-automation/11.webp"
-      ],
+      "/images/services/ai-automation/01.webp",
+      "/images/services/ai-automation/02.webp",
+      "/images/services/ai-automation/03.webp",
+      "/images/services/ai-automation/04.webp",
+      "/images/services/ai-automation/05.webp",
+      "/images/services/ai-automation/06.webp",
+      "/images/services/ai-automation/07.webp",
+      "/images/services/ai-automation/08.webp",
+      "/images/services/ai-automation/09.webp",
+      "/images/services/ai-automation/10.webp",
+      "/images/services/ai-automation/11.webp",
+      "https://ibb.co/tTdH28M6",
+      "https://ibb.co/ymgrk6gf",
+      "https://ibb.co/GG86gL9",
+      "https://ibb.co/RxjHg2f",
+      "https://ibb.co/8DWbsg3y",
+      "https://ibb.co/RTVRWwmP",
+      "https://ibb.co/BV55kZjF",
+      "https://ibb.co/HDSxb1Q0",
+      "https://ibb.co/hJYjfthq",
+      "https://ibb.co/yB6twpPn",
+      "https://ibb.co/Y4psZ6kS"
+    ],
     "seoTitle": "AI & Business Automation Services | ScaleLink Alliance",
     "seoDescription": "Automate repetitive work, customer communication, lead handling and business workflows with practical AI automation solutions.",
     "seoKeywords": "AI automation services for businesses",
@@ -8272,7 +9416,7 @@ const SEED_DATA = {
     "iconName": "FaSyncAlt",
     "startingPrice": "$299",
     "intro": "Business process automation helps companies streamline operations, reduce manual work, and improve efficiency.",
-    "description": "Automating repetitive tasks frees up your team to focus on higher-value activities that drive growth.",
+    "description": "Automating repetitive tasks frees up your team to focus on higher-value activities that drive growth .",
     "longDescription": "Scale Link Alliance provides business process automation services that help companies identify repetitive tasks, design automated workflows, and implement systems that save time and reduce errors.",
     "features": [
       "Workflow mapping",
@@ -8373,7 +9517,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -8381,7 +9525,7 @@ const SEED_DATA = {
         {
           "label": "Automated workflows",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -8389,7 +9533,7 @@ const SEED_DATA = {
         {
           "label": "Process mapping",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -8397,7 +9541,7 @@ const SEED_DATA = {
         {
           "label": "Testing and documentation",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -8405,7 +9549,7 @@ const SEED_DATA = {
         {
           "label": "Integration setup",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -8413,7 +9557,7 @@ const SEED_DATA = {
         {
           "label": "Training support",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -8421,7 +9565,7 @@ const SEED_DATA = {
         {
           "label": "Multi-system integration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8429,14 +9573,14 @@ const SEED_DATA = {
         {
           "label": "Ongoing support",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
+        "basic": {
           "price": "$299",
           "packageName": "Starter Package",
           "shortDescription": "1 automated workflow, process mapping",
@@ -8496,12 +9640,10 @@ const SEED_DATA = {
       ],
       "portfolioCardText": "An automation concept built to simplify daily operations, reduce manual work, and keep business tasks moving smoothly."
     },
-    "mainImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
-    "galleryImages": [
-            "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop"
-      ],
+    "mainImage": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=500&fit=crop",
+    "galleryImages": [],
     "seoTitle": "Business Process Automation | ScaleLink Alliance",
-    "seoDescription": "Automating repetitive tasks frees up your team to focus on higher-value activities that drive growth.",
+    "seoDescription": "Automating repetitive tasks frees up your team to focus on higher-value activities that drive growth .",
     "seoKeywords": "",
     "sortOrder": 21,
     "status": "published"
@@ -8513,7 +9655,7 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": true,
     "iconName": "FaChartLine",
-    "startingPrice": "$199/month",
+    "startingPrice": "$249",
     "intro": "Data analytics helps businesses understand performance, identify trends, and make better strategic decisions.",
     "description": "Without clear insights, companies often rely on assumptions rather than measurable information.",
     "longDescription": "Scale Link Alliance provides data analytics and reporting services that transform raw business data into structured reports and visual insights that help business owners monitor performance, track progress, and identify opportunities for improvement.",
@@ -8570,7 +9712,7 @@ const SEED_DATA = {
       },
       {
         "name": "SEO & Search Marketing",
-        "reason": "measure search traffic growth"
+        "reason": "measure search traffic Growth "
       },
       {
         "name": "Paid Advertising Management",
@@ -8584,42 +9726,53 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$199",
+        "price": "$249",
         "description": "Ideal for businesses needing basic performance insights.",
         "includes": [
-          "1 custom data report",
-          "basic data analysis",
-          "visual charts or graphs",
-          "summary of key insights"
+          "Up to 1 primary data source",
+          "Data cleanup for the agreed dataset",
+          "Up to 8 key metrics",
+          "One basic dashboard/report",
+          "Key observations",
+          "One revision round"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$699",
+        "price": "$699/month",
         "description": "Ideal for businesses tracking multiple performance areas.",
         "includes": [
-          "3 custom reports",
-          "visual dashboards or charts",
-          "trend analysis",
-          "summary recommendations"
+          "Up to 3 regular data sources",
+          "Monthly dashboard updates",
+          "KPI tracking",
+          "Trend analysis",
+          "Monthly performance report",
+          "Data-quality review",
+          "Recommendations",
+          "One monthly review meeting"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$1,999",
+        "price": "$1,499/month",
         "description": "Ideal for businesses seeking ongoing performance monitoring.",
         "includes": [
-          "custom analytics dashboard",
-          "7 custom data reports",
-          "visual performance charts",
-          "detailed trend analysis",
-          "strategic insight summary"
+          "Up to 5 regular data sources",
+          "Advanced dashboards",
+          "Department/channel segmentation",
+          "KPI framework",
+          "Trend analysis",
+          "Conversion/performance analysis",
+          "Monthly executive report",
+          "Regular dashboard refreshes",
+          "Monthly strategy meeting",
+          "Improvement recommendations"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -8627,79 +9780,79 @@ const SEED_DATA = {
         {
           "label": "Up to 1 primary data source",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Data cleanup for the agreed dataset",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 8 key metrics",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "One basic dashboard/report",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Key observations",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "One revision round",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 3 regular data sources",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Monthly dashboard updates",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "KPI tracking",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Trend analysis",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -8707,39 +9860,39 @@ const SEED_DATA = {
         {
           "label": "Monthly performance report",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Data-quality review",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Recommendations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "One monthly review meeting",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 5 regular data sources",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8747,7 +9900,7 @@ const SEED_DATA = {
         {
           "label": "Advanced dashboards",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8755,7 +9908,7 @@ const SEED_DATA = {
         {
           "label": "Department/channel segmentation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8763,7 +9916,7 @@ const SEED_DATA = {
         {
           "label": "KPI framework",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8771,7 +9924,7 @@ const SEED_DATA = {
         {
           "label": "Conversion/performance analysis",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8779,7 +9932,7 @@ const SEED_DATA = {
         {
           "label": "Monthly executive report",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8787,7 +9940,7 @@ const SEED_DATA = {
         {
           "label": "Regular dashboard refreshes",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8795,7 +9948,7 @@ const SEED_DATA = {
         {
           "label": "Monthly strategy meeting",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -8803,54 +9956,65 @@ const SEED_DATA = {
         {
           "label": "Improvement recommendations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$199",
+        "basic": {
+          "price": "$249",
           "packageName": "Starter Package",
           "shortDescription": "1 custom data report, basic analysis, visual charts",
           "description": "Ideal for businesses needing basic performance insights.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "1 custom data report",
-            "basic data analysis",
-            "visual charts or graphs",
-            "summary of key insights"
+            "Up to 1 primary data source",
+            "Data cleanup for the agreed dataset",
+            "Up to 8 key metrics",
+            "One basic dashboard/report",
+            "Key observations",
+            "One revision round"
           ]
         },
         "growth": {
-          "price": "$699",
+          "price": "$699/month",
           "packageName": "Growth Package",
           "shortDescription": "3 custom reports, dashboards, trend analysis, recommendations",
           "description": "Ideal for businesses tracking multiple performance areas.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "3 custom reports",
-            "visual dashboards or charts",
-            "trend analysis",
-            "summary recommendations"
+            "Up to 3 regular data sources",
+            "Monthly dashboard updates",
+            "KPI tracking",
+            "Trend analysis",
+            "Monthly performance report",
+            "Data-quality review",
+            "Recommendations",
+            "One monthly review meeting"
           ]
         },
         "premium": {
-          "price": "$1,999",
+          "price": "$1,499/month",
           "packageName": "Premium Package",
           "shortDescription": "Custom analytics dashboard, multiple reports, strategic insights",
           "description": "Ideal for businesses seeking ongoing performance monitoring.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "custom analytics dashboard",
-            "7 custom data reports",
-            "visual performance charts",
-            "detailed trend analysis",
-            "strategic insight summary"
+            "Up to 5 regular data sources",
+            "Advanced dashboards",
+            "Department/channel segmentation",
+            "KPI framework",
+            "Trend analysis",
+            "Conversion/performance analysis",
+            "Monthly executive report",
+            "Regular dashboard refreshes",
+            "Monthly strategy meeting",
+            "Improvement recommendations"
           ]
         }
       }
@@ -8859,7 +10023,7 @@ const SEED_DATA = {
       "projectName": "InsightTrack Business Reporting Dashboard",
       "businessType": "Growing small business",
       "projectSummary": "A data analytics and reporting concept designed to help a business understand performance across marketing, website traffic, leads, and customer activity.",
-      "projectGoal": "Give the business clearer insight into what is working, what needs improvement, and where growth opportunities may exist.",
+      "projectGoal": "Give the business clearer insight into what is working, what needs improvement, and where Growth opportunities may exist.",
       "servicesIncluded": [
         "Performance dashboard setup",
         "Website traffic reports",
@@ -8870,23 +10034,34 @@ const SEED_DATA = {
         "Visual charts",
         "Recommendation notes"
       ],
-      "portfolioCardText": "A reporting dashboard concept built to help businesses understand their numbers, track performance, and make smarter growth decisions."
+      "portfolioCardText": "A reporting dashboard concept built to help businesses understand their numbers, track performance, and make smarter Growth decisions."
     },
-    "mainImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
+    "mainImage": "/images/services/data-analytics/01.webp",
     "galleryImages": [
-            "/images/services/data-analytics/01.webp",
-            "/images/services/data-analytics/02.webp",
-            "/images/services/data-analytics/03.webp",
-            "/images/services/data-analytics/04.webp",
-            "/images/services/data-analytics/05.webp",
-            "/images/services/data-analytics/06.webp",
-            "/images/services/data-analytics/07.webp",
-            "/images/services/data-analytics/08.webp",
-            "/images/services/data-analytics/09.webp",
-            "/images/services/data-analytics/10.webp",
-            "/images/services/data-analytics/11.webp",
-            "/images/services/data-analytics/12.webp"
-      ],
+      "/images/services/data-analytics/02.webp",
+      "/images/services/data-analytics/03.webp",
+      "/images/services/data-analytics/04.webp",
+      "/images/services/data-analytics/05.webp",
+      "/images/services/data-analytics/06.webp",
+      "/images/services/data-analytics/07.webp",
+      "/images/services/data-analytics/08.webp",
+      "/images/services/data-analytics/09.webp",
+      "/images/services/data-analytics/10.webp",
+      "/images/services/data-analytics/11.webp",
+      "/images/services/data-analytics/12.webp",
+      "https://i.ibb.co/HT9km5FP/analytics-dashboards-on-actual-devices.jpg",
+      "https://i.ibb.co/4gPkkr5L/A-consultant-presenting-reports-and-dashboards.jpg",
+      "https://i.ibb.co/JRpZgtV7/Client-reviewing-reports-on-a-tablet.jpg",
+      "https://i.ibb.co/pjGhF7RR/consulting-and-business-intelligence.jpg",
+      "https://i.ibb.co/8Djn3wwr/financial-analysis-workspace.jpg",
+      "https://i.ibb.co/RphxGCcq/Modern-dashboard-on-a-laptop-with-someone-actively-analyzing-the-data.jpg",
+      "https://i.ibb.co/JWxz3GW6/person-analyzing-dashboards.jpg",
+      "https://i.ibb.co/Q3z4JFgy/person-working-inside-a-reporting-dashboard.jpg",
+      "https://i.ibb.co/5WVNCJBf/real-analytics-dashboard.jpg",
+      "https://i.ibb.co/ynwQfwn8/Real-charts-and-KPIs.jpg",
+      "https://i.ibb.co/rKQFQyJ6/Shows-inventory-analytics-in-a-warehouse-using-a-dashboard.jpg",
+      "https://i.ibb.co/gMymzwfD/Very-modern-Saa-S-analytics-interface.jpg"
+    ],
     "seoTitle": "Business Data Analytics Services | ScaleLink Alliance",
     "seoDescription": "Turn business data into better decisions with reporting, dashboards, marketing analytics and performance tracking.",
     "seoKeywords": "business data analytics services",
@@ -8901,9 +10076,9 @@ const SEED_DATA = {
     "showOnCatalogGrid": false,
     "iconName": "FaBriefcase",
     "startingPrice": "$499",
-    "intro": "Strategic guidance helps businesses identify opportunities, overcome challenges, and build a clear path to growth.",
+    "intro": "Strategic guidance helps businesses identify opportunities, overcome challenges, and build a clear path to growth .",
     "description": "Our consulting services provide actionable insights and strategic recommendations to help you achieve your business goals.",
-    "longDescription": "Scale Link Alliance provides business consulting and growth strategy services that help companies identify opportunities, develop actionable plans, and execute strategies that drive measurable results.",
+    "longDescription": "Scale Link Alliance provides business consulting and Growth strategy services that help companies identify opportunities, develop actionable plans, and execute strategies that drive measurable results.",
     "features": [
       "Business assessment",
       "Growth strategy development",
@@ -8912,7 +10087,7 @@ const SEED_DATA = {
       "Performance tracking"
     ],
     "whatItHelpsAchieve": [
-      "identify growth opportunities",
+      "identify Growth opportunities",
       "develop strategic plans",
       "overcome business challenges",
       "improve decision-making",
@@ -8968,7 +10143,7 @@ const SEED_DATA = {
       "starter": {
         "name": "Starter Package",
         "price": "$499",
-        "description": "Ideal for businesses needing a standard plan.",
+        "description": "Ideal for businesses needing a Growth plan.",
         "includes": [
           "1 strategy session (60 min)",
           "Business assessment",
@@ -8995,7 +10170,7 @@ const SEED_DATA = {
         "includes": [
           "6 strategy sessions (90 min each)",
           "Full business assessment",
-          "Detailed growth roadmap",
+          "Detailed Growth roadmap",
           "Quarterly strategy reviews",
           "Team support and implementation guidance",
           "Priority access for consulting support"
@@ -9004,7 +10179,7 @@ const SEED_DATA = {
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -9012,7 +10187,7 @@ const SEED_DATA = {
         {
           "label": "Strategy sessions",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -9020,7 +10195,7 @@ const SEED_DATA = {
         {
           "label": "Business assessment",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -9028,7 +10203,7 @@ const SEED_DATA = {
         {
           "label": "Action plan document",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
             "premium": true
           }
@@ -9036,7 +10211,7 @@ const SEED_DATA = {
         {
           "label": "Implementation roadmap",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -9044,7 +10219,7 @@ const SEED_DATA = {
         {
           "label": "Monthly progress reviews",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -9052,7 +10227,7 @@ const SEED_DATA = {
         {
           "label": "Quarterly strategy reviews",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9060,18 +10235,18 @@ const SEED_DATA = {
         {
           "label": "Team support and implementation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
+        "basic": {
           "price": "$499",
           "packageName": "Starter Package",
           "shortDescription": "1 strategy session, business assessment, action plan",
-          "description": "Ideal for businesses needing a standard plan.",
+          "description": "Ideal for businesses needing a Growth plan.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
@@ -9106,7 +10281,7 @@ const SEED_DATA = {
           "includes": [
             "6 strategy sessions (90 min each)",
             "Full business assessment",
-            "Detailed growth roadmap",
+            "Detailed Growth roadmap",
             "Quarterly strategy reviews",
             "Team support and implementation guidance",
             "Priority access for consulting support"
@@ -9117,7 +10292,7 @@ const SEED_DATA = {
     "sampleProject": {
       "projectName": "GrowthMap Strategic Plan",
       "businessType": "Service-based business",
-      "projectSummary": "A business consulting concept designed to help a company identify growth opportunities, develop a strategic plan, and achieve measurable results.",
+      "projectSummary": "A business consulting concept designed to help a company identify Growth opportunities, develop a strategic plan, and achieve measurable results.",
       "servicesIncluded": [
         "Business assessment",
         "Growth strategy",
@@ -9126,12 +10301,10 @@ const SEED_DATA = {
         "Performance metrics",
         "Quarterly reviews"
       ],
-      "portfolioCardText": "A business consulting concept built to help companies develop clear strategies, overcome challenges, and achieve sustainable growth."
+      "portfolioCardText": "A business consulting concept built to help companies develop clear strategies, overcome challenges, and achieve sustainable growth ."
     },
     "mainImage": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&h=500&fit=crop",
-    "galleryImages": [
-            "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&h=500&fit=crop"
-      ],
+    "galleryImages": [],
     "seoTitle": "Business Consulting & Growth Strategy | ScaleLink Alliance",
     "seoDescription": "Our consulting services provide actionable insights and strategic recommendations to help you achieve your business goals.",
     "seoKeywords": "",
@@ -9145,8 +10318,8 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": true,
     "iconName": "FaHeadset",
-    "startingPrice": "$149/month",
-    "intro": "Administrative and operational tasks can take valuable time away from strategic work and business growth.",
+    "startingPrice": "$199/month",
+    "intro": "Administrative and operational tasks can take valuable time away from strategic work and business growth .",
     "description": "Virtual assistants help businesses manage routine tasks efficiently, allowing business owners and teams to focus on higher-priority responsibilities.",
     "longDescription": "Scale Link Alliance provides professional virtual assistant services that support day-to-day business operations, administrative tasks, and organizational workflows.",
     "features": [
@@ -9161,7 +10334,7 @@ const SEED_DATA = {
       "improve task organization and efficiency",
       "support daily operational activities",
       "manage communication and scheduling",
-      "free up time for business owners to focus on growth"
+      "free up time for business owners to focus on Growth "
     ],
     "howMeasured": [
       "number of hours provided per month",
@@ -9202,7 +10375,7 @@ const SEED_DATA = {
       },
       {
         "name": "Process Documentation",
-        "reason": "workflow standardization"
+        "reason": "workflow Growthization"
       },
       {
         "name": "Lead Generation",
@@ -9216,41 +10389,53 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$149/month",
+        "price": "$199/month",
         "description": "Ideal for businesses needing light administrative support.",
         "includes": [
-          "up to 5 hours of virtual assistant support per month",
-          "email and calendar organization",
-          "basic administrative tasks",
-          "task tracking and reporting"
+          "Up to 10 hours per month",
+          "Basic administrative tasks",
+          "Calendar support",
+          "Data organization",
+          "Basic research",
+          "Document formatting",
+          "Routine email assistance"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$399/month",
+        "price": "$499/month",
         "description": "Ideal for businesses needing regular operational assistance.",
         "includes": [
-          "up to 15 hours of virtual assistant support per month",
-          "administrative and scheduling support",
-          "basic customer communication assistance",
-          "document organization and data entry"
+          "Everything in Starter Package",
+          "Up to 25 hours per month",
+          "CRM updates",
+          "Customer follow-up support",
+          "Content scheduling",
+          "Reporting assistance",
+          "Process support",
+          "Recurring administrative workflows"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$999/month",
+        "price": "$899/month",
         "description": "Ideal for businesses requiring consistent operational support.",
         "includes": [
-          "up to 40 hours of virtual assistant support per month",
-          "administrative task management",
-          "coordination of communications and scheduling",
-          "task monitoring and reporting"
+          "Up to 50 hours per month",
+          "Advanced administrative support",
+          "CRM management",
+          "Customer-service support",
+          "Research",
+          "Reporting",
+          "Content administration",
+          "Project coordination",
+          "Recurring operations support"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -9258,119 +10443,119 @@ const SEED_DATA = {
         {
           "label": "Up to 10 hours per month",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic administrative tasks",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Calendar support",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Data organization",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic research",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Document formatting",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Routine email assistance",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 25 hours per month",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "CRM updates",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Customer follow-up support",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Content scheduling",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Reporting assistance",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Process support",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Recurring administrative workflows",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 50 hours per month",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9378,7 +10563,7 @@ const SEED_DATA = {
         {
           "label": "Advanced administrative support",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9386,7 +10571,7 @@ const SEED_DATA = {
         {
           "label": "CRM management",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9394,7 +10579,7 @@ const SEED_DATA = {
         {
           "label": "Customer-service support",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9402,7 +10587,7 @@ const SEED_DATA = {
         {
           "label": "Research",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9410,7 +10595,7 @@ const SEED_DATA = {
         {
           "label": "Reporting",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9418,7 +10603,7 @@ const SEED_DATA = {
         {
           "label": "Content administration",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9426,7 +10611,7 @@ const SEED_DATA = {
         {
           "label": "Project coordination",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9434,53 +10619,71 @@ const SEED_DATA = {
         {
           "label": "Recurring operations support",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$149/month",
+        "basic": {
+          "price": "$199/month",
           "packageName": "Starter Package",
           "shortDescription": "Up to 5 hours support, email management, scheduling",
           "description": "Ideal for businesses needing light administrative support.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "up to 5 hours of virtual assistant support per month",
-            "email and calendar organization",
-            "basic administrative tasks",
-            "task tracking and reporting"
+            "Up to 10 hours per month",
+            "Basic administrative tasks",
+            "Calendar support",
+            "Data organization",
+            "Basic research",
+            "Document formatting",
+            "Routine email assistance"
           ]
         },
         "growth": {
-          "price": "$399/month",
+          "price": "$499/month",
           "packageName": "Growth Package",
           "shortDescription": "Up to 15 hours support, administrative tasks, customer communication",
           "description": "Ideal for businesses needing regular operational assistance.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "up to 15 hours of virtual assistant support per month",
-            "administrative and scheduling support",
-            "basic customer communication assistance",
-            "document organization and data entry"
+            "Up to 10 hours per month",
+            "Basic administrative tasks",
+            "Calendar support",
+            "Data organization",
+            "Basic research",
+            "Document formatting",
+            "Routine email assistance",
+            "Up to 25 hours per month",
+            "CRM updates",
+            "Customer follow-up support",
+            "Content scheduling",
+            "Reporting assistance",
+            "Process support",
+            "Recurring administrative workflows"
           ]
         },
         "premium": {
-          "price": "$999/month",
+          "price": "$899/month",
           "packageName": "Premium Package",
           "shortDescription": "Up to 40 hours support, full administrative management",
           "description": "Ideal for businesses requiring consistent operational support.",
           "deliveryLabel": "Shown during service selection",
           "revisions": "Ongoing monthly",
           "includes": [
-            "up to 40 hours of virtual assistant support per month",
-            "administrative task management",
-            "coordination of communications and scheduling",
-            "task monitoring and reporting"
+            "Up to 50 hours per month",
+            "Advanced administrative support",
+            "CRM management",
+            "Customer-service support",
+            "Research",
+            "Reporting",
+            "Content administration",
+            "Project coordination",
+            "Recurring operations support"
           ]
         }
       }
@@ -9501,17 +10704,27 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/virtual-assistant/01.webp",
-            "/images/services/virtual-assistant/02.webp",
-            "/images/services/virtual-assistant/03.webp",
-            "/images/services/virtual-assistant/04.webp",
-            "/images/services/virtual-assistant/05.webp",
-            "/images/services/virtual-assistant/06.webp",
-            "/images/services/virtual-assistant/07.webp",
-            "/images/services/virtual-assistant/08.webp",
-            "/images/services/virtual-assistant/09.webp",
-            "/images/services/virtual-assistant/10.webp"
-      ],
+      "/images/services/virtual-assistant/01.webp",
+      "/images/services/virtual-assistant/02.webp",
+      "/images/services/virtual-assistant/03.webp",
+      "/images/services/virtual-assistant/04.webp",
+      "/images/services/virtual-assistant/05.webp",
+      "/images/services/virtual-assistant/06.webp",
+      "/images/services/virtual-assistant/07.webp",
+      "/images/services/virtual-assistant/08.webp",
+      "/images/services/virtual-assistant/09.webp",
+      "/images/services/virtual-assistant/10.webp",
+      "https://i.ibb.co/HLPXzN2p/Friendly-professional-wearing-a-headset.jpg",
+      "https://i.ibb.co/svRzDpP6/Friendly-remote-support-specialist-at-a-desk.jpg",
+      "https://i.ibb.co/bgskn6g2/lifestyle-image-showing-voice-communication-while-working-on-a-laptop.jpg",
+      "https://i.ibb.co/pBLykyLy/Natural-close-up-of-a-headset-conversation.jpg",
+      "https://i.ibb.co/jZz1QS0H/Natural-photo-of-someone-using-voice-communication.jpg",
+      "https://i.ibb.co/LXJdnv1C/Professional-executive-assistant-at-a-real-desk.jpg",
+      "https://i.ibb.co/pBqfRpFL/Professional-on-a-headset-in-a-video-meeting.jpg",
+      "https://i.ibb.co/qY61bVD7/Professional-working-at-a-laptop-using-voice-assistance.jpg",
+      "https://i.ibb.co/ch4KyGvg/Customer-Support-Representative.jpg",
+      "https://i.ibb.co/svqkqKHQ/Warm-customer-support-close-up.jpg"
+    ],
     "seoTitle": "Virtual Assistant Services for Businesses | ScaleLink Alliance",
     "seoDescription": "Reliable business support without adding full-time overhead — administrative, CRM, and customer support help.",
     "seoKeywords": "virtual assistant services for businesses",
@@ -9525,7 +10738,7 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": false,
     "iconName": "FaProjectDiagram",
-    "startingPrice": "$1",
+    "startingPrice": "$499/month",
     "intro": "Successful projects require organization, coordination, and clear communication between team members and stakeholders.",
     "description": "Without proper project management, deadlines can be missed, responsibilities may become unclear, and project goals can be difficult to achieve.",
     "longDescription": "Scale Link Alliance provides project management support services that help businesses plan, organize, and oversee projects to ensure they are completed efficiently and on schedule.",
@@ -9597,42 +10810,56 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$1",
+        "price": "$499/month",
         "description": "Ideal for managing a small project or short-term initiative.",
         "includes": [
-          "management of 1 project",
-          "project planning and timeline development",
-          "task coordination",
-          "progress tracking and status updates"
+          "Up to 10 hours per month",
+          "Project tracking",
+          "Task organization",
+          "Deadline tracking",
+          "Basic status reports",
+          "Team follow-up",
+          "One weekly coordination touchpoint"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$1,499",
+        "price": "$1,199/month",
         "description": "Ideal for businesses managing multiple tasks within a project.",
         "includes": [
-          "management of up to 3 project phases or workstreams",
-          "project planning and scheduling",
-          "task and milestone tracking",
-          "team coordination and communication"
+          "Up to 25 hours per month",
+          "Project planning",
+          "Task management",
+          "Team coordination",
+          "Risk/issue tracking",
+          "Weekly reporting",
+          "Meeting coordination",
+          "Documentation",
+          "Stakeholder updates"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$3,499",
+        "price": "$2,499/month",
         "description": "Ideal for businesses requiring full project oversight.",
         "includes": [
-          "comprehensive project management support",
-          "project planning and scheduling",
-          "team coordination across departments",
-          "progress tracking and milestone reporting",
-          "project performance review"
+          "Up to 50 hours per month",
+          "Multi-workstream coordination",
+          "Project planning",
+          "Schedule management",
+          "Risk management",
+          "Stakeholder management",
+          "Team coordination",
+          "Weekly reporting",
+          "Project documentation",
+          "Leadership updates",
+          "Continuous project oversight"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -9640,71 +10867,71 @@ const SEED_DATA = {
         {
           "label": "Up to 10 hours per month",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Project tracking",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Task organization",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Deadline tracking",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic status reports",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Team follow-up",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "One weekly coordination touchpoint",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 25 hours per month",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Project planning",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -9712,15 +10939,15 @@ const SEED_DATA = {
         {
           "label": "Task management",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Team coordination",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -9728,15 +10955,15 @@ const SEED_DATA = {
         {
           "label": "Risk/issue tracking",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Weekly reporting",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -9744,31 +10971,31 @@ const SEED_DATA = {
         {
           "label": "Meeting coordination",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Documentation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Stakeholder updates",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 50 hours per month",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9776,7 +11003,7 @@ const SEED_DATA = {
         {
           "label": "Multi-workstream coordination",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9784,7 +11011,7 @@ const SEED_DATA = {
         {
           "label": "Schedule management",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9792,7 +11019,7 @@ const SEED_DATA = {
         {
           "label": "Risk management",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9800,7 +11027,7 @@ const SEED_DATA = {
         {
           "label": "Stakeholder management",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9808,7 +11035,7 @@ const SEED_DATA = {
         {
           "label": "Project documentation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9816,7 +11043,7 @@ const SEED_DATA = {
         {
           "label": "Leadership updates",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -9824,54 +11051,68 @@ const SEED_DATA = {
         {
           "label": "Continuous project oversight",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$1",
+        "basic": {
+          "price": "$499/month",
           "packageName": "Starter Package",
           "shortDescription": "Management of 1 project, timeline planning",
           "description": "Ideal for managing a small project or short-term initiative.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "management of 1 project",
-            "project planning and timeline development",
-            "task coordination",
-            "progress tracking and status updates"
+            "Up to 10 hours per month",
+            "Project tracking",
+            "Task organization",
+            "Deadline tracking",
+            "Basic status reports",
+            "Team follow-up",
+            "One weekly coordination touchpoint"
           ]
         },
         "growth": {
-          "price": "$1,499",
+          "price": "$1,199/month",
           "packageName": "Growth Package",
           "shortDescription": "Management of up to 3 project phases, milestone tracking",
           "description": "Ideal for businesses managing multiple tasks within a project.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "management of up to 3 project phases or workstreams",
-            "project planning and scheduling",
-            "task and milestone tracking",
-            "team coordination and communication"
+            "Up to 25 hours per month",
+            "Project planning",
+            "Task management",
+            "Team coordination",
+            "Risk/issue tracking",
+            "Weekly reporting",
+            "Meeting coordination",
+            "Documentation",
+            "Stakeholder updates"
           ]
         },
         "premium": {
-          "price": "$3,499",
+          "price": "$2,499/month",
           "packageName": "Premium Package",
           "shortDescription": "Comprehensive project management, full oversight, reporting",
           "description": "Ideal for businesses requiring full project oversight.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "comprehensive project management support",
-            "project planning and scheduling",
-            "team coordination across departments",
-            "progress tracking and milestone reporting",
-            "project performance review"
+            "Up to 50 hours per month",
+            "Multi-workstream coordination",
+            "Project planning",
+            "Schedule management",
+            "Risk management",
+            "Stakeholder management",
+            "Team coordination",
+            "Weekly reporting",
+            "Project documentation",
+            "Leadership updates",
+            "Continuous project oversight"
           ]
         }
       }
@@ -9895,17 +11136,27 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/project-management/01.webp",
-            "/images/services/project-management/02.webp",
-            "/images/services/project-management/03.webp",
-            "/images/services/project-management/04.webp",
-            "/images/services/project-management/05.webp",
-            "/images/services/project-management/06.webp",
-            "/images/services/project-management/07.webp",
-            "/images/services/project-management/08.webp",
-            "/images/services/project-management/09.webp",
-            "/images/services/project-management/10.webp"
-      ],
+      "/images/services/project-management/01.webp",
+      "/images/services/project-management/02.webp",
+      "/images/services/project-management/03.webp",
+      "/images/services/project-management/04.webp",
+      "/images/services/project-management/05.webp",
+      "/images/services/project-management/06.webp",
+      "/images/services/project-management/07.webp",
+      "/images/services/project-management/08.webp",
+      "/images/services/project-management/09.webp",
+      "/images/services/project-management/10.webp",
+      "https://i.ibb.co/3mYfVM51/Business-meeting-reviewing-reports-and-charts.jpg",
+      "https://i.ibb.co/RknZxzDx/Business-person-drawing-Growth -chart.jpg",
+      "https://i.ibb.co/wNGBk7Br/Consultant-reviewing-paperwork-with-client.jpg",
+      "https://i.ibb.co/zhYZHLg9/Handshake-between-client-and-project-manager.jpg",
+      "https://i.ibb.co/dwcXxd3z/High-five-after-project-success.jpg",
+      "https://i.ibb.co/wNSjfGF0/People-reviewing-analytics-on-printed-reports.jpg",
+      "https://i.ibb.co/whPmqzyB/People-reviewing-UX-wireframes-with-project-management-overlay.jpg",
+      "https://i.ibb.co/Tqqhyx02/Project-Management-interface.jpg",
+      "https://i.ibb.co/tPNGpp7M/Team-discussing-work-over-laptop-with-a-walkie-talkie.jpg",
+      "https://i.ibb.co/bj5Y828b/Team-reviewing-blueprints-around-the-table.jpg"
+    ],
     "seoTitle": "Project Management Support | ScaleLink Alliance",
     "seoDescription": "Without proper project management, deadlines can be missed, responsibilities may become unclear, and project goals can be difficult to achieve.",
     "seoKeywords": "",
@@ -9919,10 +11170,10 @@ const SEED_DATA = {
     "isCustomQuote": false,
     "showOnCatalogGrid": false,
     "iconName": "FaFileAlt",
-    "startingPrice": "$400",
+    "startingPrice": "$399",
     "intro": "Clear processes are essential for businesses that want to operate efficiently and scale effectively.",
     "description": "When workflows are undocumented, tasks become inconsistent, training takes longer, and operational mistakes are more likely.",
-    "longDescription": "Scale Link Alliance provides Process Documentation and Standard Operating Procedure (SOP) development services that help businesses organize their workflows, create structured procedures, and ensure tasks can be performed consistently by teams or future hires.",
+    "longDescription": "Scale Link Alliance provides Process Documentation and Growth Operating Procedure (SOP) development services that help businesses organize their workflows, create structured procedures, and ensure tasks can be performed consistently by teams or future hires.",
     "features": [
       "Workflow mapping",
       "SOP documentation",
@@ -9931,11 +11182,11 @@ const SEED_DATA = {
       "Process diagrams"
     ],
     "whatItHelpsAchieve": [
-      "standardize workflows and procedures",
+      "Growthize workflows and procedures",
       "improve team efficiency",
       "simplify employee training",
       "reduce operational errors",
-      "create systems that support business growth"
+      "create systems that support business growth "
     ],
     "howMeasured": [
       "number of workflows documented",
@@ -9990,41 +11241,53 @@ const SEED_DATA = {
     "packages": {
       "starter": {
         "name": "Starter Package",
-        "price": "$400",
+        "price": "$399",
         "description": "Ideal for businesses documenting a single workflow.",
         "includes": [
-          "1 documented business process",
-          "step-by-step SOP document",
-          "workflow outline or process map",
-          "basic formatting for easy reference"
+          "Up to 3 SOPs",
+          "Up to approximately 15 total finished pages",
+          "Process review",
+          "Step-by-step documentation",
+          "Basic formatting",
+          "One revision round"
         ]
       },
       "growth": {
         "name": "Growth Package",
-        "price": "$1,200",
+        "price": "$999",
         "description": "Ideal for businesses organizing multiple operational procedures.",
         "includes": [
-          "3 documented workflows",
-          "structured SOP documents",
-          "workflow diagrams or visual process maps",
-          "process improvement recommendations"
+          "Up to 8 SOPs",
+          "Up to approximately 40 total finished pages",
+          "Process interviews",
+          "Workflow documentation",
+          "Roles/responsibilities",
+          "Templates/checklists where applicable",
+          "Growthized formatting",
+          "Two revision rounds"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$3,500",
+        "price": "$2,499",
         "description": "Ideal for businesses building a full operational framework.",
         "includes": [
-          "6+ documented workflows",
-          "complete SOP manual or operations guide",
-          "workflow diagrams and structured documentation",
-          "recommendations for process optimization"
+          "Up to 20 SOPs",
+          "Up to approximately 100 total finished pages",
+          "Stakeholder interviews",
+          "Process mapping",
+          "Roles and responsibility documentation",
+          "Operational checklists",
+          "Templates",
+          "Documentation structure",
+          "Implementation recommendations",
+          "Up to 3 revision rounds"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -10032,119 +11295,119 @@ const SEED_DATA = {
         {
           "label": "Up to 3 SOPs",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to approximately 15 total finished pages",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Process review",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Step-by-step documentation",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic formatting",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "One revision round",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 8 SOPs",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to approximately 40 total finished pages",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Process interviews",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Workflow documentation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Roles/responsibilities",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Templates/checklists where applicable",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
-          "label": "Standardized formatting",
+          "label": "Growthized formatting",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Two revision rounds",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 20 SOPs",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -10152,7 +11415,7 @@ const SEED_DATA = {
         {
           "label": "Up to approximately 100 total finished pages",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -10160,7 +11423,7 @@ const SEED_DATA = {
         {
           "label": "Stakeholder interviews",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -10168,7 +11431,7 @@ const SEED_DATA = {
         {
           "label": "Process mapping",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -10176,7 +11439,7 @@ const SEED_DATA = {
         {
           "label": "Roles and responsibility documentation",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -10184,7 +11447,7 @@ const SEED_DATA = {
         {
           "label": "Operational checklists",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -10192,7 +11455,7 @@ const SEED_DATA = {
         {
           "label": "Templates",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -10200,7 +11463,7 @@ const SEED_DATA = {
         {
           "label": "Documentation structure",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -10208,7 +11471,7 @@ const SEED_DATA = {
         {
           "label": "Implementation recommendations",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -10216,53 +11479,65 @@ const SEED_DATA = {
         {
           "label": "Up to 3 revision rounds",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
-          "price": "$400",
+        "basic": {
+          "price": "$399",
           "packageName": "Starter Package",
           "shortDescription": "1 documented workflow, step-by-step SOP, process map",
           "description": "Ideal for businesses documenting a single workflow.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "1 documented business process",
-            "step-by-step SOP document",
-            "workflow outline or process map",
-            "basic formatting for easy reference"
+            "Up to 3 SOPs",
+            "Up to approximately 15 total finished pages",
+            "Process review",
+            "Step-by-step documentation",
+            "Basic formatting",
+            "One revision round"
           ]
         },
         "growth": {
-          "price": "$1,200",
+          "price": "$999",
           "packageName": "Growth Package",
           "shortDescription": "3 documented workflows, SOP documents, process diagrams",
           "description": "Ideal for businesses organizing multiple operational procedures.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "3 documented workflows",
-            "structured SOP documents",
-            "workflow diagrams or visual process maps",
-            "process improvement recommendations"
+            "Up to 8 SOPs",
+            "Up to approximately 40 total finished pages",
+            "Process interviews",
+            "Workflow documentation",
+            "Roles/responsibilities",
+            "Templates/checklists where applicable",
+            "Growthized formatting",
+            "Two revision rounds"
           ]
         },
         "premium": {
-          "price": "$3,500",
+          "price": "$2,499",
           "packageName": "Premium Package",
           "shortDescription": "6+ documented workflows, complete SOP manual, operations guide",
           "description": "Ideal for businesses building a full operational framework.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "6+ documented workflows",
-            "complete SOP manual or operations guide",
-            "workflow diagrams and structured documentation",
-            "recommendations for process optimization"
+            "Up to 20 SOPs",
+            "Up to approximately 100 total finished pages",
+            "Stakeholder interviews",
+            "Process mapping",
+            "Roles and responsibility documentation",
+            "Operational checklists",
+            "Templates",
+            "Documentation structure",
+            "Implementation recommendations",
+            "Up to 3 revision rounds"
           ]
         }
       }
@@ -10270,7 +11545,7 @@ const SEED_DATA = {
     "sampleProject": {
       "projectName": "SOPBuilder Documentation System",
       "businessType": "Growing small business",
-      "projectSummary": "A process documentation concept designed to help a business organize its operations, create standard procedures, and build systems that support growth.",
+      "projectSummary": "A process documentation concept designed to help a business organize its operations, create growth procedures, and build systems that support growth .",
       "servicesIncluded": [
         "Workflow mapping",
         "SOP documentation",
@@ -10279,19 +11554,27 @@ const SEED_DATA = {
         "Operations manual",
         "Process improvement recommendations"
       ],
-      "portfolioCardText": "A process documentation concept built to help businesses standardize operations, improve efficiency, and scale with confidence."
+      "portfolioCardText": "A process documentation concept built to help businesses Growthize operations, improve efficiency, and scale with confidence."
     },
     "mainImage": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/process-documentation/01.webp",
-            "/images/services/process-documentation/02.webp",
-            "/images/services/process-documentation/03.webp",
-            "/images/services/process-documentation/04.webp",
-            "/images/services/process-documentation/05.webp",
-            "/images/services/process-documentation/06.webp",
-            "/images/services/process-documentation/07.webp",
-            "/images/services/process-documentation/08.webp"
-      ],
+      "/images/services/process-documentation/01.webp",
+      "/images/services/process-documentation/02.webp",
+      "/images/services/process-documentation/03.webp",
+      "/images/services/process-documentation/04.webp",
+      "/images/services/process-documentation/05.webp",
+      "/images/services/process-documentation/06.webp",
+      "/images/services/process-documentation/07.webp",
+      "/images/services/process-documentation/08.webp",
+      "https://i.ibb.co/SDJkjW06/Business-meeting-with-reports-tablet-and-lipboard.jpg",
+      "https://i.ibb.co/b5yZxBXm/Business-team-reviewing-reports-and-process-documents.jpg",
+      "https://i.ibb.co/1Sy84Pm/Close-up-of-reports-with-laptop-and-tablet.jpg",
+      "https://i.ibb.co/213dMk2y/Document-workflow-over-a-real-laptop.jpg",
+      "https://i.ibb.co/WNF9fxW3/Person-reviewing-analytics-on-tablet.jpg",
+      "https://i.ibb.co/Nngdcd1m/Project-Lifecycle-Flowchart-Mapping-Workflow-for-Creative-and-Manufacturing.jpg",
+      "https://i.ibb.co/DDwJBrNr/Swimlane-flowchart-mapping-cross-functional-corporate-processes.jpg",
+      "https://i.ibb.co/tdg1vn5/workflow-line-infographics.jpg"
+    ],
     "seoTitle": "Process Documentation & SOP Development | ScaleLink Alliance",
     "seoDescription": "When workflows are undocumented, tasks become inconsistent, training takes longer, and operational mistakes are more likely.",
     "seoKeywords": "",
@@ -10366,7 +11649,7 @@ const SEED_DATA = {
       },
       {
         "name": "Process Documentation & SOP Development",
-        "reason": "standardize workflows"
+        "reason": "Growthize workflows"
       },
       {
         "name": "Lead Generation Services",
@@ -10379,10 +11662,12 @@ const SEED_DATA = {
         "price": "$99",
         "description": "Ideal for small administrative data tasks.",
         "includes": [
-          "up to 200 records entered or updated",
-          "spreadsheet or database entry",
-          "basic data formatting",
-          "accuracy verification"
+          "Up to 500 straightforward records",
+          "Data entry",
+          "Basic formatting",
+          "Basic duplicate review",
+          "Basic quality check",
+          "One agreed data source/output format"
         ]
       },
       "growth": {
@@ -10390,27 +11675,34 @@ const SEED_DATA = {
         "price": "$299",
         "description": "Ideal for businesses managing larger datasets.",
         "includes": [
-          "up to 800 records entered or updated",
-          "spreadsheet or database management",
-          "data formatting and organization",
-          "accuracy verification and review"
+          "Up to 2,000 straightforward records",
+          "Data entry",
+          "Data cleanup",
+          "Formatting",
+          "Duplicate detection",
+          "Categorization",
+          "Quality review",
+          "Up to 2 output formats"
         ]
       },
       "premium": {
         "name": "Premium Package",
-        "price": "$799",
+        "price": "$699/month",
         "description": "Ideal for businesses processing large volumes of information.",
         "includes": [
-          "up to 2,000 records entered or updated",
-          "structured data organization",
-          "formatting and data cleanup",
-          "verification and quality checks"
+          "Up to 5,000 straightforward records per month",
+          "Recurring processing",
+          "Data cleanup",
+          "Categorization",
+          "Formatting",
+          "Quality-control checks",
+          "Regular status reporting"
         ]
       }
     },
     "packageComparison": {
       "tiers": [
-        "starter",
+        "basic",
         "growth",
         "premium"
       ],
@@ -10418,63 +11710,63 @@ const SEED_DATA = {
         {
           "label": "Up to 500 straightforward records",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Data entry",
           "values": {
-            "starter": true,
+            "basic": true,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Basic formatting",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic duplicate review",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Basic quality check",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "One agreed data source/output format",
           "values": {
-            "starter": true,
-            "growth": true,
-            "premium": true
+            "basic": true,
+            "growth": false,
+            "premium": false
           }
         },
         {
           "label": "Up to 2,000 straightforward records",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Data cleanup",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -10482,7 +11774,7 @@ const SEED_DATA = {
         {
           "label": "Formatting",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -10490,15 +11782,15 @@ const SEED_DATA = {
         {
           "label": "Duplicate detection",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Categorization",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
             "premium": true
           }
@@ -10506,23 +11798,23 @@ const SEED_DATA = {
         {
           "label": "Quality review",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 2 output formats",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": true,
-            "premium": true
+            "premium": false
           }
         },
         {
           "label": "Up to 5,000 straightforward records per month",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -10530,7 +11822,7 @@ const SEED_DATA = {
         {
           "label": "Recurring processing",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -10538,7 +11830,7 @@ const SEED_DATA = {
         {
           "label": "Quality-control checks",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
@@ -10546,14 +11838,14 @@ const SEED_DATA = {
         {
           "label": "Regular status reporting",
           "values": {
-            "starter": false,
+            "basic": false,
             "growth": false,
             "premium": true
           }
         }
       ],
       "details": {
-        "starter": {
+        "basic": {
           "price": "$99",
           "packageName": "Starter Package",
           "shortDescription": "Up to 200 records, spreadsheet entry, basic formatting",
@@ -10561,10 +11853,12 @@ const SEED_DATA = {
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "up to 200 records entered or updated",
-            "spreadsheet or database entry",
-            "basic data formatting",
-            "accuracy verification"
+            "Up to 500 straightforward records",
+            "Data entry",
+            "Basic formatting",
+            "Basic duplicate review",
+            "Basic quality check",
+            "One agreed data source/output format"
           ]
         },
         "growth": {
@@ -10575,24 +11869,31 @@ const SEED_DATA = {
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "up to 800 records entered or updated",
-            "spreadsheet or database management",
-            "data formatting and organization",
-            "accuracy verification and review"
+            "Up to 2,000 straightforward records",
+            "Data entry",
+            "Data cleanup",
+            "Formatting",
+            "Duplicate detection",
+            "Categorization",
+            "Quality review",
+            "Up to 2 output formats"
           ]
         },
         "premium": {
-          "price": "$799",
+          "price": "$699/month",
           "packageName": "Premium Package",
           "shortDescription": "Up to 2,000 records, data cleanup, verification, quality checks",
           "description": "Ideal for businesses processing large volumes of information.",
           "deliveryLabel": "Shown during service selection",
           "revisions": null,
           "includes": [
-            "up to 2,000 records entered or updated",
-            "structured data organization",
-            "formatting and data cleanup",
-            "verification and quality checks"
+            "Up to 5,000 straightforward records per month",
+            "Recurring processing",
+            "Data cleanup",
+            "Categorization",
+            "Formatting",
+            "Quality-control checks",
+            "Regular status reporting"
           ]
         }
       }
@@ -10617,15 +11918,22 @@ const SEED_DATA = {
     },
     "mainImage": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=500&fit=crop",
     "galleryImages": [
-            "/images/services/data-entry/01.webp",
-            "/images/services/data-entry/02.webp",
-            "/images/services/data-entry/03.webp",
-            "/images/services/data-entry/04.webp",
-            "/images/services/data-entry/05.webp",
-            "/images/services/data-entry/06.webp",
-            "/images/services/data-entry/07.webp",
-            "/images/services/data-entry/08.webp"
-      ],
+      "/images/services/data-entry/01.webp",
+      "/images/services/data-entry/02.webp",
+      "/images/services/data-entry/03.webp",
+      "/images/services/data-entry/04.webp",
+      "/images/services/data-entry/05.webp",
+      "/images/services/data-entry/06.webp",
+      "/images/services/data-entry/07.webp",
+      "/images/services/data-entry/08.webp",
+      "https://i.ibb.co/1Y3yCWg0/Credit-Card-on-Laptop.jpg",
+      "https://i.ibb.co/Zztxysqq/DATA-on-the-Office-Window.jpg",
+      "https://i.ibb.co/6cBK34Nd/Office-Employee-Working.jpg",
+      "https://i.ibb.co/Zz44n3sw/Office-Staff-Using-Business-Software.jpg",
+      "https://i.ibb.co/B26f8fJ9/Online-Payment-Processing.jpg",
+      "https://i.ibb.co/MyMgNn34/Professional-Typing.jpg",
+      "https://i.ibb.co/TBV5mK6x/Warehouse-Data-Processing.jpg"
+    ],
     "seoTitle": "Business Data Entry Services | ScaleLink Alliance",
     "seoDescription": "Accurate data processing for your business, from records entry to cleanup and categorization.",
     "seoKeywords": "business data entry services",
@@ -10633,6 +11941,7 @@ const SEED_DATA = {
     "status": "published"
   }
 };
+
 
 // ============================================================================
 // EMBEDDED SERVICE FEATURES — Full feature lists for all services
@@ -10657,7 +11966,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Two revision rounds",
       "Basic launch support"
     ],
-    "standard": [
+    "growth": [
       "Everything in Starter",
       "Up to 10 pages",
       "More customized page layouts",
@@ -10677,7 +11986,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "CMS training session"
     ],
     "premium": [
-      "Everything in Growth",
+      "Everything in Growth ",
       "Up to 20 pages",
       "Custom UX/UI direction",
       "Advanced page layouts",
@@ -10710,7 +12019,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic copy formatting",
       "Two revision rounds"
     ],
-    "standard": [
+    "growth": [
       "Up to 3 funnel pages",
       "Landing page",
       "Thank-you/confirmation page",
@@ -10759,7 +12068,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Two revision rounds",
       "Store management training"
     ],
-    "standard": [
+    "growth": [
       "Everything in Starter",
       "Up to 50 products",
       "Advanced product variations",
@@ -10776,7 +12085,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Three revision rounds"
     ],
     "premium": [
-      "Everything in Growth",
+      "Everything in Growth ",
       "Up to 150 initial products",
       "Advanced product/category structure",
       "Custom storefront components",
@@ -10810,7 +12119,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Monthly performance report",
       "Monthly recommendations"
     ],
-    "standard": [
+    "growth": [
       "Everything in Starter",
       "Up to 20 tracked target keywords",
       "Optimization across up to 15 priority pages",
@@ -10827,7 +12136,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Monthly strategy review"
     ],
     "premium": [
-      "Everything in Growth",
+      "Everything in Growth ",
       "Up to 40 tracked keywords",
       "Up to 30 priority pages",
       "Up to 4 SEO content pieces or major optimizations per month",
@@ -10859,7 +12168,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Monthly report",
       "One monthly campaign review"
     ],
-    "standard": [
+    "growth": [
       "Everything in Starter",
       "Up to 2 active campaigns",
       "Up to 8 ad groups/ad sets",
@@ -10902,7 +12211,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Lead tracking sheet or basic CRM structure",
       "Monthly results summary"
     ],
-    "standard": [
+    "growth": [
       "Everything in Starter",
       "Up to 500 prospect records per month",
       "Multiple target segments",
@@ -10941,7 +12250,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic documentation",
       "One training session"
     ],
-    "standard": [
+    "growth": [
       "Up to 2 CRM pipelines",
       "Up to 5 automated workflows",
       "Up to 3 integrations",
@@ -10984,8 +12293,8 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "One revision round",
       "Campaign performance summary"
     ],
-    "standard": [
-      "Up to 4 emails",
+    "growth": [
+      "Up to 3 emails",
       "Campaign strategy",
       "Email layout/design",
       "Subject-line development",
@@ -11025,7 +12334,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic monthly report",
       "One revision round on the monthly content batch"
     ],
-    "standard": [
+    "growth": [
       "Up to 2 platforms",
       "Up to 16 feed posts per month",
       "Up to 4 short-form videos/reels using provided or existing footage",
@@ -11062,7 +12371,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "1 revision round",
       "Final web-ready file"
     ],
-    "standard": [
+    "growth": [
       "Up to 5 coordinated assets",
       "Consistent visual direction",
       "Up to 2 sizes per core design where required",
@@ -11090,7 +12399,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic typography recommendations",
       "PNG, JPG and transparent logo files"
     ],
-    "standard": [
+    "growth": [
       "Brand discovery",
       "3 initial logo concepts",
       "Primary logo",
@@ -11127,7 +12436,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Web-resolution files",
       "One local location"
     ],
-    "standard": [
+    "growth": [
       "Up to 2.5 hours",
       "Up to 30 edited photographs",
       "Product/team/location combinations",
@@ -11157,7 +12466,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "1 revision round",
       "Final exported video"
     ],
-    "standard": [
+    "growth": [
       "1 video up to 5 minutes",
       "Professional editing",
       "B-roll placement",
@@ -11190,7 +12499,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic SEO considerations where applicable",
       "1 revision round"
     ],
-    "standard": [
+    "growth": [
       "Up to 2,500 total words",
       "Up to 3 content pieces/pages",
       "Keyword consideration",
@@ -11220,7 +12529,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic error handling",
       "Documentation"
     ],
-    "standard": [
+    "growth": [
       "Integration of up to 2 systems",
       "Up to 6 endpoints/actions",
       "Advanced data mapping",
@@ -11258,7 +12567,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Deployment assistance",
       "Basic technical documentation"
     ],
-    "standard": [
+    "growth": [
       "Product planning",
       "Up to 15 core screens",
       "Up to 2 user roles",
@@ -11301,7 +12610,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic technical health review",
       "Monthly maintenance summary"
     ],
-    "standard": [
+    "growth": [
       "Up to 5 support hours per month",
       "Updates",
       "Backup monitoring",
@@ -11315,7 +12624,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
     ],
     "premium": [
       "Up to 10 support hours per month",
-      "Everything in Growth",
+      "Everything in Growth ",
       "Priority issue handling",
       "Regular site health review",
       "Conversion-form testing",
@@ -11335,7 +12644,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Document formatting",
       "Routine email assistance"
     ],
-    "standard": [
+    "growth": [
       "Up to 25 hours per month",
       "Everything in Starter",
       "CRM updates",
@@ -11366,7 +12675,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Key observations",
       "One revision round"
     ],
-    "standard": [
+    "growth": [
       "Up to 3 regular data sources",
       "Monthly dashboard updates",
       "KPI tracking",
@@ -11398,14 +12707,14 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic formatting",
       "One revision round"
     ],
-    "standard": [
+    "growth": [
       "Up to 8 SOPs",
       "Up to approximately 40 total finished pages",
       "Process interviews",
       "Workflow documentation",
       "Roles/responsibilities",
       "Templates/checklists where applicable",
-      "Standardized formatting",
+      "Growthized formatting",
       "Two revision rounds"
     ],
     "premium": [
@@ -11431,7 +12740,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Team follow-up",
       "One weekly coordination touchpoint"
     ],
-    "standard": [
+    "growth": [
       "Up to 25 hours per month",
       "Project planning",
       "Task management",
@@ -11458,15 +12767,15 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
   },
   "data-entry": {
     "basic": [
-      "Up to 500 straightforward records",
+      "Up to 200 straightforward records",
       "Data entry",
       "Basic formatting",
       "Basic duplicate review",
       "Basic quality check",
       "One agreed data source/output format"
     ],
-    "standard": [
-      "Up to 2,000 straightforward records",
+    "growth": [
+      "Up to 800 straightforward records",
       "Data entry",
       "Data cleanup",
       "Formatting",
@@ -11476,7 +12785,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Up to 2 output formats"
     ],
     "premium": [
-      "Up to 5,000 straightforward records per month",
+      "Up to 2,000 straightforward records per month",
       "Recurring processing",
       "Data cleanup",
       "Categorization",
@@ -11495,7 +12804,7 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
       "Basic documentation",
       "Training session"
     ],
-    "standard": [
+    "growth": [
       "Up to 2 AI automations",
       "Advanced AI model configuration",
       "Up to 8 automation workflows",
@@ -11518,6 +12827,71 @@ const ORIGINAL_BACKUP_SERVICE_FEATURES = {
     ]
   }
 };
+
+// ============================================================================
+// POST-SEED SYNC FUNCTION - This is the KEY FIX
+// Ensures packageComparison.details ALWAYS matches packages
+// ============================================================================
+const PACKAGE_TO_TIER = {
+  starter: 'basic',
+  growth: 'Growth',
+  premium: 'premium',
+  basic: 'basic'
+};
+
+async function syncPackageComparisons() {
+  console.log('🔧 Syncing package comparisons for all services...');
+  const services = await db.Service.findAll();
+  let fixedCount = 0;
+
+  for (const service of services) {
+    const packages = service.packages || {};
+    const packageComparison = service.packageComparison || {};
+    
+    if (!packageComparison.details) continue;
+    
+    let changed = false;
+    
+    for (const [pkgKey, pkg] of Object.entries(packages)) {
+      const tierKey = PACKAGE_TO_TIER[pkgKey];
+      if (!tierKey || !packageComparison.details[tierKey]) continue;
+      
+      const details = packageComparison.details[tierKey];
+      
+      // ✅ FIX: Make includes match package includes exactly
+      if (JSON.stringify(details.includes) !== JSON.stringify(pkg.includes)) {
+        details.includes = pkg.includes;
+        changed = true;
+      }
+      
+      // ✅ FIX: Make shortDescription match package description
+      if (details.shortDescription !== pkg.description) {
+        details.shortDescription = pkg.description;
+        changed = true;
+      }
+      
+      // ✅ FIX: Make packageName match package name
+      if (details.packageName !== pkg.name) {
+        details.packageName = pkg.name;
+        changed = true;
+      }
+      
+      // ✅ FIX: Make price match package price
+      if (details.price !== pkg.price) {
+        details.price = pkg.price;
+        changed = true;
+      }
+    }
+    
+    if (changed) {
+      await service.save();
+      fixedCount++;
+      console.log(`   ✅ Fixed: ${service.slug}`);
+    }
+  }
+  
+  console.log(`\n🔧 Package comparisons synced for ${fixedCount} services.`);
+}
 
 async function seedServices() {
   console.log('🌱 Starting Services Seeding (self-contained)...');
@@ -11544,6 +12918,9 @@ async function seedServices() {
       console.log('   ✅ Created service: ' + slug);
     }
   }
+
+  // ✅ Run the sync fix after seeding
+  await syncPackageComparisons();
 
   console.log('\n🎉 Services Seeding Completed: ' + createdCount + ' created, ' + updatedCount + ' updated.');
 }

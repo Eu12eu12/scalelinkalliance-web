@@ -637,6 +637,21 @@ const getServiceDisplayName = (service) => {
   return value.split(' - ')[0]?.trim() || value.trim() || 'Service';
 };
 
+// ─── Package-pricing helpers ────────────────────────────────────────────────
+// A service/package counts toward the bundle discount ONLY when it actually
+// carries a real price. Custom-quote style packages (Request Custom Quote,
+// AI Automation's "custom" package, or any package explicitly priced at 0)
+// are excluded so users aren't shown a bundle discount for items that have
+// no price to discount in the first place.
+const isPricedPackage = (service, packageKey) => {
+  const pkgData = SERVICES_WITH_PACKAGES[service]?.packages?.[packageKey];
+  return !!pkgData && Number(pkgData.price) > 0;
+};
+
+const countPricedServices = (selectedServices) => {
+  return Object.entries(selectedServices).filter(([service, pkg]) => isPricedPackage(service, pkg)).length;
+};
+
 const getServiceIcon = (name) => {
   const iconMap = {
     'Graphic Design': FaPaintBrush,
@@ -902,6 +917,8 @@ const OrderSidebar = ({
   const isOnlyCustomQuote = hasCustomQuote && entries.length === 1;
   const isCustomQuoteWithOthers = hasCustomQuote && entries.length > 1;
   const count = entries.length;
+  // Only services with an actual price count toward bundle-discount tiers/messaging.
+  const pricedCount = countPricedServices(selectedServices);
 
   return (
     <div className="lg:sticky lg:top-24 max-h-[calc(100vh-7.5rem)] flex flex-col bg-white rounded-2xl border-2 border-gray-200 shadow-xl overflow-hidden">
@@ -920,21 +937,21 @@ const OrderSidebar = ({
           )}
         </div>
 
-        {/* ── Tiered Bundle Discount Banner ── */}
-        {count === 1 && (
+        {/* ── Tiered Bundle Discount Banner (based only on priced services) ── */}
+        {pricedCount === 1 && (
           <div className="p-2.5 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl text-xs text-blue-900 flex items-center gap-2 shadow-xs">
             <span className="text-sm shrink-0">💡</span>
-            <p className="text-[11px] leading-tight">Add <strong>1 more service</strong> to save <strong>10%</strong> on your bundle!</p>
+            <p className="text-[11px] leading-tight">Add <strong>1 more priced service</strong> to save <strong>10%</strong> on your bundle!</p>
           </div>
         )}
 
-        {count >= 2 && count <= 5 && (
+        {pricedCount >= 2 && pricedCount <= 5 && (
           <div className="p-2.5 bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 flex items-center justify-between gap-2 shadow-xs">
             <div className="flex items-center gap-1.5 min-w-0">
               <span className="text-sm shrink-0">🎉</span>
               <div className="truncate">
                 <p className="font-bold text-emerald-950 text-xs leading-tight">10% Bundle Discount Applied!</p>
-                <p className="text-[10px] text-emerald-700 leading-tight">Add {6 - count} more for <strong>20% OFF</strong></p>
+                <p className="text-[10px] text-emerald-700 leading-tight">Add {6 - pricedCount} more priced service{6 - pricedCount === 1 ? '' : 's'} for <strong>20% OFF</strong></p>
               </div>
             </div>
             <span className="px-2 py-0.5 bg-emerald-600 text-white font-extrabold text-[10px] rounded-full shrink-0 shadow-xs">
@@ -943,13 +960,13 @@ const OrderSidebar = ({
           </div>
         )}
 
-        {count >= 6 && (
+        {pricedCount >= 6 && (
           <div className="p-2.5 bg-gradient-to-r from-emerald-100/80 to-teal-50 border border-emerald-300 rounded-xl text-xs text-emerald-950 flex items-center justify-between gap-2 shadow-xs">
             <div className="flex items-center gap-1.5 min-w-0">
               <span className="text-sm shrink-0">🔥</span>
               <div className="truncate">
                 <p className="font-bold text-emerald-950 text-xs leading-tight">Max 20% Discount Applied!</p>
-                <p className="text-[10px] text-emerald-700 leading-tight">Saving 20% across all {count} services</p>
+                <p className="text-[10px] text-emerald-700 leading-tight">Saving 20% across {pricedCount} priced service{pricedCount === 1 ? '' : 's'}</p>
               </div>
             </div>
             <span className="px-2 py-0.5 bg-emerald-700 text-white font-extrabold text-[10px] rounded-full shrink-0 shadow-xs">
@@ -1008,7 +1025,7 @@ const OrderSidebar = ({
         {discountAmount > 0 ? (
           <div className="space-y-1 mb-3 text-xs">
             <div className="flex justify-between items-center text-gray-500 text-[11px]">
-              <span>Subtotal ({count} items)</span>
+              <span>Subtotal ({pricedCount} priced item{pricedCount === 1 ? '' : 's'})</span>
               <span>{formatPrice(subtotalAmount, currency, currencyObj.symbol)}</span>
             </div>
             <div className="flex justify-between items-center text-emerald-700 font-bold text-[11px]">
@@ -1312,11 +1329,16 @@ const RequestServicePage = () => {
     );
   }, [selectedServices]);
 
+  // How many SELECTED services actually carry a real price. Custom-quote
+  // style picks (Request Custom Quote, AI Automation's custom package, or
+  // any $0 package) never count toward the bundle-discount tiers.
+  const pricedServiceCount = useMemo(() => countPricedServices(selectedServices), [selectedServices]);
+
   const discountRate = useMemo(() => {
-    if (serviceCount >= 6) return 0.20;
-    if (serviceCount >= 2) return 0.10;
+    if (pricedServiceCount >= 6) return 0.20;
+    if (pricedServiceCount >= 2) return 0.10;
     return 0;
-  }, [serviceCount]);
+  }, [pricedServiceCount]);
 
   const subtotalAmount = useMemo(() => {
     return Object.entries(selectedServices).reduce((sum, [service, pkg]) => {
@@ -2128,7 +2150,7 @@ const categoryIcons = {
                     {discountAmount > 0 && (
                       <>
                         <div className="flex justify-between text-xs sm:text-sm text-gray-600">
-                          <span>Subtotal ({serviceCount} services):</span>
+                          <span>Subtotal ({pricedServiceCount} priced service{pricedServiceCount === 1 ? '' : 's'}):</span>
                           <span>{formatPrice(subtotalAmount, selectedCurrency, currencyObj.symbol)}</span>
                         </div>
                         <div className="flex justify-between text-xs sm:text-sm text-emerald-700 font-bold">

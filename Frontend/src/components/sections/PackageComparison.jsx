@@ -1,31 +1,48 @@
-// src/components/sections/PackageComparison.jsx
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { FaCheck, FaClock, FaSyncAlt, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 export const SERVICE_FEATURES = {};
 
+const TIER_TO_PACKAGE_KEY = { 
+  starter: 'starter',
+  growth: 'growth', 
+  premium: 'premium',
+  basic: 'starter',
+  standard: 'growth'
+};
+
 // Source of truth for package inclusions derived dynamically from the database.
-// 1. Prefers the exact per-tier "includes" list authored for this package in packageData.details.
+// 1. Prefers the exact per-tier "includes" list authored for this package in packagesData or packageData.details.
 // 2. Falls back dynamically to packageData.rows filtering for checked items on this tier.
-export const getPackageFeatures = (serviceSlug, tier, packageData = null) => {
+export const getPackageFeatures = (serviceSlug, tier, packageData = null, packagesData = null) => {
   const normalizedTier = tier === 'basic' ? 'starter' : (tier === 'standard' ? 'growth' : tier);
   const tierOrder = ['starter', 'growth', 'premium'];
-  const tierIndex = tierOrder.indexOf(normalizedTier);
-  if (tierIndex === -1) return [];
+  if (!tierOrder.includes(normalizedTier)) return [];
 
-  const tierDetailIncludes = packageData?.details?.[normalizedTier]?.includes || packageData?.details?.[tier]?.includes;
-  if (tierDetailIncludes && tierDetailIncludes.length > 0) {
-    return tierDetailIncludes;
+  const stripSummaryLine = (arr) =>
+    (arr || []).filter((line) => !/^Everything in/i.test(line.trim()));
+
+  // 1) Prefer this tier's OWN package.includes
+  const pkgKey = TIER_TO_PACKAGE_KEY[tier] || normalizedTier;
+  const ownIncludes = packagesData?.[pkgKey]?.includes || packagesData?.[tier]?.includes;
+  if (ownIncludes && ownIncludes.length > 0) {
+    return stripSummaryLine(ownIncludes);
   }
 
+  // 2) Fallback: packageData.details[normalizedTier].includes / details[tier].includes
+  const tierDetailIncludes = packageData?.details?.[normalizedTier]?.includes || packageData?.details?.[tier]?.includes;
+  if (tierDetailIncludes && tierDetailIncludes.length > 0) {
+    return stripSummaryLine(tierDetailIncludes);
+  }
+
+  // 3) Last resort: rows checked ONLY at this exact tier.
   return (packageData?.rows || [])
     .filter((row) => row?.values?.[normalizedTier] || row?.values?.[tier])
     .map((row) => row.label)
     .filter(Boolean);
 };
 
-const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
+const PackageComparison = ({ packageData, packagesData, serviceSlug, onTabChange }) => {
   const tierLabels = { 
     starter: 'Starter', 
     growth: 'Growth', 
@@ -40,7 +57,7 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
   const [includesOpen, setIncludesOpen] = useState(true);
 
   const details = packageData?.details || {};
-  const activeDetail = details[activeTab] || {
+  const activeDetail = details[activeTab] || details[activeTab === 'starter' ? 'basic' : activeTab] || {
     price: 'Custom Quote',
     packageName: tierLabels[activeTab] || activeTab,
     shortDescription: '',
@@ -58,15 +75,13 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
   };
 
   // The checkmark matrix uses the hand-authored, already-cascading `rows`
-  // for this service (e.g. a Starter feature stays checked at Growth and
-  // Premium even though those tiers' own "includes" lists don't repeat it
-  // verbatim). Only fall back to deriving rows from the raw tier lists for
+  // for this service. Only fall back to deriving rows from the raw tier lists for
   // a service that has no authored rows at all.
   const comparisonRows = (packageData?.rows && packageData.rows.length > 0)
     ? packageData.rows
     : (() => {
         const tierFeatures = Object.fromEntries(
-          tiers.map((tier) => [tier, getPackageFeatures(serviceSlug, tier, packageData)])
+          tiers.map((tier) => [tier, getPackageFeatures(serviceSlug, tier, packageData, packagesData)])
         );
         const allFeatures = [...new Set(tiers.flatMap((tier) => tierFeatures[tier] || []))];
         return allFeatures.map((label) => ({
@@ -87,7 +102,7 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
             <tr className="bg-gray-50 border-b border-gray-200">
               <th className="text-left p-4 text-sm font-semibold text-gray-700 w-1/4 whitespace-normal break-words"></th>
               {tiers.map((tier) => {
-                const d = details[tier] || {
+                const d = details[tier] || details[tier === 'starter' ? 'basic' : tier] || {
                   packageName: tierLabels[tier] || tier,
                   shortDescription: ''
                 };
@@ -124,14 +139,17 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
                 <td className="p-3 text-sm text-gray-700 border-b border-gray-100 whitespace-normal break-words">
                   {row.label}
                 </td>
-                {tiers.map((tier) => (
-                  <td key={tier} className="p-3 border-b border-gray-100 whitespace-normal break-words">
-                    <FaCheck
-                      className={row?.values?.[tier] ? 'text-green-600' : 'text-gray-300'}
-                      size={16}
-                    />
-                  </td>
-                ))}
+                {tiers.map((tier) => {
+                  const val = row?.values?.[tier] ?? (tier === 'starter' ? row?.values?.basic : undefined) ?? (tier === 'growth' ? row?.values?.standard : undefined);
+                  return (
+                    <td key={tier} className="p-3 border-b border-gray-100 whitespace-normal break-words">
+                      <FaCheck
+                        className={val ? 'text-green-600' : 'text-gray-300'}
+                        size={16}
+                      />
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>
@@ -190,7 +208,7 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
 
         {includesOpen && (
           <ul className="space-y-1.5 mt-3 pb-1 max-h-[300px] overflow-y-auto">
-            {getPackageFeatures(serviceSlug, activeTab, packageData).map((item, idx) => (
+            {getPackageFeatures(serviceSlug, activeTab, packageData, packagesData).map((item, idx) => (
               <li key={idx} className="flex items-start text-sm text-gray-700">
                 <FaCheck className="text-green-600 mr-2.5 mt-0.5 shrink-0" size={12} />
                 <span className="leading-relaxed">{item}</span>

@@ -40,7 +40,7 @@ const HomePage = () => {
       icon: <FaCode className="text-4xl text-white" />,
       gradient: 'from-blue-600 to-blue-800',
       accent: 'bg-blue-400/20',
-      tag: 'Most Popular'
+      tag: 'Popular'
     },
     {
       slug: 'graphic-design',
@@ -48,7 +48,7 @@ const HomePage = () => {
       icon: <FaPaintBrush className="text-4xl text-white" />,
       gradient: 'from-purple-500 to-purple-700',
       accent: 'bg-purple-400/20',
-      tag: 'Top Rated'
+      tag: 'In Demand'
     },
     {
       slug: 'photography & visual assets',
@@ -64,7 +64,7 @@ const HomePage = () => {
       icon: <FaSearch className="text-4xl text-white" />,
       gradient: 'from-green-500 to-emerald-700',
       accent: 'bg-green-400/20',
-      tag: 'High ROI'
+      tag: 'Growth Focused'
     },
     {
       slug: 'video-editing',
@@ -72,7 +72,7 @@ const HomePage = () => {
       icon: <FaVideo className="text-4xl text-white" />,
       gradient: 'from-red-500 to-red-700',
       accent: 'bg-red-400/20',
-      tag: 'Trending'
+      tag: 'Popular'
     },
     {
       slug: 'brand-identity',
@@ -88,7 +88,7 @@ const HomePage = () => {
       icon: <FaAd className="text-4xl text-white" />,
       gradient: 'from-cyan-500 to-cyan-700',
       accent: 'bg-cyan-400/20',
-      tag: 'Fast Results'
+      tag: 'New'
     },
     {
       slug: 'ecommerce-development',
@@ -104,7 +104,7 @@ const HomePage = () => {
       icon: <FaCogs className="text-4xl text-white" />,
       gradient: 'from-indigo-500 to-indigo-700',
       accent: 'bg-indigo-400/20',
-      tag: 'Scale Faster'
+      tag: 'Automation'
     },
     {
       slug: 'ai-automation',
@@ -112,7 +112,7 @@ const HomePage = () => {
       icon: <FaRobot className="text-4xl text-white" />,
       gradient: 'from-violet-600 to-purple-800',
       accent: 'bg-violet-400/20',
-      tag: 'New'
+      tag: 'Automation'
     }
   ];
 
@@ -161,15 +161,15 @@ const HomePage = () => {
     {
       number: '05',
       icon: <FaShieldAlt />,
-      title: 'Payment & Escrow Protection',
+      title: 'Milestone-Based Payment Protection',
       shortDesc: 'Greater accountability around project payments.',
       details: "For projects using ScaleLink's applicable payment protection process, project funds can be managed according to agreed project terms and milestones. This creates greater accountability between payment and project delivery and gives clients additional confidence when purchasing professional services online."
     },
     {
       number: '06',
       icon: <FaCheckCircle />,
-      title: 'Satisfaction Protection',
-      shortDesc: 'Work reviewed against the agreed scope.',
+      title: 'Scope & Quality Protection',
+      shortDesc: 'Work is reviewed against the agreed project scope before final delivery.',
       details: 'Projects are reviewed against the agreed scope, requirements, and specifications to help ensure the completed work meets the expected professional standards. If something within the agreed scope requires attention, our structured project process provides a clear path for addressing it before completion.'
     }
   ];
@@ -199,7 +199,7 @@ const HomePage = () => {
   const faqs = [
     { q: 'Do I need to join the network to use services?', a: 'No. You can access services independently.' },
     { q: 'What types of businesses join?', a: 'Consultants, agencies, service providers, and growing companies.' },
-    { q: 'How fast can I see results?', a: 'Many businesses begin seeing opportunities within weeks.' },
+    { q: 'How fast can I see results?', a: 'Timing varies depending on your industry, goals, participation and the opportunities available within the network.' },
     { q: 'How does ScaleLink compare with hiring in-house?', a: 'ScaleLink gives businesses access to specialized support without the recruiting, payroll, and long-term commitment of adding another full-time employee.' }
   ];
 
@@ -614,8 +614,8 @@ const HomePage = () => {
                 <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
                   3
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Start Seeing Results</h3>
-                <p className="text-gray-600">Generate opportunities, reduce workload, and grow faster.</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Move Forward With Confidence</h3>
+                <p className="text-gray-600">Start your project, build new professional connections, and track your progress through ScaleLink.</p>
               </motion.div>
             </div>
           </div>
@@ -736,10 +736,10 @@ const HomePage = () => {
                   Client Experience
                 </span>
                 <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-5 leading-tight">
-                  A Dedicated Project Tracking Portal
+                  Know Exactly What's Happening With Your Project
                 </h2>
                 <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                  Once your project is established, you receive access to a dedicated project tracking portal where you can monitor progress, stay updated on your status, and communicate directly with your Support Representative—no separate account or password required.
+                  Every ScaleLink project includes a dedicated tracking portal where you can follow progress, communicate with your representative, provide resources, and access completed deliverables.
                 </p>
 
                 <div className="space-y-3">

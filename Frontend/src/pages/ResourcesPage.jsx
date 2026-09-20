@@ -120,25 +120,28 @@ const DocumentArticle = ({ title, content, author, imageUrl, date, onClose, isHt
             </div>
 
             {/* Call to Action - restored from backup */}
-            <div className="mt-16 p-8 bg-linear-to-r from-blue-50 to-blue-100 rounded-2xl border border-blue-100 no-print">
-              <div className="flex flex-col md:flex-row items-center justify-between">
-                <div className="mb-6 md:mb-0">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                    Ready to Implement These Strategies?
-                  </h3>
-                  <p className="text-gray-700">
-                    Join Scale Link Alliance and start building your referral network today.
-                  </p>
-                </div>
-                <Link
-                  to="/membership"
-                  onClick={onClose}
-                  className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all shadow-md hover:shadow-lg whitespace-nowrap"
-                >
-                  Join Now
-                </Link>
-              </div>
-            </div>
+<div className="relative mt-16 p-8 md:p-10 rounded-2xl overflow-hidden bg-linear-to-br from-blue-950 via-blue-900 to-indigo-950 no-print">
+  <div className="absolute -top-16 -right-16 w-56 h-56 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
+  <div className="absolute -bottom-16 -left-16 w-56 h-56 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
+
+  <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
+    <div className="text-center md:text-left">
+      <h3 className="text-2xl font-bold text-white mb-2">
+        Ready to Implement These Strategies?
+      </h3>
+      <p className="text-blue-100">
+        Join Scale Link Alliance and start building your referral network today.
+      </p>
+    </div>
+    <Link
+      to="/membership"
+      onClick={onClose}
+      className="shrink-0 px-8 py-3 bg-white text-blue-700 font-bold rounded-xl hover:bg-gray-100 transition-all shadow-md hover:shadow-lg whitespace-nowrap"
+    >
+      Join Now
+    </Link>
+  </div>
+</div>
           </div>
         </motion.div>
       </motion.div>
@@ -1072,36 +1075,40 @@ If networking feels busy but unproductive, the issue is not effort it is measure
       </section>
 
       {/* Featured Resource */}
-      <section className="py-8 bg-linear-to-r from-blue-600 to-blue-800">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
-              <div className="flex flex-col md:flex-row items-center justify-between">
-                <div className="mb-6 md:mb-0 md:mr-8">
-                  <div className="inline-flex items-center px-4 py-2 bg-white/20 rounded-full mb-4">
-                    <FaBookOpen className="mr-2 text-white" />
-                    <span className="font-semibold text-white">Featured Guide</span>
-                  </div>
-                  <h2 className="text-2xl font-bold text-white mb-3">
-                    {cmsFeatured ? cmsFeatured.title : 'The Ultimate Guide to Referral Networking'}
-                  </h2>
-                  <p className="text-white/90 mb-4">
-                    {cmsFeatured 
-                      ? (cmsFeatured.plainTextSnippet || cmsFeatured.description) 
-                      : 'Learn proven strategies to build a referral-based business and accelerate your growth.'}
-                  </p>
-                </div>
-                <Link
-                  to={cmsFeatured ? `/resources/${cmsFeatured.slug || cmsFeatured.id}` : '/resources/1'}
-                  className="px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors whitespace-nowrap inline-flex items-center justify-center shadow-md font-semibold"
-                >
-                  Read Full Guide
-                </Link>
-              </div>
+<section className="relative py-12 md:py-16 bg-linear-to-br from-blue-950 via-blue-900 to-indigo-950 overflow-hidden">
+  {/* Decorative background accents to match the detail page CTA */}
+  <div className="absolute -top-24 -right-24 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
+  <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
+
+  <div className="container mx-auto px-4 relative z-10">
+    <div className="max-w-6xl mx-auto">
+      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <div className="mb-6 md:mb-0 md:mr-8 text-center md:text-left">
+            <div className="inline-flex items-center px-4 py-2 bg-white/20 rounded-full mb-4">
+              <FaBookOpen className="mr-2 text-white" />
+              <span className="font-semibold text-white">Featured Guide</span>
             </div>
+            <h2 className="text-2xl font-bold text-white mb-3">
+              {cmsFeatured ? cmsFeatured.title : 'The Ultimate Guide to Referral Networking'}
+            </h2>
+            <p className="text-blue-100 mb-4">
+              {cmsFeatured 
+                ? (cmsFeatured.plainTextSnippet || cmsFeatured.description) 
+                : 'Learn proven strategies to build a referral-based business and accelerate your growth.'}
+            </p>
           </div>
+          <Link
+            to={cmsFeatured ? `/resources/${cmsFeatured.slug || cmsFeatured.id}` : '/resources/1'}
+            className="shrink-0 px-8 py-3.5 bg-white text-blue-700 font-bold rounded-xl hover:bg-gray-100 transition-all shadow-md hover:shadow-lg whitespace-nowrap inline-flex items-center justify-center"
+          >
+            Read Full Guide
+          </Link>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Resource Categories */}
       <section className="py-12 bg-white">
