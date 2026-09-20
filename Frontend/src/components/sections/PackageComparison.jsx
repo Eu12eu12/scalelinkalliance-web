@@ -902,49 +902,36 @@ const FEATURE_LABELS = {
 };
 
 
-// Shared source of truth for package inclusions.
-// Higher tiers inherit the features of lower tiers whenever the service feature
-// catalog contains those tiers. For services that are not in SERVICE_FEATURES,
-// fall back to that service's packageComparison rows so every service still gets
-// the same long-form package list used by the comparison table.
-export const getPackageFeatures = (serviceSlug, tier, packageData = null) => {
-  const tierOrder = ['basic', 'growth', 'premium'];
-  const tierIndex = tierOrder.indexOf(tier);
-  if (tierIndex === -1) return [];
+const TIER_TO_PACKAGE_KEY = { basic: 'starter', growth: 'growth', premium: 'premium' };
 
-  // Prefer the exact per-tier "includes" list authored for this package
-  // (matches the pricing document's own tier-by-tier bullets verbatim).
-  // This is what actually changes when the user switches Basic/Growth/
-  // Premium, so it must win over the cascading catalog below.
+export const getPackageFeatures = (serviceSlug, tier, packageData = null, packagesData = null) => {
+  const tierOrder = ['basic', 'growth', 'premium'];
+  if (!tierOrder.includes(tier)) return [];
+
+  const stripSummaryLine = (arr) =>
+    (arr || []).filter((line) => !/^Everything in/i.test(line.trim()));
+
+  // 1) Always prefer this tier's OWN package.includes — never cascade.
+  const pkgKey = TIER_TO_PACKAGE_KEY[tier];
+  const ownIncludes = packagesData?.[pkgKey]?.includes;
+  if (ownIncludes && ownIncludes.length > 0) {
+    return stripSummaryLine(ownIncludes);
+  }
+
+  // 2) Fallback: packageComparison.details[tier].includes, also stripped.
   const tierDetailIncludes = packageData?.details?.[tier]?.includes;
   if (tierDetailIncludes && tierDetailIncludes.length > 0) {
-    return tierDetailIncludes;
+    return stripSummaryLine(tierDetailIncludes);
   }
 
-  const serviceFeatures = SERVICE_FEATURES[serviceSlug];
-
-  if (serviceFeatures) {
-    const combined = [];
-    for (let index = 0; index <= tierIndex; index += 1) {
-      const currentTier = tierOrder[index];
-      (serviceFeatures[currentTier] || []).forEach((feature) => {
-        if (!feature.startsWith('Everything in') && !combined.includes(feature)) {
-          combined.push(feature);
-        }
-      });
-    }
-
-    return combined.map((feature) => FEATURE_LABELS[feature] || feature);
-  }
-
+  // 3) Last resort: rows checked ONLY at this exact tier.
   return (packageData?.rows || [])
     .filter((row) => row?.values?.[tier])
     .map((row) => row.label)
     .filter(Boolean);
 };
 
-const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
-  const tierLabels = { basic: 'Basic', growth: 'Growth', premium: 'Premium' };
+const PackageComparison = ({ packageData, packagesData, serviceSlug, onTabChange }) => {  const tierLabels = { basic: 'Basic', growth: 'Growth', premium: 'Premium' };
   const tiers = Array.isArray(packageData?.tiers) && packageData.tiers.length > 0
     ? packageData.tiers
     : ['basic', 'growth', 'premium'];
@@ -977,8 +964,8 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
   const comparisonRows = (packageData?.rows && packageData.rows.length > 0)
     ? packageData.rows
     : (() => {
-        const tierFeatures = Object.fromEntries(
-          tiers.map((tier) => [tier, getPackageFeatures(serviceSlug, tier, packageData)])
+                const tierFeatures = Object.fromEntries(
+          tiers.map((tier) => [tier, getPackageFeatures(serviceSlug, tier, packageData, packagesData)])
         );
         const allFeatures = [...new Set(tiers.flatMap((tier) => tierFeatures[tier] || []))];
         return allFeatures.map((label) => ({
@@ -1100,9 +1087,9 @@ const PackageComparison = ({ packageData, serviceSlug, onTabChange }) => {
           }
         </button>
 
-        {includesOpen && (
+                {includesOpen && (
           <ul className="space-y-1.5 mt-3 pb-1 max-h-[300px] overflow-y-auto">
-            {getPackageFeatures(serviceSlug, activeTab, packageData).map((item, idx) => (
+            {getPackageFeatures(serviceSlug, activeTab, packageData, packagesData).map((item, idx) => (
               <li key={idx} className="flex items-start text-sm text-gray-700">
                 <FaCheck className="text-green-600 mr-2.5 mt-0.5 shrink-0" size={12} />
                 <span className="leading-relaxed">{item}</span>

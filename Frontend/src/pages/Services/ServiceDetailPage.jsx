@@ -2789,9 +2789,9 @@ const ServiceDetailPage = () => {
                               const hasSharedFeatureList = Boolean(
                                 comparisonTier && service.packageComparison
                               );
-                              const includedItems = hasSharedFeatureList
-                                ? getPackageFeatures(serviceSlug, comparisonTier, service.packageComparison)
-                                : (selectedPkg.includes || []);
+                                                            const includedItems = hasSharedFeatureList
+                                ? getPackageFeatures(serviceSlug, comparisonTier, service.packageComparison, service.packages)
+                                : (selectedPkg.includes || []).filter((line) => !/^Everything in/i.test(line.trim()));
 
                               return (
                                 <>
@@ -2923,8 +2923,12 @@ const ServiceDetailPage = () => {
         {hasPackageComparison && (
           <section className="mb-10 sm:mb-16 w-full min-w-0">
             <div className="w-full min-w-0 overflow-x-auto overscroll-x-contain">
-              <div className="min-w-0 sm:min-w-[720px]">
-                <PackageComparison packageData={service.packageComparison} serviceSlug={serviceSlug} />
+                            <div className="min-w-0 sm:min-w-[720px]">
+                <PackageComparison
+                  packageData={service.packageComparison}
+                  packagesData={service.packages}
+                  serviceSlug={serviceSlug}
+                />
               </div>
             </div>
           </section>
@@ -2944,8 +2948,8 @@ const ServiceDetailPage = () => {
             <Link to={`/request-service?service=${serviceSlug}&package=${validPackage}`} className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg text-sm sm:text-base">
               <FaArrowRight className="mr-2" /> Request Service Now
             </Link>
-            <Link to="/contact" className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-black transition-colors text-sm sm:text-base">
-              <FaHeadset className="mr-2" /> Schedule Free Consultation
+            <Link to="/request-service?service=custom-quote" className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-black transition-colors text-sm sm:text-base">
+              <FaCogs className="mr-2" /> Custom Quote
             </Link>
           </div>
         </section>

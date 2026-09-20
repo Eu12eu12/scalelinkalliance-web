@@ -4,8 +4,313 @@ import {
   FaFileAlt, FaCommentDots, FaUserCircle, FaClock, FaHistory,
   FaUser, FaEnvelope, FaPhone, FaMoneyBillWave, FaLayerGroup, FaCheckCircle, FaCheck,
   FaUserPlus, FaUserMinus, FaExchangeAlt, FaSearch, FaBriefcase,
-  FaLink, FaCopy, FaEye, FaGlobe
+  FaLink, FaCopy, FaEye, FaGlobe, FaClipboardList
 } from 'react-icons/fa';
+
+// ─── Field label lookup for service requirement answers ─────────────────────
+// Mirrors the field ids/labels defined in SERVICE_QUESTION_DEFINITIONS on
+// src/pages/Services/ServiceRequestPage.jsx. Kept as a flat id->label map here
+// (rather than importing the full definitions) so the admin view can render
+// human-readable questions instead of raw field ids like "WEB_03".
+const SERVICE_FIELD_LABELS = {
+  WEB_01: 'Is this a new website or an existing website?',
+  WEB_02: 'Existing website URL',
+  WEB_03: 'What is the primary purpose of your website?',
+  WEB_04: 'Approximately how many pages do you need?',
+  WEB_05: 'Which pages do you need?',
+  WEB_06: 'What functionality do you need?',
+  WEB_07: 'Do you already own a domain?',
+  WEB_08: 'Do you already have hosting?',
+  WEB_09: 'Do you already have website content?',
+  WEB_10: 'Provide 2–3 websites you like.',
+  WEB_11: 'Are there competitor websites we should review?',
+
+  ECOM_01: 'What type of ecommerce project is this?',
+  ECOM_02: 'What do you sell?',
+  ECOM_03: 'Product type',
+  ECOM_04: 'Approximately how many products?',
+  ECOM_05: 'Do you have product descriptions and images?',
+  ECOM_06: 'Preferred/current platform',
+  ECOM_07: 'Which payment methods/processors are required?',
+  ECOM_08: 'Where will you sell?',
+  ECOM_09: 'Do you require shipping integration?',
+  ECOM_10: 'Which shipping/carrier services do you use?',
+  ECOM_11: 'Required ecommerce functionality',
+  ECOM_12: 'Approximately how many orders do you process monthly?',
+  ECOM_13: 'What is your average order value?',
+  ECOM_14: 'What is the biggest problem with your existing store?',
+
+  LAND_01: 'What is the primary objective?',
+  LAND_02: 'What offer will this page promote?',
+  LAND_03: 'What action should visitors take?',
+  LAND_04: 'Do you already have the page copy?',
+  LAND_05: 'Do you have images/videos/graphics?',
+  LAND_06: 'Where will visitors come from?',
+  LAND_07: 'Does the page require a form?',
+  LAND_08: 'What information should the form collect?',
+  LAND_09: 'Where should generated leads be sent?',
+  LAND_10: 'Is payment/checkout integration required?',
+  LAND_11: 'Is conversion tracking required?',
+
+  SEO_01: 'What is your main SEO objective?',
+  SEO_02: 'What type of SEO do you need?',
+  SEO_03: 'Which products/services are most important to rank?',
+  SEO_04: 'Which locations should we target?',
+  SEO_05: 'Who are your main search competitors?',
+  SEO_06: 'Are there specific keywords you want to rank for?',
+  SEO_07: 'Are you currently doing SEO?',
+  SEO_08: 'Have you previously hired an SEO provider?',
+  SEO_09: 'Which accounts do you currently have?',
+  SEO_10: 'Do you need one-time or ongoing SEO?',
+
+  LEAD_01: 'What product/service do you want leads for?',
+  LEAD_02: 'Are you targeting B2B, B2C, or both?',
+  LEAD_03: 'Target industry/company type',
+  LEAD_04: 'Target decision-maker/job title',
+  LEAD_05: 'Describe your ideal consumer.',
+  LEAD_06: 'Which geographic areas should we target?',
+  LEAD_07: 'What qualifies someone as a good lead?',
+  LEAD_08: 'Average customer value',
+  LEAD_09: 'Approximately how many qualified leads would you like monthly?',
+  LEAD_10: 'How do you currently generate leads?',
+  LEAD_11: 'What happens after you receive a lead?',
+  LEAD_12: 'How quickly can your team respond?',
+
+  ADS_01: 'Primary campaign objective',
+  ADS_02: 'What product/service will be advertised?',
+  ADS_03: 'Which platforms?',
+  ADS_04: 'Have you advertised previously?',
+  ADS_05: 'Which platforms and what results did you achieve?',
+  ADS_06: 'Do you already have advertising accounts?',
+  ADS_07: 'Do you have a landing page?',
+  ADS_08: 'Do you have advertising creatives/copy?',
+  ADS_09: 'Is conversion tracking installed?',
+
+  EMAIL_01: 'Primary email objective',
+  EMAIL_02: 'Do you have an existing email list?',
+  EMAIL_03: 'Approximately how many contacts?',
+  EMAIL_04: 'How was the list collected?',
+  EMAIL_05: 'Current email platform',
+  EMAIL_06: 'What do you need?',
+  EMAIL_07: 'Desired sending frequency',
+  EMAIL_08: 'Do you have existing email content?',
+  EMAIL_09: 'What action should recipients take?',
+
+  CONTENT_01: 'What content do you need?',
+  CONTENT_02: 'Primary purpose',
+  CONTENT_03: 'What subject/product/service should the content cover?',
+  CONTENT_04: 'How many pieces/pages?',
+  CONTENT_05: 'Preferred tone',
+  CONTENT_06: 'Are there required keywords?',
+  CONTENT_07: 'What CTA should the content encourage?',
+
+  CRM_01: 'What process would you like to automate?',
+  CRM_02: 'Do you currently use a CRM?',
+  CRM_03: 'Which CRM?',
+  CRM_04: 'What should the CRM manage?',
+  CRM_05: 'What should be automated?',
+  CRM_06: 'Which other systems need integration?',
+  CRM_07: 'How many team members will use the system?',
+  CRM_08: 'Is data migration required?',
+  CRM_09: 'Describe your current workflow.',
+  CRM_10: 'What currently takes too much time or causes problems?',
+
+  DATA_01: 'What would you like to understand from your data?',
+  DATA_02: 'What type of data?',
+  DATA_03: 'Where is the data stored?',
+  DATA_04: 'What do you need?',
+  DATA_05: 'Which KPIs are important?',
+  DATA_06: 'How frequently do you need reporting?',
+  DATA_07: 'What business decision should this analysis help you make?',
+
+  GRAPHIC_01: 'What do you need designed?',
+  GRAPHIC_02: 'How many designs?',
+  GRAPHIC_03: 'Where will they be used?',
+  GRAPHIC_04: 'Required dimensions, if known',
+  GRAPHIC_05: 'Do you have text/copy ready?',
+  GRAPHIC_06: 'Do you have images/assets?',
+  GRAPHIC_07: 'Describe the desired style.',
+  GRAPHIC_08: 'Required file formats',
+
+  BRAND_01: 'Brand/business name',
+  BRAND_02: 'Tagline, if applicable',
+  BRAND_03: 'Is this a new brand, rebrand, or logo redesign?',
+  BRAND_04: 'What do you need?',
+  BRAND_05: 'What should your brand communicate?',
+  BRAND_06: 'Are there brands whose identity you like?',
+  BRAND_07: 'Are there symbols/concepts you want included?',
+  BRAND_08: "Anything you DON'T want included?",
+
+  COLOR_01: 'What will the colors be used for?',
+  COLOR_02: 'Do you currently have brand colors?',
+  COLOR_03: 'What should the colors communicate?',
+  COLOR_04: 'Colors you prefer',
+  COLOR_05: 'Colors to avoid',
+  COLOR_06: 'Do you require accessibility/contrast considerations?',
+
+  VIDEO_01: 'Video type',
+  VIDEO_02: 'Number of videos',
+  VIDEO_03: 'Approximate raw footage length',
+  VIDEO_04: 'Desired finished length',
+  VIDEO_05: 'Where will videos be published?',
+  VIDEO_06: 'Required editing',
+  VIDEO_07: 'Do you have footage?',
+  VIDEO_08: 'Do you have script/voiceover?',
+  VIDEO_09: 'Output resolution',
+
+  PHOTO_01: 'Photography type',
+  PHOTO_02: 'Number of photographs',
+  PHOTO_03: 'Required editing',
+  PHOTO_04: 'Where will images be used?',
+  PHOTO_05: 'Required dimensions/resolution',
+  PHOTO_06: 'Required format',
+
+  VA_01: 'What assistance is required?',
+  VA_02: 'Describe the tasks.',
+  VA_03: 'Required hours',
+  VA_04: 'Duration',
+  VA_05: 'Required working hours/time zone',
+  VA_06: 'Which tools/software will be used?',
+  VA_07: 'Is customer communication required?',
+  VA_08: 'What skills/experience are essential?',
+
+  ENTRY_01: 'Describe the data-entry work required.',
+  ENTRY_02: 'Source format',
+  ENTRY_03: 'Destination',
+  ENTRY_04: 'Approximately how many records/items?',
+  ENTRY_05: 'What information needs to be captured?',
+  ENTRY_06: 'Additional processing required',
+  ENTRY_07: 'Do you have a required template?',
+  ENTRY_08: 'Are there specific accuracy requirements?',
+
+  APP_01: 'What is the application supposed to do?',
+  APP_02: 'Who will use the application?',
+  APP_03: 'What user roles/permissions are required?',
+  APP_04: 'Which core screens or features are needed?',
+  APP_05: 'Do you need user accounts/authentication?',
+  APP_06: 'What data should the system store?',
+  APP_07: 'Which integrations are required?',
+  APP_08: 'Do you need subscriptions or online payments?',
+  APP_09: 'Do you have an existing product, prototype or technical specification?',
+  APP_10: 'Preferred technology or platform, if any',
+
+  MAINT_01: 'What website needs maintenance?',
+  MAINT_02: 'What type of maintenance do you need?',
+  MAINT_03: 'What platform/CMS is the website using?',
+  MAINT_04: 'What problems are you currently experiencing?',
+  MAINT_05: 'How often do you need support?',
+  MAINT_06: 'Do you have access to the website, hosting and domain?',
+
+  BOOK_01: 'What are customers booking?',
+  BOOK_02: 'How many services/bookable options do you have?',
+  BOOK_03: 'Who needs access to manage bookings?',
+  BOOK_04: 'What scheduling rules are required?',
+  BOOK_05: 'Do you need automated reminders?',
+  BOOK_06: 'Is payment required during booking?',
+  BOOK_07: 'Which calendar/payment/CRM systems should connect?',
+
+  SOCIAL_01: 'Which platforms should we manage?',
+  SOCIAL_02: 'What are your main social media goals?',
+  SOCIAL_03: 'How often would you like to publish?',
+  SOCIAL_04: 'What content types are needed?',
+  SOCIAL_05: 'Do you already have brand/content assets?',
+  SOCIAL_06: 'Who should we target?',
+  SOCIAL_07: 'Do you need community management?',
+
+  REP_01: 'Which review platforms matter most?',
+  REP_02: 'What is your main reputation goal?',
+  REP_03: 'What is your current approximate rating/review volume?',
+  REP_04: 'Do you already request reviews from customers?',
+  REP_05: 'How should review requests be sent?',
+  REP_06: 'Are there current reputation issues we should know about?',
+
+  API_01: 'Which systems need to be connected?',
+  API_02: 'What should happen automatically after the integration?',
+  API_03: 'Which data should be transferred or synchronized?',
+  API_04: 'Do you have API documentation/credentials available?',
+  API_05: 'How often should data sync occur?',
+  API_06: 'What authentication/security requirements exist?',
+  API_07: 'What should happen when an integration fails?',
+
+  AI_01: 'What business process should AI improve or automate?',
+  AI_02: 'What currently takes too much time or manual effort?',
+  AI_03: 'What would you like the AI system to do?',
+  AI_04: 'Which tools/systems should AI work with?',
+  AI_05: 'What data or knowledge should the AI use?',
+  AI_06: 'What should success look like?',
+  AI_07: 'Are there privacy, security or compliance requirements?',
+
+  BPA_01: 'Which business process should be automated?',
+  BPA_02: 'Describe the current process step by step.',
+  BPA_03: 'What triggers the process?',
+  BPA_04: 'What should happen automatically?',
+  BPA_05: 'Which tools/systems are involved?',
+  BPA_06: 'What are the biggest bottlenecks or errors today?',
+  BPA_07: 'Who should receive notifications or tasks?',
+
+  CONSULT_01: 'What is the main business challenge you want help solving?',
+  CONSULT_02: 'What growth outcome are you targeting?',
+  CONSULT_03: 'What products/services drive the business today?',
+  CONSULT_04: 'What are your current acquisition/sales channels?',
+  CONSULT_05: 'What have you already tried?',
+  CONSULT_06: 'Which areas need the most attention?',
+  CONSULT_07: 'What decisions or deliverables do you want from the engagement?',
+
+  PM_01: 'What project needs management support?',
+  PM_02: 'What stage is the project currently in?',
+  PM_03: 'How many people/teams are involved?',
+  PM_04: 'What needs to be coordinated?',
+  PM_05: 'What tools do you currently use for project management?',
+  PM_06: 'What are the most urgent project risks or blockers?',
+  PM_07: 'What reporting/update cadence do you need?',
+
+  SOP_01: 'Which process(es) need documentation?',
+  SOP_02: 'Approximately how many SOPs are needed?',
+  SOP_03: 'Who will use the documentation?',
+  SOP_04: 'Do existing process notes/materials exist?',
+  SOP_05: 'What should the documentation include?',
+  SOP_06: 'What problems should the SOPs solve?',
+  SOP_07: 'Preferred format/platform',
+
+  CUSTOM_01: 'What do you need us to build, create or manage?',
+  CUSTOM_02: 'What problem should the project solve?',
+  CUSTOM_03: 'What are the main deliverables you expect?',
+  CUSTOM_04: 'Are there specific technologies, tools or platforms involved?',
+  CUSTOM_05: 'Are there examples or references we should review?',
+  CUSTOM_06: 'Anything else that would help us scope the project?',
+
+  SERVICE_REQUIREMENT_01: 'Requirements',
+};
+
+// Safely parse a value that may be a JSON string, an already-parsed object,
+// null, or undefined (SQLite/MySQL JSON columns can arrive either way).
+const safeParseJson = (value, fallback) => {
+  if (value === null || value === undefined || value === '') return fallback;
+  if (typeof value === 'object') return value;
+  try {
+    return JSON.parse(value);
+  } catch {
+    return fallback;
+  }
+};
+
+// True for empty strings, empty arrays, null/undefined — used to skip
+// rendering questions the client left blank.
+const isMeaningfulAnswer = (value) => {
+  if (Array.isArray(value)) return value.length > 0;
+  if (typeof value === 'string') return value.trim().length > 0;
+  return Boolean(value);
+};
+
+const formatAnswer = (value) => (Array.isArray(value) ? value.join(', ') : String(value));
+
+const AI_FIELD_LABELS = {
+  aiFeatures: 'AI Features Requested',
+  aiFeaturesOther: 'Other AI Features',
+  aiCurrentTools: 'Current Tools in Use',
+  aiTimeSpent: 'Time Currently Spent on These Tasks',
+  aiSuccessLooksLike: 'What Success Looks Like',
+};
 
 const JobDetailsModal = ({ job, currentUser, onClose, onRefresh, showToast }) => {
   const [activeTab, setActiveTab] = useState('details');
@@ -28,6 +333,23 @@ const JobDetailsModal = ({ job, currentUser, onClose, onRefresh, showToast }) =>
   const hasQuoteAmount = job?.customQuoteAmount && job.customQuoteAmount > 0;
   const isCustomQuote = hasCustomQuoteService || hasQuoteAmount;
   const isPaid = !isCustomQuote || ['deposit_paid', 'in_progress', 'completed', 'approved'].includes(job?.quoteStatus);
+
+  // ── Service requirements (from the customer-facing request form) ──
+  const projectScope = safeParseJson(job?.projectScope, null);
+  const serviceAnswers = projectScope?.serviceAnswers || null;
+  const customQuoteAnswers = projectScope?.customQuoteAnswers || null;
+
+  const serviceAnswerEntries = serviceAnswers
+    ? Object.entries(serviceAnswers).filter(([, answers]) =>
+        answers && Object.values(answers).some(isMeaningfulAnswer)
+      )
+    : [];
+
+  const customQuoteAnswerEntries = customQuoteAnswers
+    ? Object.entries(customQuoteAnswers).filter(
+        ([key, value]) => AI_FIELD_LABELS[key] && isMeaningfulAnswer(value)
+      )
+    : [];
 
   const handleJobAction = async (action, extraData = {}) => {
     try {
@@ -423,6 +745,62 @@ const JobDetailsModal = ({ job, currentUser, onClose, onRefresh, showToast }) =>
                   </div>
                 </div>
               </div>
+
+              {/* Service Requirements — answers collected on the request form,
+                  keyed by service then by field id (see safeParseJson/serviceAnswers above) */}
+              {(serviceAnswerEntries.length > 0 || customQuoteAnswerEntries.length > 0) && (
+                <div className="space-y-4 animate-fade-in">
+                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                    <FaClipboardList className="text-blue-500" /> Service Requirements
+                  </h4>
+                  <div className="space-y-4">
+                    {serviceAnswerEntries.map(([service, answers]) => (
+                      <div key={service} className="bg-slate-50 rounded-2xl border border-slate-100 overflow-hidden">
+                        <div className="px-5 py-3 bg-white border-b border-slate-100">
+                          <p className="text-sm font-bold text-slate-800">
+                            {service.replace(/Request Custom Quote - /g, '')}
+                          </p>
+                        </div>
+                        <div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {Object.entries(answers)
+                            .filter(([, value]) => isMeaningfulAnswer(value))
+                            .map(([fieldId, value]) => (
+                              <div key={fieldId} className="min-w-0">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">
+                                  {SERVICE_FIELD_LABELS[fieldId] || fieldId}
+                                </p>
+                                <p className="text-sm text-slate-700 leading-snug whitespace-pre-wrap break-words">
+                                  {formatAnswer(value)}
+                                </p>
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    ))}
+
+                    {customQuoteAnswerEntries.length > 0 && (
+                      <div className="bg-purple-50/50 rounded-2xl border border-purple-100 overflow-hidden">
+                        <div className="px-5 py-3 bg-white border-b border-purple-100">
+                          <p className="text-sm font-bold text-purple-800">AI Project Details</p>
+                        </div>
+                        <div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {customQuoteAnswerEntries.map(([key, value]) => (
+                            <div key={key} className="min-w-0">
+                              <p className="text-[10px] font-bold text-purple-400 uppercase tracking-wide mb-1">
+                                {AI_FIELD_LABELS[key]}
+                              </p>
+                              <p className="text-sm text-slate-700 leading-snug whitespace-pre-wrap break-words">
+                                {formatAnswer(value)}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {job.otherServiceDescription && (
                 <div className="animate-fade-in">
                   <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Custom Service Details</h4>

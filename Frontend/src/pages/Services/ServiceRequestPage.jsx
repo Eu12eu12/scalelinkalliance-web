@@ -565,8 +565,8 @@ const SERVICE_QUESTION_DEFINITIONS = {
       { id: 'COLOR_01', label: 'What will the colors be used for?', type: 'checkbox', required: true, options: ['Website', 'Brand', 'Application', 'Product', 'Marketing materials'] },
       { id: 'COLOR_02', label: 'Do you currently have brand colors?', type: 'radio', options: ['Yes', 'No'] },
       { id: 'COLOR_03', label: 'What should the colors communicate?', type: 'checkbox', options: ['Trust', 'Luxury', 'Energy', 'Innovation', 'Calm', 'Professionalism', 'Friendly', 'Bold'] },
-      { id: 'COLOR_04', label: 'Colors you prefer', type: 'color', helper: 'Pick swatches, use the custom picker, or type a name/hex and press Enter.' },
-      { id: 'COLOR_05', label: 'Colors to avoid', type: 'color', helper: 'Pick swatches, use the custom picker, or type a name/hex and press Enter.' },
+      { id: 'COLOR_04', label: 'Colors you prefer', type: 'text' },
+      { id: 'COLOR_05', label: 'Colors to avoid', type: 'text' },
       { id: 'COLOR_06', label: 'Do you require accessibility/contrast considerations?', type: 'radio', options: ['Yes', 'No', 'Not sure'] },
     ]
   },
@@ -872,6 +872,21 @@ const getServiceDisplayName = (service) => {
   return value.split(' - ')[0]?.trim() || value.trim() || 'Service';
 };
 
+// ─── Package-pricing helpers ────────────────────────────────────────────────
+// A service/package counts toward the bundle discount ONLY when it actually
+// carries a real price. Custom-quote style packages (Request Custom Quote,
+// AI Automation's "custom" package, or any package explicitly priced at 0)
+// are excluded so users aren't shown a bundle discount for items that have
+// no price to discount in the first place.
+const isPricedPackage = (service, packageKey) => {
+  const pkgData = SERVICES_WITH_PACKAGES[service]?.packages?.[packageKey];
+  return !!pkgData && Number(pkgData.price) > 0;
+};
+
+const countPricedServices = (selectedServices) => {
+  return Object.entries(selectedServices).filter(([service, pkg]) => isPricedPackage(service, pkg)).length;
+};
+
 const getServiceIcon = (name) => {
   const iconMap = {
     'Graphic Design': FaPaintBrush,
@@ -911,106 +926,6 @@ const formatFileSize = (bytes) => {
   if (bytes === 0) return '0 Bytes';
   const k = 1024, sizes = ['Bytes', 'KB', 'MB', 'GB'], i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
-};
-
-// ─── Color Picker Field (used by 'color' type service-requirement questions) ──
-// Renders preset swatches + a native color picker + free-text entry (name or
-// hex). Selected colors are stored as an array of strings on the answer, e.g.
-// ["#1E3A8A", "Navy Blue"]. Kept as its own component so the free-text input
-// can hold local state without fighting the parent's controlled re-renders.
-const ColorPickerField = ({ value, onChange }) => {
-  const [customInput, setCustomInput] = useState('');
-  const selectedColors = Array.isArray(value) ? value : [];
-  const presetColors = [
-    '#1E3A8A', '#2563EB', '#0EA5E9', '#14B8A6', '#10B981',
-    '#84CC16', '#EAB308', '#F97316', '#EF4444', '#EC4899',
-    '#A855F7', '#6366F1', '#64748B', '#1F2937', '#FFFFFF'
-  ];
-
-  const addColor = (raw) => {
-    const hex = (raw || '').trim();
-    if (!hex) return;
-    const normalized = hex.startsWith('#') ? hex.toUpperCase() : hex;
-    if (selectedColors.some(c => c.toLowerCase() === normalized.toLowerCase())) return;
-    onChange([...selectedColors, normalized]);
-  };
-
-  const removeColor = (color) => onChange(selectedColors.filter(c => c !== color));
-
-  return (
-    <div>
-      <div className="flex flex-wrap gap-2 mb-3">
-        {presetColors.map(hex => {
-          const isSelected = selectedColors.includes(hex);
-          return (
-            <button
-              key={hex}
-              type="button"
-              onClick={() => (isSelected ? removeColor(hex) : addColor(hex))}
-              className={`w-8 h-8 rounded-full border-2 transition-all ${isSelected ? 'border-blue-600 ring-2 ring-blue-200 scale-110' : 'border-gray-200 hover:border-gray-400'}`}
-              style={{ backgroundColor: hex }}
-              title={hex}
-              aria-label={`Toggle color ${hex}`}
-            />
-          );
-        })}
-        <label
-          className="w-8 h-8 rounded-full border-2 border-dashed border-gray-300 hover:border-blue-400 flex items-center justify-center cursor-pointer relative bg-white shrink-0"
-          title="Pick a custom color"
-        >
-          <span className="text-gray-400 text-sm leading-none">+</span>
-          <input
-            type="color"
-            onChange={e => addColor(e.target.value)}
-            className="absolute inset-0 opacity-0 cursor-pointer"
-          />
-        </label>
-      </div>
-
-      {selectedColors.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-3">
-          {selectedColors.map(color => (
-            <span key={color} className="inline-flex items-center gap-1.5 pl-1 pr-2 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-700">
-              <span
-                className="w-4 h-4 rounded-full border border-gray-300 shrink-0"
-                style={{ backgroundColor: /^#([0-9A-Fa-f]{3}){1,2}$/.test(color) ? color : undefined }}
-              />
-              {color}
-              <button
-                type="button"
-                onClick={() => removeColor(color)}
-                className="text-gray-400 hover:text-red-500 font-bold leading-none ml-0.5"
-                aria-label={`Remove ${color}`}
-              >
-                ×
-              </button>
-            </span>
-          ))}
-        </div>
-      )}
-
-      <input
-        type="text"
-        value={customInput}
-        onChange={e => setCustomInput(e.target.value)}
-        onKeyDown={e => {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            addColor(customInput);
-            setCustomInput('');
-          }
-        }}
-        onBlur={() => {
-          if (customInput.trim()) {
-            addColor(customInput);
-            setCustomInput('');
-          }
-        }}
-        className="w-full px-4 py-3 border border-gray-200 rounded-xl bg-white text-sm text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-        placeholder="Type a color name or hex code and press Enter (e.g. Navy Blue, #1E3A8A)"
-      />
-    </div>
-  );
 };
 
 // ─── Service Hover Preview Component ────────────────────────────────────────
@@ -1222,6 +1137,8 @@ const OrderSidebar = ({
   const isOnlyCustomQuote = hasCustomQuote && entries.length === 1;
   const isCustomQuoteWithOthers = hasCustomQuote && entries.length > 1;
   const count = entries.length;
+  // Only services with an actual price count toward bundle-discount tiers/messaging.
+  const pricedCount = countPricedServices(selectedServices);
 
   return (
     <div className="lg:sticky lg:top-24 max-h-[calc(100vh-7.5rem)] flex flex-col bg-white rounded-2xl border-2 border-gray-200 shadow-xl overflow-hidden">
@@ -1240,21 +1157,21 @@ const OrderSidebar = ({
           )}
         </div>
 
-        {/* ── Tiered Bundle Discount Banner ── */}
-        {count === 1 && (
+        {/* ── Tiered Bundle Discount Banner (based only on priced services) ── */}
+        {pricedCount === 1 && (
           <div className="p-2.5 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl text-xs text-blue-900 flex items-center gap-2 shadow-xs">
             <span className="text-sm shrink-0">💡</span>
-            <p className="text-[11px] leading-tight">Add <strong>1 more service</strong> to save <strong>10%</strong> on your bundle!</p>
+            <p className="text-[11px] leading-tight">Add <strong>1 more priced service</strong> to save <strong>10%</strong> on your bundle!</p>
           </div>
         )}
 
-        {count >= 2 && count <= 5 && (
+        {pricedCount >= 2 && pricedCount <= 5 && (
           <div className="p-2.5 bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 flex items-center justify-between gap-2 shadow-xs">
             <div className="flex items-center gap-1.5 min-w-0">
               <span className="text-sm shrink-0">🎉</span>
               <div className="truncate">
                 <p className="font-bold text-emerald-950 text-xs leading-tight">10% Bundle Discount Applied!</p>
-                <p className="text-[10px] text-emerald-700 leading-tight">Add {6 - count} more for <strong>20% OFF</strong></p>
+                <p className="text-[10px] text-emerald-700 leading-tight">Add {6 - pricedCount} more priced service{6 - pricedCount === 1 ? '' : 's'} for <strong>20% OFF</strong></p>
               </div>
             </div>
             <span className="px-2 py-0.5 bg-emerald-600 text-white font-extrabold text-[10px] rounded-full shrink-0 shadow-xs">
@@ -1263,13 +1180,13 @@ const OrderSidebar = ({
           </div>
         )}
 
-        {count >= 6 && (
+        {pricedCount >= 6 && (
           <div className="p-2.5 bg-gradient-to-r from-emerald-100/80 to-teal-50 border border-emerald-300 rounded-xl text-xs text-emerald-950 flex items-center justify-between gap-2 shadow-xs">
             <div className="flex items-center gap-1.5 min-w-0">
               <span className="text-sm shrink-0">🔥</span>
               <div className="truncate">
                 <p className="font-bold text-emerald-950 text-xs leading-tight">Max 20% Discount Applied!</p>
-                <p className="text-[10px] text-emerald-700 leading-tight">Saving 20% across all {count} services</p>
+                <p className="text-[10px] text-emerald-700 leading-tight">Saving 20% across {pricedCount} priced service{pricedCount === 1 ? '' : 's'}</p>
               </div>
             </div>
             <span className="px-2 py-0.5 bg-emerald-700 text-white font-extrabold text-[10px] rounded-full shrink-0 shadow-xs">
@@ -1328,7 +1245,7 @@ const OrderSidebar = ({
         {discountAmount > 0 ? (
           <div className="space-y-1 mb-3 text-xs">
             <div className="flex justify-between items-center text-gray-500 text-[11px]">
-              <span>Subtotal ({count} items)</span>
+              <span>Subtotal ({pricedCount} priced item{pricedCount === 1 ? '' : 's'})</span>
               <span>{formatPrice(subtotalAmount, currency, currencyObj.symbol)}</span>
             </div>
             <div className="flex justify-between items-center text-emerald-700 font-bold text-[11px]">
@@ -1601,11 +1518,16 @@ const RequestServicePage = () => {
     );
   }, [selectedServices]);
 
+  // How many SELECTED services actually carry a real price. Custom-quote
+  // style picks (Request Custom Quote, AI Automation's custom package, or
+  // any $0 package) never count toward the bundle-discount tiers.
+  const pricedServiceCount = useMemo(() => countPricedServices(selectedServices), [selectedServices]);
+
   const discountRate = useMemo(() => {
-    if (serviceCount >= 6) return 0.20;
-    if (serviceCount >= 2) return 0.10;
+    if (pricedServiceCount >= 6) return 0.20;
+    if (pricedServiceCount >= 2) return 0.10;
     return 0;
-  }, [serviceCount]);
+  }, [pricedServiceCount]);
 
   const subtotalAmount = useMemo(() => {
     return Object.entries(selectedServices).reduce((sum, [service, pkg]) => {
@@ -1795,16 +1717,6 @@ const RequestServicePage = () => {
       );
     }
 
-    if (field.type === 'color') {
-      const selectedColors = Array.isArray(value) ? value : [];
-      return (
-        <ColorPickerField
-          value={selectedColors}
-          onChange={next => updateServiceAnswer(service, field.id, next)}
-        />
-      );
-    }
-
     if (field.type === 'textarea') {
       return (
         <textarea
@@ -1869,7 +1781,7 @@ const RequestServicePage = () => {
                       return (
                         <div
                           key={field.id}
-                          className={`min-w-0 ${field.type === 'checkbox' || field.type === 'radio' || field.type === 'textarea' || field.type === 'color' ? 'lg:col-span-2' : ''}`}
+                          className={`min-w-0 ${field.type === 'checkbox' || field.type === 'radio' || field.type === 'textarea' ? 'lg:col-span-2' : ''}`}
                         >
                           <label className="block text-sm font-semibold text-gray-800 mb-2">
                             {field.label} {field.required && <span className="text-red-500">*</span>}
@@ -2422,7 +2334,7 @@ const categoryIcons = {
                     {discountAmount > 0 && (
                       <>
                         <div className="flex justify-between text-xs sm:text-sm text-gray-600">
-                          <span>Subtotal ({serviceCount} services):</span>
+                          <span>Subtotal ({pricedServiceCount} priced service{pricedServiceCount === 1 ? '' : 's'}):</span>
                           <span>{formatPrice(subtotalAmount, selectedCurrency, currencyObj.symbol)}</span>
                         </div>
                         <div className="flex justify-between text-xs sm:text-sm text-emerald-700 font-bold">

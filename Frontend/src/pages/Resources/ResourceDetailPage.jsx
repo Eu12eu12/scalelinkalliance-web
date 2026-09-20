@@ -287,27 +287,34 @@ const ResourceDetailPage = () => {
             />
 
             {/* Call to Action Banner */}
-            <div className="mt-14 p-8 md:p-10 bg-linear-to-r from-blue-600 via-blue-700 to-indigo-800 rounded-3xl text-white shadow-xl no-print">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div>
-                  <span className="inline-block px-3 py-1 bg-white/20 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
-                    Scale Link Alliance Network
-                  </span>
-                  <h3 className="text-2xl md:text-3xl font-extrabold mb-2">
-                    Ready to Scale Your Referral Network?
-                  </h3>
-                  <p className="text-blue-100 max-w-2xl text-sm md:text-base">
-                    Join vetted professionals across 50+ exclusive industry categories and accelerate your business growth.
-                  </p>
-                </div>
-                <Link
-                  to="/membership"
-                  className="px-8 py-3.5 bg-white text-blue-700 font-bold rounded-xl hover:bg-gray-100 transition-all shadow-md hover:shadow-lg whitespace-nowrap"
-                >
-                  Join the Alliance
-                </Link>
-              </div>
-            </div>
+            <div className="relative bg-linear-to-br from-blue-950 via-blue-900 to-indigo-950 text-white overflow-hidden py-12 md:py-16">
+  {/* Decorative background accents */}
+  <div className="absolute -top-24 -right-24 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
+  <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
+
+  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
+      <div className="text-center md:text-left">
+        <span className="inline-block px-3 py-1 bg-white/20 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
+          Scale Link Alliance Network
+        </span>
+        <h3 className="text-2xl md:text-3xl font-extrabold mb-2 leading-tight">
+          Ready to Scale Your Referral Network?
+        </h3>
+        <p className="text-blue-100 max-w-2xl text-sm md:text-base">
+          Join vetted professionals across 50+ exclusive industry categories and accelerate your business growth.
+        </p>
+      </div>
+
+      <Link
+        to="/membership"
+        className="shrink-0 px-8 py-3.5 bg-white text-blue-700 font-bold rounded-xl hover:bg-gray-100 transition-all shadow-md hover:shadow-lg whitespace-nowrap"
+      >
+        Join the Alliance
+      </Link>
+    </div>
+  </div>
+</div>
           </main>
 
           {/* Sidebar: Social Share Tools & Quick Info */}
