@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AdminLayout from './AdminLayout';
 import { useToast } from './Toast';
+import { uploadFilesResilient } from '../../utils/imageCompressor';
 import { Link } from 'react-router-dom';
 import { FaPlus, FaEdit, FaTrash, FaStar, FaRegStar, FaNewspaper, FaTags, FaImage, FaAlignLeft, FaUser, FaCalendarAlt, FaLink, FaExternalLinkAlt } from 'react-icons/fa';
 
@@ -88,33 +89,28 @@ const AdminResources = () => {
   };
 
   const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 10 * 1024 * 1024) {
-      showToast('Image is too large. Maximum size is 10MB.', 'error');
+    // Reset file input so selecting the same file again triggers onChange
+    e.target.value = '';
+
+    if (file.size > 25 * 1024 * 1024) {
+      showToast('Image is too large. Maximum size is 25MB.', 'error');
       return;
     }
 
     setUploadingImage(true);
     try {
-      const fd = new FormData();
-      fd.append('files', file);
-
-      const res = await fetch('/api/upload-files', {
-        method: 'POST',
-        body: fd
-      });
-      const data = await res.json();
-
-      if (res.ok && data.fileUrls && data.fileUrls.length > 0) {
-        setFormData(prev => ({ ...prev, imageUrl: data.fileUrls[0].url }));
+      const fileUrls = await uploadFilesResilient(file, { timeoutMs: 45000 });
+      if (fileUrls && fileUrls.length > 0) {
+        setFormData(prev => ({ ...prev, imageUrl: fileUrls[0].url }));
         showToast('Image uploaded successfully!', 'success');
       } else {
-        showToast(data.error || 'Failed to upload image.', 'error');
+        showToast('Failed to upload image.', 'error');
       }
     } catch (err) {
-      showToast('A network error occurred while uploading.', 'error');
+      showToast(err.message || 'A network error occurred while uploading.', 'error');
     } finally {
       setUploadingImage(false);
     }
