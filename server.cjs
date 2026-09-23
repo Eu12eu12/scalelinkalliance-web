@@ -13,6 +13,9 @@ const cmsRoutes = require('./routes/cms');
 
 const app = express();
 
+// Trust Hostinger / reverse proxy headers for HTTPS & real client IP
+app.set('trust proxy', 1);
+
 // Enable CORS for your frontend
 app.use(cors({
   origin: [
@@ -293,6 +296,7 @@ const fileFilter = (req, file, cb) => {
   const allowedMimes = [
     // Images
     'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml', 'image/bmp', 'image/tiff',
+    'image/avif', 'image/heic', 'image/heif', 'image/pjpeg', 'image/x-png',
     // Documents
     'application/pdf',
     'application/msword',
@@ -412,7 +416,8 @@ app.post('/api/upload-files', async (req, res) => {
       return res.status(413).json({ error: 'Total file size exceeds 500MB limit' });
     }
 
-    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    const protocol = req.headers['x-forwarded-proto'] || (req.secure ? 'https' : req.protocol);
+    const baseUrl = `${protocol}://${req.get('host')}`;
     const fileUrls = req.files.map(file => ({
       filename: file.originalname,
       url: `${baseUrl}/uploads/${file.filename}`,
