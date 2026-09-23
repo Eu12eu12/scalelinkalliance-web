@@ -11,6 +11,7 @@ import {
 } from 'react-icons/fa';
 import { AVAILABLE_SERVICE_ICONS, getServiceIcon } from '../../utils/serviceIcons';
 import { broadcastServiceUpdate } from '../../utils/serviceSync';
+import { uploadFilesResilient } from '../../utils/imageCompressor';
 
 const CATEGORY_OPTIONS = [
   { id: 'creative-support', name: 'Creative & Support' },
@@ -514,60 +515,50 @@ const AdminServices = () => {
   };
 
   const handleMainImageUpload = async (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (!file) return;
+
+    // Reset input so selecting the same file again works
+    e.target.value = '';
 
     setUploadingImage(true);
     try {
-      const fd = new FormData();
-      fd.append('files', file);
-
-      const res = await fetch('/api/upload-files', {
-        method: 'POST',
-        body: fd
-      });
-      const data = await res.json();
-
-      if (res.ok && data.fileUrls && data.fileUrls.length > 0) {
-        setFormData(prev => ({ ...prev, mainImage: data.fileUrls[0].url }));
+      const fileUrls = await uploadFilesResilient(file, { timeoutMs: 45000 });
+      if (fileUrls && fileUrls.length > 0) {
+        setFormData(prev => ({ ...prev, mainImage: fileUrls[0].url }));
         showToast('Cover image uploaded!', 'success');
       } else {
-        showToast(data.error || 'Failed to upload image.', 'error');
+        showToast('Failed to upload image.', 'error');
       }
     } catch (err) {
-      showToast('Error uploading image.', 'error');
+      showToast(err.message || 'Error uploading image.', 'error');
     } finally {
       setUploadingImage(false);
     }
   };
 
   const handleGalleryUpload = async (e) => {
-    const files = Array.from(e.target.files);
+    const files = Array.from(e.target.files || []);
     if (!files.length) return;
+
+    // Reset input so selecting the same files again works
+    e.target.value = '';
 
     setUploadingGallery(true);
     try {
-      const fd = new FormData();
-      files.forEach(f => fd.append('files', f));
-
-      const res = await fetch('/api/upload-files', {
-        method: 'POST',
-        body: fd
-      });
-      const data = await res.json();
-
-      if (res.ok && data.fileUrls) {
-        const newUrls = data.fileUrls.map(f => f.url);
+      const fileUrls = await uploadFilesResilient(files, { timeoutMs: 60000 });
+      if (fileUrls && fileUrls.length > 0) {
+        const newUrls = fileUrls.map(f => f.url);
         setFormData(prev => ({
           ...prev,
           galleryImages: [...prev.galleryImages, ...newUrls]
         }));
         showToast(`${newUrls.length} gallery image(s) uploaded!`, 'success');
       } else {
-        showToast(data.error || 'Failed to upload gallery images.', 'error');
+        showToast('Failed to upload gallery images.', 'error');
       }
     } catch (err) {
-      showToast('Error uploading gallery images.', 'error');
+      showToast(err.message || 'Error uploading gallery images.', 'error');
     } finally {
       setUploadingGallery(false);
     }
