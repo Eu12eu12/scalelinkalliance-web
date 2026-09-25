@@ -1,4 +1,25 @@
 /**
+ * Sanitizes file names to pass Web Application Firewalls (e.g. ModSecurity / Imunify360 / Cloudflare).
+ * Strips single/double quotes, apostrophes, and unusual symbols that trigger SQLi / XSS false positives.
+ */
+export const sanitizeFileName = (name) => {
+  if (!name) return `upload_${Date.now()}`;
+  const dotIndex = name.lastIndexOf('.');
+  const ext = dotIndex !== -1 ? name.substring(dotIndex) : '';
+  const base = dotIndex !== -1 ? name.substring(0, dotIndex) : name;
+
+  const cleanBase = base
+    .replace(/['"`]/g, '')        // Strip single and double quotes (e.g. "isn't" -> "isnt")
+    .replace(/[^\w\s-]/g, '')     // Strip special symbols
+    .trim()
+    .replace(/\s+/g, '_')         // Convert whitespace to underscores
+    .slice(0, 80);                // Limit length
+
+  const cleanExt = ext.replace(/[^a-zA-Z0-9.]/g, '').toLowerCase();
+  return (cleanBase || `upload_${Date.now()}`) + cleanExt;
+};
+
+/**
  * Client-side image compression & optimization utility.
  * Resizes large photos to optimal web dimensions and converts to lightweight WebP/JPEG,
  * reducing multi-megabyte payloads by 90-95% before uploading over the network.
@@ -58,11 +79,14 @@ export const compressImage = async (file, options = {}) => {
           ctx.imageSmoothingQuality = 'high';
           ctx.drawImage(img, 0, 0, width, height);
 
+          // Always ensure safe sanitized filename
+          const safeBaseName = sanitizeFileName(file.name).replace(/\.[^/.]+$/, '');
+
           // Attempt WebP compression first
           canvas.toBlob(
             (blob) => {
               if (blob && blob.size < file.size) {
-                const newName = file.name.replace(/\.[^/.]+$/, '') + '.webp';
+                const newName = `${safeBaseName}.webp`;
                 const compressedFile = new File([blob], newName, {
                   type: 'image/webp',
                   lastModified: Date.now()
@@ -73,7 +97,7 @@ export const compressImage = async (file, options = {}) => {
                 canvas.toBlob(
                   (jpegBlob) => {
                     if (jpegBlob && jpegBlob.size < file.size) {
-                      const newName = file.name.replace(/\.[^/.]+$/, '') + '.jpg';
+                      const newName = `${safeBaseName}.jpg`;
                       const compressedFile = new File([jpegBlob], newName, {
                         type: 'image/jpeg',
                         lastModified: Date.now()
@@ -112,10 +136,11 @@ export const compressImage = async (file, options = {}) => {
 
 /**
  * Resilient file upload helper that:
- * 1. Automatically compresses image files on the client.
- * 2. Uses a reasonable network timeout (45 seconds).
- * 3. Handles non-JSON HTTP responses (e.g., 413, 502, 504 HTML error pages) safely without SyntaxError.
- * 4. Extracts human-readable error messages.
+ * 1. Sanitizes all file names (eliminating ModSecurity WAF 403 blocks from quotes/apostrophes).
+ * 2. Automatically compresses image files on the client.
+ * 3. Uses a reasonable network timeout (45 seconds).
+ * 4. Handles non-JSON HTTP responses (e.g., 403, 413, 502, 504 HTML error pages) safely without SyntaxError.
+ * 5. Extracts human-readable error messages.
  */
 export const uploadFilesResilient = async (files, options = {}) => {
   const { timeoutMs = 45000 } = options;
@@ -126,12 +151,19 @@ export const uploadFilesResilient = async (files, options = {}) => {
   }
 
   // 1. Optimize images in parallel
-  const optimizedFiles = await Promise.all(
+  const processedFiles = await Promise.all(
     fileList.map((f) => compressImage(f))
   );
 
   const fd = new FormData();
-  optimizedFiles.forEach((f) => fd.append('files', f));
+  processedFiles.forEach((f) => {
+    // Ensure EVERY file (compressed, original, SVG, or document) has a sanitized filename
+    const cleanName = sanitizeFileName(f.name);
+    const safeFile = (f.name === cleanName)
+      ? f
+      : new File([f], cleanName, { type: f.type, lastModified: f.lastModified });
+    fd.append('files', safeFile);
+  });
 
   // 2. AbortController for network timeout
   const controller = new AbortController();
@@ -153,12 +185,15 @@ export const uploadFilesResilient = async (files, options = {}) => {
     clearTimeout(timeoutId);
   }
 
-  // 3. Safe response parsing (never crashes with SyntaxError on HTML)
+  // 3. Safe response parsing (never crashes with SyntaxError on HTML error pages)
   const rawText = await res.text();
   let data;
   try {
     data = JSON.parse(rawText);
   } catch {
+    if (res.status === 403) {
+      throw new Error('Upload blocked by server firewall (HTTP 403). Please rename the file and retry.');
+    }
     if (res.status === 413) {
       throw new Error('File exceeds the server maximum upload limit.');
     }
