@@ -308,6 +308,7 @@ const AdminServices = () => {
   const [newComparisonRowLabel, setNewComparisonRowLabel] = useState('');
   const [draggedComparisonIndex, setDraggedComparisonIndex] = useState(null);
   const [comparisonDragOverState, setComparisonDragOverState] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
 
   // Package item adders
   const [newStarterInclude, setNewStarterInclude] = useState('');
@@ -374,7 +375,9 @@ const AdminServices = () => {
     const parsedInclude = Array.isArray(svc.servicesInclude) ? svc.servicesInclude : [];
     const parsedTools = Array.isArray(svc.tools) ? svc.tools : [];
     const parsedComp = Array.isArray(svc.complementaryServices) ? svc.complementaryServices : [];
-    const parsedGallery = Array.isArray(svc.galleryImages) ? svc.galleryImages : [];
+    const rawGallery = Array.isArray(svc.galleryImages) ? svc.galleryImages : [];
+    const localGallery = rawGallery.filter(img => typeof img === 'string' && img.startsWith('/images/'));
+    const parsedGallery = localGallery.length > 0 ? Array.from(new Set(localGallery)) : Array.from(new Set(rawGallery));
     const parsedPackages = (typeof svc.packages === 'object' && svc.packages) ? svc.packages : INITIAL_SERVICE_STATE.packages;
     const parsedComparison = (typeof svc.packageComparison === 'object' && svc.packageComparison) ? svc.packageComparison : INITIAL_SERVICE_STATE.packageComparison;
     const parsedSampleProject = (typeof svc.sampleProject === 'object' && svc.sampleProject) ? svc.sampleProject : INITIAL_SERVICE_STATE.sampleProject;
@@ -551,7 +554,7 @@ const AdminServices = () => {
         const newUrls = fileUrls.map(f => f.url);
         setFormData(prev => ({
           ...prev,
-          galleryImages: [...prev.galleryImages, ...newUrls]
+          galleryImages: Array.from(new Set([...(prev.galleryImages || []), ...newUrls]))
         }));
         showToast(`${newUrls.length} gallery image(s) uploaded!`, 'success');
       } else {
@@ -566,11 +569,17 @@ const AdminServices = () => {
 
   const addGalleryUrl = () => {
     if (!newGalleryUrl.trim()) return;
+    const trimmed = newGalleryUrl.trim();
+    if ((formData.galleryImages || []).includes(trimmed)) {
+      showToast('This image URL is already in the gallery.', 'warning');
+      return;
+    }
     setFormData(prev => ({
       ...prev,
-      galleryImages: [...prev.galleryImages, newGalleryUrl.trim()]
+      galleryImages: [...(prev.galleryImages || []), trimmed]
     }));
     setNewGalleryUrl('');
+    showToast('Image URL added.', 'success');
   };
 
   const removeGalleryImage = (index) => {
@@ -578,6 +587,40 @@ const AdminServices = () => {
       ...prev,
       galleryImages: prev.galleryImages.filter((_, idx) => idx !== index)
     }));
+  };
+
+  const moveGalleryImage = (fromIndex, toIndex) => {
+    if (toIndex < 0 || toIndex >= (formData.galleryImages || []).length) return;
+    setFormData(prev => {
+      const updated = [...prev.galleryImages];
+      const [moved] = updated.splice(fromIndex, 1);
+      updated.splice(toIndex, 0, moved);
+      return { ...prev, galleryImages: updated };
+    });
+  };
+
+  const deduplicateGallery = () => {
+    const list = formData.galleryImages || [];
+    const local = list.filter(img => typeof img === 'string' && img.startsWith('/images/'));
+    const unique = local.length > 0 
+      ? Array.from(new Set(local)) 
+      : Array.from(new Set(list));
+    
+    const removedCount = list.length - unique.length;
+    if (removedCount > 0) {
+      setFormData(prev => ({ ...prev, galleryImages: unique }));
+      showToast(`Cleaned ${removedCount} duplicate/remote image(s)!`, 'success');
+    } else {
+      showToast('No duplicates or redundant links found.', 'info');
+    }
+  };
+
+  const clearAllGallery = () => {
+    if (!formData.galleryImages?.length) return;
+    if (window.confirm(`Are you sure you want to remove all ${formData.galleryImages.length} images from this service gallery?`)) {
+      setFormData(prev => ({ ...prev, galleryImages: [] }));
+      showToast('All gallery images cleared.', 'info');
+    }
   };
 
   const addItem = (field, text, setter) => {
@@ -1839,7 +1882,7 @@ const AdminServices = () => {
                   </div>
 
                   <div className="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div>
                         <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
                           <FaLayerGroup className="text-emerald-400" />
@@ -1850,17 +1893,40 @@ const AdminServices = () => {
                         </p>
                       </div>
 
-                      <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold cursor-pointer shadow-md shrink-0">
-                        <FaCloudUploadAlt size={16} />
-                        <span>{uploadingGallery ? 'Uploading...' : 'Upload Gallery Files'}</span>
-                        <input type="file" accept="image/*" multiple onChange={handleGalleryUpload} disabled={uploadingGallery} className="hidden" />
-                      </label>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {(formData.galleryImages || []).length > 1 && (
+                          <button
+                            type="button"
+                            onClick={deduplicateGallery}
+                            className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-colors border border-slate-700 cursor-pointer shadow-sm"
+                            title="Remove redundant remote/duplicate images"
+                          >
+                            <FaShieldAlt className="text-blue-400" size={12} />
+                            <span>Clean Duplicates</span>
+                          </button>
+                        )}
+                        {(formData.galleryImages || []).length > 0 && (
+                          <button
+                            type="button"
+                            onClick={clearAllGallery}
+                            className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-rose-950/40 text-slate-400 hover:text-rose-400 text-xs font-semibold flex items-center gap-1.5 transition-colors border border-slate-700 cursor-pointer shadow-sm"
+                          >
+                            <FaTrash size={11} />
+                            <span>Clear All</span>
+                          </button>
+                        )}
+                        <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold cursor-pointer shadow-md shrink-0 transition-colors">
+                          <FaCloudUploadAlt size={16} />
+                          <span>{uploadingGallery ? 'Uploading...' : 'Upload Files'}</span>
+                          <input type="file" accept="image/*" multiple onChange={handleGalleryUpload} disabled={uploadingGallery} className="hidden" />
+                        </label>
+                      </div>
                     </div>
 
                     <div className="flex gap-2">
                       <input
                         type="text"
-                        placeholder="Add gallery image URL..."
+                        placeholder="Add gallery image URL (https://... or /images/...)..."
                         value={newGalleryUrl}
                         onChange={(e) => setNewGalleryUrl(e.target.value)}
                         onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addGalleryUrl(); } }}
@@ -1871,25 +1937,89 @@ const AdminServices = () => {
                       </button>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 max-h-96 overflow-y-auto p-1">
-                      {(formData.galleryImages || []).map((imgUrl, idx) => (
-                        <div key={idx} className="relative group rounded-xl overflow-hidden border border-slate-800 bg-slate-900 aspect-video shadow-md">
-                          <img src={imgUrl} alt={`Gallery ${idx + 1}`} className="w-full h-full object-cover" />
-                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                            <button
-                              type="button"
-                              onClick={() => removeGalleryImage(idx)}
-                              className="p-1.5 rounded-lg bg-rose-600 text-white hover:bg-rose-500 cursor-pointer"
-                            >
-                              <FaTrash size={12} />
-                            </button>
+                    {(!formData.galleryImages || formData.galleryImages.length === 0) ? (
+                      <div className="py-12 text-center border border-dashed border-slate-800 rounded-xl bg-slate-900/50">
+                        <FaImage className="mx-auto text-slate-600 mb-2" size={28} />
+                        <p className="text-xs font-semibold text-slate-400">No showcase images added yet</p>
+                        <p className="text-[11px] text-slate-500 mt-1">Upload images or add URLs above to showcase work on the service page.</p>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 max-h-[460px] overflow-y-auto p-1 pr-2">
+                        {formData.galleryImages.map((imgUrl, idx) => (
+                          <div key={idx} className="relative group rounded-xl overflow-hidden border border-slate-800 bg-slate-900 aspect-video shadow-md hover:border-slate-600 transition-all">
+                            <img
+                              src={imgUrl}
+                              alt={`Gallery ${idx + 1}`}
+                              loading="lazy"
+                              decoding="async"
+                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                              onError={(e) => {
+                                e.target.style.opacity = '0.3';
+                              }}
+                            />
+                            
+                            {/* Badges */}
+                            <div className="absolute top-1 left-1 flex items-center gap-1 z-10">
+                              <span className="px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-sm text-[9px] font-mono text-slate-300">
+                                #{idx + 1}
+                              </span>
+                              {typeof imgUrl === 'string' && imgUrl.startsWith('/images/') && (
+                                <span className="px-1 py-0.5 rounded bg-emerald-900/80 text-[8px] font-bold text-emerald-300">
+                                  WebP
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Hover overlay actions */}
+                            <div className="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2 z-20">
+                              <div className="flex items-center justify-between">
+                                <button
+                                  type="button"
+                                  onClick={() => setPreviewImage(imgUrl)}
+                                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white transition-colors"
+                                  title="View full preview"
+                                >
+                                  <FaEye size={12} />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => removeGalleryImage(idx)}
+                                  className="p-1.5 rounded-lg bg-rose-600/80 hover:bg-rose-600 text-white transition-colors"
+                                  title="Remove image"
+                                >
+                                  <FaTrash size={11} />
+                                </button>
+                              </div>
+
+                              {/* Reorder buttons */}
+                              <div className="flex items-center justify-center gap-1.5 bg-black/50 p-1 rounded-lg backdrop-blur-sm">
+                                <button
+                                  type="button"
+                                  disabled={idx === 0}
+                                  onClick={() => moveGalleryImage(idx, idx - 1)}
+                                  className="p-1 rounded hover:bg-slate-700 text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                                  title="Move earlier"
+                                >
+                                  <FaArrowRight className="rotate-180" size={11} />
+                                </button>
+                                <span className="text-[10px] font-mono text-slate-400 select-none">
+                                  {idx + 1}/{formData.galleryImages.length}
+                                </span>
+                                <button
+                                  type="button"
+                                  disabled={idx === formData.galleryImages.length - 1}
+                                  onClick={() => moveGalleryImage(idx, idx + 1)}
+                                  className="p-1 rounded hover:bg-slate-700 text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                                  title="Move later"
+                                >
+                                  <FaArrowRight size={11} />
+                                </button>
+                              </div>
+                            </div>
                           </div>
-                          <span className="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-black/70 text-[9px] font-mono text-slate-300">
-                            #{idx + 1}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -1951,6 +2081,33 @@ const AdminServices = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* GALLERY IMAGE LIGHTBOX PREVIEW */}
+      {previewImage && (
+        <div 
+          className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in"
+          onClick={() => setPreviewImage(null)}
+        >
+          <div 
+            className="relative max-w-4xl max-h-[88vh] bg-slate-900 rounded-2xl overflow-hidden border border-slate-700 shadow-2xl flex flex-col"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-4 py-2.5 bg-slate-950 border-b border-slate-800">
+              <span className="text-xs font-mono text-slate-400 truncate max-w-lg">{previewImage}</span>
+              <button
+                type="button"
+                onClick={() => setPreviewImage(null)}
+                className="text-slate-400 hover:text-white text-xl font-bold px-2 py-0.5 rounded-lg hover:bg-slate-800 transition-colors"
+              >
+                ×
+              </button>
+            </div>
+            <div className="p-3 flex items-center justify-center bg-black/60 overflow-auto">
+              <img src={previewImage} alt="Preview" className="max-h-[75vh] w-auto object-contain rounded-lg shadow-lg" />
+            </div>
           </div>
         </div>
       )}
