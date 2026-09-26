@@ -713,9 +713,9 @@ const ClientPortalPage = () => {
               {job.quoteStatus === 'quote_sent' ? (
                 <>
                   <div className="mb-4 bg-white/5 border border-white/10 p-4 rounded-xl text-left max-w-sm">
-                    <h4 className="text-xs font-bold text-blue-300 mb-1">Payment & Escrow Protection</h4>
+                    <h4 className="text-xs font-bold text-blue-300 mb-1">Milestone-Based Payment Protection</h4>
                     <p className="text-[10px] text-slate-400 mb-3 leading-relaxed">
-                      For approved projects, ScaleLink Alliance may use deposit, milestone, or escrow-based payment terms to protect both the client and the service team. Funds may be released based on agreed milestones, completed deliverables, client approval, or project terms.
+                      For approved projects, ScaleLink Alliance may use deposit, milestone-based payment terms to protect both the client and the service team. Funds may be released based on agreed milestones, completed deliverables, client approval, or project terms.
                     </p>
                     <label className="flex items-start gap-2.5 cursor-pointer">
                       <input
@@ -725,7 +725,7 @@ const ClientPortalPage = () => {
                         className="w-4 h-4 text-blue-600 rounded bg-white/10 border-white/20 mt-0.5 cursor-pointer"
                       />
                       <span className="text-[10px] font-semibold text-slate-300 leading-tight">
-                        I agree to the <a href="/legal?tab=escrow" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">ScaleLink Alliance Payment & Escrow Terms</a>.
+                        I agree to the <a href="/legal?tab=escrow" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">ScaleLink Alliance Milestone-Based Payment Terms</a>.
                       </span>
                     </label>
                   </div>

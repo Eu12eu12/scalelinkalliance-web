@@ -61,14 +61,12 @@ const ServicesPage = () => {
       };
 
   }, []);
-
-
-      const categories = [
+  const categories = [
     { id: 'all', name: 'All Services' },
-    { id: 'websites-development', name: 'Build' },
-    { id: 'marketing-growth', name: 'SEO' },
-    { id: 'automation-technology', name: 'Automate' },
-    { id: 'creative-support', name: 'Support' }
+    { id: 'build', name: 'Build' },
+    { id: 'attract', name: 'Attract' },
+    { id: 'convert', name: 'Convert' },
+    { id: 'scale', name: 'Scale' }
   ];
 
   const customQuoteCard = {
@@ -184,7 +182,7 @@ const ServicesPage = () => {
               Our Service Categories
             </h2>
             <p className="text-gray-600 text-center max-w-3xl mx-auto mb-6 font-medium text-lg">
-              Explore our services below.
+              Build → Attract → Convert → Scale. Explore our services below.
             </p>
             <div className="flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 border-l-4 border-l-blue-500 rounded-r-xl rounded-l-md max-w-2xl mx-auto mb-8 text-left shadow-sm transition-all duration-300 hover:shadow-md">
               <FaInfoCircle className="text-blue-600 shrink-0 mt-0.5" size={18} />

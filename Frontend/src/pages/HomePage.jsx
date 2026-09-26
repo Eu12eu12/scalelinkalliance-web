@@ -163,7 +163,9 @@ const HomePage = () => {
       icon: <FaShieldAlt />,
       title: 'Milestone-Based Payment Protection',
       shortDesc: 'Greater accountability around project payments.',
-      details: "For projects using ScaleLink's applicable payment protection process, project funds can be managed according to agreed project terms and milestones. This creates greater accountability between payment and project delivery and gives clients additional confidence when purchasing professional services online."
+      details: "For projects using ScaleLink's applicable payment protection process, project funds can be managed according to agreed project terms and milestones. This creates greater accountability between payment and project delivery and gives clients additional confidence when purchasing professional services online.",
+      learnMoreLink: '/legal?tab=escrow',
+      learnMoreLabel: 'View Full Payment Protection Details'
     },
     {
       number: '06',
@@ -265,11 +267,11 @@ const HomePage = () => {
             >
               {/* Original Headline */}
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight max-w-none mx-auto">
-                Grow Your Business With the Right Digital Services and Connections
+                Build Better. Attract More Customers. Scale Smarter.
               </h1>
 
               <p className="text-base sm:text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto px-4">
-                ScaleLink Alliance helps businesses build powerful websites, web applications, and digital growth systems that attract customers, improve operations, and support long-term growth.
+                ScaleLink Alliance combines web development, digital marketing, automation, and strategic business support to help companies build, grow, and scale.
               </p>
 
               {/* Original buttons - maintaining previous styling */}
@@ -424,7 +426,7 @@ const HomePage = () => {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
-                  Build, Market, Automate, Design
+                  Build, Attract, Convert, Scale
                 </h2>
                 <p className="text-gray-500 mt-1">Explore what other businesses are using to grow</p>
               </div>
@@ -933,6 +935,19 @@ const HomePage = () => {
                     <p className="text-gray-700 text-base sm:text-lg leading-8">
                       {whyWorkData[selectedWhyWork].details}
                     </p>
+
+                    {whyWorkData[selectedWhyWork].learnMoreLink && (
+                      <div className="mt-8 pt-6 border-t border-gray-100">
+                        <Link
+                          to={whyWorkData[selectedWhyWork].learnMoreLink}
+                          onClick={() => setIsWhyWorkModalOpen(false)}
+                          className="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-300"
+                        >
+                          <span>{whyWorkData[selectedWhyWork].learnMoreLabel || 'View More Details'}</span>
+                          <FaArrowRight className="text-sm group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
               </motion.div>
