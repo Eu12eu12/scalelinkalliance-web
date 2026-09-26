@@ -1,6 +1,6 @@
 // src/pages/Services/ServiceRequestPage.jsx
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   FaCheck, FaArrowRight, FaArrowLeft, FaPaintBrush, FaCode, FaChartLine, FaCogs,
@@ -794,51 +794,58 @@ const SERVICE_QUESTION_DEFINITIONS = {
 // ─── SERVICE CATEGORIES (5 categories including Custom Quotes) ─────────────
 const SERVICE_CATEGORIES = {
 
-// ─── CATEGORY 1: WEBSITES & DEVELOPMENT ────────────────────────────────────
-  'websites-development': {
-    label: 'Websites & Development',
+// ─── CATEGORY 1: BUILD ──────────────────────────────────────────────────────
+  'build': {
+    label: 'Build',
     services: [
       'Website Development',
       'E-Commerce Development',
       'Web Applications & SaaS Development',
-      'Landing Pages & Sales Funnels',
-      'Website Maintenance & Updates'
+      'Website Maintenance & Updates',
+      'Online Booking Systems'
     ]
   },
 
-  // ─── CATEGORY 2: MARKETING & GROWTH ─────────────────────────────────────────
-  'marketing-growth': {
-    label: 'Marketing & Growth',
+  // ─── CATEGORY 2: ATTRACT ─────────────────────────────────────────────────────
+  'attract': {
+    label: 'Attract',
     services: [
       'SEO & Search Marketing',
-      'Lead Generation Services',
       'Paid Advertising Management',
-      'Email Marketing Campaigns',
-      'Copywriting & Content Creation'
-    ]
-  },
-
-  // ─── CATEGORY 3: AUTOMATION & TECHNOLOGY ────────────────────────────────────
-  'automation-technology': {
-    label: 'Automation & Technology',
-    services: [
-      'CRM & Marketing Automation',
-      'API Integration & Automation',
-      'AI Automation',
-      'Data Analytics & Reporting'
-    ]
-  },
-
-  // ─── CATEGORY 4: CREATIVE & SUPPORT ────────────────────────────────────────
-  'creative-support': {
-    label: 'Creative & Support',
-    services: [
+      'Copywriting & Content Creation',
+      'Lead Generation Services',
+      'Social Media Management',
+      'Reputation & Review Management',
       'Graphic Design',
       'Brand Identity & Logo Design',
       'Video Editing & Motion Graphics',
-      'Photography & Visual Assets',
+      'Photography & Visual Assets'
+    ]
+  },
+
+  // ─── CATEGORY 3: CONVERT ─────────────────────────────────────────────────────
+  'convert': {
+    label: 'Convert',
+    services: [
+      'Landing Pages & Sales Funnels',
+      'CRM & Marketing Automation',
+      'Email Marketing Campaigns',
+      'Business Process Automation'
+    ]
+  },
+
+  // ─── CATEGORY 4: SCALE ───────────────────────────────────────────────────────
+  'scale': {
+    label: 'Scale',
+    services: [
+      'AI Automation',
+      'API Integration & Automation',
+      'Data Analytics & Reporting',
       'Virtual Assistant Services',
-      'Data Entry & Processing'
+      'Data Entry & Processing',
+      'Project Management Support',
+      'Process Documentation & SOP Development',
+      'Business Consulting & Growth Strategy'
     ]
   },
 
@@ -1308,6 +1315,7 @@ const OrderSidebar = ({
 // ─── Main Page ────────────────────────────────────────────────────────────────
 const RequestServicePage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -1316,6 +1324,15 @@ const RequestServicePage = () => {
   const [paymentError, setPaymentError] = useState(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [selectedServices, setSelectedServices] = useState({});
+  // Kept in sync below so effects can read the latest selection without
+  // needing `selectedServices` in their dependency array — depending on it
+  // directly causes URL-driven effects to re-run on every package click,
+  // which is what was making a manually selected package "snap back" to
+  // whatever package was in the original link a moment later.
+  const selectedServicesRef = useRef({});
+  useEffect(() => {
+    selectedServicesRef.current = selectedServices;
+  }, [selectedServices]);
   const [selectedCurrency, setSelectedCurrency] = useState('usd');
   const [exchangeRates, setExchangeRates] = useState(null);
   const [isLoadingRates, setIsLoadingRates] = useState(false);
@@ -1374,7 +1391,8 @@ const RequestServicePage = () => {
     const serviceSlug = requestedSlug === 'ai-custom-quote' ? 'ai-automation' : requestedSlug;
     
     if (stepParam === '2') {
-      const hasCustomQuote = Object.keys(selectedServices).some(s => s.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[s]?.packages?.custom?.price === 0);
+      const currentSelection = selectedServicesRef.current;
+      const hasCustomQuote = Object.keys(currentSelection).some(s => s.includes('Request Custom Quote') || SERVICES_WITH_PACKAGES[s]?.packages?.custom?.price === 0);
       
       if (hasCustomQuote) {
         setIsPaid(true);
@@ -1392,7 +1410,7 @@ const RequestServicePage = () => {
         }
       }
     }
-  }, [location.search, selectedServices]);
+  }, [location.search]);
 
   // ── Fetch exchange rates ──
   useEffect(() => {
@@ -1439,8 +1457,15 @@ const RequestServicePage = () => {
         window.scrollTo(0, 0);
       }, 200);
     }
-    
-    window.history.replaceState({}, '', window.location.pathname);
+
+    // Clear via React Router's own navigate (not a raw window.history call) so
+    // useLocation()'s `location.search` actually updates to match. A raw
+    // window.history.replaceState() changes the address bar but leaves
+    // React Router's internal location stuck on the original
+    // "?service=...&package=..." string, which the effect above keeps
+    // re-reading and can quietly re-apply the link's original package
+    // after the user has already picked a different one.
+    navigate(window.location.pathname, { replace: true });
   }, []);
 
   // ── Handle return from Stripe Checkout ──
@@ -1476,13 +1501,13 @@ const RequestServicePage = () => {
         })
         .finally(() => {
           setIsVerifyingPayment(false);
-          window.history.replaceState({}, '', window.location.pathname);
+          navigate(window.location.pathname, { replace: true });
         });
     } else if (canceled) {
       restoreSelections();
       setCurrentStep(2);
       setPaymentError('Checkout was canceled. Your selections have been restored below — try again when ready.');
-      window.history.replaceState({}, '', window.location.pathname);
+      navigate(window.location.pathname, { replace: true });
     }
   }, []);
 
@@ -2020,28 +2045,28 @@ const RequestServicePage = () => {
   
 const categoryMeta = [
   {
-    cat: 'websites-development',
+    cat: 'build',
     bg: 'bg-blue-100',
     iconColor: 'text-blue-600',
     border: 'hover:border-blue-300',
     gradient: 'from-blue-50 to-blue-100/30'
   },
   {
-    cat: 'marketing-growth',
+    cat: 'attract',
     bg: 'bg-emerald-100',
     iconColor: 'text-emerald-600',
     border: 'hover:border-emerald-300',
     gradient: 'from-emerald-50 to-emerald-100/30'
   },
   {
-    cat: 'automation-technology',
+    cat: 'convert',
     bg: 'bg-amber-100',
     iconColor: 'text-amber-600',
     border: 'hover:border-amber-300',
     gradient: 'from-amber-50 to-amber-100/30'
   },
   {
-    cat: 'creative-support',
+    cat: 'scale',
     bg: 'bg-purple-100',
     iconColor: 'text-purple-600',
     border: 'hover:border-purple-300',
@@ -2057,10 +2082,10 @@ const categoryMeta = [
 ];
 
 const categoryIcons = {
-  'websites-development': FaCode,
-  'marketing-growth': FaChartLine,
-  'automation-technology': FaCogs,
-  'creative-support': FaPaintBrush,
+  'build': FaCode,
+  'attract': FaChartLine,
+  'convert': FaCogs,
+  'scale': FaRobot,
   'custom-solutions': FaCogs
 };
 
@@ -2360,7 +2385,7 @@ const categoryIcons = {
 
                   <div className="mb-3 sm:mb-4 bg-slate-50 border border-slate-200 p-3 sm:p-4 rounded-xl text-left">
                     <p className="text-[10px] sm:text-xs text-slate-600 mb-2 leading-relaxed font-medium">
-                      For approved projects, ScaleLink Alliance may use deposit, milestone, or escrow-based payment terms to protect both the client and the service team. Payment details will be clearly listed in the approved quote, invoice, or project agreement before work begins.
+                      For approved projects, ScaleLink Alliance may use deposit, milestone-based payment terms to protect both the client and the service team. Payment details will be clearly listed in the approved quote, invoice, or project agreement before work begins.
                     </p>
                     <label className="flex items-start gap-2 cursor-pointer">
                       <input
@@ -2370,7 +2395,7 @@ const categoryIcons = {
                         className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 mt-0.5 cursor-pointer shrink-0"
                       />
                       <span className="text-[10px] sm:text-xs font-semibold text-slate-700 leading-tight">
-                        I agree to the <a href="/legal?tab=escrow" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">ScaleLink Alliance Payment & Escrow Terms</a> and understand my project may require a deposit, milestone, or escrow-based payment.
+                        I agree to the <a href="/legal?tab=escrow" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">ScaleLink Alliance Milestone-Based Payment Terms</a> and understand my project may require a deposit, milestone-based payment.
                       </span>
                     </label>
                   </div>

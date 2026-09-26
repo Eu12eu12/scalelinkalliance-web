@@ -49,49 +49,43 @@ const servicesDropdownCategories = [
     bg: 'bg-blue-50',
     services: [
       { name: 'Website Development', path: '/services/website-development' },
-      { name: 'E-commerce Development', path: '/services/ecommerce-development' },
       { name: 'Web Applications & SaaS', path: '/services/web-applications' },
-      { name: 'Landing Pages & Funnels', path: '/services/landing-pages' },
-      { name: 'Website Maintenance', path: '/services/website-maintenance' },
+      { name: 'E-Commerce Development', path: '/services/ecommerce-development' },
     ]
   },
   {
-    category: 'SEO',
+    category: 'Attract',
     icon: <FaChartBar />,
     color: 'text-green-600',
     bg: 'bg-green-50',
     services: [
       { name: 'SEO & Search Marketing', path: '/services/seo-marketing' },
-      { name: 'Lead Generation', path: '/services/lead-generation' },
       { name: 'Paid Advertising', path: '/services/paid-advertising' },
-      { name: 'Email Marketing', path: '/services/email-marketing' },
-      { name: 'Content Creation', path: '/services/copywriting' },
+      { name: 'Content & Copywriting', path: '/services/copywriting' },
+      { name: 'Lead Generation', path: '/services/lead-generation' },
     ]
   },
   {
-    category: 'Automate',
-    icon: <FaRobot />,
+    category: 'Convert',
+    icon: <FaProjectDiagram />,
     color: 'text-orange-600',
     bg: 'bg-orange-50',
     services: [
+      { name: 'Landing Pages & Funnels', path: '/services/landing-pages' },
       { name: 'CRM & Marketing Automation', path: '/services/crm-automation' },
-      { name: 'API Integration', path: '/services/api-integration' },
-      { name: 'AI Automation', path: '/services/ai-automation' },
-      { name: 'Data Analytics', path: '/services/data-analytics' },
+      { name: 'Email Marketing', path: '/services/email-marketing' },
     ]
   },
   {
-    category: 'Support',
-    icon: <FaPaintBrush />,
+    category: 'Scale',
+    icon: <FaRobot />,
     color: 'text-purple-600',
     bg: 'bg-purple-50',
     services: [
-      { name: 'Graphic Design', path: '/services/graphic-design' },
-      { name: 'Brand Identity', path: '/services/brand-identity' },
-      { name: 'Video & Motion Graphics', path: '/services/video-editing' },
-      { name: 'Photography', path: '/services/photography' },
-      { name: 'Virtual Assistant', path: '/services/virtual-assistant' },
-      { name: 'Data Entry', path: '/services/data-entry' },
+      { name: 'AI Automation', path: '/services/ai-automation' },
+      { name: 'Integrations', path: '/services/api-integration' },
+      { name: 'Operations Support', path: '/services/virtual-assistant' },
+      { name: 'Referral Network', path: '/membership' },
     ]
   },
 ];
@@ -103,13 +97,13 @@ const ServicesMegaMenu = ({ onClose }) => (
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -8 }}
     transition={{ duration: 0.18 }}
-    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[780px] max-w-[90vw] bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
+    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[640px] max-w-[90vw] bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
   >
     <div className="p-6">
       <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-5">
         Browse by Category
       </p>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {servicesDropdownCategories.map((cat) => (
           <div key={cat.category}>
             <div className="flex items-center gap-2 mb-3">

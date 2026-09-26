@@ -83,7 +83,7 @@ const SITEMAP_SECTIONS = [
     links: [
       { label: 'Privacy Policy', to: '/legal?tab=privacy', slug: '/legal?tab=privacy' },
       { label: 'Terms & Conditions', to: '/legal?tab=terms', slug: '/legal?tab=terms' },
-      { label: 'Payment & Escrow Terms', to: '/legal?tab=escrow', slug: '/legal?tab=escrow' },
+      { label: 'Milestone-Based Payment Terms', to: '/legal?tab=escrow', slug: '/legal?tab=escrow' },
     ],
   },
 ];
