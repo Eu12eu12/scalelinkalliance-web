@@ -618,13 +618,13 @@ const ImageGallery = ({ images, serviceTitle }) => {
     setCurrentIndex((prev) => (prev - 1 + safeImages.length) % safeImages.length);
   }, [safeImages.length]);
 
-  // ── Auto-cycle carousel: exactly 6 seconds per image ──
+  // ── Auto-cycle carousel: exactly 7 seconds per image ──
   useEffect(() => {
     if (safeImages.length <= 1 || isViewerOpen || isPaused) return;
 
     const timer = setInterval(() => {
       nextImage();
-    }, 6000);
+    }, 7000);
 
     return () => clearInterval(timer);
   }, [safeImages.length, isViewerOpen, isPaused, nextImage]);
@@ -673,14 +673,14 @@ const ImageGallery = ({ images, serviceTitle }) => {
         onMouseLeave={() => setIsPaused(false)}
       >
         <div className="relative group w-full overflow-hidden rounded-2xl bg-slate-900 border border-slate-200 shadow-sm">
-          {/* 6-second animated progress bar */}
+          {/* 7-second animated progress bar */}
           {safeImages.length > 1 && !isViewerOpen && (
             <div className="absolute top-0 left-0 right-0 h-1 bg-white/20 z-20 overflow-hidden pointer-events-none">
               <motion.div
                 key={`progress-${currentIndex}-${isPaused}`}
                 initial={{ width: '0%' }}
                 animate={{ width: isPaused ? '0%' : '100%' }}
-                transition={{ duration: isPaused ? 0 : 6, ease: 'linear' }}
+                transition={{ duration: isPaused ? 0 : 7, ease: 'linear' }}
                 className="h-full bg-blue-500 shadow-sm"
               />
             </div>
