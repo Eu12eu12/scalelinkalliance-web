@@ -670,7 +670,7 @@ const AdminResources = () => {
 
                 <div>
                   <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">Article Content (Rich Text) *</label>
-                  <div className="quill-editor-container border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-slate-50">
+                  <div className="quill-editor-container border border-slate-200 rounded-xl shadow-sm bg-slate-50">
                     <ReactQuill 
                       theme="snow"
                       value={formData.richHtmlContent}
