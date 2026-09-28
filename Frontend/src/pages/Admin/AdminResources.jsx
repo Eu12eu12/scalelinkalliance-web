@@ -274,24 +274,38 @@ const AdminResources = () => {
                     )}
                   </td>
                   <td className="px-6 py-4">
-                    {res.imageUrl ? (
-                      <img src={res.imageUrl} alt={res.title} className="w-10 h-10 rounded-lg object-cover border border-slate-100" />
-                    ) : (
-                      <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center border border-slate-100">
-                        <FaImage size={14} className="text-slate-300" />
-                      </div>
-                    )}
+                    <button
+                      type="button"
+                      onClick={() => openEdit(res)}
+                      className="w-10 h-10 rounded-lg overflow-hidden border border-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:opacity-85 transition-opacity block cursor-pointer"
+                      title="Click to edit resource"
+                    >
+                      {res.imageUrl ? (
+                        <img src={res.imageUrl} alt={res.title} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full bg-slate-100 flex items-center justify-center">
+                          <FaImage size={14} className="text-slate-300" />
+                        </div>
+                      )}
+                    </button>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
-                        <FaNewspaper size={12} className="text-blue-500" />
+                    <button
+                      type="button"
+                      onClick={() => openEdit(res)}
+                      className="flex items-center space-x-3 text-left group/title focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg p-1 -m-1 transition-all cursor-pointer w-full"
+                      title="Click to edit resource"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 group-hover/title:bg-blue-100 flex items-center justify-center flex-shrink-0 transition-colors">
+                        <FaNewspaper size={12} className="text-blue-500 group-hover/title:text-blue-600 transition-colors" />
                       </div>
-                      <div>
-                        <span className="font-medium text-slate-800 line-clamp-1">{res.title}</span>
+                      <div className="min-w-0">
+                        <span className="font-medium text-slate-800 group-hover/title:text-blue-600 line-clamp-1 transition-colors">
+                          {res.title}
+                        </span>
                         {res.author && <span className="text-[10px] text-slate-400 block mt-0.5">By {res.author}</span>}
                       </div>
-                    </div>
+                    </button>
                   </td>
                   <td className="px-4 py-4">
                     <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600">
