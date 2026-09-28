@@ -1098,6 +1098,8 @@ const RequestServicePage = () => {
   const navigate = useNavigate();
 const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_PACKAGES);
 
+  const [publishedServicesSet, setPublishedServicesSet] = useState(null);
+
   const fetchLiveCatalog = useCallback(async () => {
     try {
       const res = await fetch(`/api/cms/services?_t=${Date.now()}`, { cache: 'no-store', headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' } });
@@ -1106,12 +1108,39 @@ const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_P
         const list = Array.isArray(data) ? data : (Array.isArray(data?.services) ? data.services : []);
         if (list.length > 0) {
           setServicesWithPackages(prev => mergeServicesWithPackages(list, prev, SLUG_TO_SERVICE_NAME));
+
+          const pubSet = new Set();
+          list.forEach(svc => {
+            if (svc && svc.status === 'published' && svc.showOnCatalogGrid !== false) {
+              if (svc.title) pubSet.add(svc.title.trim().toLowerCase());
+              if (svc.slug) {
+                pubSet.add(svc.slug.trim().toLowerCase());
+                const mapped = SLUG_TO_SERVICE_NAME[svc.slug];
+                if (mapped) pubSet.add(mapped.trim().toLowerCase());
+              }
+            }
+          });
+          pubSet.add('request custom quote');
+          setPublishedServicesSet(pubSet);
         }
       }
     } catch (err) {
       console.warn('Using base packages fallback:', err);
     }
   }, []);
+
+  const isServiceVisible = useCallback((serviceName) => {
+    if (!publishedServicesSet) return true; // fallback until first fetch resolves
+    const nameLower = (serviceName || '').trim().toLowerCase();
+    const slugLower = getServiceSlug(serviceName).toLowerCase();
+    const mapped = (SLUG_TO_SERVICE_NAME[slugLower] || '').toLowerCase();
+    return (
+      publishedServicesSet.has(nameLower) ||
+      publishedServicesSet.has(slugLower) ||
+      publishedServicesSet.has(mapped) ||
+      nameLower.includes('request custom quote')
+    );
+  }, [publishedServicesSet]);
 
   useEffect(() => {
     fetchLiveCatalog();
@@ -1964,7 +1993,11 @@ const categoryIcons = {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8 md:mb-10">
                   {categoryMeta.map(({ cat, bg, iconColor, border, gradient }) => {
                     const catData = SERVICE_CATEGORIES[cat];
+                    if (!catData) return null;
                     const CatIcon = categoryIcons[cat] || FaCogs;
+                    const visibleServices = catData.services.filter(isServiceVisible);
+                    if (visibleServices.length === 0) return null;
+
                     return (
                       <div key={cat} className={`bg-gradient-to-br ${gradient} p-4 sm:p-5 rounded-xl border-2 border-gray-200 ${border} transition-all duration-200 shadow-sm hover:shadow-md`}>
                         <div className="flex items-center mb-3 sm:mb-4">
@@ -1974,7 +2007,7 @@ const categoryIcons = {
                           <h3 className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 leading-tight">{catData.label}</h3>
                         </div>
                         <div className="space-y-2 sm:space-y-2.5">
-                          {catData.services.map(service => {
+                          {visibleServices.map(service => {
                             const ServiceIcon = getServiceIcon(service);
                             const isSelected = !!selectedServices[service];
                             const serviceSlug = getServiceSlug(service);
