@@ -1058,9 +1058,9 @@ const OrderSidebar = ({
             </div>
           </div>
         ) : (
-          <div className="flex justify-between items-center mb-3 pt-1">
-            <span className="font-bold text-gray-900 text-xs sm:text-sm">Total</span>
-            <span className="text-xl sm:text-2xl font-extrabold text-blue-600">
+          <div className="flex justify-between items-center mb-3 pt-1 gap-2">
+            <span className="font-bold text-gray-900 text-xs sm:text-sm shrink-0">Total</span>
+            <span className={`${(hasCustomQuote && count > 0 && totalAmount === 0) ? 'text-xs sm:text-sm font-bold' : 'text-xl sm:text-2xl font-extrabold'} text-blue-600 whitespace-nowrap text-right`}>
               {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, currency, currencyObj.symbol) : (hasCustomQuote && count > 0) ? 'Custom Quote ($0 due today)' : formatPrice(0, currency, currencyObj.symbol)}
             </span>
           </div>
