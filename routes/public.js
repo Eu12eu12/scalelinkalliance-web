@@ -52,17 +52,25 @@ router.post('/service-request', async (req, res) => {
       clientWebsite,
       clientLocation,
       clientIndustry,
-      files // Array of { filename, url, size, mimetype }
+      files, // Array of { filename, url, size, mimetype }
+      orderType: reqOrderType,
+      isCustomQuoteOrder: reqIsCustomQuote
     } = req.body;
+
+    const hasCustomQuote = Boolean(reqIsCustomQuote) || 
+      (reqOrderType === 'custom_quote') ||
+      (Number(totalAmount) === 0 && Object.keys(services || {}).some(s => s.toLowerCase().includes('custom')));
+
+    const orderType = reqOrderType || (hasCustomQuote ? 'custom_quote' : 'fixed_package');
 
     // 1. Create the Job in NoticeBoardJob
     const job = await db.NoticeBoardJob.create({
       title: `${firstName} ${lastName} - ${company}`,
-      category: Object.keys(services || {}).join(', ') || 'Service Request',
+      category: Object.keys(services || {}).join(', ') || (hasCustomQuote ? 'Custom Quote' : 'Service Request'),
       description: projectDescription,
       currentProblem: projectDescription,
       status: 'new',
-      priority: 'medium',
+      priority: hasCustomQuote ? 'medium' : 'high',
       receivedAt: new Date(),
       dueAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Default 7 days
       projectFee: totalAmount || 0,
@@ -79,7 +87,11 @@ router.post('/service-request', async (req, res) => {
       clientTimeline: timeline,
       budget: budget,
       warningLevel: 'green',
-      projectScope: req.body.projectScope || null
+      projectScope: {
+        ...(req.body.projectScope || {}),
+        orderType,
+        isCustomQuoteOrder: hasCustomQuote
+      }
     });
 
     // 2. Attach files if any
@@ -100,7 +112,10 @@ router.post('/service-request', async (req, res) => {
     }
 
     // 3. Log initial activity
-    await logActivity(job.id, 'System', 'Request Received', 'Service request submitted via website form.');
+    const activityDesc = hasCustomQuote
+      ? 'Custom quote inquiry submitted via website form (scoping pending).'
+      : 'Service order submitted via website form.';
+    await logActivity(job.id, 'System', 'Request Received', activityDesc);
 
     // Send Onboarding Email to Client
     if (job.clientEmail) {
@@ -114,8 +129,8 @@ router.post('/service-request', async (req, res) => {
     for (const admin of superAdmins) {
       await createNotification(
         admin.email,
-        'service_request',
-        `New Service Request: ${firstName} ${lastName} (${company})`,
+        hasCustomQuote ? 'custom_quote_request' : 'service_request',
+        `${hasCustomQuote ? 'New Custom Quote Request' : 'New Service Order'}: ${firstName} ${lastName} (${company})`,
         job.id,
         'System',
         { 
@@ -123,7 +138,9 @@ router.post('/service-request', async (req, res) => {
           company: company,
           totalAmount: totalAmount,
           currency: currency,
-          clientName: `${firstName} ${lastName}`
+          clientName: `${firstName} ${lastName}`,
+          orderType,
+          isCustomQuote: hasCustomQuote
         }
       );
     }

@@ -945,41 +945,52 @@ const OrderSidebar = ({
         </div>
 
         {/* ── Tiered Bundle Discount Banner (based only on priced services) ── */}
-        {pricedCount === 1 && (
-          <div className="p-2.5 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl text-xs text-blue-900 flex items-center gap-2 shadow-xs">
-            <span className="text-sm shrink-0">💡</span>
-            <p className="text-[11px] leading-tight">Add <strong>1 more priced service</strong> to save <strong>10%</strong> on your bundle!</p>
+        {hasCustomQuote ? (
+          <div className="p-2.5 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-xl text-xs text-purple-900 flex items-center gap-2 shadow-xs">
+            <span className="text-sm shrink-0">📋</span>
+            <p className="text-[11px] leading-tight">
+              <strong>Custom Quote Mode:</strong> Tailored scoping with $0 due today.
+            </p>
           </div>
-        )}
-
-        {pricedCount >= 2 && pricedCount <= 5 && (
-          <div className="p-2.5 bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 flex items-center justify-between gap-2 shadow-xs">
-            <div className="flex items-center gap-1.5 min-w-0">
-              <span className="text-sm shrink-0">🎉</span>
-              <div className="truncate">
-                <p className="font-bold text-emerald-950 text-xs leading-tight">10% Bundle Discount Applied!</p>
-                <p className="text-[10px] text-emerald-700 leading-tight">Add {6 - pricedCount} more priced service{6 - pricedCount === 1 ? '' : 's'} for <strong>20% OFF</strong></p>
+        ) : (
+          <>
+            {pricedCount === 1 && (
+              <div className="p-2.5 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl text-xs text-blue-900 flex items-center gap-2 shadow-xs">
+                <span className="text-sm shrink-0">💡</span>
+                <p className="text-[11px] leading-tight">Add <strong>1 more priced service</strong> to save <strong>10%</strong> on your bundle!</p>
               </div>
-            </div>
-            <span className="px-2 py-0.5 bg-emerald-600 text-white font-extrabold text-[10px] rounded-full shrink-0 shadow-xs">
-              10% OFF
-            </span>
-          </div>
-        )}
+            )}
 
-        {pricedCount >= 6 && (
-          <div className="p-2.5 bg-gradient-to-r from-emerald-100/80 to-teal-50 border border-emerald-300 rounded-xl text-xs text-emerald-950 flex items-center justify-between gap-2 shadow-xs">
-            <div className="flex items-center gap-1.5 min-w-0">
-              <span className="text-sm shrink-0">🔥</span>
-              <div className="truncate">
-                <p className="font-bold text-emerald-950 text-xs leading-tight">Max 20% Discount Applied!</p>
-                <p className="text-[10px] text-emerald-700 leading-tight">Saving 20% across {pricedCount} priced service{pricedCount === 1 ? '' : 's'}</p>
+            {pricedCount >= 2 && pricedCount <= 5 && (
+              <div className="p-2.5 bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 flex items-center justify-between gap-2 shadow-xs">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <span className="text-sm shrink-0">🎉</span>
+                  <div className="truncate">
+                    <p className="font-bold text-emerald-950 text-xs leading-tight">10% Bundle Discount Applied!</p>
+                    <p className="text-[10px] text-emerald-700 leading-tight">Add {6 - pricedCount} more priced service{6 - pricedCount === 1 ? '' : 's'} for <strong>20% OFF</strong></p>
+                  </div>
+                </div>
+                <span className="px-2 py-0.5 bg-emerald-600 text-white font-extrabold text-[10px] rounded-full shrink-0 shadow-xs">
+                  10% OFF
+                </span>
               </div>
-            </div>
-            <span className="px-2 py-0.5 bg-emerald-700 text-white font-extrabold text-[10px] rounded-full shrink-0 shadow-xs">
-              20% OFF
-            </span>
-          </div>
+            )}
+
+            {pricedCount >= 6 && (
+              <div className="p-2.5 bg-gradient-to-r from-emerald-100/80 to-teal-50 border border-emerald-300 rounded-xl text-xs text-emerald-950 flex items-center justify-between gap-2 shadow-xs">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <span className="text-sm shrink-0">🔥</span>
+                  <div className="truncate">
+                    <p className="font-bold text-emerald-950 text-xs leading-tight">Max 20% Discount Applied!</p>
+                    <p className="text-[10px] text-emerald-700 leading-tight">Saving 20% across {pricedCount} priced service{pricedCount === 1 ? '' : 's'}</p>
+                  </div>
+                </div>
+                <span className="px-2 py-0.5 bg-emerald-700 text-white font-extrabold text-[10px] rounded-full shrink-0 shadow-xs">
+                  20% OFF
+                </span>
+              </div>
+            )}
+          </>
         )}
       </div>
 
@@ -1050,41 +1061,35 @@ const OrderSidebar = ({
           <div className="flex justify-between items-center mb-3 pt-1">
             <span className="font-bold text-gray-900 text-xs sm:text-sm">Total</span>
             <span className="text-xl sm:text-2xl font-extrabold text-blue-600">
-              {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, currency, currencyObj.symbol) : (hasCustomQuote && count > 0) ? 'Custom Quote' : formatPrice(0, currency, currencyObj.symbol)}
+              {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, currency, currencyObj.symbol) : (hasCustomQuote && count > 0) ? 'Custom Quote ($0 due today)' : formatPrice(0, currency, currencyObj.symbol)}
             </span>
           </div>
         )}
 
-        {/* Custom Quote Direct Button */}
-        {hasCustomQuote && totalAmount === 0 && (
+        {/* Action Button: Custom Quote Direct vs Standard Continue */}
+        {hasCustomQuote && totalAmount === 0 ? (
           <button 
             type="button" 
             onClick={onCustomQuoteDirect}
-            className="w-full py-3 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 bg-purple-600 text-white hover:bg-purple-700 hover:shadow-md mb-2"
+            className="w-full py-3 sm:py-3.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700 shadow-md hover:shadow-lg transform hover:scale-[1.01]"
           >
-            Proceed with Custom Quote <FaArrowRight size={11} />
+            <span>Proceed to Scope Details</span>
+            <FaArrowRight size={12} />
           </button>
-        )}
-
-        {/* Continue to Review CTA (Always Pinned & Accessible) */}
-        <button 
-          type="button" 
-          onClick={onContinue} 
-          disabled={continueDisabled || (hasCustomQuote && totalAmount === 0)}
-          className={`w-full py-3 sm:py-3.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg ${
-            continueDisabled || (hasCustomQuote && totalAmount === 0) 
-              ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none' 
-              : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.01]'
-          }`}
-        >
-          <span>{continueLabel}</span>
-          <FaArrowRight size={12} />
-        </button>
-
-        {isCustomQuoteWithOthers && (
-          <p className="text-[10px] text-amber-700 mt-2 text-center font-medium leading-tight">
-            Custom quote services will be scoped separately.
-          </p>
+        ) : (
+          <button 
+            type="button" 
+            onClick={onContinue} 
+            disabled={continueDisabled}
+            className={`w-full py-3 sm:py-3.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg ${
+              continueDisabled 
+                ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none' 
+                : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.01]'
+            }`}
+          >
+            <span>{continueLabel}</span>
+            <FaArrowRight size={12} />
+          </button>
         )}
       </div>
 
@@ -1217,14 +1222,22 @@ const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_P
     window.scrollTo(0, 0);
   };
 
+  const lastConsumedSearchRef = useRef('');
+
   // ── Pre-select service + package passed via URL query params ──
   useEffect(() => {
+    if (!location.search) return;
+    if (lastConsumedSearchRef.current === location.search) return;
+
     const params = new URLSearchParams(location.search);
     const requestedSlug = params.get('service');
     if (!requestedSlug) return;
 
+    // Mark as consumed immediately so future re-renders or catalog polling don't repeat
+    lastConsumedSearchRef.current = location.search;
+
     const serviceSlug = requestedSlug === 'ai-custom-quote' ? 'ai-automation' : requestedSlug;
-const pkgParam = params.get('package');
+    const pkgParam = params.get('package');
     const stepParam = params.get('step');
 
     // 1. Resolve canonical service name matching category lists
@@ -1269,20 +1282,38 @@ const pkgParam = params.get('package');
       }
     }
 
-    // 3. Set selection immediately so UI shows checked state and order summary
+    const isCustomQuote = serviceName === 'Request Custom Quote' || 
+      serviceName.includes('Request Custom Quote') || 
+      serviceData?.packages?.custom?.price === 0;
+
+    // 3. Set selection immediately (enforcing mutual exclusivity)
     setSelectedServices(prev => {
-      if (prev[serviceName] === packageKey) return prev;
-      return { ...prev, [serviceName]: packageKey };
+      if (isCustomQuote) {
+        return { [serviceName]: 'custom' };
+      }
+      const next = { ...prev };
+      for (const s of Object.keys(next)) {
+        const sIsCustom = s === 'Request Custom Quote' || 
+          s.includes('Request Custom Quote') || 
+          servicesWithPackages[s]?.packages?.custom?.price === 0;
+        if (sIsCustom) {
+          delete next[s];
+        }
+      }
+      next[serviceName] = packageKey;
+      return next;
     });
 
     // 4. Handle step=2 for custom quote if requested
-    const isCustomQuote = serviceName.includes('Request Custom Quote') || serviceData?.packages?.custom?.price === 0;
     if (stepParam === '2' && isCustomQuote) {
       setIsPaid(true);
       setCurrentStep(2);
       window.scrollTo(0, 0);
     }
-  }, [location.search, servicesWithPackages]);
+
+    // 5. Clean URL so future package switching or catalog re-fetching never snaps back
+    navigate(location.pathname, { replace: true });
+  }, [location.search, servicesWithPackages, navigate, location.pathname]);
 
 
   // ── Fetch exchange rates ──
@@ -1417,31 +1448,57 @@ const pkgParam = params.get('package');
   const handleServiceToggle = service => {
     setSelectedServices(prev => {
       const next = { ...prev };
-      let categoryServices = [];
-      for (const catKey in SERVICE_CATEGORIES) {
-        if (SERVICE_CATEGORIES[catKey].services.includes(service)) {
-          categoryServices = SERVICE_CATEGORIES[catKey].services;
-          break;
-        }
-      }
+      
+      // If service is already selected, uncheck it
       if (prev[service]) {
         delete next[service];
+        return next;
+      }
+
+      // Check if this newly toggled service is a Custom Quote
+      const isCustomQuote = service === 'Request Custom Quote' || 
+        service.includes('Request Custom Quote') || 
+        servicesWithPackages[service]?.packages?.custom?.price === 0;
+
+      if (isCustomQuote) {
+        // When Request Custom Quote is selected, ALL other services are deselected
+        return { [service]: 'custom' };
       } else {
-        const isCustomQuote = service.includes('Request Custom Quote') || servicesWithPackages[service]?.packages?.custom?.price === 0;
-        if (isCustomQuote) {
-          categoryServices.forEach(s => { 
-            const sIsCustom = s.includes('Request Custom Quote') || servicesWithPackages[s]?.packages?.custom?.price === 0;
-            if (s !== service && sIsCustom) delete next[s]; 
-          });
-          next[service] = 'custom';
-        } else {
-          categoryServices.forEach(s => { 
-            const sIsCustom = s.includes('Request Custom Quote') || servicesWithPackages[s]?.packages?.custom?.price === 0;
-            if (sIsCustom) delete next[s]; 
-          });
-          next[service] = 'starter';
+        // When a standard service is selected, remove any Custom Quote service from selection
+        for (const s of Object.keys(next)) {
+          const sIsCustom = s === 'Request Custom Quote' || 
+            s.includes('Request Custom Quote') || 
+            servicesWithPackages[s]?.packages?.custom?.price === 0;
+          if (sIsCustom) {
+            delete next[s];
+          }
+        }
+        next[service] = 'starter';
+        return next;
+      }
+    });
+  };
+
+  const handlePackageSelect = (service, packageKey) => {
+    setSelectedServices(prev => {
+      const isCustomQuote = service === 'Request Custom Quote' || 
+        service.includes('Request Custom Quote') || 
+        servicesWithPackages[service]?.packages?.[packageKey]?.price === 0;
+
+      if (isCustomQuote) {
+        return { [service]: packageKey };
+      }
+
+      const next = { ...prev };
+      for (const s of Object.keys(next)) {
+        const sIsCustom = s === 'Request Custom Quote' || 
+          s.includes('Request Custom Quote') || 
+          servicesWithPackages[s]?.packages?.custom?.price === 0;
+        if (sIsCustom) {
+          delete next[s];
         }
       }
+      next[service] = packageKey;
       return next;
     });
   };
@@ -1756,6 +1813,9 @@ const pkgParam = params.get('package');
 
   const createNoticeBoardJob = async (fileUrls = []) => {
     try {
+      const hasCustomQuote = Object.keys(selectedServices).some(
+        s => s.includes('Request Custom Quote') || servicesWithPackages[s]?.packages?.custom?.price === 0
+      );
       const res = await fetch('/api/public/service-request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1771,7 +1831,14 @@ const pkgParam = params.get('package');
           files: fileUrls,
           paymentStatus: totalAmount > 0 ? (isPaid ? 'paid' : 'unpaid') : 'quote_requested',
           checkoutSessionId,
-          projectScope: { customQuoteAnswers, serviceAnswers }
+          orderType: hasCustomQuote ? 'custom_quote' : 'fixed_package',
+          isCustomQuoteOrder: hasCustomQuote,
+          projectScope: { 
+            customQuoteAnswers, 
+            serviceAnswers,
+            orderType: hasCustomQuote ? 'custom_quote' : 'fixed_package',
+            isCustomQuoteOrder: hasCustomQuote
+          }
         })
       });
       if (!res.ok) {
@@ -2081,7 +2148,7 @@ const categoryIcons = {
                             <PackageComparisonTable
                               service={service}
                               selectedPackage={pkg}
-                              onSelect={(s, k) => setSelectedServices(p => ({ ...p, [s]: k }))}
+                              onSelect={handlePackageSelect}
                               currency={selectedCurrency}
                               convertedAmounts={convertedAmounts}
                               servicesWithPackages={servicesWithPackages}
