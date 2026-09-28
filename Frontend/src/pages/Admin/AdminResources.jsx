@@ -164,6 +164,12 @@ const AdminResources = () => {
       ? (formData.imageUrl.includes('#contain') ? formData.imageUrl : `${formData.imageUrl.split('#')[0]}#contain`) 
       : formData.imageUrl.split('#')[0];
 
+    const sanitizedHtml = formData.richHtmlContent
+      ? formData.richHtmlContent
+          .replace(/<p>\s*(?:&nbsp;|\u00A0)\s*<\/p>/gi, '<p><br/></p>')
+          .replace(/(\S)(?:&nbsp;|\u00A0)+(\S)/g, '$1 $2')
+      : '';
+
     try {
       const res = await fetch(url, {
         method,

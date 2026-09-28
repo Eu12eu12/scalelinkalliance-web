@@ -281,9 +281,9 @@ const ResourceDetailPage = () => {
 
             {/* Rich HTML Content */}
             <article
-              className="prose prose-lg md:prose-xl max-w-none text-gray-900 leading-relaxed prose-headings:font-bold prose-headings:text-gray-950 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-2xl"
-              style={{ overflowWrap: 'break-word', wordBreak: 'normal' }}
-              dangerouslySetInnerHTML={{ __html: fixCompoundHyphens(resource.richHtmlContent) }}
+              className="prose prose-lg md:prose-xl max-w-none text-gray-900 leading-relaxed prose-headings:font-bold prose-headings:text-gray-950 prose-headings:text-left prose-p:text-justify prose-p:[text-justify:inter-word] prose-li:text-justify prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-2xl"
+              style={{ overflowWrap: 'break-word', wordBreak: 'normal', textAlign: 'justify', textJustify: 'inter-word' }}
+              dangerouslySetInnerHTML={{ __html: cleanAndFormatArticleHtml(resource.richHtmlContent) }}
             />
 
             {/* Call to Action Banner */}

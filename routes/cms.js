@@ -621,6 +621,11 @@ router.get('/admin/resources', authMiddleware, restrictTo('super_admin', 'admin'
 router.post('/resources', authMiddleware, restrictTo('super_admin', 'admin'), async (req, res) => {
   const transaction = await db.sequelize.transaction();
   try {
+    if (typeof req.body.richHtmlContent === 'string') {
+      req.body.richHtmlContent = req.body.richHtmlContent
+        .replace(/<p>\s*(?:&nbsp;|\u00A0)\s*<\/p>/gi, '<p><br/></p>')
+        .replace(/(\S)(?:&nbsp;|\u00A0)+(\S)/g, '$1 $2');
+    }
     // Phase 1 Featured Logic Constraint
     if (req.body.isFeatured) {
       await db.Resource.update({ isFeatured: false }, { where: { isFeatured: true }, transaction });
@@ -638,6 +643,11 @@ router.post('/resources', authMiddleware, restrictTo('super_admin', 'admin'), as
 router.put('/resources/:id', authMiddleware, restrictTo('super_admin', 'admin'), async (req, res) => {
   const transaction = await db.sequelize.transaction();
   try {
+    if (typeof req.body.richHtmlContent === 'string') {
+      req.body.richHtmlContent = req.body.richHtmlContent
+        .replace(/<p>\s*(?:&nbsp;|\u00A0)\s*<\/p>/gi, '<p><br/></p>')
+        .replace(/(\S)(?:&nbsp;|\u00A0)+(\S)/g, '$1 $2');
+    }
     // Feature Logic Constraint on Update
     if (req.body.isFeatured) {
       await db.Resource.update({ isFeatured: false }, { where: { isFeatured: true }, transaction });

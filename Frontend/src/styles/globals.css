@@ -378,3 +378,20 @@ table, th, td {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
+/* ===== Article Content Justification & Natural Word Wrapping ===== */
+article.prose p,
+.prose article p {
+  text-align: justify !important;
+  text-justify: inter-word !important;
+  hyphens: none !important;
+  -webkit-hyphens: none !important;
+}
+
+article.prose h1,
+article.prose h2,
+article.prose h3,
+article.prose h4,
+article.prose h5,
+article.prose h6 {
+  text-align: left !important;
+}
