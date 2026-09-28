@@ -1,5 +1,5 @@
 // src/pages/Services/ServiceDetailPage.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -602,18 +602,43 @@ const LazyImg = ({ src, alt, className, width, height }) => {
 const ImageGallery = ({ images, serviceTitle }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const thumbnailRefs = useRef([]);
+  const thumbnailContainerRef = useRef(null);
 
   const safeImages = Array.isArray(images) ? images.filter(Boolean) : [];
 
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     if (safeImages.length < 2) return;
     setCurrentIndex((prev) => (prev + 1) % safeImages.length);
-  };
+  }, [safeImages.length]);
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     if (safeImages.length < 2) return;
     setCurrentIndex((prev) => (prev - 1 + safeImages.length) % safeImages.length);
-  };
+  }, [safeImages.length]);
+
+  // ── Auto-cycle carousel: exactly 6 seconds per image ──
+  useEffect(() => {
+    if (safeImages.length <= 1 || isViewerOpen || isPaused) return;
+
+    const timer = setInterval(() => {
+      nextImage();
+    }, 6000);
+
+    return () => clearInterval(timer);
+  }, [safeImages.length, isViewerOpen, isPaused, nextImage]);
+
+  // ── Auto-scroll thumbnail strip to center the active thumbnail ──
+  useEffect(() => {
+    if (thumbnailRefs.current[currentIndex]) {
+      thumbnailRefs.current[currentIndex].scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest'
+      });
+    }
+  }, [currentIndex]);
 
   useEffect(() => {
     if (!isViewerOpen) return;
@@ -633,7 +658,7 @@ const ImageGallery = ({ images, serviceTitle }) => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isViewerOpen, safeImages.length]);
+  }, [isViewerOpen, safeImages.length, nextImage, prevImage]);
 
   if (!safeImages.length) return null;
 
@@ -641,60 +666,120 @@ const ImageGallery = ({ images, serviceTitle }) => {
 
   return (
     <>
-      <section className="w-full min-w-0" aria-label={`${serviceTitle} gallery`}>
-        <button
-          type="button"
-          onClick={() => setIsViewerOpen(true)}
-          className="group relative block w-full overflow-hidden rounded-2xl bg-slate-100 border border-slate-200 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-          aria-label={`Open ${serviceTitle} image ${currentIndex + 1}`}
-        >
-          <div className="relative aspect-[16/9] w-full min-h-[180px] sm:min-h-[220px] md:min-h-[280px] lg:min-h-[320px] max-h-[520px]">
-            <img
-              src={optimizeImage(currentImage, 1000, 78)}
-              alt={`${serviceTitle} preview ${currentIndex + 1}`}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-              loading={currentIndex === 0 ? 'eager' : 'lazy'}
-              decoding="async"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-
-            <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 flex items-end justify-between gap-3">
-              <span className="inline-flex items-center rounded-full bg-black/65 backdrop-blur-sm px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-white">
-                Click to view full image
-              </span>
-
-              {safeImages.length > 1 && (
-                <span className="shrink-0 rounded-full bg-black/65 backdrop-blur-sm px-2.5 py-1 text-[10px] sm:text-xs font-semibold text-white">
-                  {currentIndex + 1} / {safeImages.length}
-                </span>
-              )}
+      <section
+        className="w-full min-w-0"
+        aria-label={`${serviceTitle} gallery`}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        <div className="relative group w-full overflow-hidden rounded-2xl bg-slate-900 border border-slate-200 shadow-sm">
+          {/* 6-second animated progress bar */}
+          {safeImages.length > 1 && !isViewerOpen && (
+            <div className="absolute top-0 left-0 right-0 h-1 bg-white/20 z-20 overflow-hidden pointer-events-none">
+              <motion.div
+                key={`progress-${currentIndex}-${isPaused}`}
+                initial={{ width: '0%' }}
+                animate={{ width: isPaused ? '0%' : '100%' }}
+                transition={{ duration: isPaused ? 0 : 6, ease: 'linear' }}
+                className="h-full bg-blue-500 shadow-sm"
+              />
             </div>
-          </div>
-        </button>
+          )}
+
+          <button
+            type="button"
+            onClick={() => setIsViewerOpen(true)}
+            className="relative block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            aria-label={`Open ${serviceTitle} image ${currentIndex + 1}`}
+          >
+            <div className="relative aspect-[16/9] w-full min-h-[180px] sm:min-h-[220px] md:min-h-[280px] lg:min-h-[320px] max-h-[520px] bg-slate-950 overflow-hidden">
+              <AnimatePresence initial={false} mode="wait">
+                <motion.img
+                  key={currentImage}
+                  src={optimizeImage(currentImage, 1000, 78)}
+                  alt={`${serviceTitle} preview ${currentIndex + 1}`}
+                  initial={{ opacity: 0.3 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0.3 }}
+                  transition={{ duration: 0.45, ease: 'easeInOut' }}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                  loading={currentIndex === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+              </AnimatePresence>
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
+
+              <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 flex items-end justify-between gap-3 pointer-events-none">
+                <span className="inline-flex items-center rounded-full bg-black/65 backdrop-blur-sm px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-white pointer-events-auto">
+                  Click to view full image
+                </span>
+
+                {safeImages.length > 1 && (
+                  <span className="shrink-0 rounded-full bg-black/65 backdrop-blur-sm px-2.5 py-1 text-[10px] sm:text-xs font-semibold text-white">
+                    {currentIndex + 1} / {safeImages.length}
+                  </span>
+                )}
+              </div>
+            </div>
+          </button>
+
+          {/* Quick next/prev overlay arrows on hover for the main image */}
+          {safeImages.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  prevImage();
+                }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center z-10"
+                aria-label="Previous image"
+              >
+                <FaChevronLeft size={13} />
+              </button>
+
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  nextImage();
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center z-10"
+                aria-label="Next image"
+              >
+                <FaChevronRight size={13} />
+              </button>
+            </>
+          )}
+        </div>
 
         {safeImages.length > 1 && (
           <div className="mt-3 flex items-center gap-2 min-w-0">
             <button
               type="button"
               onClick={prevImage}
-              className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-slate-200 bg-white shadow-sm text-slate-700 flex items-center justify-center hover:bg-slate-50"
+              className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-slate-200 bg-white shadow-sm text-slate-700 flex items-center justify-center hover:bg-slate-50 transition-colors"
               aria-label="Previous image"
             >
               <FaChevronLeft size={13} />
             </button>
 
-            <div className="min-w-0 flex-1 overflow-x-auto overscroll-x-contain scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-transparent">
+            <div
+              ref={thumbnailContainerRef}
+              className="min-w-0 flex-1 overflow-x-auto overscroll-x-contain scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-transparent scroll-smooth py-1"
+            >
               <div className="flex gap-2 w-max pr-1">
                 {safeImages.map((image, index) => (
                   <button
                     type="button"
                     key={`${index}-${image}`}
+                    ref={(el) => (thumbnailRefs.current[index] = el)}
                     onClick={() => setCurrentIndex(index)}
-                    className={`shrink-0 w-16 h-10 sm:w-20 sm:h-12 rounded-lg overflow-hidden border-2 ${
+                    className={`shrink-0 w-16 h-10 sm:w-20 sm:h-12 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
                       index === currentIndex
-                        ? 'border-blue-600 ring-2 ring-blue-100'
-                        : 'border-transparent hover:border-slate-300'
+                        ? 'border-blue-600 ring-2 ring-blue-100 scale-105 shadow-sm'
+                        : 'border-transparent hover:border-slate-300 opacity-70 hover:opacity-100'
                     }`}
                     aria-label={`Select image ${index + 1}`}
                   >
@@ -713,7 +798,7 @@ const ImageGallery = ({ images, serviceTitle }) => {
             <button
               type="button"
               onClick={nextImage}
-              className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-slate-200 bg-white shadow-sm text-slate-700 flex items-center justify-center hover:bg-slate-50"
+              className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-slate-200 bg-white shadow-sm text-slate-700 flex items-center justify-center hover:bg-slate-50 transition-colors"
               aria-label="Next image"
             >
               <FaChevronRight size={13} />
