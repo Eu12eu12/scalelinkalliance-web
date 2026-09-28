@@ -37,9 +37,18 @@ const formatDate = (dateString) => {
 // Replaces regular hyphens between letters with Non-Breaking Hyphen (U+2011)
 // so the browser cannot use them as line-break opportunities.
 // Safely skips HTML tags and attributes.
-const fixCompoundHyphens = (html) => {
-  if (!html) return html;
-  return html
+const cleanAndFormatArticleHtml = (html) => {
+  if (!html) return '';
+
+  // Preserve empty paragraph line-breaks cleanly
+  let cleaned = html.replace(/<p>\s*(?:&nbsp;|\u00A0)\s*<\/p>/gi, '<p><br/></p>');
+
+  // Convert non-breaking spaces between words into normal spaces for clean wrapping & justification
+  cleaned = cleaned.replace(/(\S)(?:&nbsp;|\u00A0)+(\S)/g, '$1 $2');
+  cleaned = cleaned.replace(/(?:&nbsp;|\u00A0)+/g, ' ');
+
+  // Protect compound hyphens between letters from arbitrary breaks
+  return cleaned
     .split(/(<[^>]+>)/)
     .map((segment) => {
       if (segment.startsWith('<')) return segment;
@@ -47,6 +56,8 @@ const fixCompoundHyphens = (html) => {
     })
     .join('');
 };
+
+const fixCompoundHyphens = cleanAndFormatArticleHtml;
 
 // Estimate reading time from HTML/text content
 const calculateReadingTime = (content) => {
