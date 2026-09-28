@@ -650,13 +650,14 @@ const getServiceDisplayName = (service) => {
 // AI Automation's "custom" package, or any package explicitly priced at 0)
 // are excluded so users aren't shown a bundle discount for items that have
 // no price to discount in the first place.
-const isPricedPackage = (service, packageKey) => {
-  const pkgData = SERVICES_WITH_PACKAGES[service]?.packages?.[packageKey];
+const isPricedPackage = (service, packageKey, catalog = {}, convertedAmounts = null) => {
+  if (convertedAmounts?.[service]?.[packageKey] > 0) return true;
+  const pkgData = (catalog[service] || SERVICES_WITH_PACKAGES[service])?.packages?.[packageKey];
   return !!pkgData && Number(pkgData.price) > 0;
 };
 
-const countPricedServices = (selectedServices) => {
-  return Object.entries(selectedServices).filter(([service, pkg]) => isPricedPackage(service, pkg)).length;
+const countPricedServices = (selectedServices, catalog = {}, convertedAmounts = null) => {
+  return Object.entries(selectedServices).filter(([service, pkg]) => isPricedPackage(service, pkg, catalog, convertedAmounts)).length;
 };
 
 const getServiceIcon = (name) => {
@@ -925,7 +926,7 @@ const OrderSidebar = ({
   const isCustomQuoteWithOthers = hasCustomQuote && entries.length > 1;
   const count = entries.length;
   // Only services with an actual price count toward bundle-discount tiers/messaging.
-  const pricedCount = countPricedServices(selectedServices);
+  const pricedCount = countPricedServices(selectedServices, servicesWithPackages, convertedAmounts);
 
   return (
     <div className="lg:sticky lg:top-24 max-h-[calc(100vh-7.5rem)] flex flex-col bg-white rounded-2xl border-2 border-gray-200 shadow-xl overflow-hidden">
@@ -1411,7 +1412,9 @@ const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_P
   // How many SELECTED services actually carry a real price. Custom-quote
   // style picks (Request Custom Quote, AI Automation's custom package, or
   // any $0 package) never count toward the bundle-discount tiers.
-  const pricedServiceCount = useMemo(() => countPricedServices(selectedServices), [selectedServices]);
+  const pricedServiceCount = useMemo(() => {
+    return countPricedServices(selectedServices, servicesWithPackages, convertedAmounts);
+  }, [selectedServices, servicesWithPackages, convertedAmounts]);
 
   const discountRate = useMemo(() => {
     if (pricedServiceCount >= 6) return 0.20;
