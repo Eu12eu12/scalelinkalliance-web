@@ -996,7 +996,7 @@ router.get('/worker/work-history', authMiddleware, restrictTo('worker', 'super_a
       order: [['completedAt', 'DESC']]
     });
 
-    const totalEarnings = completedJobs.reduce((sum, job) => sum + (job.projectFee || 0), 0);
+    const totalEarnings = completedJobs.reduce((sum, job) => sum + (job.projectFee || 0), 0) / 100;
 
     res.json({
       jobs: completedJobs,

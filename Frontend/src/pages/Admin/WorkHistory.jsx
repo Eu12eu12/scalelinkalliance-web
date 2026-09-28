@@ -64,7 +64,7 @@ const WorkHistory = () => {
 
   // Filter jobs based on worker dropdown selection
   const displayedJobs = jobs.filter(job => selectedWorker === 'all' || job.assignedTo === selectedWorker);
-  const displayedEarnings = displayedJobs.reduce((sum, job) => sum + (job.projectFee || 0), 0);
+  const displayedEarnings = displayedJobs.reduce((sum, job) => sum + (job.projectFee || 0), 0) / 100;
   const displayedCount = displayedJobs.length;
 
   // Filter display list based on search term
@@ -232,7 +232,7 @@ const WorkHistory = () => {
                         {isSuperAdmin ? 'Partner Payout' : 'Payout Earned'}
                       </span>
                       <span className="text-sm font-black text-emerald-600">
-                        +${(job.projectFee || 0).toLocaleString([], { minimumFractionDigits: 2 })}
+                        +${((job.projectFee || 0) / 100).toLocaleString([], { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </span>
                     </div>
                     <FaChevronRight size={10} className="text-slate-300 group-hover:text-blue-500 transition-transform group-hover:translate-x-0.5 duration-200 hidden sm:block" />

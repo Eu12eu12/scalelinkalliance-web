@@ -716,7 +716,7 @@ const Notifications = () => {
             <span className="font-bold text-slate-700">Amount:</span> 
             <span className="text-slate-600 ml-2">
               {meta.totalAmount && meta.totalAmount > 0 
-                ? `${meta.totalAmount} ${meta.currency?.toUpperCase() || 'USD'}` 
+                ? `$${(meta.totalAmount / 100).toFixed(2)} ${meta.currency?.toUpperCase() || 'USD'}` 
                 : 'Custom Quote'}
             </span>
           </p>
@@ -732,7 +732,7 @@ const Notifications = () => {
         <div className="mb-4 mt-2 p-4 bg-white border border-slate-100 rounded-xl space-y-2 shadow-sm">
           <p className="text-sm">
             <span className="font-bold text-slate-700">Project Fee:</span> 
-            <span className="text-slate-600 ml-2">${displayJob.projectFee || 'N/A'} USD</span>
+            <span className="text-slate-600 ml-2">{displayJob.projectFee ? `$${(displayJob.projectFee / 100).toFixed(2)} USD` : 'N/A'}</span>
           </p>
           <p className="text-sm">
             <span className="font-bold text-slate-700">Project Deadline:</span> 

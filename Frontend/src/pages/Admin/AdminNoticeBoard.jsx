@@ -448,7 +448,7 @@ const AdminNoticeBoard = () => {
         status: job.status || 'new',
         priority: job.priority || 'medium',
         notes: job.notes || '',
-        projectFee: job.projectFee || '',
+        projectFee: job.projectFee ? String((job.projectFee / 100).toFixed(2)).replace(/\.00$/, '') : '',
         files: []
       });
     } else {
@@ -482,6 +482,11 @@ const AdminNoticeBoard = () => {
           formData.files.forEach(file => data.append('files', file));
         } else if (key === 'services') {
           data.append(key, JSON.stringify(formData[key]));
+        } else if (key === 'projectFee') {
+          const feeCents = formData.projectFee !== '' && formData.projectFee !== null && !isNaN(Number(formData.projectFee))
+            ? Math.round(Number(formData.projectFee) * 100)
+            : '';
+          data.append('projectFee', feeCents);
         } else {
           data.append(key, formData[key]);
         }
@@ -1458,6 +1463,7 @@ const AdminNoticeBoard = () => {
                                   <input 
                                     type="number"
                                     min="0"
+                                    step="any"
                                     value={formData.projectFee} 
                                     onChange={e => setFormData({...formData, projectFee: e.target.value})} 
                                     className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none text-sm bg-white" 

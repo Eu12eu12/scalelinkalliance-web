@@ -436,13 +436,19 @@ const JobDetailsModal = ({ job, currentUser, onClose, onRefresh, showToast }) =>
   const handleUpdateAssignment = async () => {
     try {
       setLoading(true);
+      const payload = {
+        ...assignmentForm,
+        projectFee: assignmentForm.projectFee !== '' && assignmentForm.projectFee !== null && !isNaN(Number(assignmentForm.projectFee))
+          ? Math.round(Number(assignmentForm.projectFee) * 100)
+          : null
+      };
       const res = await fetch(`/api/cms/admin/notice-board/${job.id}`, {
         method: 'PATCH',
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(assignmentForm)
+        body: JSON.stringify(payload)
       });
       const data = await res.json();
       if (res.ok) {
@@ -489,7 +495,7 @@ const JobDetailsModal = ({ job, currentUser, onClose, onRefresh, showToast }) =>
         dueAt: job.dueAt ? String(job.dueAt).slice(0, 16) : '',
         notes: job.notes || '',
         status: job.status || 'new',
-        projectFee: job.projectFee || '',
+        projectFee: job.projectFee ? String((job.projectFee / 100).toFixed(2)).replace(/\.00$/, '') : '',
         priority: job.priority || 'medium'
       });
       setWorkerSearch(job.assignedTo || '');
@@ -585,7 +591,7 @@ const JobDetailsModal = ({ job, currentUser, onClose, onRefresh, showToast }) =>
     (assignmentForm.dueAt || '') !== (job.dueAt ? String(job.dueAt).slice(0, 16) : '') ||
     (assignmentForm.notes || '') !== (job.notes || '') ||
     (assignmentForm.priority || 'medium') !== (job.priority || 'medium') ||
-    String(assignmentForm.projectFee || '') !== String(job.projectFee || '')
+    String(assignmentForm.projectFee || '') !== String(job.projectFee ? String((job.projectFee / 100).toFixed(2)).replace(/\.00$/, '') : '')
   );
 
   if (!job) return null;
@@ -656,7 +662,7 @@ const JobDetailsModal = ({ job, currentUser, onClose, onRefresh, showToast }) =>
                 <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100">
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Project Fee</p>
                   <p className="text-sm font-bold text-green-600">
-                    {job.projectFee ? `$${job.projectFee} USD` : 'N/A'}
+                    {job.projectFee ? `$${(job.projectFee / 100).toFixed(2)} USD` : 'N/A'}
                   </p>
                 </div>
                 {currentUser?.role !== 'worker' && (
@@ -1275,6 +1281,7 @@ const JobDetailsModal = ({ job, currentUser, onClose, onRefresh, showToast }) =>
                       <input 
                         type="number"
                         min="0"
+                        step="any"
                         value={assignmentForm.projectFee} 
                         onChange={e => {
                           if (job.status === 'completed') return;
