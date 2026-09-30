@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  FaHome, FaUsers, FaIdCard, FaBriefcase, FaBook, FaSearch,
+  FaHome, FaUsers, FaIdCard, FaBriefcase, FaBook, FaSearch, FaRocket,
   FaEnvelope, FaFileContract, FaArrowRight, FaSitemap, FaGlobe,
   FaChevronRight, FaCheck, FaTimes
 } from 'react-icons/fa';
@@ -22,20 +22,14 @@ const SITEMAP_SECTIONS = [
     ],
   },
   {
-    title: 'Chapters',
-    icon: <FaUsers />,
-    description: 'Local chapter information',
+    title: 'Starting Points',
+    icon: <FaRocket />,
+    description: 'Tailored pathways to scale',
     links: [
-      { label: 'Chapters', to: '/chapters', slug: '/chapters' },
-      { label: 'Start a Chapter', to: '/become-director', slug: '/become-director' },
-    ],
-  },
-  {
-    title: 'Membership',
-    icon: <FaIdCard />,
-    description: 'Join and membership details',
-    links: [
-      { label: 'Membership', to: '/membership', slug: '/membership' }
+      { label: 'Start From Scratch', to: '/build-from-scratch', slug: '/build-from-scratch' },
+      { label: 'Scale What Already Exists', to: '/scale-existing-website', slug: '/scale-existing-website' },
+      { label: 'Standalone Services', to: '/services', slug: '/services' },
+      { label: 'Free Website Review', to: '/free-website-review', slug: '/free-website-review' },
     ],
   },
   {
@@ -94,16 +88,12 @@ const sectionStyles = {
     soft: 'bg-blue-50 text-blue-600',
     ring: 'ring-blue-100',
   },
-  Chapters: {
+  'Starting Points': {
     icon: 'from-violet-500 to-purple-600',
     soft: 'bg-violet-50 text-violet-600',
     ring: 'ring-violet-100',
   },
-  Membership: {
-    icon: 'from-emerald-500 to-teal-500',
-    soft: 'bg-emerald-50 text-emerald-600',
-    ring: 'ring-emerald-100',
-  },
+  
   Services: {
     icon: 'from-orange-500 to-amber-500',
     soft: 'bg-orange-50 text-orange-600',
@@ -146,7 +136,7 @@ const Sitemap = () => {
 
     setMeta(
       'description',
-      'Complete sitemap of ScaleLink Alliance - Find all business services, chapters, membership options, resources, and more.'
+      'Complete sitemap of ScaleLink Alliance - Find all digital services, starting pathways, resources, and company information.'
     );
 
     return () => {
@@ -228,7 +218,7 @@ const Sitemap = () => {
 
             <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
               Explore the complete ScaleLink Alliance ecosystem — from business
-              services and chapters to resources, membership and your free website review.
+              services and solutions to educational resources, tools, and your free website review.
             </p>
 
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
