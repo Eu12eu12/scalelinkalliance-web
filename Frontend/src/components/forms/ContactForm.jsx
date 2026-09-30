@@ -194,16 +194,16 @@ const ContactForm = ({ contactType = 'general' }) => {
 
   const getDynamicFields = () => {
     switch (contactType) {
-      case 'membership':
-        return { title: 'Membership Inquiry', placeholder: 'Tell us about your business and what you hope to gain from membership...', subjectPrefix: 'Membership Inquiry' };
-      case 'chapter':
-        return { title: 'Chapter Visit Request', placeholder: 'Which chapter are you interested in visiting? Preferred date? Number of attendees?...', subjectPrefix: 'Chapter Visit Request' };
       case 'services':
-        return { title: 'Services Inquiry', placeholder: 'Describe the service you need, timeline, and budget...', subjectPrefix: 'Services Inquiry' };
-      case 'director':
-        return { title: 'Chapter Director Application', placeholder: 'Tell us about your leadership experience and why you want to start a chapter...', subjectPrefix: 'Director Application' };
+        return { title: 'Services Inquiry', placeholder: 'Describe the digital service you need, timeline, and goals...', subjectPrefix: 'Services Inquiry' };
+      case 'review':
+        return { title: 'Growth Diagnostic Request', placeholder: 'Tell us your current website URL and primary growth bottleneck...', subjectPrefix: 'Growth Diagnostic' };
+      case 'quote':
+        return { title: 'Custom Project Scoping', placeholder: 'Provide details on your project scope, target launch date, and budget...', subjectPrefix: 'Custom Quote' };
+      case 'support':
+        return { title: 'Client Care & Support', placeholder: 'Describe the technical assistance or updates you need...', subjectPrefix: 'Client Support' };
       case 'press':
-        return { title: 'Press & Media Inquiry', placeholder: 'Your media outlet, deadline, and specific questions...', subjectPrefix: 'Press Inquiry' };
+        return { title: 'Partnerships & Media', placeholder: 'Your organization, proposal, or media inquiry...', subjectPrefix: 'Partnership Inquiry' };
       default:
         return { title: 'General Inquiry', placeholder: 'How can we help you today?...', subjectPrefix: 'General Inquiry' };
     }
@@ -282,7 +282,7 @@ const ContactForm = ({ contactType = 'general' }) => {
     }
   };
 
-  const hearAboutOptions = ['Referral from member', 'Google search', 'Social media', 'Event or conference', 'Email newsletter', 'Podcast or webinar', 'Other'];
+  const hearAboutOptions = ['Word of mouth / Recommendation', 'Google search', 'Social media', 'Event or conference', 'Email newsletter', 'Podcast or webinar', 'Other'];
   const serviceInterests = ['Graphic Design', 'Video Editing', 'Social Media Management', 'CRM & Automation', 'Copywriting', 'Digital Marketing', 'Web Development', 'Data Entry', 'Other'];
 
   if (submitSuccess) {
@@ -419,16 +419,16 @@ const ContactForm = ({ contactType = 'general' }) => {
         </div>
       </div>
 
-      {contactType === 'chapter' && (
+      {(contactType === 'review' || contactType === 'quote') && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Chapter Location of Interest</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Current Website URL (if applicable)</label>
           <input
             type="text"
-            name="chapterInterest"
-            value={formData.chapterInterest}
+            name="website"
+            value={formData.website || ''}
             onChange={handleChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="e.g., New York City, Los Angeles, Chicago, etc."
+            placeholder="https://yourwebsite.com"
           />
         </div>
       )}

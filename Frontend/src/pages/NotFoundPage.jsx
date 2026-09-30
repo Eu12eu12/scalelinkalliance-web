@@ -23,11 +23,11 @@ const NotFoundPage = () => {
           </Link>
           
           <Link
-            to="/chapters"
+            to="/services"
             className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-600 hover:bg-blue-50 transition-all group"
           >
             <FaSearch className="text-gray-400 group-hover:text-blue-600 text-2xl mx-auto mb-3" />
-            <span className="font-semibold text-gray-900 group-hover:text-blue-600">Find Chapters</span>
+            <span className="font-semibold text-gray-900 group-hover:text-blue-600">Explore Services</span>
           </Link>
           
           <button
@@ -49,10 +49,10 @@ const NotFoundPage = () => {
               Our Services
             </Link>
             <Link
-              to="/membership"
+              to="/free-website-review"
               className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
             >
-              Membership Info
+              Free Website Review
             </Link>
             <Link
               to="/contact"

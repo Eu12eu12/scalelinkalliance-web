@@ -8,7 +8,7 @@ const HeroSection = () => {
   const valuePoints = [
     {
       icon: <FaHandshake />,
-      title: 'Weekly Referral Meetings',
+      title: 'Comprehensive Technical Delivery',
       description: 'Structured, purpose-driven networking sessions'
     },
     {
@@ -68,12 +68,12 @@ const HeroSection = () => {
             >
               <div className="mb-6">
                 <span className="inline-flex items-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm text-white rounded-full text-sm font-semibold mb-4 border border-white/20">
-                  Structured Growth Through Trusted Referrals
+                  Structured Growth Through Done-For-You Systems
                 </span>
                 <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-tight">
                   Scale Your Business Through
                   <span className="block text-transparent bg-clip-text bg-linear-to-r from-blue-300 to-blue-100 mt-2">
-                    High-Quality Referrals
+                    High-Converting Digital Systems
                   </span>
                   <span className="block text-white mt-2">
                     & Strategic Partnerships
@@ -175,7 +175,7 @@ const HeroSection = () => {
                 <div className="mt-8 pt-6 border-t border-white/20">
                   <div className="text-center">
                     <p className="text-white/90 mb-4">
-                      <strong className="text-white">ScaleLink Alliance</strong> is a professional business growth organization that helps companies scale through <strong className="text-white">structured referral networking</strong> and <strong className="text-white">on-demand business services</strong>.
+                      <strong className="text-white">ScaleLink Alliance</strong> is a done-for-you digital growth partner that helps companies scale through <strong className="text-white">high-performance business systems</strong> and <strong className="text-white">on-demand business services</strong>.
                     </p>
                     <Link
                       to="/about"

@@ -138,7 +138,7 @@ const SERVICE_QUESTION_DEFINITIONS = {
     fields: [
       { id: 'WEB_01', label: 'Is this a new website or an existing website?', type: 'radio', required: true, options: ['New website', 'Redesign existing website', 'Improve/fix existing website', 'Add functionality to existing website'] },
       { id: 'WEB_02', label: 'Existing website URL', type: 'url', showWhen: { field: 'WEB_01', values: ['Redesign existing website', 'Improve/fix existing website', 'Add functionality to existing website'] }, hideWhenFormField: 'clientWebsite', helper: 'This is only shown when your common website URL is empty.' },
-      { id: 'WEB_03', label: 'What is the primary purpose of your website?', type: 'checkbox', required: true, options: ['Generate leads', 'Sell services', 'Provide business information', 'Accept bookings', 'Showcase portfolio/work', 'Membership/community', 'Other'] },
+      { id: 'WEB_03', label: 'What is the primary purpose of your website?', type: 'checkbox', required: true, options: ['Generate leads', 'Sell services', 'Provide business information', 'Accept bookings', 'Showcase portfolio/work', 'Client portal / Community', 'Other'] },
       { id: 'WEB_04', label: 'Approximately how many pages do you need?', type: 'radio', required: true, options: ['1–5', '6–10', '11–20', '20+', 'Not sure'] },
       { id: 'WEB_05', label: 'Which pages do you need?', type: 'checkbox', options: ['Home', 'About', 'Services', 'Individual Service Pages', 'Contact', 'Portfolio', 'Blog/Resources', 'FAQ', 'Pricing', 'Other'] },
       { id: 'WEB_06', label: 'What functionality do you need?', type: 'checkbox', options: ['Contact forms', 'Appointment booking', 'Live chat', 'Customer login/portal', 'Payment processing', 'CRM integration', 'Email marketing integration', 'Social media integration', 'API integration', 'Analytics/tracking', 'Other'] },
@@ -215,7 +215,7 @@ const SERVICE_QUESTION_DEFINITIONS = {
       { id: 'LEAD_07', label: 'What qualifies someone as a good lead?', type: 'textarea', required: true },
       { id: 'LEAD_08', label: 'Average customer value', type: 'radio', options: ['Under $100', '$100–$500', '$500–$1,000', '$1,000–$5,000', '$5,000+', 'Not sure'] },
       { id: 'LEAD_09', label: 'Approximately how many qualified leads would you like monthly?', type: 'text' },
-      { id: 'LEAD_10', label: 'How do you currently generate leads?', type: 'checkbox', options: ['SEO', 'Paid advertising', 'Social media', 'Referrals', 'Email', 'Cold outreach', 'Networking', 'None', 'Other'] },
+      { id: 'LEAD_10', label: 'How do you currently generate leads?', type: 'checkbox', options: ['SEO', 'Paid advertising', 'Social media', 'Word of mouth', 'Email', 'Cold outreach', 'Industry events', 'None', 'Other'] },
       { id: 'LEAD_11', label: 'What happens after you receive a lead?', type: 'checkbox', options: ['Phone follow-up', 'Sales representative', 'Email sequence', 'Appointment booking', 'CRM automation', 'Other'] },
       { id: 'LEAD_12', label: 'How quickly can your team respond?', type: 'radio', options: ['Immediately', 'Within 1 hour', 'Same day', '1–2 days', 'Longer'] },
     ]
@@ -509,7 +509,7 @@ const SERVICE_QUESTION_DEFINITIONS = {
       { id: 'CONSULT_01', label: 'What is the main business challenge you want help solving?', type: 'textarea', required: true },
       { id: 'CONSULT_02', label: 'What growth outcome are you targeting?', type: 'textarea', required: true },
       { id: 'CONSULT_03', label: 'What products/services drive the business today?', type: 'textarea' },
-      { id: 'CONSULT_04', label: 'What are your current acquisition/sales channels?', type: 'checkbox', options: ['Referrals', 'Website', 'SEO', 'Paid ads', 'Social media', 'Email', 'Sales team', 'Partnerships', 'Other'] },
+      { id: 'CONSULT_04', label: 'What are your current acquisition/sales channels?', type: 'checkbox', options: ['Word of mouth', 'Website', 'SEO', 'Paid ads', 'Social media', 'Email', 'Sales team', 'Strategic partnerships', 'Other'] },
       { id: 'CONSULT_05', label: 'What have you already tried?', type: 'textarea' },
       { id: 'CONSULT_06', label: 'Which areas need the most attention?', type: 'checkbox', options: ['Marketing', 'Sales', 'Operations', 'Customer experience', 'Pricing', 'Positioning', 'Technology', 'Team/processes', 'Other'] },
       { id: 'CONSULT_07', label: 'What decisions or deliverables do you want from the engagement?', type: 'textarea' },

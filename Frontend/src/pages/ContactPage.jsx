@@ -51,29 +51,29 @@ const ContactPage = () => {
   const faqs = [
     {
       question: 'How quickly will I hear back after contacting you?',
-      answer: 'We respond to all inquiries within 24 hours during business days (Monday-Friday). For urgent matters, please call our main office line.'
+      answer: 'We respond to all inquiries within 24 hours during business days (Monday-Friday). For urgent project requirements, please call our main line directly.'
     },
     {
-      question: 'Can I visit a chapter before becoming a member?',
-      answer: 'Absolutely! We encourage prospective members to visit a chapter meeting as our guest. Contact us to schedule a visit to a chapter near you.'
+      question: 'What happens during a Growth Review or project consultation?',
+      answer: 'Our senior specialists review your current digital infrastructure, lead capture mechanisms, and CRM workflows to identify immediate opportunities for measurable growth.'
     },
     {
-      question: 'Do you offer virtual chapter options?',
-      answer: 'Yes, we have hybrid chapters that offer both in-person and virtual attendance options. Some chapters are fully virtual for members in areas without local chapters.'
+      question: 'How do project milestones and quotes work?',
+      answer: 'Every quote comes with fixed scope, clear milestone deliverables, and guaranteed transparent pricing. You approve each deliverable before subsequent payments are due.'
     },
     {
-      question: 'What\'s the best way to get started?',
-      answer: 'The fastest way is to schedule a discovery call using the calendar below. During this call, we\'ll assess your goals and recommend the best next steps.'
+      question: 'What is the fastest way to get started?',
+      answer: 'You can request a Free Website & Business Growth Review, or submit a direct service inquiry using the form below with your project requirements.'
     }
   ];
 
   const contactTypes = [
     { id: 'general', label: 'General Inquiry', description: 'General questions about ScaleLink Alliance' },
-    { id: 'membership', label: 'Membership Information', description: 'Questions about joining or membership' },
-    { id: 'chapter', label: 'Chapter Visit', description: 'Schedule a chapter visit or meeting' },
-    { id: 'services', label: 'Services Inquiry', description: 'Questions about our professional services' },
-    { id: 'director', label: 'Chapter Director', description: 'Inquiry about becoming a chapter director' },
-    { id: 'press', label: 'Press & Media', description: 'Media inquiries and press information' }
+    { id: 'services', label: 'Services Inquiry', description: 'Questions about our done-for-you digital services' },
+    { id: 'review', label: 'Growth Diagnostic', description: 'Request a Free Website & Business Systems Review' },
+    { id: 'quote', label: 'Custom Project Quote', description: 'Scope a new website, web app, or automation system' },
+    { id: 'support', label: 'Client Support & Care', description: 'Technical assistance and ongoing maintenance' },
+    { id: 'press', label: 'Partnerships & Media', description: 'Media inquiries and technology partnerships' }
   ];
 
   return (
@@ -207,7 +207,7 @@ const ContactPage = () => {
                 </div>
               </motion.div>
               
-              {/* Chapter Support */}
+              {/* Client Care & Support */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -218,14 +218,14 @@ const ContactPage = () => {
                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                     <FaUsers className="text-blue-600 text-xl" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">Chapter Support</h3>
+                  <h3 className="text-xl font-bold text-gray-900">Client Care & Support</h3>
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
                     <FaPhone className="text-gray-400 mt-1" />
                     <div>
                       <p className="text-gray-700">{contactInfo.chapterSupport.phone}</p>
-                      <p className="text-gray-500 text-sm">Chapter-specific inquiries</p>
+                      <p className="text-gray-500 text-sm">Technical & maintenance inquiries</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
@@ -236,7 +236,7 @@ const ContactPage = () => {
                   </div>
                   <div className="mt-6 p-4 bg-blue-50 rounded-lg">
                     <p className="text-sm text-gray-700">
-                      For chapter visits, member inquiries, and director applications.
+                      For active project support, Care plan updates, and portal assistance.
                     </p>
                   </div>
                 </div>
@@ -387,10 +387,10 @@ const ContactPage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to="/membership"
+                to="/free-website-review"
                 className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2"
               >
-                <span>Apply for Membership</span>
+                <span>Get a Free Growth Review</span>
                 <FaArrowRight />
               </Link>
               <Link

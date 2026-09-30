@@ -1273,7 +1273,7 @@ const ServiceDetailPage = () => {
         {/* Final CTA */}
         <section className="w-full min-w-0 text-center py-8 sm:py-12 bg-gray-50 rounded-2xl px-3 sm:px-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">Ready to Get Professional Results?</h2>
-          <p className="text-base sm:text-xl text-gray-600 mb-4 max-w-3xl mx-auto">Submit your service request today. No membership required, no commitments — just professional execution.</p>
+          <p className="text-base sm:text-xl text-gray-600 mb-4 max-w-3xl mx-auto">Submit your service request today. Transparent milestones and fixed pricing — just professional execution.</p>
           <div className="flex items-start gap-2 sm:gap-3 p-3 sm:p-4 bg-blue-50 border border-blue-200 border-l-4 border-l-blue-500 rounded-r-xl rounded-l-md max-w-2xl mx-auto mb-6 sm:mb-8 text-left shadow-sm transition-all duration-300 hover:shadow-md">
             <FaInfoCircle className="text-blue-600 shrink-0 mt-0.5" size={16} />
             <p className="text-xs sm:text-sm leading-relaxed text-blue-800 font-medium">

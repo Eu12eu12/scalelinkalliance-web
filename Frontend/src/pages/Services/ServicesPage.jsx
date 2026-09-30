@@ -144,7 +144,7 @@ const ServicesPage = () => {
                 ScaleLink Alliance Services
               </h1>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Professional business & marketing services designed to help you grow — no membership required.
+                Professional digital services, business systems, and automated growth solutions designed to help you scale.
               </p>
             </motion.div>
           </div>
@@ -374,10 +374,10 @@ const ServicesPage = () => {
                 Request Custom Quote
               </Link>
               <Link
-                to="/membership"
+                to="/free-website-review"
                 className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg border border-blue-600 hover:bg-blue-50 transition-colors text-center"
               >
-                Learn About Membership
+                Get a Free Growth Review
               </Link>
             </div>
           </div>
@@ -444,20 +444,20 @@ const ServicesPage = () => {
             <div className="space-y-6">
               <div className="bg-white rounded-xl p-6 shadow-sm">
                 <h4 className="text-lg font-semibold text-gray-900 mb-2">
-                  Q: Do I need to be a ScaleLink Alliance member?
+                  Q: Can I purchase a single standalone service?
                 </h4>
                 <p className="text-gray-600">
-                  <strong>A:</strong> No. Services are available to all businesses. Membership is completely optional.
+                  <strong>A:</strong> Yes. All of our 20+ digital services can be engaged individually on an à la carte basis with transparent milestone pricing.
                 </p>
               </div>
 
               <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h4 className="text-lg font-semibold text-gray-900 mb-2">
-                  Q: Can members also use services?
-                </h4>
-                <p className="text-gray-600">
-                  <strong>A:</strong> Yes. Members receive preferred access and pricing, but services are available to everyone.
-                </p>
+                <h4 className="font-semibold text-gray-900 mb-2">
+                    Q: Do you offer ongoing Care and maintenance after launch?
+                  </h4>
+                  <p className="text-gray-600 text-sm">
+                    <strong>A:</strong> Yes. We offer continuous Care plans that provide technical maintenance, security monitoring, regular updates, and priority support.
+                  </p>
               </div>
 
               <div className="bg-white rounded-xl p-6 shadow-sm">
@@ -491,7 +491,7 @@ const ServicesPage = () => {
               Ready to Get Professional Work Done?
             </h2>
             <p className="text-xl mb-10 opacity-90">
-              Submit your service request today. No membership required.
+              Submit your service request today. Transparent milestones and fixed pricing.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
