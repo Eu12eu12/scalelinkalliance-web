@@ -1,6 +1,71 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* ===== ScaleLink Alliance Official Brand Design System ===== */
+:root {
+  /* ScaleLink Alliance Primary Navy Blue (Sampled from official logo wordmark) */
+  --scalelink-primary: #18264A;
+  --scalelink-primary-blue: #18264A;
+  --scalelink-primary-rgb: 24, 38, 74;
+  --scalelink-primary-hover: #101c38;
+  --scalelink-primary-dark: #0b1326;
+  --scalelink-primary-light: #223566;
+
+  /* ScaleLink Green (Secondary accent: growth, success, trust) */
+  --scalelink-green: #10B981;
+  --scalelink-green-accent: #10B981;
+  --scalelink-green-hover: #059669;
+
+  /* Neutrals */
+  --scalelink-bg-light: #F8FAFC;
+  --scalelink-text-body: #1E293B;
+  --scalelink-text-heading: #18264A;
+}
+
+@theme {
+  --color-scalelink-primary: #18264A;
+  --color-scalelink-primary-blue: #18264A;
+  --color-scalelink-primary-hover: #101c38;
+  --color-scalelink-primary-dark: #0b1326;
+  --color-scalelink-primary-light: #223566;
+  --color-scalelink-green: #10B981;
+  --color-scalelink-green-hover: #059669;
+}
+
+/* Brand Utility Classes */
+.bg-scalelink-primary {
+  background-color: var(--scalelink-primary) !important;
+}
+
+.text-scalelink-primary {
+  color: var(--scalelink-primary) !important;
+}
+
+.border-scalelink-primary {
+  border-color: var(--scalelink-primary) !important;
+}
+
+.bg-scalelink-green {
+  background-color: var(--scalelink-green) !important;
+}
+
+.text-scalelink-green {
+  color: var(--scalelink-green) !important;
+}
+
+/* Resources Section Brand Standard (Inherited by all Resource templates) */
+.resource-hero,
+.resource-article-banner {
+  background-color: var(--scalelink-primary-blue) !important;
+  color: #ffffff !important;
+}
+
+.resource-content h2,
+.resource-content h3,
+.resource-link {
+  color: var(--scalelink-primary-blue);
+}
+
 @layer utilities {
 
 
@@ -44,8 +109,14 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   
+  .btn-title,
   .btn-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-md hover:shadow-lg;
+    @apply px-6 py-3 text-white font-semibold rounded-lg transition-all duration-300 shadow-md hover:shadow-lg;
+    background-color: var(--scalelink-primary);
+  }
+  .btn-title:hover,
+  .btn-primary:hover {
+    background-color: var(--scalelink-primary-hover);
   }
   
   .btn-secondary {
@@ -53,7 +124,12 @@
   }
   
   .btn-outline {
-    @apply px-6 py-3 bg-transparent border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors;
+    @apply px-6 py-3 bg-transparent font-semibold rounded-lg transition-colors;
+    border: 2px solid var(--scalelink-primary);
+    color: var(--scalelink-primary);
+  }
+  .btn-outline:hover {
+    background-color: rgba(24, 38, 74, 0.05);
   }
   
   .card {
