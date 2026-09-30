@@ -215,7 +215,7 @@ const ResourceDetailPage = () => {
       </div>
 
       {/* Hero Header Section */}
-      <section className="relative bg-linear-to-br from-blue-950 via-blue-900 to-indigo-950 text-white overflow-hidden py-12 md:py-16">
+      <section className="relative bg-[#18264A] resource-article-banner text-white overflow-hidden py-12 md:py-16">
         {resource.imageUrl && (
           <img
             src={resource.imageUrl}
@@ -226,17 +226,19 @@ const ResourceDetailPage = () => {
         <div className="absolute inset-0 bg-linear-to-t from-gray-950/90 via-blue-950/60 to-transparent" />
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
-          <Link
-            to="/resources"
-            className="inline-flex items-center space-x-2 text-blue-200 hover:text-white mb-5 text-sm font-semibold transition-colors no-print"
-          >
-            <FaArrowLeft className="text-xs" />
-            <span>Back to All Resources</span>
-          </Link>
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-5">
+            <Link
+              to="/resources"
+              className="inline-flex items-center space-x-2 text-blue-200 hover:text-white text-sm font-semibold transition-colors no-print"
+            >
+              <FaArrowLeft className="text-xs" />
+              <span>Back to All Resources</span>
+            </Link>
 
-          <div className="inline-flex items-center px-3.5 py-1 bg-white/15 backdrop-blur-md rounded-full text-xs font-semibold uppercase tracking-wider text-blue-100 mb-4 border border-white/20">
-            <FaTags className="mr-1.5" />
-            {categoryName}
+            <div className="inline-flex items-center px-3.5 py-1 bg-emerald-500/20 backdrop-blur-md rounded-full text-xs font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30 ml-2">
+              <FaTags className="mr-1.5 text-emerald-400" />
+              {categoryName}
+            </div>
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold leading-tight tracking-tight mb-6 max-w-5xl">
@@ -285,47 +287,41 @@ const ResourceDetailPage = () => {
 
             {/* Lead Preview Snippet */}
             {resource.plainTextSnippet && (
-              <div className="text-lg md:text-xl text-gray-800 font-medium leading-relaxed mb-8 p-6 bg-blue-50/70 rounded-2xl border-l-4 border-blue-600">
+              <div className="text-lg md:text-xl text-gray-800 font-medium leading-relaxed mb-8 p-6 bg-slate-50/90 rounded-2xl border-l-4 border-[#18264A] shadow-xs">
                 {resource.plainTextSnippet}
               </div>
             )}
 
             {/* Rich HTML Content */}
             <article
-              className="prose prose-lg md:prose-xl max-w-none text-gray-900 leading-relaxed prose-headings:font-bold prose-headings:text-gray-950 prose-headings:text-left prose-p:text-justify prose-p:[text-justify:inter-word] prose-li:text-justify prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-2xl"
+              className="resource-content prose prose-lg md:prose-xl max-w-none text-gray-900 leading-relaxed prose-headings:font-bold prose-headings:text-[#18264A] prose-headings:text-left prose-p:text-justify prose-p:[text-justify:inter-word] prose-li:text-justify prose-a:text-[#18264A] prose-a:font-semibold prose-a:no-underline hover:prose-a:underline prose-img:rounded-2xl"
               style={{ overflowWrap: 'break-word', wordBreak: 'normal', textAlign: 'justify', textJustify: 'inter-word' }}
               dangerouslySetInnerHTML={{ __html: cleanAndFormatArticleHtml(resource.richHtmlContent) }}
             />
 
-            {/* Call to Action Banner */}
-            <div className="relative bg-linear-to-br from-blue-950 via-blue-900 to-indigo-950 text-white overflow-hidden py-12 md:py-16">
-  {/* Decorative background accents */}
-  <div className="absolute -top-24 -right-24 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
-  <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
+            {/* Standard Bottom-of-Article CTA (Streamlined & Compact) */}
+            <div className="relative mt-8 rounded-xl overflow-hidden bg-[#18264A] text-white p-5 sm:p-6 md:py-6 md:px-8 shadow-lg border border-white/10 no-print">
+              <div className="absolute -top-20 -right-20 w-48 h-48 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
 
-  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-      <div className="text-center md:text-left">
-        <span className="inline-block px-3 py-1 bg-white/20 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
-          Scale Link Alliance Network
-        </span>
-        <h3 className="text-2xl md:text-3xl font-extrabold mb-2 leading-tight">
-          Ready to Scale Your Referral Network?
-        </h3>
-        <p className="text-blue-100 max-w-2xl text-sm md:text-base">
-          Join vetted professionals across 50+ exclusive industry categories and accelerate your business growth.
-        </p>
-      </div>
+              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
+                <div className="text-center md:text-left min-w-0">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1.5 leading-snug text-white">
+                    Is Your Website or Digital System Holding Your Business Back?
+                  </h3>
+                  <p className="text-blue-100/90 text-xs sm:text-sm leading-relaxed max-w-xl">
+                    Get a complimentary ScaleLink Business Growth Review and identify opportunities to improve your website, lead generation, CRM, automation and follow-up.
+                  </p>
+                </div>
 
-      <Link
-        to="/membership"
-        className="shrink-0 px-8 py-3.5 bg-white text-blue-700 font-bold rounded-xl hover:bg-gray-100 transition-all shadow-md hover:shadow-lg whitespace-nowrap"
-      >
-        Join the Alliance
-      </Link>
-    </div>
-  </div>
-</div>
+                <Link
+                  to="/free-website-review"
+                  className="shrink-0 px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-lg hover:scale-105 transition-all shadow-md shadow-emerald-500/20 whitespace-nowrap text-xs sm:text-sm tracking-wide"
+                >
+                  GET MY FREE REVIEW
+                </Link>
+              </div>
+            </div>
           </main>
 
           {/* Sidebar: Social Share Tools & Quick Info */}
@@ -435,7 +431,7 @@ const ResourceDetailPage = () => {
                   </div>
                 </div>
                 <p className="text-xs text-gray-600 leading-relaxed">
-                  Published by Scale Link Alliance to empower professionals with actionable referral networking strategies.
+                  Published by Scale Link Alliance to empower businesses with actionable digital growth, marketing, and systems strategies.
                 </p>
               </div>
 
@@ -459,7 +455,7 @@ const ResourceDetailPage = () => {
               </div>
               <Link
                 to="/resources"
-                className="hidden sm:inline-flex items-center space-x-2 text-blue-600 hover:text-blue-800 font-semibold text-sm"
+                className="hidden sm:inline-flex items-center space-x-2 text-[#18264A] hover:text-[#101c38] font-semibold text-sm"
               >
                 <span>View all</span>
                 <FaArrowRight className="text-xs" />
@@ -486,7 +482,7 @@ const ResourceDetailPage = () => {
 
                   <div className="p-5 flex flex-col justify-between flex-1">
                     <div>
-                      <h3 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2 text-base">
+                      <h3 className="font-bold text-gray-900 group-hover:text-[#18264A] transition-colors line-clamp-2 mb-2 text-base">
                         {rel.title}
                       </h3>
                       <p className="text-xs text-gray-600 line-clamp-2">
@@ -496,7 +492,7 @@ const ResourceDetailPage = () => {
 
                     <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
                       <span>{formatDate(rel.publishedDate)}</span>
-                      <span className="font-semibold text-blue-600 group-hover:translate-x-0.5 transition-transform">Read &rarr;</span>
+                      <span className="font-semibold text-[#18264A] group-hover:translate-x-0.5 transition-transform">Read &rarr;</span>
                     </div>
                   </div>
                 </Link>

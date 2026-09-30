@@ -52,7 +52,7 @@ const DocumentArticle = ({ title, content, author, imageUrl, date, onClose, isHt
           className="bg-white rounded-2xl max-w-5xl w-full max-h-[95vh] overflow-y-auto resource-modal-content"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="relative aspect-[2/1] md:aspect-[3/1] bg-linear-to-r from-blue-600 to-blue-800">
+          <div className="relative aspect-[2/1] md:aspect-[3/1] bg-[#18264A] resource-article-banner">
             {imageUrl && (
               <img 
                 src={imageUrl} 
@@ -62,7 +62,7 @@ const DocumentArticle = ({ title, content, author, imageUrl, date, onClose, isHt
             )}
             <div className="relative z-10 p-8 text-white h-full flex flex-col justify-between">
               <div className="flex justify-between items-start">
-                <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full">
+                <div className="inline-flex items-center px-4 py-2 bg-emerald-500/20 backdrop-blur-sm rounded-full border border-emerald-400/30 text-emerald-300 font-bold">
                   <FaBookOpen className="mr-2" />
                   <span className="font-semibold text-white">Resource</span>
                 </div>
@@ -119,26 +119,26 @@ const DocumentArticle = ({ title, content, author, imageUrl, date, onClose, isHt
               />
             </div>
 
-            {/* Call to Action - restored from backup */}
-<div className="relative mt-16 p-8 md:p-10 rounded-2xl overflow-hidden bg-linear-to-br from-blue-950 via-blue-900 to-indigo-950 no-print">
-  <div className="absolute -top-16 -right-16 w-56 h-56 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
-  <div className="absolute -bottom-16 -left-16 w-56 h-56 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
+            {/* Standard Bottom-of-Article CTA (Streamlined & Compact) */}
+<div className="relative mt-8 p-5 sm:p-6 md:py-6 md:px-8 rounded-xl overflow-hidden bg-[#18264A] text-white shadow-lg border border-white/10 no-print">
+  <div className="absolute -top-16 -right-16 w-48 h-48 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
+  <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
 
-  <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
-    <div className="text-center md:text-left">
-      <h3 className="text-2xl font-bold text-white mb-2">
-        Ready to Implement These Strategies?
+  <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
+    <div className="text-center md:text-left min-w-0">
+      <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1.5 leading-snug text-white">
+        Is Your Website or Digital System Holding Your Business Back?
       </h3>
-      <p className="text-blue-100">
-        Join Scale Link Alliance and start building your referral network today.
+      <p className="text-blue-100/90 text-xs sm:text-sm leading-relaxed max-w-xl">
+        Get a complimentary ScaleLink Business Growth Review and identify opportunities to improve your website, lead generation, CRM, automation and follow-up.
       </p>
     </div>
     <Link
-      to="/membership"
+      to="/free-website-review"
       onClick={onClose}
-      className="shrink-0 px-8 py-3 bg-white text-blue-700 font-bold rounded-xl hover:bg-gray-100 transition-all shadow-md hover:shadow-lg whitespace-nowrap"
+      className="shrink-0 px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-lg transition-all shadow-md hover:shadow-lg whitespace-nowrap text-xs sm:text-sm tracking-wide"
     >
-      Join Now
+      GET MY FREE REVIEW
     </Link>
   </div>
 </div>
@@ -206,7 +206,7 @@ const DocumentArticle = ({ title, content, author, imageUrl, date, onClose, isHt
         onClick={(e) => e.stopPropagation()}
       >
         {/* Article Header */}
-        <div className="relative aspect-[2/1] md:aspect-[3/1] bg-linear-to-r from-blue-600 to-blue-800">
+        <div className="relative aspect-[2/1] md:aspect-[3/1] bg-[#18264A] resource-article-banner">
           <img 
             src={imageUrl || "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"}
             alt={title}
@@ -374,524 +374,202 @@ const ResourcesPage = () => {
     {
       id: 1,
       type: 'guide',
-      title: 'The Ultimate Guide to Referral Networking',
-      description: 'Complete guide to building a referral-based business with proven strategies and templates.',
-      image: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      title: 'The Complete Guide to High-Converting Business Websites',
+      description: 'A comprehensive strategic playbook for turning traffic into qualified sales opportunities with modern design, messaging, and automation.',
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
       date: 'Jan 2026',
       featured: true,
-      onClick: () => setShowArticle(true)
+      category: 'Guides & Frameworks',
+      author: 'David Rodriguez',
+      readTime: '8 min read',
+      views: '1,420 views',
+      content: `The Complete Guide to High-Converting Business Websites
+
+Most business websites function as expensive digital brochures. Visitors arrive, look around for thirty seconds, and leave without taking action. In 2026, high-performing websites operate as automated sales engines that systematically guide visitors from initial interest to booked sales calls.
+
+<strong>1. The Clarity Principle: Answer 3 Questions in 5 Seconds</strong>
+
+When a prospect lands on your website, they unconsciously ask three questions:
+• What do you do?
+• How does it make my business or life better?
+• What exact action should I take next?
+
+If your above-the-fold hero section does not answer these three questions clearly and concisely, over 70% of visitors will bounce before scrolling.
+
+<strong>2. Streamline Your Call to Action (CTA) Hierarchy</strong>
+
+A common mistake is offering too many competing choices:
+• "Schedule a Call"
+• "Read Our Whitepaper"
+• "Browse Our Catalog"
+• "Subscribe to Newsletter"
+
+Decision fatigue kills conversion rates. Establish one primary call to action (e.g., "Request a Free Growth Diagnostic") and at most one secondary low-commitment pathway.
+
+<strong>3. Build Trust with Concrete Proof Over Vague Claims</strong>
+
+Avoid generic buzzwords like "innovative solutions" or "trusted experts." Instead, present verifiable proof:
+• Real client case studies with specific metrics (e.g., "+180% inbound inquiries in 90 days")
+• Verified client testimonials with full names, titles, and company logos
+• Transparent delivery timelines and milestone-based guarantees
+
+<strong>4. Automated Lead Capture and Immediate Follow-Up</strong>
+
+A website's job is not finished when a contact form is submitted. The initial 5 minutes following an inquiry represent your highest conversion window. Integrate form submissions directly with CRM workflows and instant confirmation emails to ensure zero leads fall through the cracks.`
     },
     {
       id: 2,
       type: 'case-study',
-      title: 'How a Tech Consultant Generated $500K in New Business',
-      description: 'Case study on how strategic networking led to massive growth for a technology consulting firm.',
+      title: 'How a B2B Firm Generated $500K in New Pipeline Through Systems Automation',
+      description: 'How an independent B2B consultancy transformed inconsistent project work into a predictable $500K pipeline by integrating web funnels with automated CRM workflows.',
       image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-      date: 'Feb 28, 2024',
-      content: `How a Tech Consultant Generated $500K in New Business Through Strategic Networking
+      date: 'Feb 2026',
+      category: 'Case Studies',
+      author: 'ScaleLink Strategy Team',
+      readTime: '6 min read',
+      views: '980 views',
+      content: `How a B2B Firm Generated $500K in New Pipeline Through Systems Automation
 
-Most tech consultants believe growth comes from more ads, more outreach, or lowering prices. This case study tells a different story. It is the story of how one independent technology consultant transformed inconsistent project work into $500,000 in new businessâ€”not by working more hours, but by building a strategic referral network.
+Most service businesses believe scaling requires hiring more salespeople or spending endlessly on generic ad campaigns. This case study illustrates how one B2B technology consulting firm unlocked $500,000 in qualified new pipeline by streamlining their digital acquisition and client follow-up infrastructure.
 
-<strong>The Starting Point: Skilled, But Stuck</strong>
+<strong>The Problem: Skilled, But Inconsistent Inbound</strong>
 
-Alex was a highly skilled technology consultant specializing in cloud infrastructure and systems optimization for mid-sized businesses. The problem was not talent. The problem was predictability.
+The firm possessed exceptional technical expertise, but suffered from inconsistent lead flow and manual, leaky follow-up:
+• Prospects submitted inquiries and waited 24–48 hours for a reply
+• High-value leads were scattered across disparate inboxes
+• Proposal follow-ups were handled manually when time permitted
+• Over 40% of qualified opportunities went cold before a formal proposal was reviewed
 
-â€¢ Referrals came randomly
-â€¢ Sales cycles were inconsistent
-â€¢ Growth depended on constant prospecting
-â€¢ Each new client felt like starting over
+<strong>The Solution: The Done-For-You Systems Overhaul</strong>
 
-Alex was respected but invisible outside immediate circles.
+ScaleLink implemented an end-to-end digital growth infrastructure:
+1. Re-architected the company website with clear positioning, client outcomes, and interactive diagnostic booking forms.
+2. Built a centralized CRM pipeline connecting web inquiries, automated scheduling, and instant qualification notifications.
+3. Automated a multi-touch follow-up sequence delivering case studies and relevant insights to prospects within minutes of their inquiry.
 
-<strong>The Shift: From Networking Events to Strategic Networking</strong>
-
-Like many professionals, Alex attended networking events regularly. Business cards were exchanged. Conversations were polite. Follow-ups were inconsistent. Nothing changed.
-
-The breakthrough came when Alex stopped networking and started networking with intent. Instead of asking "How can I find more clients?" Alex asked "Who already serves my ideal clients and how can we grow together?"
-
-<strong>Building a Referral Ecosystem</strong>
-
-Alex identified five non-competing professionals who served the same audience:
-
-â€¢ Managed service providers
-â€¢ Cybersecurity consultants
-â€¢ Business operations advisors
-â€¢ CFO consultants
-â€¢ Digital transformation strategists
-
-Each had trust. Each had access. None were direct competitors. Rather than pitching services, Alex focused on understanding their clients' pain points, sharing insights and value, and creating clarity around who Alex was best suited to help. Within weeks, introductions started happening naturally.
-
-<strong>The Snowball Effect</strong>
-
-The first referral led to a $40,000 project. That client referred another. That partner introduced Alex to a larger organization. Within 12 months:
-
-â€¢ Multiple six-figure contracts were secured
-â€¢ Referral partners became consistent lead sources
-â€¢ Sales conversations were shorter and warmer
-â€¢ Alex stopped cold outreach entirely
-
-By the end of the year, over $500,000 in new business came directly from referral relationships. No ads. No aggressive selling. Just trust, alignment, and structure.
-
-<strong>Why This Worked</strong>
-
-Three factors made the difference:
-
-<strong>Trust Transfer</strong> â€” Every referral came with built-in credibility. Prospects arrived ready to listen.
-
-<strong>Clear Positioning</strong> â€” Referral partners knew exactly when and why to introduce Alex.
-
-<strong>Consistent Relationship Management</strong> â€” Follow-ups were intentional. Relationships were nurtured, not neglected.
-
-This was not luck. It was a system.
-
-<strong>How Scale Link Alliance Could Multiply This Growth</strong>
-
-Alex's results came from intentional effort but imagine if the system already existed. That is exactly what Scale Link Alliance membership is designed to provide.
-
-<strong>Instant Access to Aligned Professionals</strong> â€” Instead of searching for the right partners, members enter a network built around mutual growth and referrals.
-
-<strong>Structured Referral Standards</strong> â€” Members understand how to give, receive, and qualify referrals eliminating guesswork.
-
-<strong>Built-In Credibility</strong> â€” Introductions carry more weight when they come from a trusted alliance.
-
-<strong>Repeatable Growth Opportunities</strong> â€” Referrals do not happen by chance they are facilitated through intentional collaboration.
-
-For consultants like Alex, Scale Link Alliance removes years of trial and error and replaces it with a ready-made referral ecosystem.
-
-<strong>The Bigger Lesson</strong>
-
-The fastest-growing consultants are not chasing leads. They are building networks that send leads to them. Strategic referral networking turns individual effort into collective leverage. And when supported by the right alliance, it becomes one of the most powerful growth engines a business can have.
-
-<strong>Imagine the Results When You Do Not Build Alone</strong>
-
-Alex built this system manually. Scale Link Alliance helps you plug into one. If your business relies on trust, expertise, and long-term relationships, referral networking is not optional it is essential. And the right alliance can be the difference between inconsistent growth and your next $500,000 year.`
+<strong>The Results</strong>
+• Inbound lead response time dropped from 28 hours to under 3 minutes
+• Scheduled discovery calls increased by 160% in the first quarter
+• Over $500,000 in closed new contract value attributed directly to the automated nurture funnel within 12 months.`
     },
     {
       id: 3,
       type: 'article',
-      title: '5 Networking Mistakes Even Experienced Professionals Make',
-      description: 'Common pitfalls in business networking and how to avoid them for better results.',
+      title: '5 Website Conversion Killers That Sabotage Customer Acquisition',
+      description: 'Identify and fix the most common UX, copy, and performance bottlenecks that cause qualified visitors to leave without converting.',
       image: 'https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-      date: 'Apr 2, 2024',
-      content: `5 Networking Mistakes Even Experienced Professionals Make and How to Fix Them
+      date: 'Mar 2026',
+      category: 'Articles & Industry Insights',
+      author: 'Elena Rostova',
+      readTime: '5 min read',
+      views: '1,150 views',
+      content: `5 Website Conversion Killers That Sabotage Customer Acquisition
 
-Most professionals think networking stops being a problem once you have been in business long enough. It does not. In fact, experienced professionals often make the most damaging networking mistakes not because they do not know better, but because bad habits feel normal.
+Many businesses invest thousands of dollars in traffic generation—whether through search engine optimization, paid advertising, or social media—only to experience disappointing conversion rates. In most cases, the traffic is qualified, but the website itself is creating unnecessary friction.
 
-If networking has not produced the results you expected, one of these mistakes is likely the reason.
+<strong>1. Hidden or Convoluted Contact Pathways</strong>
+If a prospect has to hunt through dropdown menus or fill out a 12-field form just to get in touch, they will leave for a competitor. Keep forms short (3–5 fields maximum) and place accessible call-to-action buttons in sticky headers and throughout high-intent page sections.
 
-<strong>Mistake 1: Treating Networking Like Lead Hunting</strong>
+<strong>2. Slow Mobile Load Speeds</strong>
+Over 60% of modern B2B and consumer web visits happen on mobile devices. Every 1-second delay in page load time reduces mobile conversion rates by up to 20%. Optimizing image assets, eliminating render-blocking scripts, and utilizing modern hosting infrastructure are critical prerequisites for growth.
 
-Even seasoned professionals fall into this trap. They attend events thinking "Who can I get business from?" instead of "Who can I build a relationship with?"
+<strong>3. Self-Centered Copy vs. Outcome-Focused Messaging</strong>
+Websites that obsessively talk about "our history", "our passion", and "our awards" fail to connect. Shift your copy from "What we do" to "The specific business problems we solve for you."
 
-<strong>Why this hurts results</strong>
+<strong>4. Lack of Clear Next Steps</strong>
+Leaving visitors at the bottom of a page with no clear next step causes immediate abandonment. Every page should conclude with a compelling call to action, related resources, or a free diagnostic review offer.
 
-People can sense when they are being evaluated as a transaction. Conversations stay surface-level, trust never forms, and follow-ups get ignored.
-
-<strong>How to fix it</strong>
-
-Shift your mindset:
-
-â€¢ Focus on understanding, not pitching
-â€¢ Ask about their clients, challenges, and goals
-â€¢ Think in terms of long-term alignment, not immediate ROI
-
-The best referrals often come weeks or months later, not the same day.
-
-<strong>Mistake 2: Being Too Vague About What You Do</strong>
-
-Many professionals think they are being flexible by keeping their message broad. In reality, vagueness kills referrals. If someone cannot clearly explain who you help, what problem you solve, and when to refer you they will not refer you at all.
-
-<strong>How to fix it</strong>
-
-Create a clear referral identity:
-
-â€¢ "I help this type of client with this specific problem"
-â€¢ Use real examples, not generic titles
-â€¢ Make it easy for others to recognize opportunities for you
-
-Clarity creates confidence and confidence creates referrals.
-
-<strong>Mistake 3: Inconsistent or Weak Follow-Up</strong>
-
-Experienced professionals are busy, which often leads to late follow-ups, generic messages, or no follow-up at all. This quietly kills momentum.
-
-<strong>Why it matters</strong>
-
-Networking conversations fade fast. Without intentional follow-up, even strong connections lose relevance.
-
-<strong>How to fix it</strong>
-
-â€¢ Follow up within 24 to 48 hours
-â€¢ Reference the actual conversation
-â€¢ Keep it relationship-focused, not sales-focused
-
-Consistency beats charisma every time.
-
-<strong>Mistake 4: Relying on Random Networking Instead of Structure</strong>
-
-Attending events without structure feels productive but rarely is. Many professionals jump between groups, attend events with no strategy, and build shallow connections everywhere. The result is lots of contacts and very few outcomes.
-
-<strong>How to fix it</strong>
-
-Adopt structured networking:
-
-â€¢ Focus on a smaller, aligned network
-â€¢ Build depth instead of breadth
-â€¢ Engage consistently with the same professionals
-
-This is where Scale Link Alliance becomes powerful by providing a framework where referrals are intentional, not accidental.
-
-<strong>Mistake 5: Expecting Results Without Reciprocity</strong>
-
-Even experienced professionals sometimes forget this rule: Networking is an exchange, not a shortcut. If you are always receiving and rarely giving, people notice.
-
-<strong>How to fix it</strong>
-
-â€¢ Look for ways to help before asking
-â€¢ Share introductions freely
-â€¢ Become known as a connector
-
-The professionals who receive the most referrals are usually the ones who give the most value first.
-
-<strong>The Real Reason Networking Fails</strong>
-
-Networking does not fail because people are not skilled. It fails because there is no structure, no clarity, no consistency, and no accountability. Casual networking produces casual results.
-
-<strong>How to Network for Better Results</strong>
-
-High-performing professionals do not network more they network better. They build intentional relationships, operate inside trusted ecosystems, use structured follow-up, and focus on mutual growth.
-
-That is why professional alliances like Scale Link Alliance exist to eliminate the guesswork and help members turn relationships into consistent opportunities.
-
-<strong>Final Thought</strong>
-
-If networking has not delivered the results you expected, it is not a sign to stop. It is a sign to upgrade how you network. Avoid these five mistakes, apply structure, and surround yourself with professionals who understand referrals not just business cards. That is when networking starts working the way it was always supposed to.`
+<strong>5. Missing Reassurance and Security Indicators</strong>
+Displaying clear pricing models, milestone-based delivery guarantees, and verified customer testimonials alleviates the risk prospects perceive when hiring a new partner.`
     },
     {
       id: 4,
       type: 'guide',
-      title: 'Effective Follow-Up Template Pack',
-      description: 'Email templates and scripts for effective follow-up after networking events.',
+      title: 'Business Lead Follow-Up & Client Onboarding Template Pack',
+      description: 'Proven multi-channel email scripts, proposal follow-up sequences, and onboarding checklists designed to turn warm inquiries into committed clients.',
       image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-      date: 'Mar 5, 2024',
-      content: `Effective Follow-Up Template Pack
+      date: 'Mar 2026',
+      category: 'Guides & Frameworks',
+      author: 'ScaleLink Systems Team',
+      readTime: 'Downloadable Pack',
+      views: '2,310 downloads',
+      content: `Business Lead Follow-Up & Client Onboarding Template Pack
 
-Email Scripts for Turning Networking Conversations Into Real Business Opportunities
+Converting a qualified inquiry into a paying client requires consistent, structured follow-up. This template pack contains battle-tested email sequences and onboarding workflows used across professional service firms.
 
-Most networking does not fail because of a lack of connections. It fails because of poor follow-up. You meet great people at events, exchange contact information, and even have strong conversations yet nothing happens afterward. Opportunities go cold, momentum is lost, and potential referrals disappear.
+<strong>Template 1: Instant Inbound Inquiry Response (Automated)</strong>
+Subject: We received your request — here is what happens next
+"Hi [First Name], thank you for reaching out regarding [Service Requested]. Our team has received your details and is conducting an initial review of your current systems. You can expect a personalized review within one business day. In the meantime, feel free to explore our recent case study on how we helped [Similar Client] achieve [Key Outcome]."
 
-That is why effective follow-up systems are essential for anyone serious about referral networking. The Effective Follow-Up Template Pack inside Scale Link Alliance is designed to help members stay top-of-mind, build trust, and move conversations forward without sounding pushy or sales-driven.
+<strong>Template 2: Post-Discovery Call Summary & Next Steps</strong>
+Subject: Action Plan & Scope Summary — [Company Name] + ScaleLink
+"Hi [First Name], great speaking with you today. To summarize our discussion, our primary objectives are [Objective 1] and [Objective 2]. Attached is your milestone-based roadmap outlining deliverables, timelines, and fixed investment."
 
-<strong>Why Follow-Up Matters More Than the Event Itself</strong>
-
-Networking events create opportunity, but follow-up creates results. Effective follow-up:
-
-â€¢ Reinforces trust after the initial meeting
-â€¢ Turns casual conversations into relationships
-â€¢ Positions you as professional and intentional
-â€¢ Increases referral and collaboration opportunities
-
-Most people either do not follow up at all, follow-up too late, or follow up with generic, forgettable messages. Structured follow-up is what separates networkers from business builders.
-
-<strong>What the Effective Follow-Up Template Pack Helps You Do</strong>
-
-This resource gives Scale Link Alliance members proven follow-up frameworks that feel natural, not salesy, respect the relationship-building process, keep conversations moving without pressure, and increase response rates and referrals.
-
-Below are three example follow-up templates, along with exact situations where each one applies.
-
-<strong>Three Effective Follow-Up Examples and When to Use Them</strong>
-
-<strong>1. Post-Event Connection Follow-Up</strong>
-
-<strong>When it applies:</strong> Use this within 24 to 48 hours after a networking event when you have had a good conversation but no immediate business discussion.
-
-<strong>Purpose:</strong> Reinforce the connection, stay memorable, and open the door for future conversations.
-
-<strong>Example:</strong>
-
-Subject: Great meeting you at the event
-
-Hi [Name],
-
-It was great connecting with you at [event name]. I enjoyed our conversation about [specific topic you discussed].
-
-I always like staying connected with professionals who value strong relationships and long-term growth. Let us keep in touch and continue the conversation.
-
-Looking forward to staying connected,
-[Your Name]
-
-<strong>Why this works:</strong> It is personal, respectful, and relationship-focused without asking for anything.
-
-<strong>2. Relationship-Building Follow-Up</strong>
-
-<strong>When it applies:</strong> Use this after an initial follow-up when you want to deepen the relationship or explore alignment.
-
-<strong>Purpose:</strong> Move beyond small talk, identify collaboration or referral potential, and build trust without pitching.
-
-<strong>Example:</strong>
-
-Subject: Continuing our conversation
-
-Hi [Name],
-
-I have been thinking about our conversation around [shared interest or challenge]. It sounds like we are both focused on building meaningful, long-term business relationships.
-
-I would love to learn more about what you are currently working on and see where our paths might align. If you are open to it, we can set up a quick conversation.
-
-Best,
-[Your Name]
-
-<strong>Why this works:</strong> It feels intentional, curious, and professional without pressure.
-
-<strong>3. Referral-Focused Follow-Up</strong>
-
-<strong>When it applies:</strong> Use this after trust has been established, especially within a referral network or alliance environment.
-
-<strong>Purpose:</strong> Clarify referral intent, position yourself as referral-ready, and encourage mutual opportunity.
-
-<strong>Example:</strong>
-
-Subject: Exploring referral opportunities
-
-Hi [Name],
-
-As I continue growing my referral relationships, I wanted to better understand the type of connections that are most valuable to you.
-
-If it makes sense, I would be happy to share who I typically work with as well, so we can support each other when opportunities come up.
-
-Looking forward to collaborating,
-[Your Name]
-
-<strong>Why this works:</strong> It frames referrals as mutual value, not a favor or request.
-
-<strong>Why Scale Link Alliance Members Get Better Results</strong>
-
-Anyone can send emails. But Scale Link Alliance members operate inside a system where follow-up is expected and encouraged, relationships are built intentionally, members understand referral standards, and conversations lead somewhere.
-
-The Effective Follow-Up Template Pack is most powerful when paired with a structured referral ecosystem, not random networking. That is what allows members to turn introductions into opportunities, build long-term referral relationships, and grow without aggressive selling.
-
-<strong>Build Relationships That Actually Convert</strong>
-
-Networking is not about collecting contacts. It is about building momentum through relationships. With the right follow-up systems and the right alliance behind you, every conversation becomes a growth opportunity. The Effective Follow-Up Template Pack helps Scale Link Alliance members turn networking into a repeatable business advantage.`
+<strong>Template 3: Seamless Client Onboarding Checklist</strong>
+• Kickoff Call scheduled within 48 hours of agreement
+• Client intake questionnaire completed (brand assets, access credentials)
+• Dedicated project tracking portal account generated
+• Milestone 1 delivery timeline locked into production calendar.`
     },
     {
       id: 5,
       type: 'case-study',
-      title: 'Financial Advisor Doubles Client Base in 12 Months',
-      description: 'How a financial advisor used structured networking to dramatically expand their practice.',
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q',
-      date: 'Feb 10, 2024',
-      content: `How a Financial Advisor Doubled Their Client Base in 12 Months Through Structured Networking
+      title: 'How a Professional Services Firm Doubled Inbound Bookings in 12 Months',
+      description: 'How modernizing website architecture, clarifying service offerings, and automating booking funnels helped a financial consulting practice scale rapidly.',
+      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      date: 'Feb 2026',
+      category: 'Case Studies',
+      author: 'ScaleLink Solutions Team',
+      readTime: '7 min read',
+      views: '1,050 views',
+      content: `How a Professional Services Firm Doubled Inbound Bookings in 12 Months
 
-For many financial advisors, growth feels capped. Not because of lack of expertise but because trust takes time, referrals are inconsistent, and prospecting feels like an endless grind.
+For established advisory and consulting practices, growth often feels capped not by expertise, but by manual business systems. This case study breaks down how an advisory firm doubled their high-value client acquisition in 12 months.
 
-This case study explores how one independent financial advisor doubled their client base in just 12 months by shifting from casual networking to a structured referral system and how a network like Scale Link Alliance could help replicate this kind of growth.
+<strong>1. The Challenge</strong>
+The firm was relying on outdated static web pages, confusing service descriptions, and manual email back-and-forths to book introductory consultations. Many interested prospects dropped off during the friction-filled scheduling process.
 
-<strong>The Starting Point: Strong Skills, Slow Growth</strong>
+<strong>2. Strategic Interventions</strong>
+• Re-engineered the website architecture around 3 clear client starting points.
+• Created dedicated service landing pages addressing specific client pain points and regulatory considerations.
+• Deployed an automated calendar integration with built-in qualifying questions, ensuring only high-fit prospects booked strategy sessions.
+• Implemented automated SMS and email reminders that reduced appointment no-shows from 28% to under 4%.
 
-Jordan was a licensed financial advisor serving professionals and small business owners. Clients were happy. Retention was solid. Results were strong. But growth was slow.
-
-â€¢ New clients came mostly from word-of-mouth
-â€¢ Referrals were unpredictable
-â€¢ Networking events felt busy but unproductive
-â€¢ Time spent prospecting cut into client service
-
-Jordan's biggest challenge was not performance it was scale.
-
-<strong>The Insight That Changed Everything</strong>
-
-After reflecting on where the best clients came from, one pattern stood out: The highest-quality clients were introduced, not acquired. Accountants. Attorneys. Business consultants. These referrals converted faster, trusted more deeply, and stayed longer.
-
-So Jordan stopped asking "How do I find more clients?" and started asking "How do I build a system that creates referrals consistently?"
-
-<strong>Implementing Structured Networking</strong>
-
-Instead of attending random events, Jordan focused on intentional relationship building. The approach was simple but disciplined:
-
-â€¢ Identify professionals who already serve ideal clients
-â€¢ Build relationships without selling
-â€¢ Clarify exactly who Jordan helps best
-â€¢ Stay visible through consistent follow-up
-
-Jordan prioritized quality connections over quantity, meeting fewer people but building deeper alignment with each one.
-
-<strong>The Referral Flywheel Takes Shape</strong>
-
-Within the first few months:
-
-â€¢ An accountant introduced Jordan to three clients
-â€¢ A business consultant sent a steady stream of warm leads
-â€¢ A legal professional referred high-net-worth prospects
-
-Each new client strengthened the advisor's credibility inside the network. Referrals began feeding more referrals. By month 12:
-
-â€¢ The client base had doubled
-â€¢ Prospecting time dropped significantly
-â€¢ Revenue became more predictable
-â€¢ Trust replaced persuasion in sales conversations
-
-<strong>Why This Strategy Worked</strong>
-
-Three factors drove the outcome:
-
-<strong>Trust Was Borrowed, Not Built from Scratch</strong> â€” Introductions came with credibility attached.
-
-<strong>Referral Clarity</strong> â€” Partners knew exactly when to refer and when not to.
-
-<strong>Consistent Relationship Management</strong> â€” No one was forgotten. Every connection was nurtured intentionally.
-
-This was not luck. It was structured networking.
-
-<strong>How Scale Link Alliance Could Create Similar Growth</strong>
-
-Jordan built this system manually over time. Now imagine starting inside an ecosystem already designed for it. That is where Scale Link Alliance membership comes in.
-
-<strong>Curated Professional Connections</strong> â€” Members connect with aligned professionals who understand referrals, not casual networking.
-
-<strong>Clear Referral Standards</strong> â€” No awkward asks. Members know how to give and receive referrals professionally.
-
-<strong>Credibility by Association</strong> â€” Introductions carry more weight inside a trusted alliance.
-
-<strong>Repeatable Referral Opportunities</strong> â€” Growth does not rely on chance it is facilitated through structure and consistency.
-
-For financial advisors, this removes years of trial-and-error and replaces it with immediate leverage.
-
-<strong>The Bigger Lesson for Advisors</strong>
-
-The fastest-growing advisors are not chasing leads. They are building networks that send leads to them. Structured referral networking turns trust into scale and alliances multiply that effect.
-
-<strong>Do Not Build Your Practice Alone</strong>
-
-Jordan doubled a client base by shifting from hustle to structure. With the right alliance, that kind of growth becomes repeatable, predictable, and sustainable. For advisors focused on long-term trust and consistent growth, Scale Link Alliance provides the framework that makes it possible.`
+<strong>3. Business Impact</strong>
+Within 12 months of deployment:
+• Qualified strategy calls booked increased by 115%
+• Prospect conversion to engaged client rose from 22% to 39%
+• The firm reclaimed an estimated 15 hours per week of partner time previously wasted on manual scheduling and follow-ups.`
     },
-   {
-  id: 6,
-  type: 'tool',
-  title: 'ROI Calculator for Networking Groups',
-  description: 'Interactive calculator to measure the return on investment from networking activities.',
-  image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-  date: 'Jan 20, 2024',
-  content: `ROI Calculator for Networking Groups
+    {
+      id: 6,
+      type: 'tool',
+      title: 'Website ROI & Customer Acquisition Cost (CAC) Diagnostic Calculator',
+      description: 'Evaluate your current website conversion rate, traffic value, and pipeline efficiency to identify where your digital funnel is losing revenue.',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      date: 'Jan 2026',
+      category: 'Tools & Worksheets',
+      author: 'ScaleLink Growth Diagnostics',
+      readTime: 'Interactive Tool',
+      views: '1,890 uses',
+      content: `Website ROI & Customer Acquisition Cost (CAC) Diagnostic Calculator
 
-How to Measure the Real Return on Your Networking Activities
+Understanding the mathematics behind your digital customer acquisition funnel is the key to predictable growth.
 
-Networking takes time, energy, and money but most professionals never stop to ask a critical question: Is this actually worth it?
+<strong>Core Funnel Metrics:</strong>
+• <strong>Monthly Unique Visitors:</strong> Total prospective buyers visiting your web assets.
+• <strong>Conversion Rate (%):</strong> Percentage of visitors who take high-intent action (submit form, request diagnostic).
+• <strong>Lead-to-Opportunity Rate (%):</strong> Percentage of inquiries that meet your qualification criteria.
+• <strong>Opportunity-to-Close Rate (%):</strong> Percentage of qualified opportunities that become paying clients.
+• <strong>Average Client Lifetime Value (LTV):</strong> The total gross margin or revenue generated per customer.
 
-An ROI (Return on Investment) Calculator for Networking Groups helps bring clarity to that question by turning networking activity into measurable business outcomes. When used correctly, it can reveal which relationships, groups, and efforts truly drive growth and which ones quietly drain resources.
+<strong>The Multiplier Effect of System Optimization</strong>
+If your site receives 2,000 monthly visitors at a 1% conversion rate (20 leads) and closes 20% (4 clients) at $5,000 value, you generate $20,000/month.
+By improving your conversion rate from 1% to 2.5% through clear messaging and fast load times, your monthly revenue jumps from $20,000 to $50,000 without spending an extra dollar on traffic.
 
-<strong>What Is an ROI Calculator for Networking?</strong>
-
-An ROI calculator for networking groups is a tool that helps you evaluate whether the time and cost invested in networking produce meaningful business returns. It typically measures:
-
-â€¢ Membership fees
-â€¢ Time spent attending meetings and events
-â€¢ Revenue generated from referrals
-â€¢ Deals influenced by networking relationships
-â€¢ Long-term client value
-
-The goal is not perfection it is better decision-making.
-
-<strong>Why Measuring Networking ROI Matters</strong>
-
-Many professionals rely on gut feeling: "This group feels valuable." But feelings do not scale businesses. An ROI calculator helps you:
-
-â€¢ Identify high-performing networking groups
-â€¢ Justify time spent networking
-â€¢ Compare networking against other growth channels
-â€¢ Improve focus and efficiency
-
-When networking becomes measurable, it becomes strategic.
-
-<strong>How an ROI Calculator Typically Works</strong>
-
-A simple networking ROI formula looks like this:
-
-(Revenue Generated from Networking âˆ’ Cost of Networking) Ã· Cost of Networking
-
-Where costs may include:
-
-â€¢ Membership fees
-â€¢ Event tickets
-â€¢ Travel expenses
-â€¢ Time value (hours Ã— hourly rate)
-
-Revenue includes:
-
-â€¢ Closed deals from referrals
-â€¢ Clients influenced by introductions
-â€¢ Long-term value of referred clients
-
-Even an estimated calculation can provide powerful insights.
-
-<strong>The Pros of Using an ROI Calculator</strong>
-
-<strong>Clarity</strong> â€” You can clearly see which groups and relationships are contributing to growth.
-
-<strong>Focus</strong> â€” It helps you double down on high-impact networking and reduce low-return activity.
-
-<strong>Accountability</strong> â€” You become intentional instead of passively attending events.
-
-<strong>Strategic Growth</strong> â€” Networking shifts from nice to have to a measurable growth channel.
-
-<strong>The Cons and Limitations of Networking ROI</strong>
-
-ROI calculators are powerful but imperfect.
-
-<strong>Delayed Returns</strong> â€” Networking often produces results months or even years later. Early ROI may look negative even when long-term value is high.
-
-<strong>Hard-to-Measure Trust</strong> â€” Not all value is immediate revenue. Credibility, reputation, and access are difficult to quantify.
-
-<strong>Attribution Challenges</strong> â€” A client may come through multiple touchpoints, not just one introduction.
-
-This is why ROI should guide decisions not dictate them blindly.
-
-<strong>How to Properly Use an ROI Calculator</strong>
-
-The biggest mistake professionals make is using ROI too narrowly.
-
-<strong>Track Trends, Not Just Numbers</strong> â€” Look at ROI over time, not just a single period.
-
-<strong>Separate Short-Term and Long-Term Value</strong> â€” Some groups generate quick wins. Others build pipelines.
-
-<strong>Evaluate Quality, Not Just Quantity</strong> â€” One strong referral partner can outperform dozens of casual contacts.
-
-<strong>Use ROI as a Filter, Not a Verdict</strong> â€” ROI helps prioritize not eliminate relationship-building.
-
-<strong>Why Structured Networking Improves ROI</strong>
-
-ROI improves dramatically when networking is intentional and structured.
-
-Unstructured networking:
-
-â€¢ Produces random results
-â€¢ Lacks accountability
-â€¢ Makes ROI unclear
-
-Structured networking:
-
-â€¢ Clarifies referral expectations
-â€¢ Encourages consistency
-â€¢ Improves referral quality
-â€¢ Shortens the path to revenue
-
-This is where alliances like Scale Link Alliance stand out by providing a framework where networking outcomes are easier to track and improve.
-
-<strong>Networking ROI Is About Leverage, Not Just Math</strong>
-
-The most valuable networking groups do not just generate revenue they create leverage:
-
-â€¢ Access to trusted introductions
-â€¢ Faster deal cycles
-â€¢ Higher-quality clients
-â€¢ Compounding referral relationships
-
-An ROI calculator helps you see that leverage more clearly but only when paired with the right environment.
-
-<strong>Final Thought</strong>
-
-If networking feels busy but unproductive, the issue is not effort it is measurement and structure. An ROI Calculator for Networking Groups helps you stop guessing, start optimizing, and make smarter growth decisions. Used properly, it does not just tell you if networking works it shows you how to make it work better.`
-}
-  ];
+Use our complimentary Website Growth Review to evaluate your funnel metrics and identify high-leverage optimization opportunities.`
+    }
+  ]
 
   // Use CMS types if available, otherwise fall back to hardcoded
   const hasCmsData = !loadingCms && cmsResources.length > 0;
@@ -964,51 +642,47 @@ If networking feels busy but unproductive, the issue is not effort it is measure
   const downloads = [
     {
       id: 1,
-      title: 'Referral Tracking Template',
-      description: 'Excel template to track referrals, follow-ups, and revenue generated from networking.',
+      title: 'Business Lead Follow-Up Template Pack',
+      description: 'Frameworks and email scripts for capturing, nurturing, and converting business inquiries into paying clients.',
       icon: <FaFileAlt />,
-      format: 'Excel â€¢ 45 KB'
+      format: 'PDF / DOC • 1.2 MB'
     },
     {
       id: 2,
-      title: 'Network Mapping Guide',
-      description: 'Step-by-step guide to mapping your professional network and identifying growth opportunities.',
-      icon: <FaNetworkWired />,
-      format: 'PDF â€¢ 2.1 MB'
+      title: 'Website Conversion & SEO Audit Checklist',
+      description: 'A 25-point inspection checklist to identify why a business website is underperforming and how to fix it.',
+      icon: <FaChartLine />,
+      format: 'PDF • 1.8 MB'
     },
     {
       id: 3,
-      title: 'Introduction Scripts',
-      description: 'Professional scripts for making effective introductions and asking for referrals.',
-      icon: <FaHandshake />,
-      format: 'PDF â€¢ 1.5 MB'
+      title: 'Digital Systems & Automation Roadmap',
+      description: 'Step-by-step architecture blueprint for connecting web forms, CRM pipelines, and automated client follow-ups.',
+      icon: <FaCalculator />,
+      format: 'PDF • 2.4 MB'
     }
   ];
 
   const faqs = [
     {
-      question: 'How does ScaleLink Alliance differ from other networking groups?',
-      answer: 'ScaleLink Alliance focuses on structured, results-driven networking with industry exclusivity, weekly accountability, and referral tracking. Unlike social networking groups, we measure success by the actual business generated through our system.'
+      question: 'What types of businesses does ScaleLink Alliance work with?',
+      answer: 'We partner with growing businesses, consultants, agencies, e-commerce brands, and professional service providers who want done-for-you digital systems, high-converting websites, marketing execution, and workflow automation.'
     },
     {
-      question: 'What industries are represented in ScaleLink Alliance?',
-      answer: 'We represent over 50 industries including legal services, financial advisory, real estate, technology, marketing, healthcare, consulting, insurance, accounting, and many B2B service providers. Each chapter maintains industry exclusivity to prevent competition.'
+      question: 'Can I purchase a single service, or do I need a full package?',
+      answer: 'You can purchase individual standalone services (such as website maintenance, SEO, paid advertising, or CRM automation) or choose comprehensive end-to-end growth solutions depending on your immediate business priorities.'
     },
     {
-      question: 'How much time commitment is required?',
-      answer: 'Members commit to 90-minute weekly meetings, plus 2-3 hours per week for follow-ups and relationship building. Most successful members report that this investment yields a significant return in new business opportunities.'
+      question: 'What is included in the complimentary Business Growth Review?',
+      answer: 'Our senior specialists evaluate your existing website, user journey, conversion flow, lead capture systems, and technical health to identify actionable opportunities to attract more clients and reduce operational friction.'
     },
     {
-      question: 'What if my industry is already taken in my local chapter?',
-      answer: 'We maintain a waiting list for popular industries. You can join the waitlist for your preferred chapter, or we can help you find another nearby chapter with an opening. We also help members explore adjacent industry categories that might be available.'
+      question: 'How do project milestones and payments work?',
+      answer: 'Projects are structured around clearly defined scopes and milestone deliverables. Work is reviewed against agreed specifications, providing complete transparency, accountability, and confidence at every step.'
     },
     {
-      question: 'How are referrals tracked and measured?',
-      answer: 'We use a proprietary tracking system where members log referrals given and received. This includes status tracking (introduced, meeting scheduled, deal closed) and revenue generated. Members receive quarterly ROI reports showing their networking effectiveness.'
-    },
-    {
-      question: 'Can I visit a chapter before joining?',
-      answer: 'Yes! We encourage all prospective members to visit a chapter meeting as our guest. This allows you to experience our format, meet current members, and see the value firsthand. Contact us to schedule a visit.'
+      question: 'Do you work with existing websites, or only build from scratch?',
+      answer: 'Both. If you already have a website, our Scale Existing Website pathway focuses on optimization, speed, SEO, and automation. If you are starting fresh, our Start From Scratch pathway handles complete development from the ground up.'
     }
   ];
 
@@ -1067,7 +741,7 @@ If networking feels busy but unproductive, the issue is not effort it is measure
                 Resources & Insights
               </h1>
               <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
-                Tools, guides, and knowledge to help you maximize your networking success
+                Tools, guides, and actionable frameworks to build, automate, and scale your business systems
               </p>
             </motion.div>
           </div>
@@ -1075,7 +749,7 @@ If networking feels busy but unproductive, the issue is not effort it is measure
       </section>
 
       {/* Featured Resource */}
-<section className="relative py-12 md:py-16 bg-linear-to-br from-blue-950 via-blue-900 to-indigo-950 overflow-hidden">
+<section className="relative py-12 md:py-16 bg-[#18264A] resource-hero text-white overflow-hidden">
   {/* Decorative background accents to match the detail page CTA */}
   <div className="absolute -top-24 -right-24 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
   <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
@@ -1085,9 +759,9 @@ If networking feels busy but unproductive, the issue is not effort it is measure
       <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="mb-6 md:mb-0 md:mr-8 text-center md:text-left">
-            <div className="inline-flex items-center px-4 py-2 bg-white/20 rounded-full mb-4">
-              <FaBookOpen className="mr-2 text-white" />
-              <span className="font-semibold text-white">Featured Guide</span>
+            <div className="inline-flex items-center px-4 py-1.5 bg-emerald-500/20 rounded-full mb-4 border border-emerald-400/30">
+              <FaBookOpen className="mr-2 text-emerald-300" />
+              <span className="font-bold text-xs uppercase tracking-wider text-emerald-300">Featured Guide</span>
             </div>
             <h2 className="text-2xl font-bold text-white mb-3">
               {cmsFeatured ? cmsFeatured.title : 'The Ultimate Guide to Referral Networking'}
@@ -1100,7 +774,7 @@ If networking feels busy but unproductive, the issue is not effort it is measure
           </div>
           <Link
             to={cmsFeatured ? `/resources/${cmsFeatured.slug || cmsFeatured.id}` : '/resources/1'}
-            className="shrink-0 px-8 py-3.5 bg-white text-blue-700 font-bold rounded-xl hover:bg-gray-100 transition-all shadow-md hover:shadow-lg whitespace-nowrap inline-flex items-center justify-center"
+            className="shrink-0 px-8 py-3.5 bg-white text-[#18264A] font-bold rounded-xl hover:bg-gray-100 hover:scale-105 transition-all shadow-md hover:shadow-lg whitespace-nowrap inline-flex items-center justify-center"
           >
             Read Full Guide
           </Link>
@@ -1121,7 +795,7 @@ If networking feels busy but unproductive, the issue is not effort it is measure
                   onClick={() => handleCategoryChange(category.id)}
                   className={`flex items-center space-x-3 px-6 py-3 rounded-lg font-semibold transition-all ${
                     activeCategory === category.id
-                      ? 'bg-linear-to-r from-blue-600 to-blue-700 text-white shadow-lg'
+                      ? 'bg-[#18264A] text-white shadow-lg shadow-[#18264A]/25'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -1168,7 +842,7 @@ If networking feels busy but unproductive, the issue is not effort it is measure
                             </span>
                           </div>
                           
-                          <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-3 line-clamp-2">
+                          <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#18264A] transition-colors mb-3 line-clamp-2">
                             {resource.title}
                           </h3>
                           <p className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed">
@@ -1180,7 +854,7 @@ If networking feels busy but unproductive, the issue is not effort it is measure
                           <span className="text-xs text-gray-500 font-medium">
                             {formatDate(resource.publishedDate || resource.date)}
                           </span>
-                          <span className="inline-flex items-center space-x-2 text-blue-600 group-hover:text-blue-800 font-semibold text-sm">
+                          <span className="inline-flex items-center space-x-2 text-[#18264A] group-hover:text-[#101c38] font-semibold text-sm">
                             <span>View Resource</span>
                             <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
                           </span>
@@ -1201,7 +875,7 @@ If networking feels busy but unproductive, the issue is not effort it is measure
                     setPage(prev => Math.max(prev - 1, 1));
                     window.scrollTo({ top: 400, behavior: 'smooth' });
                   }}
-                  className="p-3 rounded-lg border border-gray-200 text-gray-500 hover:bg-blue-50 hover:text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                  className="p-3 rounded-lg border border-gray-200 text-gray-500 hover:bg-slate-100 hover:text-[#18264A] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                 >
                   <FaChevronLeft />
                 </button>
@@ -1215,7 +889,7 @@ If networking feels busy but unproductive, the issue is not effort it is measure
                     }}
                     className={`w-12 h-12 rounded-lg font-bold transition-all ${
                       page === (i + 1)
-                        ? 'bg-blue-600 text-white shadow-md'
+                        ? 'bg-[#18264A] text-white shadow-md shadow-[#18264A]/30'
                         : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
                     }`}
                   >
@@ -1229,7 +903,7 @@ If networking feels busy but unproductive, the issue is not effort it is measure
                     setPage(prev => Math.min(prev + 1, totalPages));
                     window.scrollTo({ top: 400, behavior: 'smooth' });
                   }}
-                  className="p-3 rounded-lg border border-gray-200 text-gray-500 hover:bg-blue-50 hover:text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                  className="p-3 rounded-lg border border-gray-200 text-gray-500 hover:bg-slate-100 hover:text-[#18264A] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                 >
                   <FaChevronRight />
                 </button>
