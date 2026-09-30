@@ -630,12 +630,20 @@ const ImageGallery = ({ images, serviceTitle }) => {
   }, [safeImages.length, isViewerOpen, isPaused, nextImage]);
 
   // ── Auto-scroll thumbnail strip to center the active thumbnail ──
+  // Note: Use container.scrollTo with left offset instead of element.scrollIntoView().
+  // element.scrollIntoView() scrolls the entire browser window/page up if the user is scrolled down.
   useEffect(() => {
-    if (thumbnailRefs.current[currentIndex]) {
-      thumbnailRefs.current[currentIndex].scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest'
+    const container = thumbnailContainerRef.current;
+    const thumbnail = thumbnailRefs.current[currentIndex];
+
+    if (container && thumbnail) {
+      const containerWidth = container.offsetWidth;
+      const thumbnailLeft = thumbnail.offsetLeft;
+      const thumbnailWidth = thumbnail.offsetWidth;
+
+      container.scrollTo({
+        left: thumbnailLeft - (containerWidth / 2) + (thumbnailWidth / 2),
+        behavior: 'smooth'
       });
     }
   }, [currentIndex]);
