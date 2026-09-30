@@ -1,253 +1,239 @@
 // src/pages/FAQPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
   FaQuestionCircle, 
-  FaUsers, 
-  FaHandshake, 
-  FaChartLine, 
   FaBriefcase, 
   FaUserCheck, 
   FaArrowRight, 
   FaCheckCircle, 
-  FaTimesCircle,
   FaEnvelope,
   FaPhone,
-  FaGlobe,
-  FaFileAlt,
   FaChevronDown,
   FaChevronUp,
-  FaShieldAlt
+  FaShieldAlt,
+  FaProjectDiagram,
+  FaCode,
+  FaCogs
 } from 'react-icons/fa';
 
 const FAQPage = () => {
+  useEffect(() => {
+    document.title = 'Frequently Asked Questions | ScaleLink Alliance - Business Systems & Services';
+
+    const setMeta = (name, content) => {
+      let tag = document.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    setMeta(
+      'description',
+      'Frequently asked questions about ScaleLink Alliance digital services, website builds, milestones, payment protection, and ongoing care.'
+    );
+  }, []);
+
   const [openSections, setOpenSections] = useState({
-    general: true,
-    membership: false,
-    services: false,
-    participation: false,
-    operational: false,
-    gettingStarted: false,
-    paymentProtection: false
+    0: true,
+    1: true,
+    2: true,
+    3: true,
+    4: true
   });
 
-  const [openQuestions, setOpenQuestions] = useState({});
+  const [openQuestions, setOpenQuestions] = useState({
+    '0-0': true,
+    '1-0': true,
+    '2-0': true
+  });
 
-  const toggleSection = (section) => {
-    setOpenSections({
-      ...openSections,
-      [section]: !openSections[section]
-    });
+  const toggleSection = (index) => {
+    setOpenSections(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
   };
 
-  const toggleQuestion = (index) => {
-    setOpenQuestions({
-      ...openQuestions,
-      [index]: !openQuestions[index]
-    });
+  const toggleQuestion = (catIdx, qIdx) => {
+    const key = `${catIdx}-${qIdx}`;
+    setOpenQuestions(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
   };
 
-  // FAQ data organized from the document
+  // Structured Service & Operational FAQ Data (Document 2 Guidelines)
   const faqData = [
     {
-      category: 'General Questions',
+      category: 'General & Overview',
+      id: 'general',
       icon: <FaQuestionCircle />,
       questions: [
         {
-          q: 'What is Scale Link Alliance?',
-          a: 'Scale Link Alliance is a professional growth network that helps businesses scale through strategic connections, trusted relationships, and intentional collaboration. We connect business owners and professionals with opportunities, referrals, and resources designed to support sustainable growth.'
+          q: 'What is ScaleLink Alliance?',
+          a: 'ScaleLink Alliance is a done-for-you digital growth partner. We build, market, automate, and support the digital systems behind customer acquisition and business operations — giving you one dedicated, accountable team instead of having to manage multiple disconnected freelancers or agencies.'
         },
         {
-          q: 'How does Scale Link Alliance work?',
-          a: 'We operate by aligning businesses with the right people, services, and opportunities within our curated network. Members and service clients benefit from strategic introductions, collaboration opportunities, and ongoing relationship-based growth support.'
-        },
-        {
-          q: 'Who is Scale Link Alliance designed for?',
-          a: 'Our network is built for business owners, entrepreneurs, professional service providers, and growth-focused teams. If you are looking to expand your reach, build stronger relationships, and access meaningful opportunities, Scale Link Alliance is designed for you.',
+          q: 'Who is ScaleLink Alliance designed for?',
+          a: 'Our services are engineered for ambitious business owners, entrepreneurs, professional service providers, B2B companies, and growing teams who require dependable digital execution without the overhead of hiring an internal tech and marketing department.',
           bulletPoints: [
-            'Business owners',
-            'Entrepreneurs',
-            'Professional service providers',
-            'Growth-focused teams'
+            'Business owners scaling their customer acquisition systems',
+            'Companies needing a modern, high-converting website or web app',
+            'Service providers wanting automated lead capture & CRM pipelines',
+            'Businesses seeking transparent milestone-based project execution'
           ]
+        },
+        {
+          q: 'What makes ScaleLink Alliance different from traditional agencies?',
+          a: 'Traditional agencies often charge open-ended monthly retainers with vague deliverables, or focus on only one isolated tactic (like ads only or design only). ScaleLink provides transparent milestone-based delivery across your entire digital infrastructure: web development, lead capture, CRM automation, and proactive ongoing Care with a dedicated project tracking portal.'
         }
       ]
     },
     {
-      category: 'Membership Questions',
-      icon: <FaUsers />,
-      questions: [
-        {
-          q: 'Do I have to become a member to work with Scale Link Alliance?',
-          a: 'No. While membership offers ongoing access to the network and collaboration ecosystem, businesses can also engage through individual services and targeted introductions without committing to membership.'
-        },
-        {
-          q: 'What are the benefits of becoming a member?',
-          a: 'Members gain access to curated professional connections, referral-based opportunities, strategic collaboration sessions, insights, resources, and growth discussions—all within a structured environment focused on long-term business growth.',
-          bulletPoints: [
-            'Curated professional connections',
-            'Referral-based opportunities',
-            'Strategic collaboration sessions',
-            'Insights, resources, and growth discussions',
-            'A structured environment focused on long-term business growth'
-          ]
-        },
-        {
-          q: 'Is membership exclusive?',
-          a: 'Membership may be limited based on industry category, geographic region, or alignment with the alliance\'s mission to maintain quality connections and meaningful collaboration.'
-        }
-      ]
-    },
-    {
-      category: 'Services (Non-Membership) Questions',
+      category: 'Services & Starting Points',
+      id: 'services',
       icon: <FaBriefcase />,
       questions: [
         {
-          q: 'What if I\'m not ready to join as a member?',
-          a: 'Businesses can still benefit from Scale Link Alliance through direct services such as strategic introductions, referral matchmaking, and business growth consultations without a membership commitment.'
+          q: 'Can I purchase a single standalone service?',
+          a: 'Yes. All of our 20+ digital services can be engaged individually on an à la carte basis. Whether you need SEO optimization, CRM automation, paid advertising management, or custom copywriting, each service comes with clearly defined scopes, deliverables, and fixed milestone pricing.'
         },
         {
-          q: 'How are introductions and referrals handled?',
-          a: 'Introductions are made intentionally based on business goals, alignment, and relevance. While we facilitate connections, outcomes depend on the participating businesses and their collaboration efforts.'
+          q: 'Do I need a brand-new website, or can ScaleLink improve my existing one?',
+          a: 'We support both starting points! If your current website already has traffic or existing rankings, our "Scale What Already Exists" pathway focuses on speed optimization, conversion rate enhancement, automated lead capture, and design upgrades without rebuilding from scratch.'
         },
         {
-          q: 'Are referrals guaranteed?',
-          a: 'No. Scale Link Alliance provides access to opportunities and strategic connections, but results depend on factors such as business readiness, service quality, and engagement level. We focus on positioning businesses for growth rather than promising specific results.'
-        }
-      ]
-    },
-    {
-      category: 'Participation & Expectations',
-      icon: <FaHandshake />,
-      questions: [
-        {
-          q: 'What is expected from members or service participants?',
-          a: 'Participants are expected to engage professionally, collaborate respectfully, and contribute to the overall integrity of the network. Active participation and relationship-building significantly enhance results.'
-        },
-        {
-          q: 'How quickly will I see results?',
-          a: 'Growth timelines vary depending on each business\'s industry, engagement level, and collaboration efforts. Scale Link Alliance is designed for sustainable growth rather than quick, transactional outcomes.'
-        },
-        {
-          q: 'Can any business join the alliance?',
-          a: 'We work with businesses that align with our mission of trust-based collaboration and growth. Acceptance may depend on factors such as professionalism, service quality, and alignment with our network values.'
-        }
-      ]
-    },
-    {
-      category: 'Operational & Legal Clarity',
-      icon: <FaFileAlt />,
-      questions: [
-        {
-          q: 'Does Scale Link Alliance provide legal, financial, or professional advice?',
-          a: 'No. We provide connections, collaboration opportunities, and strategic growth support. Businesses should consult their own legal, financial, or professional advisors for specific guidance.'
-        },
-        {
-          q: 'Are partnerships or collaborations guaranteed?',
-          a: 'No. While we facilitate meaningful introductions and opportunities, final business relationships are determined independently by the participating parties.'
-        },
-        {
-          q: 'Can services or memberships change over time?',
-          a: 'Yes. Scale Link Alliance may update its programs, services, or offerings as the network evolves to better support member and client needs.'
-        }
-      ]
-    },
-    {
-      category: 'Getting Started',
-      icon: <FaUserCheck />,
-      questions: [
-        {
-          q: 'How do I get started?',
-          a: 'You can begin by contacting us through the website, requesting more information, or applying for membership or services. We will assess your goals and recommend the most suitable path for engagement.'
-        },
-        {
-          q: 'How can I contact Scale Link Alliance?',
-          a: 'You can reach us via website contact form, email, or phone.',
-          contact: {
-            website: 'www.scalelinkalliance.com/contact',
-            email: 'Support@scalelinkalliance.com',
-            phone: '+1-815-669-0642'
-          }
-        },
-        {
-          q: 'What makes Scale Link Alliance different from traditional networking groups?',
-          a: 'Traditional networking focuses on exchanging contacts. Scale Link Alliance focuses on building intentional, trust-based relationships that lead to strategic opportunities and sustainable business growth.',
-          comparison: [
-            'Traditional networking: Exchanging contacts',
-            'Scale Link Alliance: Building intentional, trust-based relationships that lead to strategic opportunities and sustainable business growth'
+          q: 'How do the three service pathways work?',
+          a: 'We provide three straightforward ways to engage based on your current business needs:',
+          bulletPoints: [
+            'Start From Scratch: Complete end-to-end design and build of a new high-converting website, web app, or business system.',
+            'Scale What Already Exists: Modernize, speed up, and optimize an existing website for higher lead conversion and retention.',
+            'Standalone Services: Targeted solutions across SEO, paid ads, CRM workflows, API integration, and creative assets.'
           ]
+        },
+        {
+          q: 'What technologies and platforms do you support?',
+          a: 'Our engineering and marketing teams work with modern, battle-tested platforms including React, Next.js, Node.js, Tailwind CSS, WordPress/WooCommerce, Shopify, Webflow, custom REST APIs, and leading CRM systems (HubSpot, GoHighLevel, ActiveCampaign, etc.).'
         }
       ]
     },
     {
       category: 'Milestone-Based Payment Protection',
+      id: 'payment-protection',
       icon: <FaShieldAlt />,
       questions: [
         {
           q: 'How does ScaleLink Alliance protect project payments?',
-          a: 'ScaleLink Alliance may use deposits, milestone-based payments terms to create a clear and fair payment process for both the client and the service team. Before work begins, the client receives a quote or project agreement that explains the project scope, payment amount, timeline, deliverables, and any milestone payment terms. For larger or custom projects, payments may be connected to specific project stages. This helps the client understand what they are paying for and helps ScaleLink Alliance complete the work with clear expectations.'
+          a: 'We use structured milestone-based payment schedules to create a fair, transparent, and low-risk project experience. Project costs are divided into clear milestone stages tied directly to agreed deliverables. You review and approve each phase before remaining milestone payments are due.'
         },
         {
           q: 'When are funds released or applied?',
-          a: 'Funds may be released or applied when an approved milestone is completed, a deliverable is submitted, the client approves the work, or the review period has passed.'
+          a: 'Funds are applied as defined milestones are completed and verified by you (for example: wireframe approval, staging site review, or final launch sign-off). This ensures our team delivers exactly what was promised before proceeding to the next stage.'
         },
         {
           q: 'Are deposits refundable?',
-          a: 'Deposits may be non-refundable once work has started, especially if planning, design, strategy, setup, development, third-party purchases, or project labor has already been completed.'
+          a: 'Initial milestone deposits cover dedicated architecture, planning, and design hours. Once milestone work has commenced, that phase deposit is applied to the active delivery work. If you choose to pause or cancel before work begins, unallocated funds are returned per our service agreement.'
         },
         {
-          q: 'What happens if I request changes?',
-          a: 'Revisions included in the quote are covered. Major changes, new features, extra pages, additional services, or requests outside the approved scope may require a new quote or additional payment.'
+          q: 'What happens if I request changes or extra features?',
+          a: 'Every project quote includes defined revision rounds within the agreed scope. If you request major changes, new custom features, or additional pages outside the original plan, we provide a clear, fixed-price addendum quote for your approval before any extra work begins.'
+        }
+      ]
+    },
+    {
+      category: 'Project Tracking Portal & Delivery',
+      id: 'portal',
+      icon: <FaProjectDiagram />,
+      questions: [
+        {
+          q: 'How do I track my project status?',
+          a: 'Every client receives access to our centralized Project Tracking Portal. You can monitor live milestone progress, view staging links, download deliverable files, and communicate directly with your dedicated project team with complete visibility.'
         },
         {
-          q: 'Why does ScaleLink Alliance use milestone-based payments?',
-          a: 'Milestone-based payments help keep projects organized, fair, and transparent. They help protect the client by connecting payments to agreed work, and they help protect ScaleLink Alliance by ensuring the project can move forward with clear payment expectations.'
+          q: 'Who manages my project and communication?',
+          a: 'You are paired with a dedicated ScaleLink Project Manager who oversees your designers, developers, and systems specialists. Your project manager serves as your central point of contact, ensuring deadlines are met and communication is clear and prompt.'
+        },
+        {
+          q: 'What happens after my project launches?',
+          a: 'We conduct comprehensive post-launch verification, analytics tracking checks, and speed optimization. Beyond launch, we offer continuous Care plans that provide ongoing technical maintenance, security monitoring, regular software updates, and priority on-demand support.'
+        }
+      ]
+    },
+    {
+      category: 'Getting Started & Growth Review',
+      id: 'getting-started',
+      icon: <FaUserCheck />,
+      questions: [
+        {
+          q: 'What happens during the Free Website & Business Growth Review?',
+          a: 'Our technical team conducts a comprehensive diagnostic of your current digital setup. We analyze page speed, mobile usability, SEO structure, conversion bottlenecks, and lead follow-up mechanisms, delivering a clear actionable summary of high-impact improvements.'
+        },
+        {
+          q: 'How do I get started?',
+          a: 'You can begin by requesting your Free Website & Business Growth Review, exploring our standalone services catalog, or booking a consultation call to discuss your exact project goals.'
+        },
+        {
+          q: 'How can I contact ScaleLink Alliance?',
+          a: 'You can reach our team anytime via email, phone, or our online contact form:',
+          contact: {
+            website: 'www.scalelinkalliance.com/contact',
+            email: 'Support@scalelinkalliance.com',
+            phone: '+1-815-669-0642'
+          }
         }
       ]
     }
   ];
 
-  // Quick stats
+  // Quick stats (Document 2 Guidelines)
   const stats = [
     { label: 'Industries Represented', value: '50+' },
-    { label: 'Active Chapters', value: '25+' },
-    { label: 'Member Satisfaction', value: '96%' },
-    { label: 'Avg. Referrals/Year', value: '150+' }
+    { label: 'Services Offered', value: '20+' },
+    { label: 'Client Satisfaction', value: '99%' },
+    { label: 'Milestone Protected', value: '100%' }
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-linear-to-br from-blue-600 to-blue-800 py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-800">
+      {/* 🚀 HERO SECTION */}
+      <section className="bg-[#18264A] text-white py-16 lg:py-24 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-semibold uppercase tracking-wider mb-6">
+                <span>Knowledge & Clarity Hub</span>
+              </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6">
                 Frequently Asked Questions
               </h1>
-              <p className="text-xl opacity-90 mb-8">
-                Everything you need to know about Scale Link Alliance
+              <p className="text-lg sm:text-xl text-slate-200 max-w-2xl mx-auto mb-8 leading-relaxed">
+                Clear answers about our digital services, build processes, milestone payment protection, and ongoing client care.
               </p>
-              
-              {/* Quick Contact */}
+
+              {/* Quick Contact Badges */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a 
+                <a
                   href="mailto:Support@scalelinkalliance.com"
-                  className="inline-flex items-center justify-center space-x-3 px-6 py-3 bg-white/20 backdrop-blur-sm rounded-lg hover:bg-white/30 transition-colors"
+                  className="inline-flex items-center justify-center space-x-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-xs text-white rounded-xl text-sm font-medium transition-colors"
                 >
-                  <FaEnvelope />
+                  <FaEnvelope className="text-emerald-400" />
                   <span>Support@scalelinkalliance.com</span>
                 </a>
-                <a 
+                <a
                   href="tel:+18156690642"
-                  className="inline-flex items-center justify-center space-x-3 px-6 py-3 bg-white/20 backdrop-blur-sm rounded-lg hover:bg-white/30 transition-colors"
+                  className="inline-flex items-center justify-center space-x-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-xs text-white rounded-xl text-sm font-medium transition-colors"
                 >
-                  <FaPhone />
+                  <FaPhone className="text-emerald-400" />
                   <span>+1-815-669-0642</span>
                 </a>
               </div>
@@ -256,172 +242,120 @@ const FAQPage = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-12 bg-white border-b">
+      {/* 📊 QUICK STATS BANNER */}
+      <section className="py-10 bg-white border-b border-slate-200">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="text-center"
-                >
-                  <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
-                    {stat.value}
-                  </div>
-                  <div className="text-gray-600">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
+          <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {stats.map((stat, index) => (
+              <div key={index} className="p-3">
+                <div className="text-3xl lg:text-4xl font-extrabold text-[#18264A] mb-1">
+                  {stat.value}
+                </div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Main FAQ Section */}
-      <section className="py-16">
+      {/* 📑 FAQ ACCORDION CONTENT */}
+      <section className="py-16 lg:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            {/* Category Navigation */}
-            <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-              <h2 className="text-lg font-semibold text-gray-700 mb-4">Jump to Category:</h2>
-              <div className="flex flex-wrap gap-3">
+            {/* Category Quick Jump */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200 mb-10 shadow-xs">
+              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">
+                Jump to Category:
+              </h2>
+              <div className="flex flex-wrap gap-2">
                 {faqData.map((category, idx) => (
                   <a
                     key={idx}
-                    href={`#${category.category.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-blue-100 hover:text-blue-700 transition-colors text-sm font-medium"
+                    href={`#${category.id}`}
+                    className="px-3.5 py-1.5 rounded-lg bg-slate-100 hover:bg-[#18264A] text-slate-700 hover:text-white text-xs font-semibold transition-colors flex items-center gap-2"
                   >
-                    {category.category}
+                    <span>{category.icon}</span>
+                    <span>{category.category}</span>
                   </a>
                 ))}
               </div>
             </div>
 
-            {/* FAQ Categories */}
-            <div className="space-y-6">
-              {faqData.map((category, categoryIndex) => (
-                <motion.div
-                  key={categoryIndex}
-                  id={category.category.toLowerCase().replace(/\s+/g, '-')}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden scroll-mt-24"
+            {/* Category Sections */}
+            <div className="space-y-8">
+              {faqData.map((category, catIndex) => (
+                <div 
+                  key={catIndex} 
+                  id={category.id}
+                  className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs"
                 >
                   {/* Category Header */}
                   <div
-                    onClick={() => toggleSection(Object.keys(openSections)[categoryIndex])}
-                    className="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition-colors"
+                    onClick={() => toggleSection(catIndex)}
+                    className="p-5 sm:px-6 bg-slate-50 border-b border-slate-200 flex items-center justify-between cursor-pointer select-none hover:bg-slate-100/70 transition-colors"
                   >
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-xl">
-                        {category.icon}
-                      </div>
-                      <h2 className="text-2xl font-bold text-gray-900">
+                    <div className="flex items-center space-x-3 text-[#18264A]">
+                      <span className="text-xl text-emerald-600">{category.icon}</span>
+                      <h2 className="text-xl font-bold text-slate-900">
                         {category.category}
                       </h2>
+                      <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-slate-200 text-slate-700">
+                        {category.questions.length}
+                      </span>
                     </div>
-                    <button className="text-gray-500 hover:text-gray-700">
-                      {openSections[Object.keys(openSections)[categoryIndex]] ? (
-                        <FaChevronUp size={20} />
-                      ) : (
-                        <FaChevronDown size={20} />
-                      )}
+                    <button className="text-slate-400 hover:text-slate-600 text-sm">
+                      {openSections[catIndex] ? <FaChevronUp /> : <FaChevronDown />}
                     </button>
                   </div>
 
-                  {/* Questions */}
-                  {openSections[Object.keys(openSections)[categoryIndex]] && (
-                    <div className="border-t border-gray-200">
-                      {category.questions.map((item, questionIndex) => {
-                        const uniqueId = `${categoryIndex}-${questionIndex}`;
+                  {/* Question Items */}
+                  {openSections[catIndex] && (
+                    <div className="p-4 sm:p-6 divide-y divide-slate-100">
+                      {category.questions.map((item, qIndex) => {
+                        const isOpen = openQuestions[`${catIndex}-${qIndex}`];
                         return (
-                          <div key={questionIndex} className="border-b last:border-b-0">
+                          <div key={qIndex} className="py-4 first:pt-1 last:pb-1">
                             <div
-                              onClick={() => toggleQuestion(uniqueId)}
-                              className="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition-colors"
+                              onClick={() => toggleQuestion(catIndex, qIndex)}
+                              className="flex items-start justify-between cursor-pointer group"
                             >
-                              <h3 className="text-lg font-semibold text-gray-800 pr-8">
+                              <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-[#18264A] transition-colors pr-4">
                                 {item.q}
                               </h3>
-                              <button className="text-blue-600 hover:text-blue-800">
-                                {openQuestions[uniqueId] ? <FaChevronUp /> : <FaChevronDown />}
+                              <button className="text-slate-400 group-hover:text-[#18264A] mt-1 shrink-0 text-xs">
+                                {isOpen ? <FaChevronUp /> : <FaChevronDown />}
                               </button>
                             </div>
-                            
-                            {openQuestions[uniqueId] && (
+
+                            {isOpen && (
                               <motion.div
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.3 }}
-                                className="px-6 pb-6"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                transition={{ duration: 0.2 }}
+                                className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed space-y-3"
                               >
-                                <div className="bg-gray-50 rounded-lg p-6">
-                                  <p className="text-gray-700 mb-4">{item.a}</p>
-                                  
-                                  {/* Bullet Points */}
-                                  {item.bulletPoints && (
-                                    <ul className="space-y-2 mb-4">
-                                      {item.bulletPoints.map((point, idx) => (
-                                        <li key={idx} className="flex items-start space-x-3">
-                                          <FaCheckCircle className="text-green-500 mt-1 flex-shrink-0" />
-                                          <span className="text-gray-700">{point}</span>
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  )}
-                                  
-                                  {/* Contact Information */}
-                                  {item.contact && (
-                                    <div className="mt-4 p-4 bg-white rounded-lg border border-gray-200">
-                                      <h4 className="font-semibold text-gray-900 mb-3">Contact Information:</h4>
-                                      <div className="space-y-2">
-                                        <div className="flex items-center space-x-3">
-                                          <FaGlobe className="text-blue-600" />
-                                          <a href="https://www.scalelinkalliance.com" className="text-blue-600 hover:underline">
-                                            {item.contact.website}
-                                          </a>
-                                        </div>
-                                        <div className="flex items-center space-x-3">
-                                          <FaEnvelope className="text-blue-600" />
-                                          <a href={`mailto:${item.contact.email}`} className="text-blue-600 hover:underline">
-                                            {item.contact.email}
-                                          </a>
-                                        </div>
-                                        <div className="flex items-center space-x-3">
-                                          <FaPhone className="text-blue-600" />
-                                          <a href={`tel:${item.contact.phone}`} className="text-blue-600 hover:underline">
-                                            {item.contact.phone}
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  )}
-                                  
-                                  {/* Comparison */}
-                                  {item.comparison && (
-                                    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                                      {item.comparison.map((comp, idx) => (
-                                        <div key={idx} className="bg-white p-4 rounded-lg border border-gray-200">
-                                          {idx === 0 ? (
-                                            <div className="flex items-start space-x-2">
-                                              <FaTimesCircle className="text-red-500 mt-1 flex-shrink-0" />
-                                              <span className="text-gray-700">{comp}</span>
-                                            </div>
-                                          ) : (
-                                            <div className="flex items-start space-x-2">
-                                              <FaCheckCircle className="text-green-500 mt-1 flex-shrink-0" />
-                                              <span className="text-gray-700 font-medium">{comp}</span>
-                                            </div>
-                                          )}
-                                        </div>
-                                      ))}
-                                    </div>
-                                  )}
-                                </div>
+                                <p>{item.a}</p>
+
+                                {item.bulletPoints && (
+                                  <ul className="space-y-1.5 pl-2 mt-2">
+                                    {item.bulletPoints.map((point, ptIdx) => (
+                                      <li key={ptIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700">
+                                        <FaCheckCircle className="text-emerald-600 mt-1 shrink-0 text-xs" />
+                                        <span>{point}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
+
+                                {item.contact && (
+                                  <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3 text-xs sm:text-sm space-y-1.5">
+                                    <div><strong>Website:</strong> <Link to="/contact" className="text-emerald-700 underline font-semibold">{item.contact.website}</Link></div>
+                                    <div><strong>Email:</strong> <a href={`mailto:${item.contact.email}`} className="text-emerald-700 underline font-semibold">{item.contact.email}</a></div>
+                                    <div><strong>Phone:</strong> <a href={`tel:${item.contact.phone}`} className="text-emerald-700 underline font-semibold">{item.contact.phone}</a></div>
+                                  </div>
+                                )}
                               </motion.div>
                             )}
                           </div>
@@ -429,49 +363,36 @@ const FAQPage = () => {
                       })}
                     </div>
                   )}
-                </motion.div>
+                </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Still Have Questions */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="mt-12 bg-linear-to-r from-blue-600 to-blue-800 rounded-2xl p-8 text-white text-center"
-            >
-              <h2 className="text-2xl font-bold mb-4">Still Have Questions?</h2>
-              <p className="text-lg opacity-90 mb-6">
-                We're here to help you find the right path for your business.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to="/contact"
-                  className="px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
-                >
-                  Contact Us
-                </Link>
-                <Link
-                  to="/how-it-works"
-                  className="px-8 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-colors"
-                >
-                  Learn How It Works
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Quick Links */}
-            <div className="mt-8 text-center">
-              <p className="text-gray-600 mb-4">Quick Links:</p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link to="/membership" className="text-blue-600 hover:underline">Membership</Link>
-                <span className="text-gray-400">•</span>
-                <Link to="/services" className="text-blue-600 hover:underline">Services</Link>
-                <span className="text-gray-400">•</span>
-                <Link to="/chapters" className="text-blue-600 hover:underline">Find a Chapter</Link>
-                <span className="text-gray-400">•</span>
-                <Link to="/resources" className="text-blue-600 hover:underline">Resources</Link>
-              </div>
+      {/* 🚀 FINAL CTA SECTION */}
+      <section className="py-20 bg-[#18264A] text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-6 tracking-tight">
+              Ready to strengthen the systems behind your growth?
+            </h2>
+            <p className="text-lg text-slate-200 max-w-2xl mx-auto mb-10 leading-relaxed">
+              Let ScaleLink review your current website, lead-generation process and follow-up systems and identify the improvements that can create the greatest business impact.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/free-website-review"
+                className="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition-all shadow-lg text-base"
+              >
+                Get My Free Review
+              </Link>
+              <Link
+                to="/contact"
+                className="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold rounded-xl transition-colors text-base"
+              >
+                Contact Our Team
+              </Link>
             </div>
           </div>
         </div>

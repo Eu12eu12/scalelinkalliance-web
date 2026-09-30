@@ -10,7 +10,6 @@ import {
   FaEnvelope, FaSearch, FaDatabase, FaFileAlt, FaProjectDiagram, FaShieldAlt,
   FaChevronLeft, FaChevronRight, FaRobot, FaAd, FaTimes
 } from 'react-icons/fa';
-import ComparisonTable from '../components/sections/ComparisonTable';
 import ChapterCard from '../components/sections/ChapterCard';
 import FreeWebsiteReviewSection from '../components/sections/FreeWebsiteReviewSection';
 
@@ -122,13 +121,6 @@ const HomePage = () => {
     }
   };
 
-  const valuePoints = [
-    { icon: <FaHandshake />, title: 'Weekly Referral Meetings', desc: 'Structured, purpose-driven networking' },
-    { icon: <FaUserTie />, title: 'Industry Exclusivity', desc: 'No competition within your chapter' },
-    { icon: <FaChartLine />, title: 'Proven Structure', desc: 'Accountability and measurable results' },
-    { icon: <FaGlobe />, title: 'Local to Global', desc: 'Chapters nationwide with expansion plans' },
-  ];
-
   const whyWorkData = [
     {
       number: '01',
@@ -199,10 +191,22 @@ const HomePage = () => {
   }, [isWhyWorkModalOpen]);
 
   const faqs = [
-    { q: 'Do I need to join the network to use services?', a: 'No. You can access services independently.' },
-    { q: 'What types of businesses join?', a: 'Consultants, agencies, service providers, and growing companies.' },
-    { q: 'How fast can I see results?', a: 'Timing varies depending on your industry, goals, participation and the opportunities available within the network.' },
-    { q: 'How does ScaleLink compare with hiring in-house?', a: 'ScaleLink gives businesses access to specialized support without the recruiting, payroll, and long-term commitment of adding another full-time employee.' }
+    { 
+      q: 'Can I purchase a single service, or do I need a package?', 
+      a: 'You can purchase individual standalone services (such as website maintenance, SEO, paid advertising, or CRM automation) or choose comprehensive end-to-end growth solutions depending on your immediate requirements.' 
+    },
+    { 
+      q: 'Do I need a new website, or can ScaleLink improve my existing one?', 
+      a: 'Both. If you have an existing website, our Scale Existing pathway audits performance, fixes conversion leaks, and adds automation. If you need a fresh start, our Start From Scratch pathway builds from the ground up.' 
+    },
+    { 
+      q: 'How do project milestones and payments work?', 
+      a: 'Every project includes a defined scope, deliverables, and milestone schedule. For applicable projects, payments are managed on a milestone basis, giving you full accountability and peace of mind before work is completed.' 
+    },
+    { 
+      q: 'How does ScaleLink compare with hiring in-house or juggling freelancers?', 
+      a: 'ScaleLink gives you an entire coordinated digital team—developers, marketers, designers, and automation specialists—under one professional relationship without the recruitment costs, management overhead, or payroll of hiring full-time staff.' 
+    }
   ];
 
   useEffect(() => {
@@ -227,8 +231,8 @@ const HomePage = () => {
       tag.setAttribute('content', content);
     };
 
-    setMeta('description', 'Grow your business with ScaleLink Alliance through website development, SEO, lead generation, automation, digital marketing and strategic business connections.');
-    setMeta('keywords', 'business growth services, digital business services, website development services, digital marketing services, business automation services, business growth solutions, professional business network');
+    setMeta('description', 'ScaleLink Alliance is a done-for-you digital growth partner that helps businesses build, market, automate and support the systems behind customer acquisition and operations.');
+    setMeta('keywords', 'business growth services, digital business services, website development, SEO marketing, lead generation, CRM automation, digital growth partner');
   }, []);
 
   return (
@@ -265,13 +269,13 @@ const HomePage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              {/* Original Headline */}
+              {/* Hero Headline */}
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight max-w-none mx-auto">
-                Build Better. Attract More Customers. Scale Smarter.
+                Build Better Systems. Attract More Customers. Grow With One Team.
               </h1>
 
-              <p className="text-base sm:text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto px-4">
-                ScaleLink Alliance combines web development, digital marketing, automation, and strategic business support to help companies build, grow, and scale.
+              <p className="text-base sm:text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto px-4 leading-relaxed">
+                ScaleLink Alliance helps businesses build and improve the digital systems behind growth — websites, lead generation, CRM, automation, marketing and ongoing technical support under one professional relationship.
               </p>
 
               {/* Original buttons - maintaining previous styling */}
@@ -339,80 +343,138 @@ const HomePage = () => {
       </section>
 
 
-      {/* 🎯 SECTION 2: CHOOSE YOUR PATH */}
+      {/* 🎯 SECTION 2: CHOOSE YOUR STARTING POINT */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="text-center max-w-3xl mx-auto mb-14">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#18264A] text-xs font-bold uppercase tracking-[0.18em]">
+                Service Pathways
+              </span>
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mt-3 mb-4">
+                Choose Your Starting Point
+              </h2>
+              <p className="text-gray-600 font-medium">
+                Whether you need a brand-new platform, optimization for an existing setup, or specialized standalone services.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Card 1: Start From Scratch */}
               <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all overflow-hidden relative"
+                transition={{ duration: 0.5 }}
+                className="bg-gradient-to-br from-blue-50/60 to-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all border border-blue-100 flex flex-col justify-between group"
               >
-                <div className="absolute top-0 right-0 w-40 h-40 opacity-10">
-                  <FaUsers className="text-6xl text-blue-600" />
-                </div>
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-4">
-                    <FaUsers className="text-white text-xl" />
+                <div>
+                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-6 text-white text-xl shadow-md group-hover:scale-110 transition-transform">
+                    <FaCode />
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-900">Get More Clients Through Referrals</h2>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">Start From Scratch</h3>
+                  <p className="text-gray-600 text-sm mb-6 leading-relaxed">
+                    Need a brand-new digital platform? We design and build custom websites, web applications, branding, and conversion funnels from the ground up.
+                  </p>
+                  <ul className="space-y-2.5 mb-8 text-sm">
+                    <li className="flex items-center text-gray-700">
+                      <FaCheckCircle className="text-emerald-500 mr-2 shrink-0 text-xs" />
+                      <span>Custom websites & web apps</span>
+                    </li>
+                    <li className="flex items-center text-gray-700">
+                      <FaCheckCircle className="text-emerald-500 mr-2 shrink-0 text-xs" />
+                      <span>Brand identity & conversion funnels</span>
+                    </li>
+                    <li className="flex items-center text-gray-700">
+                      <FaCheckCircle className="text-emerald-500 mr-2 shrink-0 text-xs" />
+                      <span>Complete launch & deployment</span>
+                    </li>
+                  </ul>
                 </div>
-                <p className="text-gray-700 mb-6">
-                  Join a trusted network of professionals designed to generate qualified referrals, build partnerships, and create consistent business opportunities.
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center">
-                    <FaCheckCircle className="text-green-500 mr-2" />
-                    <span className="text-gray-700">Receive qualified referrals</span>
-                  </li>
-                  <li className="flex items-center">
-                    <FaCheckCircle className="text-green-500 mr-2" />
-                    <span className="text-gray-700">Build strategic partnerships</span>
-                  </li>
-                  <li className="flex items-center">
-                    <FaCheckCircle className="text-green-500 mr-2" />
-                    <span className="text-gray-700">Expand your network</span>
-                  </li>
-                </ul>
-               
+                <Link
+                  to="/build-from-scratch"
+                  className="inline-flex items-center justify-center gap-2 w-full py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors shadow-md text-sm"
+                >
+                  Start From Scratch <FaArrowRight className="text-xs" />
+                </Link>
               </motion.div>
 
+              {/* Card 2: Scale Existing */}
               <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all overflow-hidden relative"
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="bg-gradient-to-br from-emerald-50/60 to-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all border border-emerald-100 flex flex-col justify-between group"
               >
-                <div className="absolute top-0 right-0 w-40 h-40 opacity-10">
-                  <FaBuilding className="text-6xl text-gray-600" />
-                </div>
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mr-4">
-                    <FaBuilding className="text-white text-xl" />
+                <div>
+                  <div className="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center mb-6 text-white text-xl shadow-md group-hover:scale-110 transition-transform">
+                    <FaChartLine />
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-900">Get Work Done Without Hiring</h2>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">Scale What Already Exists</h3>
+                  <p className="text-gray-600 text-sm mb-6 leading-relaxed">
+                    Already have a website or software? We optimize conversions, rank higher on search, automate lead follow-up, and provide ongoing maintenance.
+                  </p>
+                  <ul className="space-y-2.5 mb-8 text-sm">
+                    <li className="flex items-center text-gray-700">
+                      <FaCheckCircle className="text-emerald-500 mr-2 shrink-0 text-xs" />
+                      <span>SEO & paid advertising</span>
+                    </li>
+                    <li className="flex items-center text-gray-700">
+                      <FaCheckCircle className="text-emerald-500 mr-2 shrink-0 text-xs" />
+                      <span>CRM & workflow automation</span>
+                    </li>
+                    <li className="flex items-center text-gray-700">
+                      <FaCheckCircle className="text-emerald-500 mr-2 shrink-0 text-xs" />
+                      <span>Ongoing Care & technical maintenance</span>
+                    </li>
+                  </ul>
                 </div>
-                <p className="text-gray-700 mb-6">
-                     Access web development, marketing, design, automation, and operational expertise without adding full-time employees.                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center">
-                    <FaCheckCircle className="text-green-500 mr-2" />
-                    <span className="text-gray-700">No hiring required</span>
-                  </li>
-                  <li className="flex items-center">
-                    <FaCheckCircle className="text-green-500 mr-2" />
-                    <span className="text-gray-700">Flexible, scalable support</span>
-                  </li>
-                  <li className="flex items-center">
-                    <FaCheckCircle className="text-green-500 mr-2" />
-                    <span className="text-gray-700">Done-for-you execution</span>
-                  </li>
-                </ul>
-               
+                <Link
+                  to="/scale-existing-website"
+                  className="inline-flex items-center justify-center gap-2 w-full py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors shadow-md text-sm"
+                >
+                  Scale Existing Website <FaArrowRight className="text-xs" />
+                </Link>
+              </motion.div>
+
+              {/* Card 3: Standalone Services */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="bg-gradient-to-br from-slate-50 to-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all border border-slate-200 flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="w-12 h-12 bg-[#18264A] rounded-xl flex items-center justify-center mb-6 text-white text-xl shadow-md group-hover:scale-110 transition-transform">
+                    <FaCogs />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">Standalone Services</h3>
+                  <p className="text-gray-600 text-sm mb-6 leading-relaxed">
+                    Need specific digital execution without a full overhaul? Pick from 20+ on-demand services across web development, marketing, and automation.
+                  </p>
+                  <ul className="space-y-2.5 mb-8 text-sm">
+                    <li className="flex items-center text-gray-700">
+                      <FaCheckCircle className="text-emerald-500 mr-2 shrink-0 text-xs" />
+                      <span>Pay only for what you need</span>
+                    </li>
+                    <li className="flex items-center text-gray-700">
+                      <FaCheckCircle className="text-emerald-500 mr-2 shrink-0 text-xs" />
+                      <span>Milestone-protected delivery</span>
+                    </li>
+                    <li className="flex items-center text-gray-700">
+                      <FaCheckCircle className="text-emerald-500 mr-2 shrink-0 text-xs" />
+                      <span>Dedicated client tracking portal</span>
+                    </li>
+                  </ul>
+                </div>
+                <Link
+                  to="/services"
+                  className="inline-flex items-center justify-center gap-2 w-full py-3 bg-[#18264A] text-white font-semibold rounded-xl hover:bg-[#101c38] transition-colors shadow-md text-sm"
+                >
+                  Explore All Services <FaArrowRight className="text-xs" />
+                </Link>
               </motion.div>
             </div>
           </div>
@@ -535,16 +597,16 @@ const HomePage = () => {
                   </div>
                   <div className="flex items-center space-x-3">
                     <FaTimesCircle className="text-red-500 text-xl" />
-                    <span className="text-gray-700">You lack the right connections</span>
+                    <span className="text-gray-700">Your leads are not being captured or followed up consistently</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <FaTimesCircle className="text-red-500 text-xl" />
                     <span className="text-gray-700">You're doing everything yourself</span>
                   </div>
                 </div>
-                <div className="mt-8 p-6 bg-blue-50 rounded-xl border-l-4 border-blue-500">
+                <div className="mt-8 p-6 bg-blue-50 rounded-xl border-l-4 border-[#18264A]">
                   <p className="text-lg text-gray-800">
-                    <strong>ScaleLink Alliance</strong> solves this by combining <strong>strategic referrals with on-demand business services</strong>—giving you both opportunities and execution.
+                    <strong>ScaleLink Alliance</strong> solves this with <strong>one coordinated team to build, market, automate and support</strong> the digital systems behind customer acquisition and business growth.
                   </p>
                 </div>
               </motion.div>
@@ -583,13 +645,13 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0 }}
-                className="text-center p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-lg"
+                className="text-center p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-lg border border-blue-50"
               >
-                <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+                <div className="w-16 h-16 bg-[#18264A] rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
                   1
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Choose Your Path</h3>
-                <p className="text-gray-600">Join the network or request services based on your needs.</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Choose Your Starting Point</h3>
+                <p className="text-gray-600">Build new from scratch, scale an existing platform, or select standalone services.</p>
               </motion.div>
 
               <motion.div
@@ -597,13 +659,13 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-center p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-lg"
+                className="text-center p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-lg border border-blue-50"
               >
-                <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+                <div className="w-16 h-16 bg-[#18264A] rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
                   2
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Get Connected or Supported</h3>
-                <p className="text-gray-600">We connect you with professionals or assign expert support.</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Audit & Plan</h3>
+                <p className="text-gray-600">We audit your systems, define deliverables and milestone pricing, and assign dedicated specialists.</p>
               </motion.div>
 
               <motion.div
@@ -611,13 +673,13 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-center p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-lg"
+                className="text-center p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-lg border border-blue-50"
               >
-                <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+                <div className="w-16 h-16 bg-[#18264A] rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
                   3
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Move Forward With Confidence</h3>
-                <p className="text-gray-600">Start your project, build new professional connections, and track your progress through ScaleLink.</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Build, Launch & Support</h3>
+                <p className="text-gray-600">Execute with milestone protection, follow progress in your live portal, and scale with ongoing Care.</p>
               </motion.div>
             </div>
           </div>
@@ -640,11 +702,11 @@ const HomePage = () => {
                 </h2>
                 <div className="space-y-4">
                   {[
-                    'Consistent business opportunities',
-                    'Stronger professional connections',
-                    'Reduced workload and stress',
-                    'Access to expert services on demand',
-                    'A system designed for long-term growth'
+                    'A stronger system for attracting and converting qualified opportunities',
+                    'Better lead capture, CRM automation, and consistent follow-up',
+                    'One coordinated team across web, marketing, automation, and support',
+                    'Transparent pricing and milestone-based project protection',
+                    'Predictable digital systems built for long-term business growth'
                   ].map((item, index) => (
                     <div key={index} className="flex items-center space-x-3 bg-white/10 rounded-lg p-4 backdrop-blur-sm">
                       <FaCheckCircle className="text-green-400 text-xl shrink-0" />
@@ -985,28 +1047,27 @@ const HomePage = () => {
       </section>
 
       {/* 🔥 SECTION 10: FINAL CTA */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-800">
+      <section className="py-20 bg-gradient-to-r from-blue-900 via-[#18264A] to-slate-900">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-              Ready to Grow Your Business?
+              Ready to strengthen the systems behind your growth?
             </h2>
-            <p className="text-xl text-white/90 mb-10">
-              Whether you need more opportunities or expert execution, ScaleLink Alliance gives you the system to scale.
+            <p className="text-xl text-white/90 mb-10 leading-relaxed">
+              Let ScaleLink review your current website, lead-generation process and follow-up systems and identify the improvements that can create the greatest business impact.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              
               <Link
-                to="/services"
-                className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-colors"
+                to="/free-website-review"
+                className="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/30 hover:scale-105"
               >
-                Hire Services
+                Get My Free Review
               </Link>
               <Link
-                to="/contact"
-                className="px-8 py-4 bg-gray-900 text-white font-semibold rounded-lg hover:bg-black transition-colors"
+                to="/services"
+                className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-xl hover:bg-white/10 transition-colors"
               >
-                Book a Free Growth Call
+                Explore Services
               </Link>
             </div>
           </div>

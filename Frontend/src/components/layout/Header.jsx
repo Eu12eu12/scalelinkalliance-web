@@ -85,7 +85,7 @@ const servicesDropdownCategories = [
       { name: 'AI Automation', path: '/services/ai-automation' },
       { name: 'Integrations', path: '/services/api-integration' },
       { name: 'Operations Support', path: '/services/virtual-assistant' },
-      { name: 'Referral Network', path: '/membership' },
+      { name: 'Business Systems', path: '/scale-existing-website' },
     ]
   },
 ];
@@ -281,10 +281,8 @@ const Header = () => {
   const closeDropdown = () => setOpenDropdown(null);
 
   const moreItems = [
-    { name: 'Find a Chapter', path: '/chapters' },
-    { name: 'Start a Chapter', path: '/become-director' },
     { name: 'Resources', path: '/resources' },
-    { name: 'Business Partners', path: '/business-partners' },
+    { name: 'Guide by Problem', path: '/services/guide-by-problem' },
     { name: 'Contact', path: '/contact' },
     { name: 'Sitemap', path: '/sitemap' },
   ];
@@ -300,7 +298,7 @@ const Header = () => {
     },
     { label: 'How It Works', path: '/how-it-works', isLink: true },
     { label: 'About Us', path: '/about', isLink: true },
-    { label: 'Membership', path: '/membership', isLink: true },
+    
     { label: 'Build From Scratch', path: '/build-from-scratch', isLink: true },
     { label: 'Scale Existing Website', path: '/scale-existing-website', isLink: true },
     {
@@ -420,11 +418,11 @@ const Header = () => {
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-2 ml-4 shrink-0">
             <Link
-              to="/membership"
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg transition-all whitespace-nowrap"
+              to="/services"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-[#18264A] text-white hover:bg-[#101c38] shadow-md hover:shadow-lg transition-all whitespace-nowrap"
             >
-              <FaUserTie />
-              Join The Network
+              <FaBriefcase />
+              Explore Services
             </Link>
             <Link
               to="/free-website-review"
@@ -524,11 +522,11 @@ const Header = () => {
                 {/* Mobile CTAs */}
                 <div className="pt-3 mt-3 border-t border-gray-200 space-y-2 px-1">
                   <Link
-                    to="/membership"
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-blue-600 to-blue-700 text-white"
+                    to="/services"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold bg-[#18264A] text-white"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <FaUserTie /> Apply to Join
+                    <FaBriefcase /> Explore Services
                   </Link>
                   <Link
                     to="/free-website-review"

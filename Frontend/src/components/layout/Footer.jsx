@@ -7,20 +7,21 @@ const Footer = () => {
   const navigation = {
     main: [
       { name: 'Home', href: '/' },
-      { name: 'How It Works', href: '/how-it-works' },
-      { name: 'Chapters', href: '/chapters' },
-      { name: 'Membership', href: '/membership' },
       { name: 'Services', href: '/services' },
+      { name: 'Start From Scratch', href: '/build-from-scratch' },
+      { name: 'Scale Existing Website', href: '/scale-existing-website' },
+      { name: 'How It Works', href: '/how-it-works' },
       { name: 'About Us', href: '/about' },
       { name: 'Resources', href: '/resources' },
       { name: 'Contact', href: '/contact' },
     ],
     secondary: [
-      { name: 'Become a Chapter Director', href: '/become-director' },
+      { name: 'Free Website Review', href: '/free-website-review' },
       { name: 'Service Request', href: '/request-service' },
       { name: 'Privacy Policy', href: '/legal?tab=privacy' },
       { name: 'Terms of Service', href: '/legal?tab=terms' },
       { name: 'Payment & Escrow Terms', href: '/legal?tab=escrow' },
+      { name: 'Sitemap', href: '/sitemap' },
     ],
     social: [
       { name: 'LinkedIn', icon: FaLinkedin, href: '#' },
@@ -53,7 +54,7 @@ const Footer = () => {
             </div>
 
             <p className="text-slate-400 text-sm leading-relaxed mb-7">
-              A professional business growth organization helping companies scale through structured referral networking and on-demand business services.
+              A done-for-you digital growth partner that helps businesses build, market, automate and support the systems behind customer acquisition and operations.
             </p>
 
             {/* Social icons */}
@@ -158,7 +159,7 @@ const Footer = () => {
               &copy; {new Date().getFullYear()} ScaleLink Alliance. All rights reserved.
             </p>
             <p className="text-slate-600 text-xs mt-1 tracking-wide">
-              📍 Local Chapters &nbsp;·&nbsp; 🌐 National Expansion &nbsp;·&nbsp; 📈 Relationship-Driven Growth
+              🚀 Done-For-You Execution &nbsp;·&nbsp; ⚙️ Automated Systems &nbsp;·&nbsp; 📈 Measurable Business Growth
             </p>
           </div>
 

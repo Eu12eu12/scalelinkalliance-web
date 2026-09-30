@@ -1,141 +1,135 @@
 // src/pages/HowItWorksPage.jsx
-import React, { useState, useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  FaUsers, FaHandshake, FaChartLine, FaBriefcase, FaCalendarCheck, 
-  FaUserCheck, FaArrowRight, FaCheckCircle, FaTimesCircle, FaPaintBrush,
-  FaVideo, FaPenNib, FaPalette, FaCamera, FaCode, FaRocket, FaShoppingCart,
-  FaGlobe, FaCloudUploadAlt, FaShieldAlt, FaAd, FaEnvelope, FaSearch,
-  FaHeadset, FaProjectDiagram, FaDatabase, FaFileAlt, FaChartBar,
-  FaRegBuilding, FaCogs, FaBuilding
+  FaUsers, FaChartLine, FaBriefcase, FaArrowRight, FaCheckCircle, 
+  FaPaintBrush, FaVideo, FaPenNib, FaPalette, FaCamera, FaCode, 
+  FaRocket, FaShoppingCart, FaGlobe, FaCloudUploadAlt, FaShieldAlt, 
+  FaAd, FaEnvelope, FaSearch, FaHeadset, FaProjectDiagram, FaDatabase, 
+  FaFileAlt, FaChartBar, FaRegBuilding, FaCogs, FaSearchPlus,
+  FaClipboardList, FaLayerGroup, FaTools, FaCheckDouble, FaLifeRing
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const HowItWorksPage = () => {
-  const [activeTab, setActiveTab] = useState('network');
+  useEffect(() => {
+    document.title = 'How It Works | ScaleLink Alliance - Done-For-You Business Systems & Digital Services';
 
-    useEffect(() => {
-      document.title = 'How ScaleLink Alliance Works | Services, Growth & Partnerships';
-  
-      const setMeta = (name, content) => {
-        let tag = document.querySelector(`meta[name="${name}"]`);
-        if (!tag) {
-          tag = document.createElement('meta');
-          tag.setAttribute('name', name);
-          document.head.appendChild(tag);
-        }
-        tag.setAttribute('content', content);
-      };
+    const setMeta = (name, content) => {
+      let tag = document.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
 
-      setMeta('description', 'Get in touch with ScaleLink Alliance for business services and partnerships.');
+    setMeta(
+      'description',
+      'Discover how ScaleLink Alliance helps businesses build, automate, and grow digital systems with transparent milestones, dedicated project portals, and ongoing care.'
+    );
   }, []);
 
-
-  // Images from the provided URLs
-  const images = {
-    network: 'https://image2url.com/r2/default/images/1774353122343-8aa294ba-b330-44d0-b7e0-3de067be087e.jpeg',
-    services: 'https://image2url.com/r2/default/images/1774353201111-1eb8e101-7307-48e1-b565-5e18f8eec4a2.jpeg',
-    growth: 'https://image2url.com/r2/default/images/1774353242591-51c285d9-8148-4e95-be8a-7957262dfb78.jpeg'
-  };
-
-  const networkSteps = [
+  // 6-Stage Delivery Workflow (Document 2: Discover → Audit → Plan → Build → Launch → Care)
+  const deliveryWorkflow = [
     {
       step: 1,
-      icon: <FaUserCheck />,
-      title: 'Apply & Qualify',
-      description: 'Submit your application. We verify business credibility and check industry availability.',
-      details: 'Every member is vetted to ensure professionalism and industry exclusivity.'
+      icon: <FaSearchPlus className="text-2xl" />,
+      title: '1. Discover',
+      subtitle: 'Goals & Requirements Discovery',
+      description: 'We learn your business model, target audience, and current customer acquisition bottlenecks to understand exactly where systems can be improved.',
+      details: 'Initial discovery questionnaire, growth diagnostic review, and clear alignment on business priorities.'
     },
     {
       step: 2,
-      icon: <FaUsers />,
-      title: 'Get Connected',
-      description: 'We connect you with the right chapter and professionals in your industry.',
-      details: 'Qualified applicants are matched with chapters that have open seats in their industry.'
+      icon: <FaClipboardList className="text-2xl" />,
+      title: '2. Audit',
+      subtitle: 'Comprehensive Systems Review',
+      description: 'Our technical team analyzes your current website, conversion pathways, SEO health, lead capture mechanisms, and CRM workflows.',
+      details: 'Identification of speed bottlenecks, drop-off points, mobile UX issues, and missed follow-up opportunities.'
     },
     {
       step: 3,
-      icon: <FaCalendarCheck />,
-      title: 'Attend Weekly Meetings',
-      description: 'Join structured meetings focused on referral exchange and relationship building.',
-      details: 'Members meet weekly for 90-minute sessions with clear agendas and accountability.'
+      icon: <FaLayerGroup className="text-2xl" />,
+      title: '3. Plan',
+      subtitle: 'Scope, Milestones & Fixed Pricing',
+      description: 'We develop a tailored execution plan with clear scope, transparent milestones, realistic timelines, and guaranteed pricing with zero hidden fees.',
+      details: 'Deliverable breakdown, timeline schedule, and milestone-based payment structure protecting both parties.'
     },
     {
       step: 4,
-      icon: <FaHandshake />,
-      title: 'Build Trust & Refer',
-      description: 'Develop long-term relationships that generate consistent, high-quality referrals.',
-      details: 'Growth compounds through trust and consistency, not volume of connections.'
+      icon: <FaTools className="text-2xl" />,
+      title: '4. Build',
+      subtitle: 'Expert Done-For-You Implementation',
+      description: 'Dedicated developers, designers, and automation specialists build your systems with regular milestone updates and rigorous QA testing.',
+      details: 'Modern clean code, responsive layouts, automated workflows, and continuous quality checks.'
     },
     {
       step: 5,
-      icon: <FaChartLine />,
-      title: 'Scale With Accountability',
-      description: 'Track referrals, measure ROI, and receive support for predictable growth.',
-      details: 'Performance metrics and leadership support keep growth on track.'
+      icon: <FaRocket className="text-2xl" />,
+      title: '5. Launch',
+      subtitle: 'Rigorous Verification & Deployment',
+      description: 'We conduct final cross-browser checks, analytics instrumentation, speed optimization, and domain verification before pushing live seamlessly.',
+      details: 'Zero-downtime deployment, automated form testing, event tracking validation, and post-launch verification.'
+    },
+    {
+      step: 6,
+      icon: <FaLifeRing className="text-2xl" />,
+      title: '6. Care',
+      subtitle: 'Project Portal & Ongoing Support',
+      description: 'Gain ongoing peace of mind with continuous technical maintenance, security monitoring, regular updates, and on-demand specialist support.',
+      details: 'Direct access to your dedicated Project Tracking Portal, priority support requests, and proactive upkeep.'
     }
   ];
 
-  const servicesSteps = [
+  // 3 Service Starting Points (Document 2 Section 6)
+  const startingPoints = [
     {
-      step: 1,
-      title: 'Request Service',
-      description: 'Submit a service request outlining your needs, goals, and timeline.',
-      details: 'No membership required. Services are completely standalone.'
+      badge: 'New Foundation',
+      title: 'Start From Scratch',
+      description: 'Build a high-performance website, web app, or automated system from the ground up designed specifically to convert visitors into clients.',
+      link: '/build-from-scratch',
+      cta: 'Explore New Build',
+      features: [
+        'Custom modern UI/UX design',
+        'Mobile-first responsive architecture',
+        'Built-in lead capture & CRM integration',
+        'Search engine optimized structure',
+        'Fast, secure, scalable infrastructure'
+      ]
     },
     {
-      step: 2,
-      title: 'Needs Review',
-      description: 'Our team reviews your request, clarifies objectives, and defines scope.',
-      details: 'No pressure. No upselling. Just clear recommendations.'
+      badge: 'Enhance & Optimize',
+      title: 'Scale What Already Exists',
+      description: 'Improve an existing website that is underperforming, slow, outdated, or failing to convert traffic into qualified inbound enquiries.',
+      link: '/scale-existing-website',
+      cta: 'Scale Existing Site',
+      features: [
+        'Conversion rate optimization (CRO)',
+        'Page speed & mobile performance tune-up',
+        'Automated lead follow-up & CRM pipelines',
+        'Brand modernization & UI polish',
+        'Analytics & tracking fixes'
+      ]
     },
     {
-      step: 3,
-      title: 'Receive Quote',
-      description: 'Get transparent pricing with defined deliverables and timeline expectations.',
-      details: 'You approve before any work begins.'
-    },
-    {
-      step: 4,
-      title: 'Execution',
-      description: 'Specialists begin work with quality checks and regular updates.',
-      details: 'Account manager oversees delivery from start to finish.'
-    },
-    {
-      step: 5,
-      title: 'Delivery & Support',
-      description: 'Receive completed work and optional ongoing support.',
-      details: 'Projects delivered on schedule with revision options per scope.'
+      badge: 'Targeted Solutions',
+      title: 'Standalone Services',
+      description: 'Access individual on-demand services across web development, paid advertising, SEO, CRM, automation, or creative support.',
+      link: '/services',
+      cta: 'Browse 20+ Services',
+      features: [
+        'Single service engagement with no bloat',
+        'Direct specialist assignment',
+        'Transparent milestone-based pricing',
+        'Dedicated tracking portal access',
+        'Add complementary services as you grow'
+      ]
     }
   ];
 
-  const whoItsFor = [
-    'Business owners & entrepreneurs',
-    'Consultants & agencies',
-    'Financial, legal, and real estate professionals',
-    'Technology & service providers',
-    'B2B companies seeking warm introductions'
-  ];
-
-  // Outcomes for Network
-  const networkOutcomes = [
-    'Consistent qualified referrals',
-    'Strategic business partnerships',
-    'Weekly accountability and support',
-    'Industry exclusivity protection',
-    'Long-term relationship building'
-  ];
-
-  // Outcomes for Services
-  const servicesOutcomes = [
-    'Professional execution without hiring',
-    'Flexible, scalable support',
-    'Fast turnaround times',
-    'Transparent pricing',
-    'Done-for-you delivery'
-  ];
-
-  // All 22 services organized by category with proper slugs
+  // All 22 Services categorized
   const allServices = [
     {
       category: 'Creative & Content',
@@ -193,56 +187,21 @@ const HowItWorksPage = () => {
     }
   ];
 
-  // Comparison table data
-  const comparisonData = [
-    {
-      feature: 'Membership Required',
-      network: <FaCheckCircle className="text-green-600" />,
-      services: <FaTimesCircle className="text-red-600" />
-    },
-    {
-      feature: 'Weekly Meetings',
-      network: 'Required',
-      services: 'Not Required'
-    },
-    {
-      feature: 'Industry Exclusivity',
-      network: 'Yes - No competitors in chapter',
-      services: 'No - Open to all'
-    },
-    {
-      feature: 'Service Request Access',
-      network: 'Yes',
-      services: 'Yes'
-    },
-    {
-      feature: 'Referral Exchange',
-      network: 'Core focus',
-      services: 'Not applicable'
-    },
-    {
-      feature: 'Business Support',
-      network: 'Included',
-      services: 'À la carte'
-    },
-    {
-      feature: 'Best For',
-      network: 'Referral-driven professionals',
-      services: 'Any business needing execution'
-    }
+  // Business System Outcomes (Document 2 Section 6)
+  const outcomes = [
+    'A stronger system for attracting and converting qualified opportunities',
+    'Automated lead capture with instant multi-channel follow-up',
+    'Fast, mobile-optimized website engineered for real business conversions',
+    'Real-time transparency via your dedicated Project Tracking Portal',
+    'Milestone-based payment protection ensuring work is verified before final payment',
+    'One coordinated partner for design, development, marketing, automation, and Care'
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden bg-gradient-to-br from-blue-900 to-blue-700">
-        <div className="absolute inset-0">
-          <img
-            src={images.growth}
-            alt="Business growth"
-            className="w-full h-full object-cover opacity-20"
-          />
-        </div>
+    <div className="min-h-screen bg-slate-50 text-slate-800">
+      {/* 🚀 HERO SECTION */}
+      <section className="relative py-20 lg:py-28 overflow-hidden bg-[#18264A] text-white">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
@@ -250,505 +209,311 @@ const HowItWorksPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-semibold uppercase tracking-wider mb-6">
+                <span>Done-For-You Delivery & Care</span>
+              </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6">
                 How ScaleLink Alliance Works
               </h1>
-              <p className="text-xl text-white/90 mb-6">
-                A proven system for business growth through structured relationships <strong>OR</strong> professional execution
+              <p className="text-lg sm:text-xl text-slate-200 max-w-3xl mx-auto leading-relaxed mb-8">
+                A structured, transparent process to build, automate, and scale the digital systems behind your business growth — with fixed milestones and zero guesswork.
               </p>
-              
-              {/* Clear differentiation banner */}
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 mb-8">
-                <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                      <FaCheckCircle className="text-white text-xl" />
-                    </div>
-                    <span className="text-white font-semibold">
-                      Use our services <strong>without</strong> membership
-                    </span>
-                  </div>
-                  <div className="text-white text-lg">
-                    <strong>OR</strong>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-                      <FaUsers className="text-white text-xl" />
-                    </div>
-                    <span className="text-white font-semibold">
-                      Join the network for referrals <strong>with</strong> membership
-                    </span>
-                  </div>
+
+              {/* Core Pillars */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto pt-2">
+                <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-3 text-center">
+                  <div className="text-emerald-400 font-bold text-sm mb-1">100% Done-For-You</div>
+                  <div className="text-xs text-slate-300">Expert Team Execution</div>
+                </div>
+                <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-3 text-center">
+                  <div className="text-emerald-400 font-bold text-sm mb-1">Milestone Protected</div>
+                  <div className="text-xs text-slate-300">Pay as Work is Approved</div>
+                </div>
+                <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-3 text-center">
+                  <div className="text-emerald-400 font-bold text-sm mb-1">Project Portal</div>
+                  <div className="text-xs text-slate-300">Live Status & Files</div>
+                </div>
+                <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-3 text-center">
+                  <div className="text-emerald-400 font-bold text-sm mb-1">Ongoing Care</div>
+                  <div className="text-xs text-slate-300">Support & Maintenance</div>
                 </div>
               </div>
-              
-              <p className="text-white/80 text-lg font-medium">
-                Choose what works for your business. There's <strong>no obligation</strong> either way.
-              </p>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Clear Comparison Section */}
-      <section className="py-12 bg-white">
+      {/* 🎯 3 SERVICE STARTING POINTS */}
+      <section className="py-16 lg:py-24 bg-white border-b border-slate-200">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-              Network vs Services: Clear Differences
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <span className="text-emerald-700 font-semibold text-xs uppercase tracking-widest block mb-2">
+              Flexible Engagement Models
+            </span>
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
+              Choose Your Starting Point
             </h2>
-            
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
-              <div className="grid grid-cols-1 md:grid-cols-3 border-b">
-                <div className="md:col-span-1 p-6 bg-gray-50">
-                  <h3 className="text-xl font-bold text-gray-900">Feature Comparison</h3>
+            <p className="mt-4 text-lg text-slate-600">
+              Every business is at a different stage. ScaleLink provides three clear entry pathways tailored to where you are today.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {startingPoints.map((point, index) => (
+              <div 
+                key={index}
+                className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
+              >
+                <div>
+                  <span className="inline-block px-3 py-1 bg-slate-100 text-[#18264A] text-xs font-bold uppercase tracking-wider rounded-full mb-4">
+                    {point.badge}
+                  </span>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-[#18264A] transition-colors">
+                    {point.title}
+                  </h3>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                    {point.description}
+                  </p>
+                  <div className="space-y-2.5 mb-8">
+                    {point.features.map((feat, fIdx) => (
+                      <div key={fIdx} className="flex items-start gap-2.5 text-xs text-slate-700">
+                        <FaCheckCircle className="text-emerald-600 mt-0.5 shrink-0" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="p-6 bg-blue-50">
-                  <h3 className="text-xl font-bold text-blue-700 mb-2">Referrals Network</h3>
-                  <p className="text-sm text-gray-600">Membership-based referral networking</p>
-                </div>
-                <div className="p-6 bg-gray-50">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">Done-For-You Services</h3>
-                  <p className="text-sm text-gray-600">Professional services - <strong>No membership required</strong></p>
-                </div>
+                <Link
+                  to={point.link}
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-100 hover:bg-[#18264A] text-slate-800 hover:text-white font-semibold text-sm transition-all duration-200"
+                >
+                  <span>{point.cta}</span>
+                  <FaArrowRight className="text-xs" />
+                </Link>
               </div>
-              
-              {comparisonData.map((row, index) => (
-                <div key={index} className={`grid grid-cols-1 md:grid-cols-3 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-                  <div className="md:col-span-1 p-6 border-b md:border-b-0 md:border-r border-gray-200">
-                    <h4 className="font-semibold text-gray-900">{row.feature}</h4>
-                  </div>
-                  <div className="p-6 border-b md:border-b-0 border-gray-200 flex items-center">
-                    {typeof row.network === 'string' ? (
-                      <span className="font-medium text-gray-900">{row.network}</span>
-                    ) : (
-                      row.network
-                    )}
-                  </div>
-                  <div className="p-6 flex items-center">
-                    {typeof row.services === 'string' ? (
-                      <span className={`font-medium ${row.feature === 'Membership Required' ? 'text-red-600 font-bold' : 'text-gray-900'}`}>
-                        {row.services}
-                      </span>
-                    ) : (
-                      row.services
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            {/* Key Takeaway */}
-            <div className="mt-8 flex justify-center">
-              <div className="bg-gradient-to-r from-red-50 to-red-100 border-l-4 border-red-500 p-6 rounded-r-lg max-w-3xl">
-                <h4 className="text-xl font-bold text-gray-900 mb-3">
-                  Key Takeaway
-                </h4>
-                <p className="text-gray-700 text-lg">
-                  <strong>You can use ScaleLink Alliance Services without being a network member.</strong>
-                  <br />
-                  The two offerings are completely independent.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Tabs for Network vs Services */}
-      <section className="py-12 bg-gray-50">
+      {/* ⚙️ 6-STAGE DELIVERY WORKFLOW */}
+      <section className="py-20 lg:py-28 bg-slate-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-              Choose Your Path to Growth
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <span className="text-emerald-700 font-semibold text-xs uppercase tracking-widest block mb-2">
+              Our 6-Stage Process
+            </span>
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
+              From Initial Diagnostic to Seamless Care
             </h2>
-            
-            <div className="flex flex-col md:flex-row gap-6 mb-12">
-              <div 
-                onClick={() => setActiveTab('network')}
-                className={`cursor-pointer flex-1 p-8 rounded-2xl transition-all duration-300 ${
-                  activeTab === 'network' 
-                    ? 'bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-2xl scale-105' 
-                    : 'bg-white border-2 border-gray-200 hover:border-blue-300 hover:shadow-lg'
-                }`}
-              >
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className={`p-3 rounded-lg ${
-                    activeTab === 'network' ? 'bg-white/20' : 'bg-blue-100 text-blue-600'
-                  }`}>
-                    <FaUsers className="text-2xl" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold">Referrals Network</h3>
-                    <p className={`mt-1 ${activeTab === 'network' ? 'text-blue-100' : 'text-blue-600'}`}>
-                      <strong>Membership Required</strong>
-                    </p>
-                  </div>
-                </div>
-                <p className={`mb-6 ${activeTab === 'network' ? 'text-blue-100' : 'text-gray-600'}`}>
-                  Structured referral networking through local chapters. Industry exclusivity ensures no competition.
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className={`font-semibold ${activeTab === 'network' ? 'text-white' : 'text-blue-600'}`}>
-                    For referral-driven professionals
-                  </span>
-                  {activeTab === 'network' && <FaArrowRight className="text-xl" />}
-                </div>
-              </div>
+            <p className="mt-4 text-lg text-slate-600">
+              How our team manages scope, deliverables, quality assurance, and execution every step of the way.
+            </p>
+          </div>
 
-              <div 
-                onClick={() => setActiveTab('services')}
-                className={`cursor-pointer flex-1 p-8 rounded-2xl transition-all duration-300 ${
-                  activeTab === 'services'
-                    ? 'bg-gradient-to-br from-gray-800 to-gray-900 text-white shadow-2xl scale-105'
-                    : 'bg-white border-2 border-gray-200 hover:border-gray-300 hover:shadow-lg'
-                }`}
-              >
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className={`p-3 rounded-lg ${
-                    activeTab === 'services' ? 'bg-white/20' : 'bg-gray-100 text-gray-700'
-                  }`}>
-                    <FaBriefcase className="text-2xl" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold">Done-For-You Services</h3>
-                    <p className={`mt-1 ${activeTab === 'services' ? 'text-gray-200' : 'text-green-600 font-bold'}`}>
-                      <strong>No Membership Required</strong>
-                    </p>
-                  </div>
-                </div>
-                <p className={`mb-6 ${activeTab === 'services' ? 'text-gray-200' : 'text-gray-600'}`}>
-                  Professional business and marketing services. Available to all businesses, whether you're a member or not.
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className={`font-semibold ${activeTab === 'services' ? 'text-white' : 'text-gray-700'}`}>
-                    For any business needing execution
-                  </span>
-                  {activeTab === 'services' && <FaArrowRight className="text-xl" />}
-                </div>
-              </div>
-            </div>
-
-            {/* Network Flow */}
-            {activeTab === 'network' && (
+          <div className="max-w-5xl mx-auto space-y-6">
+            {deliveryWorkflow.map((item, index) => (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="bg-white rounded-2xl shadow-xl overflow-hidden"
+                key={item.step}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow grid sm:grid-cols-[80px_1fr] gap-6 items-start"
               >
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={images.network}
-                    alt="Network connections"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-800/60 flex items-center justify-center">
-                    <h2 className="text-3xl font-bold text-white text-center">
-                      A Structured Referral Network Built for Long-Term Business Growth
-                    </h2>
-                  </div>
+                <div className="w-16 h-16 rounded-2xl bg-[#18264A] text-white flex items-center justify-center shrink-0 shadow-md">
+                  {item.icon}
                 </div>
-                
-                <div className="p-8">
-                  <p className="text-gray-600 text-lg mb-8 text-center">
-                    ScaleLink Alliance operates through <strong>local chapters</strong> made up of{' '}
-                    <strong>non-competing professionals</strong> who meet weekly to build trust, exchange qualified referrals, 
-                    and grow their businesses through relationships.
+                <div>
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
+                    <h3 className="text-xl font-bold text-slate-900">{item.title}</h3>
+                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600">
+                      {item.subtitle}
+                    </span>
+                  </div>
+                  <p className="text-slate-700 text-base leading-relaxed mb-3">
+                    {item.description}
                   </p>
-
-                  {/* Steps */}
-                  <div className="relative">
-                    <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-blue-200 to-blue-400"></div>
-                    
-                    {networkSteps.map((step, index) => (
-                      <div key={step.step} className={`flex flex-col lg:flex-row items-center mb-12 lg:mb-16 ${
-                        index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                      }`}>
-                        <div className="lg:w-1/2 flex justify-center lg:justify-end lg:pr-12 mb-6 lg:mb-0">
-                          <div className="relative">
-                            <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-xl">
-                              {step.icon}
-                            </div>
-                            <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">
-                              {step.step}
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="lg:w-1/2 lg:pl-12">
-                          <div className="bg-gray-50 rounded-xl p-6 shadow-lg">
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
-                            <p className="text-gray-700 mb-3">{step.description}</p>
-                            <p className="text-gray-600 text-sm">{step.details}</p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Outcomes for Network */}
-                  <div className="mt-8 bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">What You Get</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      {networkOutcomes.map((item, index) => (
-                        <div key={index} className="flex items-center space-x-3">
-                          <FaCheckCircle className="text-green-600 shrink-0" />
-                          <span className="text-gray-700">{item}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Who It's For */}
-                  <div className="mt-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-                      Who This Is For
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {whoItsFor.map((item, index) => (
-                        <div key={index} className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-sm">
-                          <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                          <span className="text-gray-700">{item}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-8 text-center">
-                      <p className="text-gray-700 mb-6">
-                        If referrals matter to your business, <strong>ScaleLink Alliance belongs in your growth strategy</strong>.
-                      </p>
-                      <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link
-                          to="/membership"
-                          className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all"
-                        >
-                          Apply for Membership
-                        </Link>
-                        <Link
-                          to="/chapters"
-                          className="px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition-colors"
-                        >
-                          Find a Chapter Near You
-                        </Link>
-                      </div>
-                    </div>
+                  <div className="flex items-center gap-2 text-xs font-medium text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                    <FaCheckDouble className="text-emerald-600 shrink-0" />
+                    <span>{item.details}</span>
                   </div>
                 </div>
               </motion.div>
-            )}
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* Services Flow */}
-            {activeTab === 'services' && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="bg-white rounded-2xl shadow-xl overflow-hidden"
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={images.services}
-                    alt="Business services"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-gray-800/60 flex items-center justify-center">
-                    <div className="text-center">
-                      <h2 className="text-3xl font-bold text-white mb-2">
-                        Professional Business & Marketing Services
-                      </h2>
-                      <p className="text-white/90 text-lg">
-                        <strong>Available to all businesses - No membership required</strong>
-                      </p>
+      {/* 📦 22 SERVICES CATALOG OVERVIEW */}
+      <section className="py-20 lg:py-24 bg-white border-y border-slate-200">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <span className="text-emerald-700 font-semibold text-xs uppercase tracking-widest block mb-2">
+              Comprehensive Capabilities
+            </span>
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
+              Our Complete Service Offering (20+ Services)
+            </h2>
+            <p className="mt-4 text-lg text-slate-600">
+              One accountable team delivering creative, technical, marketing, and operational execution.
+            </p>
+          </div>
+
+          <div className="max-w-6xl mx-auto space-y-8">
+            {allServices.map((category, catIndex) => {
+              const CategoryIcon = category.icon;
+              const colorClasses = {
+                purple: 'bg-purple-50 border-purple-200 text-purple-700',
+                indigo: 'bg-indigo-50 border-indigo-200 text-indigo-700',
+                green: 'bg-emerald-50 border-emerald-200 text-emerald-700',
+                orange: 'bg-amber-50 border-amber-200 text-amber-700'
+              };
+
+              return (
+                <div key={catIndex} className="border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
+                  <div className={`${colorClasses[category.color]} p-4 sm:px-6 border-b`}>
+                    <div className="flex items-center space-x-3">
+                      <CategoryIcon className="text-xl" />
+                      <h3 className="text-lg font-bold">{category.category}</h3>
+                      <span className="ml-auto text-xs font-bold px-2.5 py-1 bg-white/80 rounded-full">
+                        {category.services.length} services
+                      </span>
                     </div>
                   </div>
-                </div>
-                
-                <div className="p-8">
-                  <p className="text-gray-600 text-lg mb-8 text-center">
-                    ScaleLink Alliance Services provides done-for-you creative, marketing, and operational support 
-                    for businesses that want execution without networking commitments.
-                  </p>
-
-                  {/* ALL 22 SERVICES - Organized by Category */}
-                  <div className="mb-12">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-                      Our Complete Service Offering (22 Services)
-                    </h3>
-                    
-                    <div className="space-y-8">
-                      {allServices.map((category, catIndex) => {
-                        const CategoryIcon = category.icon;
-                        const colorClasses = {
-                          purple: 'bg-purple-50 border-purple-200 text-purple-700',
-                          indigo: 'bg-indigo-50 border-indigo-200 text-indigo-700',
-                          green: 'bg-green-50 border-green-200 text-green-700',
-                          orange: 'bg-orange-50 border-orange-200 text-orange-700'
-                        };
-                        
+                  <div className="p-5 sm:p-6 bg-white">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                      {category.services.map((service, sIndex) => {
+                        const ServiceIcon = service.icon;
                         return (
-                          <div key={catIndex} className="border-2 border-gray-100 rounded-xl overflow-hidden">
-                            <div className={`${colorClasses[category.color]} p-4 border-b`}>
-                              <div className="flex items-center space-x-3">
-                                <CategoryIcon className="text-2xl" />
-                                <h4 className="text-xl font-bold">{category.category}</h4>
-                                <span className="ml-auto text-sm font-medium">
-                                  {category.services.length} services
-                                </span>
-                              </div>
+                          <Link
+                            key={sIndex}
+                            to={`/request-service`}
+                            className="flex items-center space-x-3 p-3 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all group"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-slate-100 group-hover:bg-[#18264A] text-slate-700 group-hover:text-white flex items-center justify-center transition-colors">
+                              <ServiceIcon className="text-xs" />
                             </div>
-                            <div className="p-4 bg-white">
-                              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                                {category.services.map((service, sIndex) => {
-                                  const ServiceIcon = service.icon;
-                                  return (
-                                    <Link
-                                      key={sIndex}
-                                      to={service.slug.includes('custom-quote') ? `/request-service?service=${service.slug}` : `/services/${service.slug}`}
-                                      className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-transparent hover:border-gray-200"
-                                    >
-                                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                                        category.color === 'purple' ? 'bg-purple-100 text-purple-600' :
-                                        category.color === 'indigo' ? 'bg-indigo-100 text-indigo-600' :
-                                        category.color === 'green' ? 'bg-green-100 text-green-600' :
-                                        'bg-orange-100 text-orange-600'
-                                      }`}>
-                                        <ServiceIcon className="text-sm" />
-                                      </div>
-                                      <span className="text-sm font-medium text-gray-700 group-hover:text-gray-900 flex-1">
-                                        {service.name}
-                                      </span>
-                                    </Link>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          </div>
+                            <span className="text-sm font-medium text-slate-700 group-hover:text-[#18264A] transition-colors flex-1">
+                              {service.name}
+                            </span>
+                          </Link>
                         );
                       })}
                     </div>
                   </div>
-
-                  {/* Steps */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
-                    {servicesSteps.map((step) => (
-                      <div key={step.step} className="text-center">
-                        <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
-                          {step.step}
-                        </div>
-                        <h4 className="font-bold text-gray-900 mb-2">{step.title}</h4>
-                        <p className="text-gray-600 text-sm">{step.description}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Outcomes for Services */}
-                  <div className="mt-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">What You Get</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      {servicesOutcomes.map((item, index) => (
-                        <div key={index} className="flex items-center space-x-3">
-                          <FaCheckCircle className="text-green-600 shrink-0" />
-                          <span className="text-gray-700">{item}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Important Clarifier */}
-                  <div className="bg-gradient-to-r from-green-50 to-blue-50 border-l-4 border-green-500 p-6 rounded-r-lg mb-8 mt-8">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center shrink-0">
-                        <FaCheckCircle className="text-white text-2xl" />
-                      </div>
-                      <div>
-                        <h4 className="text-xl font-bold text-gray-900 mb-3">
-                          Important Clarification
-                        </h4>
-                        <p className="text-gray-700 text-lg">
-                          <strong>ScaleLink Alliance Services is completely independent from chapters and membership.</strong>
-                          <br />
-                          <span className="text-green-700 font-bold">
-                            You can use our services without ever joining the network. No membership required. No referral obligations.
-                          </span>
-                        </p>
-                        <p className="text-gray-600 mt-3">
-                          Some clients use services only. Some members also use services. There is{' '}
-                          <strong>no requirement or obligation</strong> either way.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* CTA */}
-                  <div className="mt-8 text-center">
-                    <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-6">
-                      <h4 className="text-xl font-bold text-gray-900 mb-3">
-                        Ready to Get Started?
-                      </h4>
-                      <p className="text-gray-700 mb-4">
-                        <strong>Remember:</strong> You don't need to be a network member to use our services.
-                      </p>
-                      <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link
-                          to="/request-service"
-                          className="px-8 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold rounded-lg hover:from-gray-900 hover:to-black transition-all"
-                        >
-                          Request Services <span className="text-green-400">(No Membership)</span>
-                        </Link>
-                        <Link
-                          to="/services"
-                          className="px-8 py-3 bg-white text-gray-800 font-semibold rounded-lg border-2 border-gray-800 hover:bg-gray-50 transition-colors"
-                        >
-                          View All Services
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </motion.div>
-            )}
+              );
+            })}
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#18264A] text-white font-semibold text-sm hover:bg-[#131f3c] transition-all shadow-md"
+            >
+              <span>Explore All Services & Pricing</span>
+              <FaArrowRight className="text-xs" />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-800">
+      {/* 🛡️ PROJECT TRACKING PORTAL & MILESTONES */}
+      <section className="py-20 lg:py-24 bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-6">
-              Need Clarity? We're Here to Help
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              Still unsure which path is right for your business? We can help you decide.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link
-                to="/contact"
-                className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-all"
-              >
-                Schedule a Consultation
-              </Link>
-              <Link
-                to="/faq"
-                className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-colors"
-              >
-                View FAQs
-              </Link>
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <span className="text-emerald-700 font-semibold text-xs uppercase tracking-widest block mb-2">
+                  Client Transparency
+                </span>
+                <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-6">
+                  Complete Visibility Through Your Dedicated Client Portal
+                </h2>
+                <p className="text-slate-600 text-base leading-relaxed mb-6">
+                  No wondering what's happening or chasing email threads. Every ScaleLink client receives access to our centralized project tracking hub where you can view live milestone progress, review drafts, and sign off on deliverables.
+                </p>
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-start gap-3">
+                    <FaCheckCircle className="text-emerald-600 mt-1 shrink-0 text-base" />
+                    <div>
+                      <h4 className="font-semibold text-slate-900 text-sm">Real-Time Milestone Tracking</h4>
+                      <p className="text-slate-600 text-xs">Track every task from discovery through QA and launch in real time.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <FaCheckCircle className="text-emerald-600 mt-1 shrink-0 text-base" />
+                    <div>
+                      <h4 className="font-semibold text-slate-900 text-sm">Milestone-Based Payment Security</h4>
+                      <p className="text-slate-600 text-xs">Payments are tied to approved milestones. You never pay in full upfront without verified deliverables.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <FaCheckCircle className="text-emerald-600 mt-1 shrink-0 text-base" />
+                    <div>
+                      <h4 className="font-semibold text-slate-900 text-sm">Centralized Assets & Communications</h4>
+                      <p className="text-slate-600 text-xs">All designs, code repositories, staging links, and invoices organized in one secure place.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* What You Get Box */}
+              <div className="bg-[#18264A] text-white rounded-3xl p-8 sm:p-10 shadow-xl border border-white/10">
+                <h3 className="text-2xl font-bold text-white mb-6">
+                  What You Receive With ScaleLink
+                </h3>
+                <div className="space-y-4 mb-8">
+                  {outcomes.map((item, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <FaCheckCircle className="text-emerald-400 mt-1 shrink-0 text-sm" />
+                      <span className="text-slate-200 text-sm leading-relaxed">{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="pt-4 border-t border-white/15">
+                  <Link
+                    to="/free-website-review"
+                    className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm transition-all shadow-md"
+                  >
+                    <span>Request a Free Business Growth Review</span>
+                    <FaArrowRight className="text-xs" />
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Sticky Button */}
-      <div className="fixed bottom-8 right-8 z-50">
-        <Link
-          to="/contact"
-          className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full shadow-2xl hover:from-blue-700 hover:to-blue-800 transition-all flex items-center space-x-2 animate-pulse"
-        >
-          <FaArrowRight className="text-sm" />
-          <span className="font-semibold">Book a Free Growth Call</span>
-        </Link>
-      </div>
+      {/* 🚀 FINAL CTA SECTION */}
+      <section className="py-20 bg-[#18264A] text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-6 tracking-tight">
+              Ready to strengthen the systems behind your growth?
+            </h2>
+            <p className="text-lg text-slate-200 max-w-2xl mx-auto mb-10 leading-relaxed">
+              Let ScaleLink review your current website, lead-generation process and follow-up systems and identify the improvements that can create the greatest business impact.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/free-website-review"
+                className="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition-all shadow-lg text-base"
+              >
+                Get My Free Review
+              </Link>
+              <Link
+                to="/services"
+                className="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold rounded-xl transition-colors text-base"
+              >
+                Explore Services
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
