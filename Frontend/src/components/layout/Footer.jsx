@@ -1,7 +1,8 @@
 // src/components/layout/Footer.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaLinkedin, FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaLinkedin, FaYoutube, FaInstagram } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 const Footer = () => {
   const navigation = {
@@ -24,10 +25,10 @@ const Footer = () => {
       { name: 'Sitemap', href: '/sitemap' },
     ],
     social: [
-      { name: 'LinkedIn', icon: FaLinkedin, href: '#' },
-      { name: 'Twitter', icon: FaTwitter, href: '#' },
-      { name: 'Facebook', icon: FaFacebook, href: '#' },
-      { name: 'Instagram', icon: FaInstagram, href: '#' },
+      { name: 'LinkedIn', icon: FaLinkedin, href: 'https://linkedin.com/in/eugene-joseph-1924ab275/' },
+      { name: 'X', icon: FaXTwitter, href: 'https://x.com/ScaleLinkA' },
+      { name: 'YouTube', icon: FaYoutube, href: 'https://www.youtube.com/@ScaleLinkAli' },
+      { name: 'Instagram', icon: FaInstagram, href: 'https://www.instagram.com/scale.link.alliance/' },
     ]
   };
 
@@ -63,6 +64,8 @@ const Footer = () => {
                 <a
                   key={item.name}
                   href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={item.name}
                   className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200"
                   style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
