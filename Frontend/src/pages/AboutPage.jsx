@@ -503,7 +503,7 @@ const AboutPage = () => {
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-64 object-cover"
+                    className="w-full h-64 object-cover object-top"
                   />
                   <div className="p-6">
                     <h3 className="text-lg font-bold text-slate-900 mb-1">
