@@ -48,32 +48,28 @@ const AboutPage = () => {
   // =========================================================
   const teamMembers = [
     {
-      name: 'Marcus Vance',
-      role: 'Founder & Managing Partner',
-      bio: 'Over 15 years experience building digital businesses, scaling systems, and driving operational excellence for growing companies.',
-      image:
-        'https://image2url.com/r2/default/images/1773233215286-9dc730cb-98e3-4f90-8e12-32a222384a22.jpg',
+      name: 'Eugene Joseph',
+      role: 'Interim CEO / Marketing Director',
+      bio: 'Decide which markets ScaleLink enters, approve major service changes, set growth goals, and oversee leadership.',
+      image: '/images/team/eugene-joseph.jpg',
     },
     {
       name: 'Sarah Chen',
       role: 'Chief Operating Officer',
       bio: 'Operations specialist with expertise in scaling digital service delivery, workflow automation, and cross-functional engineering teams.',
-      image:
-        'https://image2url.com/r2/default/images/1773233273187-bb373ba0-21a4-4444-a90f-90e6fa3a985f.jpg',
+      image: '/images/team/sarah-chen.jpg',
     },
     {
       name: 'David Rodriguez',
       role: 'Head of Digital Solutions & Client Operations',
       bio: 'Specializes in digital architecture, systems integration, and seamless project delivery. Ensures every client engagement achieves measurable business impact.',
-      image:
-        'https://image2url.com/r2/default/images/1773233320641-6e3e5668-b7eb-4ef9-8134-8c83bf87ea5d.jpg',
+      image: '/images/team/david-rodriguez.jpg',
     },
     {
       name: 'Elena Rostova',
       role: 'Director of Client Strategy & Success',
       bio: 'Customer success and digital strategist focused on maximizing client ROI, smooth project onboarding, and measurable growth outcomes.',
-      image:
-        'https://image2url.com/r2/default/images/1773233371381-156d4945-e7d0-4045-b6df-ba72531015ee.jpg',
+      image: '/images/team/elena-rostova.jpg',
     },
   ];
 
