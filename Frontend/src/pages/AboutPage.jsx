@@ -242,7 +242,7 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* =====================================================
+            {/* =====================================================
           MESSAGE FROM LEADERSHIP
       ===================================================== */}
       <section className="py-20 bg-white">
@@ -257,7 +257,7 @@ const AboutPage = () => {
             >
               <div className="relative p-7 md:p-12 lg:p-14">
                 <div className="flex justify-center mb-8">
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#18264A] text-white flex items-center justify-center shadow-lg rotate-[-3deg]">
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#18264A] text-white flex items-center justify-center shadow-lg">
                     <FaEnvelopeOpenText className="text-white text-2xl md:text-3xl" />
                   </div>
                 </div>
@@ -273,39 +273,93 @@ const AboutPage = () => {
                 </div>
 
                 <div className="space-y-6 text-slate-700 leading-relaxed text-base md:text-lg">
-                  <p>
-                    Growing a business today is harder than ever. Not because there is a lack of tools, software, or freelancers — but because there are too many disconnected pieces.
+                  <p className="font-bold text-slate-900 text-lg md:text-xl">
+                    Dear Business Leaders,
                   </p>
 
                   <p>
-                    Most business owners find themselves juggling a freelance designer who doesn't understand marketing, a marketing agency that can't fix website technical issues, and software tools that don't speak to each other. When leads fail to convert or technical issues arise, everyone points fingers at someone else.
+                    Every successful business grows through <strong className="font-bold text-slate-900">relationships, trust, and opportunity</strong>. Yet for many entrepreneurs and professionals, growth is often limited by a simple challenge: accessing the right connections, expertise, and support at the right time.
                   </p>
 
                   <p>
-                    We created <strong>ScaleLink Alliance</strong> to eliminate that chaos. We bring website development, digital marketing, CRM automation, and ongoing technical support under one accountable team.
+                    ScaleLink Alliance was created in response to a challenge we continue to see across the business community. Many companies have strong products, valuable expertise, and the ambition to grow. Still, they often lack two critical resources: <strong className="font-bold text-slate-900">consistent business opportunities and reliable professional support to help them execute and scale</strong>.
                   </p>
 
                   <p>
-                    Whether we are building a high-converting website from scratch, scaling an existing platform, or automating your customer follow-up, our team operates with full transparency, fixed milestones, and a relentless focus on bottom-line business results.
+                    Traditional networking can create valuable introductions, but connections alone don't always provide the structure or collaboration required to produce meaningful business growth. At the same time, businesses frequently need specialized expertise in areas such as technology, marketing, design, automation, content, and operations without the expense of building large internal teams.
+                  </p>
+
+                  <p className="font-bold text-slate-900">
+                    ScaleLink Alliance was established to help bridge that gap.
+                  </p>
+
+                  <p>
+                    Our approach brings together two important elements of business growth:
+                  </p>
+
+                  <p className="font-bold text-slate-900 pl-4 border-l-2 border-emerald-600">
+                    Strategic relationships that create opportunities and professional services that help businesses execute on those opportunities.
+                  </p>
+
+                  <p>
+                    Through the ScaleLink Alliance Network, businesses can build trusted professional relationships, develop referral opportunities, and connect with other organizations that can contribute to their growth.
+                  </p>
+
+                  <p>
+                    Through ScaleLink Alliance Services, businesses can access specialized creative, technical, marketing, and operational support when they need it—without necessarily hiring additional employees or coordinating multiple independent providers.
+                  </p>
+
+                  <p>
+                    But our objective is not simply to provide more connections or complete more projects.
+                  </p>
+
+                  <p className="font-bold text-slate-900">
+                    Our focus is helping businesses build stronger systems for sustainable growth.
+                  </p>
+
+                  <p>
+                    That means understanding the business problem before recommending the solution, connecting businesses with the right opportunities, and ensuring that the services we provide support meaningful business objectives.
+                  </p>
+
+                  <p>
+                    As <strong className="font-bold text-slate-900">Interim CEO and Marketing Director</strong>, my responsibility is to continue advancing that mission while strengthening the systems, services, partnerships, and standards behind ScaleLink Alliance.
+                  </p>
+
+                  <p>
+                    As the organization continues to develop, our commitment remains clear:
+                  </p>
+
+                  <p className="font-bold text-slate-900 pl-4 border-l-2 border-[#18264A]">
+                    To help businesses grow through strategic relationships, trusted partnerships, and professional services designed around real business needs.
+                  </p>
+
+                  <p>
+                    Because when businesses have access to both the <strong className="font-bold text-slate-900">right opportunities</strong> and the <strong className="font-bold text-slate-900">right execution</strong>, they are better positioned not simply to grow—but to scale.
                   </p>
                 </div>
 
-                <div className="mt-10 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-6">
-                  <div className="text-center sm:text-left">
-                    <h4 className="text-lg font-bold text-slate-900">
-                      The ScaleLink Leadership Team
-                    </h4>
-                    <p className="text-slate-500 text-sm">
-                      ScaleLink Alliance Management
-                    </p>
+                <div className="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6">
+                  <div className="space-y-1">
+                    <p className="font-bold text-slate-900 text-base">Sincerely,</p>
+                    <div className="pt-2">
+                      <h4 className="text-xl font-bold text-slate-900">
+                        Eugene Joseph
+                      </h4>
+                      <p className="text-sm font-bold text-slate-700">
+                        Interim CEO &amp; Marketing Director
+                      </p>
+                      <p className="text-sm font-bold text-[#18264A]">
+                        ScaleLink Alliance
+                      </p>
+                    </div>
                   </div>
 
                   <Link
                     to="/contact"
-                    className="inline-flex items-center gap-2 text-sm font-bold text-[#18264A] hover:text-emerald-700 transition-colors"
+                    className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#18264A] text-white hover:bg-emerald-700 font-bold text-sm shadow-md hover:shadow-lg transition-all group self-start sm:self-auto"
                   >
                     <span>Speak With Our Team</span>
-                    <FaArrowRight className="text-xs" />
+                    <FaArrowRight className="text-xs transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
               </div>
