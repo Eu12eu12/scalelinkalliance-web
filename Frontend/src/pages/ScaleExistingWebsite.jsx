@@ -32,7 +32,7 @@ const services = [
     slug: 'lead-generation',
     name: 'Lead Generation Services',
     icon: <FaRegBuilding />,
-    gradient: 'from-blue-500 to-blue-700',
+    gradient: 'from-[#18264A] to-[#101c38]',
     description: 'A steady flow of qualified prospects delivered to your pipeline so your sales team always has someone to talk to.',
     bestFor: 'Businesses needing a consistent sales pipeline',
     includes: ['Up to 220 targeted leads', 'Advanced qualification', 'Monthly updates', 'Outreach support'],

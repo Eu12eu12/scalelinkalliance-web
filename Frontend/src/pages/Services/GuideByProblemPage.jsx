@@ -47,7 +47,7 @@ const GuideByProblemPage = () => {
       bgColor: "from-orange-500/5 to-amber-500/5 border-orange-100"
     },
     {
-      icon: <FaGlobe className="text-2xl text-blue-600" />,
+      icon: <FaGlobe className="text-2xl text-[#18264A]" />,
       title: "2. “My website does not look professional.”",
       desc: "Your website is your digital storefront. Build credibility and convert visitors with a modern layout, updated content, and clear messaging.",
       solutions: [
@@ -79,7 +79,7 @@ const GuideByProblemPage = () => {
       ],
       ctaText: "Improve My Website",
       ctaPath: "/services",
-      bgColor: "from-blue-500/5 to-indigo-500/5 border-blue-100"
+      bgColor: "from-slate-500/5 to-slate-500/10 border-slate-200"
     },
     {
       icon: <FaInfoCircle className="text-2xl text-indigo-600" />,
@@ -376,7 +376,7 @@ const GuideByProblemPage = () => {
           <div className="mb-12">
             <Link 
               to="/services" 
-              className="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors mb-6 group"
+              className="inline-flex items-center text-sm font-semibold text-[#18264A] hover:text-emerald-700 transition-colors mb-6 group"
             >
               <FaArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />
               Back to Service Categories
@@ -388,8 +388,8 @@ const GuideByProblemPage = () => {
             <p className="text-lg text-gray-600 max-w-3xl leading-relaxed mb-4">
               Use this guide to help you quickly understand which ScaleLink Alliance service best fits your business needs.
             </p>
-            <div className="bg-blue-50/50 border border-blue-100 rounded-2xl p-6 text-sm text-gray-700 leading-relaxed max-w-4xl">
-              <span className="font-bold text-blue-900 block mb-2">Not Sure What Service You Need? Start With the Problem.</span>
+            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-sm text-gray-700 leading-relaxed max-w-4xl">
+              <span className="font-bold text-[#18264A] block mb-2">Not Sure What Service You Need? Start With the Problem.</span>
               Every business has different needs. Some need more leads. Some need a better website. Others need stronger systems, better content, or reliable support. Use this guide to find the ScaleLink Alliance services that match the problem you want to solve.
             </div>
           </div>
@@ -399,10 +399,10 @@ const GuideByProblemPage = () => {
             {problems.map((prob, index) => {
               const isEvenCol = index % 2 === 0;
               const cardBg = isEvenCol 
-                ? "from-blue-500/5 to-indigo-500/5 border-blue-100" 
+                ? "from-slate-500/5 to-slate-500/10 border-slate-200" 
                 : "from-teal-500/5 to-emerald-500/5 border-teal-100";
               const themedIcon = React.cloneElement(prob.icon, {
-                className: `text-2xl ${isEvenCol ? 'text-blue-600' : 'text-teal-600'}`
+                className: `text-2xl ${isEvenCol ? 'text-[#18264A]' : 'text-teal-600'}`
               });
 
               return (
@@ -440,12 +440,12 @@ const GuideByProblemPage = () => {
                       >
                         <Link
                           to={sol.path}
-                          className="flex items-center justify-between text-sm md:text-base text-gray-900 font-bold hover:text-blue-600 transition-colors group/link"
+                          className="flex items-center justify-between text-sm md:text-base text-gray-900 font-bold hover:text-[#18264A] transition-colors group/link"
                         >
-                          <span className="underline decoration-gray-200 group-hover/link:decoration-blue-400">
+                          <span className="underline decoration-gray-200 group-hover/link:decoration-[#18264A]">
                             {sol.name}
                           </span>
-                          <FaArrowRight size={10} className="text-gray-300 group-hover/link:text-blue-500 group-hover/link:translate-x-0.5 transition-all" />
+                          <FaArrowRight size={10} className="text-gray-300 group-hover/link:text-emerald-600 group-hover/link:translate-x-0.5 transition-all" />
                         </Link>
                         <p className="text-xs md:text-sm text-gray-500 mt-1 leading-normal">
                           {sol.desc}
@@ -457,7 +457,7 @@ const GuideByProblemPage = () => {
                   {/* Action CTA Button */}
                   <Link
                     to={prob.ctaPath}
-                    className="w-full text-center py-3 bg-white hover:bg-blue-600 hover:text-white text-blue-600 font-bold border border-blue-200 hover:border-blue-600 rounded-xl text-sm transition-all duration-300 shadow-sm shadow-blue-50 mt-auto"
+                    className="w-full text-center py-3 bg-[#18264A] hover:bg-[#101c38] text-white font-bold rounded-xl text-sm transition-all shadow-md mt-auto"
                   >
                     {prob.ctaText}
                   </Link>

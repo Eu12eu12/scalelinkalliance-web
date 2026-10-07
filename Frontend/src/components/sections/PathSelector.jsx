@@ -26,10 +26,10 @@ const PathSelector = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-white rounded-2xl p-8 border-2 border-blue-500 shadow-lg hover:shadow-xl transition-all flex flex-col"
+              className="bg-white rounded-2xl p-8 border-2 border-[#18264A] shadow-lg hover:shadow-xl transition-all flex flex-col"
             >
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                <FaDesktop className="text-blue-600 text-2xl" />
+              <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-6">
+                <FaDesktop className="text-[#18264A] text-2xl" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3">Start From Scratch</h3>
               <p className="text-gray-600 mb-3">
@@ -55,7 +55,7 @@ const PathSelector = () => {
 
               <Link
                 to="/request-service?path=start_from_scratch"
-                className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors mt-auto"
+                className="inline-flex items-center justify-center px-6 py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors mt-auto"
               >
                 Build My Website
               </Link>
@@ -154,10 +154,10 @@ const PathSelector = () => {
           </div>
 
           {/* Not sure callout */}
-          <div className="flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-xl max-w-2xl mx-auto mt-10 text-left">
-            <FaInfoCircle className="text-blue-600 shrink-0 mt-0.5" size={16} />
-            <p className="text-sm text-blue-800">
-              Not sure which option is right for you? <Link to="/contact" className="font-semibold underline hover:text-blue-900">Contact us</Link> and we'll help you choose the best path for your business.
+          <div className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl max-w-2xl mx-auto mt-10 text-left">
+            <FaInfoCircle className="text-[#18264A] shrink-0 mt-0.5" size={16} />
+            <p className="text-sm text-slate-700">
+              Not sure which option is right for you? <Link to="/contact" className="font-semibold underline text-[#18264A] hover:text-emerald-700">Contact us</Link> and we'll help you choose the best path for your business.
             </p>
           </div>
         </div>

@@ -730,7 +730,7 @@ const ServiceHoverPreview = ({
     <div className="bg-white rounded-xl p-5">
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2 min-w-0">
-          <ServiceIcon className="text-blue-600 text-lg shrink-0" />
+          <ServiceIcon className="text-[#18264A] text-lg shrink-0" />
           <h4 className="font-bold text-gray-900 text-sm leading-snug break-words">{getServiceDisplayName(service)}</h4>
         </div>
         <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-lg leading-none shrink-0 ml-2">×</button>
@@ -739,7 +739,7 @@ const ServiceHoverPreview = ({
       <div className="space-y-2 mb-3">
         <div className="flex flex-wrap justify-between items-center gap-1">
           <span className="text-xs text-gray-500">{pkgData.name}</span>
-          <span className="text-lg font-bold text-blue-600">
+          <span className="text-lg font-bold text-[#18264A]">
             {formattedPrice}
           </span>
         </div>
@@ -765,7 +765,7 @@ const ServiceHoverPreview = ({
       
       <Link 
         to={`/services/${slug}`}
-        className="w-full py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold text-xs rounded-lg flex items-center justify-center gap-2 transition-colors"
+        className="w-full py-2 bg-slate-50 hover:bg-slate-100 text-[#18264A] font-semibold text-xs rounded-lg flex items-center justify-center gap-2 transition-colors"
         onClick={onClose}
       >
         <FaInfoCircle size={12} />
@@ -802,7 +802,7 @@ const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, 
 
   if (isCustomQuote) {
     return (
-      <div className="border-2 border-blue-200 rounded-xl bg-blue-50/50 p-5">
+      <div className="border-2 border-slate-200 rounded-xl bg-slate-50 p-5">
         <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5">
           {packages.custom?.includes.map((item, idx) => (
             <li key={idx} className="text-sm text-gray-700 flex items-start gap-2">
@@ -863,9 +863,9 @@ const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, 
             const amount = convertedAmounts[service]?.[k] || 0;
             return (
               <button key={k} type="button" onClick={() => onSelect(service, k)}
-                className={`p-3 border-b border-r last:border-r-0 border-gray-200 text-center transition-colors ${selectedPackage === k ? 'bg-blue-600 text-white' : 'bg-gray-50 hover:bg-blue-50'}`}>
+                className={`p-3 border-b border-r last:border-r-0 border-gray-200 text-center transition-colors ${selectedPackage === k ? 'bg-[#18264A] text-white' : 'bg-gray-50 hover:bg-slate-50'}`}>
                 <div className="font-bold text-sm">{pkg?.name || k}</div>
-                <div className={`text-xs mt-0.5 ${selectedPackage === k ? 'text-blue-100' : 'text-gray-500'}`}>
+                <div className={`text-xs mt-0.5 ${selectedPackage === k ? 'text-slate-200' : 'text-gray-500'}`}>
                   {amount > 0 ? formatPrice(amount, currency, currencyObj.symbol) : 'Custom Quote'}
                 </div>
               </button>
@@ -879,7 +879,7 @@ const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, 
                 const hasFeature = featuresMap[feature]?.packages[k] || false;
                 const isSelected = selectedPackage === k;
                 return (
-                  <div key={k} className={`p-3 border-b border-r last:border-r-0 border-gray-200 flex items-center justify-center ${isSelected ? 'bg-blue-50/50' : 'bg-white'}`}>
+                  <div key={k} className={`p-3 border-b border-r last:border-r-0 border-gray-200 flex items-center justify-center ${isSelected ? 'bg-slate-50' : 'bg-white'}`}>
                     {hasFeature ? <FaCheck className="text-green-500" size={12} /> : <span className="text-gray-300">—</span>}
                   </div>
                 );
@@ -891,7 +891,7 @@ const PackageComparisonTable = ({ service, selectedPackage, onSelect, currency, 
           {sortedPackageKeys.map(k => (
             <div key={k} className="p-3 border-r last:border-r-0 border-gray-200 bg-gray-50 flex justify-center">
               <button type="button" onClick={() => onSelect(service, k)}
-                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors ${selectedPackage === k ? 'bg-blue-600 text-white' : 'border border-gray-300 text-gray-700 hover:border-blue-400'}`}>
+                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors ${selectedPackage === k ? 'bg-[#18264A] text-white' : 'border border-gray-300 text-gray-700 hover:border-[#18264A]'}`}>
                 {selectedPackage === k ? 'Selected' : 'Select'}
               </button>
             </div>
@@ -935,11 +935,11 @@ const OrderSidebar = ({
       <div className="p-4 sm:p-5 pb-3 shrink-0 border-b border-gray-100 bg-white">
         <div className="flex items-center justify-between mb-2">
           <h3 className="text-base sm:text-lg font-bold text-gray-900 flex items-center gap-2">
-            <FaShoppingCart className="text-blue-600 shrink-0" />
+            <FaShoppingCart className="text-[#18264A] shrink-0" />
             Your Order
           </h3>
           {count > 0 && (
-            <span className="px-2.5 py-0.5 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
+            <span className="px-2.5 py-0.5 bg-slate-100 text-[#18264A] text-xs font-bold rounded-full">
               {count} {count === 1 ? 'service' : 'services'}
             </span>
           )}
@@ -956,7 +956,7 @@ const OrderSidebar = ({
         ) : (
           <>
             {pricedCount === 1 && (
-              <div className="p-2.5 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl text-xs text-blue-900 flex items-center gap-2 shadow-xs">
+              <div className="p-2.5 bg-gradient-to-r from-slate-50 to-slate-100 border border-slate-200 rounded-xl text-xs text-[#18264A] flex items-center gap-2 shadow-xs">
                 <span className="text-sm shrink-0">💡</span>
                 <p className="text-[11px] leading-tight">Add <strong>1 more priced service</strong> to save <strong>10%</strong> on your bundle!</p>
               </div>
@@ -1011,7 +1011,7 @@ const OrderSidebar = ({
             return (
               <div key={service} className="flex items-center justify-between gap-2 text-xs bg-gray-50/80 hover:bg-gray-100/80 border border-gray-100 rounded-xl p-2 sm:p-2.5 transition-colors">
                 <div className="flex items-center gap-2 flex-1 min-w-0">
-                  <div className="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                  <div className="w-6 h-6 rounded-lg bg-slate-50 text-[#18264A] flex items-center justify-center shrink-0">
                     <ServiceIcon size={11} />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -1053,7 +1053,7 @@ const OrderSidebar = ({
             </div>
             <div className="flex justify-between items-center pt-1.5 border-t border-gray-200">
               <span className="font-bold text-gray-900 text-xs sm:text-sm">Total Due Today</span>
-              <span className="text-xl sm:text-2xl font-extrabold text-blue-600">
+              <span className="text-xl sm:text-2xl font-extrabold text-[#18264A]">
                 {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : formatPrice(totalAmount, currency, currencyObj.symbol)}
               </span>
             </div>
@@ -1061,7 +1061,7 @@ const OrderSidebar = ({
         ) : (
           <div className="flex justify-between items-center mb-3 pt-1 gap-2">
             <span className="font-bold text-gray-900 text-xs sm:text-sm shrink-0">Total</span>
-            <span className={`${(hasCustomQuote && count > 0 && totalAmount === 0) ? 'text-xs sm:text-sm font-bold' : 'text-xl sm:text-2xl font-extrabold'} text-blue-600 whitespace-nowrap text-right`}>
+            <span className={`${(hasCustomQuote && count > 0 && totalAmount === 0) ? 'text-xs sm:text-sm font-bold' : 'text-xl sm:text-2xl font-extrabold'} text-[#18264A] whitespace-nowrap text-right`}>
               {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, currency, currencyObj.symbol) : (hasCustomQuote && count > 0) ? 'Custom Quote ($0 due today)' : formatPrice(0, currency, currencyObj.symbol)}
             </span>
           </div>
@@ -1085,7 +1085,7 @@ const OrderSidebar = ({
             className={`w-full py-3 sm:py-3.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg ${
               continueDisabled 
                 ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none' 
-                : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.01]'
+                : 'bg-gradient-to-r bg-[#18264A] text-white hover:bg-[#101c38] transform hover:scale-[1.01]'
             }`}
           >
             <span>{continueLabel}</span>
@@ -1583,7 +1583,7 @@ const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_P
     if (!isServiceFieldVisible(service, field)) return null;
 
     const value = getServiceAnswer(service, field.id);
-    const inputClass = 'w-full px-4 py-3 border border-gray-200 rounded-xl bg-white text-sm text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all';
+    const inputClass = 'w-full px-4 py-3 border border-gray-200 rounded-xl bg-white text-sm text-gray-900 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] outline-none transition-all';
     const optionGrid = field.options?.length > 6 ? 'grid grid-cols-1 sm:grid-cols-2 gap-2' : 'grid grid-cols-1 sm:grid-cols-2 gap-2';
 
     if (field.type === 'radio') {
@@ -1591,14 +1591,14 @@ const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_P
         <div className={optionGrid}>
           {field.options.map(option => (
             <label key={option} className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
-              value === option ? 'border-blue-500 bg-blue-50 ring-1 ring-blue-200' : 'border-gray-200 bg-white hover:border-blue-300'
+              value === option ? 'border-[#18264A] bg-slate-50 ring-1 ring-[#18264A]/20' : 'border-gray-200 bg-white hover:border-slate-300'
             }`}>
               <input
                 type="radio"
                 name={`${service}-${field.id}`}
                 checked={value === option}
                 onChange={() => updateServiceAnswer(service, field.id, option)}
-                className="mt-0.5 w-4 h-4 text-blue-600 shrink-0"
+                className="mt-0.5 w-4 h-4 text-[#18264A] shrink-0"
               />
               <span className="text-sm text-gray-700 leading-snug">{option}</span>
             </label>
@@ -1615,7 +1615,7 @@ const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_P
             const checked = checkedValues.includes(option);
             return (
               <label key={option} className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
-                checked ? 'border-blue-500 bg-blue-50 ring-1 ring-blue-200' : 'border-gray-200 bg-white hover:border-blue-300'
+                checked ? 'border-[#18264A] bg-slate-50 ring-1 ring-[#18264A]/20' : 'border-gray-200 bg-white hover:border-slate-300'
               }`}>
                 <input
                   type="checkbox"
@@ -1626,7 +1626,7 @@ const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_P
                       : [...checkedValues, option];
                     updateServiceAnswer(service, field.id, next);
                   }}
-                  className="mt-0.5 w-4 h-4 text-blue-600 rounded shrink-0"
+                  className="mt-0.5 w-4 h-4 text-[#18264A] rounded shrink-0"
                 />
                 <span className="text-sm text-gray-700 leading-snug">{option}</span>
               </label>
@@ -1668,9 +1668,9 @@ const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_P
 
     return (
       <section className="mt-8 sm:mt-10">
-        <div className="rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-slate-50 p-4 sm:p-6 md:p-8">
+        <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 md:p-8">
           <div className="mb-6">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-[11px] sm:text-xs font-bold uppercase tracking-wide">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-[#18264A] text-[11px] sm:text-xs font-bold uppercase tracking-wide">
               Service requirements
             </span>
             <h2 className="mt-3 text-xl sm:text-2xl font-extrabold text-gray-900">Tell us what you need for each service</h2>
@@ -1950,10 +1950,10 @@ const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_P
 const categoryMeta = [
   {
     cat: 'build',
-    bg: 'bg-blue-100',
-    iconColor: 'text-blue-600',
-    border: 'hover:border-blue-300',
-    gradient: 'from-blue-50 to-blue-100/30'
+    bg: 'bg-slate-100',
+    iconColor: 'text-[#18264A]',
+    border: 'hover:border-slate-300',
+    gradient: 'from-slate-50 to-slate-100/30'
   },
   {
     cat: 'attract',
@@ -1998,7 +1998,7 @@ const categoryIcons = {
     return (
       <div className="min-h-screen pt-20 bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <FaSpinner className="animate-spin text-4xl text-blue-600 mb-4 mx-auto" />
+          <FaSpinner className="animate-spin text-4xl text-[#18264A] mb-4 mx-auto" />
           <p className="text-gray-600 font-medium">Confirming your payment...</p>
         </div>
       </div>
@@ -2016,7 +2016,7 @@ const categoryIcons = {
             <p className="text-gray-600 mb-8 text-base md:text-lg">{totalAmount > 0 ? `Thank you for your payment of ${formatPrice(totalAmount, selectedCurrency, currencyObj.symbol)}. Our team will contact you within 24 hours.` : 'Thank you for your request. We will be in touch within 24 hours.'}</p>
             {uploadedFiles.length > 0 && <p className="text-sm text-gray-500 mb-8">{uploadedFiles.length} file(s) uploaded successfully</p>}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/" className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Return to Home</Link>
+              <Link to="/" className="px-8 py-3 bg-[#18264A] text-white font-semibold rounded-lg hover:bg-[#101c38] transition-colors">Return to Home</Link>
               <button onClick={() => window.print()} className="px-8 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors">Print Confirmation</button>
             </div>
           </motion.div>
@@ -2033,14 +2033,14 @@ const categoryIcons = {
           <div className="flex items-center justify-between mb-8">
             {steps.map((step, index) => (
               <div key={step.number} className={`flex items-center flex-1 ${currentStep === step.number ? 'opacity-100' : 'opacity-60'}`}>
-                <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm ${currentStep >= step.number ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'}`}>
+                <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm ${currentStep >= step.number ? 'bg-[#18264A] text-white' : 'bg-gray-200 text-gray-500'}`}>
                   {currentStep > step.number ? <FaCheck size={14} /> : step.number}
                 </div>
                 <div className="ml-2 sm:ml-3 hidden xs:block">
-                  <p className={`text-[10px] sm:text-xs font-semibold uppercase ${currentStep >= step.number ? 'text-blue-600' : 'text-gray-400'}`}>Step {step.number}</p>
+                  <p className={`text-[10px] sm:text-xs font-semibold uppercase ${currentStep >= step.number ? 'text-[#18264A]' : 'text-gray-400'}`}>Step {step.number}</p>
                   <p className={`text-[10px] sm:text-sm font-medium ${currentStep >= step.number ? 'text-gray-900' : 'text-gray-400'}`}>{step.title}</p>
                 </div>
-                {index < steps.length - 1 && <div className={`flex-1 h-1 mx-2 sm:mx-4 ${currentStep > step.number ? 'bg-blue-600' : 'bg-gray-200'}`} />}
+                {index < steps.length - 1 && <div className={`flex-1 h-1 mx-2 sm:mx-4 ${currentStep > step.number ? 'bg-[#18264A]' : 'bg-gray-200'}`} />}
               </div>
             ))}
           </div>
@@ -2052,10 +2052,10 @@ const categoryIcons = {
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="grid lg:grid-cols-[1fr_360px] gap-6 md:gap-8 items-start">
               <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 lg:p-12">
                 <div className="mb-6 md:mb-8">
-                  <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Step 1 of 3</span>
+                  <span className="text-[#18264A] font-semibold text-sm uppercase tracking-wide">Step 1 of 3</span>
                   <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-2 mb-3 md:mb-4">Service Selection</h2>
                   <p className="text-gray-600 text-sm sm:text-base">Pick your services, then compare packages side-by-side.</p>
-                  <div className="mt-4 p-3 md:p-4 bg-blue-50 border border-blue-200 rounded-xl text-blue-700 text-xs sm:text-sm font-semibold">
+                  <div className="mt-4 p-3 md:p-4 bg-slate-50 border border-slate-200 rounded-xl text-[#18264A] text-xs sm:text-sm font-semibold">
                     Starting price options are shown during service selection. Custom quotes are available for larger or more detailed projects.
                   </div>
                 </div>
@@ -2091,12 +2091,12 @@ const categoryIcons = {
                                 onMouseEnter={() => handleServiceHover(service)}
                                 onMouseLeave={handleServiceLeave}
                               >
-                                <label className={`flex items-center p-2 sm:p-2.5 border rounded-lg cursor-pointer transition-all ${isSelected ? 'border-blue-500 bg-blue-50/70' : 'border-gray-200 hover:border-gray-300 hover:bg-white/70'}`}>
+                                <label className={`flex items-center p-2 sm:p-2.5 border rounded-lg cursor-pointer transition-all ${isSelected ? 'border-[#18264A] bg-slate-50/70' : 'border-gray-200 hover:border-gray-300 hover:bg-white/70'}`}>
                                   <input 
                                     type="checkbox" 
                                     checked={isSelected} 
                                     onChange={() => handleServiceToggle(service)} 
-                                    className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300 shrink-0" 
+                                    className="w-4 h-4 sm:w-5 sm:h-5 text-[#18264A] rounded focus:ring-[#18264A] border-gray-300 shrink-0" 
                                   />
                                   <div className="ml-2 sm:ml-3 flex-1 flex items-center min-w-0">
                                     <span className="text-gray-700 font-medium text-xs sm:text-sm break-words leading-snug">{getServiceDisplayName(service)}</span>
@@ -2109,7 +2109,7 @@ const categoryIcons = {
                                 {/* Mobile-friendly hover preview - hidden on small screens */}
                                 {hoveredService === service && isSelected && (
                                   <div 
-                                    className="absolute z-50 w-[min(320px,calc(100vw-2.5rem))] bg-white rounded-xl shadow-2xl border-2 border-blue-200 p-5 top-full left-0 mt-2 xl:top-0 xl:left-full xl:ml-3 xl:mt-0 animate-fade-in hidden sm:block"
+                                    className="absolute z-50 w-[min(320px,calc(100vw-2.5rem))] bg-white rounded-xl shadow-2xl border-2 border-slate-200 p-5 top-full left-0 mt-2 xl:top-0 xl:left-full xl:ml-3 xl:mt-0 animate-fade-in hidden sm:block"
                                     onMouseEnter={() => {
                                       if (previewTimer) clearTimeout(previewTimer);
                                       setHoveredService(service);
@@ -2190,7 +2190,7 @@ const categoryIcons = {
           {currentStep === 2 && (
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 lg:p-12">
               <div className="mb-6 md:mb-8">
-                <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Step 2 of 3</span>
+                <span className="text-[#18264A] font-semibold text-sm uppercase tracking-wide">Step 2 of 3</span>
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-2 mb-3 md:mb-4">Review Terms & Pay</h2>
                 <p className="text-gray-600 text-sm sm:text-base">Agree to our terms, then complete secure checkout. You'll fill in your contact and project details right after.</p>
               </div>
@@ -2202,7 +2202,7 @@ const categoryIcons = {
                     <div className="bg-gray-100 p-1 rounded-lg flex w-full sm:inline-flex sm:w-auto">
                       {[['privacy', 'Privacy Policy', FaLock], ['terms', 'Terms of Service', FaFileContract]].map(([id, label, Icon]) => (
                         <button key={id} type="button" onClick={() => setActiveLegalTab(id)}
-                          className={`flex-1 sm:flex-none px-2 sm:px-5 py-1.5 sm:py-2 rounded-md font-semibold text-[10px] sm:text-sm transition-all whitespace-nowrap ${activeLegalTab === id ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}>
+                          className={`flex-1 sm:flex-none px-2 sm:px-5 py-1.5 sm:py-2 rounded-md font-semibold text-[10px] sm:text-sm transition-all whitespace-nowrap ${activeLegalTab === id ? 'bg-white text-[#18264A] shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}>
                           <Icon className="inline mr-1 sm:mr-2 text-xs sm:text-sm" />{label}
                         </button>
                       ))}
@@ -2212,7 +2212,7 @@ const categoryIcons = {
                     {(activeLegalTab === 'privacy' ? privacyPolicyContent : termsContent).map((section, idx) => (
                       <div key={idx} className="bg-white p-3 sm:p-4 rounded-lg border border-gray-200 mb-3">
                         <h4 className="font-bold text-gray-900 mb-2 flex items-center text-xs sm:text-sm">
-                          <span className="w-5 h-5 sm:w-6 sm:h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-[10px] sm:text-xs mr-2 shrink-0">{idx + 1}</span>
+                          <span className="w-5 h-5 sm:w-6 sm:h-6 bg-[#18264A] text-white rounded-full flex items-center justify-center text-[10px] sm:text-xs mr-2 shrink-0">{idx + 1}</span>
                           {section.title}
                         </h4>
                         <p className="text-gray-700 text-xs sm:text-sm leading-relaxed">{section.content}</p>
@@ -2224,7 +2224,7 @@ const categoryIcons = {
                     ['agreedToTerms', 'I agree to the Terms of Service', 'I have read and agree to abide by the Terms of Service, including user conduct guidelines and liability limitations.'] 
                     ].map(([name, title, desc]) => (
                       <label key={name} className="flex items-start p-2 sm:p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="checkbox" name={name} checked={formData[name]} onChange={handleInputChange} className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300 mt-0.5 shrink-0" />
+                        <input type="checkbox" name={name} checked={formData[name]} onChange={handleInputChange} className="w-4 h-4 sm:w-5 sm:h-5 text-[#18264A] rounded focus:ring-[#18264A] border-gray-300 mt-0.5 shrink-0" />
                         <div className="ml-2 sm:ml-3">
                           <span className="block font-semibold text-gray-900 text-xs sm:text-sm">{title} *</span>
                           <span className="block text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">{desc}</span>
@@ -2235,8 +2235,8 @@ const categoryIcons = {
                 </div>
 
                 {/* Right: Payment Summary - responsive */}
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 sm:p-6 rounded-xl border-2 border-blue-200 shadow-md h-fit">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 flex items-center gap-2"><FaCreditCard className="text-blue-600 shrink-0" />Order Summary</h3>
+                <div className="bg-gradient-to-br from-slate-50 to-slate-100 p-4 sm:p-6 rounded-xl border-2 border-slate-200 shadow-md h-fit">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 flex items-center gap-2"><FaCreditCard className="text-[#18264A] shrink-0" />Order Summary</h3>
                   <div className="mb-4 md:mb-6"><CurrencySelector selectedCurrency={selectedCurrency} onCurrencyChange={setSelectedCurrency} /></div>
                   <div className="space-y-2 sm:space-y-3 mb-4 md:mb-6 bg-white p-3 sm:p-4 rounded-lg">
                     {Object.entries(selectedServices).map(([service, pkg]) => {
@@ -2268,7 +2268,7 @@ const categoryIcons = {
                     </div>
                   )}
 
-                  <div className="border-t-2 border-blue-200 pt-3 sm:pt-4 mb-4 md:mb-6 space-y-2">
+                  <div className="border-t-2 border-slate-200 pt-3 sm:pt-4 mb-4 md:mb-6 space-y-2">
                     {discountAmount > 0 && (
                       <>
                         <div className="flex justify-between text-xs sm:text-sm text-gray-600">
@@ -2281,9 +2281,9 @@ const categoryIcons = {
                         </div>
                       </>
                     )}
-                    <div className="flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-blue-100">
+                    <div className="flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-slate-200">
                       <span className="text-base sm:text-lg font-bold text-gray-900">Total Due Today:</span>
-                      <span className="text-2xl sm:text-3xl font-bold text-blue-600">
+                      <span className="text-2xl sm:text-3xl font-bold text-[#18264A]">
                         {isLoadingRates ? <FaSpinner className="animate-spin inline" /> : totalAmount > 0 ? formatPrice(totalAmount, selectedCurrency, currencyObj.symbol) : hasCustomQuote ? 'Custom Quote' : formatPrice(0, selectedCurrency, currencyObj.symbol)}
                       </span>
                     </div>
@@ -2305,16 +2305,16 @@ const categoryIcons = {
                         type="checkbox"
                         checked={agreedToEscrow}
                         onChange={e => setAgreedToEscrow(e.target.checked)}
-                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 mt-0.5 cursor-pointer shrink-0"
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#18264A] rounded border-gray-300 focus:ring-[#18264A] mt-0.5 cursor-pointer shrink-0"
                       />
                       <span className="text-[10px] sm:text-xs font-semibold text-slate-700 leading-tight">
-                        I agree to the <a href="/legal?tab=escrow" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">ScaleLink Alliance Milestone-Based Payment Terms</a> and understand my project may require a deposit, milestone-based payment.
+                        I agree to the <a href="/legal?tab=escrow" target="_blank" rel="noopener noreferrer" className="text-[#18264A] hover:underline">ScaleLink Alliance Milestone-Based Payment Terms</a> and understand my project may require a deposit, milestone-based payment.
                       </span>
                     </label>
                   </div>
 
                   <button type="button" onClick={handleContinueFromReview} disabled={!canProceedFromReview}
-                    className="w-full py-4 sm:py-5 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-base sm:text-lg rounded-xl hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-2 sm:gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg hover:shadow-xl mb-3 sm:mb-4 text-center">
+                    className="w-full py-4 sm:py-5 bg-[#18264A] text-white font-bold text-base sm:text-lg rounded-xl hover:bg-[#101c38] transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-2 sm:gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg hover:shadow-xl mb-3 sm:mb-4 text-center">
                     {isRedirectingToStripe ? <><FaSpinner className="animate-spin" />Redirecting to Secure Checkout...</> :
                       isLoadingRates ? <><FaSpinner className="animate-spin" />Loading Exchange Rates...</> :
                         totalAmount > 0 ? <><FaCreditCard className="text-lg sm:text-xl" />Proceed to Secure Checkout<FaArrowRight className="text-xs sm:text-sm" /></> :
@@ -2342,7 +2342,7 @@ const categoryIcons = {
                     <p className="text-xs sm:text-sm text-green-800 font-semibold break-words">Payment confirmed — {formatPrice(totalAmount, selectedCurrency, currencyObj.symbol)}. Just a few details left.</p>
                   </div>
                 )}
-                <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Step 3 of 3</span>
+                <span className="text-[#18264A] font-semibold text-sm uppercase tracking-wide">Step 3 of 3</span>
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-2 mb-3 md:mb-4">Your Details</h2>
                 <p className="text-gray-600 text-base sm:text-lg">Tell us who you are and more about your project.</p>
               </div>
@@ -2352,18 +2352,18 @@ const categoryIcons = {
                   <label className="block text-sm font-semibold text-gray-700 mb-2">First Name *</label>
                   <div className="relative">
                     <FaUser className="absolute left-3 top-3.5 text-gray-400" size={14} />
-                    <input type="text" name="firstName" required value={formData.firstName} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="John" />
+                    <input type="text" name="firstName" required value={formData.firstName} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-transparent text-sm" placeholder="John" />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Last Name *</label>
-                  <input type="text" name="lastName" required value={formData.lastName} onChange={handleInputChange} className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="Doe" />
+                  <input type="text" name="lastName" required value={formData.lastName} onChange={handleInputChange} className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-transparent text-sm" placeholder="Doe" />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
                   <div className="relative">
                     <FaEnvelope className="absolute left-3 top-3.5 text-gray-400" size={14} />
-                    <input type="email" name="email" required value={formData.email} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="john@company.com" />
+                    <input type="email" name="email" required value={formData.email} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-transparent text-sm" placeholder="john@company.com" />
                   </div>
                 </div>
                 <div>
@@ -2380,28 +2380,28 @@ const categoryIcons = {
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Company Name *</label>
                   <div className="relative">
                     <FaBuilding className="absolute left-3 top-3.5 text-gray-400" size={14} />
-                    <input type="text" name="company" required value={formData.company} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="Acme Inc." />
+                    <input type="text" name="company" required value={formData.company} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-transparent text-sm" placeholder="Acme Inc." />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Company Website (Optional)</label>
                   <div className="relative">
                     <FaGlobeAmericas className="absolute left-3 top-3.5 text-gray-400" size={14} />
-                    <input type="text" name="clientWebsite" value={formData.clientWebsite} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="e.g. www.example.com" />
+                    <input type="text" name="clientWebsite" value={formData.clientWebsite} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-transparent text-sm" placeholder="e.g. www.example.com" />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Business Location (Optional)</label>
                   <div className="relative">
                     <FaRegBuilding className="absolute left-3 top-3.5 text-gray-400" size={14} />
-                    <input type="text" name="clientLocation" value={formData.clientLocation} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="e.g. Chicago, IL" />
+                    <input type="text" name="clientLocation" value={formData.clientLocation} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-transparent text-sm" placeholder="e.g. Chicago, IL" />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Industry / Business Type (Optional)</label>
                   <div className="relative">
                     <FaBriefcase className="absolute left-3 top-3.5 text-gray-400" size={14} />
-                    <input type="text" name="clientIndustry" value={formData.clientIndustry} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="e.g. E-Commerce, SaaS, Retail" />
+                    <input type="text" name="clientIndustry" value={formData.clientIndustry} onChange={handleInputChange} className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-transparent text-sm" placeholder="e.g. E-Commerce, SaaS, Retail" />
                   </div>
                 </div>
               </div>
@@ -2410,7 +2410,7 @@ const categoryIcons = {
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Project Description *</label>
                   <textarea name="projectDescription" required rows={4} maxLength={1000} value={formData.projectDescription} onChange={handleInputChange}
-                    className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                    className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-transparent text-sm"
                     placeholder="Describe your project, goals, and any specific requirements..." />
                   <div className="flex flex-wrap justify-between items-center mt-1 gap-1">
                     <span className="text-[10px] sm:text-xs text-gray-400">Please provide a clear description of your requirements.</span>
@@ -2460,7 +2460,7 @@ const categoryIcons = {
                                         aiFeaturesOther: checked ? '' : p.aiFeaturesOther
                                       }));
                                     }}
-                                    className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 rounded shrink-0"
+                                    className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#18264A] rounded shrink-0"
                                   />
                                   <span className="text-xs font-semibold text-slate-700">{item.label}</span>
                                 </label>
@@ -2470,7 +2470,7 @@ const categoryIcons = {
                                     placeholder="Specify other AI features..."
                                     value={customQuoteAnswers.aiFeaturesOther || ''}
                                     onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiFeaturesOther: e.target.value }))}
-                                    className="w-full mt-1 px-3 py-1.5 sm:py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    className="w-full mt-1 px-3 py-1.5 sm:py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-[#18264A] focus:outline-none"
                                   />
                                 )}
                               </div>
@@ -2487,7 +2487,7 @@ const categoryIcons = {
                                     : [...customQuoteAnswers.aiFeatures, item.id];
                                   setCustomQuoteAnswers(p => ({ ...p, aiFeatures: nextFeatures }));
                                 }}
-                                className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 rounded shrink-0"
+                                className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#18264A] rounded shrink-0"
                               />
                               <span className="text-xs font-semibold text-slate-700">{item.label}</span>
                             </label>
@@ -2503,7 +2503,7 @@ const categoryIcons = {
                         placeholder="e.g. HubSpot, Zapier, Google Sheets, None"
                         value={customQuoteAnswers.aiCurrentTools}
                         onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiCurrentTools: e.target.value }))}
-                        className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                        className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-transparent bg-white text-sm"
                       />
                     </div>
 
@@ -2514,7 +2514,7 @@ const categoryIcons = {
                         placeholder="e.g. 10 hours/week, 5 hours/day, Not sure"
                         value={customQuoteAnswers.aiTimeSpent}
                         onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiTimeSpent: e.target.value }))}
-                        className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                        className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-transparent bg-white text-sm"
                       />
                     </div>
 
@@ -2525,14 +2525,14 @@ const categoryIcons = {
                         placeholder="Describe how you envision AI improving your business operations..."
                         value={customQuoteAnswers.aiSuccessLooksLike}
                         onChange={e => setCustomQuoteAnswers(p => ({ ...p, aiSuccessLooksLike: e.target.value }))}
-                        className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-sm"
+                        className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-transparent bg-white text-sm"
                       />
                     </div>
                   </>
                 )}
 
                 <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gray-200">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 flex items-center gap-2"><FaUpload className="text-blue-600 shrink-0" />Project Files</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 flex items-center gap-2"><FaUpload className="text-[#18264A] shrink-0" />Project Files</h3>
                   <p className="text-gray-600 text-sm mb-3 sm:mb-4">Upload any relevant files (designs, documents, briefs, etc.)</p>
                   <FileUpload
                     files={uploadedFiles.map(f => ({ ...f.file, name: f.name, size: f.size, type: f.type }))}
@@ -2545,7 +2545,7 @@ const categoryIcons = {
                 <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 mt-4 sm:mt-6">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2"><FaCalendar className="inline mr-2" />Desired Timeline</label>
-                    <select name="timeline" value={formData.timeline} onChange={handleInputChange} className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                    <select name="timeline" value={formData.timeline} onChange={handleInputChange} className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-transparent text-sm">
                       <option value="">Select Timeline</option>
                       <option value="ASAP">As soon as possible</option>
                       <option value="1-2 weeks">1-2 weeks</option>
@@ -2556,7 +2556,7 @@ const categoryIcons = {
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2"><FaDollarSign className="inline mr-2" />Budget Range</label>
-                    <select name="budget" value={formData.budget} onChange={handleInputChange} className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                    <select name="budget" value={formData.budget} onChange={handleInputChange} className="w-full px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-transparent text-sm">
                       <option value="">Select Budget Range</option>
                       {BUDGET_RANGES.map(range => (
                         <option key={range} value={range}>{range}</option>
@@ -2575,7 +2575,7 @@ const categoryIcons = {
                   type="button"
                   onClick={handleFinalSubmit}
                   disabled={!isStep3Complete || isSubmitting}
-                  className={`px-4 sm:px-8 py-3 sm:py-4 font-semibold rounded-lg transition-all flex items-center gap-2 text-sm sm:text-base ${!isStep3Complete || isSubmitting ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'}`}
+                  className={`px-4 sm:px-8 py-3 sm:py-4 font-semibold rounded-lg transition-all flex items-center gap-2 text-sm sm:text-base ${!isStep3Complete || isSubmitting ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-[#18264A] text-white font-bold hover:bg-[#101c38] hover:shadow-lg'}`}
                 >
                   {isSubmitting ? <><FaSpinner className="animate-spin" />{uploadedFiles.length > 0 ? 'Uploading Files...' : 'Submitting...'}</> : <><FaPaperPlane />Submit Request</>}
                 </button>

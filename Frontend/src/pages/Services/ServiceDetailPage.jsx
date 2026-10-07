@@ -689,7 +689,7 @@ const ImageGallery = ({ images, serviceTitle }) => {
                 initial={{ width: '0%' }}
                 animate={{ width: isPaused ? '0%' : '100%' }}
                 transition={{ duration: isPaused ? 0 : 7, ease: 'linear' }}
-                className="h-full bg-blue-500 shadow-sm"
+                className="h-full bg-[#18264A] shadow-sm"
               />
             </div>
           )}
@@ -697,7 +697,7 @@ const ImageGallery = ({ images, serviceTitle }) => {
           <button
             type="button"
             onClick={() => setIsViewerOpen(true)}
-            className="relative block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            className="relative block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#18264A] focus-visible:ring-offset-2"
             aria-label={`Open ${serviceTitle} image ${currentIndex + 1}`}
           >
             <div className="relative aspect-[16/9] w-full min-h-[180px] sm:min-h-[220px] md:min-h-[280px] lg:min-h-[320px] max-h-[520px] bg-slate-950 overflow-hidden">
@@ -786,7 +786,7 @@ const ImageGallery = ({ images, serviceTitle }) => {
                     onClick={() => setCurrentIndex(index)}
                     className={`shrink-0 w-16 h-10 sm:w-20 sm:h-12 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
                       index === currentIndex
-                        ? 'border-blue-600 ring-2 ring-blue-100 scale-105 shadow-sm'
+                        ? 'border-[#18264A] ring-2 ring-slate-200 scale-105 shadow-sm'
                         : 'border-transparent hover:border-slate-300 opacity-70 hover:opacity-100'
                     }`}
                     aria-label={`Select image ${index + 1}`}
@@ -997,7 +997,7 @@ const ServiceDetailPage = () => {
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">Service Not Found</h1>
           <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">The requested service could not be located.</p>
-          <Link to="/services" className="inline-flex items-center px-4 sm:px-6 py-2.5 sm:py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base">
+          <Link to="/services" className="inline-flex items-center px-4 sm:px-6 py-2.5 sm:py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors text-sm sm:text-base">
             Browse All Services
           </Link>
         </div>
@@ -1037,7 +1037,7 @@ const ServiceDetailPage = () => {
       <div className="bg-white border-b border-gray-200">
         <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
           <div className="flex items-center text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4 flex-wrap break-words">
-            <Link to="/services" className="hover:text-blue-600">Services</Link>
+            <Link to="/services" className="hover:text-[#18264A]">Services</Link>
             <span className="mx-1 sm:mx-2">/</span>
             <span className="text-gray-900 truncate">{service.title}</span>
           </div>
@@ -1050,7 +1050,7 @@ const ServiceDetailPage = () => {
               {service.sellerInfo && (
                 <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-3 sm:mt-4">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#18264A] rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm">
                       {service.sellerInfo.name.split(' ').map(n => n[0]).join('')}
                     </div>
                     <div>
@@ -1089,7 +1089,7 @@ const ServiceDetailPage = () => {
                     </div>
                     <Link to="/request-service?service=ai-automation&step=2" className="block w-full py-2.5 sm:py-3 px-4 bg-purple-600 text-white font-bold rounded-lg text-center hover:bg-purple-700 transition-colors shadow-md text-sm sm:text-base">Request AI Custom Quote</Link>
                     <Link to="/contact" className="block w-full mt-2 sm:mt-3 py-2.5 sm:py-3 px-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg text-center hover:bg-gray-50 transition-colors text-sm sm:text-base">Contact Me</Link>
-                    <div className="mt-3 sm:mt-4 text-center"><p className="text-[10px] sm:text-xs text-gray-400">Need flexibility? <Link to="/contact" className="text-blue-600 hover:underline">Hire by the hour</Link></p></div>
+                    <div className="mt-3 sm:mt-4 text-center"><p className="text-[10px] sm:text-xs text-gray-400">Need flexibility? <Link to="/contact" className="text-[#18264A] font-bold hover:text-emerald-700">Hire by the hour</Link></p></div>
                   </>
                 ) : (
                   <>
@@ -1114,7 +1114,7 @@ const ServiceDetailPage = () => {
                         <div className="mb-3 sm:mb-4">
                           <span className="text-xs sm:text-sm text-gray-500">{selectedPkg.name}</span>
                           <p className="text-[10px] sm:text-xs text-gray-500 mt-1">{selectedPkg.description}</p>
-                          <p className="text-[10px] sm:text-xs text-blue-600 font-semibold mt-2">Pricing shown at checkout</p>
+                          <p className="text-[10px] sm:text-xs text-[#18264A] font-semibold mt-2">Pricing shown at checkout</p>
                         </div>
 
                         <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
@@ -1162,9 +1162,9 @@ const ServiceDetailPage = () => {
                           </div>
                         )}
 
-                        <Link to={`/request-service?service=${serviceSlug}&package=${validPackage}`} className="block w-full py-2.5 sm:py-3 px-4 bg-blue-600 text-white font-bold rounded-lg text-center hover:bg-blue-700 transition-colors shadow-md text-sm sm:text-base">Continue</Link>
+                        <Link to={`/request-service?service=${serviceSlug}&package=${validPackage}`} className="block w-full py-2.5 sm:py-3 px-4 bg-[#18264A] text-white font-bold rounded-xl text-center hover:bg-[#101c38] transition-colors shadow-md text-sm sm:text-base">Continue</Link>
                         <Link to="/contact" className="block w-full mt-2 sm:mt-3 py-2.5 sm:py-3 px-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg text-center hover:bg-gray-50 transition-colors text-sm sm:text-base">Contact Me</Link>
-                        <div className="mt-3 sm:mt-4 text-center"><p className="text-[10px] sm:text-xs text-gray-400">Need flexibility? <Link to="/contact" className="text-blue-600 hover:underline">Hire by the hour</Link></p></div>
+                        <div className="mt-3 sm:mt-4 text-center"><p className="text-[10px] sm:text-xs text-gray-400">Need flexibility? <Link to="/contact" className="text-[#18264A] font-bold hover:text-emerald-700">Hire by the hour</Link></p></div>
                       </>
                     )}
                   </>
@@ -1186,7 +1186,7 @@ const ServiceDetailPage = () => {
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">What This Service Helps Businesses Achieve</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {service.whatItHelpsAchieve.map((item, index) => (
-              <div key={index} className="flex items-start space-x-2 sm:space-x-3 p-2.5 sm:p-3 bg-blue-50 rounded-lg">
+              <div key={index} className="flex items-start space-x-2 sm:space-x-3 p-2.5 sm:p-3 bg-slate-50 rounded-lg">
                 <FaCheck className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mt-0.5 shrink-0" />
                 <span className="text-sm sm:text-base text-gray-700">{item}</span>
               </div>
@@ -1201,7 +1201,7 @@ const ServiceDetailPage = () => {
           <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
             {service.howMeasured.map((item, index) => (
               <div key={index} className="flex items-start space-x-2 sm:space-x-3">
-                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full mt-1.5 sm:mt-2 shrink-0"></div>
+                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-500 rounded-full mt-1.5 sm:mt-2 shrink-0"></div>
                 <span className="text-sm sm:text-base text-gray-700">{item}</span>
               </div>
             ))}
@@ -1249,11 +1249,11 @@ const ServiceDetailPage = () => {
                   <Link
                     key={index}
                     to={`/services/${relSlug}`}
-                    className="flex items-start gap-3 p-3 sm:p-4 bg-white border border-gray-200 rounded-xl hover:border-blue-400 hover:shadow-md transition-all group"
+                    className="flex items-start gap-3 p-3 sm:p-4 bg-white border border-gray-200 rounded-xl hover:border-[#18264A] hover:shadow-md transition-all group"
                   >
-                    <span className="text-blue-600 mt-0.5 shrink-0">{RelIcon}</span>
+                    <span className="text-[#18264A] mt-0.5 shrink-0">{RelIcon}</span>
                     <span>
-                      <span className="block text-sm font-semibold text-gray-900 group-hover:text-blue-600">{rel.name}</span>
+                      <span className="block text-sm font-semibold text-gray-900 group-hover:text-[#18264A]">{rel.name}</span>
                       <span className="block text-xs text-gray-500 mt-0.5">For {rel.reason}</span>
                     </span>
                   </Link>
@@ -1282,14 +1282,14 @@ const ServiceDetailPage = () => {
         <section className="w-full min-w-0 text-center py-8 sm:py-12 bg-gray-50 rounded-2xl px-3 sm:px-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">Ready to Get Professional Results?</h2>
           <p className="text-base sm:text-xl text-gray-600 mb-4 max-w-3xl mx-auto">Submit your service request today. Transparent milestones and fixed pricing — just professional execution.</p>
-          <div className="flex items-start gap-2 sm:gap-3 p-3 sm:p-4 bg-blue-50 border border-blue-200 border-l-4 border-l-blue-500 rounded-r-xl rounded-l-md max-w-2xl mx-auto mb-6 sm:mb-8 text-left shadow-sm transition-all duration-300 hover:shadow-md">
-            <FaInfoCircle className="text-blue-600 shrink-0 mt-0.5" size={16} />
-            <p className="text-xs sm:text-sm leading-relaxed text-blue-800 font-medium">
-              <span className="font-semibold text-blue-950">Starting price options</span> are shown during service selection. <span className="font-semibold text-blue-950">Custom quotes</span> are available for larger or more detailed projects.
+          <div className="flex items-start gap-2 sm:gap-3 p-3 sm:p-4 bg-slate-50 border border-slate-200 border-l-4 border-l-[#18264A] rounded-r-xl rounded-l-md max-w-2xl mx-auto mb-6 sm:mb-8 text-left shadow-sm transition-all duration-300 hover:shadow-md">
+            <FaInfoCircle className="text-[#18264A] shrink-0 mt-0.5" size={16} />
+            <p className="text-xs sm:text-sm leading-relaxed text-slate-700 font-medium">
+              <span className="font-semibold text-[#18264A]">Starting price options</span> are shown during service selection. <span className="font-semibold text-[#18264A]">Custom quotes</span> are available for larger or more detailed projects.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <Link to={`/request-service?service=${serviceSlug}&package=${validPackage}`} className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg text-sm sm:text-base">
+            <Link to={`/request-service?service=${serviceSlug}&package=${validPackage}`} className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors shadow-lg text-sm sm:text-base">
               <FaArrowRight className="mr-2" /> Request Service Now
             </Link>
             <Link to="/request-service?service=custom-quote" className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-black transition-colors text-sm sm:text-base">

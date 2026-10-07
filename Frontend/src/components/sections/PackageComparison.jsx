@@ -110,7 +110,7 @@ const PackageComparison = ({ packageData, packagesData, serviceSlug, onTabChange
                   <th 
                     key={tier}
                     className={`text-left p-4 align-top cursor-pointer min-w-[160px] whitespace-normal break-words ${
-                      activeTab === tier ? 'border-b-2 border-blue-600' : ''
+                      activeTab === tier ? 'border-b-2 border-[#18264A]' : ''
                     }`}
                     onClick={() => handleTabChange(tier)}
                   >
