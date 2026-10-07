@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import AdminLayout from './AdminLayout';
 import { useToast } from './Toast';
-import { FaHandshake, FaCheck, FaTimes, FaTrash, FaExternalLinkAlt, FaSearch, FaFilter, FaEdit, FaImage } from 'react-icons/fa';
+import { FaHandshake, FaCheck, FaTimes, FaTrash, FaExternalLinkAlt, FaSearch, FaFilter, FaEdit, FaImage, FaPlus } from 'react-icons/fa';
 
 const AdminPartners = () => {
   const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  
+  // Edit State
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingPartner, setEditingPartner] = useState(null);
   const [editFormData, setEditFormData] = useState({
@@ -16,9 +18,24 @@ const AdminPartners = () => {
     websiteUrl: '',
     contactEmail: '',
     linkPlacementUrl: '',
-    description: ''
+    description: '',
+    status: 'approved'
   });
   const [logoPreview, setLogoPreview] = useState(null);
+
+  // Create State
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [createFormData, setCreateFormData] = useState({
+    businessName: '',
+    category: '',
+    websiteUrl: '',
+    contactEmail: '',
+    linkPlacementUrl: '',
+    description: '',
+    status: 'approved'
+  });
+  const [createLogoPreview, setCreateLogoPreview] = useState(null);
+
   const { showToast, ToastContainer } = useToast();
   const token = localStorage.getItem('cms_token');
 
@@ -53,6 +70,7 @@ const AdminPartners = () => {
       });
       if (res.ok) {
         setPartners(partners.map(p => p.id === id ? { ...p, status: newStatus } : p));
+        showToast(`Partner status changed to ${newStatus}.`, 'success');
       }
     } catch (err) {
       console.error('Failed to update status', err);
@@ -60,6 +78,75 @@ const AdminPartners = () => {
     }
   };
 
+  // Open Create Modal
+  const openCreate = () => {
+    setCreateFormData({
+      businessName: '',
+      category: '',
+      websiteUrl: '',
+      contactEmail: '',
+      linkPlacementUrl: '',
+      description: '',
+      status: 'approved'
+    });
+    setCreateLogoPreview(null);
+    setIsCreateModalOpen(true);
+  };
+
+  const handleCreateLogoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 16 * 1024 * 1024) {
+        showToast('Logo file size must be less than 16MB.', 'error');
+        e.target.value = '';
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => setCreateLogoPreview(reader.result);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleCreateSave = async (e) => {
+    e.preventDefault();
+    if (!createLogoPreview) {
+      showToast('Please upload a company logo.', 'error');
+      return;
+    }
+    setLoading(true);
+
+    const payload = {
+      ...createFormData,
+      logoUrl: createLogoPreview
+    };
+
+    try {
+      const res = await fetch('/api/cms/admin/partners', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        const newPartner = await res.json();
+        setPartners([newPartner, ...partners]);
+        showToast('Partner added successfully!', 'success');
+        setIsCreateModalOpen(false);
+      } else {
+        const error = await res.json();
+        showToast(error.error || 'Failed to add partner.', 'error');
+      }
+    } catch (err) {
+      showToast('A network error occurred.', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Open Edit Modal
   const openEdit = (partner) => {
     setEditingPartner(partner);
     setEditFormData({
@@ -68,7 +155,8 @@ const AdminPartners = () => {
       websiteUrl: partner.websiteUrl,
       contactEmail: partner.contactEmail,
       linkPlacementUrl: partner.linkPlacementUrl,
-      description: partner.description || ''
+      description: partner.description || '',
+      status: partner.status || 'approved'
     });
     setLogoPreview(partner.logoUrl);
     setIsEditModalOpen(true);
@@ -99,9 +187,9 @@ const AdminPartners = () => {
       contactEmail: editFormData.contactEmail,
       linkPlacementUrl: editFormData.linkPlacementUrl,
       description: editFormData.description,
+      status: editFormData.status,
     };
 
-    // Include logo if it's a new base64 data URI or the existing URL
     if (logoPreview) {
       payload.logoUrl = logoPreview;
     }
@@ -141,6 +229,7 @@ const AdminPartners = () => {
       });
       if (res.ok) {
         setPartners(partners.filter(p => p.id !== id));
+        showToast('Partner deleted.', 'success');
       }
     } catch (err) {
       console.error('Failed to delete partner', err);
@@ -167,7 +256,7 @@ const AdminPartners = () => {
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         {/* Header/Filters */}
         <div className="p-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-wrap items-center gap-3">
             <div className="relative">
               <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm" />
               <input
@@ -192,8 +281,18 @@ const AdminPartners = () => {
               </select>
             </div>
           </div>
-          <div className="text-xs text-slate-400 font-medium">
-            Showing {filteredPartners.length} of {partners.length} partners
+
+          <div className="flex items-center space-x-3">
+            <span className="text-xs text-slate-400 font-medium hidden sm:inline">
+              Showing {filteredPartners.length} of {partners.length} partners
+            </span>
+            <button
+              onClick={openCreate}
+              className="flex items-center space-x-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-95 shadow-md shadow-blue-500/20 bg-[#18264A] hover:bg-[#101c38] cursor-pointer"
+            >
+              <FaPlus size={12} />
+              <span>Add Partner</span>
+            </button>
           </div>
         </div>
 
@@ -204,7 +303,14 @@ const AdminPartners = () => {
           ) : filteredPartners.length === 0 ? (
             <div className="py-20 text-center">
                <FaHandshake className="mx-auto text-slate-200 text-4xl mb-4" />
-               <p className="text-slate-400">No partners found matching your criteria.</p>
+               <p className="text-slate-400 mb-4">No partners found matching your criteria.</p>
+               <button
+                 onClick={openCreate}
+                 className="inline-flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-semibold text-white bg-[#18264A] hover:bg-[#101c38] transition-all shadow-sm"
+               >
+                 <FaPlus size={11} />
+                 <span>Add First Partner</span>
+               </button>
             </div>
           ) : (
             <table className="w-full text-left">
@@ -223,72 +329,108 @@ const AdminPartners = () => {
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden border border-slate-200">
                           {partner.logoUrl ? (
-                            <img src={partner.logoUrl} alt={partner.businessName} className="w-full h-full object-cover" />
+                            <img src={partner.logoUrl} alt={partner.businessName} className="w-full h-full object-contain" />
                           ) : (
-                            <FaHandshake className="text-slate-300 text-lg" />
+                            <FaHandshake className="text-slate-400" />
                           )}
                         </div>
                         <div>
-                          <div className="font-bold text-slate-900 text-sm">{partner.businessName}</div>
-                          <div className="text-xs text-slate-500">{partner.category}</div>
+                          <div className="font-bold text-slate-800 text-sm">{partner.businessName}</div>
+                          <div className="text-xs text-slate-400">{partner.category}</div>
+                          {partner.description && (
+                            <div className="text-[11px] text-slate-500 mt-1 max-w-xs truncate" title={partner.description}>
+                              <span className="font-semibold text-[10px] text-slate-400 uppercase tracking-wider mr-1">Internal:</span>
+                              {partner.description}
+                            </div>
+                          )}
                         </div>
                       </div>
-                      {partner.description && (
-                        <p className="text-[10px] text-slate-400 mt-2 max-w-xs flex items-center gap-1">
-                          <span className="inline-block px-1 py-0.5 bg-slate-100 text-slate-400 rounded text-[9px] font-bold uppercase tracking-wider shrink-0">Internal</span>
-                          {partner.description}
-                        </p>
-                      )}
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex flex-col space-y-1">
-                        <a href={partner.websiteUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 text-xs font-semibold flex items-center hover:underline">
-                          Website <FaExternalLinkAlt size={10} className="ml-1" />
-                        </a>
-                        <a href={partner.linkPlacementUrl} target="_blank" rel="noopener noreferrer" className="text-purple-600 text-xs font-semibold flex items-center hover:underline">
-                          Link Placement <FaExternalLinkAlt size={10} className="ml-1" />
-                        </a>
-                        <div className="text-[10px] text-slate-400 italic">{partner.contactEmail}</div>
+                      <div className="space-y-1">
+                        <div>
+                          <a 
+                            href={partner.websiteUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center space-x-1"
+                          >
+                            <span>Website</span>
+                            <FaExternalLinkAlt size={9} />
+                          </a>
+                        </div>
+                        <div>
+                          <a 
+                            href={partner.linkPlacementUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-xs font-semibold text-purple-600 hover:text-purple-700 flex items-center space-x-1"
+                          >
+                            <span>Link Placement</span>
+                            <FaExternalLinkAlt size={9} />
+                          </a>
+                        </div>
+                        <div className="text-[11px] text-slate-400 italic">
+                          {partner.contactEmail}
+                        </div>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${getStatusColor(partner.status)}`}>
+                      <span className={`inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${getStatusColor(partner.status)}`}>
                         {partner.status}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end space-x-2">
-                        {partner.status !== 'approved' && (
-                          <button
-                            onClick={() => handleStatusChange(partner.id, 'approved')}
-                            className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
-                            title="Approve"
-                          >
-                            <FaCheck size={14} />
-                          </button>
+                        {partner.status === 'pending' && (
+                          <>
+                            <button
+                              onClick={() => handleStatusChange(partner.id, 'approved')}
+                              title="Approve Partner"
+                              className="p-1.5 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                            >
+                              <FaCheck size={13} />
+                            </button>
+                            <button
+                              onClick={() => handleStatusChange(partner.id, 'rejected')}
+                              title="Reject Partner"
+                              className="p-1.5 text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
+                            >
+                              <FaTimes size={13} />
+                            </button>
+                          </>
                         )}
-                        {partner.status !== 'rejected' && (
+                        {partner.status === 'approved' && (
                           <button
                             onClick={() => handleStatusChange(partner.id, 'rejected')}
-                            className="p-2 text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
-                            title="Reject"
+                            title="Reject/Unpublish Partner"
+                            className="p-1.5 text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
                           >
-                            <FaTimes size={14} />
+                            <FaTimes size={13} />
                           </button>
                         )}
-                         <button
-                           onClick={() => openEdit(partner)}
-                           className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                           title="Edit"
-                         >
-                           <FaEdit size={14} />
-                         </button>
+                        {partner.status === 'rejected' && (
+                          <button
+                            onClick={() => handleStatusChange(partner.id, 'approved')}
+                            title="Re-approve Partner"
+                            className="p-1.5 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                          >
+                            <FaCheck size={13} />
+                          </button>
+                        )}
+                        <button
+                          onClick={() => openEdit(partner)}
+                          title="Edit Partner"
+                          className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        >
+                          <FaEdit size={13} />
+                        </button>
                         <button
                           onClick={() => handleDelete(partner.id)}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                          title="Delete"
+                          title="Delete Partner"
+                          className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                         >
-                          <FaTrash size={14} />
+                          <FaTrash size={13} />
                         </button>
                       </div>
                     </td>
@@ -300,18 +442,197 @@ const AdminPartners = () => {
         </div>
       </div>
 
-      {/* Edit Partner Modal */}
-      {isEditModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
+      {/* CREATE MODAL */}
+      {isCreateModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden">
             {/* Modal header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-              <div>
-                <h3 className="font-semibold text-slate-800">Edit Partner Details</h3>
-                <p className="text-xs text-slate-400 mt-0.5">Modify information for {editingPartner?.businessName}</p>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/50">
+              <h3 className="font-bold text-slate-800 text-base flex items-center gap-2">
+                <FaPlus className="text-[#18264A] text-sm" />
+                Add New Partner
+              </h3>
+              <button 
+                onClick={() => setIsCreateModalOpen(false)}
+                className="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors text-lg font-bold"
+              >
+                &times;
+              </button>
+            </div>
+
+            {/* Modal body */}
+            <form onSubmit={handleCreateSave} className="flex-1 overflow-y-auto">
+              <div className="p-6 space-y-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Business Name *</label>
+                    <input
+                      required
+                      name="businessName"
+                      type="text"
+                      placeholder="e.g. Acme Tech Solutions"
+                      value={createFormData.businessName}
+                      onChange={e => setCreateFormData({ ...createFormData, businessName: e.target.value })}
+                      className="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Category *</label>
+                    <input
+                      required
+                      name="category"
+                      type="text"
+                      placeholder="e.g. B2B SaaS, IT Consulting"
+                      value={createFormData.category}
+                      onChange={e => setCreateFormData({ ...createFormData, category: e.target.value })}
+                      className="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Website URL *</label>
+                    <input
+                      required
+                      name="websiteUrl"
+                      type="url"
+                      placeholder="https://example.com"
+                      value={createFormData.websiteUrl}
+                      onChange={e => setCreateFormData({ ...createFormData, websiteUrl: e.target.value })}
+                      className="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Contact Email *</label>
+                    <input
+                      required
+                      name="contactEmail"
+                      type="email"
+                      placeholder="partner@example.com"
+                      value={createFormData.contactEmail}
+                      onChange={e => setCreateFormData({ ...createFormData, contactEmail: e.target.value })}
+                      className="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Link Placement URL *</label>
+                    <input
+                      required
+                      name="linkPlacementUrl"
+                      type="url"
+                      placeholder="https://example.com/partners"
+                      value={createFormData.linkPlacementUrl}
+                      onChange={e => setCreateFormData({ ...createFormData, linkPlacementUrl: e.target.value })}
+                      className="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Status *</label>
+                    <select
+                      value={createFormData.status}
+                      onChange={e => setCreateFormData({ ...createFormData, status: e.target.value })}
+                      className="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm"
+                    >
+                      <option value="approved">Approved (Live)</option>
+                      <option value="pending">Pending Review</option>
+                      <option value="rejected">Rejected</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Company Logo *</label>
+                    <div className="relative group">
+                      <input
+                        type="file"
+                        name="logo"
+                        accept="image/*"
+                        onChange={handleCreateLogoChange}
+                        className="hidden"
+                        id="logo-create-upload"
+                      />
+                      <label 
+                        htmlFor="logo-create-upload"
+                        className="flex items-center justify-center w-full px-4 py-3 rounded-xl border border-dashed border-slate-300 hover:border-blue-500 hover:bg-blue-50 transition-all cursor-pointer bg-white"
+                      >
+                        <div className="flex items-center space-x-2 text-slate-500">
+                          <FaImage />
+                          <span className="text-xs">Upload Logo (Max 16MB)</span>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                  {createLogoPreview && (
+                    <div className="flex flex-col items-center justify-center p-3 bg-slate-50 rounded-xl border border-slate-100 shadow-inner relative">
+                      <img src={createLogoPreview} alt="Logo preview" className="h-16 w-auto object-contain rounded-lg" />
+                      <p className="text-[10px] text-slate-400 mt-2 font-medium">Logo Preview</p>
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Brief Description (Internal) *</label>
+                  <textarea
+                    required
+                    name="description"
+                    maxLength={80}
+                    value={createFormData.description}
+                    onChange={e => setCreateFormData({ ...createFormData, description: e.target.value })}
+                    placeholder="Briefly describe the partner (max 80 chars)..."
+                    className="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm resize-none"
+                    rows={2}
+                  />
+                  <div className="text-[10px] text-slate-400 mt-1 text-right font-medium">
+                    {createFormData.description.length}/80 characters
+                  </div>
+                </div>
               </div>
-              <button onClick={() => setIsEditModalOpen(false)} className="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors text-lg font-bold">
-                ×
+
+              {/* Modal footer */}
+              <div className="flex items-center justify-end space-x-3 px-6 py-4 border-t border-slate-100 bg-slate-50">
+                <button
+                  type="button"
+                  onClick={() => setIsCreateModalOpen(false)}
+                  className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-800 rounded-xl border border-slate-200 hover:bg-white transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="flex items-center space-x-2 px-5 py-2 rounded-xl text-sm font-semibold text-white transition-all disabled:opacity-70 bg-[#18264A] hover:bg-[#101c38] shadow-md shadow-slate-900/10 cursor-pointer"
+                >
+                  {loading ? (
+                    <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                  ) : null}
+                  <span>{loading ? 'Adding…' : 'Create Partner'}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* EDIT MODAL */}
+      {isEditModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden">
+            {/* Modal header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/50">
+              <h3 className="font-bold text-slate-800 text-base">Edit Partner: {editingPartner?.businessName}</h3>
+              <button 
+                onClick={() => setIsEditModalOpen(false)}
+                className="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors text-lg font-bold"
+              >
+                &times;
               </button>
             </div>
 
@@ -368,16 +689,30 @@ const AdminPartners = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Link Placement URL *</label>
-                  <input
-                    required
-                    name="linkPlacementUrl"
-                    type="url"
-                    value={editFormData.linkPlacementUrl}
-                    onChange={e => setEditFormData({ ...editFormData, linkPlacementUrl: e.target.value })}
-                    className="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm"
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Link Placement URL *</label>
+                    <input
+                      required
+                      name="linkPlacementUrl"
+                      type="url"
+                      value={editFormData.linkPlacementUrl}
+                      onChange={e => setEditFormData({ ...editFormData, linkPlacementUrl: e.target.value })}
+                      className="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Status *</label>
+                    <select
+                      value={editFormData.status}
+                      onChange={e => setEditFormData({ ...editFormData, status: e.target.value })}
+                      className="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm"
+                    >
+                      <option value="approved">Approved (Live)</option>
+                      <option value="pending">Pending Review</option>
+                      <option value="rejected">Rejected</option>
+                    </select>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -441,7 +776,7 @@ const AdminPartners = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex items-center space-x-2 px-5 py-2 rounded-xl text-sm font-semibold text-white transition-all disabled:opacity-70 bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-100"
+                  className="flex items-center space-x-2 px-5 py-2 rounded-xl text-sm font-semibold text-white transition-all disabled:opacity-70 bg-[#18264A] hover:bg-[#101c38] shadow-md shadow-slate-900/10 cursor-pointer"
                 >
                   {loading ? (
                     <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">

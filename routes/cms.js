@@ -739,6 +739,50 @@ router.get('/admin/partners', authMiddleware, restrictTo('super_admin'), async (
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// Admin: Create partner directly (auth required)
+router.post('/admin/partners', authMiddleware, restrictTo('super_admin'), upload.single('logo'), async (req, res) => {
+  try {
+    const { businessName, websiteUrl, contactEmail, category, description, linkPlacementUrl, status } = req.body;
+
+    if (!businessName || !category || !websiteUrl || !contactEmail || !linkPlacementUrl || !description) {
+      return res.status(400).json({ error: 'Please provide all required fields.' });
+    }
+
+    // Uniqueness checks
+    const existingName = await db.Partner.findOne({ where: { businessName } });
+    if (existingName) return res.status(409).json({ error: 'This business name is already registered.' });
+
+    const existingUrl = await db.Partner.findOne({ where: { websiteUrl } });
+    if (existingUrl) return res.status(409).json({ error: 'This website is already registered.' });
+
+    const existingEmail = await db.Partner.findOne({ where: { contactEmail } });
+    if (existingEmail) return res.status(409).json({ error: 'This contact email is already in use.' });
+
+    let logoUrl = null;
+    if (req.file) {
+      logoUrl = `/uploads/partner/${req.file.filename}`;
+    } else if (req.body.logoUrl) {
+      logoUrl = req.body.logoUrl;
+    }
+
+    const partner = await db.Partner.create({
+      businessName,
+      category,
+      description,
+      websiteUrl,
+      contactEmail,
+      linkPlacementUrl,
+      logoUrl,
+      status: status || 'approved'
+    });
+
+    res.status(201).json(partner);
+  } catch (err) {
+    console.error('Error creating partner from admin:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Admin: Update partner (Approve/Reject/Edit)
 router.patch('/admin/partners/:id', authMiddleware, restrictTo('super_admin'), upload.single('logo'), async (req, res) => {
   try {
