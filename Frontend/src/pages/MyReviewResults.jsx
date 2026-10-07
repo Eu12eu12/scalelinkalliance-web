@@ -191,7 +191,7 @@ const MyReviewResults = () => {
                       finding.severity === 'critical' ? 'bg-red-100 text-red-700' :
                       finding.severity === 'high' ? 'bg-orange-100 text-orange-700' :
                       finding.severity === 'medium' ? 'bg-yellow-100 text-yellow-700' :
-                      'bg-blue-100 text-blue-700'
+                      'bg-slate-100 text-[#18264A]'
                     }`}>
                       {finding.severity}
                     </span>
@@ -199,7 +199,7 @@ const MyReviewResults = () => {
                       <p className="font-medium text-gray-900">{finding.category}</p>
                       <p className="text-sm text-gray-600">{finding.issue}</p>
                       {finding.recommendation && (
-                        <p className="text-sm text-blue-600 mt-1">→ {finding.recommendation}</p>
+                        <p className="text-sm text-[#18264A] font-bold mt-1">→ {finding.recommendation}</p>
                       )}
                     </div>
                   </div>
@@ -214,18 +214,18 @@ const MyReviewResults = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="text-center bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-8 text-white"
+          className="text-center bg-[#18264A] rounded-2xl p-8 text-white"
         >
           <h2 className="text-2xl font-bold mb-3">
             Ready to Improve Your Website?
           </h2>
-          <p className="text-blue-100 mb-6">
+          <p className="text-slate-300 mb-6">
             Let's discuss how we can implement these recommendations and grow your business.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/contact"
-              className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition"
+              className="px-6 py-3 bg-white text-[#18264A] font-bold rounded-xl hover:bg-slate-100 shadow-md transition"
             >
               Schedule a Discovery Call
             </a>

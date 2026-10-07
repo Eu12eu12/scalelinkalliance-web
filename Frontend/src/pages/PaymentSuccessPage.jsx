@@ -106,7 +106,7 @@ const PaymentSuccessPage = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <FaSpinner className="text-blue-600 text-4xl animate-spin mx-auto mb-4" />
+          <FaSpinner className="text-[#18264A] text-4xl animate-spin mx-auto mb-4" />
           <p className="text-gray-600 font-medium">Verifying your payment...</p>
         </div>
       </div>
@@ -121,7 +121,7 @@ const PaymentSuccessPage = () => {
           <FaExclamationTriangle className="text-red-500 text-5xl mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Payment Verification Failed</h2>
           <p className="text-gray-600 mb-6">{verifyError}</p>
-          <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors">
+          <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors">
             Contact Support <FaArrowRight />
           </Link>
         </div>
@@ -149,7 +149,7 @@ const PaymentSuccessPage = () => {
             A member of our team will reach out to <strong>{form.email}</strong> within <strong>24 hours</strong> to kick things off.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to="/" className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors">
+            <Link to="/" className="px-6 py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors">
               Back to Home
             </Link>
             <Link to="/services" className="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors">
@@ -198,7 +198,7 @@ const PaymentSuccessPage = () => {
                   { icon: <FaRocket />, step: '3', title: 'Work begins', desc: 'Your assigned specialist contacts you to kick off' },
                 ].map((item, i) => (
                   <div key={i} className="flex gap-3">
-                    <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">
+                    <div className="w-8 h-8 bg-[#18264A] text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">
                       {item.step}
                     </div>
                     <div>
@@ -265,7 +265,7 @@ const PaymentSuccessPage = () => {
                           onChange={handleChange}
                           required
                           placeholder="Your business name"
-                          className="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#18264A] focus:border-transparent"
                         />
                       </div>
                     </div>
@@ -282,7 +282,7 @@ const PaymentSuccessPage = () => {
                           onChange={handleChange}
                           required
                           placeholder="Your full name"
-                          className="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#18264A] focus:border-transparent"
                         />
                       </div>
                     </div>
@@ -299,7 +299,7 @@ const PaymentSuccessPage = () => {
                           onChange={handleChange}
                           required
                           placeholder="you@company.com"
-                          className="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#18264A] focus:border-transparent"
                         />
                       </div>
                     </div>
@@ -313,7 +313,7 @@ const PaymentSuccessPage = () => {
                           value={form.phone}
                           onChange={handleChange}
                           placeholder="+1 (555) 000-0000"
-                          className="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#18264A] focus:border-transparent"
                         />
                       </div>
                     </div>
@@ -328,7 +328,7 @@ const PaymentSuccessPage = () => {
                         value={form.websiteUrl}
                         onChange={handleChange}
                         placeholder="https://yourwebsite.com (leave blank if none)"
-                        className="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#18264A] focus:border-transparent"
                       />
                     </div>
                   </div>
@@ -349,7 +349,7 @@ const PaymentSuccessPage = () => {
                         required
                         rows={3}
                         placeholder="e.g. I want a website that generates leads for my consulting business, showcases my services, and allows clients to book appointments..."
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#18264A] focus:border-transparent resize-none"
                       />
                     </div>
 
@@ -363,7 +363,7 @@ const PaymentSuccessPage = () => {
                           name="timeline"
                           value={form.timeline}
                           onChange={handleChange}
-                          className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                          className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#18264A] focus:border-transparent bg-white"
                         >
                           <option value="">Select timeline</option>
                           <option value="asap">As soon as possible</option>
@@ -381,7 +381,7 @@ const PaymentSuccessPage = () => {
                           value={form.budgetNotes}
                           onChange={handleChange}
                           placeholder="Any budget constraints or notes"
-                          className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#18264A] focus:border-transparent"
                         />
                       </div>
                     </div>
@@ -394,7 +394,7 @@ const PaymentSuccessPage = () => {
                         onChange={handleChange}
                         rows={4}
                         placeholder="Share any specific requirements, inspiration websites, brand guidelines, or anything else that will help us deliver exactly what you need..."
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#18264A] focus:border-transparent resize-none"
                       />
                     </div>
                   </div>
@@ -403,7 +403,7 @@ const PaymentSuccessPage = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2 text-base"
+                  className="w-full py-4 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] disabled:opacity-60 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2 text-base"
                 >
                   {submitting ? (
                     <><FaSpinner className="animate-spin" /> Submitting...</>

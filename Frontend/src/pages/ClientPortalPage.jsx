@@ -317,7 +317,7 @@ const ClientPortalPage = () => {
 
     return (
       <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 space-y-4">
-        <h4 className="text-sm font-bold text-blue-300 tracking-wide uppercase">Your Requested Specifications</h4>
+        <h4 className="text-sm font-bold text-emerald-400 tracking-wide uppercase">Your Requested Specifications</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
           {entries.map(([key, val]) => {
             const label = key
@@ -415,7 +415,7 @@ const ClientPortalPage = () => {
     return (
       <div className="min-h-screen bg-[#04060a] text-white py-12 px-4 md:px-8 relative overflow-hidden font-sans">
         {/* Glow Effects */}
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto space-y-8 relative z-10 animate-fade-in">
@@ -423,7 +423,7 @@ const ClientPortalPage = () => {
           <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-2">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[10px] font-black bg-blue-500/20 text-blue-300 border border-blue-500/30 px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
+                <span className="text-[10px] font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
                   <FaShieldAlt className="text-[11px] flex-shrink-0" />
                   Official Proposal Portal
                 </span>
@@ -449,7 +449,7 @@ const ClientPortalPage = () => {
           {/* Highlights Grid */}
           <div className={`grid grid-cols-1 sm:grid-cols-2 ${job.specialDiscount > 0 ? 'lg:grid-cols-5' : 'lg:grid-cols-4'} gap-6`}>
             <div className="bg-white/5 backdrop-blur-md border border-white/10 p-5 rounded-2xl flex items-center space-x-4">
-              <div className="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-300 flex items-center justify-center flex-shrink-0 text-xl border border-blue-500/30">
+              <div className="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 text-xl border border-emerald-500/30">
                 <FaProjectDiagram />
               </div>
               <div>
@@ -564,7 +564,7 @@ const ClientPortalPage = () => {
                         isPaid ? 'cursor-default' : 'cursor-pointer'
                       } ${
                         selected 
-                          ? 'bg-blue-600/10 border-blue-500 shadow-md shadow-blue-500/5' 
+                          ? 'bg-emerald-500/10 border-emerald-500 shadow-md shadow-emerald-500/5' 
                           : 'bg-white/5 border-white/5 hover:border-white/10'
                       }`}
                     >
@@ -574,7 +574,7 @@ const ClientPortalPage = () => {
                             type="checkbox"
                             checked={selected}
                             onChange={() => {}} // handled by onClick on wrapper
-                            className="w-4 h-4 rounded text-blue-600 focus:ring-0 focus:ring-offset-0 bg-white/10 border-white/20 cursor-pointer"
+                            className="w-4 h-4 rounded text-emerald-500 focus:ring-0 focus:ring-offset-0 bg-white/10 border-white/20 cursor-pointer"
                           />
                         )}
                         {isPaid && selected && (
@@ -584,7 +584,7 @@ const ClientPortalPage = () => {
                           {addon.name}
                         </span>
                       </div>
-                      <span className={`text-xs font-black ${selected ? 'text-blue-300' : 'text-slate-400'}`}>
+                      <span className={`text-xs font-black ${selected ? 'text-emerald-400' : 'text-slate-400'}`}>
                         {formatCurrency(addon.price)}
                       </span>
                     </div>
@@ -613,13 +613,13 @@ const ClientPortalPage = () => {
           {/* Client Details Section */}
           <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 space-y-6">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-white/10 pb-3 flex items-center gap-2">
-              <FaInfoCircle className="text-blue-400 flex-shrink-0" /> Additional Requirements & Notes
+              <FaInfoCircle className="text-emerald-400 flex-shrink-0" /> Additional Requirements & Notes
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
               {job.clientWebsite && (
                 <div className="space-y-1">
                   <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider block">Website</span>
-                  <a href={job.clientWebsite.startsWith('http') ? job.clientWebsite : `https://${job.clientWebsite}`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline font-semibold block truncate">
+                  <a href={job.clientWebsite.startsWith('http') ? job.clientWebsite : `https://${job.clientWebsite}`} target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline font-semibold block truncate">
                     {job.clientWebsite}
                   </a>
                 </div>
@@ -679,7 +679,7 @@ const ClientPortalPage = () => {
           </div>
 
           {/* Action Call to Action Block */}
-          <div className="bg-linear-to-r from-blue-900/30 to-indigo-900/30 backdrop-blur-md border border-blue-500/20 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="bg-linear-to-r from-slate-900/80 to-[#18264A]/80 backdrop-blur-md border border-slate-700/50 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-2 max-w-xl">
               <h3 className="text-lg font-black text-white">Accept Proposal & Initiate Project</h3>
               <p className="text-xs text-slate-400 font-semibold leading-relaxed">
@@ -713,7 +713,7 @@ const ClientPortalPage = () => {
               {job.quoteStatus === 'quote_sent' ? (
                 <>
                   <div className="mb-4 bg-white/5 border border-white/10 p-4 rounded-xl text-left max-w-sm">
-                    <h4 className="text-xs font-bold text-blue-300 mb-1">Milestone-Based Payment Protection</h4>
+                    <h4 className="text-xs font-bold text-emerald-400 mb-1">Milestone-Based Payment Protection</h4>
                     <p className="text-[10px] text-slate-400 mb-3 leading-relaxed">
                       For approved projects, ScaleLink Alliance may use deposit, milestone-based payment terms to protect both the client and the service team. Funds may be released based on agreed milestones, completed deliverables, client approval, or project terms.
                     </p>
@@ -722,10 +722,10 @@ const ClientPortalPage = () => {
                         type="checkbox"
                         checked={agreedToEscrow}
                         onChange={e => setAgreedToEscrow(e.target.checked)}
-                        className="w-4 h-4 text-blue-600 rounded bg-white/10 border-white/20 mt-0.5 cursor-pointer"
+                        className="w-4 h-4 text-emerald-500 rounded bg-white/10 border-white/20 mt-0.5 cursor-pointer"
                       />
                       <span className="text-[10px] font-semibold text-slate-300 leading-tight">
-                        I agree to the <a href="/legal?tab=escrow" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">ScaleLink Alliance Milestone-Based Payment Terms</a>.
+                        I agree to the <a href="/legal?tab=escrow" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">ScaleLink Alliance Milestone-Based Payment Terms</a>.
                       </span>
                     </label>
                   </div>
@@ -733,7 +733,7 @@ const ClientPortalPage = () => {
                   <button
                     disabled={isLoadingCheckout || !agreedToEscrow}
                     onClick={handleCheckout}
-                    className="w-full md:w-auto inline-flex items-center justify-center space-x-2 py-4 px-8 bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full md:w-auto inline-flex items-center justify-center space-x-2 py-4 px-8 bg-emerald-500 hover:bg-emerald-600 text-[#18264A] font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isLoadingCheckout ? (
                       <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />

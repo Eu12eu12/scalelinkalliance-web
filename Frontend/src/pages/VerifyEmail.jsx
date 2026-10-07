@@ -45,7 +45,7 @@ const VerifyEmail = () => {
 
         {status === 'loading' && (
           <div className="space-y-4">
-            <FaSpinner className="mx-auto text-blue-500 animate-spin" size={48} />
+            <FaSpinner className="mx-auto text-[#18264A] animate-spin" size={48} />
             <h1 className="text-2xl font-bold text-slate-800">Verifying Email...</h1>
             <p className="text-slate-500 text-sm">Please wait while we validate your account invitation.</p>
           </div>
@@ -60,7 +60,7 @@ const VerifyEmail = () => {
             <p className="text-slate-600 text-sm leading-relaxed">{message}</p>
             <Link
               to="/hub/login"
-              className="block w-full py-4 bg-blue-600 text-white rounded-2xl font-bold text-sm shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all active:scale-95"
+              className="block w-full py-4 bg-[#18264A] text-white rounded-2xl font-bold text-sm shadow-lg shadow-slate-200 hover:bg-[#101c38] transition-all active:scale-95"
             >
               Go to Login
             </Link>
@@ -83,7 +83,7 @@ const VerifyEmail = () => {
               </Link>
               <Link
                 to="/"
-                className="block text-sm font-bold text-blue-600 hover:underline"
+                className="block text-sm font-bold text-[#18264A] font-bold hover:text-emerald-700 hover:underline"
               >
                 Back to Homepage
               </Link>
