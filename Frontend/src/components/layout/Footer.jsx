@@ -79,7 +79,7 @@ const Footer = () => {
                     e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
                   }}
                 >
-                  <item.icon className="h-4 w-4 text-slate-400 hover:text-blue-400 transition-colors" />
+                  <item.icon className="h-4 w-4 text-slate-400 hover:text-emerald-400 transition-colors" />
                 </a>
               ))}
             </div>
@@ -88,14 +88,14 @@ const Footer = () => {
           {/* Contact Info */}
           <div>
             <h4 className="text-white font-semibold text-sm uppercase tracking-widest mb-6 flex items-center gap-2">
-              <span className="w-4 h-px bg-blue-500 inline-block" />
+              <span className="w-4 h-px bg-emerald-500 inline-block" />
               Contact Us
             </h4>
             <ul className="space-y-5">
               <li className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
-                  style={{ backgroundColor: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.2)' }}>
-                  <FaMapMarkerAlt className="text-blue-400 w-3.5 h-3.5" />
+                  style={{ backgroundColor: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.2)' }}>
+                  <FaMapMarkerAlt className="text-emerald-400 w-3.5 h-3.5" />
                 </div>
                 <div>
                   <p className="text-slate-400 text-sm leading-relaxed">2250 Point Blvd</p>
@@ -104,8 +104,8 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.2)' }}>
-                  <FaPhone className="text-blue-400 w-3.5 h-3.5" />
+                  style={{ backgroundColor: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.2)' }}>
+                  <FaPhone className="text-emerald-400 w-3.5 h-3.5" />
                 </div>
                 <a href="tel:+18156690642" className="text-slate-400 text-sm hover:text-white transition-colors">
                   +1 · 815 · 669 · 0642
@@ -113,8 +113,8 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.2)' }}>
-                  <FaEnvelope className="text-blue-400 w-3.5 h-3.5" />
+                  style={{ backgroundColor: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.2)' }}>
+                  <FaEnvelope className="text-emerald-400 w-3.5 h-3.5" />
                 </div>
                 <a href="mailto:contact@scalelinkalliance.com" className="text-slate-400 text-sm hover:text-white transition-colors break-all">
                   contact@scalelinkalliance.com
@@ -126,7 +126,7 @@ const Footer = () => {
           {/* Quick Links — split into two columns */}
           <div className="lg:col-span-2">
             <h4 className="text-white font-semibold text-sm uppercase tracking-widest mb-6 flex items-center gap-2">
-              <span className="w-4 h-px bg-blue-500 inline-block" />
+              <span className="w-4 h-px bg-emerald-500 inline-block" />
               Quick Links
             </h4>
             <div className="grid grid-cols-2 gap-x-8 gap-y-3">
@@ -137,7 +137,7 @@ const Footer = () => {
                   className="text-slate-400 text-sm hover:text-white transition-colors flex items-center gap-2 group"
                 >
                   <span
-                    className="w-1 h-1 rounded-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
+                    className="w-1 h-1 rounded-full bg-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
                   />
                   {item.name}
                 </Link>

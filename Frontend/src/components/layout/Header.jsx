@@ -45,8 +45,8 @@ const servicesDropdownCategories = [
   {
     category: 'Build',
     icon: <FaCode />,
-    color: 'text-blue-600',
-    bg: 'bg-blue-50',
+    color: 'text-[#18264A]',
+    bg: 'bg-slate-100',
     services: [
       { name: 'Website Development', path: '/services/website-development' },
       { name: 'Web Applications & SaaS', path: '/services/web-applications' },
@@ -116,7 +116,7 @@ const ServicesMegaMenu = ({ onClose }) => (
                   <Link
                     to={s.path}
                     onClick={onClose}
-                    className="block text-xs text-gray-500 hover:text-blue-600 hover:translate-x-0.5 transition-all py-0.5"
+                    className="block text-xs text-gray-500 hover:text-[#18264A] hover:translate-x-0.5 transition-all py-0.5"
                   >
                     {s.name}
                   </Link>
@@ -131,7 +131,7 @@ const ServicesMegaMenu = ({ onClose }) => (
         <Link
           to="/services"
           onClick={onClose}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#18264A] hover:text-emerald-700 transition-colors"
         >
           View all services <FaArrowRight size={10} />
         </Link>
@@ -149,14 +149,14 @@ const BuildMegaMenu = ({ onClose }) => (
     transition={{ duration: 0.18 }}
     className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[620px] max-w-[90vw] bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
   >
-    <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
+    <div className="bg-[#18264A] px-6 py-4">
       <div className="flex items-center gap-3">
         <div className="w-9 h-9 bg-white/20 rounded-lg flex items-center justify-center">
           <FaDesktop className="text-white text-base" />
         </div>
         <div>
           <p className="text-white font-bold text-sm">Start From Scratch</p>
-          <p className="text-blue-200 text-xs">Need a brand-new digital platform? We build it from the ground up.</p>
+          <p className="text-slate-300 text-xs">Need a brand-new digital platform? We build it from the ground up.</p>
         </div>
       </div>
     </div>
@@ -166,11 +166,11 @@ const BuildMegaMenu = ({ onClose }) => (
           key={s.name}
           to={s.path}
           onClick={onClose}
-          className="flex items-start gap-2.5 p-2.5 rounded-xl hover:bg-blue-50 transition-colors group"
+          className="flex items-start gap-2.5 p-2.5 rounded-xl hover:bg-slate-50 transition-colors group"
         >
-          <span className="text-blue-500 mt-0.5 text-sm shrink-0 group-hover:text-blue-600">{s.icon}</span>
+          <span className="text-[#18264A] mt-0.5 text-sm shrink-0 group-hover:text-emerald-600">{s.icon}</span>
           <div>
-            <p className="text-xs font-semibold text-gray-800 group-hover:text-blue-600 leading-snug">{s.name}</p>
+            <p className="text-xs font-semibold text-gray-800 group-hover:text-[#18264A] leading-snug">{s.name}</p>
             <p className="text-xs text-gray-400 mt-0.5 leading-tight">{s.desc}</p>
           </div>
         </Link>
@@ -180,7 +180,7 @@ const BuildMegaMenu = ({ onClose }) => (
       <Link
         to="/request-service?path=start_from_scratch"
         onClick={onClose}
-        className="flex items-center justify-center gap-2 w-full py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors"
+        className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#18264A] text-white text-sm font-bold rounded-xl hover:bg-[#101c38] transition-colors"
       >
         Build My Website <FaArrowRight size={11} />
       </Link>
@@ -250,7 +250,7 @@ const SimpleDropdown = ({ items, onClose }) => (
         key={item.name}
         to={item.path}
         onClick={onClose}
-        className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 border-l-2 border-transparent hover:border-blue-500 transition-all"
+        className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-slate-50 hover:text-[#18264A] border-l-2 border-transparent hover:border-[#18264A] transition-all"
       >
         {item.name}
       </Link>
@@ -336,7 +336,7 @@ const Header = () => {
             <Link
               to="/"
               className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
-                isActive('/') ? 'text-blue-600 bg-blue-50 font-semibold' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                isActive('/') ? 'text-[#18264A] bg-slate-100 font-bold' : 'text-gray-700 hover:text-[#18264A] hover:bg-slate-50'
               }`}
             >
               Home
@@ -348,7 +348,7 @@ const Header = () => {
               onMouseLeave={handleMouseLeave}
             >
               <button className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
-                isActive('/services') ? 'text-blue-600 bg-blue-50 font-semibold' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                isActive('/services') ? 'text-[#18264A] bg-slate-100 font-bold' : 'text-gray-700 hover:text-[#18264A] hover:bg-slate-50'
               }`}>
                 Services
                 <span className="ml-1 px-1.5 py-0.5 text-[9px] font-bold uppercase bg-red-500 text-white rounded-full">NEW</span>
@@ -364,7 +364,7 @@ const Header = () => {
             <Link
               to="/how-it-works"
               className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
-                isActive('/how-it-works') ? 'text-blue-600 bg-blue-50 font-semibold' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                isActive('/how-it-works') ? 'text-[#18264A] bg-slate-100 font-bold' : 'text-gray-700 hover:text-[#18264A] hover:bg-slate-50'
               }`}
             >
               How It Works
@@ -373,10 +373,10 @@ const Header = () => {
             <Link
               to="/build-from-scratch"
               className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
-                isActive('/build-from-scratch') ? 'text-blue-600 bg-blue-50 font-semibold' : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                isActive('/build-from-scratch') ? 'text-[#18264A] bg-slate-100 font-bold' : 'text-gray-700 hover:text-[#18264A] hover:bg-slate-50'
               }`}
             >
-              <FaDesktop className="text-xs text-blue-500" />
+              <FaDesktop className="text-xs text-[#18264A]" />
               Build From Scratch
             </Link>
 
@@ -393,7 +393,7 @@ const Header = () => {
             <Link
               to="/about"
               className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
-                isActive('/about') ? 'text-blue-600 bg-blue-50 font-semibold' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                isActive('/about') ? 'text-[#18264A] bg-slate-100 font-bold' : 'text-gray-700 hover:text-[#18264A] hover:bg-slate-50'
               }`}
             >
               About Us
@@ -404,7 +404,7 @@ const Header = () => {
               onMouseEnter={() => handleMouseEnter('more')}
               onMouseLeave={handleMouseLeave}
             >
-              <button className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors whitespace-nowrap">
+              <button className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-[#18264A] hover:bg-slate-50 transition-colors whitespace-nowrap">
                 More
                 <FaChevronDown className={`text-xs transition-transform ${openDropdown === 'more' ? 'rotate-180' : ''}`} />
               </button>
@@ -463,8 +463,8 @@ const Header = () => {
                         to={section.path}
                         className={`block px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                           isActive(section.path)
-                            ? 'text-blue-600 bg-blue-50 font-semibold'
-                            : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                            ? 'text-[#18264A] bg-slate-100 font-bold'
+                            : 'text-gray-700 hover:text-[#18264A] hover:bg-slate-50'
                         }`}
                         onClick={() => setIsMenuOpen(false)}
                       >
@@ -477,7 +477,7 @@ const Header = () => {
                           className="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-semibold text-gray-800 hover:bg-gray-50 transition-colors"
                         >
                           <span className={
-                            section.label === 'Build From Scratch' ? 'text-blue-700' :
+                            section.label === 'Build From Scratch' ? 'text-[#18264A]' :
                             section.label === 'Scale Existing Website' ? 'text-green-700' : ''
                           }>
                             {section.label}
@@ -504,7 +504,7 @@ const Header = () => {
                                     <Link
                                       key={item.name}
                                       to={item.path}
-                                      className="block px-2 py-1.5 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                      className="block px-2 py-1.5 text-sm text-gray-600 hover:text-[#18264A] hover:bg-slate-50 rounded-lg transition-colors"
                                       onClick={() => { setIsMenuOpen(false); setMobileExpanded(null); }}
                                     >
                                       {item.name}
