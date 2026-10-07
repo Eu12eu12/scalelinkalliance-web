@@ -128,7 +128,7 @@ const BuildFromScratch = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
             >
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-600/20 border border-blue-500/30 text-blue-300 text-sm font-semibold rounded-full mb-6">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-sm font-semibold rounded-full mb-6">
                 <FaDesktop className="text-xs" /> Start From Scratch
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
@@ -143,7 +143,7 @@ const BuildFromScratch = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   to="/request-service?path=start_from_scratch"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors shadow-xl shadow-blue-900/40"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors shadow-xl"
                 >
                   Start My Project <FaArrowRight />
                 </Link>
@@ -172,7 +172,7 @@ const BuildFromScratch = () => {
                 transition={{ delay: i * 0.1 }}
                 className="text-center"
               >
-                <div className="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">
+                <div className="w-12 h-12 bg-[#18264A] text-white rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">
                   {item.icon}
                 </div>
                 <p className="text-sm font-bold text-gray-900 mb-1">{item.title}</p>
@@ -258,7 +258,7 @@ const BuildFromScratch = () => {
           <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-10">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
               <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center shrink-0">
-                <FaBriefcase className="text-blue-600 text-2xl" />
+                <FaBriefcase className="text-[#18264A] text-2xl" />
               </div>
               <div className="flex-grow">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">
@@ -270,7 +270,7 @@ const BuildFromScratch = () => {
               </div>
               <Link
                 to="/request-service?bundle=true"
-                className="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors text-sm whitespace-nowrap shadow-md hover:shadow-lg"
+                className="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors text-sm whitespace-nowrap shadow-md hover:shadow-lg"
               >
                 Request a Bundle Quote <FaArrowRight size={12} />
               </Link>
@@ -280,7 +280,7 @@ const BuildFromScratch = () => {
       </section>
 
       {/* Guide-by-problem callout */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-800">
+      <section className="py-20 bg-[#18264A]">
         <div className="container mx-auto px-4">
           <div className="bg-black/45 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 max-w-3xl mx-auto shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
             <h3 className="text-base sm:text-lg font-bold text-white leading-snug">
@@ -288,7 +288,7 @@ const BuildFromScratch = () => {
             </h3>
             <Link
               to="/services/guide-by-problem"
-              className="inline-flex items-center px-4 sm:px-5 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all text-sm shrink-0 hover:scale-105 shadow-lg shadow-blue-500/20"
+              className="inline-flex items-center px-4 sm:px-5 py-2 sm:py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition-all text-sm shrink-0 hover:scale-105 shadow-lg shadow-emerald-500/20"
             >
               Start Here <FaArrowRight className="ml-2 text-xs" />
             </Link>

@@ -37,7 +37,7 @@ const HomePage = () => {
       slug: 'website-development',
       name: 'Website Development',
       icon: <FaCode className="text-4xl text-white" />,
-      gradient: 'from-blue-600 to-blue-800',
+      gradient: '[#18264A]',
       accent: 'bg-blue-400/20',
       tag: 'Popular'
     },
@@ -282,7 +282,7 @@ const HomePage = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6 px-4">
                 <Link
                   to="build-from-scratch"
-                  className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-2xl hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base"
+                  className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#18264A] to-[#101c38] text-white font-semibold rounded-lg shadow-2xl hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base"
                 >
                   <span>Start From Scratch</span>
                   <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -303,7 +303,7 @@ const HomePage = () => {
                 </h3>
                 <Link
                   to="/services/guide-by-problem"
-                  className="inline-flex items-center px-4 sm:px-5 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all text-sm shrink-0 hover:scale-105 shadow-lg shadow-blue-500/20"
+                  className="inline-flex items-center px-4 sm:px-5 py-2 sm:py-2.5 bg-[#18264A] hover:bg-[#101c38] text-white font-bold rounded-xl transition-all text-sm shrink-0 hover:scale-105 shadow-md"
                 >
                   Start Here <FaArrowRight className="ml-2 text-xs" />
                 </Link>
@@ -340,7 +340,7 @@ const HomePage = () => {
                 className="bg-gradient-to-br from-blue-50/60 to-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all border border-blue-100 flex flex-col justify-between group"
               >
                 <div>
-                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-6 text-white text-xl shadow-md group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 bg-[#18264A] rounded-xl flex items-center justify-center mb-6 text-white text-xl shadow-md group-hover:scale-110 transition-transform">
                     <FaCode />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-3">Start From Scratch</h3>
@@ -364,7 +364,7 @@ const HomePage = () => {
                 </div>
                 <Link
                   to="/build-from-scratch"
-                  className="inline-flex items-center justify-center gap-2 w-full py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors shadow-md text-sm"
+                  className="inline-flex items-center justify-center gap-2 w-full py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors shadow-md text-sm"
                 >
                   Start From Scratch <FaArrowRight className="text-xs" />
                 </Link>
@@ -516,7 +516,7 @@ const HomePage = () => {
                     </div>
                     {/* Label */}
                     <div className="bg-white px-4 py-3">
-                      <p className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors leading-snug">
+                      <p className="text-sm font-semibold text-gray-900 group-hover:text-[#18264A] transition-colors leading-snug">
                         {service.name}
                       </p>
                       <p className="text-xs text-gray-400 mt-0.5 flex items-center gap-1">
@@ -532,7 +532,7 @@ const HomePage = () => {
             <div className="text-center mt-8">
               <Link
                 to="/services"
-                className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+                className="inline-flex items-center gap-2 text-[#18264A] font-bold hover:text-emerald-700 transition-colors"
               >
                 View all services <FaArrowRight className="text-sm" />
               </Link>
@@ -594,7 +594,7 @@ const HomePage = () => {
                   alt="Business growth visualization"
                   className="rounded-2xl shadow-2xl w-full object-cover"
                 />
-                <div className="absolute -bottom-4 -left-4 bg-blue-600 text-white p-4 rounded-xl shadow-lg">
+                <div className="absolute -bottom-4 -left-4 bg-[#18264A] text-white p-4 rounded-xl shadow-lg">
                   <FaRocket className="text-3xl" />
                 </div>
               </motion.div>
@@ -658,7 +658,7 @@ const HomePage = () => {
       </section>
 
       {/* 💰 SECTION 5: OUTCOMES with Image */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-800">
+      <section className="py-20 bg-gradient-to-r [#18264A]">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -712,7 +712,7 @@ const HomePage = () => {
               Trusted by Growing Businesses
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-500">
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-[#18264A]">
                 <div className="flex mb-4">
                   {[...Array(5)].map((_, i) => (
                     <FaStar key={i} className="text-yellow-400" />
@@ -722,7 +722,7 @@ const HomePage = () => {
                   "As a creative agency owner, having ScaleLink Services available when my team needs extra capacity is incredibly valuable. It allows us to take on larger projects without hiring additional staff."
                 </p>
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                  <div className="w-12 h-12 bg-[#18264A] rounded-full flex items-center justify-center text-white font-bold mr-3">
                     BD
                   </div>
                   <div>
@@ -731,7 +731,7 @@ const HomePage = () => {
                   </div>
                 </div>
               </div>
-              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-500">
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-[#18264A]">
                 <div className="flex mb-4">
                   {[...Array(5)].map((_, i) => (
                     <FaStar key={i} className="text-yellow-400" />
@@ -741,7 +741,7 @@ const HomePage = () => {
                   "ScaleLink Alliance Services helped us completely redesign our brand. The process was efficient and the results exceeded our expectations."
                 </p>
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                  <div className="w-12 h-12 bg-[#18264A] rounded-full flex items-center justify-center text-white font-bold mr-3">
                     SL
                   </div>
                   <div>
@@ -766,7 +766,7 @@ const HomePage = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-[0.18em] mb-5">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold uppercase tracking-[0.18em] mb-5">
                   <FaProjectDiagram className="text-[11px]" />
                   Client Experience
                 </span>
@@ -840,7 +840,7 @@ const HomePage = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-[0.18em]">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold uppercase tracking-[0.18em]">
                 Why ScaleLink
               </span>
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mt-4 mb-4">
@@ -865,18 +865,18 @@ const HomePage = () => {
                   aria-haspopup="dialog"
                   className="group relative overflow-hidden text-left bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 >
-                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500 scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300" />
+                  <div className="absolute inset-x-0 top-0 h-1 bg-[#18264A] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300" />
 
                   <div className="flex items-start justify-between gap-4 mb-5">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-600 flex items-center justify-center shrink-0 ring-1 ring-blue-100 group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white transition-all duration-300">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br bg-slate-100 text-[#18264A] flex items-center justify-center shrink-0 ring-1 ring-slate-200 group-hover:bg-[#18264A] group-hover:text-white transition-all duration-300">
                       {item.icon}
                     </div>
-                    <span className="text-xs font-black tracking-[0.2em] text-gray-300 group-hover:text-blue-500 transition-colors">
+                    <span className="text-xs font-black tracking-[0.2em] text-gray-300 group-hover:text-[#18264A] transition-colors">
                       {item.number}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold leading-snug text-gray-900 mb-3 group-hover:text-blue-700 transition-colors">
+                  <h3 className="text-lg font-bold leading-snug text-gray-900 mb-3 group-hover:text-[#18264A] transition-colors">
                     {item.title}
                   </h3>
 
@@ -966,7 +966,7 @@ const HomePage = () => {
                         <Link
                           to={whyWorkData[selectedWhyWork].learnMoreLink}
                           onClick={() => setIsWhyWorkModalOpen(false)}
-                          className="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-300"
+                          className="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#18264A] to-[#101c38] text-white font-semibold rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-300"
                         >
                           <span>{whyWorkData[selectedWhyWork].learnMoreLabel || 'View More Details'}</span>
                           <FaArrowRight className="text-sm group-hover:translate-x-1 transition-transform" />
