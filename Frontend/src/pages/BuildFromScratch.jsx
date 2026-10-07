@@ -13,7 +13,7 @@ const services = [
     slug: 'website-development',
     name: 'Website Development',
     icon: <FaCode />,
-    gradient: 'from-blue-500 to-blue-700',
+    gradient: 'from-[#18264A] to-[#101c38]',
     description: 'Custom websites built to represent your brand, capture leads, and convert visitors into customers.',
     bestFor: 'Businesses launching their first professional website',
     includes: ['Up to 12 pages', 'Mobile-friendly design', 'Contact forms & SEO', 'Launch support'],
@@ -133,7 +133,7 @@ const BuildFromScratch = () => {
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                 Build a Powerful Digital
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200 mt-1">
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200 mt-1">
                   Presence From Day One
                 </span>
               </h1>
@@ -160,7 +160,7 @@ const BuildFromScratch = () => {
       </section>
 
       {/* Why build section */}
-      <section className="py-12 bg-blue-50">
+      <section className="py-12 bg-slate-50">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
             {whyBuild.map((item, i) => (
@@ -257,7 +257,7 @@ const BuildFromScratch = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-10">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center shrink-0">
+              <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center shrink-0">
                 <FaBriefcase className="text-[#18264A] text-2xl" />
               </div>
               <div className="flex-grow">

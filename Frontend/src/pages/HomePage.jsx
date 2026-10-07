@@ -38,7 +38,7 @@ const HomePage = () => {
       name: 'Website Development',
       icon: <FaCode className="text-4xl text-white" />,
       gradient: '[#18264A]',
-      accent: 'bg-blue-400/20',
+      accent: 'bg-emerald-500/20',
       tag: 'Popular'
     },
     {
@@ -282,7 +282,7 @@ const HomePage = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6 px-4">
                 <Link
                   to="build-from-scratch"
-                  className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#18264A] to-[#101c38] text-white font-semibold rounded-lg shadow-2xl hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base"
+                  className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#18264A] to-[#101c38] text-white font-semibold rounded-lg shadow-2xl hover:from-[#101c38] hover:to-[#0a1224] hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base"
                 >
                   <span>Start From Scratch</span>
                   <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -319,7 +319,7 @@ const HomePage = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-14">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#18264A] text-xs font-bold uppercase tracking-[0.18em]">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-[#18264A] text-xs font-bold uppercase tracking-[0.18em]">
                 Service Pathways
               </span>
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mt-3 mb-4">
@@ -337,7 +337,7 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="bg-gradient-to-br from-blue-50/60 to-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all border border-blue-100 flex flex-col justify-between group"
+                className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all border border-slate-200 flex flex-col justify-between group"
               >
                 <div>
                   <div className="w-12 h-12 bg-[#18264A] rounded-xl flex items-center justify-center mb-6 text-white text-xl shadow-md group-hover:scale-110 transition-transform">
@@ -575,7 +575,7 @@ const HomePage = () => {
                     <span className="text-gray-700">You're doing everything yourself</span>
                   </div>
                 </div>
-                <div className="mt-8 p-6 bg-blue-50 rounded-xl border-l-4 border-[#18264A]">
+                <div className="mt-8 p-6 bg-slate-50 border border-slate-200 border-l-4 border-l-[#18264A] rounded-xl">
                   <p className="text-lg text-gray-800">
                     <strong>ScaleLink Alliance</strong> solves this with <strong>one coordinated team to build, market, automate and support</strong> the digital systems behind customer acquisition and business growth.
                   </p>
@@ -616,7 +616,7 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0 }}
-                className="text-center p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-lg border border-blue-50"
+                className="text-center p-6 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm"
               >
                 <div className="w-16 h-16 bg-[#18264A] rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
                   1
@@ -630,7 +630,7 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-center p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-lg border border-blue-50"
+                className="text-center p-6 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm"
               >
                 <div className="w-16 h-16 bg-[#18264A] rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
                   2
@@ -644,7 +644,7 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-center p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-lg border border-blue-50"
+                className="text-center p-6 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm"
               >
                 <div className="w-16 h-16 bg-[#18264A] rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
                   3
@@ -863,7 +863,7 @@ const HomePage = () => {
                   transition={{ duration: 0.45, delay: index * 0.06 }}
                   onClick={() => handleWhyWorkSelect(index)}
                   aria-haspopup="dialog"
-                  className="group relative overflow-hidden text-left bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  className="group relative overflow-hidden text-left bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#18264A] focus-visible:ring-offset-2"
                 >
                   <div className="absolute inset-x-0 top-0 h-1 bg-[#18264A] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300" />
 
@@ -884,7 +884,7 @@ const HomePage = () => {
                     {item.shortDesc}
                   </p>
 
-                  <div className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-blue-600">
+                  <div className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#18264A]">
                     Explore reason
                     <FaArrowRight className="text-[10px] group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -966,7 +966,7 @@ const HomePage = () => {
                         <Link
                           to={whyWorkData[selectedWhyWork].learnMoreLink}
                           onClick={() => setIsWhyWorkModalOpen(false)}
-                          className="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#18264A] to-[#101c38] text-white font-semibold rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all duration-300"
+                          className="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#18264A] to-[#101c38] text-white font-semibold rounded-lg shadow-lg hover:from-[#101c38] hover:to-[#0a1224] hover:scale-105 transition-all duration-300"
                         >
                           <span>{whyWorkData[selectedWhyWork].learnMoreLabel || 'View More Details'}</span>
                           <FaArrowRight className="text-sm group-hover:translate-x-1 transition-transform" />

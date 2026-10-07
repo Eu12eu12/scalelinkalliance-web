@@ -147,7 +147,7 @@ const ResourceDetailPage = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center py-24">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent mb-4"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#18264A] border-t-transparent mb-4"></div>
           <p className="text-gray-600 font-medium">Loading resource...</p>
         </div>
       </div>
@@ -158,7 +158,7 @@ const ResourceDetailPage = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center py-24 px-4">
         <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center border border-gray-100">
-          <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-slate-100 text-[#18264A] rounded-full flex items-center justify-center mx-auto mb-4">
             <FaBookOpen size={28} />
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Resource Not Found</h2>
@@ -167,7 +167,7 @@ const ResourceDetailPage = () => {
           </p>
           <Link
             to="/resources"
-            className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-md"
+            className="inline-flex items-center px-6 py-3 bg-[#18264A] hover:bg-[#101c38] text-white font-semibold rounded-lg transition-colors shadow-md"
           >
             <FaArrowLeft className="mr-2" /> Back to All Resources
           </Link>
@@ -205,9 +205,9 @@ const ResourceDetailPage = () => {
       <div className="bg-gray-50/80 border-b border-gray-200 no-print">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3.5 max-w-7xl">
           <nav className="flex items-center space-x-2 text-xs md:text-sm text-gray-500 overflow-x-auto whitespace-nowrap">
-            <Link to="/" className="hover:text-blue-600 transition-colors">Home</Link>
+            <Link to="/" className="hover:text-[#18264A] transition-colors">Home</Link>
             <span className="text-gray-400">/</span>
-            <Link to="/resources" className="hover:text-blue-600 transition-colors">Resources</Link>
+            <Link to="/resources" className="hover:text-[#18264A] transition-colors">Resources</Link>
             <span className="text-gray-400">/</span>
             <span className="text-gray-900 font-medium truncate max-w-xs md:max-w-xl">{resource.title}</span>
           </nav>
@@ -229,7 +229,7 @@ const ResourceDetailPage = () => {
           <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-5">
             <Link
               to="/resources"
-              className="inline-flex items-center space-x-2 text-blue-200 hover:text-white text-sm font-semibold transition-colors no-print"
+              className="inline-flex items-center space-x-2 text-emerald-300 hover:text-white text-sm font-semibold transition-colors no-print"
             >
               <FaArrowLeft className="text-xs" />
               <span>Back to All Resources</span>
@@ -246,7 +246,7 @@ const ResourceDetailPage = () => {
           </h1>
 
           {/* Article Meta row */}
-          <div className="flex flex-wrap items-center gap-y-3 gap-x-6 text-sm text-blue-100/90 pt-3 border-t border-white/15">
+          <div className="flex flex-wrap items-center gap-y-3 gap-x-6 text-sm text-slate-200 pt-3 border-t border-white/15">
             <div className="flex items-center space-x-2.5">
               <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-xs">
                 <FaUser />
@@ -255,12 +255,12 @@ const ResourceDetailPage = () => {
             </div>
 
             <div className="flex items-center space-x-2">
-              <FaCalendarAlt className="text-blue-300" />
+              <FaCalendarAlt className="text-emerald-300" />
               <span>{formatDate(resource.publishedDate)}</span>
             </div>
 
             <div className="flex items-center space-x-2">
-              <FaClock className="text-blue-300" />
+              <FaClock className="text-emerald-300" />
               <span>{readingTime} min read</span>
             </div>
           </div>
@@ -302,14 +302,14 @@ const ResourceDetailPage = () => {
             {/* Standard Bottom-of-Article CTA (Streamlined & Compact) */}
             <div className="relative mt-8 rounded-xl overflow-hidden bg-[#18264A] text-white p-5 sm:p-6 md:py-6 md:px-8 shadow-lg border border-white/10 no-print">
               <div className="absolute -top-20 -right-20 w-48 h-48 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
               <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
                 <div className="text-center md:text-left min-w-0">
                   <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1.5 leading-snug text-white">
                     Is Your Website or Digital System Holding Your Business Back?
                   </h3>
-                  <p className="text-blue-100/90 text-xs sm:text-sm leading-relaxed max-w-xl">
+                  <p className="text-slate-200 text-xs sm:text-sm leading-relaxed max-w-xl">
                     Get a complimentary ScaleLink Business Growth Review and identify opportunities to improve your website, lead generation, CRM, automation and follow-up.
                   </p>
                 </div>
@@ -331,7 +331,7 @@ const ResourceDetailPage = () => {
               {/* Share Card */}
               <div className="bg-gray-50/90 border border-gray-200 rounded-2xl p-5 shadow-xs">
                 <h3 className="text-sm font-bold text-gray-900 mb-3.5 flex items-center space-x-2">
-                  <FaShareAlt className="text-blue-600" />
+                  <FaShareAlt className="text-[#18264A]" />
                   <span>Share This Resource</span>
                 </h3>
 
@@ -343,7 +343,7 @@ const ResourceDetailPage = () => {
                     rel="noopener noreferrer"
                     aria-label="Share on LinkedIn"
                     title="Share on LinkedIn"
-                    className="flex items-center justify-center p-3 bg-white border border-gray-200 rounded-xl text-[#0A66C2] hover:bg-blue-50 hover:border-blue-300 transition-all shadow-xs"
+                    className="flex items-center justify-center p-3 bg-white border border-gray-200 rounded-xl text-[#0A66C2] hover:bg-slate-50 hover:border-[#18264A] transition-all shadow-xs"
                   >
                     <FaLinkedin size={18} />
                   </a>
@@ -363,7 +363,7 @@ const ResourceDetailPage = () => {
                     rel="noopener noreferrer"
                     aria-label="Share on Facebook"
                     title="Share on Facebook"
-                    className="flex items-center justify-center p-3 bg-white border border-gray-200 rounded-xl text-[#1877F2] hover:bg-blue-50 hover:border-blue-300 transition-all shadow-xs"
+                    className="flex items-center justify-center p-3 bg-white border border-gray-200 rounded-xl text-[#1877F2] hover:bg-slate-50 hover:border-[#18264A] transition-all shadow-xs"
                   >
                     <FaFacebook size={18} />
                   </a>
@@ -406,7 +406,7 @@ const ResourceDetailPage = () => {
                     onClick={handleNativeShare}
                     className="flex-1 flex items-center justify-center space-x-1.5 px-3 py-2 bg-white hover:bg-gray-100 border border-gray-200 rounded-lg text-xs font-medium text-gray-700 transition-colors"
                   >
-                    <FaShareAlt className="text-xs text-blue-600" />
+                    <FaShareAlt className="text-xs text-[#18264A]" />
                     <span>Quick Share</span>
                   </button>
                   <button
@@ -422,7 +422,7 @@ const ResourceDetailPage = () => {
               {/* Author / Publication Card */}
               <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-xs">
                 <div className="flex items-center space-x-3 mb-2.5">
-                  <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
+                  <div className="w-9 h-9 rounded-full bg-[#18264A] text-white flex items-center justify-center font-bold text-sm">
                     <FaFileAlt />
                   </div>
                   <div>
@@ -475,7 +475,7 @@ const ResourceDetailPage = () => {
                       alt={rel.title}
                       className={`w-full h-full ${rel.imageUrl?.endsWith('#contain') ? 'object-contain' : 'object-cover'} group-hover:scale-105 transition-transform duration-500`}
                     />
-                    <span className="absolute top-3 left-3 px-2.5 py-0.5 bg-blue-600/90 text-white text-[11px] font-bold rounded-full backdrop-blur-xs">
+                    <span className="absolute top-3 left-3 px-2.5 py-0.5 bg-[#18264A]/90 text-white text-[11px] font-bold rounded-full backdrop-blur-xs">
                       {rel.type?.shortForm || 'Guide'}
                     </span>
                   </div>

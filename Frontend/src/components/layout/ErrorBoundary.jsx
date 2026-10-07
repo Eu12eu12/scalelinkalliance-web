@@ -34,7 +34,7 @@ class ErrorBoundary extends React.Component {
             <div className="space-y-3">
               <button
                 onClick={() => window.location.href = '/'}
-                className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                className="w-full py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors"
               >
                 Go to Homepage
               </button>

@@ -16,26 +16,26 @@ const NotFoundPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <Link
             to="/"
-            className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-600 hover:bg-blue-50 transition-all group"
+            className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-[#18264A] hover:bg-slate-50 transition-all group"
           >
-            <FaHome className="text-gray-400 group-hover:text-blue-600 text-2xl mx-auto mb-3" />
-            <span className="font-semibold text-gray-900 group-hover:text-blue-600">Go Home</span>
+            <FaHome className="text-gray-400 group-hover:text-[#18264A] text-2xl mx-auto mb-3" />
+            <span className="font-semibold text-gray-900 group-hover:text-[#18264A]">Go Home</span>
           </Link>
           
           <Link
             to="/services"
-            className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-600 hover:bg-blue-50 transition-all group"
+            className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-[#18264A] hover:bg-slate-50 transition-all group"
           >
-            <FaSearch className="text-gray-400 group-hover:text-blue-600 text-2xl mx-auto mb-3" />
-            <span className="font-semibold text-gray-900 group-hover:text-blue-600">Explore Services</span>
+            <FaSearch className="text-gray-400 group-hover:text-[#18264A] text-2xl mx-auto mb-3" />
+            <span className="font-semibold text-gray-900 group-hover:text-[#18264A]">Explore Services</span>
           </Link>
           
           <button
             onClick={() => window.history.back()}
-            className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-600 hover:bg-blue-50 transition-all group"
+            className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-[#18264A] hover:bg-slate-50 transition-all group"
           >
-            <FaArrowLeft className="text-gray-400 group-hover:text-blue-600 text-2xl mx-auto mb-3" />
-            <span className="font-semibold text-gray-900 group-hover:text-blue-600">Go Back</span>
+            <FaArrowLeft className="text-gray-400 group-hover:text-[#18264A] text-2xl mx-auto mb-3" />
+            <span className="font-semibold text-gray-900 group-hover:text-[#18264A]">Go Back</span>
           </button>
         </div>
         
@@ -44,7 +44,7 @@ const NotFoundPage = () => {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               to="/services"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors"
             >
               Our Services
             </Link>

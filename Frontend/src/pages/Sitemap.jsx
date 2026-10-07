@@ -84,8 +84,8 @@ const SITEMAP_SECTIONS = [
 
 const sectionStyles = {
   Main: {
-    icon: 'from-blue-500 to-cyan-500',
-    soft: 'bg-blue-50 text-blue-600',
+    icon: 'from-[#18264A] to-slate-800',
+    soft: 'bg-slate-100 text-[#18264A]',
     ring: 'ring-blue-100',
   },
   'Starting Points': {
@@ -183,7 +183,7 @@ const Sitemap = () => {
 
       {/* HERO */}
       <section className="relative isolate overflow-hidden bg-slate-950">
-        <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-blue-600/25 blur-3xl" />
+        <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-emerald-500/15 blur-3xl" />
         <div className="pointer-events-none absolute -right-24 top-10 h-[28rem] w-[28rem] rounded-full bg-cyan-500/15 blur-3xl" />
 
         <div
@@ -202,10 +202,10 @@ const Sitemap = () => {
             transition={{ duration: 0.65 }}
             className="mx-auto max-w-4xl text-center"
           >
-            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.07] px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-blue-200 backdrop-blur">
+            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.07] px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-emerald-300 backdrop-blur">
               <FaSitemap />
               ScaleLink Alliance
-              <span className="h-1 w-1 rounded-full bg-blue-300" />
+              <span className="h-1 w-1 rounded-full bg-emerald-400" />
               Website Sitemap
             </div>
 
@@ -255,7 +255,7 @@ const Sitemap = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search pages, services, URLs..."
-                className="w-full rounded-2xl bg-slate-50 py-4 pl-12 pr-12 text-sm font-medium text-slate-800 outline-none ring-1 ring-inset ring-transparent transition placeholder:text-slate-400 focus:bg-white focus:ring-blue-500"
+                className="w-full rounded-2xl bg-slate-50 py-4 pl-12 pr-12 text-sm font-medium text-slate-800 outline-none ring-1 ring-inset ring-transparent transition placeholder:text-slate-400 focus:bg-white focus:ring-[#18264A]"
               />
 
               {searchTerm && (
@@ -313,7 +313,7 @@ const Sitemap = () => {
                 <div
                   className={`mb-5 flex h-11 w-11 items-center justify-center rounded-2xl ${
                     tone === 'blue'
-                      ? 'bg-blue-50 text-blue-600'
+                      ? 'bg-slate-100 text-[#18264A]'
                       : tone === 'orange'
                       ? 'bg-orange-50 text-orange-600'
                       : tone === 'violet'
@@ -335,7 +335,7 @@ const Sitemap = () => {
 
           <div className="mb-7 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
-              <p className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-blue-600">
+              <p className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-[#18264A]">
                 Explore the ecosystem
               </p>
               <h2 className="text-2xl font-black tracking-tight sm:text-3xl">
@@ -413,8 +413,8 @@ const Sitemap = () => {
                             <span className="flex min-w-0 items-center gap-3">
                               <span
                                 className={`h-1.5 w-1.5 shrink-0 rounded-full transition group-hover/link:scale-125 ${
-                                  styles.soft.includes('text-blue')
-                                    ? 'bg-blue-400'
+                                  styles.soft.includes('text-[#18264A]')
+                                    ? 'bg-[#18264A]'
                                     : styles.soft.includes('text-violet')
                                     ? 'bg-violet-400'
                                     : styles.soft.includes('text-emerald')
@@ -491,7 +491,7 @@ const Sitemap = () => {
                   setSearchTerm('');
                   setActiveFilter('All');
                 }}
-                className="mt-6 rounded-xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-600"
+                className="mt-6 rounded-xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-[#18264A]"
               >
                 Reset search
               </button>
@@ -502,7 +502,7 @@ const Sitemap = () => {
 
       {/* CTA */}
       <section className="relative overflow-hidden bg-slate-950 px-5 py-16 sm:px-8">
-        <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-blue-600/20 blur-3xl" />
+        <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-emerald-500/15 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-40 left-1/4 h-96 w-96 rounded-full bg-cyan-500/10 blur-3xl" />
 
         <motion.div
@@ -512,12 +512,12 @@ const Sitemap = () => {
           className="relative mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 rounded-[2rem] border border-white/10 bg-white/[0.05] p-7 backdrop-blur sm:p-10 lg:flex-row lg:items-center"
         >
           <div className="flex items-start gap-5">
-            <div className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-500/15 text-xl text-blue-300 sm:flex">
+            <div className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-emerald-500/15 text-xl text-emerald-400 sm:flex">
               <FaEnvelope />
             </div>
 
             <div>
-              <p className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-blue-300">
+              <p className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-emerald-300">
                 Need a hand?
               </p>
 
@@ -533,7 +533,7 @@ const Sitemap = () => {
 
           <Link
             to="/contact"
-            className="group inline-flex shrink-0 items-center gap-3 rounded-2xl bg-white px-6 py-3.5 text-sm font-black text-slate-950 shadow-xl transition hover:-translate-y-0.5 hover:bg-blue-50"
+            className="group inline-flex shrink-0 items-center gap-3 rounded-2xl bg-white px-6 py-3.5 text-sm font-black text-slate-950 shadow-xl transition hover:-translate-y-0.5 hover:bg-slate-50"
           >
             Contact ScaleLink
             <FaArrowRight className="text-xs transition-transform group-hover:translate-x-1" />

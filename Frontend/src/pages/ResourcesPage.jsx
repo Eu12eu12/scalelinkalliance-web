@@ -99,8 +99,8 @@ const DocumentArticle = ({ title, content, author, imageUrl, date, onClose, isHt
             {/* Metadata Row - Faithfully restored from backup */}
             <div className="flex flex-wrap items-center gap-6 mb-8 pb-3">
               <div className="flex items-center">
-                <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mr-3 border border-blue-100">
-                  <FaFileAlt className="text-blue-600" />
+                <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mr-3 border border-slate-200">
+                  <FaFileAlt className="text-[#18264A]" />
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">{author || 'Scale Link Alliance'}</p>
@@ -122,14 +122,14 @@ const DocumentArticle = ({ title, content, author, imageUrl, date, onClose, isHt
             {/* Standard Bottom-of-Article CTA (Streamlined & Compact) */}
 <div className="relative mt-8 p-5 sm:p-6 md:py-6 md:px-8 rounded-xl overflow-hidden bg-[#18264A] text-white shadow-lg border border-white/10 no-print">
   <div className="absolute -top-16 -right-16 w-48 h-48 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
-  <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+  <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
   <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
     <div className="text-center md:text-left min-w-0">
       <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1.5 leading-snug text-white">
         Is Your Website or Digital System Holding Your Business Back?
       </h3>
-      <p className="text-blue-100/90 text-xs sm:text-sm leading-relaxed max-w-xl">
+      <p className="text-slate-200 text-xs sm:text-sm leading-relaxed max-w-xl">
         Get a complimentary ScaleLink Business Growth Review and identify opportunities to improve your website, lead generation, CRM, automation and follow-up.
       </p>
     </div>
@@ -618,7 +618,7 @@ Use our complimentary Website Growth Review to evaluate your funnel metrics and 
   };
 
   const typeColors = {
-    'guide': 'bg-blue-100 text-blue-800',
+    'guide': 'bg-slate-100 text-[#18264A]',
     'case-study': 'bg-green-100 text-green-800',
     'article': 'bg-purple-100 text-purple-800',
     'tool': 'bg-orange-100 text-orange-800'
@@ -751,7 +751,7 @@ Use our complimentary Website Growth Review to evaluate your funnel metrics and 
       {/* Featured Resource */}
 <section className="relative py-12 md:py-16 bg-[#18264A] resource-hero text-white overflow-hidden">
   {/* Decorative background accents to match the detail page CTA */}
-  <div className="absolute -top-24 -right-24 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
+  <div className="absolute -top-24 -right-24 w-72 h-72 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
   <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
 
   <div className="container mx-auto px-4 relative z-10">
@@ -766,7 +766,7 @@ Use our complimentary Website Growth Review to evaluate your funnel metrics and 
             <h2 className="text-2xl font-bold text-white mb-3">
               {cmsFeatured ? cmsFeatured.title : 'The Ultimate Guide to Referral Networking'}
             </h2>
-            <p className="text-blue-100 mb-4">
+            <p className="text-slate-200 mb-4">
               {cmsFeatured 
                 ? (cmsFeatured.plainTextSnippet || cmsFeatured.description) 
                 : 'Learn proven strategies to build a referral-based business and accelerate your growth.'}
@@ -822,7 +822,7 @@ Use our complimentary Website Growth Review to evaluate your funnel metrics and 
                     >
                       {resource.isFeatured && (
                         <div className="absolute top-4 left-4 z-10">
-                          <span className="px-3 py-1 bg-blue-600 text-white text-xs font-semibold rounded-full shadow-sm">
+                          <span className="px-3 py-1 bg-[#18264A] text-white text-xs font-semibold rounded-full shadow-sm">
                             Featured
                           </span>
                         </div>
@@ -955,10 +955,10 @@ Use our complimentary Website Growth Review to evaluate your funnel metrics and 
                       
                       {/* Content Overlay */}
                       <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                        <h3 className="text-xl font-bold text-white group-hover:text-blue-200 transition-colors leading-tight">
+                        <h3 className="text-xl font-bold text-white group-hover:text-emerald-300 transition-colors leading-tight">
                           {resource.title}
                         </h3>
-                        <div className="mt-4 flex items-center text-blue-400 font-semibold text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all">
+                        <div className="mt-4 flex items-center text-emerald-400 font-semibold text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all">
                           <span>Read Insight</span>
                           <FaArrowRight className="ml-2 w-3 h-3" />
                         </div>

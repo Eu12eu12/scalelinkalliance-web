@@ -512,19 +512,19 @@ const Legal = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-linear-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-[#18264A] rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-xl">SA</span>
               </div>
               <h1 className="text-2xl font-bold text-gray-900">ScaleLink Alliance</h1>
             </Link>
             <nav className="hidden md:flex space-x-8">
-              <Link to="/" className="text-gray-700 hover:text-blue-600 transition-colors">
+              <Link to="/" className="text-gray-700 hover:text-[#18264A] transition-colors">
                 Home
               </Link>
-              <Link to="/about" className="text-gray-700 hover:text-blue-600 transition-colors">
+              <Link to="/about" className="text-gray-700 hover:text-[#18264A] transition-colors">
                 About Us
               </Link>
-              <Link to="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">
+              <Link to="/contact" className="text-gray-700 hover:text-[#18264A] transition-colors">
                 Contact
               </Link>
             </nav>
@@ -550,7 +550,7 @@ const Legal = () => {
                 onClick={() => setActiveSection(section.id)}
                 className={`px-6 py-3 rounded-lg font-semibold transition-all ${
                   activeSection === section.id
-                    ? 'bg-blue-600 text-white shadow-lg'
+                    ? 'bg-[#18264A] text-white shadow-lg'
                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
               >
@@ -560,15 +560,15 @@ const Legal = () => {
           </div>
 
           {/* Effective Date Banner */}
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8">
+          <div className="bg-slate-50 border-l-4 border-[#18264A] p-4 mb-8">
             <div className="flex items-start">
               <div className="shrink-0">
-                <svg className="h-5 w-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="h-5 w-5 text-[#18264A]" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                 </svg>
               </div>
               <div className="ml-3">
-                <p className="text-sm text-blue-700">
+                <p className="text-sm text-slate-700">
                   <strong>Effective Date:</strong> January 2026
                 </p>
               </div>
@@ -580,8 +580,8 @@ const Legal = () => {
             {activeSection === 'privacy' && (
               <div>
                 <div className="flex items-center mb-8">
-                  <div className="p-3 bg-blue-100 rounded-lg mr-4">
-                    <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <div className="p-3 bg-slate-100 rounded-lg mr-4">
+                    <svg className="w-8 h-8 text-[#18264A]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                     </svg>
                   </div>
@@ -594,7 +594,7 @@ const Legal = () => {
                 {privacyPolicyContent.map((section, index) => (
                   <div key={section.id} className="mb-10" id={section.id}>
                     <div className="flex items-center mb-4">
-                      <div className="shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mr-3">
+                      <div className="shrink-0 w-8 h-8 bg-[#18264A] text-white rounded-full flex items-center justify-center font-bold mr-3">
                         {index + 1}
                       </div>
                       <h3 className="text-2xl font-semibold text-gray-900">{section.title}</h3>
@@ -605,7 +605,7 @@ const Legal = () => {
                         <ul className="space-y-2 mb-4">
                           {section.list.map((item, idx) => (
                             <li key={idx} className="flex items-start">
-                              <span className="text-blue-600 mr-2">•</span>
+                              <span className="text-[#18264A] mr-2">•</span>
                               <span className="text-gray-700">{item}</span>
                             </li>
                           ))}
@@ -627,8 +627,8 @@ const Legal = () => {
             {activeSection === 'terms' && (
               <div>
                 <div className="flex items-center mb-8">
-                  <div className="p-3 bg-blue-100 rounded-lg mr-4">
-                    <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <div className="p-3 bg-slate-100 rounded-lg mr-4">
+                    <svg className="w-8 h-8 text-[#18264A]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
                   </div>
@@ -641,7 +641,7 @@ const Legal = () => {
                 {termsContent.map((section, index) => (
                   <div key={section.id} className="mb-10" id={section.id}>
                     <div className="flex items-center mb-4">
-                      <div className="shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mr-3">
+                      <div className="shrink-0 w-8 h-8 bg-[#18264A] text-white rounded-full flex items-center justify-center font-bold mr-3">
                         {index + 1}
                       </div>
                       <h3 className="text-2xl font-semibold text-gray-900">{section.title}</h3>
@@ -652,7 +652,7 @@ const Legal = () => {
                         <ul className="space-y-2 mb-4">
                           {section.list.map((item, idx) => (
                             <li key={idx} className="flex items-start">
-                              <span className="text-blue-600 mr-2">•</span>
+                              <span className="text-[#18264A] mr-2">•</span>
                               <span className="text-gray-700">{item}</span>
                             </li>
                           ))}
@@ -674,8 +674,8 @@ const Legal = () => {
             {activeSection === 'escrow' && (
               <div>
                 <div className="flex items-center mb-8">
-                  <div className="p-3 bg-blue-100 rounded-lg mr-4">
-                    <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <div className="p-3 bg-slate-100 rounded-lg mr-4">
+                    <svg className="w-8 h-8 text-[#18264A]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
                   </div>
@@ -688,7 +688,7 @@ const Legal = () => {
                 {escrowContent.map((section, index) => (
                   <div key={section.id} className="mb-10" id={section.id}>
                     <div className="flex items-center mb-4">
-                      <div className="shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mr-3">
+                      <div className="shrink-0 w-8 h-8 bg-[#18264A] text-white rounded-full flex items-center justify-center font-bold mr-3">
                         {index + 1}
                       </div>
                       <h3 className="text-2xl font-semibold text-gray-900">{section.title}</h3>
@@ -699,7 +699,7 @@ const Legal = () => {
                         <ul className="space-y-2 mb-4">
                           {section.list.map((item, idx) => (
                             <li key={idx} className="flex items-start">
-                              <span className="text-blue-600 mr-2">•</span>
+                              <span className="text-[#18264A] mr-2">•</span>
                               <span className="text-gray-700">{item}</span>
                             </li>
                           ))}
@@ -745,7 +745,7 @@ const Legal = () => {
                 </div>
                 <a
                   href="mailto:support@scalelinkalliance.com"
-                  className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-6 py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors"
                 >
                   Email Legal Team
                 </a>
@@ -757,13 +757,13 @@ const Legal = () => {
           <div className="mt-8 flex justify-center space-x-6">
             <Link
               to="/"
-              className="text-blue-600 hover:text-blue-800 font-medium"
+              className="text-[#18264A] hover:text-emerald-700 font-medium"
             >
               ← Return to Home
             </Link>
             <Link
               to="/contact"
-              className="text-blue-600 hover:text-blue-800 font-medium"
+              className="text-[#18264A] hover:text-emerald-700 font-medium"
             >
               Contact Us →
             </Link>
