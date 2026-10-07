@@ -169,4 +169,12 @@
     <priority>0.4</priority>
   </url>
 
+  <!-- Business Partners -->
+  <url>
+    <loc>https://www.scalelinkalliance.com/business-partners</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
 </urlset>

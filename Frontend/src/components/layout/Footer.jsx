@@ -17,6 +17,7 @@ const Footer = () => {
       { name: 'Contact', href: '/contact' },
     ],
     secondary: [
+      { name: 'Business Partners', href: '/business-partners' },
       { name: 'Free Website Review', href: '/free-website-review' },
       { name: 'Service Request', href: '/request-service' },
       { name: 'Privacy Policy', href: '/legal?tab=privacy' },

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaHandshake, FaCheckCircle, FaLink, FaBuilding, FaImage, FaTimes } from 'react-icons/fa';
+import { FaHandshake, FaCheckCircle, FaLink, FaBuilding, FaImage, FaTimes, FaCopy, FaCheck } from 'react-icons/fa';
 
 const MARQUEE_CSS = `
 @keyframes nb-marquee {
@@ -23,7 +23,14 @@ const BusinessPartnersPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [logoPreview, setLogoPreview] = useState(null);
   const [descCount, setDescCount] = useState(0);
+  const [copiedBadge, setCopiedBadge] = useState(false);
   const DESC_MAX = 80;
+
+  const handleCopyBadge = () => {
+    navigator.clipboard.writeText('<a href="https://scalelinkalliance.com">ScaleLink Alliance – Business Growth Network</a>');
+    setCopiedBadge(true);
+    setTimeout(() => setCopiedBadge(false), 2500);
+  };
 
   useEffect(() => {
     document.title = 'Business Growth Partner Network | ScaleLink Alliance';
@@ -117,23 +124,26 @@ const BusinessPartnersPage = () => {
       <style>{MARQUEE_CSS}</style>
 
       {/* ── Hero ───────────────────────────────────────────────────────── */}
-      <section className="relative py-28 bg-slate-900 overflow-hidden">
+      <section className="relative py-28 bg-[#18264A] overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-slate-900 to-black z-10" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#18264A]/95 via-[#101c38]/90 to-slate-950 z-10" />
           <img
             src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
             alt="Business Partner Network"
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover opacity-25"
           />
         </div>
         <div className="container mx-auto px-4 relative z-20 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-6">
+              <FaHandshake className="text-sm" /> Verified Collaborations
+            </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
-              Business Growth <span className="text-blue-400">Partner Network</span>
+              Business Growth <span className="text-emerald-400">Partner Network</span>
             </h1>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
               We partner with high-quality businesses to create strategic collaborations,
-              qualified referrals, and scalable growth opportunities.
+              qualified referrals, and reciprocal growth opportunities.
             </p>
           </motion.div>
         </div>
@@ -149,7 +159,7 @@ const BusinessPartnersPage = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl font-extrabold text-slate-900 mb-3">Featured Partners</h2>
-            <div className="w-16 h-1 bg-blue-600 rounded-full mx-auto" />
+            <div className="w-16 h-1 bg-emerald-500 rounded-full mx-auto" />
           </motion.div>
         </div>
 
@@ -180,12 +190,12 @@ const BusinessPartnersPage = () => {
                 href={p.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                title={p.businessName}
-                className="flex items-center justify-center h-20 transition-all duration-300"
+                title={`${p.businessName} - ${p.category}`}
+                className="flex items-center justify-center h-24 p-4 bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all duration-300 hover:-translate-y-0.5 group"
               >
                 {p.logoUrl
-                  ? <img src={p.logoUrl} alt={p.businessName} className="h-20 w-auto max-w-[200px] object-contain" />
-                  : <div className="flex flex-col items-center gap-2"><FaBuilding className="text-5xl text-slate-300" /><span className="text-slate-500 text-sm">{p.businessName}</span></div>
+                  ? <img src={p.logoUrl} alt={p.businessName} className="h-16 w-auto max-w-[200px] object-contain group-hover:scale-105 transition-transform" />
+                  : <div className="flex flex-col items-center gap-1.5"><FaBuilding className="text-3xl text-slate-400" /><span className="text-slate-700 text-xs font-semibold">{p.businessName}</span></div>
                 }
               </a>
             ))}
@@ -255,11 +265,30 @@ const BusinessPartnersPage = () => {
                 ))}
               </div>
 
-              <div className="p-6 bg-slate-900 rounded-2xl text-white">
-                <h4 className="font-bold mb-3 flex items-center">
-                  <FaLink className="mr-2 text-blue-400" />ScaleLink Badge Code
-                </h4>
-                <code className="block bg-slate-800 p-3 rounded-lg text-sm text-blue-400 break-all">
+              <div className="p-6 bg-[#18264A] rounded-2xl text-white shadow-xl">
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="font-bold flex items-center text-sm md:text-base">
+                    <FaLink className="mr-2 text-emerald-400" />ScaleLink Badge Code
+                  </h4>
+                  <button
+                    type="button"
+                    onClick={handleCopyBadge}
+                    className="flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-lg bg-white/10 hover:bg-white/20 text-white transition-all border border-white/15 cursor-pointer"
+                  >
+                    {copiedBadge ? (
+                      <>
+                        <FaCheck className="text-emerald-400" />
+                        <span>Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <FaCopy className="text-slate-300" />
+                        <span>Copy HTML</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+                <code className="block bg-[#0e172e] p-3.5 rounded-xl text-xs md:text-sm text-emerald-300 font-mono break-all border border-white/5 selection:bg-emerald-500 selection:text-white">
                   &lt;a href="https://scalelinkalliance.com"&gt;ScaleLink Alliance – Business Growth Network&lt;/a&gt;
                 </code>
               </div>
@@ -342,7 +371,7 @@ const BusinessPartnersPage = () => {
                 </div>
 
                 <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={isSubmitting}
-                  className={`w-full py-4 rounded-xl font-bold text-white transition-all shadow-lg ${isSubmitting ? 'bg-slate-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 shadow-blue-500/20'}`}>
+                  className={`w-full py-4 rounded-xl font-bold text-white transition-all shadow-lg ${isSubmitting ? 'bg-slate-400 cursor-not-allowed' : 'bg-[#18264A] hover:bg-[#101c38] shadow-slate-900/20'}`}>
                   {isSubmitting ? 'Submitting…' : 'Submit Partnership Application'}
                 </motion.button>
 

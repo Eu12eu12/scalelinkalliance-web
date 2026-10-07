@@ -17,7 +17,7 @@ const SITEMAP_SECTIONS = [
       { label: 'Home', to: '/', slug: '/' },
       { label: 'How It Works', to: '/how-it-works', slug: '/how-it-works' },
       { label: 'About', to: '/about', slug: '/about' },
-      { label: 'Partners', to: '/business-partners', slug: '/business-partners' },
+      { label: 'Business Partners', to: '/business-partners', slug: '/business-partners' },
       { label: 'Contact', to: '/contact', slug: '/contact' },
     ],
   },

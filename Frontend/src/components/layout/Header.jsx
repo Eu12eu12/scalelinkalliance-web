@@ -282,6 +282,7 @@ const Header = () => {
 
   const moreItems = [
     { name: 'Resources', path: '/resources' },
+    { name: 'Business Partners', path: '/business-partners' },
     { name: 'Guide by Problem', path: '/services/guide-by-problem' },
     { name: 'Contact', path: '/contact' },
     { name: 'Sitemap', path: '/sitemap' },
