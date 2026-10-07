@@ -188,7 +188,7 @@ const MembershipPage = () => {
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 What Membership Really Means
               </h2>
-              <div className="bg-linear-to-r from-blue-50 to-blue-100 border-l-4 border-blue-500 p-8 rounded-r-lg text-left">
+              <div className="bg-linear-to-r from-slate-50 to-slate-100 border-l-4 border-[#18264A] p-8 rounded-r-lg text-left">
                 <p className="text-xl text-gray-900 mb-4">
                   Membership at <strong>ScaleLink Alliance</strong> is <strong>not a subscription</strong> and <strong>not casual networking</strong>.
                 </p>
@@ -196,7 +196,7 @@ const MembershipPage = () => {
                   It is a <strong>paid, approved seat</strong> inside a <strong>local chapter</strong> of non-competing professionals who meet weekly to exchange qualified business referrals.
                 </p>
                 <p className="text-gray-700 mt-4 font-semibold">
-                  You are not buying meetings. You are joining a <span className="text-blue-600">business growth system</span>.
+                  You are not buying meetings. You are joining a <span className="text-[#18264A]">business growth system</span>.
                 </p>
               </div>
             </motion.div>
@@ -242,19 +242,19 @@ const MembershipPage = () => {
                   </h4>
                   <ul className="space-y-2">
                     <li className="flex items-start">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></div>
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 shrink-0"></div>
                       <span>Business owners & decision-makers</span>
                     </li>
                     <li className="flex items-start">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></div>
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 shrink-0"></div>
                       <span>Professionals who rely on referrals</span>
                     </li>
                     <li className="flex items-start">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></div>
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 shrink-0"></div>
                       <span>Service providers with a clear offer</span>
                     </li>
                     <li className="flex items-start">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></div>
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 shrink-0"></div>
                       <span>People willing to show up consistently</span>
                     </li>
                   </ul>
@@ -311,7 +311,7 @@ const MembershipPage = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow"
                 >
-                  <div className="text-blue-600 text-3xl mb-4">{benefit.icon}</div>
+                  <div className="text-[#18264A] text-3xl mb-4">{benefit.icon}</div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">{benefit.title}</h3>
                   <p className="text-gray-600">{benefit.description}</p>
                 </motion.div>
@@ -359,7 +359,7 @@ const MembershipPage = () => {
               ].map((step, index) => (
                 <div key={index} className="flex items-start space-x-6">
                   <div className={`shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-xl ${
-                    step.step === 4 ? 'bg-linear-to-br from-green-500 to-green-600' : 'bg-linear-to-br from-blue-600 to-blue-800'
+                    step.step === 4 ? 'bg-linear-to-br from-green-500 to-green-600' : 'bg-[#18264A]'
                   }`}>
                     {step.step}
                   </div>
@@ -512,7 +512,7 @@ const MembershipPage = () => {
                   After your free month, membership is billed annually or monthly and varies by region.
                 </p>
                 <div className="text-3xl font-bold text-gray-900">
-                  Typical investment: <span className="text-blue-600">$720 – $1,200 per year</span>
+                  Typical investment: <span className="text-[#18264A]">$720 – $1,200 per year</span>
                 </div>
                 <p className="text-gray-600 mt-2">
                   One quality referral often covers the full annual cost.
@@ -600,7 +600,7 @@ const MembershipPage = () => {
                     className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-100 transition-colors"
                   >
                     <div className="flex items-center">
-                      <FaQuestionCircle className="text-blue-600 mr-3 shrink-0" />
+                      <FaQuestionCircle className="text-[#18264A] mr-3 shrink-0" />
                       <span className="font-semibold text-gray-900">{faq.question}</span>
                     </div>
                     <div className={`transform transition-transform ${

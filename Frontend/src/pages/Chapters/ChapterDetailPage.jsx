@@ -27,7 +27,7 @@ const ChapterDetailPage = () => {
     return (
       <div className="min-h-screen pt-20 flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#18264A]"></div>
           <p className="mt-4 text-gray-600">Loading chapter details...</p>
         </div>
       </div>
@@ -42,7 +42,7 @@ const ChapterDetailPage = () => {
           <p className="text-gray-600 mb-8">The chapter you're looking for doesn't exist.</p>
           <button
             onClick={() => navigate('/chapters')}
-            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-6 py-3 bg-[#18264A] text-white font-semibold rounded-lg hover:bg-[#101c38] transition-colors"
           >
             Back to Chapters
           </button>
@@ -57,7 +57,7 @@ const ChapterDetailPage = () => {
       <div className="bg-gray-50 py-4">
         <div className="container mx-auto px-4">
           <div className="flex items-center space-x-2 text-sm text-gray-600">
-            <Link to="/chapters" className="hover:text-blue-600">Chapters</Link>
+            <Link to="/chapters" className="hover:text-[#18264A]">Chapters</Link>
             <span>/</span>
             <span>{chapter.city}</span>
           </div>
@@ -69,7 +69,7 @@ const ChapterDetailPage = () => {
         <div className="container mx-auto px-4">
           <button
             onClick={() => navigate('/chapters')}
-            className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 mb-8"
+            className="flex items-center space-x-2 text-[#18264A] hover:text-emerald-700 mb-8"
           >
             <FaArrowLeft />
             <span>Back to Chapters</span>
@@ -92,7 +92,7 @@ const ChapterDetailPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div className="bg-white p-6 rounded-xl shadow-lg">
                   <div className="flex items-center space-x-3 mb-3">
-                    <FaMapMarkerAlt className="text-blue-600 text-xl" />
+                    <FaMapMarkerAlt className="text-[#18264A] text-xl" />
                     <span className="font-semibold text-gray-900">Location</span>
                   </div>
                   <p className="text-gray-700">{chapter.address}</p>
@@ -100,7 +100,7 @@ const ChapterDetailPage = () => {
                 
                 <div className="bg-white p-6 rounded-xl shadow-lg">
                   <div className="flex items-center space-x-3 mb-3">
-                    <FaCalendarAlt className="text-blue-600 text-xl" />
+                    <FaCalendarAlt className="text-[#18264A] text-xl" />
                     <span className="font-semibold text-gray-900">Meeting Time</span>
                   </div>
                   <p className="text-gray-700">{chapter.meeting.day}, {chapter.meeting.time}</p>
@@ -109,7 +109,7 @@ const ChapterDetailPage = () => {
                 
                 <div className="bg-white p-6 rounded-xl shadow-lg">
                   <div className="flex items-center space-x-3 mb-3">
-                    <FaUsers className="text-blue-600 text-xl" />
+                    <FaUsers className="text-[#18264A] text-xl" />
                     <span className="font-semibold text-gray-900">Members</span>
                   </div>
                   <p className="text-gray-700">{chapter.members.total} / {chapter.members.capacity} seats filled</p>
@@ -129,8 +129,8 @@ const ChapterDetailPage = () => {
               onClick={() => setActiveTab('overview')}
               className={`px-4 py-2 font-semibold whitespace-nowrap ${
                 activeTab === 'overview'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-blue-600'
+                  ? 'text-[#18264A] border-b-2 border-[#18264A]'
+                  : 'text-gray-600 hover:text-[#18264A]'
               }`}
             >
               Overview
@@ -139,8 +139,8 @@ const ChapterDetailPage = () => {
               onClick={() => setActiveTab('seats')}
               className={`px-4 py-2 font-semibold whitespace-nowrap ${
                 activeTab === 'seats'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-blue-600'
+                  ? 'text-[#18264A] border-b-2 border-[#18264A]'
+                  : 'text-gray-600 hover:text-[#18264A]'
               }`}
             >
               Industry Seats
@@ -149,8 +149,8 @@ const ChapterDetailPage = () => {
               onClick={() => setActiveTab('benefits')}
               className={`px-4 py-2 font-semibold whitespace-nowrap ${
                 activeTab === 'benefits'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-blue-600'
+                  ? 'text-[#18264A] border-b-2 border-[#18264A]'
+                  : 'text-gray-600 hover:text-[#18264A]'
               }`}
             >
               Benefits
@@ -159,8 +159,8 @@ const ChapterDetailPage = () => {
               onClick={() => setActiveTab('contact')}
               className={`px-4 py-2 font-semibold whitespace-nowrap ${
                 activeTab === 'contact'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-blue-600'
+                  ? 'text-[#18264A] border-b-2 border-[#18264A]'
+                  : 'text-gray-600 hover:text-[#18264A]'
               }`}
             >
               Contact Chapter
@@ -188,8 +188,8 @@ const ChapterDetailPage = () => {
                     </h3>
                     <div className="space-y-6">
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
-                          <FaCalendarAlt className="text-blue-600 text-xl" />
+                        <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center shrink-0">
+                          <FaCalendarAlt className="text-[#18264A] text-xl" />
                         </div>
                         <div>
                           <h4 className="text-lg font-semibold text-gray-900 mb-2">Weekly Structured Meetings</h4>
@@ -202,8 +202,8 @@ const ChapterDetailPage = () => {
                       </div>
                       
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
-                          <FaUserCheck className="text-blue-600 text-xl" />
+                        <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center shrink-0">
+                          <FaUserCheck className="text-[#18264A] text-xl" />
                         </div>
                         <div>
                           <h4 className="text-lg font-semibold text-gray-900 mb-2">One Business Per Industry</h4>
@@ -215,8 +215,8 @@ const ChapterDetailPage = () => {
                       </div>
                       
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
-                          <FaClock className="text-blue-600 text-xl" />
+                        <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center shrink-0">
+                          <FaClock className="text-[#18264A] text-xl" />
                         </div>
                         <div>
                           <h4 className="text-lg font-semibold text-gray-900 mb-2">Referral Tracking & Accountability</h4>
@@ -234,7 +234,7 @@ const ChapterDetailPage = () => {
                     <h3 className="text-2xl font-bold text-gray-900 mb-6">Chapter Leadership</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
-                        <div className="w-16 h-16 bg-linear-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center text-white font-bold">
+                        <div className="w-16 h-16 bg-[#18264A] rounded-full flex items-center justify-center text-white font-bold">
                           JD
                         </div>
                         <div>
@@ -244,7 +244,7 @@ const ChapterDetailPage = () => {
                         </div>
                       </div>
                       <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
-                        <div className="w-16 h-16 bg-linear-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center text-white font-bold">
+                        <div className="w-16 h-16 bg-[#18264A] rounded-full flex items-center justify-center text-white font-bold">
                           AL
                         </div>
                         <div>
@@ -288,19 +288,19 @@ const ChapterDetailPage = () => {
                     </p>
                     <ul className="space-y-2 pl-5">
                       <li className="flex items-start space-x-2">
-                        <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 shrink-0"></div>
+                        <div className="w-2 h-2 bg-[#18264A] rounded-full mt-2 shrink-0"></div>
                         <span><strong>No internal competition</strong> within the chapter</span>
                       </li>
                       <li className="flex items-start space-x-2">
-                        <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 shrink-0"></div>
+                        <div className="w-2 h-2 bg-[#18264A] rounded-full mt-2 shrink-0"></div>
                         <span><strong>Maximized referral potential</strong> across complementary businesses</span>
                       </li>
                       <li className="flex items-start space-x-2">
-                        <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 shrink-0"></div>
+                        <div className="w-2 h-2 bg-[#18264A] rounded-full mt-2 shrink-0"></div>
                         <span><strong>Protected membership investment</strong> through exclusivity</span>
                       </li>
                       <li className="flex items-start space-x-2">
-                        <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 shrink-0"></div>
+                        <div className="w-2 h-2 bg-[#18264A] rounded-full mt-2 shrink-0"></div>
                         <span><strong>Higher quality referrals</strong> when members aren't competing</span>
                       </li>
                     </ul>
@@ -400,8 +400,8 @@ const ChapterDetailPage = () => {
                   
                   <div className="space-y-6">
                     <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <FaPhone className="text-blue-600 text-xl" />
+                      <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center">
+                        <FaPhone className="text-[#18264A] text-xl" />
                       </div>
                       <div>
                         <h4 className="font-semibold text-gray-900">Phone</h4>
@@ -411,8 +411,8 @@ const ChapterDetailPage = () => {
                     </div>
                     
                     <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <FaEnvelope className="text-blue-600 text-xl" />
+                      <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center">
+                        <FaEnvelope className="text-[#18264A] text-xl" />
                       </div>
                       <div>
                         <h4 className="font-semibold text-gray-900">Email</h4>
@@ -422,8 +422,8 @@ const ChapterDetailPage = () => {
                     </div>
                     
                     <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <FaCalendarAlt className="text-blue-600 text-xl" />
+                      <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center">
+                        <FaCalendarAlt className="text-[#18264A] text-xl" />
                       </div>
                       <div>
                         <h4 className="font-semibold text-gray-900">Schedule a Visit</h4>
@@ -443,14 +443,14 @@ const ChapterDetailPage = () => {
                   <div className="space-y-4">
                     <Link
                       to="/membership"
-                      className="block w-full py-4 bg-linear-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 text-center transition-all"
+                      className="block w-full py-4 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] text-center transition-all"
                     >
                       Apply to Join This Chapter
                     </Link>
                     
                     <Link
                       to={`/contact?chapter=${chapter.id}`}
-                      className="block w-full py-4 bg-white border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 text-center transition-colors"
+                      className="block w-full py-4 bg-white border-2 border-[#18264A] text-[#18264A] font-semibold rounded-lg hover:bg-slate-50 text-center transition-colors"
                     >
                       Book a Visit as Guest
                     </Link>

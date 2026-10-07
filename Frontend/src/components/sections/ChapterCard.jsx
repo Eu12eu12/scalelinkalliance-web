@@ -54,7 +54,7 @@ const ChapterCard = ({ chapter }) => {
       <div className="p-6">
         {/* Chapter Name and Location */}
         <Link to={`/chapters/${chapterSlug}`} className="block mb-4">
-          <h3 className="text-xl font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors line-clamp-1">
+          <h3 className="text-xl font-bold text-gray-900 mb-2 hover:text-[#18264A] transition-colors line-clamp-1">
             {chapter.name || `${chapter.city} Chapter`}
           </h3>
           <div className="flex items-center text-gray-600">
@@ -90,7 +90,7 @@ const ChapterCard = ({ chapter }) => {
               <FaUsers className="mr-2 text-gray-400 shrink-0" />
               <span className="text-sm font-medium">Members: {totalMembers}/{capacity}</span>
             </div>
-            <span className="text-sm font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
+            <span className="text-sm font-bold text-[#18264A] bg-slate-100 px-2 py-0.5 rounded">
               {filledPercentage}% filled
             </span>
           </div>
@@ -98,7 +98,7 @@ const ChapterCard = ({ chapter }) => {
             <div 
               className={`h-2 rounded-full transition-all duration-500 ${
                 filledPercentage >= 90 ? 'bg-red-500' : 
-                filledPercentage >= 70 ? 'bg-amber-500' : 'bg-blue-600'
+                filledPercentage >= 70 ? 'bg-amber-500' : 'bg-[#18264A]'
               }`}
               style={{ width: `${Math.min(filledPercentage, 100)}%` }}
             ></div>
@@ -108,14 +108,14 @@ const ChapterCard = ({ chapter }) => {
         {/* Open Industries Preview */}
         <div className="mb-6">
           <div className="flex items-center mb-3">
-            <FaUserPlus className="mr-2 text-blue-500 shrink-0" />
+            <FaUserPlus className="mr-2 text-emerald-500 shrink-0" />
             <span className="font-semibold text-gray-900">Open Industries</span>
           </div>
           
           {chapter.industries?.open && chapter.industries.open.length > 0 ? (
             <div className="flex flex-wrap gap-2">
               {chapter.industries.open.slice(0, 3).map((industry, idx) => (
-                <span key={idx} className="px-3 py-1 bg-blue-50 text-blue-700 text-xs rounded-full font-medium">
+                <span key={idx} className="px-3 py-1 bg-slate-100 text-[#18264A] text-xs rounded-full font-medium">
                   {industry}
                 </span>
               ))}
@@ -145,7 +145,7 @@ const ChapterCard = ({ chapter }) => {
         <div className="flex flex-col sm:flex-row gap-3">
           <Link
             to={`/chapters/${chapterSlug}`}
-            className="flex-1 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 flex items-center justify-center space-x-2 group/btn"
+            className="flex-1 py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-all flex items-center justify-center space-x-2 group/btn"
           >
             <span>View Details</span>
             <FaArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
@@ -153,7 +153,7 @@ const ChapterCard = ({ chapter }) => {
           
           <Link
             to={`/membership?chapter=${chapterSlug}`}
-            className="flex-1 py-3 bg-white border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors text-center"
+            className="flex-1 py-3 bg-white border-2 border-slate-200 text-[#18264A] font-bold rounded-xl hover:border-[#18264A] hover:bg-slate-50 transition-colors text-center"
           >
             Apply to Join
           </Link>

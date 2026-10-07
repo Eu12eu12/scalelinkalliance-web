@@ -123,7 +123,7 @@ const BecomeDirectorPage = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
-                className="bg-linear-to-br from-blue-600 to-blue-800 rounded-2xl p-8 text-white"
+                className="bg-[#18264A] rounded-2xl p-8 text-white"
               >
                 <div className="flex items-center space-x-3 mb-6">
                   <FaGraduationCap className="text-3xl" />
@@ -178,7 +178,7 @@ const BecomeDirectorPage = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow"
                 >
-                  <div className="text-blue-600 text-3xl mb-4">{benefit.icon}</div>
+                  <div className="text-[#18264A] text-3xl mb-4">{benefit.icon}</div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">{benefit.title}</h3>
                   <p className="text-gray-600">{benefit.description}</p>
                 </motion.div>
@@ -204,13 +204,13 @@ const BecomeDirectorPage = () => {
                 <div className="space-y-4">
                   {requirements.map((req, index) => (
                     <div key={index} className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
                       <span className="text-gray-700">{req}</span>
                     </div>
                   ))}
                 </div>
                 
-                <div className="mt-8 p-6 bg-blue-50 rounded-xl">
+                <div className="mt-8 p-6 bg-slate-50 rounded-xl">
                   <h4 className="font-semibold text-gray-900 mb-2">Ideal Candidates Include:</h4>
                   <ul className="text-gray-600 space-y-1">
                     <li>• Established business professionals</li>
@@ -233,7 +233,7 @@ const BecomeDirectorPage = () => {
                 <div className="space-y-6">
                   {directorProcess.map((step) => (
                     <div key={step.step} className="flex items-start space-x-4">
-                      <div className="shrink-0 w-12 h-12 bg-linear-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+                      <div className="shrink-0 w-12 h-12 bg-[#18264A] rounded-lg flex items-center justify-center text-white font-bold text-xl">
                         {step.step}
                       </div>
                       <div>
@@ -250,7 +250,7 @@ const BecomeDirectorPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-linear-to-r from-blue-600 to-blue-800">
+      <section className="py-20 bg-[#18264A]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center text-white">
             <h2 className="text-3xl lg:text-4xl font-bold mb-6">
@@ -262,7 +262,7 @@ const BecomeDirectorPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/contact?interest=director"
-                className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2"
+                className="px-8 py-4 bg-white text-[#18264A] font-semibold rounded-lg hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2"
               >
                 <span>Apply to Become a Director</span>
                 <FaArrowRight />

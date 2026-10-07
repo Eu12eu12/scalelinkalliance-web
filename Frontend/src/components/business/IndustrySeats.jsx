@@ -34,22 +34,22 @@ const IndustrySeats = ({ filled, open, chapterId }) => {
       <div>
   <div className="flex items-center justify-between mb-3">
     <h4 className="font-semibold text-gray-700 flex items-center space-x-2">
-      <FaUserPlus className="text-blue-500" />
+      <FaUserPlus className="text-emerald-500" />
       <span>Open Seats</span>
     </h4>
     <span className="text-sm text-gray-500">{open.length} open</span>
   </div>
   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
     {open.map((industry, index) => (
-      <div key={index} className="group p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+      <div key={index} className="group p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
         <div className="flex items-center justify-between mb-2">
           <span className="text-gray-700 font-medium">{industry}</span>
-          <span className="text-xs text-blue-600 font-semibold px-2 py-1 bg-blue-100 rounded-full">
+          <span className="text-xs text-[#18264A] font-bold px-2 py-1 bg-slate-100 rounded-full">
             Available
           </span>
         </div>
         <Link to="/membership">
-          <button className="w-full py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+          <button className="w-full py-2 text-sm bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors">
             Apply for This Seat
           </button>
         </Link>

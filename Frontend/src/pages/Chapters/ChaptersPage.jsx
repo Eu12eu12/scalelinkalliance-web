@@ -109,20 +109,20 @@ const ChaptersPage = () => {
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="text-center p-6 bg-blue-50 rounded-xl">
-              <div className="text-3xl font-bold text-blue-600 mb-2">{stats.totalChapters}</div>
+            <div className="text-center p-6 bg-slate-50 border border-slate-200 rounded-xl">
+              <div className="text-3xl font-bold text-[#18264A] mb-2">{stats.totalChapters}</div>
               <div className="text-gray-700 font-semibold">Chapters</div>
             </div>
-            <div className="text-center p-6 bg-blue-50 rounded-xl">
-              <div className="text-3xl font-bold text-blue-600 mb-2">{stats.totalMembers}</div>
+            <div className="text-center p-6 bg-slate-50 border border-slate-200 rounded-xl">
+              <div className="text-3xl font-bold text-[#18264A] mb-2">{stats.totalMembers}</div>
               <div className="text-gray-700 font-semibold">Active Members</div>
             </div>
-            <div className="text-center p-6 bg-blue-50 rounded-xl">
-              <div className="text-3xl font-bold text-blue-600 mb-2">{stats.openSeats}</div>
+            <div className="text-center p-6 bg-slate-50 border border-slate-200 rounded-xl">
+              <div className="text-3xl font-bold text-[#18264A] mb-2">{stats.openSeats}</div>
               <div className="text-gray-700 font-semibold">Open Seats</div>
             </div>
-            <div className="text-center p-6 bg-blue-50 rounded-xl">
-              <div className="text-3xl font-bold text-blue-600 mb-2">{stats.averageSize}</div>
+            <div className="text-center p-6 bg-slate-50 border border-slate-200 rounded-xl">
+              <div className="text-3xl font-bold text-[#18264A] mb-2">{stats.averageSize}</div>
               <div className="text-gray-700 font-semibold">Avg. Chapter Size</div>
             </div>
           </div>
@@ -150,7 +150,7 @@ const ChaptersPage = () => {
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       placeholder="e.g., New York, NY, Chicago..."
-                      className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A]"
                     />
                   </div>
                 </div>
@@ -162,7 +162,7 @@ const ChaptersPage = () => {
                   <select
                     value={selectedRegion}
                     onChange={(e) => setSelectedRegion(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A]"
                   >
                     {regions.map(region => (
                       <option key={region.id} value={region.id}>{region.name}</option>
@@ -177,7 +177,7 @@ const ChaptersPage = () => {
                   <select
                     value={selectedDay}
                     onChange={(e) => setSelectedDay(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A]"
                   >
                     {meetingDays.map(day => (
                       <option key={day.id} value={day.id}>{day.name}</option>
@@ -192,7 +192,7 @@ const ChaptersPage = () => {
                   setSelectedRegion('all');
                   setSelectedDay('all');
                 }}
-                className="text-blue-600 hover:text-blue-800 font-semibold"
+                className="text-[#18264A] hover:text-emerald-700 font-semibold"
               >
                 Clear Filters
               </button>
@@ -216,12 +216,12 @@ const ChaptersPage = () => {
             
             {isLoading ? (
               <div className="text-center py-12">
-                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#18264A]"></div>
                 <p className="mt-4 text-gray-600">Loading chapters...</p>
               </div>
             ) : filteredChapters.length === 0 ? (
-              <div className="text-center py-16 bg-gradient-to-br from-blue-50 to-gray-50 rounded-2xl border-2 border-blue-100">
-                <FaBuilding className="text-blue-300 text-6xl mx-auto mb-4" />
+              <div className="text-center py-16 bg-slate-50 rounded-2xl border border-slate-200">
+                <FaBuilding className="text-slate-400 text-6xl mx-auto mb-4" />
                 <h4 className="text-2xl font-bold text-gray-900 mb-3">No Chapter Found in Your Area</h4>
                 <p className="text-gray-600 mb-6 max-w-lg mx-auto">
                   We're actively expanding! If you don't see a chapter in your city, you can:
@@ -229,14 +229,14 @@ const ChaptersPage = () => {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                   <Link
                     to="/membership"
-                    className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg inline-flex items-center justify-center gap-2"
+                    className="px-8 py-4 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-all shadow-lg inline-flex items-center justify-center gap-2"
                   >
                     <FaHandshake />
                     Apply for Membership
                   </Link>
                   <Link
                     to="/become-director"
-                    className="px-8 py-4 bg-white border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors inline-flex items-center justify-center gap-2"
+                    className="px-8 py-4 bg-white border-2 border-[#18264A] text-[#18264A] font-bold rounded-xl hover:bg-slate-50 transition-colors inline-flex items-center justify-center gap-2"
                   >
                     <FaBuilding />
                     Start a Chapter
@@ -265,7 +265,7 @@ const ChaptersPage = () => {
       </section>
 
       {/* Start a Chapter CTA */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-800">
+      <section className="py-20 bg-[#18264A]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center text-white">
             <h2 className="text-3xl lg:text-4xl font-bold mb-6">
@@ -277,7 +277,7 @@ const ChaptersPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/become-director"
-                className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-xl inline-flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-white text-[#18264A] font-bold rounded-xl hover:bg-slate-100 shadow-md transition-colors shadow-xl inline-flex items-center justify-center gap-2"
               >
                 <FaBuilding />
                 Start a Chapter
