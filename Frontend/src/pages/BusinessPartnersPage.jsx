@@ -165,7 +165,7 @@ const BusinessPartnersPage = () => {
 
         {loading ? (
           <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-600" />
+            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#18264A]" />
           </div>
 
         ) : partners.length === 0 ? (
@@ -174,7 +174,7 @@ const BusinessPartnersPage = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="max-w-md mx-auto text-center px-4 py-4"
           >
-            <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mx-auto mb-6 border border-blue-100">
+            <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center text-[#18264A] mx-auto mb-6 border border-slate-200">
               <FaHandshake size={36} />
             </div>
             <h3 className="text-xl font-bold text-slate-800 mb-3">Our partner network is launching soon.</h3>
@@ -302,32 +302,32 @@ const BusinessPartnersPage = () => {
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-2">Business Name *</label>
                   <input name="businessName" required type="text" placeholder="Enter your company name"
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white transition-all" />
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#18264A] bg-white transition-all" />
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-sm font-bold text-slate-700 mb-2">Primary Category *</label>
                     <input name="category" required type="text" placeholder="e.g. Marketing Agency"
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white transition-all" />
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#18264A] bg-white transition-all" />
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-slate-700 mb-2">Work Email *</label>
                     <input name="contactEmail" required type="email" placeholder="hello@company.com"
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white transition-all" />
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#18264A] bg-white transition-all" />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-2">Website URL *</label>
                   <input name="websiteUrl" required type="url" placeholder="https://yourwebsite.com"
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white transition-all" />
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#18264A] bg-white transition-all" />
                 </div>
 
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-2">Link Placement URL *</label>
                   <input name="linkPlacementUrl" required type="url" placeholder="Where is the ScaleLink badge?"
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white transition-all" />
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#18264A] bg-white transition-all" />
                   <p className="text-[10px] text-slate-400 mt-1">The specific page where you've added our link.</p>
                 </div>
 
@@ -338,7 +338,7 @@ const BusinessPartnersPage = () => {
                     <input type="file" name="logo" accept="image/jpeg,image/png,image/webp"
                       onChange={handleLogoChange} className="hidden" id="logo-upload" />
                     <label htmlFor="logo-upload"
-                      className="flex items-center justify-center w-full px-4 py-3 rounded-xl border border-dashed border-slate-300 hover:border-blue-500 hover:bg-blue-50 transition-all cursor-pointer bg-white">
+                      className="flex items-center justify-center w-full px-4 py-3 rounded-xl border border-dashed border-slate-300 hover:border-[#18264A] hover:bg-slate-50 transition-all cursor-pointer bg-white">
                       <div className="flex items-center space-x-2 text-slate-400">
                         <FaImage /><span className="text-sm">Upload Logo (Max 16MB)</span>
                       </div>
@@ -366,7 +366,7 @@ const BusinessPartnersPage = () => {
                   <input name="description" required type="text" maxLength={DESC_MAX}
                     placeholder="e.g. Cloud-based HR solutions for SMEs"
                     onChange={(e) => setDescCount(e.target.value.length)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white transition-all" />
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#18264A] bg-white transition-all" />
                   <p className="text-[10px] text-slate-400 mt-1 text-right">{descCount}/{DESC_MAX} characters</p>
                 </div>
 

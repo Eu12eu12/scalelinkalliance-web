@@ -196,8 +196,8 @@ const AboutPage = () => {
       {/* =====================================================
           HERO SECTION
       ===================================================== */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/40 py-20 lg:py-24 border-b border-slate-100">
-        <div className="absolute -top-24 -right-24 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100/40 py-20 lg:py-24 border-b border-slate-100">
+        <div className="absolute -top-24 -right-24 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-emerald-100/20 rounded-full blur-3xl pointer-events-none" />
 
         <div className="container relative mx-auto px-4">
@@ -253,7 +253,7 @@ const AboutPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-50 via-white to-blue-50/30 border border-slate-200 shadow-xl"
+              className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-50 via-white to-slate-50/30 border border-slate-200 shadow-xl"
             >
               <div className="relative p-7 md:p-12 lg:p-14">
                 <div className="flex justify-center mb-8">

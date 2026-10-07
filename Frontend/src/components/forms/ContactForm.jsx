@@ -104,7 +104,7 @@ const PhoneInput = ({ value, onChange }) => {
       <button
         type="button"
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center space-x-1 px-3 py-3 border border-r-0 border-gray-300 rounded-l-lg bg-gray-50 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-w-[90px]"
+        className="flex items-center space-x-1 px-3 py-3 border border-r-0 border-gray-300 rounded-l-lg bg-gray-50 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] min-w-[90px]"
       >
         <span className="text-lg leading-none">{selectedCountry.flag}</span>
         <span className="text-sm font-medium text-gray-700">{selectedCountry.dial}</span>
@@ -117,7 +117,7 @@ const PhoneInput = ({ value, onChange }) => {
         name="phone"
         value={value}
         onChange={handleNumberChange}
-        className="flex-1 px-4 py-3 border border-gray-300 rounded-r-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none"
+        className="flex-1 px-4 py-3 border border-gray-300 rounded-r-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] focus:outline-none"
         placeholder="(555) 000-0000"
       />
 
@@ -136,7 +136,7 @@ const PhoneInput = ({ value, onChange }) => {
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Search country..."
-                className="w-full pl-8 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-8 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#18264A]"
                 autoFocus
               />
             </div>
@@ -149,8 +149,8 @@ const PhoneInput = ({ value, onChange }) => {
                 <button
                   type="button"
                   onClick={() => handleCountrySelect(country)}
-                  className={`w-full flex items-center space-x-3 px-4 py-2.5 text-sm hover:bg-blue-50 transition-colors text-left ${
-                    selectedCountry.code === country.code ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700'
+                  className={`w-full flex items-center space-x-3 px-4 py-2.5 text-sm hover:bg-slate-50 transition-colors text-left ${
+                    selectedCountry.code === country.code ? 'bg-slate-50 text-[#18264A] font-medium' : 'text-gray-700'
                   }`}
                 >
                   <span className="text-base">{country.flag}</span>
@@ -318,10 +318,10 @@ const ContactForm = ({ contactType = 'general' }) => {
         </div>
       )}
 
-      <div className="mb-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+      <div className="mb-8 p-4 bg-slate-50 rounded-lg border border-slate-200">
         <div className="flex items-center">
-          <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-            <FaFileAlt className="text-blue-600" />
+          <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center mr-4">
+            <FaFileAlt className="text-[#18264A]" />
           </div>
           <div>
             <h3 className="font-semibold text-gray-900">{dynamicFields.title}</h3>
@@ -341,7 +341,7 @@ const ContactForm = ({ contactType = 'general' }) => {
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${errors.firstName ? 'border-red-500' : 'border-gray-300'}`}
+              className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${errors.firstName ? 'border-red-500' : 'border-gray-300'}`}
               placeholder="John"
             />
           </div>
@@ -356,7 +356,7 @@ const ContactForm = ({ contactType = 'general' }) => {
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${errors.lastName ? 'border-red-500' : 'border-gray-300'}`}
+              className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${errors.lastName ? 'border-red-500' : 'border-gray-300'}`}
               placeholder="Doe"
             />
           </div>
@@ -375,7 +375,7 @@ const ContactForm = ({ contactType = 'general' }) => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+              className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
               placeholder="john@example.com"
             />
           </div>
@@ -401,7 +401,7 @@ const ContactForm = ({ contactType = 'general' }) => {
               name="company"
               value={formData.company}
               onChange={handleChange}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A]"
               placeholder="Your Company LLC"
             />
           </div>
@@ -413,7 +413,7 @@ const ContactForm = ({ contactType = 'general' }) => {
             name="website"
             value={formData.website}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A]"
             placeholder="https://example.com"
           />
         </div>
@@ -427,7 +427,7 @@ const ContactForm = ({ contactType = 'general' }) => {
             name="website"
             value={formData.website || ''}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A]"
             placeholder="https://yourwebsite.com"
           />
         </div>
@@ -440,7 +440,7 @@ const ContactForm = ({ contactType = 'general' }) => {
             name="serviceInterest"
             value={formData.serviceInterest}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A]"
           >
             <option value="">Select a service</option>
             {serviceInterests.map(s => <option key={s} value={s}>{s}</option>)}
@@ -454,7 +454,7 @@ const ContactForm = ({ contactType = 'general' }) => {
           name="hearAboutUs"
           value={formData.hearAboutUs}
           onChange={handleChange}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A]"
         >
           <option value="">Select an option</option>
           {hearAboutOptions.map(o => <option key={o} value={o}>{o}</option>)}
@@ -468,7 +468,7 @@ const ContactForm = ({ contactType = 'general' }) => {
           value={formData.message}
           onChange={handleChange}
           rows={6}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${errors.message ? 'border-red-500' : 'border-gray-300'}`}
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${errors.message ? 'border-red-500' : 'border-gray-300'}`}
           placeholder={dynamicFields.placeholder}
         />
         {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message}</p>}
@@ -485,7 +485,7 @@ const ContactForm = ({ contactType = 'general' }) => {
                 value={method}
                 checked={formData.preferredContact === method}
                 onChange={handleChange}
-                className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                className="w-4 h-4 text-[#18264A] border-gray-300 focus:ring-[#18264A]"
               />
               <span className="ml-2 text-gray-700 capitalize">{method}</span>
             </label>
@@ -500,11 +500,11 @@ const ContactForm = ({ contactType = 'general' }) => {
             name="agreeToTerms"
             checked={formData.agreeToTerms}
             onChange={handleChange}
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-1"
+            className="w-4 h-4 text-[#18264A] border-gray-300 rounded focus:ring-[#18264A] mt-1"
           />
           <label className="ml-2 text-sm text-gray-700">
             I agree to the{' '}
-            <a href="/legal" className="text-blue-600 hover:underline">Privacy Policy</a>{' '}
+            <a href="/legal" className="text-[#18264A] hover:underline">Privacy Policy</a>{' '}
             and understand that ScaleLink Alliance may contact me regarding my inquiry. *
           </label>
         </div>
@@ -515,7 +515,7 @@ const ContactForm = ({ contactType = 'general' }) => {
             name="subscribeNewsletter"
             checked={formData.subscribeNewsletter}
             onChange={handleChange}
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-1"
+            className="w-4 h-4 text-[#18264A] border-gray-300 rounded focus:ring-[#18264A] mt-1"
           />
           <label className="ml-2 text-sm text-gray-700">
             Yes, I'd like to receive occasional updates, event invitations, and resources from ScaleLink Alliance.
@@ -530,7 +530,7 @@ const ContactForm = ({ contactType = 'general' }) => {
           className={`w-full py-4 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-3 ${
             isSubmitting
               ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl'
+              : 'bg-gradient-to-r bg-[#18264A] text-white font-bold hover:bg-[#101c38] shadow-md'
           }`}
         >
           {isSubmitting ? (

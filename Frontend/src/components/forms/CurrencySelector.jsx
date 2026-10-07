@@ -18,10 +18,10 @@ const CurrencySelector = ({ selectedCurrency, onCurrencyChange }) => {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-4 py-3 bg-white border-2 border-blue-200 rounded-xl hover:border-blue-400 transition-all shadow-sm"
+        className="w-full flex items-center justify-between px-4 py-3 bg-white border-2 border-slate-200 rounded-xl hover:border-[#18264A] transition-all shadow-sm"
       >
         <div className="flex items-center gap-3">
-          <FaGlobeAmericas className="text-blue-500" />
+          <FaGlobeAmericas className="text-[#18264A]" />
           <div className="text-left">
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">Payment Currency</p>
             <p className="text-sm font-bold text-gray-900">{selected.name} ({selected.code.toUpperCase()})</p>
@@ -38,8 +38,8 @@ const CurrencySelector = ({ selectedCurrency, onCurrencyChange }) => {
                 <button
                   type="button"
                   onClick={() => { onCurrencyChange(c.code); setOpen(false); }}
-                  className={`w-full flex items-center justify-between px-4 py-3 text-sm hover:bg-blue-50 transition-colors ${
-                    selected.code === c.code ? 'bg-blue-50 text-blue-700 font-bold' : 'text-gray-700'
+                  className={`w-full flex items-center justify-between px-4 py-3 text-sm hover:bg-slate-50 transition-colors ${
+                    selected.code === c.code ? 'bg-slate-100 text-[#18264A] font-bold' : 'text-gray-700'
                   }`}
                 >
                   <div className="flex flex-col">

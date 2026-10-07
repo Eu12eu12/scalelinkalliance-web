@@ -187,7 +187,7 @@ const MembershipForm = () => {
           </label>
           <input
             {...register('firstName')}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.firstName ? 'border-red-300' : 'border-gray-300'
             }`}
             placeholder="John"
@@ -203,7 +203,7 @@ const MembershipForm = () => {
           </label>
           <input
             {...register('lastName')}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.lastName ? 'border-red-300' : 'border-gray-300'
             }`}
             placeholder="Smith"
@@ -220,7 +220,7 @@ const MembershipForm = () => {
           <input
             {...register('email')}
             type="email"
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.email ? 'border-red-300' : 'border-gray-300'
             }`}
             placeholder="john@example.com"
@@ -233,7 +233,7 @@ const MembershipForm = () => {
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             <div className="flex items-center">
-              <FaGlobe className="mr-2 text-blue-600" />
+              <FaGlobe className="mr-2 text-[#18264A]" />
               Phone Number *
             </div>
           </label>
@@ -308,7 +308,7 @@ const MembershipForm = () => {
           </label>
           <input
             {...register('company')}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.company ? 'border-red-300' : 'border-gray-300'
             }`}
             placeholder="Acme Inc"
@@ -324,7 +324,7 @@ const MembershipForm = () => {
           </label>
           <input
             {...register('title')}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.title ? 'border-red-300' : 'border-gray-300'
             }`}
             placeholder="CEO / Founder"
@@ -340,7 +340,7 @@ const MembershipForm = () => {
           </label>
           <select
             {...register('industry')}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.industry ? 'border-red-300' : 'border-gray-300'
             }`}
           >
@@ -363,7 +363,7 @@ const MembershipForm = () => {
             type="number"
             min="0"
             max="50"
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.experience ? 'border-red-300' : 'border-gray-300'
             }`}
             placeholder="3"
@@ -379,7 +379,7 @@ const MembershipForm = () => {
           </label>
           <select
             {...register('chapterInterest')}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.chapterInterest ? 'border-red-300' : 'border-gray-300'
             }`}
           >
@@ -400,7 +400,7 @@ const MembershipForm = () => {
           </label>
           <select
             {...register('referralSource')}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A]"
           >
             <option value="">Select option</option>
             <option value="search">Search engine</option>
@@ -419,7 +419,7 @@ const MembershipForm = () => {
         <textarea
           {...register('businessDescription')}
           rows={3}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
             errors.businessDescription ? 'border-red-300' : 'border-gray-300'
           }`}
           placeholder="Briefly describe what your business does, who you serve, and your primary services..."
@@ -436,7 +436,7 @@ const MembershipForm = () => {
         <textarea
           {...register('growthGoals')}
           rows={3}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
             errors.growthGoals ? 'border-red-300' : 'border-gray-300'
           }`}
           placeholder="What do you hope to achieve through ScaleLink Alliance membership?"
@@ -451,7 +451,7 @@ const MembershipForm = () => {
           type="checkbox"
           id="agreeTerms"
           {...register('agreeTerms')}
-          className={`mt-1 h-4 w-4 rounded focus:ring-2 focus:ring-blue-500 ${
+          className={`mt-1 h-4 w-4 rounded focus:ring-2 focus:ring-[#18264A] ${
             errors.agreeTerms ? 'border-red-300' : 'border-gray-300'
           }`}
         />
@@ -469,7 +469,7 @@ const MembershipForm = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-4 bg-linear-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center"
+          className="w-full py-4 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center"
         >
           {isSubmitting ? (
             <>

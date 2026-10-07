@@ -482,7 +482,7 @@ const FreeWebsiteReview = () => {
                   </Link>
                   <Link
                     to="/services"
-                    className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"
+                    className="px-6 py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition shadow-md"
                   >
                     Browse Services
                   </Link>
@@ -500,7 +500,7 @@ const FreeWebsiteReview = () => {
           className="mt-12 text-center"
         >
           <p className="text-sm text-gray-500">
-            Already know what you need? <Link to="/services" className="text-blue-600 hover:underline font-semibold">Browse all services →</Link>
+            Already know what you need? <Link to="/services" className="text-[#18264A] hover:text-emerald-700 hover:underline font-bold">Browse all services →</Link>
           </p>
         </motion.div>
       </div>

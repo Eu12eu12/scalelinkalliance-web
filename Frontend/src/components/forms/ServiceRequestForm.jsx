@@ -455,13 +455,13 @@ const ServiceRequestForm = () => {
         {[1, 2, 3, 4, 5, 6].map((step) => (
           <div key={step} className="flex items-center">
             <div className={`flex items-center justify-center w-10 h-10 rounded-full text-sm font-semibold ${
-              step <= currentStep ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'
+              step <= currentStep ? 'bg-[#18264A] text-white' : 'bg-gray-200 text-gray-500'
             }`}>
               {step < currentStep ? <FaCheck /> : step}
             </div>
             {step < 6 && (
               <div className={`w-8 h-0.5 ${
-                step < currentStep ? 'bg-blue-600' : 'bg-gray-200'
+                step < currentStep ? 'bg-[#18264A]' : 'bg-gray-200'
               }`} />
             )}
           </div>
@@ -565,7 +565,7 @@ const ServiceRequestForm = () => {
                   key={catId}
                   className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
                     selectedCategory === catId 
-                      ? 'border-blue-600 bg-blue-50' 
+                      ? 'border-[#18264A] bg-slate-50' 
                       : 'border-gray-200 hover:border-gray-400'
                   }`}
                 >
@@ -584,7 +584,7 @@ const ServiceRequestForm = () => {
                   <div className="flex items-center space-x-3">
                     <div className={`w-4 h-4 rounded-full border-2 ${
                       selectedCategory === catId 
-                        ? 'border-blue-600 bg-blue-600' 
+                        ? 'border-[#18264A] bg-[#18264A]' 
                         : 'border-gray-300'
                     } flex items-center justify-center`}>
                       {selectedCategory === catId && <div className="w-2 h-2 bg-white rounded-full" />}
@@ -609,7 +609,7 @@ const ServiceRequestForm = () => {
                   key={service}
                   className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
                     selectedService === service 
-                      ? 'border-blue-600 bg-blue-50' 
+                      ? 'border-[#18264A] bg-slate-50' 
                       : 'border-gray-200 hover:border-gray-400'
                   }`}
                 >
@@ -626,7 +626,7 @@ const ServiceRequestForm = () => {
                   <div className="flex items-center space-x-3">
                     <div className={`w-4 h-4 rounded-full border-2 ${
                       selectedService === service 
-                        ? 'border-blue-600 bg-blue-600' 
+                        ? 'border-[#18264A] bg-[#18264A]' 
                         : 'border-gray-300'
                     } flex items-center justify-center`}>
                       {selectedService === service && <div className="w-2 h-2 bg-white rounded-full" />}
@@ -838,7 +838,7 @@ const ServiceRequestForm = () => {
               key={pkg.id}
               className={`p-6 border-2 rounded-xl cursor-pointer transition-all ${
                 selectedPackage === pkg.id 
-                  ? 'border-blue-600 bg-blue-50 shadow-lg' 
+                  ? 'border-[#18264A] bg-slate-50 shadow-lg' 
                   : 'border-gray-200 hover:border-gray-400'
               }`}
             >
@@ -855,14 +855,14 @@ const ServiceRequestForm = () => {
               <div className="flex items-start space-x-3">
                 <div className={`w-5 h-5 mt-0.5 rounded-full border-2 ${
                   selectedPackage === pkg.id 
-                    ? 'border-blue-600 bg-blue-600' 
+                    ? 'border-[#18264A] bg-[#18264A]' 
                     : 'border-gray-300'
                 } flex items-center justify-center`}>
                   {selectedPackage === pkg.id && <div className="w-2 h-2 bg-white rounded-full" />}
                 </div>
                 <div>
                   <h4 className={`font-bold ${
-                    selectedPackage === pkg.id ? 'text-blue-700' : 'text-gray-900'
+                    selectedPackage === pkg.id ? 'text-[#18264A]' : 'text-gray-900'
                   }`}>
                     {pkg.name}
                   </h4>
@@ -899,7 +899,7 @@ const ServiceRequestForm = () => {
                   value={addon}
                   {...register('addons')}
                   onChange={() => toggleAddon(addon)}
-                  className="h-5 w-5 text-blue-600 rounded"
+                  className="h-5 w-5 text-[#18264A] rounded"
                 />
                 <span className="text-gray-700">{addon}</span>
               </label>
@@ -925,7 +925,7 @@ const ServiceRequestForm = () => {
                   value={addon}
                   {...register('addons')}
                   onChange={() => toggleAddon(addon)}
-                  className="h-5 w-5 text-blue-600 rounded"
+                  className="h-5 w-5 text-[#18264A] rounded"
                 />
                 <span className="text-gray-700">{addon}</span>
               </label>
@@ -951,7 +951,7 @@ const ServiceRequestForm = () => {
           </label>
           <input
             {...register('business_name')}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.business_name ? 'border-red-300' : 'border-gray-300'
             }`}
             placeholder="Your business name"
@@ -965,7 +965,7 @@ const ServiceRequestForm = () => {
           </label>
           <input
             {...register('contact_name')}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.contact_name ? 'border-red-300' : 'border-gray-300'
             }`}
             placeholder="Your full name"
@@ -980,7 +980,7 @@ const ServiceRequestForm = () => {
           <input
             {...register('email')}
             type="email"
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.email ? 'border-red-300' : 'border-gray-300'
             }`}
             placeholder="your@email.com"
@@ -994,7 +994,7 @@ const ServiceRequestForm = () => {
           </label>
           <input
             {...register('phone')}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.phone ? 'border-red-300' : 'border-gray-300'
             }`}
             placeholder="(555) 123-4567"
@@ -1010,7 +1010,7 @@ const ServiceRequestForm = () => {
           </label>
           <input
             {...register('current_website')}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.current_website ? 'border-red-300' : 'border-gray-300'
             }`}
             placeholder="https://yourwebsite.com"
@@ -1026,7 +1026,7 @@ const ServiceRequestForm = () => {
         <textarea
           {...register('project_goal')}
           rows={3}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
             errors.project_goal ? 'border-red-300' : 'border-gray-300'
           }`}
           placeholder="Describe what you want to achieve, your objectives, and desired outcomes..."
@@ -1041,7 +1041,7 @@ const ServiceRequestForm = () => {
           </label>
           <select
             {...register('timeline')}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.timeline ? 'border-red-300' : 'border-gray-300'
             }`}
           >
@@ -1059,7 +1059,7 @@ const ServiceRequestForm = () => {
           </label>
           <select
             {...register('budget_range')}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A]"
           >
             <option value="">Select budget range</option>
             <option value="under-1k">Under $1,000</option>
@@ -1078,7 +1078,7 @@ const ServiceRequestForm = () => {
         <textarea
           {...register('additional_notes')}
           rows={2}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A]"
           placeholder="Any other details, ideas, or special instructions..."
         />
       </div>
@@ -1186,7 +1186,7 @@ const ServiceRequestForm = () => {
                 <input
                   type="checkbox"
                   {...register('escrow_terms_accepted')}
-                  className="h-5 w-5 text-blue-600 rounded mt-0.5"
+                  className="h-5 w-5 text-[#18264A] rounded mt-0.5"
                 />
                 <span className="text-sm text-gray-700">
                   I agree to the ScaleLink Alliance Payment & Escrow Terms and understand that my project may require a deposit, milestone payment, or escrow-based payment before work begins. *
@@ -1200,7 +1200,7 @@ const ServiceRequestForm = () => {
                 <input
                   type="checkbox"
                   {...register('consent_checkbox')}
-                  className="h-5 w-5 text-blue-600 rounded mt-0.5"
+                  className="h-5 w-5 text-[#18264A] rounded mt-0.5"
                 />
                 <span className="text-sm text-gray-700">
                   I agree to be contacted by ScaleLink Alliance regarding my service request. *
@@ -1244,7 +1244,7 @@ const ServiceRequestForm = () => {
           and contact you within 24 hours to discuss your project.
         </p>
         
-        <div className="bg-blue-50 rounded-xl p-6 max-w-md mx-auto text-left mb-6">
+        <div className="bg-slate-50 rounded-xl p-6 max-w-md mx-auto text-left mb-6">
           <p className="text-sm font-semibold text-gray-900 mb-3">What happens next:</p>
           <ul className="text-sm text-gray-600 space-y-2">
             <li className="flex items-start">
@@ -1276,7 +1276,7 @@ const ServiceRequestForm = () => {
             setSelectedPackage('');
             setSelectedAddons([]);
           }}
-          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+          className="px-6 py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors"
         >
           Submit Another Request
         </button>
@@ -1318,7 +1318,7 @@ const ServiceRequestForm = () => {
           <button
             type="button"
             onClick={nextStep}
-            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-6 py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors"
           >
             Next Step
             <FaArrowRight className="inline ml-2" />

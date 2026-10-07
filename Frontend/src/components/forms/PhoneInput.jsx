@@ -33,7 +33,7 @@ const PhoneInput = ({ value, dialCode, countryCode, onNumberChange, onDialChange
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className={`flex items-center gap-2 px-3 ${py} border border-r-0 border-slate-200 rounded-l-xl bg-slate-50 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[88px]`}
+        className={`flex items-center gap-2 px-3 ${py} border border-r-0 border-slate-200 rounded-l-xl bg-slate-50 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-[#18264A] min-w-[88px]`}
       >
         <img 
           src={`https://flagcdn.com/w20/${(selected.code || 'us').toLowerCase()}.png`} 
@@ -51,7 +51,7 @@ const PhoneInput = ({ value, dialCode, countryCode, onNumberChange, onDialChange
         type="tel"
         value={value || ''}
         onChange={e => onNumberChange(e.target.value.replace(/[^\d\s\-()+]/g, ''))}
-        className={`flex-1 min-w-0 px-4 ${py} border border-slate-200 rounded-r-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none text-sm`}
+        className={`flex-1 min-w-0 px-4 ${py} border border-slate-200 rounded-r-xl focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] focus:outline-none text-sm`}
         placeholder="800 000 0000"
       />
 
@@ -67,7 +67,7 @@ const PhoneInput = ({ value, dialCode, countryCode, onNumberChange, onDialChange
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Search country..."
-                className="w-full pl-8 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-8 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#18264A]"
               />
             </div>
           </div>
@@ -79,8 +79,8 @@ const PhoneInput = ({ value, dialCode, countryCode, onNumberChange, onDialChange
                   <button
                     type="button"
                     onClick={() => { onDialChange(cDial, c.code); setOpen(false); setSearch(''); }}
-                    className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-blue-50 transition-colors text-left ${
-                      selected.code === c.code ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700'
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-slate-50 transition-colors text-left ${
+                      selected.code === c.code ? 'bg-slate-100 text-[#18264A] font-bold' : 'text-gray-700'
                     }`}
                   >
                     <img 

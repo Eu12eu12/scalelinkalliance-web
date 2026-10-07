@@ -79,7 +79,7 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-linear-to-br from-blue-50 to-white py-16">
+      <section className="bg-slate-50 py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto text-center">
             <motion.div
@@ -116,7 +116,7 @@ const ContactPage = () => {
                         onClick={() => setContactType(type.id)}
                         className={`w-full text-left p-4 rounded-lg transition-all ${
                           contactType === type.id
-                            ? 'bg-blue-50 border-2 border-blue-500'
+                            ? 'bg-slate-50 border-2 border-[#18264A]'
                             : 'bg-gray-50 border border-gray-200 hover:bg-gray-100'
                         }`}
                       >
@@ -129,11 +129,11 @@ const ContactPage = () => {
                   <div className="mt-8 pt-6 border-t border-gray-200">
                     <h4 className="font-semibold text-gray-900 mb-3">Quick Contacts</h4>
                     <div className="space-y-3">
-                      <a href={`tel:${contactInfo.headquarters.phone}`} className="flex items-center text-blue-600 hover:text-blue-800">
+                      <a href={`tel:${contactInfo.headquarters.phone}`} className="flex items-center text-[#18264A] hover:text-emerald-700">
                         <FaPhone className="mr-3" />
                         <span>{contactInfo.headquarters.phone}</span>
                       </a>
-                      <a href={`mailto:${contactInfo.headquarters.email}`} className="flex items-center text-blue-600 hover:text-blue-800">
+                      <a href={`mailto:${contactInfo.headquarters.email}`} className="flex items-center text-[#18264A] hover:text-emerald-700">
                         <FaEnvelope className="mr-3" />
                         <span>{contactInfo.headquarters.email}</span>
                       </a>
@@ -173,8 +173,8 @@ const ContactPage = () => {
                 className="bg-white rounded-xl p-6 shadow-lg"
               >
                 <div className="flex items-center space-x-3 mb-6">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <FaMapMarkerAlt className="text-blue-600 text-xl" />
+                  <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center">
+                    <FaMapMarkerAlt className="text-[#18264A] text-xl" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900">Headquarters</h3>
                 </div>
@@ -215,8 +215,8 @@ const ContactPage = () => {
                 className="bg-white rounded-xl p-6 shadow-lg"
               >
                 <div className="flex items-center space-x-3 mb-6">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <FaUsers className="text-blue-600 text-xl" />
+                  <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center">
+                    <FaUsers className="text-[#18264A] text-xl" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900">Client Care & Support</h3>
                 </div>
@@ -234,7 +234,7 @@ const ContactPage = () => {
                       <p className="text-gray-700">{contactInfo.chapterSupport.email}</p>
                     </div>
                   </div>
-                  <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                  <div className="mt-6 p-4 bg-slate-50 border border-slate-200 rounded-xl">
                     <p className="text-sm text-gray-700">
                       For active project support, Care plan updates, and portal assistance.
                     </p>
@@ -301,9 +301,9 @@ const ContactPage = () => {
                     disabled={!slot.available}
                     className={`p-4 rounded-xl text-center transition-all ${
                       selectedTime === slot.id
-                        ? 'bg-blue-600 text-white'
+                        ? 'bg-[#18264A] text-white font-bold'
                         : slot.available
-                        ? 'bg-white border-2 border-gray-200 hover:border-blue-500'
+                        ? 'bg-white border-2 border-gray-200 hover:border-[#18264A]'
                         : 'bg-gray-100 border-2 border-gray-200 opacity-50 cursor-not-allowed'
                     }`}
                   >
@@ -338,7 +338,7 @@ const ContactPage = () => {
                   }}
                   className={`px-8 py-4 rounded-lg font-semibold transition-colors ${
                     selectedTime
-                      ? 'bg-linear-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800'
+                      ? 'bg-[#18264A] text-white font-bold hover:bg-[#101c38]'
                       : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   }`}
                 >
@@ -376,7 +376,7 @@ const ContactPage = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-linear-to-r from-blue-600 to-blue-800">
+      <section className="py-20 bg-[#18264A]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center text-white">
             <h2 className="text-3xl lg:text-4xl font-bold mb-6">
@@ -388,7 +388,7 @@ const ContactPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/free-website-review"
-                className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2"
+                className="px-8 py-4 bg-white text-[#18264A] font-bold rounded-xl hover:bg-slate-100 shadow-md transition-colors flex items-center justify-center space-x-2"
               >
                 <span>Get a Free Growth Review</span>
                 <FaArrowRight />

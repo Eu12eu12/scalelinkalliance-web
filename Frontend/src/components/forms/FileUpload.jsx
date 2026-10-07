@@ -28,14 +28,14 @@ const FileUpload = ({ files, onFilesAdded, onFileRemove, maxFiles = 20, maxTotal
       <div 
         {...getRootProps()} 
         className={`relative border-2 border-dashed rounded-2xl p-8 transition-all cursor-pointer overflow-hidden
-          ${isDragActive ? 'border-blue-500 bg-blue-50 scale-[1.01]' : 'border-gray-300 bg-gray-50 hover:border-blue-400 hover:bg-white'}
+          ${isDragActive ? 'border-[#18264A] bg-slate-50 scale-[1.01]' : 'border-gray-300 bg-gray-50 hover:border-[#18264A] hover:bg-white'}
           ${files.length >= maxFiles ? 'opacity-50 cursor-not-allowed' : ''}
         `}
       >
         <input {...getInputProps()} />
         
         <div className="flex flex-col items-center text-center space-y-3">
-          <div className={`p-4 rounded-full transition-colors ${isDragActive ? 'bg-blue-100 text-blue-600' : 'bg-white text-gray-400 shadow-sm'}`}>
+          <div className={`p-4 rounded-full transition-colors ${isDragActive ? 'bg-slate-100 text-[#18264A]' : 'bg-white text-gray-400 shadow-sm'}`}>
             <FaCloudUploadAlt className="text-4xl" />
           </div>
           <div>
@@ -63,7 +63,7 @@ const FileUpload = ({ files, onFilesAdded, onFileRemove, maxFiles = 20, maxTotal
         <div className="flex-1 max-w-md">
           <div className="flex justify-between items-end mb-1.5">
             <span className="text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1.5">
-              <FaInfoCircle className="text-blue-500" /> Total Storage Capacity
+              <FaInfoCircle className="text-emerald-500" /> Total Storage Capacity
             </span>
             <span className={`text-xs font-mono font-bold ${sizePercentage > 90 ? 'text-red-500' : 'text-gray-700'}`}>
               {(totalSize / 1024 / 1024).toFixed(1)}MB / 500MB
@@ -74,7 +74,7 @@ const FileUpload = ({ files, onFilesAdded, onFileRemove, maxFiles = 20, maxTotal
               className={`h-full transition-all duration-500 ease-out rounded-full ${
                 sizePercentage > 90 ? 'bg-gradient-to-r from-red-500 to-rose-600' : 
                 sizePercentage > 70 ? 'bg-gradient-to-r from-orange-400 to-orange-500' : 
-                'bg-gradient-to-r from-blue-500 to-blue-600'
+                'bg-[#18264A]'
               }`}
               style={{ width: `${Math.min(sizePercentage, 100)}%` }}
             />
@@ -96,9 +96,9 @@ const FileUpload = ({ files, onFilesAdded, onFileRemove, maxFiles = 20, maxTotal
           {files.map((file, idx) => (
             <div 
               key={idx} 
-              className="group relative flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all animate-fadeIn"
+              className="group relative flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-xl hover:border-[#18264A] hover:shadow-md transition-all animate-fadeIn"
             >
-              <div className="p-2.5 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-100 transition-colors">
+              <div className="p-2.5 bg-slate-100 text-[#18264A] rounded-lg group-hover:bg-slate-200 transition-colors">
                 <FaFileAlt className="text-xl" />
               </div>
               <div className="flex-1 min-w-0">

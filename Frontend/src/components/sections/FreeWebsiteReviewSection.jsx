@@ -84,7 +84,7 @@ const FreeWebsiteReviewSection = () => {
                 <div className="space-y-2">
                   {[
                     { label: 'Design Score', value: '72%', color: 'bg-amber-400' },
-                    { label: 'SEO Opportunities', value: '12', color: 'bg-blue-400' },
+                    { label: 'SEO Opportunities', value: '12', color: 'bg-emerald-500' },
                     { label: 'Speed Issues', value: '4', color: 'bg-red-400' },
                     { label: 'Conversion Suggestions', value: '8', color: 'bg-green-400' }
                   ].map((item, idx) => (
@@ -113,7 +113,7 @@ const FreeWebsiteReviewSection = () => {
               
               {/* Decorative elements */}
               <div className="absolute -top-4 -left-4 w-20 h-20 bg-amber-200/30 rounded-full blur-2xl"></div>
-              <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-blue-200/20 rounded-full blur-2xl"></div>
+              <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-slate-200/20 rounded-full blur-2xl"></div>
             </motion.div>
           </div>
         </div>
