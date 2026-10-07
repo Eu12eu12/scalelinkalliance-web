@@ -23,7 +23,7 @@ const HomePage = () => {
   const whyWorkDetailRef = useRef(null);
 
   const images = {
-    hero: 'https://cdn.phototourl.com/free/2026-07-18-bc90a5a0-13c0-4190-936d-229aca3c8447.jpg',
+    hero: '/hero-bg.jpg',
     network: 'https://image2url.com/r2/default/images/1774353122343-8aa294ba-b330-44d0-b7e0-3de067be087e.jpeg',
     services: 'https://image2url.com/r2/default/images/1774353201111-1eb8e101-7307-48e1-b565-5e18f8eec4a2.jpeg',
     growth: 'https://image2url.com/r2/default/images/1774353242591-51c285d9-8148-4e95-be8a-7957262dfb78.jpeg',
@@ -243,11 +243,11 @@ const HomePage = () => {
           <picture className="block w-full h-full">
             <source 
               media="(max-width: 640px)" 
-              srcSet="https://cdn.phototourl.com/free/2026-07-18-bc90a5a0-13c0-4190-936d-229aca3c8447.jpg?w=640&h=800&fit=crop"
+              srcSet={images.hero}
             />
             <source 
               media="(max-width: 1024px)" 
-              srcSet="https://cdn.phototourl.com/free/2026-07-18-bc90a5a0-13c0-4190-936d-229aca3c8447.jpg?w=1024&h=768&fit=crop"
+              srcSet={images.hero}
             />
             <img
               src={images.hero}
@@ -294,35 +294,6 @@ const HomePage = () => {
                   <span>Scale My Existing Website</span>
                   <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
                 </Link>
-              </div>
-
-              {/* NEW: Free Website Review Section - Before the helper card */}
-              <div className="mb-4 max-w-3xl mx-auto">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-center gap-4 sm:gap-6 bg-black/30 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-5">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 flex items-center justify-center text-white shadow-lg flex-shrink-0">
-                      <FaStar className="text-sm" />
-                    </div>
-                    <div className="text-left">
-                      <p className="text-white font-semibold text-sm">
-                        Is Your Website Costing You Customers?
-                      </p>
-                      <p className="text-white/50 text-xs">
-                        Get a free professional review
-                      </p>
-                    </div>
-                  </div>
-                  <Link
-                    to="/free-website-review"
-                    className="group inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-medium rounded-lg hover:from-amber-600 hover:to-orange-600 hover:scale-105 transition-all duration-300 text-sm shadow-lg shadow-amber-500/20 whitespace-nowrap"
-                  >
-                    <span>Get My Free Review</span>
-                    <FaArrowRight className="group-hover:translate-x-1 transition-transform text-xs" />
-                  </Link>
-                </div>
-                <p className="text-white/40 text-xs mt-2">
-                  No obligation. Get actionable insights for your website.
-                </p>
               </div>
 
               {/* Helper card - "Not sure what service you need?" - maintaining previous styling */}
@@ -823,14 +794,6 @@ const HomePage = () => {
                     </div>
                   ))}
                 </div>
-
-                <Link
-                  to="/services"
-                  className="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-all"
-                >
-                  Start a Project
-                  <FaArrowRight className="text-sm" />
-                </Link>
               </motion.div>
 
               <motion.div
