@@ -1,6 +1,6 @@
 // src/App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import ErrorBoundary from './components/layout/ErrorBoundary';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
@@ -81,6 +81,7 @@ function AppContent() {
               <Route path="/track-job/:token" element={<ClientPortalPage />} />
               <Route path="/build-from-scratch" element={<BuildFromScratch />} />
               <Route path="/scale-existing-website" element={<ScaleExistingWebsite />} />
+              <Route path="/scale-existing" element={<Navigate to="/scale-existing-website" replace />} />
               <Route path="/payment-success" element={<PaymentSuccessPage />} />
               <Route path="/free-website-review" element={<FreeWebsiteReview />} />
               <Route path="/my-review/:leadId" element={<MyReviewResults />} />
