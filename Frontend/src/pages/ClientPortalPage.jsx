@@ -929,7 +929,7 @@ const ClientPortalPage = () => {
                         <a 
                           href={file.filePath} 
                           download 
-                          className="p-2.5 text-slate-400 hover:text-[#18264A] hover:bg-indigo-100/40 rounded-xl transition-all shadow-sm bg-white border border-slate-100"
+                          className="p-2.5 text-slate-400 hover:text-[#18264A] hover:bg-slate-100 rounded-xl transition-all shadow-sm bg-white border border-slate-100"
                           title="Download Deliverable"
                         >
                           <FaDownload size={11} />
@@ -985,9 +985,9 @@ const ClientPortalPage = () => {
                 <label className={`flex flex-col items-center justify-center border-2 border-dashed rounded-2xl p-6 transition-all duration-300 ${
                   job.clientSatisfied 
                     ? 'bg-slate-50 border-slate-200 cursor-not-allowed opacity-60' 
-                    : 'bg-slate-50/30 hover:bg-slate-100/10 border-slate-200 hover:border-indigo-400 cursor-pointer'
+                    : 'bg-slate-50/30 hover:bg-slate-100/10 border-slate-200 hover:border-[#18264A] cursor-pointer'
                 }`}>
-                  <FaCloudUploadAlt className={`text-2xl mb-2 ${uploading ? 'animate-bounce text-indigo-500' : 'text-slate-400'}`} />
+                  <FaCloudUploadAlt className={`text-2xl mb-2 ${uploading ? 'animate-bounce text-emerald-500' : 'text-slate-400'}`} />
                   <span className="text-xs font-bold text-slate-700">
                     {uploading ? 'Processing asset files...' : 'Upload Asset / Guidelines'}
                   </span>
@@ -1104,8 +1104,8 @@ const ClientPortalPage = () => {
               ) : (
                 <div className="bg-slate-100/40 border border-slate-200 rounded-2xl p-4 text-center space-y-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-slate-1000 mx-auto animate-pulse" />
-                  <h4 className="text-xs font-black text-indigo-800 uppercase tracking-wider">Active Production</h4>
-                  <p className="text-[10px] text-indigo-500 leading-relaxed font-semibold">
+                  <h4 className="text-xs font-black text-[#18264A] uppercase tracking-wider">Active Production</h4>
+                  <p className="text-[10px] text-emerald-500 leading-relaxed font-semibold">
                     Our team is currently drafting and compiling your deliverables. The finalize option will activate once files are ready.
                   </p>
                 </div>

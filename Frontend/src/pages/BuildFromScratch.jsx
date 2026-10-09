@@ -22,7 +22,7 @@ const services = [
     slug: 'web-applications',
     name: 'Web Applications & SaaS',
     icon: <FaGlobe />,
-    gradient: 'from-indigo-500 to-indigo-700',
+    gradient: 'from-[#18264A] to-[#101c38]',
     description: 'Custom dashboards, client portals, booking tools, and SaaS platforms built to your exact workflow.',
     bestFor: 'Businesses needing custom digital tools or software',
     includes: ['User login & access control', 'Database integration', 'Workflow automation', 'API integrations'],
@@ -49,7 +49,7 @@ const services = [
     slug: 'brand-identity',
     name: 'Brand Identity & Logo Design',
     icon: <FaPalette />,
-    gradient: 'from-purple-500 to-purple-700',
+    gradient: 'from-emerald-500 to-teal-700',
     description: 'A complete visual identity — logo, colors, typography, and brand guidelines — that makes you look professional and memorable.',
     bestFor: 'New businesses or rebranding projects',
     includes: ['Logo concepts', 'Color palette', 'Typography selection', 'Brand style guide'],
@@ -120,7 +120,7 @@ const BuildFromScratch = () => {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-gray-900 via-blue-950 to-black py-20">
+      <section className="bg-gradient-to-br from-gray-900 via-[#18264A] to-black py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div

@@ -451,7 +451,7 @@ const MembershipPage = () => {
                     {role.role === 'Member' ? (
                       <button
                         onClick={scrollToApply}
-                        className="block w-full py-3 text-center rounded-lg font-semibold transition-colors bg-linear-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 shadow-lg"
+                        className="block w-full py-3 text-center rounded-lg font-semibold transition-colors bg-[#18264A] text-white font-bold hover:bg-[#101c38] shadow-md"
                       >
                         Start Free Trial
                       </button>
@@ -554,7 +554,7 @@ const MembershipPage = () => {
       <section id="apply" className="py-16 bg-gray-50 scroll-mt-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-linear-to-r from-green-500 to-green-600 rounded-2xl p-8 mb-8 text-white text-center">
+            <div className="bg-[#18264A] rounded-2xl p-8 mb-8 text-white text-center shadow-lg border border-slate-700/50">
               <FaGift className="text-5xl mx-auto mb-4" />
               <h2 className="text-3xl font-bold mb-4">
                 Claim Your Free Month
@@ -630,7 +630,7 @@ const MembershipPage = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-linear-to-r from-green-500 to-green-600">
+      <section className="py-20 bg-[#18264A]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center text-white">
             <FaGift className="text-6xl mx-auto mb-6" />

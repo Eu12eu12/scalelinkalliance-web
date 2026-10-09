@@ -45,7 +45,7 @@ const HomePage = () => {
       slug: 'graphic-design',
       name: 'Graphic Design',
       icon: <FaPaintBrush className="text-4xl text-white" />,
-      gradient: 'from-purple-500 to-purple-700',
+      gradient: 'from-[#18264A] to-[#101c38]',
       accent: 'bg-purple-400/20',
       tag: 'In Demand'
     },
@@ -101,7 +101,7 @@ const HomePage = () => {
       slug: 'crm-automation',
       name: 'CRM & Automation',
       icon: <FaCogs className="text-4xl text-white" />,
-      gradient: 'from-indigo-500 to-indigo-700',
+      gradient: 'from-emerald-500 to-teal-700',
       accent: 'bg-indigo-400/20',
       tag: 'Automation'
     },
