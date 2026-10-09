@@ -223,7 +223,7 @@ const ResourceDetailPage = () => {
             className={`absolute inset-0 w-full h-full ${resource.imageUrl.endsWith('#contain') ? 'object-contain' : 'object-cover'} opacity-20 filter blur-xs`}
           />
         )}
-        <div className="absolute inset-0 bg-linear-to-t from-gray-950/90 via-blue-950/60 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-gray-950/90 via-[#18264A]/60 to-transparent" />
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
           <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-5">

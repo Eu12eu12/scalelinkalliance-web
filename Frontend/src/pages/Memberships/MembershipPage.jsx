@@ -151,7 +151,7 @@ const MembershipPage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-linear-to-br from-blue-50 to-white py-16">
+      <section className="bg-slate-50 py-16 border-b border-slate-100">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto text-center">
             <motion.div
@@ -384,7 +384,7 @@ const MembershipPage = () => {
       </section>
 
       {/* Role Comparison */}
-      <section className="py-16 bg-linear-to-r from-blue-50 to-blue-100">
+      <section className="py-16 bg-slate-50 border-y border-slate-200">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">

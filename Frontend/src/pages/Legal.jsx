@@ -735,7 +735,7 @@ const Legal = () => {
             </div>
 
             {/* Contact Card */}
-            <div className="mt-12 bg-linear-to-r from-blue-50 to-blue-100 rounded-xl p-6">
+            <div className="mt-12 bg-slate-50 border border-slate-200 rounded-xl p-6">
               <div className="flex flex-col md:flex-row items-center justify-between">
                 <div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">Have Questions?</h3>

@@ -76,7 +76,7 @@ const BecomeDirectorPage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-linear-to-br from-blue-50 to-white py-16">
+      <section className="bg-slate-50 py-16 border-b border-slate-100">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto text-center">
             <motion.div

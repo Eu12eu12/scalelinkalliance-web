@@ -86,7 +86,7 @@ const sectionStyles = {
   Main: {
     icon: 'from-[#18264A] to-slate-800',
     soft: 'bg-slate-100 text-[#18264A]',
-    ring: 'ring-blue-100',
+    ring: 'ring-slate-200',
   },
   'Starting Points': {
     icon: 'from-violet-500 to-purple-600',
@@ -211,7 +211,7 @@ const Sitemap = () => {
 
             <h1 className="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-7xl">
               Everything you need.
-              <span className="block bg-gradient-to-r from-blue-300 via-cyan-300 to-white bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-emerald-300 via-teal-200 to-white bg-clip-text text-transparent">
                 All in one place.
               </span>
             </h1>

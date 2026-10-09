@@ -65,7 +65,7 @@ const ChapterDetailPage = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative py-16 bg-linear-to-br from-blue-50 to-white">
+      <section className="relative py-16 bg-slate-50 border-b border-slate-100">
         <div className="container mx-auto px-4">
           <button
             onClick={() => navigate('/chapters')}
