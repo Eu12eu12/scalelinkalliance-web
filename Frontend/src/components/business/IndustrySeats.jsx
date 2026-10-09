@@ -13,16 +13,16 @@ const IndustrySeats = ({ filled, open, chapterId }) => {
         <div>
           <div className="flex items-center justify-between mb-3">
             <h4 className="font-semibold text-gray-700 flex items-center space-x-2">
-              <FaUserCheck className="text-green-500" />
+              <FaUserCheck className="text-emerald-500" />
               <span>Filled Seats</span>
             </h4>
             <span className="text-sm text-gray-500">{filled.length} filled</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             {filled.map((industry, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+              <div key={index} className="flex items-center justify-between p-3 bg-emerald-50 rounded-lg">
                 <span className="text-gray-700">{industry}</span>
-                <span className="text-xs text-green-600 font-semibold px-2 py-1 bg-green-100 rounded-full">
+                <span className="text-xs text-emerald-600 font-semibold px-2 py-1 bg-emerald-100 rounded-full">
                   Filled
                 </span>
               </div>

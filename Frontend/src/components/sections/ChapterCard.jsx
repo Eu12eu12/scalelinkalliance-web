@@ -22,7 +22,7 @@ const ChapterCard = ({ chapter }) => {
   const getStatusColor = (seats) => {
     if (seats === 0) return 'bg-red-100 text-red-800 border-red-200';
     if (seats <= 2) return 'bg-amber-100 text-amber-800 border-amber-200';
-    return 'bg-green-100 text-green-800 border-green-200';
+    return 'bg-emerald-100 text-emerald-800 border-emerald-200';
   };
   
   const getStatusText = (seats) => {
@@ -133,7 +133,7 @@ const ChapterCard = ({ chapter }) => {
         {/* Industry Exclusivity Badge */}
         <div className="mb-6 p-3 bg-gray-50 rounded-lg border border-gray-200">
           <div className="flex items-center">
-            <FaUserCheck className="mr-2 text-green-500 shrink-0" />
+            <FaUserCheck className="mr-2 text-emerald-500 shrink-0" />
             <span className="text-sm font-medium text-gray-700">Industry Exclusivity Enforced</span>
           </div>
           <p className="text-xs text-gray-500 mt-1">

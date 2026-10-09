@@ -131,27 +131,27 @@ const BecomeDirectorPage = () => {
                 </div>
                 <ul className="space-y-4">
                   <li className="flex items-start space-x-3">
-                    <span className="text-green-300 mt-1">✓</span>
+                    <span className="text-emerald-300 mt-1">✓</span>
                     <span>Complete branding & operational systems</span>
                   </li>
                   <li className="flex items-start space-x-3">
-                    <span className="text-green-300 mt-1">✓</span>
+                    <span className="text-emerald-300 mt-1">✓</span>
                     <span>Meeting structure & materials</span>
                   </li>
                   <li className="flex items-start space-x-3">
-                    <span className="text-green-300 mt-1">✓</span>
+                    <span className="text-emerald-300 mt-1">✓</span>
                     <span>Membership onboarding process</span>
                   </li>
                   <li className="flex items-start space-x-3">
-                    <span className="text-green-300 mt-1">✓</span>
+                    <span className="text-emerald-300 mt-1">✓</span>
                     <span>CRM & referral tracking platform</span>
                   </li>
                   <li className="flex items-start space-x-3">
-                    <span className="text-green-300 mt-1">✓</span>
+                    <span className="text-emerald-300 mt-1">✓</span>
                     <span>Marketing & launch support</span>
                   </li>
                   <li className="flex items-start space-x-3">
-                    <span className="text-green-300 mt-1">✓</span>
+                    <span className="text-emerald-300 mt-1">✓</span>
                     <span>Ongoing training & coaching</span>
                   </li>
                 </ul>

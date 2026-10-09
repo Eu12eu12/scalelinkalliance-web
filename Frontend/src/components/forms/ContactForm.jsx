@@ -290,11 +290,11 @@ const ContactForm = ({ contactType = 'general' }) => {
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-gradient-to-br from-green-50 to-white p-8 rounded-xl border border-green-200"
+        className="bg-gradient-to-br from-emerald-50 to-white p-8 rounded-xl border border-emerald-200"
       >
         <div className="flex flex-col items-center text-center">
-          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
-            <FaCheck className="w-10 h-10 text-green-600" />
+          <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mb-6">
+            <FaCheck className="w-10 h-10 text-emerald-600" />
           </div>
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Message Sent Successfully!</h3>
           <p className="text-gray-600 mb-6">

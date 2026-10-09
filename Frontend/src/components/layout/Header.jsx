@@ -197,14 +197,14 @@ const ScaleMegaMenu = ({ onClose }) => (
     transition={{ duration: 0.18 }}
     className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[680px] max-w-[90vw] bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
   >
-    <div className="bg-gradient-to-r from-green-600 to-emerald-700 px-6 py-4">
+    <div className="bg-[#18264A] px-6 py-4">
       <div className="flex items-center gap-3">
         <div className="w-9 h-9 bg-white/20 rounded-lg flex items-center justify-center">
           <FaChartLine className="text-white text-base" />
         </div>
         <div>
           <p className="text-white font-bold text-sm">Scale My Existing Website</p>
-          <p className="text-green-200 text-xs">Already have a website? We optimize, grow, and automate it.</p>
+          <p className="text-slate-300 text-xs">Already have a website? We optimize, grow, and automate it.</p>
         </div>
       </div>
     </div>
@@ -214,11 +214,11 @@ const ScaleMegaMenu = ({ onClose }) => (
           key={s.name}
           to={s.path}
           onClick={onClose}
-          className="flex items-start gap-2.5 p-2.5 rounded-xl hover:bg-green-50 transition-colors group"
+          className="flex items-start gap-2.5 p-2.5 rounded-xl hover:bg-slate-50 transition-colors group"
         >
-          <span className="text-green-500 mt-0.5 text-sm shrink-0 group-hover:text-green-600">{s.icon}</span>
+          <span className="text-[#18264A] mt-0.5 text-sm shrink-0 group-hover:text-emerald-600">{s.icon}</span>
           <div>
-            <p className="text-xs font-semibold text-gray-800 group-hover:text-green-600 leading-snug">{s.name}</p>
+            <p className="text-xs font-semibold text-gray-800 group-hover:text-[#18264A] leading-snug">{s.name}</p>
             <p className="text-xs text-gray-400 mt-0.5 leading-tight">{s.desc}</p>
           </div>
         </Link>
@@ -228,7 +228,7 @@ const ScaleMegaMenu = ({ onClose }) => (
       <Link
         to="/request-service?path=scale_existing"
         onClick={onClose}
-        className="flex items-center justify-center gap-2 w-full py-2.5 bg-green-600 text-white text-sm font-semibold rounded-xl hover:bg-green-700 transition-colors"
+        className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#18264A] text-white text-sm font-bold rounded-xl hover:bg-[#101c38] transition-colors"
       >
         Scale My Website <FaArrowRight size={11} />
       </Link>
@@ -383,10 +383,10 @@ const Header = () => {
             <Link
               to="/scale-existing-website"
               className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
-                isActive('/scale-existing-website') ? 'text-green-600 bg-green-50 font-semibold' : 'text-gray-700 hover:text-green-600 hover:bg-green-50'
+                isActive('/scale-existing-website') ? 'text-[#18264A] bg-slate-100 font-bold' : 'text-gray-700 hover:text-[#18264A] hover:bg-slate-50'
               }`}
             >
-              <FaChartLine className="text-xs text-green-500" />
+              <FaChartLine className="text-xs text-[#18264A]" />
               Scale Existing
             </Link>
 
@@ -478,7 +478,7 @@ const Header = () => {
                         >
                           <span className={
                             section.label === 'Build From Scratch' ? 'text-[#18264A]' :
-                            section.label === 'Scale Existing Website' ? 'text-green-700' : ''
+                            section.label === 'Scale Existing Website' ? 'text-[#18264A]' : ''
                           }>
                             {section.label}
                           </span>

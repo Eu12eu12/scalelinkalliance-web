@@ -373,7 +373,7 @@ const ResourceDetailPage = () => {
                     rel="noopener noreferrer"
                     aria-label="Share on WhatsApp"
                     title="Share on WhatsApp"
-                    className="flex items-center justify-center p-3 bg-white border border-gray-200 rounded-xl text-[#25D366] hover:bg-green-50 hover:border-green-300 transition-all shadow-xs"
+                    className="flex items-center justify-center p-3 bg-white border border-gray-200 rounded-xl text-[#25D366] hover:bg-emerald-50 hover:border-emerald-300 transition-all shadow-xs"
                   >
                     <FaWhatsapp size={18} />
                   </a>
@@ -392,11 +392,11 @@ const ResourceDetailPage = () => {
                   onClick={handleCopyLink}
                   className={`w-full flex items-center justify-center space-x-2 px-4 py-2.5 rounded-xl font-semibold text-xs transition-all border ${
                     copied
-                      ? 'bg-green-50 text-green-700 border-green-300 shadow-xs'
+                      ? 'bg-emerald-50 text-emerald-700 border-emerald-300 shadow-xs'
                       : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100 shadow-xs'
                   }`}
                 >
-                  {copied ? <FaCheck className="text-green-600" /> : <FaCopy />}
+                  {copied ? <FaCheck className="text-emerald-600" /> : <FaCopy />}
                   <span>{copied ? 'Link Copied!' : 'Copy Resource Link'}</span>
                 </button>
 

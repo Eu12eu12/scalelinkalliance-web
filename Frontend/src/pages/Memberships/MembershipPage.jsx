@@ -159,7 +159,7 @@ const MembershipPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="inline-flex items-center px-6 py-3 bg-green-100 text-green-800 rounded-full mb-6 font-bold text-lg">
+              <div className="inline-flex items-center px-6 py-3 bg-emerald-100 text-green-800 rounded-full mb-6 font-bold text-lg">
                 <FaGift className="mr-2" />
                 <span>Limited Time: First Month FREE</span>
               </div>
@@ -206,7 +206,7 @@ const MembershipPage = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-linear-to-r from-green-500 to-green-600 rounded-2xl p-8 mb-12 text-white text-center shadow-xl"
+              className="bg-[#18264A] rounded-2xl p-8 mb-12 text-white text-center shadow-xl border border-slate-700/50"
             >
               <div className="flex items-center justify-center mb-4">
                 <FaGift className="text-4xl mr-4" />
@@ -219,7 +219,7 @@ const MembershipPage = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   onClick={scrollToApply}
-                  className="px-8 py-4 bg-white text-green-600 font-bold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
+                  className="px-8 py-4 bg-white text-[#18264A] font-bold rounded-xl hover:bg-slate-100 transition-colors shadow-md"
                 >
                   Claim Your Free Month
                 </button>
@@ -237,7 +237,7 @@ const MembershipPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-gray-50 p-6 rounded-xl">
                   <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
-                    <FaCheck className="text-green-500 mr-2" />
+                    <FaCheck className="text-emerald-500 mr-2" />
                     Designed For:
                   </h4>
                   <ul className="space-y-2">
@@ -359,14 +359,14 @@ const MembershipPage = () => {
               ].map((step, index) => (
                 <div key={index} className="flex items-start space-x-6">
                   <div className={`shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-xl ${
-                    step.step === 4 ? 'bg-linear-to-br from-green-500 to-green-600' : 'bg-[#18264A]'
+                    'bg-[#18264A]'
                   }`}>
                     {step.step}
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
                       {step.title}
-                      {step.step === 4 && <span className="ml-2 text-green-600 text-sm font-bold">FREE MONTH</span>}
+                      {step.step === 4 && <span className="ml-2 text-emerald-600 text-sm font-bold">FREE MONTH</span>}
                     </h3>
                     <p className="text-gray-600">{step.description}</p>
                   </div>
@@ -404,13 +404,13 @@ const MembershipPage = () => {
                 >
                   <div className={`p-6 ${
                     role.role === 'Member' 
-                      ? 'bg-linear-to-r from-green-500 to-green-600' 
+                      ? 'bg-[#18264A]' 
                       : 'bg-gray-800'
                   } text-white`}>
                     <h3 className="text-xl font-bold mb-2">{role.role}</h3>
                     <p className="text-sm opacity-90">{role.who}</p>
                     {role.role === 'Member' && (
-                      <div className="mt-3 inline-block px-3 py-1 bg-white text-green-600 text-xs font-bold rounded-full">
+                      <div className="mt-3 inline-block px-3 py-1 bg-white text-emerald-600 text-xs font-bold rounded-full">
                         1st MONTH FREE
                       </div>
                     )}
@@ -423,7 +423,7 @@ const MembershipPage = () => {
                       <div className="flex items-center justify-between mb-4">
                         <span className="font-semibold text-gray-900">Paid:</span>
                         <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                          role.paid ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                          role.paid ? 'bg-emerald-100 text-green-800' : 'bg-red-100 text-red-800'
                         }`}>
                           {role.paid ? 'Yes (after free month)' : 'No'}
                         </span>
@@ -433,10 +433,10 @@ const MembershipPage = () => {
                         {role.features.map((feature, idx) => (
                           <div key={idx} className="flex items-start">
                             <div className={`w-5 h-5 rounded-full flex items-center justify-center mr-3 mt-0.5 shrink-0 ${
-                              role.paid ? 'bg-green-100' : 'bg-gray-100'
+                              role.paid ? 'bg-emerald-100' : 'bg-gray-100'
                             }`}>
                               {role.paid ? (
-                                <FaCheck className="text-green-600 text-xs" />
+                                <FaCheck className="text-emerald-600 text-xs" />
                               ) : (
                                 <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
                               )}
@@ -486,9 +486,9 @@ const MembershipPage = () => {
               Membership Investment
             </h2>
             
-            <div className="bg-green-50 border-2 border-green-200 rounded-2xl p-8 mb-8">
+            <div className="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-8 mb-8">
               <div className="text-center mb-6">
-                <div className="inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full mb-4 font-bold">
+                <div className="inline-flex items-center px-4 py-2 bg-emerald-100 text-green-800 rounded-full mb-4 font-bold">
                   <FaGift className="mr-2" />
                   Special Launch Offer
                 </div>
@@ -498,7 +498,7 @@ const MembershipPage = () => {
                 <p className="text-gray-600 mb-4">
                   No credit card required. No hidden fees. Experience everything risk-free.
                 </p>
-                <div className="text-4xl font-bold text-green-600 mb-2">
+                <div className="text-4xl font-bold text-emerald-600 mb-2">
                   $0
                   <span className="text-lg text-gray-500 font-normal line-through ml-2">$100-133</span>
                 </div>
@@ -643,7 +643,7 @@ const MembershipPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={scrollToApply}
-                className="px-8 py-4 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2 shadow-lg"
+                className="px-8 py-4 bg-white text-[#18264A] font-bold rounded-xl hover:bg-slate-100 transition-colors flex items-center justify-center space-x-2 shadow-md"
               >
                 <span>Get First Month Free</span>
                 <FaArrowRight />

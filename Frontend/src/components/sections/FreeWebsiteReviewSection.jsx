@@ -42,7 +42,7 @@ const FreeWebsiteReviewSection = () => {
               <div className="grid grid-cols-2 gap-2 mb-8">
                 {reviewItems.map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2 text-gray-700 text-sm">
-                    <FaCheckCircle className="text-green-500 text-xs shrink-0" />
+                    <FaCheckCircle className="text-emerald-500 text-xs shrink-0" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -86,7 +86,7 @@ const FreeWebsiteReviewSection = () => {
                     { label: 'Design Score', value: '72%', color: 'bg-amber-400' },
                     { label: 'SEO Opportunities', value: '12', color: 'bg-emerald-500' },
                     { label: 'Speed Issues', value: '4', color: 'bg-red-400' },
-                    { label: 'Conversion Suggestions', value: '8', color: 'bg-green-400' }
+                    { label: 'Conversion Suggestions', value: '8', color: 'bg-emerald-400' }
                   ].map((item, idx) => (
                     <div key={idx} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
                       <span className="text-sm text-gray-600">{item.label}</span>
@@ -107,7 +107,7 @@ const FreeWebsiteReviewSection = () => {
               </div>
               
               {/* Decorative Badge */}
-              <div className="absolute -bottom-3 -right-3 bg-green-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+              <div className="absolute -bottom-3 -right-3 bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
                 Free Review
               </div>
               

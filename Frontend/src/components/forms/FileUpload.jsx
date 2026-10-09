@@ -51,7 +51,7 @@ const FileUpload = ({ files, onFilesAdded, onFileRemove, maxFiles = 20, maxTotal
         {/* Status indicators */}
         <div className="absolute top-4 right-4 flex gap-2">
           {files.length > 0 && (
-            <div className="flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold shadow-sm">
+            <div className="flex items-center gap-1.5 px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-bold shadow-sm">
               <FaCheckCircle /> {files.length} Files Added
             </div>
           )}

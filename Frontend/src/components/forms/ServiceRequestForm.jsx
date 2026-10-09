@@ -1233,8 +1233,8 @@ const ServiceRequestForm = () => {
   if (isSubmitted) {
     return (
       <div className="text-center py-12">
-        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-          <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg className="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
@@ -1248,19 +1248,19 @@ const ServiceRequestForm = () => {
           <p className="text-sm font-semibold text-gray-900 mb-3">What happens next:</p>
           <ul className="text-sm text-gray-600 space-y-2">
             <li className="flex items-start">
-              <FaCheck className="text-green-500 mt-0.5 mr-2 shrink-0" size={14} />
+              <FaCheck className="text-emerald-500 mt-0.5 mr-2 shrink-0" size={14} />
               <span>We review your service requirements</span>
             </li>
             <li className="flex items-start">
-              <FaCheck className="text-green-500 mt-0.5 mr-2 shrink-0" size={14} />
+              <FaCheck className="text-emerald-500 mt-0.5 mr-2 shrink-0" size={14} />
               <span>Schedule a discovery consultation call</span>
             </li>
             <li className="flex items-start">
-              <FaCheck className="text-green-500 mt-0.5 mr-2 shrink-0" size={14} />
+              <FaCheck className="text-emerald-500 mt-0.5 mr-2 shrink-0" size={14} />
               <span>Provide a customized proposal and quote</span>
             </li>
             <li className="flex items-start">
-              <FaCheck className="text-green-500 mt-0.5 mr-2 shrink-0" size={14} />
+              <FaCheck className="text-emerald-500 mt-0.5 mr-2 shrink-0" size={14} />
               <span>Begin project onboarding and execution</span>
             </li>
           </ul>
@@ -1327,7 +1327,7 @@ const ServiceRequestForm = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-8 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors flex items-center"
+            className="px-8 py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] disabled:opacity-50 transition-colors flex items-center"
           >
             {isSubmitting ? (
               <>

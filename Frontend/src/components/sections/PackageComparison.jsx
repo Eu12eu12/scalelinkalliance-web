@@ -144,7 +144,7 @@ const PackageComparison = ({ packageData, packagesData, serviceSlug, onTabChange
                   return (
                     <td key={tier} className="p-3 border-b border-gray-100 whitespace-normal break-words">
                       <FaCheck
-                        className={val ? 'text-green-600' : 'text-gray-300'}
+                        className={val ? 'text-emerald-600' : 'text-gray-300'}
                         size={16}
                       />
                     </td>
@@ -210,7 +210,7 @@ const PackageComparison = ({ packageData, packagesData, serviceSlug, onTabChange
           <ul className="space-y-1.5 mt-3 pb-1 max-h-[300px] overflow-y-auto">
             {getPackageFeatures(serviceSlug, activeTab, packageData, packagesData).map((item, idx) => (
               <li key={idx} className="flex items-start text-sm text-gray-700">
-                <FaCheck className="text-green-600 mr-2.5 mt-0.5 shrink-0" size={12} />
+                <FaCheck className="text-emerald-600 mr-2.5 mt-0.5 shrink-0" size={12} />
                 <span className="leading-relaxed">{item}</span>
               </li>
             ))}

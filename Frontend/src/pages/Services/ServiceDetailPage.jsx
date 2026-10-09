@@ -1063,7 +1063,7 @@ const ServiceDetailPage = () => {
                     <span className="text-xs sm:text-sm font-semibold text-gray-900 ml-1">{service.sellerInfo.rating}</span>
                     <span className="text-[10px] sm:text-sm text-gray-500">({service.sellerInfo.reviews} reviews)</span>
                   </div>
-                  {service.sellerInfo.verified && <span className="px-1.5 sm:px-2 py-0.5 bg-green-100 text-green-700 text-[10px] sm:text-xs font-semibold rounded-full">✓ Verified</span>}
+                  {service.sellerInfo.verified && <span className="px-1.5 sm:px-2 py-0.5 bg-emerald-100 text-emerald-700 text-[10px] sm:text-xs font-semibold rounded-full">✓ Verified</span>}
                   {service.sellerInfo.ordersInQueue && <span className="text-[10px] sm:text-xs text-gray-500">{service.sellerInfo.ordersInQueue} orders in queue</span>}
                 </div>
               )}
@@ -1150,7 +1150,7 @@ const ServiceDetailPage = () => {
                                     <div className="mt-1.5 sm:mt-2 space-y-1 sm:space-y-1.5 max-h-72 overflow-y-auto pr-1">
                                       {includedItems.map((item, idx) => (
                                         <div key={idx} className="flex items-start text-xs sm:text-sm text-gray-600">
-                                          <FaCheck className="text-green-500 mr-1.5 sm:mr-2 mt-0.5 shrink-0" size={10} />
+                                          <FaCheck className="text-emerald-500 mr-1.5 sm:mr-2 mt-0.5 shrink-0" size={10} />
                                           <span className="break-words">{item}</span>
                                         </div>
                                       ))}
@@ -1171,7 +1171,7 @@ const ServiceDetailPage = () => {
                 )}
 
                 <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-200 flex flex-wrap justify-center gap-2 sm:gap-4 text-[10px] sm:text-xs text-gray-500">
-                  <span className="flex items-center gap-1"><FaShieldAlt className="text-green-500 shrink-0" />Secure</span>
+                  <span className="flex items-center gap-1"><FaShieldAlt className="text-emerald-500 shrink-0" />Secure</span>
                 </div>
               </div>
             </div>
@@ -1187,7 +1187,7 @@ const ServiceDetailPage = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {service.whatItHelpsAchieve.map((item, index) => (
               <div key={index} className="flex items-start space-x-2 sm:space-x-3 p-2.5 sm:p-3 bg-slate-50 rounded-lg">
-                <FaCheck className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mt-0.5 shrink-0" />
+                <FaCheck className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mt-0.5 shrink-0" />
                 <span className="text-sm sm:text-base text-gray-700">{item}</span>
               </div>
             ))}
@@ -1214,7 +1214,7 @@ const ServiceDetailPage = () => {
           <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
             {service.servicesInclude.map((item, index) => (
               <div key={index} className="flex items-start space-x-2 sm:space-x-3 p-2.5 sm:p-3 bg-gray-50 rounded-lg">
-                <FaCheck className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mt-0.5 sm:mt-1 shrink-0" />
+                <FaCheck className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 mt-0.5 sm:mt-1 shrink-0" />
                 <span className="text-sm sm:text-base text-gray-700">{item}</span>
               </div>
             ))}
