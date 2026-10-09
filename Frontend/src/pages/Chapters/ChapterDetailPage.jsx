@@ -42,7 +42,7 @@ const ChapterDetailPage = () => {
           <p className="text-gray-600 mb-8">The chapter you're looking for doesn't exist.</p>
           <button
             onClick={() => navigate('/chapters')}
-            className="px-6 py-3 bg-[#18264A] text-white font-semibold rounded-lg hover:bg-[#101c38] transition-colors"
+            className="px-6 py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors shadow-md"
           >
             Back to Chapters
           </button>

@@ -395,7 +395,7 @@ const ContactPage = () => {
               </Link>
               <Link
                 to="/request-service"
-                className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-colors"
+                className="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold rounded-xl transition-all backdrop-blur-xs"
               >
                 Request Service
               </Link>

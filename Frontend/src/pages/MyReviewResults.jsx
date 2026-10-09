@@ -231,7 +231,7 @@ const MyReviewResults = () => {
             </a>
             <a
               href="/services"
-              className="px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition"
+              className="px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold rounded-xl transition-all backdrop-blur-xs"
             >
               Browse Our Services
             </a>

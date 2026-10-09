@@ -167,7 +167,7 @@ const ResourceDetailPage = () => {
           </p>
           <Link
             to="/resources"
-            className="inline-flex items-center px-6 py-3 bg-[#18264A] hover:bg-[#101c38] text-white font-semibold rounded-lg transition-colors shadow-md"
+            className="inline-flex items-center px-6 py-3 bg-[#18264A] hover:bg-[#101c38] text-white font-bold rounded-xl transition-colors shadow-md"
           >
             <FaArrowLeft className="mr-2" /> Back to All Resources
           </Link>

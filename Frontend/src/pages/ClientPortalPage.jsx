@@ -259,7 +259,7 @@ const ClientPortalPage = () => {
   if (loading) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center space-y-4">
-        <div className="animate-spin h-10 w-10 border-4 border-indigo-600 border-t-transparent rounded-full" />
+        <div className="animate-spin h-10 w-10 border-4 border-emerald-500 border-t-transparent rounded-full" />
         <p className="text-slate-500 font-bold text-sm">Loading secure portal environment...</p>
       </div>
     );
@@ -416,7 +416,7 @@ const ClientPortalPage = () => {
       <div className="min-h-screen bg-[#04060a] text-white py-12 px-4 md:px-8 relative overflow-hidden font-sans">
         {/* Glow Effects */}
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto space-y-8 relative z-10 animate-fade-in">
           {/* Header Banner */}
@@ -459,7 +459,7 @@ const ClientPortalPage = () => {
             </div>
 
             <div className="bg-white/5 backdrop-blur-md border border-white/10 p-5 rounded-2xl flex items-center space-x-4">
-              <div className="w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center flex-shrink-0 text-xl border border-indigo-500/30">
+              <div className="w-12 h-12 rounded-xl bg-slate-800 text-slate-200 flex items-center justify-center flex-shrink-0 text-xl border border-slate-700">
                 <FaCalendarAlt />
               </div>
               <div>
@@ -491,7 +491,7 @@ const ClientPortalPage = () => {
             )}
 
             <div className="bg-white/5 backdrop-blur-md border border-white/10 p-5 rounded-2xl flex items-center space-x-4">
-              <div className="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-300 flex items-center justify-center flex-shrink-0 text-xl border border-purple-500/30">
+              <div className="w-12 h-12 rounded-xl bg-slate-800 text-slate-200 flex items-center justify-center flex-shrink-0 text-xl border border-slate-700">
                 <FaFileInvoiceDollar />
               </div>
               <div>
@@ -598,10 +598,10 @@ const ClientPortalPage = () => {
           {job.monthlySupportOption && (
             <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 space-y-4">
               <div className="border-b border-white/10 pb-3 flex items-center gap-2">
-                <FaInfoCircle className="text-purple-400 text-lg flex-shrink-0" />
+                <FaInfoCircle className="text-emerald-400 text-lg flex-shrink-0" />
                 <h3 className="text-md font-bold text-white uppercase tracking-wider">Monthly Retainer Support Option</h3>
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed font-semibold bg-purple-950/20 p-4 rounded-xl border border-purple-500/20">
+              <p className="text-xs text-slate-300 leading-relaxed font-semibold bg-slate-900/60 p-4 rounded-xl border border-slate-700/50">
                 {job.monthlySupportOption}
               </p>
             </div>
@@ -779,7 +779,7 @@ const ClientPortalPage = () => {
         <div className="bg-white border border-slate-100 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[9px] font-black bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
+              <span className="text-[9px] font-black bg-slate-100 text-[#18264A] px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
                 <FaShieldAlt className="text-[10px]" />
                 Secure Portal
               </span>
@@ -798,7 +798,7 @@ const ClientPortalPage = () => {
             <span className={`px-4 py-2.5 rounded-2xl text-xs font-extrabold border uppercase tracking-wider shadow-sm ${
               job.clientSatisfied 
                 ? 'bg-emerald-50 text-emerald-700 border-emerald-100' 
-                : 'bg-indigo-50 text-indigo-700 border-indigo-100'
+                : 'bg-slate-100 text-[#18264A] border-slate-200'
             }`}>
               {job.milestoneStatus}
             </span>
@@ -818,7 +818,7 @@ const ClientPortalPage = () => {
             {/* Progress Connector Track */}
             <div className="absolute top-[20px] left-[12.5%] right-[12.5%] h-[4px] bg-slate-100 -z-10 rounded-full">
               <div 
-                className="h-full bg-indigo-600 transition-all duration-700 ease-out rounded-full shadow-inner shadow-indigo-400" 
+                className="h-full bg-[#18264A] transition-all duration-700 ease-out rounded-full shadow-inner shadow-[#18264A]/25" 
                 style={{ width: `${((job.stepIndex - 1) / 3) * 100}%` }}
               />
             </div>
@@ -835,7 +835,7 @@ const ClientPortalPage = () => {
                 <div key={s.step} className="flex flex-col items-center text-center w-1/4">
                   <div className={`h-10 w-10 rounded-full flex items-center justify-center text-xs font-extrabold border-2 transition-all duration-300 ${
                     isActive 
-                      ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-100 scale-105' 
+                      ? 'bg-[#18264A] text-white border-emerald-500 shadow-md shadow-slate-200 scale-105' 
                       : 'bg-white text-slate-400 border-slate-200'
                   }`}>
                     {isActive && s.step < job.stepIndex ? <FaCheckCircle size={15} /> : s.step}
@@ -862,7 +862,7 @@ const ClientPortalPage = () => {
                 <div key={s.step} className="flex items-center gap-4">
                   <div className={`h-8 w-8 rounded-full flex items-center justify-center text-xs font-extrabold border-2 flex-shrink-0 ${
                     isActive 
-                      ? 'bg-indigo-600 text-white border-indigo-600' 
+                      ? 'bg-[#18264A] text-white border-emerald-500' 
                       : 'bg-white text-slate-400 border-slate-200'
                   }`}>
                     {isActive && s.step < job.stepIndex ? <FaCheckCircle size={14} /> : s.step}
@@ -889,7 +889,7 @@ const ClientPortalPage = () => {
             <div className="bg-white border border-slate-100 rounded-3xl p-6 md:p-8 shadow-sm space-y-8">
               <div className="border-b border-slate-50 pb-3">
                 <h3 className="text-sm font-extrabold text-slate-800 flex items-center gap-2">
-                  <FaFileAlt className="text-indigo-600" /> Deliverables & Documents Package
+                  <FaFileAlt className="text-[#18264A]" /> Deliverables & Documents Package
                 </h3>
                 <p className="text-slate-400 text-[11px] font-semibold mt-1">
                   Access official files uploaded by your representative or share supplementary resources with the team.
@@ -899,7 +899,7 @@ const ClientPortalPage = () => {
               {/* Final Deliverables (From representative) */}
               <div className="space-y-4">
                 <h4 className="text-xs font-black text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-1000" />
                   Official Deliverables
                 </h4>
                 
@@ -914,14 +914,14 @@ const ClientPortalPage = () => {
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {finalDeliverables.map(file => (
-                      <div key={file.id} className="flex items-center justify-between p-4 bg-slate-50 border border-slate-100 rounded-2xl hover:border-indigo-100 hover:bg-indigo-50/5 transition-all group">
+                      <div key={file.id} className="flex items-center justify-between p-4 bg-slate-50 border border-slate-100 rounded-2xl hover:border-slate-200 hover:bg-slate-100/5 transition-all group">
                         <div className="flex items-center space-x-3 min-w-0">
-                          <div className="w-9 h-9 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 shadow-sm flex-shrink-0">
+                          <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center text-[#18264A] shadow-sm flex-shrink-0">
                             <FaFileAlt size={14} />
                           </div>
                           <div className="min-w-0">
                             <p className="text-xs font-bold text-slate-700 truncate">{file.fileName}</p>
-                            <p className="text-[9px] text-indigo-600 font-extrabold uppercase mt-0.5">
+                            <p className="text-[9px] text-[#18264A] font-extrabold uppercase mt-0.5">
                               Deliverable File
                             </p>
                           </div>
@@ -929,7 +929,7 @@ const ClientPortalPage = () => {
                         <a 
                           href={file.filePath} 
                           download 
-                          className="p-2.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-100/40 rounded-xl transition-all shadow-sm bg-white border border-slate-100"
+                          className="p-2.5 text-slate-400 hover:text-[#18264A] hover:bg-indigo-100/40 rounded-xl transition-all shadow-sm bg-white border border-slate-100"
                           title="Download Deliverable"
                         >
                           <FaDownload size={11} />
@@ -985,7 +985,7 @@ const ClientPortalPage = () => {
                 <label className={`flex flex-col items-center justify-center border-2 border-dashed rounded-2xl p-6 transition-all duration-300 ${
                   job.clientSatisfied 
                     ? 'bg-slate-50 border-slate-200 cursor-not-allowed opacity-60' 
-                    : 'bg-slate-50/30 hover:bg-indigo-50/10 border-slate-200 hover:border-indigo-400 cursor-pointer'
+                    : 'bg-slate-50/30 hover:bg-slate-100/10 border-slate-200 hover:border-indigo-400 cursor-pointer'
                 }`}>
                   <FaCloudUploadAlt className={`text-2xl mb-2 ${uploading ? 'animate-bounce text-indigo-500' : 'text-slate-400'}`} />
                   <span className="text-xs font-bold text-slate-700">
@@ -1010,14 +1010,14 @@ const ClientPortalPage = () => {
             <div className="bg-white border border-slate-100 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
               <div className="border-b border-slate-50 pb-3">
                 <h3 className="text-sm font-extrabold text-slate-800 flex items-center gap-2">
-                  <FaInfoCircle className="text-indigo-600" /> Project Summary
+                  <FaInfoCircle className="text-[#18264A]" /> Project Summary
                 </h3>
               </div>
 
               {/* Service details grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="flex items-center space-x-3.5 p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-indigo-600 shadow-sm flex-shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-[#18264A] shadow-sm flex-shrink-0">
                     <FaProjectDiagram size={16} />
                   </div>
                   <div>
@@ -1067,7 +1067,7 @@ const ClientPortalPage = () => {
             {/* Sidebar Section 1: Main Call to Action (CTA) */}
             <div className="bg-white border border-slate-100 rounded-3xl p-6 md:p-8 shadow-sm space-y-5">
               <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 pb-3 flex items-center gap-1.5">
-                <FaClipboardCheck className="text-indigo-600" /> Portal Action Center
+                <FaClipboardCheck className="text-[#18264A]" /> Portal Action Center
               </h3>
 
               {job.clientSatisfied ? (
@@ -1102,8 +1102,8 @@ const ClientPortalPage = () => {
                   </button>
                 </div>
               ) : (
-                <div className="bg-indigo-50/40 border border-indigo-100 rounded-2xl p-4 text-center space-y-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 mx-auto animate-pulse" />
+                <div className="bg-slate-100/40 border border-slate-200 rounded-2xl p-4 text-center space-y-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-slate-1000 mx-auto animate-pulse" />
                   <h4 className="text-xs font-black text-indigo-800 uppercase tracking-wider">Active Production</h4>
                   <p className="text-[10px] text-indigo-500 leading-relaxed font-semibold">
                     Our team is currently drafting and compiling your deliverables. The finalize option will activate once files are ready.
@@ -1119,7 +1119,7 @@ const ClientPortalPage = () => {
               <div className="border-b border-slate-50 pb-3 flex items-center justify-between flex-shrink-0">
                 <div>
                   <h3 className="text-xs font-black text-slate-800 flex items-center gap-1.5">
-                    <FaRegComments className="text-indigo-600" /> Direct Support
+                    <FaRegComments className="text-[#18264A]" /> Direct Support
                   </h3>
                   <p className="text-[10px] text-slate-400 font-semibold mt-0.5">Chat with Agency Rep</p>
                 </div>
@@ -1147,7 +1147,7 @@ const ClientPortalPage = () => {
                         isClient ? 'flex-row-reverse space-x-reverse' : ''
                       }`}>
                         <div className={`w-6.5 h-6.5 rounded-full flex items-center justify-center flex-shrink-0 text-white text-[10px] font-extrabold uppercase ${
-                          isClient ? 'bg-orange-500 shadow-sm shadow-orange-100' : 'bg-indigo-600 shadow-sm shadow-indigo-100'
+                          isClient ? 'bg-orange-500 shadow-sm shadow-orange-100' : 'bg-[#18264A] shadow-sm shadow-slate-200'
                         }`}>
                           {c.userName.charAt(0)}
                         </div>
@@ -1178,12 +1178,12 @@ const ClientPortalPage = () => {
                   value={newMessage}
                   onChange={e => setNewMessage(e.target.value)}
                   placeholder={job.clientSatisfied ? "This workspace chat is now closed." : "Write a reply or request guidelines..."}
-                  className="w-full px-3.5 py-3 pr-11 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none text-xs transition-all resize-none shadow-inner"
+                  className="w-full px-3.5 py-3 pr-11 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#18264A] focus:bg-white outline-none text-xs transition-all resize-none shadow-inner"
                 />
                 <button
                   type="submit"
                   disabled={isSending || !newMessage.trim() || job.clientSatisfied}
-                  className="absolute right-2.5 bottom-5.5 p-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow-md shadow-indigo-100 transition-all disabled:opacity-50"
+                  className="absolute right-2.5 bottom-5.5 p-2 bg-[#18264A] hover:bg-[#101c38] text-white rounded-xl shadow-md shadow-slate-200 transition-all disabled:opacity-50"
                 >
                   <FaPaperPlane size={9} />
                 </button>

@@ -1028,7 +1028,7 @@ const HomePage = () => {
               </Link>
               <Link
                 to="/services"
-                className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-xl hover:bg-white/10 transition-colors"
+                className="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold rounded-xl transition-all backdrop-blur-xs"
               >
                 Explore Services
               </Link>

@@ -496,14 +496,14 @@ const ServicesPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/request-service"
-                className="px-8 py-4 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2"
+                className="px-8 py-4 bg-white text-[#18264A] font-bold rounded-xl hover:bg-slate-100 transition-colors flex items-center justify-center space-x-2 shadow-md"
               >
                 <span>Request Service Now</span>
                 <FaArrowRight />
               </Link>
               <Link
                 to="/contact"
-                className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-colors"
+                className="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold rounded-xl transition-all backdrop-blur-xs"
               >
                 Schedule Consultation
               </Link>
