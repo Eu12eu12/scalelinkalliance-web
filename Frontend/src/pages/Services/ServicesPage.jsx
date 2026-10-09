@@ -294,7 +294,7 @@ const ServicesPage = () => {
                             to={`/request-service?service=${service.slug === 'ai-automation' ? 'ai-automation' : service.slug}&step=2`}
                             className={`py-2.5 font-semibold rounded-lg text-center text-sm transition-all ${
                               isAICustomQuote 
-                                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700' 
+                                ? 'bg-[#18264A] text-white font-bold hover:bg-[#101c38]' 
                                 : 'bg-[#18264A] text-white font-bold hover:bg-[#101c38]'
                             }`}
                           >

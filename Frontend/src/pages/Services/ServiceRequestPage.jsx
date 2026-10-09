@@ -947,7 +947,7 @@ const OrderSidebar = ({
 
         {/* ── Tiered Bundle Discount Banner (based only on priced services) ── */}
         {hasCustomQuote ? (
-          <div className="p-2.5 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-xl text-xs text-purple-900 flex items-center gap-2 shadow-xs">
+          <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-[#18264A] font-semibold flex items-center gap-2 shadow-xs">
             <span className="text-sm shrink-0">📋</span>
             <p className="text-[11px] leading-tight">
               <strong>Custom Quote Mode:</strong> Tailored scoping with $0 due today.
@@ -1072,7 +1072,7 @@ const OrderSidebar = ({
           <button 
             type="button" 
             onClick={onCustomQuoteDirect}
-            className="w-full py-3 sm:py-3.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700 shadow-md hover:shadow-lg transform hover:scale-[1.01]"
+            className="w-full py-3 sm:py-3.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 bg-[#18264A] text-white hover:bg-[#101c38] shadow-md hover:shadow-lg transform hover:scale-[1.01]"
           >
             <span>Proceed to Scope Details</span>
             <FaArrowRight size={12} />
@@ -1971,10 +1971,10 @@ const categoryMeta = [
   },
   {
     cat: 'scale',
-    bg: 'bg-purple-100',
-    iconColor: 'text-purple-600',
-    border: 'hover:border-purple-300',
-    gradient: 'from-purple-50 to-purple-100/30'
+    bg: 'bg-slate-100',
+    iconColor: 'text-[#18264A]',
+    border: 'hover:border-[#18264A]',
+    gradient: 'from-slate-50 to-slate-100/30'
   },
   {
     cat: 'custom-solutions',
@@ -2425,7 +2425,7 @@ const categoryIcons = {
                   <>
                     <div className="border-t border-gray-200 pt-4 sm:pt-6 mt-4 sm:mt-6">
                       <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4 flex items-center gap-2">
-                        <FaRobot className="text-purple-600 shrink-0" />
+                        <FaRobot className="text-[#18264A] shrink-0" />
                         AI Project Details
                       </h3>
                       <p className="text-sm text-gray-600 mb-3 sm:mb-4">Help us understand your AI needs better.</p>

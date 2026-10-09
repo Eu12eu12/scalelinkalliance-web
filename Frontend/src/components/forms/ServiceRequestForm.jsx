@@ -488,7 +488,7 @@ const ServiceRequestForm = () => {
         {[
           { id: 'start_from_scratch', label: 'Start From Scratch', desc: 'Build a new website or web app from the ground up', color: 'blue' },
           { id: 'scale_existing', label: 'Scale Existing Website', desc: 'Improve and optimize your current website', color: 'green' },
-          { id: 'ai_automation_custom', label: 'AI Automation', desc: 'Custom AI workflows for your business', color: 'purple' }
+          { id: 'ai_automation_custom', label: 'AI Automation', desc: 'Custom AI workflows for your business', color: 'emerald' }
         ].map((option) => (
           <label
             key={option.id}
@@ -647,8 +647,8 @@ const ServiceRequestForm = () => {
   const renderAIAutomationForm = () => (
     <div className="space-y-6">
       <h3 className="text-2xl font-bold text-gray-900">AI Automation Details</h3>
-      <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
-        <p className="text-sm text-purple-800">
+      <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-4">
+        <p className="text-sm text-slate-700">
           <strong>Custom Quote Only:</strong> Every AI automation project is custom quoted based on your specific workflow, tools, and goals.
         </p>
       </div>
@@ -660,7 +660,7 @@ const ServiceRequestForm = () => {
         <textarea
           {...register('automation_process')}
           rows={3}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent ${
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
             errors.automation_process ? 'border-red-300' : 'border-gray-300'
           }`}
           placeholder="Describe the task or process you want to automate..."
@@ -674,7 +674,7 @@ const ServiceRequestForm = () => {
         </label>
         <input
           {...register('current_tools')}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent ${
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
             errors.current_tools ? 'border-red-300' : 'border-gray-300'
           }`}
           placeholder="e.g., CRM, Email platform, Calendar, etc."
@@ -689,7 +689,7 @@ const ServiceRequestForm = () => {
           </label>
           <input
             {...register('information_source')}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A]"
             placeholder="e.g., Website form, Email, CRM"
           />
         </div>
@@ -699,7 +699,7 @@ const ServiceRequestForm = () => {
           </label>
           <input
             {...register('information_destination')}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A]"
             placeholder="e.g., CRM, Spreadsheet, Dashboard"
           />
         </div>
@@ -726,7 +726,7 @@ const ServiceRequestForm = () => {
                 value={type}
                 {...register('automation_type')}
                 onChange={() => toggleAutomationType(type)}
-                className="h-5 w-5 text-purple-600 rounded"
+                className="h-5 w-5 text-[#18264A] rounded"
               />
               <span className="text-gray-700 text-sm">{type}</span>
             </label>
@@ -742,7 +742,7 @@ const ServiceRequestForm = () => {
           </label>
           <select
             {...register('task_frequency')}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.task_frequency ? 'border-red-300' : 'border-gray-300'
             }`}
           >
@@ -761,7 +761,7 @@ const ServiceRequestForm = () => {
           </label>
           <input
             {...register('time_spent')}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
               errors.time_spent ? 'border-red-300' : 'border-gray-300'
             }`}
             placeholder="e.g., 2 hours per week"
@@ -776,7 +776,7 @@ const ServiceRequestForm = () => {
         </label>
         <input
           {...register('notification_recipients')}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A]"
           placeholder="e.g., Team email, Slack channel"
         />
       </div>
@@ -788,7 +788,7 @@ const ServiceRequestForm = () => {
         <textarea
           {...register('success_definition')}
           rows={2}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent ${
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#18264A] focus:border-[#18264A] ${
             errors.success_definition ? 'border-red-300' : 'border-gray-300'
           }`}
           placeholder="Describe what a successful automation would achieve..."
@@ -805,8 +805,8 @@ const ServiceRequestForm = () => {
       return (
         <div className="space-y-6">
           <h3 className="text-2xl font-bold text-gray-900">Custom Quote Only</h3>
-          <div className="bg-purple-50 border-2 border-purple-200 rounded-xl p-8 text-center">
-            <div className="inline-block bg-purple-100 text-purple-800 text-sm font-bold px-4 py-1.5 rounded-full mb-4">
+          <div className="bg-slate-50 border-2 border-slate-200 rounded-xl p-8 text-center">
+            <div className="inline-block bg-emerald-50 text-emerald-800 border border-emerald-200 text-sm font-bold px-4 py-1.5 rounded-full mb-4">
               Custom Quote Only
             </div>
             <h4 className="text-xl font-bold text-gray-900 mb-2">AI Automation</h4>

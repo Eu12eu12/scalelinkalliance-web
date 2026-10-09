@@ -112,10 +112,10 @@ const PathSelector = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-white rounded-2xl p-8 border-2 border-purple-500 shadow-lg hover:shadow-xl transition-all flex flex-col"
+              className="bg-white rounded-2xl p-8 border-2 border-[#18264A] shadow-lg hover:shadow-xl transition-all flex flex-col"
             >
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                <FaRobot className="text-purple-600 text-2xl" />
+              <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-6">
+                <FaRobot className="text-[#18264A] text-2xl" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3">AI Automation & Smart Systems</h3>
               <p className="text-gray-600 mb-3">
@@ -146,7 +146,7 @@ const PathSelector = () => {
 
               <Link
                 to="/request-service?path=ai_automation_custom"
-                className="inline-flex items-center justify-center px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors mt-auto"
+                className="inline-flex items-center justify-center px-6 py-3 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors mt-auto"
               >
                 Request AI Automation Quote
               </Link>

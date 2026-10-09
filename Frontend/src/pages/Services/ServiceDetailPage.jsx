@@ -1079,7 +1079,7 @@ const ServiceDetailPage = () => {
                 {isCustomQuote ? (
                   <>
                     <div className="text-center mb-3 sm:mb-4">
-                      <span className="inline-block bg-purple-100 text-purple-800 text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full mb-2">Custom Quote Only</span>
+                      <span className="inline-block bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full mb-2">Custom Quote Only</span>
                       <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Custom Quote</h3>
                       <p className="text-xs sm:text-sm text-gray-500 mt-1">Based on your specific needs</p>
                     </div>
@@ -1087,7 +1087,7 @@ const ServiceDetailPage = () => {
                       <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600"><FaClock className="text-gray-400 shrink-0" /><span>Custom delivery timeline</span></div>
                       <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600"><FaSyncAlt className="text-gray-400 shrink-0" /><span>Unlimited revisions</span></div>
                     </div>
-                    <Link to="/request-service?service=ai-automation&step=2" className="block w-full py-2.5 sm:py-3 px-4 bg-purple-600 text-white font-bold rounded-lg text-center hover:bg-purple-700 transition-colors shadow-md text-sm sm:text-base">Request AI Custom Quote</Link>
+                    <Link to="/request-service?service=ai-automation&step=2" className="block w-full py-2.5 sm:py-3 px-4 bg-[#18264A] text-white font-bold rounded-xl text-center hover:bg-[#101c38] transition-colors shadow-md text-sm sm:text-base">Request AI Custom Quote</Link>
                     <Link to="/contact" className="block w-full mt-2 sm:mt-3 py-2.5 sm:py-3 px-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg text-center hover:bg-gray-50 transition-colors text-sm sm:text-base">Contact Me</Link>
                     <div className="mt-3 sm:mt-4 text-center"><p className="text-[10px] sm:text-xs text-gray-400">Need flexibility? <Link to="/contact" className="text-[#18264A] font-bold hover:text-emerald-700">Hire by the hour</Link></p></div>
                   </>
