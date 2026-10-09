@@ -37,7 +37,7 @@ const HomePage = () => {
       slug: 'website-development',
       name: 'Website Development',
       icon: <FaCode className="text-4xl text-white" />,
-      gradient: '[#18264A]',
+      gradient: 'from-[#18264A] to-[#101c38]',
       accent: 'bg-emerald-500/20',
       tag: 'Popular'
     },
@@ -658,7 +658,7 @@ const HomePage = () => {
       </section>
 
       {/* 💰 SECTION 5: OUTCOMES with Image */}
-      <section className="py-20 bg-gradient-to-r [#18264A]">
+      <section className="py-20 bg-[#18264A] text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -680,7 +680,7 @@ const HomePage = () => {
                     'Predictable digital systems built for long-term business growth'
                   ].map((item, index) => (
                     <div key={index} className="flex items-center space-x-3 bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                      <FaCheckCircle className="text-green-400 text-xl shrink-0" />
+                      <FaCheckCircle className="text-emerald-400 text-xl shrink-0" />
                       <span className="text-white">{item}</span>
                     </div>
                   ))}
