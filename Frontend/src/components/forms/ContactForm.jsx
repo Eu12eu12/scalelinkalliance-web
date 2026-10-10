@@ -530,7 +530,7 @@ const ContactForm = ({ contactType = 'general' }) => {
           className={`w-full py-4 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-3 ${
             isSubmitting
               ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-gradient-to-r bg-[#18264A] text-white font-bold hover:bg-[#101c38] shadow-md'
+              : 'bg-[#18264A] text-white font-bold hover:bg-[#101c38] shadow-md'
           }`}
         >
           {isSubmitting ? (

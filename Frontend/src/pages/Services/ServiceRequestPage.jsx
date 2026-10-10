@@ -1085,7 +1085,7 @@ const OrderSidebar = ({
             className={`w-full py-3 sm:py-3.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg ${
               continueDisabled 
                 ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none' 
-                : 'bg-gradient-to-r bg-[#18264A] text-white hover:bg-[#101c38] transform hover:scale-[1.01]'
+                : 'bg-[#18264A] text-white hover:bg-[#101c38] transform hover:scale-[1.01]'
             }`}
           >
             <span>{continueLabel}</span>

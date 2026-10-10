@@ -868,7 +868,7 @@ const HomePage = () => {
                   <div className="absolute inset-x-0 top-0 h-1 bg-[#18264A] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300" />
 
                   <div className="flex items-start justify-between gap-4 mb-5">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br bg-slate-100 text-[#18264A] flex items-center justify-center shrink-0 ring-1 ring-slate-200 group-hover:bg-[#18264A] group-hover:text-white transition-all duration-300">
+                    <div className="w-12 h-12 rounded-xl bg-slate-100 text-[#18264A] flex items-center justify-center shrink-0 ring-1 ring-slate-200 group-hover:bg-[#18264A] group-hover:text-white transition-all duration-300">
                       {item.icon}
                     </div>
                     <span className="text-xs font-black tracking-[0.2em] text-gray-300 group-hover:text-[#18264A] transition-colors">
