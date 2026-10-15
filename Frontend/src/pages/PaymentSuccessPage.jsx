@@ -7,6 +7,7 @@ import {
   FaUser, FaEnvelope, FaPhone, FaGlobe, FaRocket,
   FaClock, FaFileAlt, FaPaperPlane, FaExclamationTriangle
 } from 'react-icons/fa';
+import { trackPurchaseOnce } from '../utils/analytics';
 
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
@@ -51,6 +52,15 @@ const PaymentSuccessPage = () => {
         if (data.paid) {
           setVerified(true);
           setPaymentInfo(data);
+
+          // GA conversion: fires once per confirmed payment
+          trackPurchaseOnce(sessionId, {
+            value: data.amountTotal || 0,
+            currency: 'USD',
+            service: serviceSlug,
+            package_tier: packageTier,
+          });
+
           // Pre-fill email if available
           if (data.customerEmail) {
             setForm(f => ({ ...f, email: data.customerEmail }));

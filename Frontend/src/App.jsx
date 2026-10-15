@@ -7,6 +7,7 @@ import Footer from './components/layout/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AnalyticsTracker from "./components/AnalyticsTracker";
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -60,6 +61,7 @@ function AppContent() {
     <div className="min-h-screen flex flex-col bg-white">
       {!isAdminRoute && <Header />}
       <main className="grow">
+      <AnalyticsTracker />
         <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
