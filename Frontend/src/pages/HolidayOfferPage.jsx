@@ -306,7 +306,7 @@ const HolidayOfferPage = () => {
 
           <p className="text-xs text-slate-400 mt-6 flex items-center justify-center gap-1.5">
             <FaShieldAlt className="text-amber-400" />
-            <span>Automatic server-validated discount. Up to ${maxDiscountCap} off per eligible project. Non-stackable.</span>
+            <span>Up to ${maxDiscountCap} off per eligible project. Non-stackable.</span>
           </p>
 
         </div>
