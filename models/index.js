@@ -35,9 +35,18 @@ const NoticeBoardActivity = require('./NoticeBoardActivity')(sequelize);
 const NoticeBoardNotification = require('./NoticeBoardNotification')(sequelize);
 const Lead = require('./Lead')(sequelize);
 const Service = require('./Service')(sequelize);
+const HolidayPromotion = require('./HolidayPromotion')(sequelize);
+const PromotionAuditLog = require('./PromotionAuditLog')(sequelize);
 
 // Associations Configuration
 Resource.belongsTo(ResourceType, { foreignKey: 'typeId', as: 'type' });
+
+// Holiday Promotion Associations
+HolidayPromotion.hasMany(PromotionAuditLog, { foreignKey: 'promotionId', as: 'auditLogs', onDelete: 'CASCADE' });
+PromotionAuditLog.belongsTo(HolidayPromotion, { foreignKey: 'promotionId', as: 'promotion' });
+
+HolidayPromotion.hasMany(NoticeBoardJob, { foreignKey: 'appliedPromotionId', as: 'jobs' });
+NoticeBoardJob.belongsTo(HolidayPromotion, { foreignKey: 'appliedPromotionId', as: 'promotion' });
 
 // Notice Board Associations
 NoticeBoardJob.hasMany(NoticeBoardFile, { foreignKey: 'jobId', as: 'files', onDelete: 'CASCADE' });
@@ -65,7 +74,9 @@ const db = {
   NoticeBoardActivity,
   NoticeBoardNotification,
   Lead,
-  Service
+  Service,
+  HolidayPromotion,
+  PromotionAuditLog
 };
 
 module.exports = db;

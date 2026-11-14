@@ -242,6 +242,18 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM('new_request', 'under_review', 'quote_sent', 'follow_up_needed', 'approved', 'deposit_paid', 'in_progress', 'completed', 'declined'),
       allowNull: true,
       defaultValue: 'new_request'
+    },
+    appliedPromotionId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    appliedDiscountType: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    appliedDiscountAmount: {
+      type: DataTypes.INTEGER, // in cents
+      allowNull: true,
     }
   }, {
     timestamps: true

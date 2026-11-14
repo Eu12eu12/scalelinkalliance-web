@@ -85,7 +85,10 @@ const migrate = async () => {
           type: db.Sequelize.ENUM('new_request', 'under_review', 'quote_sent', 'follow_up_needed', 'approved', 'deposit_paid', 'in_progress', 'completed', 'declined'),
           allowNull: true,
           defaultValue: 'new_request'
-        }
+        },
+        appliedPromotionId: { type: db.Sequelize.INTEGER, allowNull: true },
+        appliedDiscountType: { type: db.Sequelize.STRING, allowNull: true },
+        appliedDiscountAmount: { type: db.Sequelize.INTEGER, allowNull: true }
       };
 
       for (const [colName, colSpec] of Object.entries(customQuoteColumns)) {
