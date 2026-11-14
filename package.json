@@ -6,7 +6,9 @@
     "build": "echo 'Build skipped'",
     "start": "node server.cjs",
     "dev": "nodemon server.cjs",
-    "seed:resources": "node scripts/seed-resources.cjs"
+    "seed:resources": "node scripts/seed-resources.cjs",
+    "seed:promotion": "node scripts/seed-initial-promotion.cjs",
+    "test:pricing": "node scripts/test-pricing-engine.cjs"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
