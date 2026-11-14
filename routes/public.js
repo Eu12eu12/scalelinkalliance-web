@@ -37,15 +37,15 @@ const logActivity = async (jobId, userName, action, details = null) => {
 // Public Service Request endpoint
 router.post('/service-request', async (req, res) => {
   try {
-    const { 
-      firstName, 
-      lastName, 
-      email, 
-      phone, 
-      company, 
-      services, 
-      projectDescription, 
-      timeline, 
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      company,
+      services,
+      projectDescription,
+      timeline,
       budget,
       totalAmount,
       currency,
@@ -57,7 +57,7 @@ router.post('/service-request', async (req, res) => {
       isCustomQuoteOrder: reqIsCustomQuote
     } = req.body;
 
-    const hasCustomQuote = Boolean(reqIsCustomQuote) || 
+    const hasCustomQuote = Boolean(reqIsCustomQuote) ||
       (reqOrderType === 'custom_quote') ||
       (Number(totalAmount) === 0 && Object.keys(services || {}).some(s => s.toLowerCase().includes('custom')));
 
@@ -87,12 +87,38 @@ router.post('/service-request', async (req, res) => {
       clientTimeline: timeline,
       budget: budget,
       warningLevel: 'green',
+      appliedPromotionId: req.body.appliedPromotionId || null,
+      appliedDiscountType: req.body.appliedDiscountType || null,
+      appliedDiscountAmount: req.body.appliedDiscountAmount ? Math.round(Number(req.body.appliedDiscountAmount)) : null,
       projectScope: {
         ...(req.body.projectScope || {}),
         orderType,
-        isCustomQuoteOrder: hasCustomQuote
+        isCustomQuoteOrder: hasCustomQuote,
+        appliedPromotionId: req.body.appliedPromotionId || null,
+        appliedDiscountType: req.body.appliedDiscountType || null,
+        appliedDiscountAmount: req.body.appliedDiscountAmount || null
       }
     });
+
+    // If order or inquiry used a holiday promotion, increment tracking metrics (Section 9)
+    if (req.body.appliedPromotionId) {
+      try {
+        const promo = await db.HolidayPromotion.findByPk(req.body.appliedPromotionId);
+        if (promo) {
+          if (hasCustomQuote) {
+            await promo.increment('inquiryCount');
+          } else {
+            await promo.increment({
+              ordersCount: 1,
+              totalDiscountGranted: Math.round(Number(req.body.appliedDiscountAmount) || 0),
+              totalRevenueGenerated: Math.round(Number(totalAmount) || 0)
+            });
+          }
+        }
+      } catch (promoErr) {
+        console.error('Failed to update promotion metrics:', promoErr);
+      }
+    }
 
     // 2. Attach files if any
     if (files && files.length > 0) {
@@ -125,7 +151,7 @@ router.post('/service-request', async (req, res) => {
 
     // 4. Notify Super Admins
     const superAdmins = await db.AdminUser.findAll({ where: { role: 'super_admin' } });
-    
+
     for (const admin of superAdmins) {
       await createNotification(
         admin.email,
@@ -133,7 +159,7 @@ router.post('/service-request', async (req, res) => {
         `${hasCustomQuote ? 'New Custom Quote Request' : 'New Service Order'}: ${firstName} ${lastName} (${company})`,
         job.id,
         'System',
-        { 
+        {
           clientEmail: email,
           company: company,
           totalAmount: totalAmount,
@@ -145,8 +171,8 @@ router.post('/service-request', async (req, res) => {
       );
     }
 
-    res.status(201).json({ 
-      success: true, 
+    res.status(201).json({
+      success: true,
       message: 'Service request created successfully',
       jobId: job.id
     });

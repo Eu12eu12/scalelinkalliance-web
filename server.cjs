@@ -103,7 +103,7 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
 
           const admins = await db.AdminUser.findAll({ where: { role: 'super_admin' } });
           const { sendNotificationEmail, sendClientPhaseNotificationEmail, sendPaymentInvoiceEmail } = require('./utils/mailer');
-          
+
           for (const admin of admins) {
             await db.NoticeBoardNotification.create({
               sentTo: admin.email,
@@ -170,7 +170,7 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
 
           const admins = await db.AdminUser.findAll({ where: { role: 'super_admin' } });
           const { sendNotificationEmail } = require('./utils/mailer');
-          
+
           for (const admin of admins) {
             await db.NoticeBoardNotification.create({
               sentTo: admin.email,
@@ -371,8 +371,8 @@ const handleMulterUpload = (req, res) => {
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'ok', 
+  res.json({
+    status: 'ok',
     timestamp: new Date().toISOString(),
     uploadsDir: uploadDir,
     maxFileSize: '100MB',
@@ -384,6 +384,8 @@ app.get('/api/health', (req, res) => {
 // CMS Endpoints
 app.use('/api/cms', cmsRoutes);
 app.use('/api/cms/notifications', require('./routes/notifications'));
+app.use('/api/cms/promotions', require('./routes/promotions'));
+app.use('/api/public/promotions', require('./routes/promotions'));
 app.use('/api/public', require('./routes/public'));
 app.use('/api/portal', require('./routes/clientPortal'));
 app.use('/api/leads', require('./routes/leads'));
@@ -393,7 +395,7 @@ app.use('/api/reviews', require('./routes/reviews'));
 app.post('/api/upload-files', async (req, res) => {
   try {
     console.log('ðŸ“¤ Received file upload request');
-    
+
     await handleMulterUpload(req, res);
 
     if (!req.files || req.files.length === 0) {
@@ -440,7 +442,7 @@ app.post('/api/upload-files', async (req, res) => {
 
   } catch (error) {
     console.error('âŒ Upload error:', error);
-    
+
     if (req.files) {
       req.files.forEach(file => {
         try {
@@ -461,7 +463,7 @@ app.post('/api/upload-files', async (req, res) => {
 app.post('/api/create-payment-intent', async (req, res) => {
   try {
     const { amount, currency, services, customer_email, metadata } = req.body;
-    
+
     if (!amount || amount <= 0) {
       return res.status(400).json({ error: 'Invalid amount' });
     }
@@ -487,15 +489,15 @@ app.post('/api/create-payment-intent', async (req, res) => {
       }
     });
 
-    res.json({ 
+    res.json({
       clientSecret: paymentIntent.client_secret,
-      paymentIntentId: paymentIntent.id 
+      paymentIntentId: paymentIntent.id
     });
   } catch (error) {
     console.error('âŒ Stripe error:', error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: error.message,
-      type: error.type 
+      type: error.type
     });
   }
 });
@@ -503,7 +505,7 @@ app.post('/api/create-payment-intent', async (req, res) => {
 // Create Checkout Session endpoint (hosted Stripe Checkout redirect flow)
 app.post('/api/create-checkout-session', async (req, res) => {
   try {
-    const { services, currency, amount, customer_email, success_url, cancel_url } = req.body;
+    const { services, currency, amount, customer_email, success_url, cancel_url, itemPrices } = req.body;
 
     if (!amount || amount <= 0) {
       return res.status(400).json({ error: 'Invalid amount' });
@@ -518,16 +520,81 @@ app.post('/api/create-checkout-session', async (req, res) => {
     const normalizedCurrency = currency.toLowerCase();
     const serviceNames = services && typeof services === 'object' ? Object.keys(services) : [];
 
+    // --- SERVER-SIDE PRICE AND PROMOTION INTEGRITY VALIDATION ---
+    const pricingEngine = require('./utils/pricingEngine');
+
+    // 1. Fetch any active or scheduled promotion
+    const candidatePromos = await db.HolidayPromotion.findAll({
+      where: {
+        status: { [db.Sequelize.Op.in]: ['active', 'scheduled'] }
+      },
+      order: [['startDate', 'ASC']]
+    });
+    const activePromo = candidatePromos.find(p => pricingEngine.isPromotionActive(p));
+
+    // 2. Fetch service records from DB to verify prices
+    const orderItems = [];
+    for (const serviceName of serviceNames) {
+      const packageTier = services[serviceName];
+      const serviceRecord = await db.Service.findOne({
+        where: {
+          [db.Sequelize.Op.or]: [
+            { title: serviceName },
+            { slug: pricingEngine.normalizeIdentifier(serviceName) }
+          ]
+        }
+      });
+
+      let priceCents = 0;
+      if (serviceRecord && serviceRecord.packages && serviceRecord.packages[packageTier]) {
+        const pkgData = serviceRecord.packages[packageTier];
+        const rawPrice = pkgData.price;
+        priceCents = typeof rawPrice === 'number'
+          ? (rawPrice >= 1000 ? Math.round(rawPrice) : Math.round(rawPrice * 100))
+          : Math.round((parseFloat(String(rawPrice).replace(/[^0-9.]/g, '')) || 0) * 100);
+      } else if (itemPrices && itemPrices[serviceName]) {
+        priceCents = Math.round(itemPrices[serviceName]);
+      }
+
+      orderItems.push({
+        slug: serviceRecord ? serviceRecord.slug : pricingEngine.normalizeIdentifier(serviceName),
+        name: serviceRecord ? serviceRecord.title : serviceName,
+        packageTier,
+        priceCents,
+        isRecurring: serviceName.toLowerCase().includes('maintenance') || serviceName.toLowerCase().includes('monthly')
+      });
+    }
+
+    // Calculate verified pricing through central engine
+    let verifiedUnitAmount = amount;
+    let verifiedPricing = null;
+
+    if (orderItems.length > 0 && orderItems.some(it => it.priceCents > 0)) {
+      verifiedPricing = pricingEngine.calculateOrderPricing({
+        items: orderItems,
+        promotion: activePromo,
+        currency: normalizedCurrency
+      });
+
+      if (verifiedPricing.totalPayableCents > 0) {
+        verifiedUnitAmount = verifiedPricing.totalPayableCents;
+      }
+    }
+
+    const discountSummary = verifiedPricing?.appliedDiscountLabel
+      ? ` | ${verifiedPricing.appliedDiscountLabel} (-$${verifiedPricing.appliedDiscountDollars})`
+      : '';
+
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items: [{
         price_data: {
           currency: normalizedCurrency,
           product_data: {
-            name: 'ScaleLink Alliance â€” Service Request',
-            description: serviceNames.length > 0 ? serviceNames.join(', ').substring(0, 500) : 'Custom service request',
+            name: 'ScaleLink Alliance — Service Request',
+            description: `${serviceNames.length > 0 ? serviceNames.join(', ').substring(0, 400) : 'Custom service request'}${discountSummary}`.substring(0, 500),
           },
-          unit_amount: amount,
+          unit_amount: verifiedUnitAmount,
         },
         quantity: 1,
       }],
@@ -536,10 +603,26 @@ app.post('/api/create-checkout-session', async (req, res) => {
       cancel_url,
       metadata: {
         services: JSON.stringify(services || {}).substring(0, 500),
+        promotionId: verifiedPricing?.promotionApplied ? String(verifiedPricing.promotionApplied.id) : '',
+        promotionName: verifiedPricing?.promotionApplied ? verifiedPricing.promotionApplied.name : '',
+        appliedDiscountType: verifiedPricing?.appliedDiscountType || 'none',
+        appliedDiscountAmountCents: verifiedPricing ? String(verifiedPricing.appliedDiscountAmountCents) : '0',
+        subtotalCents: verifiedPricing ? String(verifiedPricing.subtotalCents) : String(amount),
+        verifiedTotalCents: String(verifiedUnitAmount)
       },
     });
 
-    res.json({ url: session.url, sessionId: session.id });
+    res.json({
+      url: session.url,
+      sessionId: session.id,
+      verifiedPricing: verifiedPricing ? {
+        appliedDiscountType: verifiedPricing.appliedDiscountType,
+        appliedDiscountDollars: verifiedPricing.appliedDiscountDollars,
+        appliedDiscountLabel: verifiedPricing.appliedDiscountLabel,
+        totalPayableDollars: verifiedPricing.totalPayableDollars,
+        subtotalDollars: verifiedPricing.subtotalDollars
+      } : null
+    });
   } catch (error) {
     console.error('âŒ Stripe Checkout Session error:', error);
     res.status(500).json({
@@ -596,9 +679,9 @@ app.use(express.static(frontendDistPath));
 // Global error handler
 app.use((err, req, res, next) => {
   console.error('âŒ Global error:', err);
-  res.status(500).json({ 
+  res.status(500).json({
     error: 'Something went wrong!',
-    message: err.message 
+    message: err.message
   });
 });
 
@@ -968,7 +1051,7 @@ app.get('/sitemap.xml', async (req, res) => {
 app.get('/resources/:slug', async (req, res, next) => {
   const { slug } = req.params;
   const indexPath = path.join(frontendDistPath, 'index.html');
-  
+
   if (!fs.existsSync(indexPath)) {
     return next();
   }
