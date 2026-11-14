@@ -58,14 +58,19 @@ function isPromotionActive(promotion, referenceDate = new Date()) {
     return false;
   }
 
-  // If explicitly activated by webmaster, it is active until end date
-  if (promotion.status === 'active') {
+  // If explicitly activated by webmaster or passed from active promotion endpoint
+  if (promotion.status === 'active' || promotion.active === true) {
     return true;
   }
 
-  // If scheduled, it becomes active automatically once start date arrives
+  // If status is scheduled, it becomes active automatically once start date arrives
   if (promotion.status === 'scheduled') {
     return now >= start && now <= end;
+  }
+
+  // If no status is specified on an active promotion payload, treat as active if within end date
+  if (!promotion.status && promotion.id) {
+    return now <= end;
   }
 
   return false;

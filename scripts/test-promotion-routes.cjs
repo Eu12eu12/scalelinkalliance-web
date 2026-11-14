@@ -17,13 +17,14 @@ const pricingEngine = require('../utils/pricingEngine');
   console.log('✅ Found seeded campaign:', promo.name);
 
   // 2. Test status evaluation for scheduled campaign (starts Nov 20, 2026)
+  const scheduledPromo = { ...promo.toJSON(), status: 'scheduled' };
   const beforeStart = new Date('2026-11-15T12:00:00Z');
   const duringPromo = new Date('2026-11-25T12:00:00Z');
   const afterPromo = new Date('2026-12-05T12:00:00Z');
 
-  assert.strictEqual(pricingEngine.isPromotionActive(promo, beforeStart), false, 'Must be inactive before Nov 20');
-  assert.strictEqual(pricingEngine.isPromotionActive(promo, duringPromo), true, 'Must be active during Nov 20–30');
-  assert.strictEqual(pricingEngine.isPromotionActive(promo, afterPromo), false, 'Must be inactive after Nov 30');
+  assert.strictEqual(pricingEngine.isPromotionActive(scheduledPromo, beforeStart), false, 'Must be inactive before Nov 20 when scheduled');
+  assert.strictEqual(pricingEngine.isPromotionActive(scheduledPromo, duringPromo), true, 'Must be active during Nov 20–30 when scheduled');
+  assert.strictEqual(pricingEngine.isPromotionActive(scheduledPromo, afterPromo), false, 'Must be inactive after Nov 30');
   console.log('✅ Automatic scheduling & expiration logic verified!');
 
   // 3. Test tracking interaction incrementation

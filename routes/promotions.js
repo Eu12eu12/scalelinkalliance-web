@@ -50,6 +50,7 @@ const getActivePromotionHandler = async (req, res) => {
       active: true,
       promotion: {
         id: activePromo.id,
+        status: activePromo.status,
         slug: activePromo.slug,
         name: activePromo.name,
         holidayName: activePromo.holidayName,

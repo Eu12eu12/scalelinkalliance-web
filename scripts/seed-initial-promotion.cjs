@@ -37,20 +37,25 @@ const seedInitialPromotion = async () => {
         'website-development',
         'build-from-scratch',
         'scale-existing-website',
-        'landing-pages-sales-funnels',
-        'e-commerce-development',
-        'crm-marketing-automation',
-        'web-applications-saas-development',
-        'api-integration-automation',
-        'brand-identity-logo-design',
-        'seo-search-marketing',
-        'paid-advertising-management',
-        'email-marketing-campaigns',
-        'lead-generation-services'
+        'landing-pages',
+        'ecommerce-development',
+        'crm-automation',
+        'web-applications',
+        'api-integration',
+        'brand-identity',
+        'seo-marketing',
+        'paid-advertising',
+        'email-marketing',
+        'lead-generation',
+        'graphic-design',
+        'video-editing',
+        'copywriting',
+        'online-booking-systems',
+        'business-process-automation'
       ],
       excludedServices: [
-        'website-maintenance-updates',
-        'virtual-assistant-services'
+        'website-maintenance',
+        'virtual-assistant'
       ],
       termsAndConditions: 'Offer valid November 20–30, 2026 for approved eligible new projects and one-time setup fees. Maximum discount of $400 applies per eligible project. Recurring monthly retainers, maintenance subscriptions, third-party software licenses, and taxes are excluded. Promotional discounts cannot be combined with bundle discounts or existing promotional codes; the checkout system automatically applies whichever eligible discount offers greater savings. ScaleLink Alliance reserves the right to modify or discontinue promotions in accordance with company policy. All payments must be processed securely through authorized ScaleLink Alliance online payment channels. DO NOT PAY CASH.'
     };
