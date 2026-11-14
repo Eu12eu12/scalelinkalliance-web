@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate, Link } from 'react-router-dom';
 import {
-  FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes, FaCog, FaCogs, FaHandshake, FaFileAlt, FaBriefcase, FaChartLine, FaBell, FaHistory, FaFileInvoiceDollar
+  FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes, FaCog, FaCogs, FaHandshake, FaFileAlt, FaBriefcase, FaChartLine, FaBell, FaHistory, FaFileInvoiceDollar, FaBullhorn
 } from 'react-icons/fa';
 
 
@@ -171,6 +171,17 @@ const AdminLayout = ({ children, pageTitle }) => {
                 <span>Partner Network</span>
               </NavLink>
             )}
+          </div>
+        )}
+
+        {/* MARKETING GROUP - Holiday Promotions */}
+        {(sessionUser?.role === 'super_admin' || sessionUser?.role === 'admin') && (
+          <div className="space-y-1">
+            <p className="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Marketing</p>
+            <NavLink to="/hub/promotions" className={({ isActive }) => `flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}>
+              <FaBullhorn size={16} />
+              <span>Holiday Promotions</span>
+            </NavLink>
           </div>
         )}
 

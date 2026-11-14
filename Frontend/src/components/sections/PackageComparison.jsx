@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { FaCheck, FaClock, FaSyncAlt, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { parsePriceToCents } from '../../utils/serviceSync';
+import { HolidayPriceDisplay } from '../promotions/HolidayPriceBadge';
 
 export const SERVICE_FEATURES = {};
 
@@ -174,7 +176,20 @@ const PackageComparison = ({ packageData, packagesData, serviceSlug, onTabChange
               </button>
             ))}
           </div>
-          <span className="text-lg font-bold text-gray-900">{activeDetail?.price || ''}</span>
+          {(() => {
+            const cents = parsePriceToCents(activeDetail?.price);
+            if (cents > 0) {
+              return (
+                <HolidayPriceDisplay
+                  serviceSlug={serviceSlug}
+                  priceCents={cents}
+                  currencySymbol="$"
+                  inline={true}
+                />
+              );
+            }
+            return <span className="text-lg font-bold text-gray-900">{activeDetail?.price || ''}</span>;
+          })()}
         </div>
 
         <p className="text-sm text-gray-700 mb-3 leading-relaxed">

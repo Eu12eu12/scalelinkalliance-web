@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getServiceIcon } from '../../utils/serviceIcons';
-import { subscribeToServiceUpdates } from '../../utils/serviceSync';
+import { subscribeToServiceUpdates, parsePriceToCents } from '../../utils/serviceSync';
+import { HolidayPriceDisplay } from '../../components/promotions/HolidayPriceBadge';
 import {
   FaPaintBrush, FaVideo, FaPenNib, FaCogs, FaChartBar, FaDatabase,
   FaFileAlt, FaUsers, FaCheck, FaArrowRight, FaCode, FaGlobe,
@@ -286,6 +287,17 @@ const ServicesPage = () => {
                         </ul>
                       </div>
 
+                      {!isCustomQuoteCard && service.startingPrice && parsePriceToCents(service.startingPrice) > 0 && (
+                        <div className="mb-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+                          <span className="text-xs text-gray-500 font-medium">Starting at:</span>
+                          <HolidayPriceDisplay
+                            serviceSlug={service.slug}
+                            priceCents={parsePriceToCents(service.startingPrice)}
+                            currencySymbol="$"
+                            inline={true}
+                          />
+                        </div>
+                      )}
 
                       <div className="flex flex-col gap-2 mt-auto">
                         {isCustomQuoteCard ? (

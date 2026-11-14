@@ -12,6 +12,7 @@ import {
 } from 'react-icons/fa';
 import ChapterCard from '../components/sections/ChapterCard';
 import FreeWebsiteReviewSection from '../components/sections/FreeWebsiteReviewSection';
+import HolidayHeroSection from '../components/promotions/HolidayHeroSection';
 
 const HomePage = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
@@ -313,6 +314,8 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* 🎁 HOLIDAY PROMOTION HERO SECTION */}
+      <HolidayHeroSection />
 
       {/* 🎯 SECTION 2: CHOOSE YOUR STARTING POINT */}
       <section className="py-20 bg-white">

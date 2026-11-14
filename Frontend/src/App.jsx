@@ -51,6 +51,8 @@ import FreeWebsiteReview from './pages/FreeWebsiteReview';
 import AdminReviewDashboard from './pages/Admin/AdminReviewDashboard';
 import MyReviewResults from './pages/MyReviewResults';
 import Sitemap from './pages/Sitemap';
+import HolidayOfferPage from './pages/HolidayOfferPage';
+import AdminPromotions from './pages/Admin/AdminPromotions';
 
 
 function AppContent() {
@@ -88,6 +90,7 @@ function AppContent() {
               <Route path="/free-website-review" element={<FreeWebsiteReview />} />
               <Route path="/my-review/:leadId" element={<MyReviewResults />} />
               <Route path="/sitemap" element={<Sitemap />} />
+              <Route path="/holiday-offer" element={<HolidayOfferPage />} />
               
               {/* CMS Hub Routes */}
               <Route path="/hub/login" element={<AdminLogin />} />
@@ -96,6 +99,7 @@ function AppContent() {
               <Route path="/hub/services" element={<ProtectedRoute><AdminServices /></ProtectedRoute>} />
               <Route path="/hub/resources" element={<ProtectedRoute><AdminResources /></ProtectedRoute>} />
               <Route path="/hub/categories" element={<ProtectedRoute><AdminCategories /></ProtectedRoute>} />
+              <Route path="/hub/promotions" element={<ProtectedRoute requiredRole="admin"><AdminPromotions /></ProtectedRoute>} />
               <Route path="/hub/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
               <Route path="/hub/partners" element={<ProtectedRoute requiredRole="super_admin"><AdminPartners /></ProtectedRoute>} />
               <Route path="/hub/notice-board" element={<ProtectedRoute><AdminNoticeBoard /></ProtectedRoute>} />

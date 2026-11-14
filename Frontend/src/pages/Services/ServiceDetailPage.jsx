@@ -14,7 +14,8 @@ import {
 import PackageComparison, { getPackageFeatures } from '../../components/sections/PackageComparison';
 import { SERVICE_GALLERY_LOCAL } from '../../data/serviceImagesLocal';
 import { getServiceIcon } from '../../utils/serviceIcons';
-import { subscribeToServiceUpdates } from '../../utils/serviceSync';
+import { subscribeToServiceUpdates, parsePriceToCents } from '../../utils/serviceSync';
+import { HolidayPriceDisplay } from '../../components/promotions/HolidayPriceBadge';
 
 // ─── SERVICE IMAGES MAP ───
 const SERVICE_IMAGES = {
@@ -1114,7 +1115,22 @@ const ServiceDetailPage = () => {
                         <div className="mb-3 sm:mb-4">
                           <span className="text-xs sm:text-sm text-gray-500">{selectedPkg.name}</span>
                           <p className="text-[10px] sm:text-xs text-gray-500 mt-1">{selectedPkg.description}</p>
-                          <p className="text-[10px] sm:text-xs text-[#18264A] font-semibold mt-2">Pricing shown at checkout</p>
+                          {(() => {
+                            const rawPrice = selectedPkg.price;
+                            const cents = parsePriceToCents(rawPrice);
+                            if (cents > 0) {
+                              return (
+                                <div className="mt-3">
+                                  <HolidayPriceDisplay
+                                    serviceSlug={serviceSlug}
+                                    priceCents={cents}
+                                    currencySymbol="$"
+                                  />
+                                </div>
+                              );
+                            }
+                            return <p className="text-[10px] sm:text-xs text-[#18264A] font-semibold mt-2">Pricing shown at checkout</p>;
+                          })()}
                         </div>
 
                         <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">

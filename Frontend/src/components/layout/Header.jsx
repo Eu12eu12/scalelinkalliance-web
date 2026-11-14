@@ -11,6 +11,7 @@ import {
   FaChartLine, FaShieldAlt, FaArrowRight, FaDesktop, FaChartBar,
   FaStar
 } from 'react-icons/fa';
+import HolidayAnnouncementBanner from '../promotions/HolidayAnnouncementBanner';
 
 // ─── Service data for mega-menus ────────────────────────────────────────────
 
@@ -310,6 +311,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
+      <HolidayAnnouncementBanner />
       <nav className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo */}

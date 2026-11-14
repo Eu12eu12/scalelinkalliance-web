@@ -22,6 +22,8 @@ import PhoneInput from '../../components/forms/PhoneInput';
 import FileUpload from '../../components/forms/FileUpload';
 import CurrencySelector from '../../components/forms/CurrencySelector';
 import { subscribeToServiceUpdates, mergeServicesWithPackages, parsePriceToCents } from '../../utils/serviceSync';
+import useActivePromotion from '../../hooks/useActivePromotion';
+import { calculateOrderPricing } from '../../utils/pricingEngine';
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
@@ -910,6 +912,9 @@ const OrderSidebar = ({
   subtotalAmount = 0,
   discountRate = 0,
   discountAmount = 0,
+  discountType = 'none',
+  discountLabel = null,
+  promotionApplied = null,
   totalAmount, 
   isLoadingRates, 
   onRemove, 
@@ -945,13 +950,30 @@ const OrderSidebar = ({
           )}
         </div>
 
-        {/* ── Tiered Bundle Discount Banner (based only on priced services) ── */}
+        {/* ── Holiday Discount vs Tiered Bundle Discount Banner ── */}
         {hasCustomQuote ? (
           <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-[#18264A] font-semibold flex items-center gap-2 shadow-xs">
             <span className="text-sm shrink-0">📋</span>
             <p className="text-[11px] leading-tight">
               <strong>Custom Quote Mode:</strong> Tailored scoping with $0 due today.
             </p>
+          </div>
+        ) : discountType === 'holiday' ? (
+          <div className="p-2.5 bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-300 rounded-xl text-xs text-amber-950 flex items-center justify-between gap-2 shadow-xs">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className="text-sm shrink-0">🎁</span>
+              <div className="truncate">
+                <p className="font-bold text-amber-950 text-xs leading-tight">
+                  {promotionApplied?.holidayName || 'Holiday Promotion'} Applied!
+                </p>
+                <p className="text-[10px] text-amber-800 leading-tight">
+                  {promotionApplied?.isCapped ? 'Capped at $400 project max savings' : `Saving ${promotionApplied?.discountValue || 20}% on eligible setup`}
+                </p>
+              </div>
+            </div>
+            <span className="px-2 py-0.5 bg-amber-500 text-slate-950 font-black text-[10px] rounded-full shrink-0 shadow-xs">
+              {promotionApplied?.discountValue || 20}% OFF
+            </span>
           </div>
         ) : (
           <>
@@ -1047,8 +1069,8 @@ const OrderSidebar = ({
               <span>Subtotal ({pricedCount} priced item{pricedCount === 1 ? '' : 's'})</span>
               <span>{formatPrice(subtotalAmount, currency, currencyObj.symbol)}</span>
             </div>
-            <div className="flex justify-between items-center text-emerald-700 font-bold text-[11px]">
-              <span>Bundle Discount ({Math.round(discountRate * 100)}% OFF)</span>
+            <div className={`flex justify-between items-center ${discountType === 'holiday' ? 'text-amber-800 font-extrabold' : 'text-emerald-700 font-bold'} text-[11px]`}>
+              <span>{discountLabel || `Discount (${Math.round(discountRate * 100)}% OFF)`}</span>
               <span>-{formatPrice(discountAmount, currency, currencyObj.symbol)}</span>
             </div>
             <div className="flex justify-between items-center pt-1.5 border-t border-gray-200">
@@ -1092,6 +1114,10 @@ const OrderSidebar = ({
             <FaArrowRight size={12} />
           </button>
         )}
+        <p className="mt-2 text-[10px] text-center text-gray-500 flex items-center justify-center gap-1">
+          <FaLock className="text-green-600 inline shrink-0" size={9} />
+          <span>Authorized online payment only. DO NOT PAY CASH.</span>
+        </p>
       </div>
 
     </div>
@@ -1102,7 +1128,8 @@ const OrderSidebar = ({
 const RequestServicePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_PACKAGES);
+  const { promotion: activePromotion } = useActivePromotion();
+  const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_PACKAGES);
 
   const [publishedServicesSet, setPublishedServicesSet] = useState(null);
 
@@ -1416,26 +1443,31 @@ const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_P
     return countPricedServices(selectedServices, servicesWithPackages, convertedAmounts);
   }, [selectedServices, servicesWithPackages, convertedAmounts]);
 
-  const discountRate = useMemo(() => {
-    if (pricedServiceCount >= 6) return 0.20;
-    if (pricedServiceCount >= 2) return 0.10;
-    return 0;
-  }, [pricedServiceCount]);
+  const orderPricing = useMemo(() => {
+    const items = Object.entries(selectedServices).map(([service, pkg]) => {
+      const priceCents = convertedAmounts[service]?.[pkg] || 0;
+      return {
+        slug: getServiceSlug(service),
+        name: service,
+        priceCents,
+        isRecurring: service.toLowerCase().includes('maintenance') || service.toLowerCase().includes('monthly')
+      };
+    });
 
-  const subtotalAmount = useMemo(() => {
-    return Object.entries(selectedServices).reduce((sum, [service, pkg]) => {
-      return sum + (convertedAmounts[service]?.[pkg] || 0);
-    }, 0);
-  }, [selectedServices, convertedAmounts]);
+    return calculateOrderPricing({
+      items,
+      promotion: activePromotion,
+      currency: selectedCurrency
+    });
+  }, [selectedServices, convertedAmounts, activePromotion, selectedCurrency]);
 
-  const discountAmount = useMemo(() => {
-    if (discountRate === 0 || subtotalAmount === 0) return 0;
-    return Math.round(subtotalAmount * discountRate);
-  }, [subtotalAmount, discountRate]);
-
-  const totalAmount = useMemo(() => {
-    return Math.max(0, subtotalAmount - discountAmount);
-  }, [subtotalAmount, discountAmount]);
+  const subtotalAmount = orderPricing.subtotalCents;
+  const discountAmount = orderPricing.appliedDiscountAmountCents;
+  const discountRate = orderPricing.appliedDiscountRate;
+  const discountType = orderPricing.appliedDiscountType;
+  const discountLabel = orderPricing.appliedDiscountLabel;
+  const totalAmount = orderPricing.totalPayableCents;
+  const promotionApplied = orderPricing.promotionApplied;
 
   const steps = [
     { number: 1, title: 'Select Services' },
@@ -1836,6 +1868,9 @@ const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_P
           checkoutSessionId,
           orderType: hasCustomQuote ? 'custom_quote' : 'fixed_package',
           isCustomQuoteOrder: hasCustomQuote,
+          appliedPromotionId: promotionApplied?.id || null,
+          appliedDiscountType: discountType,
+          appliedDiscountAmount: discountAmount,
           projectScope: { 
             customQuoteAnswers, 
             serviceAnswers,
@@ -1877,6 +1912,7 @@ const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_P
         subtotalAmount,
         discountRate,
         discountAmount,
+        discountType,
         totalAmount
       }));
       const res = await fetch('/api/create-checkout-session', {
@@ -1885,10 +1921,13 @@ const [servicesWithPackages, setServicesWithPackages] = useState(SERVICES_WITH_P
         body: JSON.stringify({
           services: selectedServices,
           currency: selectedCurrency,
-          amount: totalAmount, // Exact discounted amount
+          amount: totalAmount, // Exact discounted amount in cents
           subtotalAmount,
           discountPercentage: Math.round(discountRate * 100),
           discountAmount,
+          appliedPromotionId: promotionApplied?.id || null,
+          appliedDiscountType: discountType,
+          appliedDiscountAmount: discountAmount,
           customer_email: formData.email || undefined,
           success_url: `${window.location.origin}${window.location.pathname}?session_id={CHECKOUT_SESSION_ID}`,
           cancel_url: `${window.location.origin}${window.location.pathname}?canceled=true`,
@@ -2173,6 +2212,9 @@ const categoryIcons = {
                   subtotalAmount={subtotalAmount}
                   discountRate={discountRate}
                   discountAmount={discountAmount}
+                  discountType={discountType}
+                  discountLabel={discountLabel}
+                  promotionApplied={promotionApplied}
                   totalAmount={totalAmount}
                   isLoadingRates={isLoadingRates}
                   onRemove={removeService}
@@ -2252,20 +2294,38 @@ const categoryIcons = {
                       );
                     })}
                   </div>
-                  {/* Bundle Discount Callout in Step 2 */}
+                  {/* Discount Callout in Step 2 */}
                   {discountAmount > 0 && (
-                    <div className="mb-4 p-3 bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-300 rounded-xl flex items-center justify-between text-xs text-emerald-900 shadow-xs">
-                      <div className="flex items-center gap-2">
-                        <span className="text-base">🎉</span>
-                        <div>
-                          <span className="font-bold">{Math.round(discountRate * 100)}% Bundle Savings Applied</span>
-                          <p className="text-[10px] text-emerald-700">You save {formatPrice(discountAmount, selectedCurrency, currencyObj.symbol)} on this bundle</p>
+                    discountType === 'holiday' ? (
+                      <div className="mb-4 p-3 bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-300 rounded-xl flex items-center justify-between text-xs text-amber-950 shadow-xs">
+                        <div className="flex items-center gap-2">
+                          <span className="text-base">🎁</span>
+                          <div>
+                            <span className="font-bold">{promotionApplied?.holidayName || 'Holiday Promotion'} Savings Applied</span>
+                            <p className="text-[10px] text-amber-800">
+                              You save {formatPrice(discountAmount, selectedCurrency, currencyObj.symbol)}
+                              {promotionApplied?.isCapped ? ' (capped at $400 project maximum)' : ''}
+                            </p>
+                          </div>
                         </div>
+                        <span className="px-2.5 py-1 bg-amber-500 text-slate-950 font-black text-xs rounded-full">
+                          -{Math.round(discountRate * 100)}%
+                        </span>
                       </div>
-                      <span className="px-2.5 py-1 bg-emerald-600 text-white font-extrabold text-xs rounded-full">
-                        -{Math.round(discountRate * 100)}%
-                      </span>
-                    </div>
+                    ) : (
+                      <div className="mb-4 p-3 bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-300 rounded-xl flex items-center justify-between text-xs text-emerald-900 shadow-xs">
+                        <div className="flex items-center gap-2">
+                          <span className="text-base">🎉</span>
+                          <div>
+                            <span className="font-bold">{Math.round(discountRate * 100)}% Bundle Savings Applied</span>
+                            <p className="text-[10px] text-emerald-700">You save {formatPrice(discountAmount, selectedCurrency, currencyObj.symbol)} on this bundle</p>
+                          </div>
+                        </div>
+                        <span className="px-2.5 py-1 bg-emerald-600 text-white font-extrabold text-xs rounded-full">
+                          -{Math.round(discountRate * 100)}%
+                        </span>
+                      </div>
+                    )
                   )}
 
                   <div className="border-t-2 border-slate-200 pt-3 sm:pt-4 mb-4 md:mb-6 space-y-2">
@@ -2275,8 +2335,8 @@ const categoryIcons = {
                           <span>Subtotal ({pricedServiceCount} priced service{pricedServiceCount === 1 ? '' : 's'}):</span>
                           <span>{formatPrice(subtotalAmount, selectedCurrency, currencyObj.symbol)}</span>
                         </div>
-                        <div className="flex justify-between text-xs sm:text-sm text-emerald-700 font-bold">
-                          <span>Bundle Discount ({Math.round(discountRate * 100)}% OFF):</span>
+                        <div className={`flex justify-between text-xs sm:text-sm ${discountType === 'holiday' ? 'text-amber-800 font-bold' : 'text-emerald-700 font-bold'}`}>
+                          <span>{discountLabel || (discountType === 'holiday' ? 'Holiday Discount' : `Bundle Discount (${Math.round(discountRate * 100)}% OFF)`)}:</span>
                           <span>-{formatPrice(discountAmount, selectedCurrency, currencyObj.symbol)}</span>
                         </div>
                       </>
@@ -2323,6 +2383,11 @@ const categoryIcons = {
                   <div className="flex items-center justify-center gap-2 text-[10px] sm:text-xs text-gray-600 bg-white bg-opacity-50 p-2 sm:p-3 rounded-lg">
                     <FaLock className="text-green-600 shrink-0" />
                     <span><>Secured by <strong>Stripe</strong>. We never store your card information.</></span>
+                  </div>
+                  <div className="mt-2.5 p-2.5 bg-amber-50/90 border border-amber-200 rounded-lg text-center">
+                    <p className="text-[10px] sm:text-[11px] font-semibold text-amber-900 leading-snug">
+                      🔒 All payments are processed securely through authorized ScaleLink Alliance online payment channels. <span className="font-black text-red-700">DO NOT PAY CASH.</span>
+                    </p>
                   </div>
                   <div className="mt-3 sm:mt-4 text-center">
                     <button type="button" onClick={prevStep} className="text-gray-500 hover:text-gray-700 text-xs sm:text-sm flex items-center justify-center gap-1 mx-auto"><FaArrowLeft className="text-xs" /> Back to services</button>
