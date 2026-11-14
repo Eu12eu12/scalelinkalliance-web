@@ -23,6 +23,7 @@ import {
 } from 'react-icons/fa';
 import useActivePromotion from '../hooks/useActivePromotion';
 import { calculateItemHolidayDiscount, isServiceEligibleForPromotion } from '../utils/pricingEngine';
+import { parsePriceToCents } from '../utils/serviceSync';
 
 // Countdown Timer Component
 const CountdownTimer = ({ targetDate }) => {
@@ -87,53 +88,65 @@ const CountdownTimer = ({ targetDate }) => {
   );
 };
 
-// Core curated eligible services for the holiday showcase
-const SHOWCASE_SERVICES = [
+// Core curated eligible service tiers for the holiday showcase
+const SHOWCASE_CONFIG = [
   {
     slug: 'website-development',
+    packageKey: 'starter',
     name: 'Website Development',
+    tierName: 'Starter Package',
     icon: <FaCode className="text-xl text-amber-400" />,
-    regularPriceCents: 99900,
+    fallbackPriceCents: 69900,
     headline: 'High-Converting Corporate & Business Websites',
-    benefits: ['Custom mobile-first UI design', 'SEO foundation & rapid load speed', 'Integrated lead capture and CRM pipeline'],
+    benefits: ['Up to 3 website pages', 'Custom mobile-friendly design', 'SEO page structure & contact form setup'],
   },
   {
-    slug: 'build-from-scratch',
+    slug: 'website-development',
+    packageKey: 'growth',
     name: 'Complete Website From Scratch',
+    tierName: 'Growth Package',
     icon: <FaRocket className="text-xl text-amber-400" />,
-    regularPriceCents: 199900,
-    headline: 'Turnkey Digital Platform & Architecture',
-    benefits: ['Bespoke design tailored to your industry', 'Full copywriting, asset prep & branding', 'Deployment, hosting configuration & QA'],
+    fallbackPriceCents: 149900,
+    headline: 'Turnkey Digital Platform & Multi-Page Architecture',
+    benefits: ['Up to 7 website pages', 'Marketing tool integrations', 'Advanced lead capture & full SEO'],
   },
   {
-    slug: 'e-commerce-development',
+    slug: 'ecommerce-development',
+    packageKey: 'starter',
     name: 'E-Commerce Store Development',
+    tierName: 'Starter Package',
     icon: <FaShoppingCart className="text-xl text-amber-400" />,
-    regularPriceCents: 250000,
+    fallbackPriceCents: 99900,
     headline: 'Modern Online Stores Built to Sell',
-    benefits: ['Seamless Stripe / PayPal payment integration', 'Catalog management & inventory workflows', 'Cart-abandonment recovery & speed tuning'],
+    benefits: ['Seamless Stripe payment integration', 'Catalog management & product workflows', 'Cart-abandonment recovery & speed tuning'],
   },
   {
-    slug: 'crm-marketing-automation',
+    slug: 'crm-automation',
+    packageKey: 'starter',
     name: 'CRM & Marketing Automation',
+    tierName: 'Starter Package',
     icon: <FaCogs className="text-xl text-amber-400" />,
-    regularPriceCents: 99900,
+    fallbackPriceCents: 49900,
     headline: 'Never Miss a Lead or Customer Follow-Up',
     benefits: ['Automated email & SMS nurturing sequences', 'Deal pipeline tracking & calendar booking', 'Zero manual data entry chaos'],
   },
   {
-    slug: 'landing-pages-sales-funnels',
+    slug: 'landing-pages',
+    packageKey: 'starter',
     name: 'Landing Pages & Sales Funnels',
+    tierName: 'Starter Package',
     icon: <FaRocket className="text-xl text-amber-400" />,
-    regularPriceCents: 49900,
+    fallbackPriceCents: 49900,
     headline: 'Focused Conversion Pages That Perform',
     benefits: ['Persuasive direct-response copywriting', 'A/B test ready with clear call-to-actions', 'Direct integration with your email marketing'],
   },
   {
-    slug: 'brand-identity-logo-design',
+    slug: 'brand-identity',
+    packageKey: 'growth',
     name: 'Brand Identity & Visual Assets',
+    tierName: 'Growth Package',
     icon: <FaPalette className="text-xl text-amber-400" />,
-    regularPriceCents: 49900,
+    fallbackPriceCents: 49900,
     headline: 'Distinctive Corporate Brand Presence',
     benefits: ['Custom logo, color palette & typography guide', 'Social media templates & collateral pack', 'Complete vector & production file package'],
   }
@@ -142,6 +155,29 @@ const SHOWCASE_SERVICES = [
 const HolidayOfferPage = () => {
   const { promotion, isActive, themeConfig, trackInteraction, loading } = useActivePromotion();
   const [termsOpen, setTermsOpen] = useState(false);
+  const [catalogServices, setCatalogServices] = useState([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    fetch(`/api/cms/services?catalogOnly=true&_t=${Date.now()}`)
+      .then(res => res.ok ? res.json() : [])
+      .then(data => {
+        if (!isMounted) return;
+        const list = Array.isArray(data) ? data : (Array.isArray(data?.services) ? data.services : []);
+        setCatalogServices(list);
+      })
+      .catch(err => console.warn('Could not fetch live services for holiday showcase:', err));
+    return () => { isMounted = false; };
+  }, []);
+
+  const getServicePriceCents = (slug, packageKey, fallbackCents) => {
+    const live = catalogServices.find(s => s.slug === slug);
+    if (live && live.packages && live.packages[packageKey]) {
+      const parsed = parsePriceToCents(live.packages[packageKey].price);
+      if (parsed > 0) return parsed;
+    }
+    return fallbackCents;
+  };
 
   useEffect(() => {
     if (isActive && promotion?.id) {
@@ -330,15 +366,17 @@ const HolidayOfferPage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {SHOWCASE_SERVICES.map((service) => {
-              const calc = calculateItemHolidayDiscount(service.regularPriceCents, promotion, true);
-              const regularStr = (service.regularPriceCents / 100).toFixed(2);
+            {SHOWCASE_CONFIG.map((service, index) => {
+              const basePriceCents = getServicePriceCents(service.slug, service.packageKey, service.fallbackPriceCents);
+              const calc = calculateItemHolidayDiscount(basePriceCents, promotion, true);
+              const regularStr = (basePriceCents / 100).toFixed(2);
               const holidayStr = (calc.holidayPriceCents / 100).toFixed(2);
               const savingsStr = (calc.actualDiscountCents / 100).toFixed(2);
+              const checkoutUrl = `/request-service?service=${service.slug}&package=${service.packageKey}`;
 
               return (
                 <div
-                  key={service.slug}
+                  key={`${service.slug}-${service.packageKey}-${index}`}
                   className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-200 shadow-md hover:shadow-xl transition-all flex flex-col justify-between group"
                 >
                   <div>
@@ -352,7 +390,14 @@ const HolidayOfferPage = () => {
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{service.name}</h3>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="text-xl font-bold text-gray-900">{service.name}</h3>
+                    </div>
+                    {service.tierName && (
+                      <span className="inline-block px-2 py-0.5 mb-2 bg-slate-100 text-slate-700 text-[10px] font-bold rounded uppercase tracking-wider">
+                        {service.tierName}
+                      </span>
+                    )}
                     <p className="text-xs text-gray-500 font-medium mb-6 leading-relaxed">{service.headline}</p>
 
                     {/* Price Block */}
@@ -384,7 +429,7 @@ const HolidayOfferPage = () => {
 
                   {/* Action CTA */}
                   <Link
-                    to={`/request-service?service=${service.slug}`}
+                    to={checkoutUrl}
                     className="flex items-center justify-center gap-2 w-full py-3.5 bg-[#18264A] text-white font-bold rounded-xl hover:bg-[#101c38] transition-colors shadow-md text-sm"
                   >
                     <span>Claim Holiday Price</span>
