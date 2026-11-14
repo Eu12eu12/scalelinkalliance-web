@@ -5,7 +5,7 @@
  * Dedicated Administrator & Webmaster interface fulfilling Section 5 & Section 9.
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import AdminLayout from './AdminLayout';
 import {
   FaTag, FaPlus, FaEdit, FaTrash, FaCheckCircle, FaTimesCircle,
@@ -36,6 +36,67 @@ const AVAILABLE_SERVICES = [
   { slug: 'business-process-automation', name: 'Business Process Automation' },
   { slug: 'website-maintenance', name: 'Website Maintenance (Monthly)' },
   { slug: 'virtual-assistant', name: 'Virtual Assistant Services' }
+];
+
+export const TIMEZONE_GROUPS = [
+  {
+    group: 'North America (US & Canada)',
+    zones: [
+      { value: 'America/Chicago', label: '(UTC-06:00) Central Time — Chicago, Dallas' },
+      { value: 'America/New_York', label: '(UTC-05:00) Eastern Time — New York, Miami, Toronto' },
+      { value: 'America/Denver', label: '(UTC-07:00) Mountain Time — Denver, Salt Lake' },
+      { value: 'America/Los_Angeles', label: '(UTC-08:00) Pacific Time — Los Angeles, Seattle, Vancouver' },
+      { value: 'America/Phoenix', label: '(UTC-07:00) Arizona (No DST) — Phoenix' },
+      { value: 'America/Anchorage', label: '(UTC-09:00) Alaska — Anchorage' },
+      { value: 'Pacific/Honolulu', label: '(UTC-10:00) Hawaii — Honolulu' },
+    ]
+  },
+  {
+    group: 'Europe & Africa',
+    zones: [
+      { value: 'Europe/London', label: '(UTC+00:00) London, Dublin, Edinburgh' },
+      { value: 'Europe/Paris', label: '(UTC+01:00) Paris, Berlin, Rome, Madrid, Amsterdam' },
+      { value: 'Europe/Athens', label: '(UTC+02:00) Athens, Bucharest, Helsinki' },
+      { value: 'Europe/Moscow', label: '(UTC+03:00) Moscow, St. Petersburg' },
+      { value: 'Africa/Johannesburg', label: '(UTC+02:00) Johannesburg, Pretoria' },
+      { value: 'Africa/Lagos', label: '(UTC+01:00) Lagos, West Africa Time' },
+    ]
+  },
+  {
+    group: 'Asia & Middle East',
+    zones: [
+      { value: 'Asia/Dubai', label: '(UTC+04:00) Dubai, Abu Dhabi, Muscat' },
+      { value: 'Asia/Kolkata', label: '(UTC+05:30) Mumbai, New Delhi, Bengaluru' },
+      { value: 'Asia/Bangkok', label: '(UTC+07:00) Bangkok, Jakarta, Hanoi' },
+      { value: 'Asia/Singapore', label: '(UTC+08:00) Singapore, Kuala Lumpur' },
+      { value: 'Asia/Hong_Kong', label: '(UTC+08:00) Hong Kong, Beijing, Shanghai' },
+      { value: 'Asia/Tokyo', label: '(UTC+09:00) Tokyo, Osaka, Seoul' },
+    ]
+  },
+  {
+    group: 'Australia & Pacific',
+    zones: [
+      { value: 'Australia/Perth', label: '(UTC+08:00) Western Australia — Perth' },
+      { value: 'Australia/Sydney', label: '(UTC+10:00) Sydney, Melbourne, Canberra' },
+      { value: 'Australia/Brisbane', label: '(UTC+10:00) Queensland — Brisbane' },
+      { value: 'Pacific/Auckland', label: '(UTC+12:00) Auckland, Wellington' },
+    ]
+  },
+  {
+    group: 'Latin America',
+    zones: [
+      { value: 'America/Mexico_City', label: '(UTC-06:00) Mexico City, Guadalajara' },
+      { value: 'America/Bogota', label: '(UTC-05:00) Bogota, Lima, Quito' },
+      { value: 'America/Sao_Paulo', label: '(UTC-03:00) São Paulo, Rio de Janeiro' },
+      { value: 'America/Buenos_Aires', label: '(UTC-03:00) Buenos Aires' },
+    ]
+  },
+  {
+    group: 'Universal Time (UTC)',
+    zones: [
+      { value: 'UTC', label: '(UTC+00:00) Coordinated Universal Time (UTC)' },
+    ]
+  }
 ];
 
 const INITIAL_FORM = {
@@ -87,6 +148,14 @@ const AdminPromotions = () => {
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const detectedTz = useMemo(() => {
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone || 'America/Chicago';
+    } catch {
+      return 'America/Chicago';
+    }
+  }, []);
 
   const token = localStorage.getItem('cms_token');
 
@@ -633,15 +702,39 @@ const AdminPromotions = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                    Timezone
-                  </label>
-                  <input
-                    type="text"
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                      Timezone *
+                    </label>
+                    {detectedTz && formData.timezone !== detectedTz && (
+                      <button
+                        type="button"
+                        onClick={() => setFormData(prev => ({ ...prev, timezone: detectedTz }))}
+                        className="text-[10px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
+                        title="Set to your local timezone"
+                      >
+                        Use Local ({detectedTz.split('/').pop().replace(/_/g, ' ')})
+                      </button>
+                    )}
+                  </div>
+                  <select
                     value={formData.timezone}
                     onChange={e => setFormData({ ...formData, timezone: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm"
-                  />
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#18264A]"
+                  >
+                    {!TIMEZONE_GROUPS.some(g => g.zones.some(z => z.value === formData.timezone)) && formData.timezone && (
+                      <option value={formData.timezone}>{formData.timezone} (Saved / Custom)</option>
+                    )}
+                    {TIMEZONE_GROUPS.map(grp => (
+                      <optgroup key={grp.group} label={grp.group}>
+                        {grp.zones.map(z => (
+                          <option key={z.value} value={z.value}>
+                            {z.label}
+                          </option>
+                        ))}
+                      </optgroup>
+                    ))}
+                  </select>
                 </div>
               </div>
 
