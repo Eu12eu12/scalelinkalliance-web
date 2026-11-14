@@ -57,8 +57,16 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     return <Navigate to="/hub/login" replace />;
   }
 
-  if (requiredRole && userRole !== requiredRole) {
-    return <Navigate to="/hub" replace />;
+  if (requiredRole) {
+    const allowedRoles = Array.isArray(requiredRole)
+      ? requiredRole
+      : requiredRole === 'admin'
+        ? ['admin', 'super_admin']
+        : [requiredRole];
+
+    if (userRole !== 'super_admin' && !allowedRoles.includes(userRole)) {
+      return <Navigate to="/hub" replace />;
+    }
   }
 
   return children;

@@ -99,7 +99,7 @@ function AppContent() {
               <Route path="/hub/services" element={<ProtectedRoute><AdminServices /></ProtectedRoute>} />
               <Route path="/hub/resources" element={<ProtectedRoute><AdminResources /></ProtectedRoute>} />
               <Route path="/hub/categories" element={<ProtectedRoute><AdminCategories /></ProtectedRoute>} />
-              <Route path="/hub/promotions" element={<ProtectedRoute requiredRole="admin"><AdminPromotions /></ProtectedRoute>} />
+              <Route path="/hub/promotions" element={<ProtectedRoute requiredRole={['admin', 'super_admin']}><AdminPromotions /></ProtectedRoute>} />
               <Route path="/hub/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
               <Route path="/hub/partners" element={<ProtectedRoute requiredRole="super_admin"><AdminPartners /></ProtectedRoute>} />
               <Route path="/hub/notice-board" element={<ProtectedRoute><AdminNoticeBoard /></ProtectedRoute>} />
