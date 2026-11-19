@@ -148,6 +148,12 @@ const AdminPromotions = () => {
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [availableServices, setAvailableServices] = useState(AVAILABLE_SERVICES);
+  const [conflictModal, setConflictModal] = useState({
+    isOpen: false,
+    conflictingName: '',
+    pendingAction: null // { type: 'submit' | 'status', id, payload, forcedStatus, newStatus }
+  });
 
   const detectedTz = useMemo(() => {
     try {
@@ -158,6 +164,23 @@ const AdminPromotions = () => {
   }, []);
 
   const token = localStorage.getItem('cms_token');
+
+  // Load dynamically available services from CMS catalog
+  useEffect(() => {
+    fetch('/api/cms/services?catalogOnly=true')
+      .then(res => res.ok ? res.json() : [])
+      .then(data => {
+        const list = Array.isArray(data) ? data : (Array.isArray(data?.services) ? data.services : []);
+        if (list.length > 0) {
+          const mapped = list.map(s => ({
+            slug: s.slug,
+            name: s.title || s.name || s.slug
+          }));
+          setAvailableServices(mapped);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const fetchPromotions = useCallback(async () => {
     try {
@@ -203,12 +226,25 @@ const AdminPromotions = () => {
     setIsModalOpen(true);
   };
 
-  const handleOpenAudit = (promo) => {
+  const handleOpenAudit = async (promo) => {
     setActiveAuditLogs(promo.auditLogs || []);
     setIsAuditModalOpen(true);
+    try {
+      const res = await fetch(`/api/cms/promotions/${promo.id}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.promotion?.auditLogs) {
+          setActiveAuditLogs(data.promotion.auditLogs);
+        }
+      }
+    } catch {
+      // Retain preview logs
+    }
   };
 
-  const handleStatusChange = async (id, newStatus) => {
+  const executeStatusChange = async (id, newStatus, archiveConflicting = false) => {
     try {
       const res = await fetch(`/api/cms/promotions/${id}/status`, {
         method: 'PATCH',
@@ -216,9 +252,24 @@ const AdminPromotions = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ status: newStatus })
+        body: JSON.stringify({ status: newStatus, archiveConflicting })
       });
-      if (!res.ok) throw new Error('Failed to update status');
+
+      if (res.status === 409) {
+        const conflictData = await res.json();
+        setConflictModal({
+          isOpen: true,
+          conflictingName: conflictData.activePromotion?.name || 'Active Campaign',
+          pendingAction: { type: 'status', id, newStatus }
+        });
+        return;
+      }
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed to update status');
+      }
+
       toast.success(`Campaign status updated to ${newStatus}`);
       fetchPromotions();
     } catch (err) {
@@ -226,31 +277,83 @@ const AdminPromotions = () => {
     }
   };
 
-  const handleDelete = async (id, name) => {
-    if (!window.confirm(`Are you sure you want to delete campaign "${name}"?`)) return;
+  const handleInitiateStatusChange = (id, newStatus, name) => {
+    if (newStatus === 'active') {
+      const existingActive = promotions.find(p => (p.status === 'active' || p.computedStatus === 'active') && p.id !== id);
+      if (existingActive) {
+        setConflictModal({
+          isOpen: true,
+          conflictingName: existingActive.name,
+          pendingAction: { type: 'status', id, newStatus }
+        });
+        return;
+      }
+    }
+    executeStatusChange(id, newStatus, false);
+  };
+
+  const handleDelete = async (id, name, ordersCount = 0) => {
+    const actionText = ordersCount > 0
+      ? `Campaign "${name}" has recorded customer orders (${ordersCount}). It will be moved to Archived to preserve historical reporting. Proceed?`
+      : `Are you sure you want to permanently delete draft campaign "${name}"?`;
+
+    if (!window.confirm(actionText)) return;
     try {
       const res = await fetch(`/api/cms/promotions/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
+      const data = await res.json();
       if (!res.ok) {
-        const data = await res.json();
         throw new Error(data.error || 'Failed to delete');
       }
-      toast.success('Promotion deleted successfully');
+      toast.success(data.message || 'Promotion deleted successfully');
       fetchPromotions();
     } catch (err) {
       toast.error(err.message);
     }
   };
 
-  const handleSubmit = async (e, forcedStatus = null) => {
-    if (e) e.preventDefault();
+  const validateFormData = () => {
+    if (!formData.name || !formData.name.trim()) {
+      toast.error('Promotion name is required.');
+      return false;
+    }
+    if (!formData.startDate || !formData.endDate) {
+      toast.error('Start date and end date are required.');
+      return false;
+    }
+    if (new Date(formData.endDate) <= new Date(formData.startDate)) {
+      toast.error('End date must be strictly after the start date.');
+      return false;
+    }
+    if (!Array.isArray(formData.eligibleServices) || formData.eligibleServices.length === 0) {
+      toast.error('Please select at least one eligible service for the holiday discount.');
+      return false;
+    }
+    if (formData.discountValue <= 0) {
+      toast.error('Discount value must be greater than 0.');
+      return false;
+    }
+    if (formData.discountType === 'percentage' && formData.discountValue > 100) {
+      toast.error('Percentage discount cannot exceed 100%.');
+      return false;
+    }
+    if (formData.maxDiscount <= 0) {
+      toast.error('Maximum discount cap must be greater than $0.');
+      return false;
+    }
+    return true;
+  };
+
+  const executeSubmit = async (forcedStatus = null, archiveConflicting = false) => {
     setIsSubmitting(true);
     try {
+      const targetStatus = forcedStatus || formData.status;
       const payload = {
         ...formData,
-        status: forcedStatus || formData.status
+        status: targetStatus,
+        archiveConflicting
       };
 
       const url = editingId ? `/api/cms/promotions/${editingId}` : '/api/cms/promotions';
@@ -265,6 +368,16 @@ const AdminPromotions = () => {
         body: JSON.stringify(payload)
       });
 
+      if (res.status === 409) {
+        const conflictData = await res.json();
+        setConflictModal({
+          isOpen: true,
+          conflictingName: conflictData.activePromotion?.name || 'Active Campaign',
+          pendingAction: { type: 'submit', forcedStatus: targetStatus }
+        });
+        return;
+      }
+
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.error || 'Submission failed');
@@ -277,6 +390,46 @@ const AdminPromotions = () => {
       toast.error(err.message);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleInitiateSubmit = (forcedStatus = null) => {
+    if (!validateFormData()) return;
+
+    const targetStatus = forcedStatus || formData.status;
+    if (targetStatus === 'active') {
+      const existingActive = promotions.find(p => (p.status === 'active' || p.computedStatus === 'active') && p.id !== editingId);
+      if (existingActive) {
+        setConflictModal({
+          isOpen: true,
+          conflictingName: existingActive.name,
+          pendingAction: { type: 'submit', forcedStatus: 'active' }
+        });
+        return;
+      }
+    }
+    executeSubmit(forcedStatus, false);
+  };
+
+  const handleConflictConfirm = () => {
+    const action = conflictModal.pendingAction;
+    setConflictModal({ isOpen: false, conflictingName: '', pendingAction: null });
+    if (!action) return;
+
+    if (action.type === 'submit') {
+      executeSubmit(action.forcedStatus || 'active', true);
+    } else if (action.type === 'status') {
+      executeStatusChange(action.id, action.newStatus || 'active', true);
+    }
+  };
+
+  const handleConflictSaveDraft = () => {
+    const action = conflictModal.pendingAction;
+    setConflictModal({ isOpen: false, conflictingName: '', pendingAction: null });
+    if (!action) return;
+
+    if (action.type === 'submit') {
+      executeSubmit('draft', false);
     }
   };
 
@@ -438,7 +591,11 @@ const AdminPromotions = () => {
 
                         {/* Status */}
                         <td className="py-4 px-4 whitespace-nowrap">
-                          {promo.computedStatus === 'active' ? (
+                          {promo.status === 'archived' ? (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700">
+                              Archived
+                            </span>
+                          ) : promo.computedStatus === 'active' || promo.status === 'active' ? (
                             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800">
                               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                               Active
@@ -467,21 +624,21 @@ const AdminPromotions = () => {
 
                         {/* Actions */}
                         <td className="py-4 px-4 whitespace-nowrap text-right space-x-1">
-                          {promo.status !== 'active' ? (
+                          {promo.computedStatus === 'active' || promo.status === 'active' ? (
                             <button
-                              onClick={() => handleStatusChange(promo.id, 'active')}
+                              onClick={() => executeStatusChange(promo.id, 'disabled', false)}
+                              title="Disable / Deactivate promotion"
+                              className="px-2 py-1 rounded-md bg-amber-50 text-amber-700 hover:bg-amber-100 font-bold text-[11px] transition-colors"
+                            >
+                              Disable
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => handleInitiateStatusChange(promo.id, 'active', promo.name)}
                               title="Publish / Activate immediately"
                               className="px-2 py-1 rounded-md bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-bold text-[11px] transition-colors"
                             >
                               Publish
-                            </button>
-                          ) : (
-                            <button
-                              onClick={() => handleStatusChange(promo.id, 'disabled')}
-                              title="Disable promotion"
-                              className="px-2 py-1 rounded-md bg-amber-50 text-amber-700 hover:bg-amber-100 font-bold text-[11px] transition-colors"
-                            >
-                              Disable
                             </button>
                           )}
 
@@ -501,11 +658,15 @@ const AdminPromotions = () => {
                             <FaHistory size={13} />
                           </button>
 
-                          {promo.status !== 'active' && (
+                          {promo.status !== 'active' && promo.computedStatus !== 'active' && promo.status !== 'archived' && (
                             <button
-                              onClick={() => handleDelete(promo.id, promo.name)}
-                              title="Delete campaign"
-                              className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                              onClick={() => handleDelete(promo.id, promo.name, promo.ordersCount || 0)}
+                              title={promo.ordersCount > 0 ? "Archive campaign (preserves order history)" : "Delete draft campaign permanently"}
+                              className={`p-1.5 rounded-lg transition-colors ${
+                                promo.ordersCount > 0 
+                                  ? "text-slate-500 hover:text-amber-700 hover:bg-amber-50" 
+                                  : "text-slate-400 hover:text-red-600 hover:bg-red-50"
+                              }`}
                             >
                               <FaTrash size={13} />
                             </button>
@@ -741,10 +902,10 @@ const AdminPromotions = () => {
               {/* Row 5: Eligible Services Selection */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                  Eligible Services (Qualifying for Holiday Discount)
+                  Eligible Services (Qualifying for Holiday Discount) *
                 </label>
                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 max-h-48 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                  {AVAILABLE_SERVICES.map(svc => {
+                  {availableServices.map(svc => {
                     const checked = (formData.eligibleServices || []).includes(svc.slug);
                     return (
                       <label key={svc.slug} className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-slate-100 cursor-pointer">
@@ -812,7 +973,7 @@ const AdminPromotions = () => {
                   <button
                     type="button"
                     disabled={isSubmitting}
-                    onClick={() => handleSubmit(null, 'draft')}
+                    onClick={() => handleInitiateSubmit('draft')}
                     className="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs hover:bg-slate-50 transition-colors"
                   >
                     Save Draft
@@ -821,16 +982,16 @@ const AdminPromotions = () => {
                   <button
                     type="button"
                     disabled={isSubmitting}
-                    onClick={() => handleSubmit(null, 'scheduled')}
+                    onClick={() => handleInitiateSubmit('scheduled')}
                     className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-colors"
                   >
                     Schedule Campaign
                   </button>
 
                   <button
-                    type="submit"
+                    type="button"
                     disabled={isSubmitting}
-                    onClick={() => setFormData({ ...formData, status: 'active' })}
+                    onClick={() => handleInitiateSubmit('active')}
                     className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition-colors"
                   >
                     Publish Immediately
@@ -839,6 +1000,56 @@ const AdminPromotions = () => {
               </div>
 
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* ─── Active Campaign Conflict Confirmation Modal ─── */}
+      {conflictModal.isOpen && (
+        <div className="fixed inset-0 z-60 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-200 p-6 text-slate-800">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl shrink-0">
+                ⚠️
+              </div>
+              <div>
+                <h3 className="font-black text-slate-900 text-base">Active Campaign Conflict</h3>
+                <p className="text-xs text-slate-500">Only one campaign can be actively live at a time.</p>
+              </div>
+            </div>
+
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+              Campaign <strong>"{conflictModal.conflictingName}"</strong> is currently active. 
+              Activating this campaign will automatically deactivate and archive <strong>"{conflictModal.conflictingName}"</strong>.
+              <br /><br />
+              Is this your intended purpose?
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-end gap-2.5 pt-4 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setConflictModal({ isOpen: false, conflictingName: '', pendingAction: null })}
+                className="w-full sm:w-auto px-4 py-2.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                onClick={handleConflictSaveDraft}
+                className="w-full sm:w-auto px-4 py-2.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl"
+              >
+                No, Save as Draft
+              </button>
+
+              <button
+                type="button"
+                onClick={handleConflictConfirm}
+                className="w-full sm:w-auto px-4 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-md"
+              >
+                Yes, Archive & Activate
+              </button>
+            </div>
           </div>
         </div>
       )}

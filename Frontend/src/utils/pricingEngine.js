@@ -74,7 +74,10 @@ export function isServiceEligibleForPromotion(serviceIdentifier, promotion) {
   }
 
   const eligibleList = Array.isArray(promotion?.eligibleServices) ? promotion.eligibleServices : [];
-  if (!promotion || eligibleList.length === 0 || eligibleList.includes('all')) {
+  if (!promotion || eligibleList.length === 0) {
+    return false;
+  }
+  if (eligibleList.includes('all') || eligibleList.includes('*')) {
     return true;
   }
 

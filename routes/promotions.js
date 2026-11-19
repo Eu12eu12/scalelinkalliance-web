@@ -215,8 +215,47 @@ router.get('/:id', authMiddleware, restrictTo('super_admin', 'admin'), async (re
 });
 
 /**
+ * Validation helper for campaign creation and updates
+ */
+function validatePromotionInput({ name, startDate, endDate, discountValue, maxDiscount, discountType, eligibleServices }) {
+  if (!name || !name.trim()) {
+    return 'Promotion name is required.';
+  }
+  if (!startDate || !endDate) {
+    return 'Start date and end date are required.';
+  }
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+    return 'Invalid start or end date.';
+  }
+  if (end <= start) {
+    return 'End date must be strictly after the start date.';
+  }
+  if (!Array.isArray(eligibleServices) || eligibleServices.length === 0) {
+    return 'At least one eligible service must be selected for the holiday promotion.';
+  }
+  if (discountValue !== undefined && discountValue !== null) {
+    const val = Number(discountValue);
+    if (isNaN(val) || val <= 0) {
+      return 'Discount value must be greater than 0.';
+    }
+    if (discountType === 'percentage' && val > 100) {
+      return 'Percentage discount cannot exceed 100%.';
+    }
+  }
+  if (maxDiscount !== undefined && maxDiscount !== null) {
+    const max = Number(maxDiscount);
+    if (isNaN(max) || max <= 0) {
+      return 'Maximum discount cap must be greater than $0.';
+    }
+  }
+  return null;
+}
+
+/**
  * POST /
- * Create a new holiday promotion with validation & audit log (Section 5)
+ * Create a new holiday promotion with validation, conflict check & audit log (Section 5)
  */
 router.post('/', authMiddleware, restrictTo('super_admin', 'admin'), async (req, res) => {
   try {
@@ -245,11 +284,52 @@ router.post('/', authMiddleware, restrictTo('super_admin', 'admin'), async (req,
       mobileImage,
       allowStacking,
       status,
-      termsAndConditions
+      termsAndConditions,
+      archiveConflicting
     } = req.body;
 
-    if (!name || !startDate || !endDate) {
-      return res.status(400).json({ error: 'Name, start date, and end date are required.' });
+    const validationError = validatePromotionInput({
+      name,
+      startDate,
+      endDate,
+      discountValue,
+      maxDiscount,
+      discountType,
+      eligibleServices
+    });
+    if (validationError) {
+      return res.status(400).json({ error: validationError });
+    }
+
+    const targetStatus = status || 'draft';
+
+    // Conflict detection: If activating this campaign, check for existing active campaign
+    if (targetStatus === 'active') {
+      const activeExisting = await db.HolidayPromotion.findOne({
+        where: { status: 'active' }
+      });
+
+      if (activeExisting) {
+        if (archiveConflicting) {
+          // Admin confirmed replacing the active campaign
+          await activeExisting.update({ status: 'archived' });
+          await db.PromotionAuditLog.create({
+            promotionId: activeExisting.id,
+            adminEmail: req.user.email,
+            action: 'Auto-Archived',
+            details: `Deactivated and archived due to activation of new campaign "${name}".`
+          });
+        } else {
+          return res.status(409).json({
+            conflict: true,
+            message: `Campaign "${activeExisting.name}" is currently active. Activating this campaign will archive the existing one.`,
+            activePromotion: {
+              id: activeExisting.id,
+              name: activeExisting.name
+            }
+          });
+        }
+      }
     }
 
     const promotion = await db.HolidayPromotion.create({
@@ -276,7 +356,7 @@ router.post('/', authMiddleware, restrictTo('super_admin', 'admin'), async (req,
       bannerImage: bannerImage || null,
       mobileImage: mobileImage || null,
       allowStacking: Boolean(allowStacking),
-      status: status || 'draft',
+      status: targetStatus,
       termsAndConditions: termsAndConditions || ''
     });
 
@@ -301,7 +381,7 @@ router.post('/', authMiddleware, restrictTo('super_admin', 'admin'), async (req,
 
 /**
  * PUT /:id
- * Update an existing campaign and log changed fields in audit trail
+ * Update an existing campaign with validation, conflict check & audit log
  */
 router.put('/:id', authMiddleware, restrictTo('super_admin', 'admin'), async (req, res) => {
   try {
@@ -310,8 +390,67 @@ router.put('/:id', authMiddleware, restrictTo('super_admin', 'admin'), async (re
       return res.status(404).json({ error: 'Promotion not found' });
     }
 
+    const {
+      name,
+      startDate,
+      endDate,
+      discountValue,
+      maxDiscount,
+      discountType,
+      eligibleServices,
+      status,
+      archiveConflicting
+    } = req.body;
+
+    const validationError = validatePromotionInput({
+      name: name !== undefined ? name : promotion.name,
+      startDate: startDate !== undefined ? startDate : promotion.startDate,
+      endDate: endDate !== undefined ? endDate : promotion.endDate,
+      discountValue: discountValue !== undefined ? discountValue : promotion.discountValue,
+      maxDiscount: maxDiscount !== undefined ? maxDiscount : promotion.maxDiscount,
+      discountType: discountType !== undefined ? discountType : promotion.discountType,
+      eligibleServices: eligibleServices !== undefined ? eligibleServices : promotion.eligibleServices
+    });
+    if (validationError) {
+      return res.status(400).json({ error: validationError });
+    }
+
+    const targetStatus = status !== undefined ? status : promotion.status;
+
+    // Conflict check if changing status to active
+    if (targetStatus === 'active') {
+      const activeExisting = await db.HolidayPromotion.findOne({
+        where: {
+          status: 'active',
+          id: { [Op.ne]: promotion.id }
+        }
+      });
+
+      if (activeExisting) {
+        if (archiveConflicting) {
+          await activeExisting.update({ status: 'archived' });
+          await db.PromotionAuditLog.create({
+            promotionId: activeExisting.id,
+            adminEmail: req.user.email,
+            action: 'Auto-Archived',
+            details: `Deactivated and archived due to activation of campaign "${promotion.name}".`
+          });
+        } else {
+          return res.status(409).json({
+            conflict: true,
+            message: `Campaign "${activeExisting.name}" is currently active. Activating this campaign will archive the existing one.`,
+            activePromotion: {
+              id: activeExisting.id,
+              name: activeExisting.name
+            }
+          });
+        }
+      }
+    }
+
     const previousValues = promotion.toJSON();
     const updateData = { ...req.body };
+    delete updateData.archiveConflicting;
 
     if (updateData.startDate) updateData.startDate = new Date(updateData.startDate);
     if (updateData.endDate) updateData.endDate = new Date(updateData.endDate);
@@ -342,12 +481,12 @@ router.put('/:id', authMiddleware, restrictTo('super_admin', 'admin'), async (re
 
 /**
  * PATCH /:id/status
- * Change status action (Save Draft, Publish, Schedule, Disable)
+ * Change status action (Save Draft, Publish, Schedule, Disable, Archive)
  */
 router.patch('/:id/status', authMiddleware, restrictTo('super_admin', 'admin'), async (req, res) => {
   try {
-    const { status } = req.body;
-    const allowed = ['draft', 'scheduled', 'active', 'expired', 'disabled'];
+    const { status, archiveConflicting } = req.body;
+    const allowed = ['draft', 'scheduled', 'active', 'expired', 'disabled', 'archived'];
     if (!allowed.includes(status)) {
       return res.status(400).json({ error: `Invalid status. Must be one of: ${allowed.join(', ')}` });
     }
@@ -355,6 +494,37 @@ router.patch('/:id/status', authMiddleware, restrictTo('super_admin', 'admin'), 
     const promotion = await db.HolidayPromotion.findByPk(req.params.id);
     if (!promotion) {
       return res.status(404).json({ error: 'Promotion not found' });
+    }
+
+    // Active conflict check
+    if (status === 'active') {
+      const activeExisting = await db.HolidayPromotion.findOne({
+        where: {
+          status: 'active',
+          id: { [Op.ne]: promotion.id }
+        }
+      });
+
+      if (activeExisting) {
+        if (archiveConflicting) {
+          await activeExisting.update({ status: 'archived' });
+          await db.PromotionAuditLog.create({
+            promotionId: activeExisting.id,
+            adminEmail: req.user.email,
+            action: 'Auto-Archived',
+            details: `Deactivated and archived due to activation of campaign "${promotion.name}".`
+          });
+        } else {
+          return res.status(409).json({
+            conflict: true,
+            message: `Campaign "${activeExisting.name}" is currently active. Activating this campaign will archive the existing one.`,
+            activePromotion: {
+              id: activeExisting.id,
+              name: activeExisting.name
+            }
+          });
+        }
+      }
     }
 
     const oldStatus = promotion.status;
@@ -380,7 +550,8 @@ router.patch('/:id/status', authMiddleware, restrictTo('super_admin', 'admin'), 
 
 /**
  * DELETE /:id
- * Delete draft or disabled campaign
+ * Soft-archives campaigns with orders to preserve historical reporting;
+ * permanently deletes draft campaigns with 0 orders.
  */
 router.delete('/:id', authMiddleware, restrictTo('super_admin', 'admin'), async (req, res) => {
   try {
@@ -390,25 +561,44 @@ router.delete('/:id', authMiddleware, restrictTo('super_admin', 'admin'), async 
     }
 
     if (promotion.status === 'active') {
-      return res.status(400).json({ error: 'Cannot delete an active promotion. Disable it first.' });
+      return res.status(400).json({ error: 'Cannot delete an active promotion. Please deactivate or archive it first.' });
     }
 
     const promoName = promotion.name;
     const promoId = promotion.id;
+    const ordersCount = Number(promotion.ordersCount) || 0;
 
-    await promotion.destroy();
+    if (ordersCount > 0) {
+      // Soft-archive to preserve historical KPI reporting and metrics
+      await promotion.update({ status: 'archived' });
+      await db.PromotionAuditLog.create({
+        promotionId: promoId,
+        adminEmail: req.user.email,
+        action: 'Archived',
+        details: `Campaign "${promoName}" has recorded orders (${ordersCount}). Soft-archived to preserve historical reporting and analytics.`
+      });
 
-    await db.PromotionAuditLog.create({
-      promotionId: promoId,
-      adminEmail: req.user.email,
-      action: 'Deleted',
-      details: `Deleted promotion "${promoName}".`
-    });
+      return res.json({
+        success: true,
+        archived: true,
+        message: `Campaign "${promoName}" has recorded customer orders. It has been moved to Archived to preserve historical reporting.`
+      });
+    } else {
+      // Draft or 0-order campaign: safe to delete permanently
+      await promotion.destroy();
+      await db.PromotionAuditLog.create({
+        promotionId: promoId,
+        adminEmail: req.user.email,
+        action: 'Deleted',
+        details: `Permanently deleted draft promotion "${promoName}" (0 orders).`
+      });
 
-    res.json({
-      success: true,
-      message: `Promotion "${promoName}" deleted successfully.`
-    });
+      return res.json({
+        success: true,
+        archived: false,
+        message: `Draft promotion "${promoName}" deleted permanently.`
+      });
+    }
   } catch (err) {
     console.error('❌ Error deleting promotion:', err);
     res.status(500).json({ error: err.message });

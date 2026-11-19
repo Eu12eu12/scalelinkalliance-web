@@ -161,9 +161,9 @@ module.exports = (sequelize) => {
       defaultValue: false,
       allowNull: false,
     },
-    // Lifecycle status: draft, scheduled, active, expired, disabled
+    // Lifecycle status: draft, scheduled, active, expired, disabled, archived
     status: {
-      type: DataTypes.ENUM('draft', 'scheduled', 'active', 'expired', 'disabled'),
+      type: DataTypes.ENUM('draft', 'scheduled', 'active', 'expired', 'disabled', 'archived'),
       defaultValue: 'draft',
       allowNull: false,
     },
@@ -199,9 +199,18 @@ module.exports = (sequelize) => {
   }, {
     timestamps: true,
     hooks: {
-      beforeValidate: (promo) => {
+      beforeValidate: async (promo) => {
         if (!promo.slug && promo.name) {
-          promo.slug = generateSlug(promo.name);
+          let candidateSlug = generateSlug(promo.name);
+          try {
+            const existing = await HolidayPromotion.findOne({ where: { slug: candidateSlug } });
+            if (existing && existing.id !== promo.id) {
+              candidateSlug = `${candidateSlug}-${Date.now().toString().slice(-4)}`;
+            }
+          } catch (e) {
+            // Fallback if table not ready
+          }
+          promo.slug = candidateSlug;
         }
       }
     }

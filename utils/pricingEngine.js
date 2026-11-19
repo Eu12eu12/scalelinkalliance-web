@@ -99,9 +99,12 @@ function isServiceEligibleForPromotion(serviceIdentifier, promotion) {
     return false;
   }
 
-  // 3. If no promotion provided or empty eligible list, treat non-excluded services as eligible
+  // 3. Check explicit promotion eligible services whitelist
   const eligibleList = Array.isArray(promotion?.eligibleServices) ? promotion.eligibleServices : [];
-  if (!promotion || eligibleList.length === 0 || eligibleList.includes('all')) {
+  if (!promotion || eligibleList.length === 0) {
+    return false;
+  }
+  if (eligibleList.includes('all') || eligibleList.includes('*')) {
     return true;
   }
 
