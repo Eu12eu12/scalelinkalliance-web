@@ -19,7 +19,8 @@ import { motion } from 'framer-motion';
 import {
   FaTag, FaArrowRight, FaCheckCircle, FaShieldAlt, FaClock,
   FaCode, FaShoppingCart, FaCogs, FaRocket, FaPalette, FaSearch,
-  FaFileContract, FaRegQuestionCircle, FaStar, FaGlobe, FaChevronDown
+  FaFileContract, FaRegQuestionCircle, FaStar, FaGlobe, FaChevronDown,
+  FaSpinner
 } from 'react-icons/fa';
 import useActivePromotion from '../hooks/useActivePromotion';
 import { calculateItemHolidayDiscount, isServiceEligibleForPromotion } from '../utils/pricingEngine';
@@ -185,8 +186,18 @@ const HolidayOfferPage = () => {
     }
   }, [isActive, promotion, trackInteraction]);
 
+  // Loading spinner while fetching active promotion on cold starts
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center py-20 px-4">
+        <FaSpinner className="animate-spin text-4xl text-[#18264A] mb-4" />
+        <p className="text-sm font-semibold text-slate-600">Loading holiday promotion...</p>
+      </div>
+    );
+  }
+
   // If no promotion is active, show the evergreen fallback
-  if (!loading && (!isActive || !promotion)) {
+  if (!isActive || !promotion) {
     return (
       <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center bg-white p-8 sm:p-12 rounded-3xl border border-gray-200 shadow-xl">
@@ -242,7 +253,7 @@ const HolidayOfferPage = () => {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-400/15 border border-amber-400/40 text-amber-300 mb-6 shadow-xs"
           >
             <FaTag className="text-amber-400" />
-            <span>{promotion.holidayName} Exclusive Offer</span>
+            <span>{promotion?.holidayName || 'Holiday'} Exclusive Offer</span>
           </motion.div>
 
           {/* Headline */}
@@ -252,7 +263,7 @@ const HolidayOfferPage = () => {
             transition={{ duration: 0.4 }}
             className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white mb-6 leading-tight max-w-4xl mx-auto"
           >
-            {promotion.mainHeading}
+            {promotion?.mainHeading || 'Build Smarter. Grow Faster. Save 20% This Holiday Season.'}
           </motion.h1>
 
           {/* Subheading */}
@@ -262,11 +273,11 @@ const HolidayOfferPage = () => {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed font-normal"
           >
-            {promotion.subheading}
+            {promotion?.subheading || 'Exclusive limited-time savings on eligible development and automation services.'}
           </motion.p>
 
           {/* Countdown Block */}
-          {promotion.endDate && (
+          {promotion?.endDate && (
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -461,7 +472,7 @@ const HolidayOfferPage = () => {
             {termsOpen && (
               <div className="mt-5 pt-5 border-t border-gray-200 text-xs sm:text-sm text-gray-600 space-y-3 leading-relaxed">
                 <p>
-                  <strong>Eligibility:</strong> The {promotion.name} discount applies exclusively to eligible new setup and development projects submitted through the ScaleLink Alliance website during the promotional period.
+                  <strong>Eligibility:</strong> The {promotion?.name || 'holiday'} discount applies exclusively to eligible new setup and development projects submitted through the ScaleLink Alliance website during the promotional period.
                 </p>
                 <p>
                   <strong>Discount Calculation & Project Cap:</strong> The holiday discount is calculated as the lesser of 20% of eligible service costs or $400 USD per eligible project. The $400 cap is enforced separately on each qualifying project.
@@ -475,7 +486,7 @@ const HolidayOfferPage = () => {
                 <p>
                   <strong>Authorized Online Payments:</strong> All project payments must be processed exclusively through authorized ScaleLink Alliance online payment channels (Stripe Checkout). <em>DO NOT PAY CASH.</em>
                 </p>
-                {promotion.termsAndConditions && (
+                {promotion?.termsAndConditions && (
                   <div className="mt-4 p-3 bg-white rounded-lg border border-gray-200 text-xs whitespace-pre-line text-gray-700">
                     {promotion.termsAndConditions}
                   </div>
