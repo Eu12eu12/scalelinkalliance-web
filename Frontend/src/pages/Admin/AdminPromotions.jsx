@@ -411,6 +411,11 @@ const AdminPromotions = () => {
     executeSubmit(forcedStatus, false);
   };
 
+  const handleSubmit = (e) => {
+    if (e) e.preventDefault();
+    handleInitiateSubmit();
+  };
+
   const handleConflictConfirm = () => {
     const action = conflictModal.pendingAction;
     setConflictModal({ isOpen: false, conflictingName: '', pendingAction: null });
